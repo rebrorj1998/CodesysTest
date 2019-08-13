@@ -1,0 +1,329 @@
+<TestScript>
+  <Information>
+    <Name>Open Sharp Bagger and Run Tests</Name>
+    <Version>0.1</Version>
+  </Information>
+  <Sequence>
+    <TestCase definesScope="False">
+      <Information>
+        <Title>Open SharpBagger Project and build</Title>
+      </Information>
+      <Actions>
+        <Action>
+          <Information>
+            <Title>Close Project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="RequireCancel">True</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="CloseProject" />
+          <Configuration>
+            <Entry Name="FailNoProject">False</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Load SharpBagger Project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="LoadProject" />
+          <Configuration>
+            <Entry Name="FailOnMissingLibraries">False</Entry>
+            <Entry Name="OtherMessageBoxes">ReportAsError</Entry>
+            <Entry Name="PathToProject">C:\jenkins\workspace\SharpController\SharpBagger.project</Entry>
+            <Entry Name="UpdateCompilerVersion">False</Entry>
+            <Entry Name="UpdateLibraryVerions">False</Entry>
+            <Entry Name="UpdateStorageFormate">False</Entry>
+            <Entry Name="UpdateVisualisationProfile">False</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Set Active app to Pro-18</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="SetActiveApplication" />
+          <Configuration>
+            <Entry Name="AppName">Pro18.Plc Logic.Application</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Clean project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="CleanActiveApplication" />
+          <Configuration />
+        </Action>
+        <Action>
+          <Information>
+            <Title>Get version</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Outputs>
+              <Parameter Name="major" Variable="major" />
+              <Parameter Name="minor" Variable="minor" />
+              <Parameter Name="revision" Variable="revision" />
+              <Parameter Name="build" Variable="build" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+            </Outputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
+          <Configuration>
+            <Entry Name="Command">proj = projects.primary
+info = proj.get_project_info()
+
+version = str(info.version)
+major = info.version.Major
+minor = info.version.Minor
+build = info.version.Build
+revision = info.version.Revision</Entry>
+            <Entry Name="ImplicitImport">True</Entry>
+            <Entry Name="ShowTabs">True</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Get BuildID from Jenkins</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Outputs>
+              <Parameter Name="buildID" Variable="buildID" />
+            </Outputs>
+          </Parameters>
+          <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
+          <Configuration>
+            <Entry Name="Encoding">UTF-8</Entry>
+            <Entry Name="FilePath">C:\jenkins\workspace\SharpController\buildID.txt</Entry>
+            <Entry Name="ReadMode">String</Entry>
+            <Entry Name="TrimWhitespaces">True</Entry>
+            <Entry Name="Variable">buildID</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Create Boot Project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
+          <Configuration>
+            <Entry Name="FileName">C:\jenkins\workspace\SharpController\app\Generated_Pro18_{version}-build{buildID}.app</Entry>
+            <Entry Name="FullAppName">Pro18.Plc Logic.Application</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Get warning messages</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Outputs>
+              <Parameter Name="sSAresult" Variable="sSAresult" />
+              <Parameter Name="sSAinfo" Variable="sSAinfo" />
+            </Outputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
+          <Configuration>
+            <Entry Name="Command">sSAinfo = "Warning Messages: .&lt;br/&gt; "
+
+msgs = system.get_message_objects("{97F48D64-A2A3-4856-B640-75C046E37EA9}")
+for msg in msgs:
+	if str(msg.severity) == "Warning":
+		sSAinfo = sSAinfo + msg.prefix + str(msg.number) + ":\t" + msg.object.get_name() + ":\t"  + msg.text + ".&lt;br/&gt;  "
+
+sSAresult = msg</Entry>
+            <Entry Name="ImplicitImport">True</Entry>
+            <Entry Name="ShowTabs">True</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Display Warning Messages</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="sSAresult" Variable="sSAresult" />
+              <Parameter Name="sSAinfo" Variable="sSAinfo" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Testreport" Verb="AddResultInformation" />
+          <Configuration>
+            <Entry Name="Information">{sSAinfo}</Entry>
+            <Entry Name="SelectedScope">TestRun</Entry>
+            <Entry Name="Severity">Warning</Entry>
+          </Configuration>
+        </Action>
+      </Actions>
+    </TestCase>
+    <TestCase definesScope="False">
+      <Information>
+        <Title>Add Device for Unit Tests</Title>
+      </Information>
+      <Actions>
+        <Action>
+          <Information>
+            <Title>Set active app</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="SetActiveApplication" />
+          <Configuration>
+            <Entry Name="AppName">UnitTestRuntime.Plc Logic.Application</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Gateway</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Devices" Verb="ConfigureGateway" />
+          <Configuration>
+            <Entry Name="AutoCreate">True</Entry>
+            <Entry Name="DriverGuid">1a8061b1-cbef-4374-910e-34758a8b914c</Entry>
+            <Entry Name="GatewayName">Gateway-1</Entry>
+            <Entry Name="Param_0">29|IP-Address|localhost</Entry>
+            <Entry Name="Param_1">20|Port|1217</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Set Path</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Devices" Verb="SetCommunicationPath" />
+          <Configuration>
+            <Entry Name="CertificateHandling">1</Entry>
+            <Entry Name="DeviceName">UnitTestRuntime</Entry>
+            <Entry Name="GatewayName">Gateway-1</Entry>
+            <Entry Name="LocalPlc">False</Entry>
+            <Entry Name="TargetName">ENGLT201809A</Entry>
+          </Configuration>
+        </Action>
+      </Actions>
+    </TestCase>
+    <IecUnitTest>
+      <Libraries />
+      <ExcludedCategories />
+      <ExcludedFunctions />
+      <Title>Run Unit Tests</Title>
+      <DeviceReadTimeout>5000</DeviceReadTimeout>
+      <SingleApplicationMode>False</SingleApplicationMode>
+      <LoginRetries>3</LoginRetries>
+    </IecUnitTest>
+    <TestCase definesScope="False">
+      <Information>
+        <Title>Close</Title>
+      </Information>
+      <Actions>
+        <Action>
+          <Information>
+            <Title>Close without Saving</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="CloseProject" />
+          <Configuration>
+            <Entry Name="FailNoProject">False</Entry>
+          </Configuration>
+        </Action>
+      </Actions>
+    </TestCase>
+  </Sequence>
+</TestScript>
