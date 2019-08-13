@@ -290,6 +290,38 @@ sSAresult = msg</Entry>
             <Entry Name="TargetName">ENGLT201809A</Entry>
           </Configuration>
         </Action>
+        <Action>
+          <Information>
+            <Title>Clean App</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="CleanActiveApplication" />
+          <Configuration />
+        </Action>
+        <Action>
+          <Information>
+            <Title>Delay 3s</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.System" Verb="Delay" />
+          <Configuration>
+            <Entry Name="DelayTime">3000</Entry>
+          </Configuration>
+        </Action>
       </Actions>
     </TestCase>
     <IecUnitTest>
