@@ -17,7 +17,7 @@ if len(sys.argv) == 1:
 else:
     print("Argument received, using SharpBaggerTestResults.xml")
     o = untangle.parse(
-        'C:\\Program Files (x86)\\Jenkins\\workspace\\Test\\Jenkins\\pyscripts\\SharpBaggerTestResults.xml')
+        'C:\\jenkins\\workspace\\SharpController\\Jenkins\\pyscripts\\SharpBaggerTestResults.xml')
 
 JunitTestCases = []
 exitCode = 0
@@ -44,7 +44,7 @@ for CodesysTestCases in o.TestReport.Details.Sequence.TestCase:
 
 ts = TestSuite("SharpBagger Test Suite", JunitTestCases)
 
-with open('C:\\Program Files (x86)\\Jenkins\\workspace\\Test\\reports\\output.xml', 'w') as f:
+with open('C:\\jenkins\\workspace\\SharpController\\reports\\junitreports.xml', 'w') as f:
     TestSuite.to_file(f, [ts], prettyprint=True)
 if exitCode != 0:
     print("Failing build due to test failure")
