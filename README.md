@@ -1,5 +1,5 @@
 # Introduction 
-Sharp Bagger Controller code.  Developed using Codesys
+Sharp Bagger Controller code.  Developed using Codesys in ST
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
