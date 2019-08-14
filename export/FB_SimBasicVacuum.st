@@ -39,3 +39,43 @@ METHOD Execute
 
 SUPER^.Execute();
 startVac();
+
+FUNCTION_BLOCK FB_SimBasicVacuum EXTENDS FB_BaseComponent IMPLEMENTS IVacuumBagOpen, IExecuteAutomatically
+VAR_INPUT
+	vacGrabDwell : REAL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	startVac : FB_SimulatedFeedback(name := CONCAT(_prefix,'Start Vac'));
+END_VAR
+
+
+
+{attribute 'monitoring' := 'variable'}
+PROPERTY VacuumOn : BOOL
+
+
+METHOD PRIVATE ClearStatus
+VAR_INPUT
+END_VAR
+
+startVac.in := FALSE;
+THIS^.Execute();
+
+METHOD StartVacuum
+
+ClearStatus();
+startVac.maxDelay := TO_INT(vacGrabDwell * 1000.0 + 10.0);  
+startVac.minDelay := TO_INT(vacGrabDwell * 1000.0 - 10.0);   
+startVac.in := TRUE;
+
+METHOD StopVacuum
+
+startVac.in := FALSE;
+THIS^.Execute();
+
+METHOD Execute
+
+SUPER^.Execute();
+startVac();

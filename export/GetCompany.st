@@ -8,3 +8,13 @@ VAR_INPUT
 	
 END_VAR
 GetCompany := "Sharp Packaging";
+
+
+// This function has been automatically generated from the project information.
+{attribute 'signature_flag' := '1073741824'}
+{attribute 'register_in_runtime'}
+FUNCTION GetCompany : WSTRING
+VAR_INPUT
+	
+END_VAR
+GetCompany := "Sharp Packaging";
