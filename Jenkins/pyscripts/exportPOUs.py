@@ -43,13 +43,22 @@ for candidate in pous:
         parent = parent.parent
 
     # Create an unique file name:
-    filename = "C:\\temp\\export\\%s__%s.export" % (candidate.get_name(), candidate.guid)
+    filename = "C:\\jenkins\\workspace\\SharpController\\export\\%s.txt" % (candidate.get_name())
 
     # print some user information
     print("exporting ", len(objects), " objects to: ", filename)
 
     # and actually export the project.
-    proj.export_native(objects, filename)
-    print(str(objects))
+    #proj.export_native(objects, filename)
+    for textobject in objects:
+       if textobject.has_textual_declaration:
+           o = textobject.textual_declaration
+           with open(filename, 'a+') as f:
+               f.write("\n\n" + o.text)
+       if textobject.has_textual_implementation:
+           o = textobject.textual_implementation
+           with open(filename, 'a+') as f:
+               f.write("\n" + o.text)
+    f.close()
 
 print("script finished.")
