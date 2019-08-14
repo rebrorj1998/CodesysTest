@@ -282,3 +282,145 @@ eError := FB_MachineCounter_Test_Errors.Increment_Failure;
 {warning 'Add method implementation '}
 METHOD prvStart : BOOL
 
+
+
+{attribute 'test' := 'multitest'}
+{attribute 'testcasename':='Machine Counter'}
+{attribute 'testcategory':='Basics'}
+{attribute 'testcasetimeout':='5000'}
+FUNCTION_BLOCK FB_MachineCounter_UnitTests EXTENDS TM.Testcase_Base
+VAR_INPUT
+     xGetTestInfo : BOOL;
+    diTestCaseIndex : DINT;
+END_VAR
+VAR_OUTPUT
+   sTestCaseName : STRING;
+    sTestCaseCategories : STRING;
+    diTestCaseCount : DINT;
+    diTestCaseTimeout : DINT;
+    sInfo : STRING;
+    eError : FB_MachineCounter_Test_Errors;
+    sError : STRING;
+    eFailureMode : TM.FAILUREMODE;
+END_VAR
+VAR
+	machineCounter : FB_MachineCounter(name := 'FB_MachineCounter Under Test');
+END_VAR
+
+SUPER^();
+
+{attribute 'hide'}
+METHOD prvAbort : BOOL
+
+
+SUPER^.prvAbort();
+
+xAbortInProgress := FALSE;
+
+{attribute 'hide'}
+METHOD prvCyclicAction : BOOL
+
+SUPER^.prvCyclicAction();
+THIS^.diTestCaseCount := 4;
+CASE diTestCaseIndex OF
+    0: // Test Case #0
+        IF THIS^.xGetTestInfo THEN
+            THIS^.sTestCaseName := 'Step 1: Increment Counter';
+            THIS^.sTestCaseCategories := 'General';
+            THIS^.diTestCaseTimeout := 0;
+			xDone := TRUE;
+		ELSE
+			machineCounter.Increment();
+			IF machineCounter.count = 1 THEN
+				 xDone := TRUE;
+			ELSE
+				THIS^.sError := Standard.CONCAT('Counter did not increment correctly, expected 1 got: ',TO_STRING(machineCounter.count));
+				eError := FB_MachineCounter_Test_Errors.Increment_Failure;
+            	eFailureMode := TM.FAILUREMODE.AbortTestCase;
+                iError := 1;
+				xError := TRUE;
+			END_IF
+        END_IF
+    1: // Test Case #1
+        IF THIS^.xGetTestInfo THEN
+            THIS^.sTestCaseName := 'Step 2: Set a new value';
+            THIS^.sTestCaseCategories := 'General';
+            THIS^.diTestCaseTimeout := 0;
+            xDone := TRUE;
+		ELSE
+			machineCounter.SetCount(43994);
+			IF machineCounter.count = 43994 THEN
+				 xDone := TRUE;
+			ELSE 
+				THIS^.sError := Standard.CONCAT('Counter did not set value correctly, expected 43994 got: ',TO_STRING(machineCounter.count));
+				//eError := FB_MachineCounter_Test_Errors.Increment_Failure;
+            	eFailureMode := TM.FAILUREMODE.AbortTestCase;
+                iError := 2;
+			END_IF
+       END_IF
+	   
+	2:	//
+		IF THIS^.xGetTestInfo THEN
+            THIS^.sTestCaseName := 'Step 3: Add to count';
+            THIS^.sTestCaseCategories := 'General';
+            THIS^.diTestCaseTimeout := 0;
+            xDone := TRUE;
+		ELSE
+			machineCounter.AddToCount(100000);
+			IF machineCounter.count = 143994 THEN
+				 xDone := TRUE;
+			ELSE 
+				THIS^.sError := Standard.CONCAT('Counter did not add value correctly, expected 143994 got: ',TO_STRING(machineCounter.count));
+				//eError := FB_MachineCounter_Test_Errors.Increment_Failure;
+            	eFailureMode := TM.FAILUREMODE.AbortTestCase;
+                iError := 3;
+			END_IF
+       END_IF
+
+   	3:	IF THIS^.xGetTestInfo THEN
+            THIS^.sTestCaseName := 'Step 4: Clear Counter';
+            THIS^.sTestCaseCategories := 'General';
+            THIS^.diTestCaseTimeout := 0;
+            xDone := TRUE;
+		ELSE
+			machineCounter.Clear();
+			IF machineCounter.count = 0 THEN
+				 xDone := TRUE;
+			ELSE 
+				THIS^.sError := Standard.CONCAT('Counter did not clear, expected 0 got: ',TO_STRING(machineCounter.count));
+				//eError := FB_MachineCounter_Test_Errors.Increment_Failure;
+            	eFailureMode := TM.FAILUREMODE.AbortTestCase;
+                iError := 3;
+			END_IF
+       END_IF
+	
+    ELSE
+        IF THIS^.diTestCaseIndex < 0 THEN
+            THIS^.diTestCaseCount := 4;
+            xDone := TRUE;
+        ELSE
+            THIS^.sInfo := 'Invalid test case index';
+            //eError := FB_Fault_Test_Errors.Fault_Not_Reset;
+			xError := TRUE;
+        END_IF
+END_CASE
+
+
+{attribute 'hide'}
+METHOD prvResetOutputs : BOOL
+
+SUPER^.prvResetOutputs();
+
+sTestCaseName := '';
+sTestCaseCategories := '';
+diTestCaseCount := 0;
+diTestCaseTimeout := 0;
+sInfo := '';
+sError := '';
+eFailureMode := TM.FAILUREMODE.AbortTestCase;
+eError := FB_MachineCounter_Test_Errors.Increment_Failure;
+
+{attribute 'hide'}
+{warning 'Add method implementation '}
+METHOD prvStart : BOOL
+

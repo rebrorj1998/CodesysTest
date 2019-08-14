@@ -47,3 +47,27 @@ END_VAR
 
 THIS^.solenoid0 := FALSE;
 THIS^.solenoid1 := FALSE;
+
+FUNCTION_BLOCK FB_VacuumGenerator EXTENDS FB_SolenoidValve
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+
+
+
+METHOD GeneratorsOn
+VAR_INPUT
+END_VAR
+
+THIS^.solenoid0 := TRUE;
+THIS^.solenoid1 := FALSE;
+
+METHOD GeneratorsOff
+VAR_INPUT
+END_VAR
+
+THIS^.solenoid0 := FALSE;
+THIS^.solenoid1 := FALSE;

@@ -79,3 +79,43 @@ METHOD Execute
 
 SUPER^.Execute();
 beginPrinting();
+
+FUNCTION_BLOCK FB_SimBasicPrinter EXTENDS FB_BaseComponent IMPLEMENTS IPrinter, IExecuteAutomatically
+VAR_INPUT
+	printSpeed : UDINT;
+	printLength : REAL;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	beginPrinting : FB_SimulatedFeedback(name := CONCAT(_prefix,'Begin Printing'));
+END_VAR
+
+
+
+{attribute 'monitoring' := 'variable'}
+PROPERTY HasLabel : BOOL
+
+
+METHOD ClearStatus : BOOL
+VAR_INPUT
+END_VAR
+
+beginPrinting.in := FALSE;
+THIS^.Execute();
+
+{attribute 'monitoring' := 'variable'}
+PROPERTY PrintDone : BOOL
+
+
+METHOD BeginPrinting
+
+ClearStatus();
+beginPrinting.maxDelay := TO_DINT(((printLength / TO_REAL(printSpeed)) * 1000) + 50.0);  
+beginPrinting.minDelay := TO_DINT(((printLength / TO_REAL(printSpeed)) * 1000) + 10.0);  
+beginPrinting.in := TRUE;
+
+METHOD Execute
+
+SUPER^.Execute();
+beginPrinting();
