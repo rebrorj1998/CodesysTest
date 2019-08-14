@@ -283,7 +283,7 @@ for candidate in pous:
         parent = parent.parent
 
     # Create an unique file name:
-    filename = "export\\%s.st" % (candidate.get_name())
+    filename = "C:\\jenkins\\workspace\\SharpController\\export\\%s.st" % (candidate.get_name())
 
     # print some user information
     print("exporting ", len(objects), " objects to: ", filename)
