@@ -1,0 +1,24 @@
+
+
+FUNCTION PostHomeMoveIfNeeded : BOOL
+VAR_INPUT
+	Component : IComponent;
+END_VAR
+VAR
+	movableDevice : IPostHomeMove;
+END_VAR
+
+//	Function: MoveIfNeeded()
+//	Description: Helper function
+//				 Pass in a component - if it has a homable motor, and is homed, and is configured for a post homing move, perform it
+//	Created by: Ben Hess
+//	Created Date: May 16th, 2019
+
+IF (__QUERYINTERFACE(Component, movableDevice)) AND Component.OptionActive THEN
+	IF movableDevice.InDesiredPosition THEN
+		PostHomeMoveIfNeeded := TRUE;
+		RETURN;
+	ELSE
+		movableDevice.MoveNow();
+	END_IF
+END_IF

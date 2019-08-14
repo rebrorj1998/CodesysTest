@@ -1,0 +1,13 @@
+
+
+// This function has been automatically generated from the project information.
+{attribute 'signature_flag' := '1073741824'}
+{attribute 'register_in_runtime'}
+FUNCTION GetVersion : VERSION
+VAR_INPUT
+	
+END_VAR
+GetVersion.uiMajor := 0;
+GetVersion.uiMinor := 2;
+GetVersion.uiServicePack := 1;
+GetVersion.uiPatch := 122;
