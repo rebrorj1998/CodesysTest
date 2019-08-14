@@ -1,0 +1,117 @@
+
+
+FUNCTION_BLOCK FB_PhysicalDigitalOutput EXTENDS FB_BaseObject IMPLEMENTS ILoggable, ISimulateable
+VAR_INPUT
+	refOutput : REFERENCE TO BOOL; //  Reference to physical output
+	
+END_VAR
+VAR_OUTPUT
+	Q : BOOL;		// Logical inidcation of output
+END_VAR
+VAR
+	outputONS : FB_ONS;
+	_simulate : BOOL;	// Simulate output - do not trigger actual physical output
+END_VAR
+VAR_IN_OUT
+	
+END_VAR
+
+
+
+METHOD Execute
+VAR_INPUT
+END_VAR
+
+outputONS(CLK := Q);
+
+IF __ISVALIDREF(refoutput) THEN
+	IF _simulate THEN 
+		refOutput := FALSE;
+	ELSE
+		refOutput := Q;
+	END_IF
+END_IF
+
+
+
+IF outputONS.OSR THEN
+    _logger.AddLogItem(CONCAT(_prefix, 'On'));
+END_IF
+
+IF outputONS.OSF THEN
+    _logger.AddLogItem(CONCAT(_prefix, 'Off'));
+END_IF
+
+METHOD TurnOff
+VAR_INPUT
+END_VAR
+
+Q := FALSE;
+Execute();
+
+METHOD TurnOn
+VAR_INPUT
+END_VAR
+
+Q := TRUE;
+Execute();
+
+PROPERTY Simulate : BOOL
+
+FUNCTION_BLOCK FB_PhysicalDigitalOutput EXTENDS FB_BaseObject IMPLEMENTS ILoggable, ISimulateable
+VAR_INPUT
+	refOutput : REFERENCE TO BOOL; //  Reference to physical output
+	
+END_VAR
+VAR_OUTPUT
+	Q : BOOL;		// Logical inidcation of output
+END_VAR
+VAR
+	outputONS : FB_ONS;
+	_simulate : BOOL;	// Simulate output - do not trigger actual physical output
+END_VAR
+VAR_IN_OUT
+	
+END_VAR
+
+
+
+METHOD Execute
+VAR_INPUT
+END_VAR
+
+outputONS(CLK := Q);
+
+IF __ISVALIDREF(refoutput) THEN
+	IF _simulate THEN 
+		refOutput := FALSE;
+	ELSE
+		refOutput := Q;
+	END_IF
+END_IF
+
+
+
+IF outputONS.OSR THEN
+    _logger.AddLogItem(CONCAT(_prefix, 'On'));
+END_IF
+
+IF outputONS.OSF THEN
+    _logger.AddLogItem(CONCAT(_prefix, 'Off'));
+END_IF
+
+METHOD TurnOff
+VAR_INPUT
+END_VAR
+
+Q := FALSE;
+Execute();
+
+METHOD TurnOn
+VAR_INPUT
+END_VAR
+
+Q := TRUE;
+Execute();
+
+PROPERTY Simulate : BOOL

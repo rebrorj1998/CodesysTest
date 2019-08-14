@@ -1,0 +1,22 @@
+
+
+// This function has been automatically generated from the project information.
+FUNCTION GetLibVersion : VERSION
+VAR_INPUT
+	
+END_VAR
+GetLibVersion.uiMajor := 0;
+GetLibVersion.uiMinor := 2;
+GetLibVersion.uiServicePack := 1;
+GetLibVersion.uiPatch := 122;
+
+
+// This function has been automatically generated from the project information.
+FUNCTION GetLibVersion : VERSION
+VAR_INPUT
+	
+END_VAR
+GetLibVersion.uiMajor := 0;
+GetLibVersion.uiMinor := 2;
+GetLibVersion.uiServicePack := 1;
+GetLibVersion.uiPatch := 122;
