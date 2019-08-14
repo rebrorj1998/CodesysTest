@@ -71,3 +71,76 @@ ptrEIPOutputs[0].4 := oX104;
 ptrEIPOutputs[0].5 := oX105;
 ptrEIPOutputs[0].6 := oX106;
 ptrEIPOutputs[0].7 := oX107;
+
+
+{attribute 'FBVisuCreator'}
+FUNCTION_BLOCK FB_Murr56691_IP20 EXTENDS FB_BaseObject 
+VAR_INPUT
+	ptrEIPInputs : POINTER TO BYTE;	// Pointer to starting word of EIP Inputs for the I/O Image
+    ptrEIPOutputs : POINTER TO BYTE;	// Pointer to starting word of EIP Outputs for the I/O Image
+	
+	oX100 : BOOL;
+	oX101 : BOOL;
+	oX102 : BOOL;
+	oX103 : BOOL;
+	oX104 : BOOL;
+	oX105 : BOOL;
+	oX106 : BOOL;
+	oX107 : BOOL;
+END_VAR
+VAR_OUTPUT
+	
+	iX000 : BOOL;
+	iX001 : BOOL;
+	iX002 : BOOL;
+	iX003 : BOOL;
+	iX004 : BOOL;
+	iX005 : BOOL;
+	iX006 : BOOL;
+	iX007 : BOOL;
+
+	iX100 : BOOL;
+	iX101 : BOOL;
+	iX102 : BOOL;
+	iX103 : BOOL;
+	iX104 : BOOL;
+	iX105 : BOOL;
+	iX106 : BOOL;
+	iX107 : BOOL;
+END_VAR
+VAR_IN_OUT
+END_VAR
+VAR 
+END_VAR
+//	Function Block: FB_Murr56691_IP20
+//	Description: Abstracts a Murr 56691 IP20 I/O Block
+//	
+//	Created by: Ben Hess
+//	Created Date: Friday, October 19, 2018
+
+iX100 := ptrEIPInputs[0].0;
+iX101 := ptrEIPInputs[0].1;
+iX102 := ptrEIPInputs[0].2;
+iX103 := ptrEIPInputs[0].3;
+iX104 := ptrEIPInputs[0].4;
+iX105 := ptrEIPInputs[0].5;
+iX106 := ptrEIPInputs[0].6;
+iX107 := ptrEIPInputs[0].7;
+
+iX000 := ptrEIPInputs[1].0;
+iX001 := ptrEIPInputs[1].1;
+iX002 := ptrEIPInputs[1].2;
+iX003 := ptrEIPInputs[1].3;
+iX004 := ptrEIPInputs[1].4;
+iX005 := ptrEIPInputs[1].5;
+iX006 := ptrEIPInputs[1].6;
+iX007 := ptrEIPInputs[1].7;
+
+ptrEIPOutputs[0].0 := oX100;
+ptrEIPOutputs[0].1 := oX101;
+ptrEIPOutputs[0].2 := oX102;
+ptrEIPOutputs[0].3 := oX103;
+ptrEIPOutputs[0].4 := oX104;
+ptrEIPOutputs[0].5 := oX105;
+ptrEIPOutputs[0].6 := oX106;
+ptrEIPOutputs[0].7 := oX107;

@@ -28,3 +28,32 @@ METHOD StopVacuum
 
 vacGenerator.GeneratorsOff();
 _vacuumOn := FALSE;
+
+FUNCTION_BLOCK FB_PneumaticVacuumCups EXTENDS FB_BaseComponent IMPLEMENTS IVacuumBagOpen
+VAR_INPUT
+	
+END_VAR
+VAR_OUTPUT
+	
+END_VAR
+VAR
+	_vacuumOn : BOOL;
+END_VAR
+VAR_IN_OUT
+	vacGenerator : FB_VacuumGenerator;
+END_VAR
+SUPER^();
+
+{attribute 'monitoring' := 'variable'}
+PROPERTY VacuumOn : BOOL
+
+
+METHOD StartVacuum
+
+vacGenerator.GeneratorsOn();
+_vacuumOn := TRUE;
+
+METHOD StopVacuum
+
+vacGenerator.GeneratorsOff();
+_vacuumOn := FALSE;
