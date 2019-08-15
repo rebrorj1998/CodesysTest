@@ -9,7 +9,7 @@ TODO: Guide users through getting your code up and running on their own system. 
 4.	API references
 
 # Build and Test
-Using built in Test Manager and Jenkins for CI/CD.
+Using built in Test Manager and Jenkins for CI/CD. After Azure build is done Jenkins recommits with exported .st files for text reference, since the .project file is binary and not easily diffed
 
 # Contribute
 TODO: Explain how other users and developers can contribute to make your code better. 
