@@ -17,6 +17,8 @@
 *.bootinfo*
 app/
 reports/
+Jenkins/pyscripts/SharpBaggerTestResults.xml
+buildID.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
