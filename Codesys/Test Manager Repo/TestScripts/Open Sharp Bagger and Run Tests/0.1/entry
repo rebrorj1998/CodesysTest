@@ -163,7 +163,7 @@ revision = info.version.Revision</Entry>
           </Parameters>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
-            <Entry Name="FileName">C:\jenkins\workspace\SharpController\app\Generated_Pro18_{version}-build{buildID}.app</Entry>
+            <Entry Name="FileName">C:\jenkins\workspace\SharpController\app\Pro18_Controller_{version}-build{buildID}.app</Entry>
             <Entry Name="FullAppName">Pro18.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
