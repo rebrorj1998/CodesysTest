@@ -11,6 +11,32 @@
       <Actions>
         <Action>
           <Information>
+            <Title>Get Worskspace name from Jenkins</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Outputs>
+              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
+            </Outputs>
+          </Parameters>
+          <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
+          <Configuration>
+            <Entry Name="Encoding">UTF-8</Entry>
+            <Entry Name="FilePath">C:\jenkins\workspace\activews.txt</Entry>
+            <Entry Name="ReadMode">String</Entry>
+            <Entry Name="TrimWhitespaces">True</Entry>
+            <Entry Name="Variable">workspace</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
             <Title>Close Project</Title>
           </Information>
           <Settings>
@@ -43,7 +69,7 @@
           <Configuration>
             <Entry Name="FailOnMissingLibraries">False</Entry>
             <Entry Name="OtherMessageBoxes">ReportAsError</Entry>
-            <Entry Name="PathToProject">C:\jenkins\workspace\SharpController\SharpBagger.project</Entry>
+            <Entry Name="PathToProject">C:\jenkins\workspace\{$GLOBALS.workspace}\SharpBagger.project</Entry>
             <Entry Name="UpdateCompilerVersion">False</Entry>
             <Entry Name="UpdateLibraryVerions">False</Entry>
             <Entry Name="UpdateStorageFormate">False</Entry>
@@ -137,7 +163,7 @@ revision = info.version.Revision</Entry>
           <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
           <Configuration>
             <Entry Name="Encoding">UTF-8</Entry>
-            <Entry Name="FilePath">C:\jenkins\workspace\SharpController\buildID.txt</Entry>
+            <Entry Name="FilePath">C:\jenkins\workspace\{$GLOBALS.workspace}\buildID.txt</Entry>
             <Entry Name="ReadMode">String</Entry>
             <Entry Name="TrimWhitespaces">True</Entry>
             <Entry Name="Variable">buildID</Entry>
@@ -163,7 +189,7 @@ revision = info.version.Revision</Entry>
           </Parameters>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
-            <Entry Name="FileName">C:\jenkins\workspace\SharpController\app\Pro18_Controller_{version}-build{buildID}.app</Entry>
+            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\app\Pro18_Controller_{version}-build{buildID}.app</Entry>
             <Entry Name="FullAppName">Pro18.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
@@ -236,6 +262,11 @@ sSAresult = msg</Entry>
             <Entry Name="ResultVariable" />
             <Entry Name="RetryOnError">0|0</Entry>
           </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
+            </Inputs>
+          </Parameters>
           <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
           <Configuration>
             <Entry Name="Command"># Tests CoDeSys native import/export functionality.
@@ -283,7 +314,7 @@ for candidate in pous:
         parent = parent.parent
 
     # Create an unique file name:
-    filename = "C:\\jenkins\\workspace\\SharpController\\export\\%s.st" % (candidate.get_name())
+    filename = "C:\\jenkins\\workspace\\" + workspace + "\\export\\%s.st" % (candidate.get_name())
 
     # print some user information
     print("exporting ", len(objects), " objects to: ", filename)
