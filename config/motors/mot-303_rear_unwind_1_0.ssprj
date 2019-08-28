@@ -11,21 +11,20 @@
     </RS485Address>
     <DefaultIPAddress>192.168.10.56</DefaultIPAddress>
     <SamplingParameters1>1</SamplingParameters1>
-    <SamplingParameters2>2</SamplingParameters2>
-    <FirmwareRevision>
-    </FirmwareRevision>
+    <SamplingParameters2>0</SamplingParameters2>
+    <FirmwareRevision>1.06F</FirmwareRevision>
   </BaseInfo>
   <TunerData>
     <DAMPING_GAIN>2000</DAMPING_GAIN>
     <POSITION_GAIN>5000</POSITION_GAIN>
-    <VELOCITY_GAIN>15000</VELOCITY_GAIN>
+    <VELOCITY_GAIN>9000</VELOCITY_GAIN>
     <VELOCITY_INTEG_GAIN>1000</VELOCITY_INTEG_GAIN>
     <INERTIA_FF_GAIN>0</INERTIA_FF_GAIN>
     <P_TO_P_REL_DISTANCE>80000</P_TO_P_REL_DISTANCE>
     <P_TO_P_VELOCITY>10</P_TO_P_VELOCITY>
     <P_TO_P_ACCEL>25</P_TO_P_ACCEL>
     <P_TO_P_DECEL>25</P_TO_P_DECEL>
-    <SAMP_TYPE>258</SAMP_TYPE>
+    <SAMP_TYPE>256</SAMP_TYPE>
     <SAMP_PERIOD>18</SAMP_PERIOD>
     <SAMP_BYTE>0</SAMP_BYTE>
     <PID_FILTER_GAIN>15000</PID_FILTER_GAIN>
@@ -156,19 +155,19 @@
       <Line7>RX11 '</Line7>
       <Line8>TIX3L 'Look for "Go to Torque Mode" input from master drive</Line8>
       <Line9>QJT11 'IF true then GOTO Label1</Line9>
-      <Line10>QG16 'Else see if it isn't set</Line10>
+      <Line10>QG15 'Else see if it isn't set</Line10>
       <Line11>RXG60 'Set "torque mode" current</Line11>
       <Line12>CM1 'Set "Torque Mode" control</Line12>
-      <Line13>WT1 'wait one second</Line13>
-      <Line14>TRv400 'If we're moving too fast that means there isnt tension</Line14>
-      <Line15>QJG19 '</Line15>
-      <Line16>TIX3H 'Look for "Go to Following Mode" input from master drive</Line16>
-      <Line17>QJT2 '</Line17>
-      <Line18>QG8 '</Line18>
-      <Line19>CM7 'Back to positioning mode</Line19>
-      <Line20>SOY4H 'Set "Tension Fault" output</Line20>
-      <Line21>WIX3H '</Line21>
-      <Line22>QG8 '</Line22>
+      <Line13>TRv650 'If we're moving too fast that means there isnt tension</Line13>
+      <Line14>QJG18 '</Line14>
+      <Line15>TIX3H 'Look for "Go to Following Mode" input from master drive</Line15>
+      <Line16>QJT2 '</Line16>
+      <Line17>QG8 '</Line17>
+      <Line18>CM7 'Back to positioning mode</Line18>
+      <Line19>SOY4H 'Set "Tension Fault" output</Line19>
+      <Line20>WIX3H '</Line20>
+      <Line21>QG8 '</Line21>
+      <Line22> '</Line22>
       <Line23> '</Line23>
       <Line24> '</Line24>
       <Line25> '</Line25>
@@ -862,28 +861,28 @@
     </Segment11>
     <Segment12>
       <SegmentName>Segment 12</SegmentName>
-      <Line1> '</Line1>
-      <Line2> '</Line2>
-      <Line3> '</Line3>
-      <Line4> '</Line4>
-      <Line5> '</Line5>
-      <Line6> '</Line6>
-      <Line7> '</Line7>
-      <Line8> '</Line8>
-      <Line9> '</Line9>
-      <Line10> '</Line10>
-      <Line11> '</Line11>
-      <Line12> '</Line12>
-      <Line13> '</Line13>
-      <Line14> '</Line14>
-      <Line15> '</Line15>
-      <Line16> '</Line16>
-      <Line17> '</Line17>
-      <Line18> '</Line18>
-      <Line19> '</Line19>
-      <Line20> '</Line20>
-      <Line21> '</Line21>
-      <Line22> '</Line22>
+      <Line1>SOY4L 'Clear "Tension Fault" output</Line1>
+      <Line2>MT1 'Enable Multitasking</Line2>
+      <Line3>CM7 'Set "Pulse and Dir" following mode</Line3>
+      <Line4>SOY4L 'Clear "Tension Fault" output</Line4>
+      <Line5>AC834 'Set accel</Line5>
+      <Line6>DE834 'Set decel</Line6>
+      <Line7>RX11 '</Line7>
+      <Line8>TIX3L 'Look for "Go to Torque Mode" input from master drive</Line8>
+      <Line9>QJT11 'IF true then GOTO Label1</Line9>
+      <Line10>QG16 'Else see if it isn't set</Line10>
+      <Line11>RXG60 'Set "torque mode" current</Line11>
+      <Line12>CM1 'Set "Torque Mode" control</Line12>
+      <Line13>WT1 'wait one second</Line13>
+      <Line14>TRv400 'If we're moving too fast that means there isnt tension</Line14>
+      <Line15>QJG19 '</Line15>
+      <Line16>TIX3H 'Look for "Go to Following Mode" input from master drive</Line16>
+      <Line17>QJT2 '</Line17>
+      <Line18>QG8 '</Line18>
+      <Line19>CM7 'Back to positioning mode</Line19>
+      <Line20>SOY4H 'Set "Tension Fault" output</Line20>
+      <Line21>WIX3H '</Line21>
+      <Line22>QG8 '</Line22>
       <Line23> '</Line23>
       <Line24> '</Line24>
       <Line25> '</Line25>
