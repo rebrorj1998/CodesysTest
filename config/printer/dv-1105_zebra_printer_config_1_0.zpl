@@ -28,7 +28,7 @@
 "device.applicator.end_print":"2",
 "ezpl.media_type":"continuous",
 "ezpl.power_up_action":"no motion",
-"zpl.head_close_action":"no motion",
+"ezpl.head_close_action":"no motion",
 "ezpl.print_method":"thermal trans",
 "zpl.label_top":"-120",
 "media.media_low.warning":"disabled"}
