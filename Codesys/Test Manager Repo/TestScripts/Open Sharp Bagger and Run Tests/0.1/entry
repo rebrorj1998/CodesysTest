@@ -218,6 +218,35 @@ revision = info.version.Revision</Entry>
         </Action>
         <Action>
           <Information>
+            <Title>Zip up directory</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
+          <Configuration>
+            <Entry Name="Command">import shutil
+output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
+dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
+shutil.make_archive(output_filename, 'zip', dir_name)</Entry>
+            <Entry Name="ImplicitImport">True</Entry>
+            <Entry Name="ShowTabs">True</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
             <Title>Get warning messages</Title>
           </Information>
           <Settings>
