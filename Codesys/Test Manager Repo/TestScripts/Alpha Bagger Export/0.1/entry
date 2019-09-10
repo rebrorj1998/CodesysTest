@@ -213,7 +213,7 @@ revision = info.version.Revision</Entry>
           </Parameters>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
-            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\Pro18_Controller_{version}-build{buildID}\Application.app</Entry>
+            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\Alpha_Controller_{version}-build{buildID}\Application.app</Entry>
             <Entry Name="FullAppName">Device.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
@@ -240,8 +240,8 @@ revision = info.version.Revision</Entry>
           <Configuration>
             <Entry Name="Command">import shutil
 
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
-dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
+output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\Alpha_Controller_' + version + '-build' + buildID
+dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\Alpha_Controller_' + version + '-build' + buildID
 shutil.make_archive(output_filename, 'zip', dir_name)
 shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
