@@ -213,7 +213,7 @@ revision = info.version.Revision</Entry>
           </Parameters>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
-            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\Pro18_Controller_{version}-build{buildID}\Application.app</Entry>
+            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\Alpha_Controller_{version}-build{buildID}\Application.app</Entry>
             <Entry Name="FullAppName">Device.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
@@ -240,69 +240,12 @@ revision = info.version.Revision</Entry>
           <Configuration>
             <Entry Name="Command">import shutil
 
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
-dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
+output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\Alpha_Controller_' + version + '-build' + buildID
+dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\Alpha_Controller_' + version + '-build' + buildID
 shutil.make_archive(output_filename, 'zip', dir_name)
 shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
             <Entry Name="ShowTabs">True</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Get warning messages</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Outputs>
-              <Parameter Name="sSAresult" Variable="sSAresult" />
-              <Parameter Name="sSAinfo" Variable="sSAinfo" />
-            </Outputs>
-          </Parameters>
-          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
-          <Configuration>
-            <Entry Name="Command">sSAinfo = "Warning Messages: .&lt;br/&gt; "
-
-msgs = system.get_message_objects("{97F48D64-A2A3-4856-B640-75C046E37EA9}")
-for msg in msgs:
-	if str(msg.severity) == "Warning":
-		sSAinfo = sSAinfo + msg.prefix + str(msg.number) + ":\t" + msg.object.get_name() + ":\t"  + msg.text + ".&lt;br/&gt;  "
-
-sSAresult = msg</Entry>
-            <Entry Name="ImplicitImport">True</Entry>
-            <Entry Name="ShowTabs">True</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Display Warning Messages</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Inputs>
-              <Parameter Name="sSAresult" Variable="sSAresult" />
-              <Parameter Name="sSAinfo" Variable="sSAinfo" />
-            </Inputs>
-          </Parameters>
-          <Command TestRunner="TestManager.Testreport" Verb="AddResultInformation" />
-          <Configuration>
-            <Entry Name="Information">{sSAinfo}</Entry>
-            <Entry Name="SelectedScope">TestRun</Entry>
-            <Entry Name="Severity">Warning</Entry>
           </Configuration>
         </Action>
         <Action>
@@ -369,7 +312,7 @@ for candidate in pous:
         parent = parent.parent
 
     # Create an unique file name:
-    filename = "C:\\jenkins\\workspace\\" + workspace + "\\export\\%s.st" % (candidate.get_name())
+    filename = "C:\\jenkins\\workspace\\" + workspace + "\\alpha\\export\\%s.st" % (candidate.get_name())
 
     # print some user information
     print("exporting ", len(objects), " objects to: ", filename)
