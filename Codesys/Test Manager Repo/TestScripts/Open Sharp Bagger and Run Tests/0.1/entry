@@ -2,6 +2,7 @@
   <Information>
     <Name>Open Sharp Bagger and Run Tests</Name>
     <Version>0.1</Version>
+    <Author>Ben Hess</Author>
   </Information>
   <Sequence>
     <TestCase definesScope="False">
@@ -157,7 +158,7 @@ revision = info.version.Revision</Entry>
           </Settings>
           <Parameters>
             <Outputs>
-              <Parameter Name="buildID" Variable="buildID" />
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
             </Outputs>
           </Parameters>
           <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
@@ -167,6 +168,29 @@ revision = info.version.Revision</Entry>
             <Entry Name="ReadMode">String</Entry>
             <Entry Name="TrimWhitespaces">True</Entry>
             <Entry Name="Variable">buildID</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Create App Dir</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.FileIO" Verb="CreateDirectory" />
+          <Configuration>
+            <Entry Name="Directory">C:\jenkins\workspace\{$GLOBALS.workspace}\app\Pro18_Controller_{version}-build{buildID}\</Entry>
           </Configuration>
         </Action>
         <Action>
@@ -183,14 +207,45 @@ revision = info.version.Revision</Entry>
           </Settings>
           <Parameters>
             <Inputs>
-              <Parameter Name="buildID" Variable="buildID" />
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
               <Parameter Name="version" Variable="$GLOBALS.version" />
             </Inputs>
           </Parameters>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
-            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\app\Pro18_Controller_{version}-build{buildID}.app</Entry>
+            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\app\Pro18_Controller_{version}-build{buildID}\Application.app</Entry>
             <Entry Name="FullAppName">Pro18.Plc Logic.Application</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Zip up and delete directory</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
+          <Configuration>
+            <Entry Name="Command">import shutil
+
+output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
+dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
+shutil.make_archive(output_filename, 'zip', dir_name)
+shutil.rmtree(dir_name)</Entry>
+            <Entry Name="ImplicitImport">True</Entry>
+            <Entry Name="ShowTabs">True</Entry>
           </Configuration>
         </Action>
         <Action>
