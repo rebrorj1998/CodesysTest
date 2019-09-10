@@ -157,7 +157,7 @@ revision = info.version.Revision</Entry>
           </Settings>
           <Parameters>
             <Outputs>
-              <Parameter Name="buildID" Variable="buildID" />
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
             </Outputs>
           </Parameters>
           <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
@@ -167,6 +167,29 @@ revision = info.version.Revision</Entry>
             <Entry Name="ReadMode">String</Entry>
             <Entry Name="TrimWhitespaces">True</Entry>
             <Entry Name="Variable">buildID</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Create App Dir</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.FileIO" Verb="CreateDirectory" />
+          <Configuration>
+            <Entry Name="Directory">C:\jenkins\workspace\{$GLOBALS.workspace}\app\Pro18_Controller_{version}-build{buildID}\</Entry>
           </Configuration>
         </Action>
         <Action>
@@ -183,7 +206,7 @@ revision = info.version.Revision</Entry>
           </Settings>
           <Parameters>
             <Inputs>
-              <Parameter Name="buildID" Variable="buildID" />
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
               <Parameter Name="version" Variable="$GLOBALS.version" />
             </Inputs>
           </Parameters>
