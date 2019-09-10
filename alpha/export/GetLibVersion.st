@@ -8,4 +8,4 @@ END_VAR
 GetLibVersion.uiMajor := 0;
 GetLibVersion.uiMinor := 9;
 GetLibVersion.uiServicePack := 2;
-GetLibVersion.uiPatch := 21;
+GetLibVersion.uiPatch := 22;
