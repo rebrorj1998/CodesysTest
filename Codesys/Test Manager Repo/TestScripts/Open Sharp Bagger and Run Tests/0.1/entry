@@ -2,6 +2,7 @@
   <Information>
     <Name>Open Sharp Bagger and Run Tests</Name>
     <Version>0.1</Version>
+    <Author>Ben Hess</Author>
   </Information>
   <Sequence>
     <TestCase definesScope="False">
@@ -218,7 +219,7 @@ revision = info.version.Revision</Entry>
         </Action>
         <Action>
           <Information>
-            <Title>Zip up directory</Title>
+            <Title>Zip up and delete directory</Title>
           </Information>
           <Settings>
             <Entry Name="Condition" />
@@ -238,9 +239,11 @@ revision = info.version.Revision</Entry>
           <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
           <Configuration>
             <Entry Name="Command">import shutil
+
 output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
 dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\app\\Pro18_Controller_' + version + '-build' + buildID
-shutil.make_archive(output_filename, 'zip', dir_name)</Entry>
+shutil.make_archive(output_filename, 'zip', dir_name)
+shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
             <Entry Name="ShowTabs">True</Entry>
           </Configuration>
