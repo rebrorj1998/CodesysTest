@@ -697,6 +697,7 @@
         <Node name="IOMasterFaults" type="T_IOMasterFaultsType" access="ReadWrite">
           <Comment>Faults</Comment>
         </Node>
+        <Node name="jobLoaded" type="T_BOOL" access="ReadWrite" />
         <Node name="jobLoadRequired" type="T_Warning" access="ReadWrite" />
         <Node name="jogBagForward" type="T_BOOL" access="ReadWrite" />
         <Node name="jogBagReverse" type="T_BOOL" access="ReadWrite" />

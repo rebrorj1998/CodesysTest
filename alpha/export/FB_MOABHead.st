@@ -497,8 +497,10 @@ CASE state OF
 														
 														cycleTimer.IN := TRUE;
                                                     END_IF
-                                                    IF (HMIData.passthroughSetting <> passthroughSettingLast) AND NOT pressureBarEndStopMotor.Faulted AND NOT pressureBarEndStopMotor.HomeRequired THEN
+                                                    IF (HMIData.passthroughSetting <> passthroughSettingLast) OR (Globals.passthroughChangedFromJog AND HMIData.jobLoaded) AND NOT pressureBarEndStopMotor.Faulted AND NOT pressureBarEndStopMotor.HomeRequired THEN
 															setPassthroughPB := TRUE;
+															Globals.passthroughChangedFromJog := FALSE;
+															HMIData.jobLoaded := FALSE;
 															passthroughSetting := HMIData.passthroughSetting;
 															passthroughSettingLast := HMIData.passthroughSetting;
 													END_IF

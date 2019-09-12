@@ -231,6 +231,7 @@ CASE state OF
 															capturePassthroughPos := passthroughPosition;
 															state := PASSTHROUGH_SERVO_STATES.MovePassthroughOut;
 														ELSIF jogInONS.OSF OR jogOutONS.OSF THEN
+															Globals.passthroughChangedFromJog := TRUE;
 															pressureBarEndStopMotor.Stop();
 														END_IF
 														
