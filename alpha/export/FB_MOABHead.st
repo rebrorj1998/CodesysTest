@@ -642,6 +642,8 @@ CASE state OF
                                                     
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
+													HMIData.airFilterClean.Increment();
+													HMIData.baggerCycles.Increment();
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
                                                     
                 
@@ -1071,8 +1073,7 @@ CASE openBagSubState OF
                                                     	motorizedSealFlatteners.AutoMoveToBagHolding();
 														bagOpenRetryCount := 0;
 														
-														HMIData.airFilterClean.Increment();
-														HMIData.baggerCycles.Increment();
+														
 														openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
 														
                                       

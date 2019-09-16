@@ -68,7 +68,7 @@ PRG_Bagger();
 Faults();
 HMIData.version := Standard.CONCAT(TO_STRING(versionInfo.uiMajor),'.');
 	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiMinor),'.'));
-	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(versionInfo.uiServicePack));
+	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiServicePack),'.'));
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(versionInfo.uiPatch));
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(GetTextProperty("VersionPostfix")));
 IF NOT firstScanDone THEN
