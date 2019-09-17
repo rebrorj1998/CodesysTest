@@ -162,6 +162,7 @@ CASE state OF
 															IF jogOutONS.OSF THEN
 																passthroughTravel := ABS(capturePassthroughPos - passthroughPosition);
 																pressureBarEndStopMotor.Stop();
+																Globals.passthroughChangedFromJog := TRUE;
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedOut;
 															END_IF
 														END_IF
@@ -204,6 +205,7 @@ CASE state OF
 															IF jogInONS.OSF THEN
 																passthroughTravel := ABS(capturePassthroughPos - passthroughPosition);
 																pressureBarEndStopMotor.Stop();
+																Globals.passthroughChangedFromJog := TRUE;
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedIn;
 															END_IF
                                                         END_IF

@@ -306,7 +306,8 @@ passthrough(pressureBarEndStopMotor := pressureBarEndStopMotor,
 			cumulativeChangeCount := Globals.passthroughChangeCount2, 
 			cumulativeChangeDistance := Globals.passthroughChangeDistance2,
 			jogInPB := HMIData.jogPassthroughForward,
-			jogOutPB := HMIData.jogPassthroughReverse);
+			jogOutPB := HMIData.jogPassthroughReverse,
+			passthroughPosition => HMIData.passthroughPosition);
 passthrough.Mode := passthroughMode;
 
 
@@ -497,6 +498,9 @@ CASE state OF
 														
 														cycleTimer.IN := TRUE;
                                                     END_IF
+													IF NOT Globals.passthroughChangedFromJog AND HMIData.jobLoaded THEN
+														HMIData.jobLoaded := FALSE;
+													END_IF
                                                     IF (HMIData.passthroughSetting <> passthroughSettingLast) OR (Globals.passthroughChangedFromJog AND HMIData.jobLoaded) AND NOT pressureBarEndStopMotor.Faulted AND NOT pressureBarEndStopMotor.HomeRequired THEN
 															setPassthroughPB := TRUE;
 															Globals.passthroughChangedFromJog := FALSE;
