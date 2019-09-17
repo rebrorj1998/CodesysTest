@@ -206,6 +206,8 @@ CASE HMIData.packageEjectSelection OF
 														forwardLoadPlateFaultTimer.enable := FALSE;
 														rearLoadPlateFaultTimer.enable := FALSE;
 														loadShelfFaultTimer.enable := FALSE;
+														rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
+														rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
 	
 	PackageEjectionSelection.LabelSideUp:				// Enable all
 		 												enableLoadPlate := TRUE;
@@ -214,14 +216,15 @@ CASE HMIData.packageEjectSelection OF
 														forwardLoadPlateFaultTimer.enable := Globals.machinePowerOK;
 														rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
 														loadShelfFaultTimer.enable := Globals.machinePowerOK;
+														rearLoadPlateRetract.DelaySetting := 0;
+														rearLoadPlateRetract.DwellSetting := TO_UINT((HMIData.loadPlateDwell + HMIData.loadPlateDelay) * 1000);
 END_CASE
 
 
 HMIData.packageEjectGuardRemoved.active :=  HMIData.packageEjectSelection = PackageEjectionSelection.LabelSideUp AND NOT iPackageEjectGuardClosed;
 HMIData.loadPlateService.extendedFeedback := HMIData.rearLoadPlateService.extendedFeedback := iLoadPlateExtended;
 HMIData.loadPlateService.retractedFeedback := HMIData.rearLoadPlateService.retractedFeedback := iLoadPlateRetracted;
-rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
+
 rearLoadPlateRetract();
 oLoadPlateRetract := rearLoadPlateRetract.Q;
 oLoadPlateExtend := NOT oLoadPlateRetract;
@@ -263,6 +266,7 @@ forwardLoadPlateFaultTimer(
 HMIData.loadShelfService.extendedFeedback := iLoadShelfExtended;
 HMIData.loadShelfService.retractedFeedback := iLoadShelfRetracted;
 loadShelfExtend.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
+loadShelfExtend.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
 loadShelfExtend();
 oLoadShelfUp := NOT loadShelfExtend.Q;
 loadShelfFaultTimer(
