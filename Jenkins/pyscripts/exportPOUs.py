@@ -1,5 +1,6 @@
 # Tests CoDeSys native import/export functionality.
 from __future__ import print_function
+import os
 
 proj = projects.primary
 
@@ -43,7 +44,11 @@ for candidate in pous:
         parent = parent.parent
 
     # Create an unique file name:
-    filename = "C:\\jenkins\\workspace\\SharpController\\export\\%s.st" % (candidate.get_name())
+    filename = "C:\\Users\\bhess\\source\\repos\\SharpController\\alpha\\export\\%s.st" % (candidate.get_name())
+
+    # Delete the file if it's already there
+    if os.path.isfile(filename):
+        os.remove(filename)
 
     # print some user information
     print("exporting ", len(objects), " objects to: ", filename)

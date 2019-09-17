@@ -306,7 +306,8 @@ passthrough(pressureBarEndStopMotor := pressureBarEndStopMotor,
 			cumulativeChangeCount := Globals.passthroughChangeCount2, 
 			cumulativeChangeDistance := Globals.passthroughChangeDistance2,
 			jogInPB := HMIData.jogPassthroughForward,
-			jogOutPB := HMIData.jogPassthroughReverse);
+			jogOutPB := HMIData.jogPassthroughReverse,
+			passthroughPosition => HMIData.passthroughPosition);
 passthrough.Mode := passthroughMode;
 
 
@@ -497,8 +498,13 @@ CASE state OF
 														
 														cycleTimer.IN := TRUE;
                                                     END_IF
-                                                    IF (HMIData.passthroughSetting <> passthroughSettingLast) AND NOT pressureBarEndStopMotor.Faulted AND NOT pressureBarEndStopMotor.HomeRequired THEN
+													IF NOT Globals.passthroughChangedFromJog AND HMIData.jobLoaded THEN
+														HMIData.jobLoaded := FALSE;
+													END_IF
+                                                    IF (HMIData.passthroughSetting <> passthroughSettingLast) OR (Globals.passthroughChangedFromJog AND HMIData.jobLoaded) AND NOT pressureBarEndStopMotor.Faulted AND NOT pressureBarEndStopMotor.HomeRequired THEN
 															setPassthroughPB := TRUE;
+															Globals.passthroughChangedFromJog := FALSE;
+															HMIData.jobLoaded := FALSE;
 															passthroughSetting := HMIData.passthroughSetting;
 															passthroughSettingLast := HMIData.passthroughSetting;
 													END_IF
@@ -640,6 +646,8 @@ CASE state OF
                                                     
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
+													HMIData.airFilterClean.Increment();
+													HMIData.baggerCycles.Increment();
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
                                                     
                 
@@ -1069,8 +1077,7 @@ CASE openBagSubState OF
                                                     	motorizedSealFlatteners.AutoMoveToBagHolding();
 														bagOpenRetryCount := 0;
 														
-														HMIData.airFilterClean.Increment();
-														HMIData.baggerCycles.Increment();
+														
 														openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
 														
                                       
