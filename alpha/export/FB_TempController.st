@@ -8,7 +8,11 @@ END_VAR
 VAR_OUTPUT
 	heaterPulse : BOOL;
 	currentTemp : REAL;
-	thermalRunaway : FB_Fault(name := 'Thermal Runaway');
+	thermalRunawayOvershoot : FB_Fault(name := 'Thermal Runaway - Overshoot');
+	thermalRunawayNotHeating : FB_Fault(name := 'Thermal Runaway - Not Heating');
+	tempOK : BOOL; // At desired temperature
+	cooling : BOOL; // Cooling down to setpoint temp
+	heating : BOOL; // Heating up to setpoint temp
 END_VAR
 VAR
 	_manualOutput : REAL;
@@ -25,13 +29,23 @@ VAR
 	tempScaled : DINT;
 	diffScaled : DINT;
 	diffLast : DINT;
-	thermalRunawayUpdateTimer : Standard.TON := (PT := T#1S);;
-	thermalRunawayTimer : Standard.TON := (PT := T#10S);;
+	lastTemp : REAL;
+	thermRunawayNHUpdateTimer : Standard.TON := (PT := T#30S);
+	thermRunawayNHFaultTimer : Standard.TON := (PT := T#31S);
+	thermRunawayOSUpdateTimer : Standard.TON := (PT := T#30S);
+	thermRunawayOSFaultTimer : Standard.TON := (PT := T#31S);
 END_VAR
 
+SUPER^();
+IF enableONS.Q THEN
+	lastTemp := currentTemp;
+END_IF
 updateTimer(IN := NOT updateTimer.Q);
-thermalRunawayUpdateTimer(IN := NOT thermalRunawayUpdateTimer.Q, PT := T#1S);
-thermalRunawayTimer();
+thermRunawayNHUpdateTimer();
+thermRunawayNHFaultTimer();
+thermRunawayOSUpdateTimer();
+thermRunawayOSFaultTimer();
+
 IF updateTimer.Q THEN
 	PI(
 		ACT:= temperatureSensor.TempReadingF, 
@@ -49,8 +63,10 @@ IF updateTimer.Q THEN
 		DIFF=> , 
 		LIM=> );
 END_IF
-
+cooling := (enable AND temperatureSensor.TempReadingF > temperatureSetpoint) OR NOT enable;
+heating := enable AND temperatureSensor.TempReadingF < temperatureSetpoint;
 diffScaled := TO_DINT((PI.DIFF * 1000));
+
 currentTemp := temperatureSensor.TempReadingF;
 tempScaled := TO_DINT((temperatureSensor.TempReadingF * 1000));
 
@@ -61,26 +77,61 @@ PWM(
 	F:= _pwmHz , 
 	Q=> heaterPulse);
 	
-IF NOT enable OR REAL_TO_INT(temperatureSensor.TempReadingC) = 0 OR thermalRunaway.active THEN
+IF NOT enable OR REAL_TO_INT(temperatureSensor.TempReadingC) = 0 THEN
 	_manualMode := TRUE;
 	_manualOutput := 0.0;
 ELSE
 	_manualMode := FALSE;
 END_IF
 
-IF enable AND thermalRunawayUpdateTimer.Q THEN
-	IF PI.Y > 0 THEN
-		IF diffScaled > diffLast  THEN
-			thermalRunawayTimer.IN := TRUE;
-		ELSE	
-			thermalRunawayTimer.IN := FALSE;
-		END_IF	
-		diffLast := diffScaled;
-	END_IF
+// Thermal Runaway - not heating
+IF (NOT tempOK AND heating) AND NOT thermalRunawayNotHeating.active THEN
+	thermRunawayNHUpdateTimer.IN := TRUE;
+	IF thermRunawayNHUpdateTimer.Q THEN
+		IF TO_DINT(currentTemp) > TO_DINT(lastTemp) THEN
+			thermRunawayNHFaultTimer.IN := FALSE;
+		ELSE
+			thermRunawayNHFaultTimer.IN := TRUE;
+		END_IF
+		lastTemp := currentTemp; 
+		thermRunawayNHUpdateTimer.IN := FALSE;
+	END_IF	
+ELSE
+	thermRunawayNHUpdateTimer.IN := FALSE;
 END_IF
+
+IF thermRunawayNHFaultTimer.Q THEN
+	thermalRunawayNotHeating.Trigger();
+	thermRunawayNHFaultTimer.IN := FALSE;
+END_IF
+
+// Thermal Runaway - overshoot
+IF (NOT tempOK AND cooling) AND NOT thermalRunawayOvershoot.active THEN
+	thermRunawayOSUpdateTimer.IN := TRUE;
+	IF thermRunawayOSUpdateTimer.Q THEN
+		IF TO_DINT(currentTemp) < TO_DINT(lastTemp) THEN
+			thermRunawayOSFaultTimer.IN := FALSE;
+		ELSE
+			thermRunawayOSFaultTimer.IN := TRUE;
+		END_IF
+		lastTemp := currentTemp; 
+		thermRunawayOSUpdateTimer.IN := FALSE;
+	END_IF	
+ELSE
+	thermRunawayOSUpdateTimer.IN := FALSE;
+END_IF
+
+IF thermRunawayOSFaultTimer.Q THEN
+	thermalRunawayOvershoot.Trigger();
+	thermRunawayOSFaultTimer.IN := FALSE;
+END_IF
+
 
 IF currentTemp < (temperatureSetpoint - 10) OR currentTemp > (temperatureSetpoint + 10) THEN
 	HMIData.sealBarNotAtTemperature.active := TRUE;
+	tempOK := FALSE;
 ELSE
 	HMIData.sealBarNotAtTemperature.active := FALSE;
+	tempOK := TRUE;
+	lastTemp := currentTemp;
 END_IF

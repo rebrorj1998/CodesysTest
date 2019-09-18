@@ -22,7 +22,7 @@ VAR
 	printDeltaTimer : TON := (PT := T#5S);
 	lastPrinterDelta : TIME;
 	endPrintOSF : Standard.R_TRIG;
-	CSVWriter : FB_WriteToFile() := (xFilePath := 'C:/printerDelta.csv');
+	//CSVWriter : FB_WriteToFile() := (xFilePath := 'C:/printerDelta.csv');
 	stringToLog : STRING;
 	testWrite : BOOL;
 	hmiLight : FB_HMILight;
