@@ -10,11 +10,12 @@
 *.sln.docstates
 
 #Codesys specific files
-*.compileinfo
+#*.compileinfo
+*simulation*
 *.app
 *.~u
 *.opt
-*.bootinfo*
+#*.bootinfo*
 app/
 reports/
 Jenkins/pyscripts/SharpBaggerTestResults.xml
