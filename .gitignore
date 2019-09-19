@@ -11,6 +11,7 @@
 
 #Codesys specific files
 #*.compileinfo
+*simulation*
 *.app
 *.~u
 *.opt
