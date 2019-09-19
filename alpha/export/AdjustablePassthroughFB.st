@@ -66,7 +66,7 @@ END_IF
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PASSTHROUGH_SERVO_STATES.Fault);
 IF faultONS.OSR THEN
 	pressureBarEndStopMotor.Stop();
-	state := PASSTHROUGH_SERVO_STATES.Fault;
+	state := PASSTHROUGH_SERVO_STATES.Idle;
 END_IF
 
 CASE state OF

@@ -83,6 +83,7 @@ END_IF
 // Start executing objects that implement IExecuteAutomatically 
 IF firstScanDone THEN
 	GlobalObjects.CollectionOfExecutable.ExecuteAll();
+	Globals.SystemLog();
 END_IF
 
 

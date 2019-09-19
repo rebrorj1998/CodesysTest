@@ -10,4 +10,4 @@ END_VAR
 GetVersion.uiMajor := 0;
 GetVersion.uiMinor := 9;
 GetVersion.uiServicePack := 3;
-GetVersion.uiPatch := 3;
+GetVersion.uiPatch := 4;
