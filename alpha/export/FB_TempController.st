@@ -35,7 +35,6 @@ VAR
 	thermRunawayOSUpdateTimer : Standard.TON := (PT := T#30S);
 	thermRunawayOSFaultTimer : Standard.TON := (PT := T#31S);
 END_VAR
-
 SUPER^();
 IF enableONS.Q THEN
 	lastTemp := currentTemp;

@@ -752,7 +752,9 @@ CASE state OF
 											setPassthroughPB := FALSE;    
                                                     
     HEAD_STATES.Fault :                     hmiLight.TurnOff();   
-											
+											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
+											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
+											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
 											oVacOn := FALSE;
 											LPA.ManualOff();
 											setPassthroughPB := FALSE;
