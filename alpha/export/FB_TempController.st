@@ -100,7 +100,7 @@ ELSE
 END_IF
 
 IF thermRunawayNHFaultTimer.Q THEN
-	thermalRunawayNotHeating.Trigger();
+	//thermalRunawayNotHeating.Trigger();
 	thermRunawayNHFaultTimer.IN := FALSE;
 END_IF
 
@@ -121,7 +121,7 @@ ELSE
 END_IF
 
 IF thermRunawayOSFaultTimer.Q THEN
-	thermalRunawayOvershoot.Trigger();
+	//thermalRunawayOvershoot.Trigger();
 	thermRunawayOSFaultTimer.IN := FALSE;
 END_IF
 

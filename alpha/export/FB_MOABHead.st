@@ -91,7 +91,6 @@ END_VAR
 // Run BaseComponentFB
 SUPER^();
 
-
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
 Globals.machinePowerOK := powerSettlingTimer.Q;
@@ -104,10 +103,8 @@ HMIData.averageCycleTime := cycleTime + 0.31;
 HMIData.printerNotReady.active := NOT printerReady AND zebraPrinter.enable;
 HMIData.waitingForPrinter.active := zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter;
 //HMIData.printerRibbonLow.active := printerRibbonLow;
-
-
 	 
-batchSetting := HMIData.batchSetting;	
+batchSetting := HMIData.batchSetting;
 HMIData.batchCount := batchCount;
 
 bagOpenRetrySetting := HMIData.bagOpenRetrySetting;
