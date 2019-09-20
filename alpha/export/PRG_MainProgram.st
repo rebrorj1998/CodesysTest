@@ -22,11 +22,13 @@ VAR
 	printDeltaTimer : TON := (PT := T#5S);
 	lastPrinterDelta : TIME;
 	endPrintOSF : Standard.R_TRIG;
-	CSVWriter : FB_WriteToFile() := (xFilePath := 'C:/printerDelta.csv');
+	//CSVWriter : FB_WriteToFile() := (xFilePath := 'C:/printerDelta.csv');
 	stringToLog : STRING;
 	testWrite : BOOL;
 	hmiLight : FB_HMILight;
 	versionInfo : VERSION;
+	testTC : FB_TempController();
+	testTS : FB_TemperatureSensor();
 END_VAR
 //    Program: Main (PLC_PRG)
 //    Description: This program serves as a base for the MOAB Prototype
@@ -71,7 +73,7 @@ HMIData.version := Standard.CONCAT(TO_STRING(versionInfo.uiMajor),'.');
 	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiMinor),'.'));
 	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiServicePack),'.'));
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(versionInfo.uiPatch));
-	//BPLog.AppendToString(ADR(HMIData.version), TO_STRING(GetTextProperty("VersionPostfix")));
+	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(GetTextProperty("VersionPostfix")));
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := Globals.SystemLog);
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
@@ -104,3 +106,6 @@ END_IF
 
 displayPassthroughChangeDistance := (UDINT_TO_REAL(Globals.passthroughChangeDistance) / 10);
 displayPassthroughChangeDistance2 := (UDINT_TO_REAL(Globals.passthroughChangeDistance2) / 10.0);
+
+testTS();
+testTC(temperatureSensor := testTS);
