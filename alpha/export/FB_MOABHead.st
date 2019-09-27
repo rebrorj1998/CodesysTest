@@ -97,9 +97,13 @@ Globals.machinePowerOK := powerSettlingTimer.Q;
 safePowerFailure.faultTrigger := NOT iEStopOK;
 
 // Option setup and factory config  
-  
+	 
+IF HMIData.resetAverageCycleTime THEN
+	HMIData.averageCycleTime := 0;
+	HMIData.resetAverageCycleTime := FALSE;
+END_IF
 HMIData.lastCycleTime := cycleTime;
-HMIData.averageCycleTime := cycleTime + 0.31;
+
 HMIData.printerNotReady.active := NOT printerReady AND zebraPrinter.enable;
 HMIData.waitingForPrinter.active := zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter;
 //HMIData.printerRibbonLow.active := printerRibbonLow;
@@ -709,6 +713,12 @@ CASE state OF
                                                         state := HEAD_STATES.Idle;
 														cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
 														cycleTimer.IN := FALSE;
+														IF HMIData.averageCycleTime = 0 THEN
+															HMIData.averageCycleTime := cycleTime;
+														ELSE
+															HMIData.averageCycleTime := (cycleTime + HMIData.averageCycleTime) / 2;
+														END_IF
+														
 														//bagFailedToOpen := FALSE;
 														IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 															IF (HMIData.bagsMade.count >= 1000) THEN
@@ -754,6 +764,7 @@ CASE state OF
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
 											oVacOn := FALSE;
 											LPA.ManualOff();
+											oRunPrinterRibbonUnwindMotor := FALSE;
 											setPassthroughPB := FALSE;
 											homeJawPB := FALSE;
 											startCycle := FALSE;

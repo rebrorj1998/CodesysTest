@@ -16,7 +16,7 @@ ELSIF stKey = "Project" THEN
 ELSIF stKey = "Title" THEN
 	GetTextProperty := "MOAB Prototype";
 ELSIF stKey = "VersionPostfix" THEN
-	GetTextProperty := "-alpha/updates/belk-onsite-mods";
+	GetTextProperty := "master";
 ELSE
 	GetTextProperty := "";
 END_IF
