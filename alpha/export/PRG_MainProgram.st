@@ -22,13 +22,11 @@ VAR
 	printDeltaTimer : TON := (PT := T#5S);
 	lastPrinterDelta : TIME;
 	endPrintOSF : Standard.R_TRIG;
-	//CSVWriter : FB_WriteToFile() := (xFilePath := 'C:/printerDelta.csv');
+	CSVWriter : FB_WriteToFile() := (xFilePath := 'C:/printerDelta.csv');
 	stringToLog : STRING;
 	testWrite : BOOL;
 	hmiLight : FB_HMILight;
 	versionInfo : VERSION;
-	testTC : FB_TempController();
-	testTS : FB_TemperatureSensor();
 END_VAR
 //    Program: Main (PLC_PRG)
 //    Description: This program serves as a base for the MOAB Prototype
@@ -106,6 +104,3 @@ END_IF
 
 displayPassthroughChangeDistance := (UDINT_TO_REAL(Globals.passthroughChangeDistance) / 10);
 displayPassthroughChangeDistance2 := (UDINT_TO_REAL(Globals.passthroughChangeDistance2) / 10.0);
-
-testTS();
-testTC(temperatureSensor := testTS);

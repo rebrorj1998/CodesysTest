@@ -35,6 +35,7 @@ VAR
 	thermRunawayOSUpdateTimer : Standard.TON := (PT := T#30S);
 	thermRunawayOSFaultTimer : Standard.TON := (PT := T#31S);
 END_VAR
+
 SUPER^();
 IF enableONS.Q THEN
 	lastTemp := currentTemp;
@@ -66,6 +67,7 @@ cooling := (enable AND temperatureSensor.TempReadingF > temperatureSetpoint) OR 
 heating := enable AND temperatureSensor.TempReadingF < temperatureSetpoint;
 diffScaled := TO_DINT((PI.DIFF * 1000));
 
+diffScaled := TO_DINT((PI.DIFF * 1000));
 currentTemp := temperatureSensor.TempReadingF;
 tempScaled := TO_DINT((temperatureSensor.TempReadingF * 1000));
 
