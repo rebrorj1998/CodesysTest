@@ -561,7 +561,7 @@
       <UserDefElement iecname="_amMoveClearance" type="T_BOOL" byteoffset="986" vartype="VAR" />
       <UserDefElement iecname="_amMoveInToBagHolding" type="T_BOOL" byteoffset="987" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3617" nativesize="24124" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3617" nativesize="24360" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1000" vartype="VAR" />
@@ -707,6 +707,10 @@
         <Node name="hpaDwell" type="T_REAL" access="ReadWrite" />
         <Node name="hpaServiceOn" type="T_BOOL" access="ReadWrite" />
         <Node name="hpaServicePulse" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDDeflateDwellTime" type="T_REAL" access="ReadWrite" />
+        <Node name="IBDPackageEjectAssistDelayTime" type="T_REAL" access="ReadWrite" />
+        <Node name="IBDPackageEjectAssistDwellTime" type="T_REAL" access="ReadWrite" />
+        <Node name="IBDService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="inCycle" type="T_BOOL" access="ReadWrite" />
         <Node name="initiateCycle" type="T_BOOL" access="ReadWrite">
           <Comment> Initiate Cycle Pushbutton</Comment>
@@ -868,10 +872,19 @@
         <Node name="oFrontLoadPlateToLoad" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX188.2">
           <Comment>FestoManifold : </Comment>
         </Node>
+        <Node name="oHeaterPulse" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX37.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="oHMILight" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX36.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oHPAOn" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX186.7">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oIBDExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX188.6">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oIBDRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX188.7">
           <Comment>FestoManifold : </Comment>
         </Node>
         <Node name="oLoadPlateExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">

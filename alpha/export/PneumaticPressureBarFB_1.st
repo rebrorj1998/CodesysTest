@@ -255,3 +255,24 @@ oExtendCylinder := TRUE;
 oRetractCylinder := FALSE;
 
 PROPERTY Ready : BOOL
+
+
+METHOD AutoCloseJaw
+VAR_INPUT
+END_VAR
+
+_amCloseJaw := TRUE;
+
+METHOD AutoMovingPassthrough
+VAR_INPUT
+END_VAR
+
+//state := PRESSURE_BAR_STATES.Manual;
+state := PRESSURE_BAR_STATES.Idle;
+
+METHOD ExtendCylinderLowPressure
+VAR_INPUT
+END_VAR
+
+oExtendCylinder := TRUE;
+oRetractCylinder := TRUE;

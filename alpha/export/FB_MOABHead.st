@@ -34,6 +34,8 @@ VAR
 	enableBagOpen : BOOL;
 	enableLoadPlate : BOOL;
 	enableHeater : BOOL;
+	enableIBDDeflate : BOOL;
+	enableIBDEject : BOOL;
 	enableLabelSideUp : BOOL := TRUE;
 	factoryTestModeKeepCycling : BOOL;
     bagDelivery : BagDeliveryFB();
@@ -47,6 +49,8 @@ VAR
 	forwardLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	exitConveyorRun : MonostableMultivibratorFB() := (Dwellsetting := 6000);
+	IBDExtendToDeflate : MonostableMultivibratorFB();
+	IBDExtendToEject : MonostableMultivibratorFB();
 	bagOpenFingers : BagOpenFingersWithSensorsFB();
 	bagOpenCheckDelay : Standard.TON := (PT:= T#400MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
@@ -79,6 +83,7 @@ VAR
 	hmiLight  : FB_HMILight;
 	faultONS : FB_ONS;
 	powerSettlingTimer : Standard.TON := (PT := T#6S);
+	pressureBarCloseDelay : Standard.TON;
 END_VAR
 
 //    Function Block: FB_MOABHead
@@ -181,9 +186,45 @@ hpaServiceOnONS(CLK := HMIData.hpaserviceOn);
 LPA.DwellSetting := TO_UINT(HMIData.lpaDwell * 1000);
 LPA(Q => oLPAOn);
 	 
+CASE HMIData.independantBagDeflatorSelection OF
+	BagDeflatorSelection.NotInstalled:					// Disable IBD
+		 													enableIBDDeflate := FALSE;
+															IBDExtendToDeflate.DelaySetting := 0;
+															IBDExtendToDeflate.DwellSetting := 0;
+															IBDExtendToEject.DelaySetting := 0;
+															IBDExtendToEject.DwellSetting := 0;
+	
+	BagDeflatorSelection.IBDStandard:	// Enable IBD
+															IF HMIData.IBDDeflateDwellTime <> 0 THEN
+																enableIBDDeflate := TRUE;
+															ELSE
+																enableIBDDeflate := FALSE;
+															END_IF
+															
+															IF HMIData.IBDPackageEjectAssistDelayTime <> 0 THEN
+																enableIBDEject := TRUE;
+															ELSE
+																enableIBDEject := FALSE;
+															END_IF
+	 
+															IBDExtendToDeflate.DelaySetting := 0;
+															IBDExtendToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
+															IBDExtendToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
+															IBDExtendToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
+																 
+	BagDeflatorSelection.IBDWithHingedPlate:	// Enable IBD with Hinged Plate
+															enableIBDDeflate := TRUE;
+															IBDExtendToDeflate.DelaySetting := 0;
+															IBDExtendToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
+															IBDExtendToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
+															IBDExtendToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
+	
+END_CASE
+
 CASE HMIData.bofSelection OF
 	BagOpenFingersSelection.NotInstalled:					// Disable Bag Open
 		 													enableBagOpen := FALSE;
+															
 	
 	BagOpenFingersSelection.PneumaticWithBagOpenSensors:	// Enable Bag Open
 															enableBagOpen := TRUE;
@@ -294,6 +335,10 @@ bagOpenFingers(releaseOutput => oBOFUp,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
 				
+IBDExtendToDeflate();
+IBDExtendToEject();
+oIBDExtend := IBDExtendToDeflate.Q OR IBDExtendToEject.Q;
+oIBDRetract := NOT oIBDExtend;
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
@@ -389,6 +434,8 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	rearLoadPlateRetract.Reset();
 	forwardLoadPlateRetract.Reset();
 	loadShelfExtend.Reset();
+	IBDExtendToDeflate.Reset();
+	IBDExtendToEject.Reset();
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
@@ -396,6 +443,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	oSealBarExtend := FALSE;
 	oSealBarRetract := TRUE;
 	sealTimer.IN := FALSE;
+	pressureBarCloseDelay.IN := FALSE;
 	//HMIData.airFilterClean.SetCount(27336);
 	//HMIData.driveRollerClean.SetCount(12041);
 	//HMIData.printHeadClean.SetCount(3224);
@@ -481,7 +529,7 @@ IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
 	pressureBarEndStopMotor.Stop();
 	cycleTimer.IN := FALSE;
 END_IF
-
+pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
 cycleTimer();
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
@@ -575,7 +623,17 @@ CASE state OF
 														forwardLoadPlateRetract.ManualOff();
 														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
-														 
+													
+													IF HMIData.IBDService.retractCommand THEN
+														IBDExtendToDeflate.ManualOn();
+														HMIData.IBDService.retractCommand := FALSE;
+													END_IF                                      
+                                                    
+													IF HMIData.IBDService.extendCommand THEN
+														IBDExtendToDeflate.ManualOff();
+														HMIData.IBDService.extendCommand := FALSE;
+													END_IF	
+	 
 													IF HMIData.lpaServicePulse THEN
 														LPA.Trigger();
 														HMIData.lpaServicePulse := FALSE;
@@ -650,7 +708,12 @@ CASE state OF
 													{endregion:'Service'}
                                                     
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
-                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
+													IF enableIBDDeflate THEN
+														sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+													ELSE
+														sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+													END_IF
+                                                    
 													HMIData.airFilterClean.Increment();
 													HMIData.baggerCycles.Increment();
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
@@ -764,29 +827,47 @@ CASE state OF
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
 											oVacOn := FALSE;
 											LPA.ManualOff();
+											IBDExtendToDeflate.Reset();
+											IBDExtendToEject.Reset();
 											oRunPrinterRibbonUnwindMotor := FALSE;
 											setPassthroughPB := FALSE;
 											homeJawPB := FALSE;
 											startCycle := FALSE;
 											HMIData.initiateCycle := FALSE;
-											factoryTestModeKeepCycling := FALSE;   
+											factoryTestModeKeepCycling := FALSE; 
+											pressureBarCloseDelay.IN := FALSE;  
                                                     
 END_CASE
 
 CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.Idle : 
+	
+	SEAL_SEPARATE_STATES.BringInIBD : 				// Bring in IBD if enabled
+													IF enableIBDDeflate THEN
+														IBDExtendToDeflate.Trigger();
+													END_IF 
+													
+													sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+	
+	SEAL_SEPARATE_STATES.WaitForJawCloseDelay : 	// Wait for jaw close delay. 
+													IF pressureBar.enable THEN
+														pressureBarCloseDelay.IN := TRUE;
+														IF pressureBarCloseDelay.Q OR HMIData.pressureBarCloseDelay = 0 THEN
+															sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
+															pressureBarCloseDelay.IN := FALSE;
+														END_IF
+                                                    ELSE 
+                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
+                                                    END_IF
         
     SEAL_SEPARATE_STATES.MoveJawIn :                // Perform actions as enabled - close jaw and move flatteners out. If jaw is disabled then go right to reverse bag
                                                     IF motorizedSealFlatteners.enable THEN
                                                         motorizedSealFlatteners.AutoMoveOut();
                                                     END_IF
                                                     
-                                                    IF pressureBar.enable THEN
-                                                        pressureBar.AutoCloseJaw();
-                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.MovingJawIn;
-                                                    ELSE 
-                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
-                                                    END_IF
+													pressureBar.AutoCloseJaw();
+                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.MovingJawIn;
+                                                    
                                                     
                                                     
                                                     
@@ -802,6 +883,7 @@ CASE sealAndSeparateSubState OF
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
                                                     
     SEAL_SEPARATE_STATES.ReverseBag :                // Reverse bag if bag delivery enabled, otherwise open jaw
+													IBDExtendToDeflate.Reset();
                                                     IF bagDelivery.enable THEN
                                                         bagDelivery.AutoReverseBag();
                                                         sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReversingBag;
@@ -885,6 +967,10 @@ CASE releaseAndFeedSubState OF
                                                             
 															IF enableBagOpen THEN
 																bagOpenFingers.Release();
+															END_IF
+															
+															IF enableIBDEject THEN
+																IBDExtendToEject.Trigger();
 															END_IF
 															
 															IF enableLoadPlate THEN
@@ -993,6 +1079,7 @@ CASE releaseAndFeedSubState OF
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawOpened OR NOT pressureBar.enable)
                                                         THEN
 															LPA.ManualOff();
+															IBDExtendToEject.Reset();
                                                             releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
                                                     
