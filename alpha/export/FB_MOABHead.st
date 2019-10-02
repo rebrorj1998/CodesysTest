@@ -101,6 +101,9 @@ powerSettlingTimer(IN := iEStopOK);
 Globals.machinePowerOK := powerSettlingTimer.Q;
 safePowerFailure.faultTrigger := NOT iEStopOK;
 
+// Bags Low warning
+HMIData.bagLevelLow.active := iBagsLow;
+
 // Option setup and factory config  
 	 
 IF HMIData.resetAverageCycleTime THEN
