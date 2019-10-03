@@ -58,6 +58,7 @@ VAR
 	bagOpenFeedNewBagSetting : UINT; // Number of new bags to try
 	bagOpenFeedNewBagCount : UINT;	// Count of new bags tried in recovery
 	recoveryModeActive : BOOL; 		// Recovery Mode Active
+	startCycleReqFromPalmButtons : BOOL;
 	pressureBarEndStopMotor : FB_AppliedMotionStepServoEIPPassthrough();
 	passthrough : AdjustablePassthroughFB();
 	homeJawPB : BOOL;
@@ -265,7 +266,17 @@ CASE HMIData.packageEjectSelection OF
 														rearLoadPlateRetract.DwellSetting := TO_UINT((HMIData.loadPlateDwell + HMIData.loadPlateDelay) * 1000);
 END_CASE
 
-
+CASE HMIData.cycleStartButtonSelection OF
+	PalmButtonSelection.NotInstalled:					// Dont' allow input to start bagger cycle
+		 												startCycleReqFromPalmButtons := FALSE;
+		 
+	PalmButtonSelection.SinglePalmButton:				// Start using one side only
+		 												startCycleReqFromPalmButtons := iRightPalmButton;
+		 
+	PalmButtonSelection.DualPalmButton:					// Both buttons must be pressed
+		 												startCycleReqFromPalmButtons := iRightPalmButton AND iLeftPalmButton;
+END_CASE
+	 
 HMIData.packageEjectGuardRemoved.active :=  HMIData.packageEjectSelection = PackageEjectionSelection.LabelSideUp AND NOT iPackageEjectGuardClosed;
 HMIData.loadPlateService.extendedFeedback := HMIData.rearLoadPlateService.extendedFeedback := iLoadPlateExtended;
 HMIData.loadPlateService.retractedFeedback := HMIData.rearLoadPlateService.retractedFeedback := iLoadPlateRetracted;
@@ -544,7 +555,7 @@ CASE state OF
                                                     IF startCycle 
 													OR (enableBatch AND (batchCount < batchSetting))
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND factoryTestModeKeepCycling AND NOT LPA.Q
-													OR (iLeftPalmButton AND iRightPalmButton) 
+													OR startCycleReqFromPalmButtons 
 													OR (HMIData.initiateCycle AND readyToRun) 
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 

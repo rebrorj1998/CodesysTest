@@ -104,6 +104,11 @@
       <UserDefElement type="T_PackageEjectionSelection" iecname="RearRetractingLoadPlate" enumvalue="1" />
       <UserDefElement type="T_PackageEjectionSelection" iecname="LabelSideUp" enumvalue="2" />
     </TypeUserDef>
+    <TypeUserDef name="T_PalmButtonSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PalmButtonSelection" basetype="T_INT">
+      <UserDefElement type="T_PalmButtonSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_PalmButtonSelection" iecname="SinglePalmButton" enumvalue="1" />
+      <UserDefElement type="T_PalmButtonSelection" iecname="DualPalmButton" enumvalue="2" />
+    </TypeUserDef>
     <TypeSimple name="T_REFERENCE_TO_BOOL_REF" size="1" swapsize="0" typeclass="Reference" iecname="REFERENCE TO BOOL_REF" basetype="T_BOOL" />
     <TypeUserDef name="T_R_TRIG" size="2" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="R_TRIG">
       <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
@@ -687,6 +692,7 @@
           <Comment>Factoy Config</Comment>
         </Node>
         <Node name="currentJobID" type="T_INT" access="ReadWrite" />
+        <Node name="cycleStartButtonSelection" type="T_PalmButtonSelection" access="ReadWrite" />
         <Node name="demoModeIsActive" type="T_Warning" access="ReadWrite" />
         <Node name="driveRollerClean" type="T_FB_PredictiveMaint" access="ReadWrite" />
         <Node name="exitConveyorDwell" type="T_REAL" access="ReadWrite" />
