@@ -40,6 +40,11 @@
     <TypeArray name="T_ARRAY__0__15__OF_DINT" size="64" nativesize="64" typeclass="Array" iecname="ARRAY [0..15] OF DINT" basetype="T_DINT">
       <ArrayDim minrange="0" maxrange="15" />
     </TypeArray>
+    <TypeUserDef name="T_BagDeflatorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagDeflatorSelection" basetype="T_INT">
+      <UserDefElement type="T_BagDeflatorSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_BagDeflatorSelection" iecname="IBDStandard" enumvalue="1" />
+      <UserDefElement type="T_BagDeflatorSelection" iecname="IBDWithHingedPlate" enumvalue="2" />
+    </TypeUserDef>
     <TypeUserDef name="T_BagOpenFingersSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagOpenFingersSelection" basetype="T_INT">
       <UserDefElement type="T_BagOpenFingersSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_BagOpenFingersSelection" iecname="PneumaticWithBagOpenSensors" enumvalue="1" />
@@ -566,7 +571,7 @@
       <UserDefElement iecname="_amMoveClearance" type="T_BOOL" byteoffset="986" vartype="VAR" />
       <UserDefElement iecname="_amMoveInToBagHolding" type="T_BOOL" byteoffset="987" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3617" nativesize="24360" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3620" nativesize="24528" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1000" vartype="VAR" />
@@ -577,11 +582,12 @@
       <UserDefElement iecname="pressureBarEndStopMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="2736" vartype="VAR" />
       <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="3572" vartype="VAR" />
       <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="3575" vartype="VAR" />
-      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="3578" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3581" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3590" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3599" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3608" vartype="VAR" />
+      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="3578" vartype="VAR" />
+      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="3581" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3584" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3593" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3602" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3611" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
@@ -719,6 +725,7 @@
         <Node name="IBDPackageEjectAssistDwellTime" type="T_REAL" access="ReadWrite" />
         <Node name="IBDService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="inCycle" type="T_BOOL" access="ReadWrite" />
+        <Node name="independentBagDeflatorSelection" type="T_BagDeflatorSelection" access="ReadWrite" />
         <Node name="initiateCycle" type="T_BOOL" access="ReadWrite">
           <Comment> Initiate Cycle Pushbutton</Comment>
         </Node>
@@ -812,6 +819,9 @@
       <Node name="IoConfig_Globals_Mapping">
         <Node name="iBagNotPresent" type="T_BIT_X_2" access="Read" directaddress="%IX412.2">
           <Comment>Bag_Delivery_EIP_Motor : </Comment>
+        </Node>
+        <Node name="iBagsLow" type="T_BIT_X_5" access="Read" directaddress="%IX65.5">
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iBagTensionFault" type="T_BIT_X_3" access="Read" directaddress="%IX528.3">
           <Comment>Bag_Delivery_Rear_Motor : </Comment>

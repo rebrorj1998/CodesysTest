@@ -49,8 +49,8 @@ VAR
 	forwardLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	exitConveyorRun : MonostableMultivibratorFB() := (Dwellsetting := 6000);
-	IBDExtendToDeflate : MonostableMultivibratorFB();
-	IBDExtendToEject : MonostableMultivibratorFB();
+	IBDRetractToDeflate : MonostableMultivibratorFB();
+	IBDRetractToEject : MonostableMultivibratorFB();
 	bagOpenFingers : BagOpenFingersWithSensorsFB();
 	bagOpenCheckDelay : Standard.TON := (PT:= T#400MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
@@ -68,6 +68,7 @@ VAR
 	cycleTime : REAL;
 	bagFailedToOpen : FB_Fault(name := 'Bag Failed to Open');
 	safePowerFailure : FB_Fault(name := 'E-Stop/Safety Power Failure');
+	palmButtonConfigError : FB_Fault(name := 'Palm Button Configuration Error');
 	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
@@ -190,13 +191,13 @@ hpaServiceOnONS(CLK := HMIData.hpaserviceOn);
 LPA.DwellSetting := TO_UINT(HMIData.lpaDwell * 1000);
 LPA(Q => oLPAOn);
 	 
-CASE HMIData.independantBagDeflatorSelection OF
+CASE HMIData.independentBagDeflatorSelection OF
 	BagDeflatorSelection.NotInstalled:					// Disable IBD
 		 													enableIBDDeflate := FALSE;
-															IBDExtendToDeflate.DelaySetting := 0;
-															IBDExtendToDeflate.DwellSetting := 0;
-															IBDExtendToEject.DelaySetting := 0;
-															IBDExtendToEject.DwellSetting := 0;
+															IBDRetractToDeflate.DelaySetting := 0;
+															IBDRetractToDeflate.DwellSetting := 0;
+															IBDRetractToEject.DelaySetting := 0;
+															IBDRetractToEject.DwellSetting := 0;
 	
 	BagDeflatorSelection.IBDStandard:	// Enable IBD
 															IF HMIData.IBDDeflateDwellTime <> 0 THEN
@@ -211,17 +212,17 @@ CASE HMIData.independantBagDeflatorSelection OF
 																enableIBDEject := FALSE;
 															END_IF
 	 
-															IBDExtendToDeflate.DelaySetting := 0;
-															IBDExtendToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
-															IBDExtendToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
-															IBDExtendToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
+															IBDRetractToDeflate.DelaySetting := 0;
+															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
+															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
+															IBDRetractToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
 																 
 	BagDeflatorSelection.IBDWithHingedPlate:	// Enable IBD with Hinged Plate
 															enableIBDDeflate := TRUE;
-															IBDExtendToDeflate.DelaySetting := 0;
-															IBDExtendToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
-															IBDExtendToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
-															IBDExtendToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
+															IBDRetractToDeflate.DelaySetting := 0;
+															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
+															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
+															IBDRetractToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
 	
 END_CASE
 
@@ -272,6 +273,11 @@ CASE HMIData.cycleStartButtonSelection OF
 		 
 	PalmButtonSelection.SinglePalmButton:				// Start using one side only
 		 												startCycleReqFromPalmButtons := iRightPalmButton;
+														
+														// Trigger fault if left palm button is seen - should be set up for dual!	 
+														IF iLeftPalmButton THEN
+															palmButtonConfigError.Trigger();		 
+														END_IF
 		 
 	PalmButtonSelection.DualPalmButton:					// Both buttons must be pressed
 		 												startCycleReqFromPalmButtons := iRightPalmButton AND iLeftPalmButton;
@@ -349,10 +355,10 @@ bagOpenFingers(releaseOutput => oBOFUp,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
 				
-IBDExtendToDeflate();
-IBDExtendToEject();
-oIBDExtend := IBDExtendToDeflate.Q OR IBDExtendToEject.Q;
-oIBDRetract := NOT oIBDExtend;
+IBDRetractToDeflate();
+IBDRetractToEject();
+oIBDRetract := IBDRetractToDeflate.Q OR IBDRetractToEject.Q;
+oIBDExtend := NOT oIBDRetract;
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
@@ -448,8 +454,8 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	rearLoadPlateRetract.Reset();
 	forwardLoadPlateRetract.Reset();
 	loadShelfExtend.Reset();
-	IBDExtendToDeflate.Reset();
-	IBDExtendToEject.Reset();
+	IBDRetractToDeflate.Reset();
+	IBDRetractToEject.Reset();
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
@@ -639,12 +645,12 @@ CASE state OF
 													END_IF	 
 													
 													IF HMIData.IBDService.retractCommand THEN
-														IBDExtendToDeflate.ManualOn();
+														IBDRetractToDeflate.ManualOn();
 														HMIData.IBDService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.IBDService.extendCommand THEN
-														IBDExtendToDeflate.ManualOff();
+														IBDRetractToDeflate.ManualOff();
 														HMIData.IBDService.extendCommand := FALSE;
 													END_IF	
 	 
@@ -841,8 +847,8 @@ CASE state OF
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
 											oVacOn := FALSE;
 											LPA.ManualOff();
-											IBDExtendToDeflate.Reset();
-											IBDExtendToEject.Reset();
+											IBDRetractToDeflate.Reset();
+											IBDRetractToEject.Reset();
 											oRunPrinterRibbonUnwindMotor := FALSE;
 											setPassthroughPB := FALSE;
 											homeJawPB := FALSE;
@@ -858,7 +864,7 @@ CASE sealAndSeparateSubState OF
 	
 	SEAL_SEPARATE_STATES.BringInIBD : 				// Bring in IBD if enabled
 													IF enableIBDDeflate THEN
-														IBDExtendToDeflate.Trigger();
+														IBDRetractToDeflate.Trigger();
 													END_IF 
 													
 													sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
@@ -897,7 +903,7 @@ CASE sealAndSeparateSubState OF
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
                                                     
     SEAL_SEPARATE_STATES.ReverseBag :                // Reverse bag if bag delivery enabled, otherwise open jaw
-													IBDExtendToDeflate.Reset();
+													IBDRetractToDeflate.Reset();
                                                     IF bagDelivery.enable THEN
                                                         bagDelivery.AutoReverseBag();
                                                         sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReversingBag;
@@ -984,7 +990,7 @@ CASE releaseAndFeedSubState OF
 															END_IF
 															
 															IF enableIBDEject THEN
-																IBDExtendToEject.Trigger();
+																IBDRetractToEject.Trigger();
 															END_IF
 															
 															IF enableLoadPlate THEN
@@ -1093,7 +1099,7 @@ CASE releaseAndFeedSubState OF
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawOpened OR NOT pressureBar.enable)
                                                         THEN
 															LPA.ManualOff();
-															IBDExtendToEject.Reset();
+															IBDRetractToEject.Reset();
                                                             releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
                                                     
