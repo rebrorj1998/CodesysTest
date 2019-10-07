@@ -49,6 +49,9 @@ VAR
 	forwardLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	exitConveyorRun : MonostableMultivibratorFB() := (Dwellsetting := 6000);
+	IBDCylinders : FB_ThreePositionCylinder();
+	IBDExtendONS : FB_ONS();
+	IBDRetractONS : FB_ONS();
 	IBDRetractToDeflate : MonostableMultivibratorFB();
 	IBDRetractToEject : MonostableMultivibratorFB();
 	bagOpenFingers : BagOpenFingersWithSensorsFB();
@@ -354,9 +357,18 @@ bagOpenFingers(releaseOutput => oBOFUp,
 				bagFailedToGrabLeftFingerCount := Globals.bagFailedToGrabLeftFingerCount,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
-				
+IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);				
 IBDRetractToDeflate();
 IBDRetractToEject();
+IBDRetractONS(CLK := IBDRetractToDeflate.Q OR IBDRetractToEject.Q);
+IBDExtendONS(CLK := NOT (IBDRetractToDeflate.Q AND IBDRetractToEject.Q));
+// IF IBDRetractONS.OSR THEN
+// 	IBDCylinders.Retract();
+// ELSIF IBDExtendONS.OSR THEN
+// 	IBDCylinders.Extend();
+// ELSIF HMIData.faultActive THEN
+// 	IBDCylinders.Exhaust();
+// END_IF
 oIBDRetract := IBDRetractToDeflate.Q OR IBDRetractToEject.Q;
 oIBDExtend := NOT oIBDRetract;
 
@@ -456,6 +468,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	loadShelfExtend.Reset();
 	IBDRetractToDeflate.Reset();
 	IBDRetractToEject.Reset();
+	IBDCylinders.Extend();
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
