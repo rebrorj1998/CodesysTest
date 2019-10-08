@@ -35,15 +35,15 @@ END_VAR
 
 endPrintOSF(CLK := printerEndOfPrint);
 printDeltaTimer(IN := oPrinterStartPrint);
-// IF endPrintOSF.Q OR testWrite THEN
-// 	lastPrinterDelta := printDeltaTimer.ET;
-// 	Globals.lastPrinterDelta := printDeltaTimer.ET;
-// 	stringToLog :=  CONCAT(TO_STRING(PRG_Bagger.currentDateAndTime.dtCurrent),',');
-// 	stringToLog := Standard.CONCAT(stringToLog,TO_STRING(printDeltaTimer.ET));
-// 	CSVWriter.xText_Write := stringToLog;
-// 	CSVWriter.xWrite := TRUE;
-// 	testWrite := FALSE;
-// END_IF
+IF endPrintOSF.Q OR testWrite THEN
+	lastPrinterDelta := printDeltaTimer.ET;
+	Globals.lastPrinterDelta := printDeltaTimer.ET;
+	stringToLog :=  CONCAT(TO_STRING(PRG_Bagger.currentDateAndTime.dtCurrent),',');
+	stringToLog := Standard.CONCAT(stringToLog,TO_STRING(printDeltaTimer.ET));
+	//CSVWriter.xText_Write := stringToLog;
+	//CSVWriter.xWrite := TRUE;
+	testWrite := FALSE;
+END_IF
 // 
 // CSVWriter(
 // 	xFilePath:= , 

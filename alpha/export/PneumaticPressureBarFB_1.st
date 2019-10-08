@@ -26,6 +26,7 @@ VAR
     timerRetractedDebounce : TON;        //Timer for retract delay
     timerRetractDwell : TON;        //Timer for retract dwell after extended
     timerSealDwell : TON;            //Timer for seal dwell
+	timerObsSwitchFault : Standard.TON;
     extendDelaySP : INT := 50;    //Extend delay SP
     extendDwellSP : INT := 300;    //Extend dwell SP
     retractDelaySP : INT := 50;        //Retract delay SP
@@ -61,11 +62,12 @@ timerExtendedDebounce(PT := INT_TO_TIME(extendDelaySP));
 timerExtendDwell(PT := INT_TO_TIME(extendDwellSP));
 timerRetractedDebounce(PT := INT_TO_TIME(retractDelaySP));
 timerRetractDwell(PT := INT_TO_TIME(retractDwellSP));
-
+timerObsSwitchFault(PT := T#100MS);
 //Go to idle when enabled
 IF enableONS.Q OR resetONS.Q THEN    
     state := PRESSURE_BAR_STATES.Idle;
 	_reset := FALSE;
+	timerObsSwitchFault.IN := FALSE;
 END_IF
 
 IF NOT enable THEN
@@ -91,7 +93,7 @@ CASE state OF
                                     ELSIF manualModeSelected THEN
                                         state := PRESSURE_BAR_STATES.Manual;
                                     END_IF
-                                    
+                                    timerObsSwitchFault.IN := FALSE;
     
     PRESSURE_BAR_STATES.OpenJaw :                //Open jaw by extending cylinder
                                     ExtendCylinderHighPressure();
@@ -166,7 +168,16 @@ CASE state OF
                                     IF (semiAutoModeSelected AND startCyclePB) THEN
                                         timerRetractDwell.IN := TRUE;
                                     END_IF    
-
+									IF iPressureBarNotObstructed THEN
+										timerObsSwitchFault.IN := TRUE;
+										IF timerObsSwitchFault.Q THEN
+											ExtendCylinderLowPressure();
+											faults.obstructionFailedToSwitch.Trigger();
+											state := PRESSURE_BAR_STATES.Fault;
+										END_IF
+									ELSE
+										timerObsSwitchFault.IN := FALSE;
+									END_IF
                                     
                                     IF timerRetractDwell.Q OR (autoModeSelected AND _amOpenJaw) OR HMIData.pressureBarService.extendCommand THEN
                                         state := PRESSURE_BAR_STATES.OpenJaw;

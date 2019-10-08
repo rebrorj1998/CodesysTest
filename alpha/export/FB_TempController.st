@@ -30,10 +30,10 @@ VAR
 	diffScaled : DINT;
 	diffLast : DINT;
 	lastTemp : REAL;
-	thermRunawayNHUpdateTimer : Standard.TON := (PT := T#30S);
-	thermRunawayNHFaultTimer : Standard.TON := (PT := T#31S);
-	thermRunawayOSUpdateTimer : Standard.TON := (PT := T#30S);
-	thermRunawayOSFaultTimer : Standard.TON := (PT := T#31S);
+	thermRunawayNHUpdateTimer : Standard.TON := (PT := T#60S);
+	thermRunawayNHFaultTimer : Standard.TON := (PT := T#61S);
+	thermRunawayOSUpdateTimer : Standard.TON := (PT := T#60S);
+	thermRunawayOSFaultTimer : Standard.TON := (PT := T#61S);
 END_VAR
 
 SUPER^();
@@ -102,7 +102,7 @@ ELSE
 END_IF
 
 IF thermRunawayNHFaultTimer.Q THEN
-	//thermalRunawayNotHeating.Trigger();
+	thermalRunawayNotHeating.Trigger();
 	thermRunawayNHFaultTimer.IN := FALSE;
 END_IF
 
@@ -123,7 +123,7 @@ ELSE
 END_IF
 
 IF thermRunawayOSFaultTimer.Q THEN
-	//thermalRunawayOvershoot.Trigger();
+	thermalRunawayOvershoot.Trigger();
 	thermRunawayOSFaultTimer.IN := FALSE;
 END_IF
 

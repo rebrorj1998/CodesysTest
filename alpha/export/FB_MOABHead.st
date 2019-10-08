@@ -746,7 +746,7 @@ CASE state OF
 													ELSE
 														sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
 													END_IF
-                                                    
+                                                    HMIData.inCycle := TRUE;
 													HMIData.airFilterClean.Increment();
 													HMIData.baggerCycles.Increment();
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
@@ -814,7 +814,7 @@ CASE state OF
 														ELSE
 															HMIData.averageCycleTime := (cycleTime + HMIData.averageCycleTime) / 2;
 														END_IF
-														
+														HMIData.inCycle := FALSE;
 														//bagFailedToOpen := FALSE;
 														IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 															IF (HMIData.bagsMade.count >= 1000) THEN
@@ -854,7 +854,8 @@ CASE state OF
                                             state := HEAD_STATES.Idle;
 											setPassthroughPB := FALSE;    
                                                     
-    HEAD_STATES.Fault :                     hmiLight.TurnOff();   
+    HEAD_STATES.Fault :                     hmiLight.TurnOff(); 
+											HMIData.inCycle := FALSE;  
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
