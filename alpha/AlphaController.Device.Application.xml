@@ -793,6 +793,7 @@
         <Node name="rearLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
+        <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealBarCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
         <Node name="sealBarNotAtTemperature" type="T_Warning" access="ReadWrite" />
