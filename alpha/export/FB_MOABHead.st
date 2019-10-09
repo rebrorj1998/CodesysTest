@@ -805,7 +805,8 @@ CASE state OF
     HEAD_STATES.OpenedBag :                            // Move fingers in and to bag holding and reset cycle
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) //OR bagFailedToOpen
 														 AND pressureBar.state = PRESSURE_BAR_STATES.JawOpened THEN
-														 HMIData.bagsMade.Increment();
+														HMIData.bagsMade.Increment();
+														HMIData.resettableBagsMade.Increment();
                                                         state := HEAD_STATES.Idle;
 														cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
 														cycleTimer.IN := FALSE;
