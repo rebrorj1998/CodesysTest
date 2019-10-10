@@ -40,24 +40,24 @@ IF endPrintOSF.Q OR testWrite THEN
 	Globals.lastPrinterDelta := printDeltaTimer.ET;
 	stringToLog :=  CONCAT(TO_STRING(PRG_Bagger.currentDateAndTime.dtCurrent),',');
 	stringToLog := Standard.CONCAT(stringToLog,TO_STRING(printDeltaTimer.ET));
-	CSVWriter.xText_Write := stringToLog;
-	CSVWriter.xWrite := TRUE;
+	//CSVWriter.xText_Write := stringToLog;
+	//CSVWriter.xWrite := TRUE;
 	testWrite := FALSE;
 END_IF
-
-CSVWriter(
-	xFilePath:= , 
-	xText_Write:= , 
-	xAppend_OverWrite:= TRUE, 
-	xAppend_Pos:= , 
-	xWrite:= , 
-	xRead:= , 
-	xLine_No_To_Read:= , 
-	xText_Read=> , 
-	xDone=> );
-IF CSVWriter.xDone THEN
-	CSVWriter.xWrite := FALSE;
-END_IF
+// 
+// CSVWriter(
+// 	xFilePath:= , 
+// 	xText_Write:= , 
+// 	xAppend_OverWrite:= TRUE, 
+// 	xAppend_Pos:= , 
+// 	xWrite:= , 
+// 	xRead:= , 
+// 	xLine_No_To_Read:= , 
+// 	xText_Read=> , 
+// 	xDone=> );
+// IF CSVWriter.xDone THEN
+// 	CSVWriter.xWrite := FALSE;
+// END_IF
 
 ctfb(ct_max => cycleTimeMax);
 cycleTimeMaxDINT := TIME_TO_DINT(cycleTimeMax);
@@ -66,9 +66,10 @@ profileThis := TIME_TO_DINT(ctfb.ct_last) >= 25;
 //PRG_PneumaticHead();
 PRG_Bagger();
 Faults();
+versionInfo := GetVersion();
 HMIData.version := Standard.CONCAT(TO_STRING(versionInfo.uiMajor),'.');
 	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiMinor),'.'));
-	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(versionInfo.uiServicePack));
+	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiServicePack),'.'));
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(versionInfo.uiPatch));
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(GetTextProperty("VersionPostfix")));
 IF NOT firstScanDone THEN
@@ -77,14 +78,12 @@ IF NOT firstScanDone THEN
 	firstScanDone := TRUE;
 	// After first scan turn off flag set by StartDone system event
 	Globals.firstScan := FALSE;	
-	versionInfo := GetVersion();
-	
-	
 END_IF
 
 // Start executing objects that implement IExecuteAutomatically 
 IF firstScanDone THEN
 	GlobalObjects.CollectionOfExecutable.ExecuteAll();
+	Globals.SystemLog();
 END_IF
 
 

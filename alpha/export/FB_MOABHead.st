@@ -34,6 +34,8 @@ VAR
 	enableBagOpen : BOOL;
 	enableLoadPlate : BOOL;
 	enableHeater : BOOL;
+	enableIBDDeflate : BOOL;
+	enableIBDEject : BOOL;
 	enableLabelSideUp : BOOL := TRUE;
 	factoryTestModeKeepCycling : BOOL;
     bagDelivery : BagDeliveryFB();
@@ -47,6 +49,11 @@ VAR
 	forwardLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	exitConveyorRun : MonostableMultivibratorFB() := (Dwellsetting := 6000);
+	IBDCylinders : FB_ThreePositionCylinder();
+	IBDExtendONS : FB_ONS();
+	IBDRetractONS : FB_ONS();
+	IBDRetractToDeflate : MonostableMultivibratorFB();
+	IBDRetractToEject : MonostableMultivibratorFB();
 	bagOpenFingers : BagOpenFingersWithSensorsFB();
 	bagOpenCheckDelay : Standard.TON := (PT:= T#400MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
@@ -54,6 +61,8 @@ VAR
 	bagOpenFeedNewBagSetting : UINT; // Number of new bags to try
 	bagOpenFeedNewBagCount : UINT;	// Count of new bags tried in recovery
 	recoveryModeActive : BOOL; 		// Recovery Mode Active
+	startCycleReqFromPalmButtons : BOOL;
+	startCycleReqFromPalmButtonsONS : FB_ONS();
 	pressureBarEndStopMotor : FB_AppliedMotionStepServoEIPPassthrough();
 	passthrough : AdjustablePassthroughFB();
 	homeJawPB : BOOL;
@@ -63,6 +72,7 @@ VAR
 	cycleTime : REAL;
 	bagFailedToOpen : FB_Fault(name := 'Bag Failed to Open');
 	safePowerFailure : FB_Fault(name := 'E-Stop/Safety Power Failure');
+	palmButtonConfigError : FB_Fault(name := 'Palm Button Configuration Error');
 	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
@@ -79,6 +89,7 @@ VAR
 	hmiLight  : FB_HMILight;
 	faultONS : FB_ONS;
 	powerSettlingTimer : Standard.TON := (PT := T#6S);
+	pressureBarCloseDelay : Standard.TON;
 END_VAR
 
 //    Function Block: FB_MOABHead
@@ -91,23 +102,27 @@ END_VAR
 // Run BaseComponentFB
 SUPER^();
 
-
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
 Globals.machinePowerOK := powerSettlingTimer.Q;
 safePowerFailure.faultTrigger := NOT iEStopOK;
 
+// Bags Low warning
+HMIData.bagLevelLow.active := iBagsLow;
+
 // Option setup and factory config  
-  
+	 
+IF HMIData.resetAverageCycleTime THEN
+	HMIData.averageCycleTime := 0;
+	HMIData.resetAverageCycleTime := FALSE;
+END_IF
 HMIData.lastCycleTime := cycleTime;
-HMIData.averageCycleTime := cycleTime + 0.31;
+
 HMIData.printerNotReady.active := NOT printerReady AND zebraPrinter.enable;
 HMIData.waitingForPrinter.active := zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter;
 //HMIData.printerRibbonLow.active := printerRibbonLow;
-
-
 	 
-batchSetting := HMIData.batchSetting;	
+batchSetting := HMIData.batchSetting;
 HMIData.batchCount := batchCount;
 
 bagOpenRetrySetting := HMIData.bagOpenRetrySetting;
@@ -180,9 +195,45 @@ hpaServiceOnONS(CLK := HMIData.hpaserviceOn);
 LPA.DwellSetting := TO_UINT(HMIData.lpaDwell * 1000);
 LPA(Q => oLPAOn);
 	 
+CASE HMIData.independentBagDeflatorSelection OF
+	BagDeflatorSelection.NotInstalled:					// Disable IBD
+		 													enableIBDDeflate := FALSE;
+															IBDRetractToDeflate.DelaySetting := 0;
+															IBDRetractToDeflate.DwellSetting := 0;
+															IBDRetractToEject.DelaySetting := 0;
+															IBDRetractToEject.DwellSetting := 0;
+	
+	BagDeflatorSelection.IBDStandard:	// Enable IBD
+															IF HMIData.IBDDeflateDwellTime <> 0 THEN
+																enableIBDDeflate := TRUE;
+															ELSE
+																enableIBDDeflate := FALSE;
+															END_IF
+															
+															IF HMIData.IBDPackageEjectAssistDwellTime <> 0 THEN
+																enableIBDEject := TRUE;
+															ELSE
+																enableIBDEject := FALSE;
+															END_IF
+	 
+															IBDRetractToDeflate.DelaySetting := 0;
+															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
+															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
+															IBDRetractToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
+																 
+	BagDeflatorSelection.IBDWithHingedPlate:	// Enable IBD with Hinged Plate
+															enableIBDDeflate := TRUE;
+															IBDRetractToDeflate.DelaySetting := 0;
+															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
+															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
+															IBDRetractToEject.DwellSetting := TO_UINT(HMIData.IBDPackageEjectAssistDwellTime * 1000);
+	
+END_CASE
+
 CASE HMIData.bofSelection OF
 	BagOpenFingersSelection.NotInstalled:					// Disable Bag Open
 		 													enableBagOpen := FALSE;
+															
 	
 	BagOpenFingersSelection.PneumaticWithBagOpenSensors:	// Enable Bag Open
 															enableBagOpen := TRUE;
@@ -206,6 +257,8 @@ CASE HMIData.packageEjectSelection OF
 														forwardLoadPlateFaultTimer.enable := FALSE;
 														rearLoadPlateFaultTimer.enable := FALSE;
 														loadShelfFaultTimer.enable := FALSE;
+														rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
+														rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
 	
 	PackageEjectionSelection.LabelSideUp:				// Enable all
 		 												enableLoadPlate := TRUE;
@@ -214,14 +267,32 @@ CASE HMIData.packageEjectSelection OF
 														forwardLoadPlateFaultTimer.enable := Globals.machinePowerOK;
 														rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
 														loadShelfFaultTimer.enable := Globals.machinePowerOK;
+														rearLoadPlateRetract.DelaySetting := 0;
+														rearLoadPlateRetract.DwellSetting := TO_UINT((HMIData.loadPlateDwell + HMIData.loadPlateDelay) * 1000);
 END_CASE
 
-
+CASE HMIData.cycleStartButtonSelection OF
+	PalmButtonSelection.NotInstalled:					// Dont' allow input to start bagger cycle
+		 												startCycleReqFromPalmButtons := FALSE;
+		 
+	PalmButtonSelection.SinglePalmButton:				// Start using one side only
+		 												startCycleReqFromPalmButtons := iRightPalmButton;
+														
+														// Trigger fault if left palm button is seen - should be set up for dual!	 
+														IF iLeftPalmButton THEN
+															palmButtonConfigError.Trigger();		 
+														END_IF
+		 
+	PalmButtonSelection.DualPalmButton:					// Both buttons must be pressed
+		 												startCycleReqFromPalmButtons := iRightPalmButton AND iLeftPalmButton;
+END_CASE
+startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
+	 
+		  
 HMIData.packageEjectGuardRemoved.active :=  HMIData.packageEjectSelection = PackageEjectionSelection.LabelSideUp AND NOT iPackageEjectGuardClosed;
 HMIData.loadPlateService.extendedFeedback := HMIData.rearLoadPlateService.extendedFeedback := iLoadPlateExtended;
 HMIData.loadPlateService.retractedFeedback := HMIData.rearLoadPlateService.retractedFeedback := iLoadPlateRetracted;
-rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
+
 rearLoadPlateRetract();
 oLoadPlateRetract := rearLoadPlateRetract.Q;
 oLoadPlateExtend := NOT oLoadPlateRetract;
@@ -263,6 +334,7 @@ forwardLoadPlateFaultTimer(
 HMIData.loadShelfService.extendedFeedback := iLoadShelfExtended;
 HMIData.loadShelfService.retractedFeedback := iLoadShelfRetracted;
 loadShelfExtend.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
+loadShelfExtend.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
 loadShelfExtend();
 oLoadShelfUp := NOT loadShelfExtend.Q;
 loadShelfFaultTimer(
@@ -288,7 +360,20 @@ bagOpenFingers(releaseOutput => oBOFUp,
 				bagFailedToGrabLeftFingerCount := Globals.bagFailedToGrabLeftFingerCount,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
-				
+IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);				
+IBDRetractToDeflate();
+IBDRetractToEject();
+IBDRetractONS(CLK := IBDRetractToDeflate.Q OR IBDRetractToEject.Q);
+IBDExtendONS(CLK := NOT (IBDRetractToDeflate.Q AND IBDRetractToEject.Q));
+// IF IBDRetractONS.OSR THEN
+// 	IBDCylinders.Retract();
+// ELSIF IBDExtendONS.OSR THEN
+// 	IBDCylinders.Extend();
+// ELSIF HMIData.faultActive THEN
+// 	IBDCylinders.Exhaust();
+// END_IF
+oIBDRetract := IBDRetractToDeflate.Q OR IBDRetractToEject.Q;
+oIBDExtend := NOT oIBDRetract;
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
@@ -306,7 +391,8 @@ passthrough(pressureBarEndStopMotor := pressureBarEndStopMotor,
 			cumulativeChangeCount := Globals.passthroughChangeCount2, 
 			cumulativeChangeDistance := Globals.passthroughChangeDistance2,
 			jogInPB := HMIData.jogPassthroughForward,
-			jogOutPB := HMIData.jogPassthroughReverse);
+			jogOutPB := HMIData.jogPassthroughReverse,
+			passthroughPosition => HMIData.passthroughPosition);
 passthrough.Mode := passthroughMode;
 
 
@@ -383,6 +469,9 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	rearLoadPlateRetract.Reset();
 	forwardLoadPlateRetract.Reset();
 	loadShelfExtend.Reset();
+	IBDRetractToDeflate.Reset();
+	IBDRetractToEject.Reset();
+	IBDCylinders.Extend();
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
@@ -390,6 +479,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	oSealBarExtend := FALSE;
 	oSealBarRetract := TRUE;
 	sealTimer.IN := FALSE;
+	pressureBarCloseDelay.IN := FALSE;
 	//HMIData.airFilterClean.SetCount(27336);
 	//HMIData.driveRollerClean.SetCount(12041);
 	//HMIData.printHeadClean.SetCount(3224);
@@ -475,7 +565,7 @@ IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
 	pressureBarEndStopMotor.Stop();
 	cycleTimer.IN := FALSE;
 END_IF
-
+pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
 cycleTimer();
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
@@ -487,7 +577,7 @@ CASE state OF
                                                     IF startCycle 
 													OR (enableBatch AND (batchCount < batchSetting))
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND factoryTestModeKeepCycling AND NOT LPA.Q
-													OR (iLeftPalmButton AND iRightPalmButton) 
+													OR startCycleReqFromPalmButtonsONS.OSR 
 													OR (HMIData.initiateCycle AND readyToRun) 
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
@@ -497,8 +587,13 @@ CASE state OF
 														
 														cycleTimer.IN := TRUE;
                                                     END_IF
-                                                    IF (HMIData.passthroughSetting <> passthroughSettingLast) AND NOT pressureBarEndStopMotor.Faulted AND NOT pressureBarEndStopMotor.HomeRequired THEN
+													IF NOT Globals.passthroughChangedFromJog AND HMIData.jobLoaded THEN
+														HMIData.jobLoaded := FALSE;
+													END_IF
+                                                    IF (HMIData.passthroughSetting <> passthroughSettingLast) OR (Globals.passthroughChangedFromJog AND HMIData.jobLoaded) AND NOT pressureBarEndStopMotor.Faulted AND NOT pressureBarEndStopMotor.HomeRequired THEN
 															setPassthroughPB := TRUE;
+															Globals.passthroughChangedFromJog := FALSE;
+															HMIData.jobLoaded := FALSE;
 															passthroughSetting := HMIData.passthroughSetting;
 															passthroughSettingLast := HMIData.passthroughSetting;
 													END_IF
@@ -564,7 +659,17 @@ CASE state OF
 														forwardLoadPlateRetract.ManualOff();
 														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
-														 
+													
+													IF HMIData.IBDService.retractCommand THEN
+														IBDRetractToDeflate.ManualOn();
+														HMIData.IBDService.retractCommand := FALSE;
+													END_IF                                      
+                                                    
+													IF HMIData.IBDService.extendCommand THEN
+														IBDRetractToDeflate.ManualOff();
+														HMIData.IBDService.extendCommand := FALSE;
+													END_IF	
+	 
 													IF HMIData.lpaServicePulse THEN
 														LPA.Trigger();
 														HMIData.lpaServicePulse := FALSE;
@@ -639,7 +744,14 @@ CASE state OF
 													{endregion:'Service'}
                                                     
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
-                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
+													IF enableIBDDeflate THEN
+														sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+													ELSE
+														sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+													END_IF
+                                                    HMIData.inCycle := TRUE;
+													HMIData.airFilterClean.Increment();
+													HMIData.baggerCycles.Increment();
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
                                                     
                 
@@ -696,10 +808,17 @@ CASE state OF
     HEAD_STATES.OpenedBag :                            // Move fingers in and to bag holding and reset cycle
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) //OR bagFailedToOpen
 														 AND pressureBar.state = PRESSURE_BAR_STATES.JawOpened THEN
-														 HMIData.bagsMade.Increment();
+														HMIData.bagsMade.Increment();
+														HMIData.resettableBagsMade.Increment();
                                                         state := HEAD_STATES.Idle;
 														cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
 														cycleTimer.IN := FALSE;
+														IF HMIData.averageCycleTime = 0 THEN
+															HMIData.averageCycleTime := cycleTime;
+														ELSE
+															HMIData.averageCycleTime := (cycleTime + HMIData.averageCycleTime) / 2;
+														END_IF
+														HMIData.inCycle := FALSE;
 														//bagFailedToOpen := FALSE;
 														IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 															IF (HMIData.bagsMade.count >= 1000) THEN
@@ -739,32 +858,54 @@ CASE state OF
                                             state := HEAD_STATES.Idle;
 											setPassthroughPB := FALSE;    
                                                     
-    HEAD_STATES.Fault :                     hmiLight.TurnOff();   
-											
+    HEAD_STATES.Fault :                     hmiLight.TurnOff(); 
+											HMIData.inCycle := FALSE;  
+											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
+											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
+											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
 											oVacOn := FALSE;
 											LPA.ManualOff();
+											IBDRetractToDeflate.Reset();
+											IBDRetractToEject.Reset();
+											oRunPrinterRibbonUnwindMotor := FALSE;
 											setPassthroughPB := FALSE;
 											homeJawPB := FALSE;
 											startCycle := FALSE;
 											HMIData.initiateCycle := FALSE;
-											factoryTestModeKeepCycling := FALSE;   
+											factoryTestModeKeepCycling := FALSE; 
+											pressureBarCloseDelay.IN := FALSE;  
                                                     
 END_CASE
 
 CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.Idle : 
+	
+	SEAL_SEPARATE_STATES.BringInIBD : 				// Bring in IBD if enabled
+													IF enableIBDDeflate THEN
+														IBDRetractToDeflate.Trigger();
+													END_IF 
+													
+													sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+	
+	SEAL_SEPARATE_STATES.WaitForJawCloseDelay : 	// Wait for jaw close delay. 
+													IF pressureBar.enable THEN
+														pressureBarCloseDelay.IN := TRUE;
+														IF pressureBarCloseDelay.Q OR HMIData.pressureBarCloseDelay = 0 THEN
+															sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
+															pressureBarCloseDelay.IN := FALSE;
+														END_IF
+                                                    ELSE 
+                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
+                                                    END_IF
         
     SEAL_SEPARATE_STATES.MoveJawIn :                // Perform actions as enabled - close jaw and move flatteners out. If jaw is disabled then go right to reverse bag
                                                     IF motorizedSealFlatteners.enable THEN
                                                         motorizedSealFlatteners.AutoMoveOut();
                                                     END_IF
                                                     
-                                                    IF pressureBar.enable THEN
-                                                        pressureBar.AutoCloseJaw();
-                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.MovingJawIn;
-                                                    ELSE 
-                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
-                                                    END_IF
+													pressureBar.AutoCloseJaw();
+                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.MovingJawIn;
+                                                    
                                                     
                                                     
                                                     
@@ -780,6 +921,7 @@ CASE sealAndSeparateSubState OF
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
                                                     
     SEAL_SEPARATE_STATES.ReverseBag :                // Reverse bag if bag delivery enabled, otherwise open jaw
+													IBDRetractToDeflate.Reset();
                                                     IF bagDelivery.enable THEN
                                                         bagDelivery.AutoReverseBag();
                                                         sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReversingBag;
@@ -863,6 +1005,10 @@ CASE releaseAndFeedSubState OF
                                                             
 															IF enableBagOpen THEN
 																bagOpenFingers.Release();
+															END_IF
+															
+															IF enableIBDEject THEN
+																IBDRetractToEject.Trigger();
 															END_IF
 															
 															IF enableLoadPlate THEN
@@ -971,6 +1117,7 @@ CASE releaseAndFeedSubState OF
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawOpened OR NOT pressureBar.enable)
                                                         THEN
 															LPA.ManualOff();
+															IBDRetractToEject.Reset();
                                                             releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
                                                     
@@ -1069,8 +1216,7 @@ CASE openBagSubState OF
                                                     	motorizedSealFlatteners.AutoMoveToBagHolding();
 														bagOpenRetryCount := 0;
 														
-														HMIData.airFilterClean.Increment();
-														HMIData.baggerCycles.Increment();
+														
 														openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
 														
                                       

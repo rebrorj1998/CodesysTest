@@ -66,7 +66,7 @@ END_IF
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PASSTHROUGH_SERVO_STATES.Fault);
 IF faultONS.OSR THEN
 	pressureBarEndStopMotor.Stop();
-	state := PASSTHROUGH_SERVO_STATES.Fault;
+	state := PASSTHROUGH_SERVO_STATES.Idle;
 END_IF
 
 CASE state OF
@@ -162,6 +162,7 @@ CASE state OF
 															IF jogOutONS.OSF THEN
 																passthroughTravel := ABS(capturePassthroughPos - passthroughPosition);
 																pressureBarEndStopMotor.Stop();
+																Globals.passthroughChangedFromJog := TRUE;
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedOut;
 															END_IF
 														END_IF
@@ -204,6 +205,7 @@ CASE state OF
 															IF jogInONS.OSF THEN
 																passthroughTravel := ABS(capturePassthroughPos - passthroughPosition);
 																pressureBarEndStopMotor.Stop();
+																Globals.passthroughChangedFromJog := TRUE;
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedIn;
 															END_IF
                                                         END_IF
@@ -231,6 +233,7 @@ CASE state OF
 															capturePassthroughPos := passthroughPosition;
 															state := PASSTHROUGH_SERVO_STATES.MovePassthroughOut;
 														ELSIF jogInONS.OSF OR jogOutONS.OSF THEN
+															Globals.passthroughChangedFromJog := TRUE;
 															pressureBarEndStopMotor.Stop();
 														END_IF
 														

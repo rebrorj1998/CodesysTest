@@ -70,7 +70,7 @@ IF useLastPrinterDelta THEN
 	IF Globals.lastPrinterDelta >= T#90MS THEN
 		delayForPrintFeed := Globals.lastPrinterDelta - T#80MS;
 	ELSE
-		delayForPrintFeed := T#10MS;
+		delayForPrintFeed := T#0MS;
 	END_IF
 END_IF
 bagLengthSetpoint := HMIData.bagLength;

@@ -40,6 +40,11 @@
     <TypeArray name="T_ARRAY__0__15__OF_DINT" size="64" nativesize="64" typeclass="Array" iecname="ARRAY [0..15] OF DINT" basetype="T_DINT">
       <ArrayDim minrange="0" maxrange="15" />
     </TypeArray>
+    <TypeUserDef name="T_BagDeflatorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagDeflatorSelection" basetype="T_INT">
+      <UserDefElement type="T_BagDeflatorSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_BagDeflatorSelection" iecname="IBDStandard" enumvalue="1" />
+      <UserDefElement type="T_BagDeflatorSelection" iecname="IBDWithHingedPlate" enumvalue="2" />
+    </TypeUserDef>
     <TypeUserDef name="T_BagOpenFingersSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagOpenFingersSelection" basetype="T_INT">
       <UserDefElement type="T_BagOpenFingersSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_BagOpenFingersSelection" iecname="PneumaticWithBagOpenSensors" enumvalue="1" />
@@ -63,6 +68,15 @@
       <UserDefElement iecname="ackCommand" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="acknowledged" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="active" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_TemperatureSensor" size="184" nativesize="192" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TemperatureSensor">
+      <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="_rawTemperatureReading" type="T_INT" byteoffset="82" vartype="VAR" />
+      <UserDefElement iecname="_temperatureReadingC" type="T_REAL" byteoffset="84" vartype="VAR" />
+      <UserDefElement iecname="_temperatureReadingF" type="T_REAL" byteoffset="88" vartype="VAR" />
+      <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="92" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="TempReadingC" type="T_REAL" byteoffset="176" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="TempReadingF" type="T_REAL" byteoffset="180" vartype="VAR" propertytype="variable" />
     </TypeUserDef>
     <TypeUserDef name="T_F_TRIG" size="2" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="F_TRIG">
       <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
@@ -94,6 +108,11 @@
       <UserDefElement type="T_PackageEjectionSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_PackageEjectionSelection" iecname="RearRetractingLoadPlate" enumvalue="1" />
       <UserDefElement type="T_PackageEjectionSelection" iecname="LabelSideUp" enumvalue="2" />
+    </TypeUserDef>
+    <TypeUserDef name="T_PalmButtonSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PalmButtonSelection" basetype="T_INT">
+      <UserDefElement type="T_PalmButtonSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_PalmButtonSelection" iecname="SinglePalmButton" enumvalue="1" />
+      <UserDefElement type="T_PalmButtonSelection" iecname="DualPalmButton" enumvalue="2" />
     </TypeUserDef>
     <TypeSimple name="T_REFERENCE_TO_BOOL_REF" size="1" swapsize="0" typeclass="Reference" iecname="REFERENCE TO BOOL_REF" basetype="T_BOOL" />
     <TypeUserDef name="T_R_TRIG" size="2" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="R_TRIG">
@@ -177,6 +196,9 @@
       <UserDefElement iecname="faultSourceList" type="T_ARRAY__0__100__OF_IFault" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="sourcesInList" type="T_INT" byteoffset="404" vartype="VAR" />
     </TypeUserDef>
+    <TypeUserDef name="T_FB_IFMTempSensor" size="3" nativesize="364" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_IFMTempSensor" basetype="T_FB_TemperatureSensor">
+      <UserDefElement iecname="rtdFailure" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
     <TypeUserDef name="T_FB_ONS" size="7" nativesize="24" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ONS">
       <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="OSR" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
@@ -226,11 +248,12 @@
       <UserDefElement iecname="failedToLoad" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_PressureBarFaultsType" size="12" nativesize="672" typeclass="Userdef" pouclass="STRUCTURE" iecname="PressureBarFaultsType">
+    <TypeUserDef name="T_PressureBarFaultsType" size="15" nativesize="840" typeclass="Userdef" pouclass="STRUCTURE" iecname="PressureBarFaultsType">
       <UserDefElement iecname="failedToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="failedToClose" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
       <UserDefElement iecname="obstructionDetected" type="T_FB_Fault" byteoffset="9" vartype="VAR" />
+      <UserDefElement iecname="obstructionFailedToSwitch" type="T_FB_Fault" byteoffset="12" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_StepServoFaultsType" size="42" nativesize="2352" typeclass="Userdef" pouclass="STRUCTURE" iecname="StepServoFaultsType">
       <UserDefElement iecname="positionLimit" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
@@ -275,7 +298,11 @@
       <UserDefElement iecname="maxTemp" type="T_REAL" byteoffset="180" vartype="VAR_INPUT" />
       <UserDefElement iecname="DriveTemp" type="T_REAL" byteoffset="184" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_PneumaticPressureBarFB_1" size="12" nativesize="928" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PneumaticPressureBarFB_1" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_TempController" size="6" nativesize="828" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_BaseComponentFB">
+      <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_PneumaticPressureBarFB_1" size="15" nativesize="1124" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PneumaticPressureBarFB_1" basetype="T_BaseComponentFB">
       <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_PrinterFB_Mode2" size="4" nativesize="5476" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PrinterFB_Mode2" basetype="T_BaseComponentFB">
@@ -545,20 +572,23 @@
       <UserDefElement iecname="_amMoveClearance" type="T_BOOL" byteoffset="986" vartype="VAR" />
       <UserDefElement iecname="_amMoveInToBagHolding" type="T_BOOL" byteoffset="987" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3605" nativesize="23892" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3620" nativesize="24816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="988" vartype="VAR" />
-      <UserDefElement iecname="bagDelivery" type="T_BagDeliveryFB" byteoffset="1000" vartype="VAR" />
-      <UserDefElement iecname="zebraPrinter" type="T_PrinterFB_Mode2" byteoffset="2702" vartype="VAR" />
-      <UserDefElement iecname="bagOpenFingerDelay" type="T_TON" byteoffset="2708" vartype="VAR" />
-      <UserDefElement iecname="pressureBarEndStopMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="2724" vartype="VAR" />
-      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="3560" vartype="VAR" />
-      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="3563" vartype="VAR" />
-      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="3566" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3569" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3578" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3587" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3596" vartype="VAR" />
+      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1003" vartype="VAR" />
+      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="1006" vartype="VAR" />
+      <UserDefElement iecname="bagDelivery" type="T_BagDeliveryFB" byteoffset="1012" vartype="VAR" />
+      <UserDefElement iecname="zebraPrinter" type="T_PrinterFB_Mode2" byteoffset="2714" vartype="VAR" />
+      <UserDefElement iecname="bagOpenFingerDelay" type="T_TON" byteoffset="2720" vartype="VAR" />
+      <UserDefElement iecname="pressureBarEndStopMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="2736" vartype="VAR" />
+      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="3572" vartype="VAR" />
+      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="3575" vartype="VAR" />
+      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="3578" vartype="VAR" />
+      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="3581" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3584" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3593" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3602" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3611" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
@@ -649,6 +679,7 @@
         </Node>
         <Node name="baggerNotReady" type="T_Warning" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
+        <Node name="bagLevelLow" type="T_Warning" access="ReadWrite" />
         <Node name="bagOpenFingerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="bagOpenFingersServiceGrab" type="T_BOOL" access="ReadWrite" />
         <Node name="bagOpenFingersServiceRelease" type="T_BOOL" access="ReadWrite" />
@@ -668,6 +699,7 @@
           <Comment>Factoy Config</Comment>
         </Node>
         <Node name="currentJobID" type="T_INT" access="ReadWrite" />
+        <Node name="cycleStartButtonSelection" type="T_PalmButtonSelection" access="ReadWrite" />
         <Node name="demoModeIsActive" type="T_Warning" access="ReadWrite" />
         <Node name="driveRollerClean" type="T_FB_PredictiveMaint" access="ReadWrite" />
         <Node name="exitConveyorDwell" type="T_REAL" access="ReadWrite" />
@@ -689,7 +721,12 @@
         <Node name="hpaDwell" type="T_REAL" access="ReadWrite" />
         <Node name="hpaServiceOn" type="T_BOOL" access="ReadWrite" />
         <Node name="hpaServicePulse" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDDeflateDwellTime" type="T_REAL" access="ReadWrite" />
+        <Node name="IBDPackageEjectAssistDelayTime" type="T_REAL" access="ReadWrite" />
+        <Node name="IBDPackageEjectAssistDwellTime" type="T_REAL" access="ReadWrite" />
+        <Node name="IBDService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="inCycle" type="T_BOOL" access="ReadWrite" />
+        <Node name="independentBagDeflatorSelection" type="T_BagDeflatorSelection" access="ReadWrite" />
         <Node name="initiateCycle" type="T_BOOL" access="ReadWrite">
           <Comment> Initiate Cycle Pushbutton</Comment>
         </Node>
@@ -697,6 +734,7 @@
         <Node name="IOMasterFaults" type="T_IOMasterFaultsType" access="ReadWrite">
           <Comment>Faults</Comment>
         </Node>
+        <Node name="jobLoaded" type="T_BOOL" access="ReadWrite" />
         <Node name="jobLoadRequired" type="T_Warning" access="ReadWrite" />
         <Node name="jogBagForward" type="T_BOOL" access="ReadWrite" />
         <Node name="jogBagReverse" type="T_BOOL" access="ReadWrite" />
@@ -755,6 +793,7 @@
         <Node name="rearLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
+        <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealBarCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
         <Node name="sealBarNotAtTemperature" type="T_Warning" access="ReadWrite" />
@@ -782,6 +821,9 @@
       <Node name="IoConfig_Globals_Mapping">
         <Node name="iBagNotPresent" type="T_BIT_X_2" access="Read" directaddress="%IX412.2">
           <Comment>Bag_Delivery_EIP_Motor : </Comment>
+        </Node>
+        <Node name="iBagsLow" type="T_BIT_X_5" access="Read" directaddress="%IX65.5">
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iBagTensionFault" type="T_BIT_X_3" access="Read" directaddress="%IX528.3">
           <Comment>Bag_Delivery_Rear_Motor : </Comment>
@@ -849,10 +891,19 @@
         <Node name="oFrontLoadPlateToLoad" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX188.2">
           <Comment>FestoManifold : </Comment>
         </Node>
+        <Node name="oHeaterPulse" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX37.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="oHMILight" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX36.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oHPAOn" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX186.7">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oIBDExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX188.6">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oIBDRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX188.7">
           <Comment>FestoManifold : </Comment>
         </Node>
         <Node name="oLoadPlateExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">
