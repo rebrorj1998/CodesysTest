@@ -7,7 +7,7 @@ FUNCTION GetVersion : VERSION
 VAR_INPUT
 	
 END_VAR
-GetVersion.uiMajor := 0;
-GetVersion.uiMinor := 2;
-GetVersion.uiServicePack := 1;
-GetVersion.uiPatch := 122;
+GetVersion.uiMajor := 1;
+GetVersion.uiMinor := 0;
+GetVersion.uiServicePack := 0;
+GetVersion.uiPatch := 0;
