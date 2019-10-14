@@ -40,6 +40,21 @@
     <TypeArray name="T_ARRAY__0__15__OF_DINT" size="64" nativesize="64" typeclass="Array" iecname="ARRAY [0..15] OF DINT" basetype="T_DINT">
       <ArrayDim minrange="0" maxrange="15" />
     </TypeArray>
+    <TypeUserDef name="T_AuxInputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxInputSelection" basetype="T_INT">
+      <UserDefElement type="T_AuxInputSelection" iecname="NotConfigured" enumvalue="0" />
+      <UserDefElement type="T_AuxInputSelection" iecname="BaggerInhibit" enumvalue="1" />
+    </TypeUserDef>
+    <TypeUserDef name="T_AuxOutputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxOutputSelection" basetype="T_INT">
+      <UserDefElement type="T_AuxOutputSelection" iecname="NotConfigured" enumvalue="0" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="PrinterDataReady" enumvalue="1" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="ReadyForPrinter" enumvalue="2" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="CycleComplete" enumvalue="3" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="BagMade" enumvalue="4" />
+    </TypeUserDef>
+    <TypeUserDef name="T_AuxiliaryIOSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxiliaryIOSelection" basetype="T_INT">
+      <UserDefElement type="T_AuxiliaryIOSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_AuxiliaryIOSelection" iecname="AuxIOStandard" enumvalue="1" />
+    </TypeUserDef>
     <TypeUserDef name="T_BagDeflatorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagDeflatorSelection" basetype="T_INT">
       <UserDefElement type="T_BagDeflatorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_BagDeflatorSelection" iecname="IBDStandard" enumvalue="1" />
@@ -180,6 +195,12 @@
     </TypeUserDef>
     <TypeUserDef name="T_Warning" size="1" nativesize="1" typeclass="Userdef" pouclass="STRUCTURE" iecname="Warning">
       <UserDefElement iecname="active" type="T_BOOL" byteoffset="0" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_AuxIOConfiguration" size="8" nativesize="8" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOConfiguration">
+      <UserDefElement iecname="factorySelection" type="T_AuxiliaryIOSelection" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="cfgInputSelection" type="T_AuxInputSelection" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput1Selection" type="T_AuxOutputSelection" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput2Selection" type="T_AuxOutputSelection" byteoffset="6" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_BaseComponentFB" size="13" nativesize="36" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
@@ -669,6 +690,7 @@
         <Node name="airFilterClean" type="T_FB_PredictiveMaint" access="ReadWrite">
           <Comment>Predictive Maint.</Comment>
         </Node>
+        <Node name="auxIOConfig" type="T_AuxIOConfiguration" access="ReadWrite" />
         <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="bagDeliveryMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
         <Node name="bagDropTime" type="T_REAL" access="ReadWrite" />
