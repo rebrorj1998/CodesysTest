@@ -1035,6 +1035,8 @@ CASE releaseAndFeedSubState OF
 															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable)
 															THEN   
 															bagDropTimer.IN := FALSE;
+															IBDRetractToEject.Reset();
+															IBDRetractToDeflate.Reset();
 															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
                                                                 bagDelivery.AutoFeedBagOut();
 																LPA.ManualOff();
