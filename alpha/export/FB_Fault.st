@@ -108,7 +108,10 @@ IF _active = TRUE THEN
 END_IF
 _active := TRUE;
 GlobalObjects.CollectionOfActiveFaults.AddObject(THIS^);
-_logger.AddLogItem(CONCAT(InstanceName,  ' Active'));
+IF _logger <> 0 THEN
+	_logger.AddLogItem(CONCAT(InstanceName,  ' Active'));
+END_IF
+
 
 METHOD FB_Init : BOOL
 VAR_INPUT
