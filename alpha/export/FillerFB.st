@@ -69,18 +69,22 @@ CASE state OF
 	
 	FILLER_STATES.WaitingForFiller :				// Waiting for filler trigger to initiate cycle
 													waitingForFiller := TRUE;
-													IF fillerRequestedCycle AND NOT HMIData.baggerInhibited.active THEN
+													IF fillerRequestedCycle THEN
 														waitingForFiller := FALSE;	
-														fillerRequestedCycle := FALSE;
-														state := FILLER_STATES.Dropping;
+														//IF NOT HMIData.baggerInhibited.active THEN
+															fillerRequestedCycle := FALSE;
+															state := FILLER_STATES.Dropping;	
+														//END_IF
 													END_IF
 													
 	FILLER_STATES.Dropping :						// Filler is dropping product
 													dropTimer.IN := TRUE;
 													IF dropTimer.Q THEN
-														dropTimer.IN := FALSE;
-														cycleBagRequest := TRUE;
-														state := FILLER_STATES.BaggerCycling;
+														IF NOT HMIData.baggerInhibited.active THEN
+															dropTimer.IN := FALSE;
+															cycleBagRequest := TRUE;
+															state := FILLER_STATES.BaggerCycling;	
+														END_IF
 													END_IF
 	
 	FILLER_STATES.BaggerCycling :					// Wait for bag to open 
