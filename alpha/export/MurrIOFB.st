@@ -20,6 +20,7 @@ VAR
 	systemStatusState : MURR_SYSTEM_STATES;
 	toggleConfig : OSCAT_BASIC.GEN_SQ;
 	MOMConfigLast : BYTE;
+	restartBusnodePulse : MonostableMultivibratorFB;
 END_VAR
 	
 VAR_IN_OUT
@@ -32,9 +33,13 @@ END_VAR
 //    Created Date: October 16th, 2019
 SUPER^();
 toggleConfig(PT := T#20MS);
+restartBusnodePulse.DwellSetting := 1000;
+restartBusnodePulse(Q => MachineOptionsManagementOutputs[4].1);
+
 IF MachineOptionsManagementOutputs = 0 OR SystemStatusInputs = 0 THEN
 	RETURN;
 END_IF
+
 // MOM config - MOM bits are counted from Slot 001 to 4xx and are counted based on the "Maximium" configuration hard coded in the bus master
 // Here we can select which verison of code we have in order to utilize MOM correctly if we add additional modules in the future.
 CASE configVersion OF
@@ -59,7 +64,9 @@ END_CASE
 // Run config if IO bus node is waiting on config
 systemStatusINT := SystemStatusInputs^;
 systemStatusState := systemStatusINT;
-
+IF Globals.firstScan THEN
+	MOMConfigLast := MachineOptionsManagementOutputs[0];
+END_IF
 CASE systemStatusState OF
 	//MURR_SYSTEM_STATES.Internal_Comm_OK:			// If config changes here, send it down
 // 													IF MachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
@@ -68,7 +75,8 @@ CASE systemStatusState OF
 // 													END_IF
 	
 	MURR_SYSTEM_STATES.Waiting_For_MOM: 			// Bit 32 is Configure Node
-													MachineOptionsManagementOutputs[4].0 := TRUE;		
+													MachineOptionsManagementOutputs[4].0 := TRUE;
+													MachineOptionsManagementOutputs[4].1 := FALSE;		
 	
 	MURR_SYSTEM_STATES.Configuring_MOM : 			//
 													MachineOptionsManagementOutputs[4].0 := FALSE;
@@ -77,8 +85,13 @@ CASE systemStatusState OF
 														
 											
 ELSE
-	MachineOptionsManagementOutputs[4].0 := FALSE;
-END_CASE
+													MachineOptionsManagementOutputs[4].0 := FALSE;
+													//IF config changes here, send it down after restarting
+													IF MachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
+														restartBusnodePulse.Trigger();
+														MOMConfigLast := MachineOptionsManagementOutputs[0];
+													END_IF
+END_CASE												
 
 PROPERTY Mode : DEVICE_MODES
 

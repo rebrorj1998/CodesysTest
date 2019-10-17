@@ -32,7 +32,7 @@ END_VAR
 //    Created Date: October 16th, 2019
 SUPER^();
 dropTimer(PT := TO_TIME(dropTime * 1000));
-IF resetONS.Q OR HMIData.faultActive OR NOT enable THEN
+IF resetONS.Q OR HMIData.faultActive OR NOT enable OR NOT activateFiller THEN
 	state := FILLER_STATES.Idle;
 	fillerRequestedCycle := FALSE;
 	cycleBaggerToActivateFiller.active := FALSE;
@@ -57,7 +57,7 @@ CASE state OF
 														state := FILLER_STATES.CycleBaggerToActiveFiller;
 													END_IF
 	
-	FILLER_STATES.CycleBaggerToActiveFiller :		
+	FILLER_STATES.CycleBaggerToActiveFiller :		// Operator must cycle a bag out first to guarentee bag open and ready for filler
 													cycleBaggerToActivateFiller.active := TRUE;
 													
 													IF _baggerCycledAndReady THEN

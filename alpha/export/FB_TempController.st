@@ -136,3 +136,10 @@ ELSE
 	tempOK := TRUE;
 	lastTemp := currentTemp;
 END_IF
+
+IF HMIData.faultActive THEN
+	thermRunawayNHUpdateTimer.IN := FALSE;
+	thermRunawayNHFaultTimer.IN := FALSE;
+	thermRunawayOSUpdateTimer.IN := FALSE;
+	thermRunawayOSFaultTimer.IN := FALSE;
+END_IF
