@@ -40,6 +40,22 @@
     <TypeArray name="T_ARRAY__0__15__OF_DINT" size="64" nativesize="64" typeclass="Array" iecname="ARRAY [0..15] OF DINT" basetype="T_DINT">
       <ArrayDim minrange="0" maxrange="15" />
     </TypeArray>
+    <TypeUserDef name="T_AuxInputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxInputSelection" basetype="T_INT">
+      <UserDefElement type="T_AuxInputSelection" iecname="NotConfigured" enumvalue="0" />
+      <UserDefElement type="T_AuxInputSelection" iecname="BaggerInhibit" enumvalue="1" />
+    </TypeUserDef>
+    <TypeUserDef name="T_AuxOutputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxOutputSelection" basetype="T_INT">
+      <UserDefElement type="T_AuxOutputSelection" iecname="NotConfigured" enumvalue="0" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="PrinterDataReady" enumvalue="1" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="WaitingForPrinter" enumvalue="2" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="CycleComplete" enumvalue="3" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="BagMade" enumvalue="4" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="BagMadePlusLabelRequired" enumvalue="5" />
+    </TypeUserDef>
+    <TypeUserDef name="T_AuxiliaryIOSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxiliaryIOSelection" basetype="T_INT">
+      <UserDefElement type="T_AuxiliaryIOSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_AuxiliaryIOSelection" iecname="AuxIOStandard" enumvalue="1" />
+    </TypeUserDef>
     <TypeUserDef name="T_BagDeflatorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagDeflatorSelection" basetype="T_INT">
       <UserDefElement type="T_BagDeflatorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_BagDeflatorSelection" iecname="IBDStandard" enumvalue="1" />
@@ -81,6 +97,10 @@
     <TypeUserDef name="T_F_TRIG" size="2" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="F_TRIG">
       <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FillerSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="FillerSelection" basetype="T_INT">
+      <UserDefElement type="T_FillerSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_FillerSelection" iecname="StandardFiller" enumvalue="1" />
     </TypeUserDef>
     <TypeUserDef name="T_IntegratedConveyorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="IntegratedConveyorSelection" basetype="T_INT">
       <UserDefElement type="T_IntegratedConveyorSelection" iecname="NotInstalled" enumvalue="0" />
@@ -180,6 +200,12 @@
     </TypeUserDef>
     <TypeUserDef name="T_Warning" size="1" nativesize="1" typeclass="Userdef" pouclass="STRUCTURE" iecname="Warning">
       <UserDefElement iecname="active" type="T_BOOL" byteoffset="0" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_AuxIOConfiguration" size="8" nativesize="8" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOConfiguration">
+      <UserDefElement iecname="factorySelection" type="T_AuxiliaryIOSelection" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="cfgInputSelection" type="T_AuxInputSelection" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput1Selection" type="T_AuxOutputSelection" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput2Selection" type="T_AuxOutputSelection" byteoffset="6" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_BaseComponentFB" size="13" nativesize="36" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
@@ -301,6 +327,13 @@
     <TypeUserDef name="T_FB_TempController" size="6" nativesize="828" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_BaseComponentFB">
       <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FillerFB" size="7" nativesize="276" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FillerFB" basetype="T_BaseComponentFB">
+      <UserDefElement iecname="activateFiller" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
+      <UserDefElement iecname="fillerModeActive" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="waitingForFiller" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="cycleBaggerToActivateFiller" type="T_Warning" byteoffset="3" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="notReady" type="T_FB_Fault" byteoffset="4" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_PneumaticPressureBarFB_1" size="15" nativesize="1124" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PneumaticPressureBarFB_1" basetype="T_BaseComponentFB">
       <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
@@ -572,7 +605,7 @@
       <UserDefElement iecname="_amMoveClearance" type="T_BOOL" byteoffset="986" vartype="VAR" />
       <UserDefElement iecname="_amMoveInToBagHolding" type="T_BOOL" byteoffset="987" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3620" nativesize="24816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3627" nativesize="25488" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1003" vartype="VAR" />
@@ -589,6 +622,7 @@
       <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3593" vartype="VAR" />
       <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3602" vartype="VAR" />
       <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3611" vartype="VAR" />
+      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="3620" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
@@ -669,6 +703,7 @@
         <Node name="airFilterClean" type="T_FB_PredictiveMaint" access="ReadWrite">
           <Comment>Predictive Maint.</Comment>
         </Node>
+        <Node name="auxIOConfig" type="T_AuxIOConfiguration" access="ReadWrite" />
         <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="bagDeliveryMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
         <Node name="bagDropTime" type="T_REAL" access="ReadWrite" />
@@ -677,6 +712,7 @@
         <Node name="baggerCycles" type="T_FB_CycleCounter" access="ReadWrite">
           <Comment>Counters</Comment>
         </Node>
+        <Node name="baggerInhibited" type="T_Warning" access="ReadWrite" />
         <Node name="baggerNotReady" type="T_Warning" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagLevelLow" type="T_Warning" access="ReadWrite" />
@@ -716,6 +752,8 @@
         <Node name="fillerCountSetting" type="T_UDINT" access="ReadWrite" />
         <Node name="fillerCurrentCount" type="T_UDINT" access="ReadWrite" />
         <Node name="fillerDropTime" type="T_REAL" access="ReadWrite" />
+        <Node name="fillerFactorySelection" type="T_FillerSelection" access="ReadWrite" />
+        <Node name="fillerModeCycleStartOnly" type="T_Warning" access="ReadWrite" />
         <Node name="forwardLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="headCycleCount" type="T_UDINT" access="ReadWrite" />
         <Node name="hpaDwell" type="T_REAL" access="ReadWrite" />
@@ -819,6 +857,15 @@
         <Node name="waitingForPrinter" type="T_Warning" access="ReadWrite" />
       </Node>
       <Node name="IoConfig_Globals_Mapping">
+        <Node name="iAuxConfigInput" type="T_BIT_X_2" access="Read" directaddress="%IX61.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iAuxFillerOK" type="T_BIT_X_1" access="Read" directaddress="%IX61.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iAuxFillerTrigger" type="T_BIT_X_0" access="Read" directaddress="%IX61.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="iBagNotPresent" type="T_BIT_X_2" access="Read" directaddress="%IX412.2">
           <Comment>Bag_Delivery_EIP_Motor : </Comment>
         </Node>
@@ -880,6 +927,18 @@
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iRightPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX62.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oAuxBaggerOK" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX28.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oAuxConfigOut1" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX28.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oAuxConfigOut2" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX28.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oAuxReadyForFiller" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX28.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oBOFDown" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX187.3">
