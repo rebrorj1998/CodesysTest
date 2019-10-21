@@ -8,17 +8,18 @@ VAR_INPUT
 	dischargeNodeEnabled : BOOL;
 	auxIONodeEnabled : BOOL;
 	configVersion : CONFIG_VERSIONS;
-	MachineOptionsManagementOutputs : POINTER TO BYTE;
-	SystemStatusInputs : POINTER TO BYTE;
+	ptrMachineOptionsManagementOutputs : POINTER TO BYTE;
+	ptrSystemStatusInputs : POINTER TO BYTE;
 END_VAR
 VAR_OUTPUT
-	
-
+	commFailController : FB_Fault(name := 'Communication Fail - Bus Master to Controller');
+	commFailNode : FB_Fault(name := 'Communication Fail - Bus Master to I/O Node');
+	configActive : Warning;	// I/O Configuration Active, please wait
+	ok : BOOL; 		// I/O Configuration and Communication good
 END_VAR
 VAR
 	systemStatusINT : INT;
 	systemStatusState : MURR_SYSTEM_STATES;
-	toggleConfig : OSCAT_BASIC.GEN_SQ;
 	MOMConfigLast : BYTE;
 	restartBusnodePulse : MonostableMultivibratorFB;
 END_VAR
@@ -32,11 +33,13 @@ END_VAR
 //    Created by: Ben Hess
 //    Created Date: October 16th, 2019
 SUPER^();
-toggleConfig(PT := T#20MS);
-restartBusnodePulse.DwellSetting := 1000;
-restartBusnodePulse(Q => MachineOptionsManagementOutputs[4].1);
 
-IF MachineOptionsManagementOutputs = 0 OR SystemStatusInputs = 0 THEN
+// Set bit 33 to true for 1 second to reset nodes
+restartBusnodePulse.DwellSetting := 1000;
+restartBusnodePulse(Q => ptrMachineOptionsManagementOutputs[4].1);
+
+// Exit this FB if invaild pointers set
+IF ptrMachineOptionsManagementOutputs = 0 OR ptrSystemStatusInputs = 0 THEN
 	RETURN;
 END_IF
 
@@ -44,52 +47,76 @@ END_IF
 // Here we can select which verison of code we have in order to utilize MOM correctly if we add additional modules in the future.
 CASE configVersion OF
 	CONFIG_VERSIONS.V_1_1 :		//
-									MachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
-									MachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
-									MachineOptionsManagementOutputs[0].2 := NOT dischargeNodeEnabled;
-									MachineOptionsManagementOutputs[0].3 := NOT printerNodeEnabled;
-									MachineOptionsManagementOutputs[0].4 := FALSE;
+									ptrMachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].2 := NOT dischargeNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].3 := NOT printerNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].4 := FALSE;
 									
 								
 
 	CONFIG_VERSIONS.V_1_2 : 		// Added aux IO to this version
-									MachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
-									MachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
-									MachineOptionsManagementOutputs[0].2 := NOT auxIONodeEnabled;
-									MachineOptionsManagementOutputs[0].3 := NOT dischargeNodeEnabled;
-									MachineOptionsManagementOutputs[0].4 := NOT printerNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].2 := NOT auxIONodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].3 := NOT dischargeNodeEnabled;
+									ptrMachineOptionsManagementOutputs[0].4 := NOT printerNodeEnabled;
 END_CASE
 
 
 // Run config if IO bus node is waiting on config
-systemStatusINT := SystemStatusInputs^;
+systemStatusINT := ptrSystemStatusInputs^;
 systemStatusState := systemStatusINT;
+
+// Prevent a IO node reset on boot for no reason
 IF Globals.firstScan THEN
-	MOMConfigLast := MachineOptionsManagementOutputs[0];
+	MOMConfigLast := ptrMachineOptionsManagementOutputs[0];
 END_IF
+
+// Trigger fault for node not present, or node seen where one shouldn't be 
+IF systemStatusState = MURR_SYSTEM_STATES.No_Comm_To_Configured_Node THEN
+	commFailNode.Trigger();
+END_IF
+
+// A 0 at system state indicates comm fail to controller
+IF systemStatusState = 0 THEN
+	commFailController.Trigger();
+END_IF
+
+// Alert user to MOM config active
+IF systemStatusState = MURR_SYSTEM_STATES.Waiting_For_MOM OR
+	systemStatusState = MURR_SYSTEM_STATES.Configuring_MOM OR
+	systemStatusState = MURR_SYSTEM_STATES.Internal_Comm_Disabled
+THEN
+	configActive.active := TRUE;
+ELSE
+	configActive.active := FALSE;
+END_IF
+
+// I/O Block is OK only in this state, otherwise we can't trust any I/O coming back
+ok := (systemStatusState = MURR_SYSTEM_STATES.Internal_Comm_OK);
+
 CASE systemStatusState OF
-	//MURR_SYSTEM_STATES.Internal_Comm_OK:			// If config changes here, send it down
-// 													IF MachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
-// 														MachineOptionsManagementOutputs[4].0 := TRUE;
-// 														MOMConfigLast := MachineOptionsManagementOutputs[0];
-// 													END_IF
+
 	
-	MURR_SYSTEM_STATES.Waiting_For_MOM: 			// Bit 32 is Configure Node
-													MachineOptionsManagementOutputs[4].0 := TRUE;
-													MachineOptionsManagementOutputs[4].1 := FALSE;		
+	MURR_SYSTEM_STATES.Waiting_For_MOM: 			// Bit 32 is Configure MOM bit
+													ptrMachineOptionsManagementOutputs[4].0 := TRUE;
+													ptrMachineOptionsManagementOutputs[4].1 := FALSE;
+													
 	
 	MURR_SYSTEM_STATES.Configuring_MOM : 			//
-													MachineOptionsManagementOutputs[4].0 := FALSE;
+													ptrMachineOptionsManagementOutputs[4].0 := FALSE;
+													
 											
 
 														
 											
 ELSE
-													MachineOptionsManagementOutputs[4].0 := FALSE;
+													ptrMachineOptionsManagementOutputs[4].0 := FALSE;
 													//IF config changes here, send it down after restarting
-													IF MachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
+													IF ptrMachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
 														restartBusnodePulse.Trigger();
-														MOMConfigLast := MachineOptionsManagementOutputs[0];
+														MOMConfigLast := ptrMachineOptionsManagementOutputs[0];
 													END_IF
 END_CASE												
 

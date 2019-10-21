@@ -60,6 +60,7 @@ VAR
 	bagOpenRetryCount : UINT;		// Count of current retry attempts
 	bagOpenFeedNewBagSetting : UINT; // Number of new bags to try
 	bagOpenFeedNewBagCount : UINT;	// Count of new bags tried in recovery
+	bagOpened : BOOL;				// Bag was Opened flag
 	recoveryModeActive : BOOL; 		// Recovery Mode Active
 	startCycleReqFromPalmButtons : BOOL;
 	startCycleReqFromPalmButtonsONS : FB_ONS();
@@ -71,6 +72,7 @@ VAR
 	cycleTimer : TON() := (PT := T#1000S);
 	cycleTime : REAL;
 	bagFailedToOpen : FB_Fault(name := 'Bag Failed to Open');
+	openedBagWasRemoved : FB_Fault(name := 'Opened Bag was Removed');
 	safePowerFailure : FB_Fault(name := 'E-Stop/Safety Power Failure');
 	palmButtonConfigError : FB_Fault(name := 'Palm Button Configuration Error');
 	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
@@ -110,7 +112,7 @@ SUPER^();
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
 Globals.machinePowerOK := powerSettlingTimer.Q;
-safePowerFailure.faultTrigger := NOT iEStopOK;
+safePowerFailure.faultTrigger := NOT iEStopOK AND murrIOBusNode.ok;
 
 // Bags Low warning
 HMIData.bagLevelLow.active := iBagsLow;
@@ -142,8 +144,8 @@ murrIOBusNode(
 	dischargeNodeEnabled:= TRUE, 
 	auxIONodeEnabled:= , 
 	configVersion:= HMIData.murrIOConfigVersion, 
-	MachineOptionsManagementOutputs:= ADR(oMOMConfig), 
-	SystemStatusInputs:= ADR(iMurrSystemState));
+	ptrMachineOptionsManagementOutputs:= ADR(oMOMConfig), 
+	ptrSystemStatusInputs:= ADR(iMurrSystemState));
 
 // Setup of Motorized seal flattener motor and function block
 msfVerticalAxis(extendOutput => oSealFlatDown, retractOutput => oSealFlatUp);
@@ -551,7 +553,8 @@ readyToRun := (motorizedSealFlatteners.Ready OR NOT motorizedSealFlatteners.enab
                 AND (pressureBar.Ready OR NOT pressureBar.enable)
                 AND (bagDelivery.Ready OR NOT bagDelivery.enable)
                 AND (zebraPrinter.Ready OR NOT zebraPrinter.enable)
-				AND (passthrough.Ready OR NOT passthrough.enable);
+				AND (passthrough.Ready OR NOT passthrough.enable)
+				AND murrIOBusNode.ok;
 iPowerOffButtonONS(CLK := iPowerOffButton);
 
 				
@@ -587,7 +590,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 	END_IF
-	
+	bagOpened := FALSE;
 	
 	enableBatch := FALSE;
 	batchCount := 0;
@@ -769,7 +772,12 @@ CASE state OF
 														factoryTestModeKeepCycling := FALSE;
 													END_IF
 													
-													
+													IF bagOpened THEN
+														IF NOT bagOpenFingers.CheckIfBagGrabbed() THEN
+															openedBagWasRemoved.Trigger();
+															bagOpened := FALSE;
+														END_IF
+													END_IF
 													
 													{region:'Service'}
 													IF setPassthroughPB AND NOT homeJawPB THEN
@@ -1011,10 +1019,10 @@ CASE state OF
     HEAD_STATES.MovedPassthrough :        // 
                                             pressureBar.AutoDoneMovingPassthrough();
                                             state := HEAD_STATES.Idle;
-											setPassthroughPB := FALSE;    
+											setPassthroughPB := FALSE;
                                                     
-    HEAD_STATES.Fault :                     hmiLight.TurnOff(); 
-											HMIData.inCycle := FALSE;  
+    HEAD_STATES.Fault :                     hmiLight.TurnOff();
+											HMIData.inCycle := FALSE;
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
@@ -1028,8 +1036,9 @@ CASE state OF
 											homeJawPB := FALSE;
 											startCycle := FALSE;
 											HMIData.initiateCycle := FALSE;
-											factoryTestModeKeepCycling := FALSE; 
-											pressureBarCloseDelay.IN := FALSE;  
+											factoryTestModeKeepCycling := FALSE;
+											pressureBarCloseDelay.IN := FALSE;
+											//bagOpened := FALSE;
                                                     
 END_CASE
 
@@ -1370,7 +1379,7 @@ CASE openBagSubState OF
 														END_IF
 	
 	BAG_OPEN_ASSIST_STATES.BagOpened :					//
-														
+														bagOpened := TRUE;
                                                     	motorizedSealFlatteners.AutoMoveToBagHolding();
 														bagOpenRetryCount := 0;
 														

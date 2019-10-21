@@ -65,6 +65,108 @@
       <UserDefElement type="T_BagOpenFingersSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_BagOpenFingersSelection" iecname="PneumaticWithBagOpenSensors" enumvalue="1" />
     </TypeUserDef>
+    <TypeUserDef name="T_CONFIG_VERSIONS" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="CONFIG_VERSIONS" basetype="T_INT">
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_0" enumvalue="0" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_1" enumvalue="1" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_2" enumvalue="2" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_3" enumvalue="3" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_4" enumvalue="4" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_5" enumvalue="5" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_6" enumvalue="6" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_7" enumvalue="7" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_8" enumvalue="8" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_9" enumvalue="9" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_10" enumvalue="10" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_11" enumvalue="11" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_12" enumvalue="12" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_13" enumvalue="13" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_14" enumvalue="14" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_15" enumvalue="15" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_16" enumvalue="16" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_17" enumvalue="17" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_18" enumvalue="18" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_19" enumvalue="19" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_20" enumvalue="20" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_21" enumvalue="21" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_22" enumvalue="22" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_23" enumvalue="23" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_24" enumvalue="24" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_25" enumvalue="25" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_26" enumvalue="26" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_27" enumvalue="27" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_28" enumvalue="28" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_29" enumvalue="29" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_30" enumvalue="30" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_31" enumvalue="31" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_32" enumvalue="32" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_33" enumvalue="33" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_34" enumvalue="34" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_35" enumvalue="35" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_36" enumvalue="36" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_37" enumvalue="37" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_38" enumvalue="38" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_39" enumvalue="39" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_40" enumvalue="40" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_41" enumvalue="41" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_42" enumvalue="42" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_43" enumvalue="43" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_44" enumvalue="44" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_45" enumvalue="45" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_46" enumvalue="46" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_47" enumvalue="47" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_48" enumvalue="48" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_49" enumvalue="49" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_0" enumvalue="50" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_1" enumvalue="51" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_2" enumvalue="52" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_3" enumvalue="53" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_4" enumvalue="54" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_5" enumvalue="55" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_6" enumvalue="56" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_7" enumvalue="57" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_8" enumvalue="58" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_9" enumvalue="59" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_10" enumvalue="60" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_11" enumvalue="61" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_12" enumvalue="62" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_13" enumvalue="63" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_14" enumvalue="64" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_15" enumvalue="65" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_16" enumvalue="66" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_17" enumvalue="67" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_18" enumvalue="68" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_19" enumvalue="69" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_20" enumvalue="70" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_21" enumvalue="71" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_22" enumvalue="72" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_23" enumvalue="73" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_24" enumvalue="74" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_25" enumvalue="75" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_26" enumvalue="76" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_27" enumvalue="77" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_28" enumvalue="78" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_29" enumvalue="79" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_30" enumvalue="80" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_31" enumvalue="81" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_32" enumvalue="82" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_33" enumvalue="83" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_34" enumvalue="84" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_35" enumvalue="85" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_36" enumvalue="86" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_37" enumvalue="87" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_38" enumvalue="88" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_39" enumvalue="89" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_40" enumvalue="90" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_41" enumvalue="91" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_42" enumvalue="92" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_43" enumvalue="93" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_44" enumvalue="94" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_45" enumvalue="95" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_46" enumvalue="96" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_47" enumvalue="97" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_48" enumvalue="98" />
+      <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_2_49" enumvalue="99" />
+    </TypeUserDef>
     <TypeUserDef name="T_DEVICE_MODES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="DEVICE_MODES" basetype="T_INT">
       <UserDefElement type="T_DEVICE_MODES" iecname="Manual" enumvalue="0">
         <Comment> Control only from service</Comment>
@@ -605,7 +707,7 @@
       <UserDefElement iecname="_amMoveClearance" type="T_BOOL" byteoffset="986" vartype="VAR" />
       <UserDefElement iecname="_amMoveInToBagHolding" type="T_BOOL" byteoffset="987" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3627" nativesize="25592" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3630" nativesize="26072" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1003" vartype="VAR" />
@@ -615,14 +717,15 @@
       <UserDefElement iecname="bagOpenFingerDelay" type="T_TON" byteoffset="2720" vartype="VAR" />
       <UserDefElement iecname="pressureBarEndStopMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="2736" vartype="VAR" />
       <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="3572" vartype="VAR" />
-      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="3575" vartype="VAR" />
-      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="3578" vartype="VAR" />
-      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="3581" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3584" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3593" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3602" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3611" vartype="VAR" />
-      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="3620" vartype="VAR" />
+      <UserDefElement iecname="openedBagWasRemoved" type="T_FB_Fault" byteoffset="3575" vartype="VAR" />
+      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="3578" vartype="VAR" />
+      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="3581" vartype="VAR" />
+      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="3584" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3587" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3596" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3605" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3614" vartype="VAR" />
+      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="3623" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
@@ -755,6 +858,7 @@
         <Node name="fillerFactorySelection" type="T_FillerSelection" access="ReadWrite" />
         <Node name="fillerModeCycleStartOnly" type="T_Warning" access="ReadWrite" />
         <Node name="forwardLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="frontFilmFeedMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="headCycleCount" type="T_UDINT" access="ReadWrite" />
         <Node name="hpaDwell" type="T_REAL" access="ReadWrite" />
         <Node name="hpaServiceOn" type="T_BOOL" access="ReadWrite" />
@@ -797,6 +901,7 @@
         <Node name="makeReady" type="T_BOOL" access="ReadWrite" />
         <Node name="motorizedSealFlattenerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="msfHorizontalMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
+        <Node name="murrIOConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="packageEjectGuardRemoved" type="T_Warning" access="ReadWrite" />
         <Node name="packageEjectSelection" type="T_PackageEjectionSelection" access="ReadWrite" />
         <Node name="passthroughChanges" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -814,6 +919,7 @@
         <Node name="pressureBarState" type="T_STRING" access="ReadWrite">
           <Comment>Misc</Comment>
         </Node>
+        <Node name="printerConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="printerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="printerInstalled" type="T_BOOL" access="ReadWrite" />
         <Node name="printerInUse" type="T_BOOL" access="ReadWrite" />
@@ -829,6 +935,7 @@
         <Node name="printOffset" type="T_REAL" access="ReadWrite" />
         <Node name="printSpeed" type="T_UDINT" access="ReadWrite" />
         <Node name="rearLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="rearUnwindMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -840,6 +947,7 @@
         <Node name="sealBarServiceRetract" type="T_BOOL" access="ReadWrite" />
         <Node name="sealBarTemperature" type="T_UDINT" access="ReadWrite" />
         <Node name="sealBarTemperatureSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="sealFlattenerMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="sealFlattenersManualPositionSetting" type="T_REAL" access="ReadWrite" />
         <Node name="sealFlattenersMoveToManualPos" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersPosition" type="T_REAL" access="ReadWrite" />
