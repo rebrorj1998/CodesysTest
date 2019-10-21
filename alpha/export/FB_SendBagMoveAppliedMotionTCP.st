@@ -112,10 +112,3 @@ END_CASE
 
 
 
-
-
-METHOD Execute
-VAR_INPUT
-END_VAR
-
-xExecute := TRUE;
