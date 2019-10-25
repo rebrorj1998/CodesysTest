@@ -587,6 +587,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	bagDeliveryMode := DEVICE_MODES.Auto;
 	bagDelivery.Reset();
 	bagDelivery.enable := TRUE;
+	//bagDelivery.bagFeedMasterMotor.SetRearMotorToTorqueMode();
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 	END_IF
@@ -1023,6 +1024,7 @@ CASE state OF
                                                     
     HEAD_STATES.Fault :                     hmiLight.TurnOff();
 											HMIData.inCycle := FALSE;
+											bagDelivery.bagFeedMasterMotor.SetRearMotorToEncoderFollowing();
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;

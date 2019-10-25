@@ -9,5 +9,5 @@ VAR_INPUT
 END_VAR
 GetVersion.uiMajor := 0;
 GetVersion.uiMinor := 9;
-GetVersion.uiServicePack := 6;
-GetVersion.uiPatch := 2;
+GetVersion.uiServicePack := 7;
+GetVersion.uiPatch := 0;
