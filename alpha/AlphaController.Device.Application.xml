@@ -51,6 +51,7 @@
       <UserDefElement type="T_AuxOutputSelection" iecname="CycleComplete" enumvalue="3" />
       <UserDefElement type="T_AuxOutputSelection" iecname="BagMade" enumvalue="4" />
       <UserDefElement type="T_AuxOutputSelection" iecname="BagMadePlusLabelRequired" enumvalue="5" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="BagsLow" enumvalue="6" />
     </TypeUserDef>
     <TypeUserDef name="T_AuxiliaryIOSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxiliaryIOSelection" basetype="T_INT">
       <UserDefElement type="T_AuxiliaryIOSelection" iecname="NotInstalled" enumvalue="0" />

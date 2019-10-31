@@ -357,6 +357,22 @@ CASE HMIData.auxIOConfig.factorySelection OF
 																									ELSE
 																										configOutput1Pulse.ManualOff();	
 																								    END_IF
+																										 
+															AuxOutputSelection.BagMadePlusLabelRequired:	//
+																 									IF NOT printerDataReady AND state = HEAD_STATES.SealedAndSeparatedBag THEN
+																										configOutput1Pulse.ManualOn();
+																									END_IF
+																									
+																									IF printerDataReady OR HMIData.faultActive OR (releaseAndFeedSubState = RELEASE_FEED_STATES.FeedToOffset) THEN
+																										configOutput1Pulse.ManualOff();
+																									END_IF 
+															AuxOutputSelection.BagsLow:				//
+																									IF HMIData.bagLevelLow.active THEN
+																										configOutput1Pulse.ManualOn();
+																									ELSE
+																										configOutput1Pulse.ManualOff();
+																									END_IF											 
+															
 														END_CASE
 															 
 														CASE HMIData.auxIOConfig.cfgOutput2Selection OF
@@ -393,6 +409,13 @@ CASE HMIData.auxIOConfig.factorySelection OF
 																									IF printerDataReady OR HMIData.faultActive OR (releaseAndFeedSubState = RELEASE_FEED_STATES.FeedToOffset) THEN
 																										configOutput2Pulse.ManualOff();
 																									END_IF 
+																										 
+															AuxOutputSelection.BagsLow:				//
+																									IF HMIData.bagLevelLow.active THEN
+																										configOutput2Pulse.ManualOn();
+																									ELSE
+																										configOutput2Pulse.ManualOff();
+																									END_IF	
 														END_CASE
 														
 		 
