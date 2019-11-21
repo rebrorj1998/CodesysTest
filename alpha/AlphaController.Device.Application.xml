@@ -1166,7 +1166,7 @@
         <Node name="oRunExitConveyor" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX33.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oRunExternalExitConveyor" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX37.3">
+        <Node name="oRunExternalExitConveyor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX36.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oRunPrinterRibbonUnwindMotor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX34.1">

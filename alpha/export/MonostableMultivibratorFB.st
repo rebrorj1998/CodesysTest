@@ -17,7 +17,6 @@ VAR
 	delayTimer : Standard.TON;
 END_VAR
 
-SUPER^();
 
 // HPA is on for only as long as its setpoint.
 
@@ -37,6 +36,8 @@ END_IF
 // 	//active := TRUE;
 // 	_trigger := FALSE;
 // END_IF
+SUPER^();
+
 
 PROPERTY DelaySetting : UINT
 

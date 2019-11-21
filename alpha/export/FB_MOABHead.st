@@ -201,8 +201,8 @@ funnel(
 	closedSensor:= iFunnelClosed, 
 	opened=> , 
 	closed=> , 
-	closeOutput=> oFunnelClose, 
-	openOutput=> oFunnelOpen, 
+	closeOutput=> oIBDRetract, 
+	openOutput=> oIBDExtend, 
 	failToOpen=> , 
 	failToClose=> );
 // Setup of pick and place motors
@@ -235,6 +235,7 @@ LPA(Q => oLPAOn);
 CASE HMIData.independentBagDeflatorSelection OF
 	BagDeflatorSelection.NotInstalled:					// Disable IBD
 		 													enableIBDDeflate := FALSE;
+															enableIBDEject := FALSE;
 															IBDRetractToDeflate.DelaySetting := 0;
 															IBDRetractToDeflate.DwellSetting := 0;
 															IBDRetractToEject.DelaySetting := 0;
@@ -252,7 +253,9 @@ CASE HMIData.independentBagDeflatorSelection OF
 															ELSE
 																enableIBDEject := FALSE;
 															END_IF
-	 
+	 														IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);
+															oIBDRetract := IBDRetractToDeflate.Q OR IBDRetractToEject.Q;
+															oIBDExtend := NOT oIBDRetract;
 															IBDRetractToDeflate.DelaySetting := 0;
 															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
 															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
@@ -260,6 +263,9 @@ CASE HMIData.independentBagDeflatorSelection OF
 																 
 	BagDeflatorSelection.IBDWithHingedPlate:	// Enable IBD with Hinged Plate
 															enableIBDDeflate := TRUE;
+															IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);	
+															oIBDRetract := IBDRetractToDeflate.Q OR IBDRetractToEject.Q;
+															oIBDExtend := NOT oIBDRetract;
 															IBDRetractToDeflate.DelaySetting := 0;
 															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
 															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
@@ -545,7 +551,8 @@ externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwel
 externalExitConveyorJogONS(CLK := HMIData.externalExitConveyorJog);
 oRunExternalExitConveyor := externalExitConveyorRun.Q AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled;
 
-bagOpenFingers(releaseOutput => oBOFUp,
+bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInstalled,
+				releaseOutput => oBOFUp,
 		 		grabOutput => oBOFDown,
 				rightFingerBagPresent := iRightFingerBagPresent,
 				leftFingerBagPreset := iLefttFingerBagPresent,
@@ -553,7 +560,8 @@ bagOpenFingers(releaseOutput => oBOFUp,
 				bagFailedToGrabLeftFingerCount := Globals.bagFailedToGrabLeftFingerCount,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
-IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);				
+					 
+			
 IBDRetractToDeflate();
 IBDRetractToEject();
 IBDRetractONS(CLK := IBDRetractToDeflate.Q OR IBDRetractToEject.Q);
@@ -565,8 +573,7 @@ IBDExtendONS(CLK := NOT (IBDRetractToDeflate.Q AND IBDRetractToEject.Q));
 // ELSIF HMIData.faultActive THEN
 // 	IBDCylinders.Exhaust();
 // END_IF
-oIBDRetract := IBDRetractToDeflate.Q OR IBDRetractToEject.Q;
-oIBDExtend := NOT oIBDRetract;
+
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
@@ -670,6 +677,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
+	funnel.CloseNow();
 	exitConveyorRun.Reset();
 	externalExitConveyorRun.Reset();
 	oSealBarExtend := FALSE;
@@ -1109,6 +1117,8 @@ CASE state OF
 											LPA.ManualOff();
 											IBDRetractToDeflate.Reset();
 											IBDRetractToEject.Reset();
+											exitConveyorRun.Reset();
+											externalExitConveyorRun.Reset();
 											oRunPrinterRibbonUnwindMotor := FALSE;
 											setPassthroughPB := FALSE;
 											homeJawPB := FALSE;
@@ -1133,7 +1143,7 @@ CASE sealAndSeparateSubState OF
 	SEAL_SEPARATE_STATES.WaitForJawCloseDelay : 	// Wait for jaw close delay. 
 													IF pressureBar.enable THEN
 														pressureBarCloseDelay.IN := TRUE;
-														IF (pressureBarCloseDelay.Q OR HMIData.pressureBarCloseDelay = 0) 
+														IF (pressureBarCloseDelay.Q OR TO_INT(HMIData.pressureBarCloseDelay) = 0) 
 															AND (funnel.closed OR NOT funnel.enable)
 															THEN
 															sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
@@ -1426,9 +1436,7 @@ CASE openBagSubState OF
 													IF bagOpenFingerDelay.Q THEN
 														bagOpenFingers.Grab();
 														bagOpenFingerDelay.IN := FALSE;
-														(*{warning 'TODO: This is a hack to use HPA as LPA'}
-														HPA.DwellSetting := 200;		// Get rid on this - ha
-														HPA.Trigger();*)
+
 														openBagSubState := BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab;
 													END_IF
 													  
@@ -1533,7 +1541,20 @@ CASE finishCycleSubState OF
 	
 	FINISH_CYCLE_STATES.OpenedFunnel :						//
 															IF enableBagOpen THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																IF iLefttFingerBagPresent AND iRightFingerBagPresent THEN
+																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																ELSE
+																	IF bagOpenRetryCount < bagOpenRetrySetting THEN
+																		bagOpenRetryCount := bagOpenRetryCount + 1;
+																		funnel.CloseNow();
+																		finishCycleSubState := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
+																	ELSE
+																		bagFailedToOpen.Trigger();
+																		bagOpenRetryCount := 0; 
+																		HMIData.bagsRejectedTotal.Increment();
+																		finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																	END_IF
+																END_IF
 															ELSE
 																IF motorizedSealFlatteners.enable THEN
 																	finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
@@ -1541,7 +1562,11 @@ CASE finishCycleSubState OF
 																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
 																END_IF
 															END_IF
-															
+	
+	FINISH_CYCLE_STATES.ClosingFunnelForRetry :				//
+															IF funnel.closed THEN
+																finishCycleSubState := FINISH_CYCLE_STATES.Start;
+															END_IF												
 	
 	FINISH_CYCLE_STATES.BringSealFlattenersInAndDown :		//
 															motorizedSealFlatteners.AutoMoveToHandLoad();
@@ -1567,7 +1592,9 @@ CASE finishCycleSubState OF
 	FINISH_CYCLE_STATES.SealFlattenersAtBagHolding : 		//
 															finishCycleSubState := FINISH_CYCLE_STATES.Done;
 	
-	FINISH_CYCLE_STATES.Done :
+	FINISH_CYCLE_STATES.Done :								//
+															bagOpenRetryCount := 0;
+														
 	
 	FINISH_CYCLE_STATES.Fault :
 	

@@ -17,8 +17,8 @@ VAR
 END_VAR
 
 SUPER^();
-releaseOutput := _releaseCommand;
-grabOutput := _grabCommand;
+releaseOutput := _releaseCommand AND enable;
+grabOutput := _grabCommand AND enable;
 
 METHOD Release
 VAR_INPUT

@@ -30,12 +30,15 @@ openingTimer(IN := openOutput);
 closingTimer(IN := closeOutput);
 
 IF sensorsInstalled THEN
-	opened := openSensor;
-	closed := closedSensor;
+	openingTimer.IN := openSensor;
+	closingTimer.IN := closedSensor;
 ELSE
-	opened := openingTimer.Q;
-	closed := closingTimer.Q;
+	openingTimer.IN := openOutput;
+	closingTimer.IN := closeOutput;
 END_IF
+
+opened := openingTimer.Q;
+closed := closingTimer.Q;
 
 IF enable THEN
 	IF _closeReq THEN
