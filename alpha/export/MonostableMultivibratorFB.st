@@ -31,11 +31,7 @@ IF dwellTimer.Q OR _reset THEN
 	_manualOn := FALSE;
 	_manualOff := FALSE;
 END_IF
-// Reset trigger right away
-// IF _trigger THEN
-// 	//active := TRUE;
-// 	_trigger := FALSE;
-// END_IF
+
 SUPER^();
 
 

@@ -205,6 +205,9 @@ funnel(
 	openOutput=> oIBDExtend, 
 	failToOpen=> , 
 	failToClose=> );
+funnel.OpeningTime := HMIData.funnelOpeningTime;
+funnel.ClosingTime := HMIData.funnelClosingTime;
+funnel.DelaySetting := HMIData.funnelOpenDelay;
 // Setup of pick and place motors
 
 
@@ -887,6 +890,16 @@ CASE state OF
 														IBDRetractToDeflate.ManualOff();
 														HMIData.IBDService.extendCommand := FALSE;
 													END_IF	
+														 
+													IF HMIData.funnelService.retractCommand THEN
+														funnel.OpenNow();
+														HMIData.funnelService.retractCommand := FALSE;
+													END_IF                                      
+                                                    
+													IF HMIData.funnelService.extendCommand THEN
+														funnel.CloseNow();
+														HMIData.funnelService.extendCommand := FALSE;
+													END_IF	
 	 
 													IF HMIData.lpaServicePulse THEN
 														LPA.Trigger();
@@ -1531,6 +1544,9 @@ CASE finishCycleSubState OF
 															END_IF
 	
 	FINISH_CYCLE_STATES.OpenFunnel :						//
+															IF LPA.DwellSetting <> 0 THEN
+																LPA.Trigger();
+															END_IF
 															funnel.OpenNow();
 															finishCycleSubState := FINISH_CYCLE_STATES.OpeningFunnel;
 	
@@ -1540,7 +1556,7 @@ CASE finishCycleSubState OF
 															END_IF
 	
 	FINISH_CYCLE_STATES.OpenedFunnel :						//
-															IF enableBagOpen THEN
+															//IF enableBagOpen THEN
 																IF iLefttFingerBagPresent AND iRightFingerBagPresent THEN
 																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
 																ELSE
@@ -1550,6 +1566,7 @@ CASE finishCycleSubState OF
 																		finishCycleSubState := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
 																	ELSE
 																		bagFailedToOpen.Trigger();
+																		funnel.CloseNow();
 																		bagOpenRetryCount := 0; 
 																		HMIData.bagsRejectedTotal.Increment();
 																		finishCycleSubState := FINISH_CYCLE_STATES.Done;
@@ -1561,7 +1578,7 @@ CASE finishCycleSubState OF
 																ELSE
 																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
 																END_IF
-															END_IF
+															//END_IF
 	
 	FINISH_CYCLE_STATES.ClosingFunnelForRetry :				//
 															IF funnel.closed THEN
