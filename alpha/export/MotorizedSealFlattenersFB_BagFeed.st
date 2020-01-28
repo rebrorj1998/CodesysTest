@@ -57,6 +57,8 @@ VAR
 	_amMoveIn : BOOL;
     _amMoveClearance : BOOL;            // Auto mode move Clearance command
     _amMoveInToBagHolding : BOOL;    // Auto mode move in then bag holding command
+	_amMoveHandLoad : BOOL;			// Auto move to hand load positon command
+	handLoadRequested : BOOL;
 END_VAR
 
 //    Function Block:  MotorizedSealFlattenersFB
@@ -140,6 +142,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	_reset := FALSE;
 	bagDropDelay.IN := FALSE;
 	ClearCommands();
+	handLoadRequested := FALSE;
 END_IF
 
 IF NOT enable THEN
@@ -276,7 +279,7 @@ CASE state OF
                                                                     END_IF
 																
 	SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed:					       // Move flatteners to up state
-                                                                    IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveIn)) THEN
+                                                                    IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveIn OR _amMoveHandLoad)) THEN
                                                                         state := SEAL_FLATTENER_STATES.MoveFlattenersIn;
                                                                         //ClearCommands();
                                                                     END_IF
@@ -303,8 +306,11 @@ CASE state OF
                                                                         END_IF 
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersIn :                        // Now that we're up and in move to down and 4 corners/bag holding
-                                                                    IF enable AND semiAutoModeSelected OR (autoModeSelected AND _amMoveInToBagHolding) THEN
+                                                                    IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveHandLoad)) THEN
                                                                         state := SEAL_FLATTENER_STATES.MoveFlattenersDown;
+																		IF _amMoveHandLoad THEN
+																			 handLoadRequested := TRUE;
+																		END_IF
                                                                         ClearCommands();
                                                                     END_IF    
     
@@ -324,7 +330,13 @@ CASE state OF
 																		
                                                                         //END_IF 
                                                                         
-    SEAL_FLATTENER_STATES.MovedFlattenersDown :            state := SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding;
+	SEAL_FLATTENER_STATES.MovedFlattenersDown :            			IF handLoadRequested THEN
+																		state := SEAL_FLATTENER_STATES.Idle;
+																		handLoadRequested := FALSE;
+																	ELSE
+																		state := SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding;
+																	END_IF
+																	
                                                                     
                                                                     
     SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding :            // Do moves for down and bag holding
@@ -361,6 +373,7 @@ _amMoveOut := FALSE;
 _amMoveClearance := FALSE;
 _amMoveInToBagHolding := FALSE;
 _amMoveIn := FALSE;
+_amMoveHandLoad := FALSE;
 
 PROPERTY Ready : BOOL
 
@@ -391,3 +404,9 @@ VAR_INPUT
 END_VAR
 
 _amMoveIn := TRUE;
+
+METHOD AutoMoveToHandLoad : BOOL
+VAR_INPUT
+END_VAR
+
+_amMoveHandLoad := TRUE;

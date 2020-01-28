@@ -124,5 +124,3 @@ PROPERTY Ready : BOOL
 METHOD BaggerCycleInitiated : BOOL
 VAR_INPUT
 END_VAR
-
-_baggerCycleInitiated := TRUE;
