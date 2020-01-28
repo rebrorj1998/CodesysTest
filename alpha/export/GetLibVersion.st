@@ -7,5 +7,5 @@ VAR_INPUT
 END_VAR
 GetLibVersion.uiMajor := 0;
 GetLibVersion.uiMinor := 9;
-GetLibVersion.uiServicePack := 7;
-GetLibVersion.uiPatch := 1;
+GetLibVersion.uiServicePack := 8;
+GetLibVersion.uiPatch := 0;
