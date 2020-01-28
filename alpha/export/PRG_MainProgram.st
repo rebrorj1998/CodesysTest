@@ -30,6 +30,9 @@ VAR
 	recipieManager : Recipe_Management.RecipeManCommands;
 	recipeName : STRING;
 	recResult : DWORD;
+	testRead : BOOL;
+	testCreate : BOOL;
+	saveParametersTimer : Standard.TON := (PT := T#10M);
 END_VAR
 //    Program: Main (PLC_PRG)
 //    Description: This program serves as a base for the MOAB Prototype
@@ -37,11 +40,25 @@ END_VAR
 //    Created Date: January 16th, 2018
 
 printDeltaTimer(IN := oPrinterStartPrint);
-IF testWrite THEN
+saveParametersTimer(IN := NOT saveParametersTimer.Q);
+IF saveParametersTimer.Q THEN
 	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
 	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
-	testWrite := FALSE;
+	saveParametersTimer.IN := FALSE;
 END_IF
+
+IF testCreate THEN
+	recResult := recipieManager.CreateRecipe(RecipeDefinitionName := 'Recipes', RecipeName := 'Automatic');
+	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
+	testCreate := FALSE;
+END_IF
+
+IF testRead THEN
+	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
+	recResult := recipieManager.LoadAndWriteRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
+	testRead := FALSE;
+END_IF
+
 // 
 // CSVWriter(
 // 	xFilePath:= , 

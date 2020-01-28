@@ -1026,6 +1026,9 @@
         <Node name="iBagTensionFault" type="T_BIT_X_3" access="Read" directaddress="%IX528.3">
           <Comment>Bag_Delivery_Rear_Motor : </Comment>
         </Node>
+        <Node name="iBarcodeReadGood" type="T_BIT_X_4" access="Read" directaddress="%IX67.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="iEStopOK" type="T_BIT_X_2" access="Read" directaddress="%IX64.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1096,6 +1099,9 @@
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oAuxReadyForFiller" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX28.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oBarcodeTrigger" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX34.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oBOFDown" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX187.3">
