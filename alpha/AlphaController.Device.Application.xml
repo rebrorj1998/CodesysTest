@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="3.5.15.20" runtimeid="3.5.13.0" libversion="3.5.15.20" compiler="3.5.15.20" lmm="3.5.15.0" profile="CODESYS V3.5 SP15 Patch 2+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="3.5.15.30" runtimeid="3.5.13.0" libversion="3.5.15.20" compiler="3.5.15.30" lmm="3.5.15.0" profile="CODESYS V3.5 SP15 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="Device" appname="Application" />
   </Header>
   <TypeList>
@@ -378,9 +378,6 @@
       <UserDefElement iecname="_alarmReset" type="T_BOOL" byteoffset="25" vartype="VAR" />
       <UserDefElement iecname="clearCommandWordTimer" type="T_TON" byteoffset="28" vartype="VAR" />
       <UserDefElement iecname="clearCommandWordTimer2" type="T_TON" byteoffset="44" vartype="VAR" />
-    </TypeUserDef>
-    <TypeUserDef name="T_IOMasterFaultsType" size="3" nativesize="168" typeclass="Userdef" pouclass="STRUCTURE" iecname="IOMasterFaultsType">
-      <UserDefElement iecname="commFail" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_LoadPlateFaultsType" size="9" nativesize="504" typeclass="Userdef" pouclass="STRUCTURE" iecname="LoadPlateFaultsType">
       <UserDefElement iecname="failedToDischarge" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
@@ -919,9 +916,6 @@
           <Comment> Initiate Cycle Pushbutton</Comment>
         </Node>
         <Node name="integratedExitConveyorSelection" type="T_IntegratedConveyorSelection" access="ReadWrite" />
-        <Node name="IOMasterFaults" type="T_IOMasterFaultsType" access="ReadWrite">
-          <Comment>Faults</Comment>
-        </Node>
         <Node name="jobLoaded" type="T_BOOL" access="ReadWrite" />
         <Node name="jobLoadRequired" type="T_Warning" access="ReadWrite" />
         <Node name="jogBagForward" type="T_BOOL" access="ReadWrite" />

@@ -27,21 +27,19 @@ VAR
 	testWrite : BOOL;
 	hmiLight : FB_HMILight;
 	versionInfo : VERSION;
+	recipieManager : Recipe_Management.RecipeManCommands;
+	recipeName : STRING;
+	recResult : DWORD;
 END_VAR
 //    Program: Main (PLC_PRG)
 //    Description: This program serves as a base for the MOAB Prototype
 //    Created by: Ben Hess
 //    Created Date: January 16th, 2018
 
-endPrintOSF(CLK := printerEndOfPrint);
 printDeltaTimer(IN := oPrinterStartPrint);
-IF endPrintOSF.Q OR testWrite THEN
-	lastPrinterDelta := printDeltaTimer.ET;
-	Globals.lastPrinterDelta := printDeltaTimer.ET;
-	stringToLog :=  CONCAT(TO_STRING(PRG_Bagger.currentDateAndTime.dtCurrent),',');
-	stringToLog := Standard.CONCAT(stringToLog,TO_STRING(printDeltaTimer.ET));
-	//CSVWriter.xText_Write := stringToLog;
-	//CSVWriter.xWrite := TRUE;
+IF testWrite THEN
+	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
+	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
 	testWrite := FALSE;
 END_IF
 // 
