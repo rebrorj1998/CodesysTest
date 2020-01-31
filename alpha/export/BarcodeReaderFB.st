@@ -35,7 +35,7 @@ END_VAR
 
 // Setup timers for reading offset and scanning distance
 IF positionOffset > 0 THEN
-	positionOffsetDelay(PT := TO_TIME(MILLISECONDS_IN_SECOND / (feedSpeed / positionOffset)));
+	positionOffsetDelay(PT := TO_TIME(MILLISECONDS_IN_SECOND / (feedSpeed / positionOffset)) + T#120ms);
 ELSE
 	positionOffsetDelay(PT := T#0S);
 END_IF
