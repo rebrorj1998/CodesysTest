@@ -78,6 +78,7 @@ VAR
 	safePowerFailure : FB_Fault(name := 'E-Stop/Safety Power Failure');
 	palmButtonConfigError : FB_Fault(name := 'Palm Button Configuration Error');
 	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
+	barcodeVerificationFailed : FB_Fault(name := 'Barcode Verification Failed');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -101,6 +102,7 @@ VAR
 	fillerModeCycleStartOnlyPulse : MonostableMultivibratorFB();
 	murrIOBusNode : MurrIOFB();
 	funnel : FunnelFB();
+	barcodeVerifier : BarcodeReaderFB();
 END_VAR
 
 //    Function Block: FB_MOABHead
@@ -120,7 +122,15 @@ safePowerFailure.faultTrigger := NOT iEStopOK AND murrIOBusNode.ok;
 
 // Bags Low warning
 HMIData.bagLevelLow.active := iBagsLow;
-
+	 
+// Barcode Verifier
+barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotInstalled AND HMIData.barcodeVerifierInUse),
+		 		readGoodInput := iBarcodeReadGood,
+				distanceToScan := HMIData.barcodeScanDistance,
+				feedSpeed := TO_REAL(HMIData.printSpeed),
+				positionOffset := HMIData.barcodeStartPosition,
+				triggerScannerOutput => oBarcodeTrigger);
+					 
 // Option setup and factory config  
 	 
 IF HMIData.resetAverageCycleTime THEN
@@ -1064,6 +1074,7 @@ CASE state OF
 	HEAD_STATES.FinishingCycle : 		//
 													IF finishCycleSubState = FINISH_CYCLE_STATES.Done THEN
 														state := HEAD_STATES.FinishedCycle;
+														finishCycleSubState := FINISH_CYCLE_STATES.Idle;
 													END_IF
 	HEAD_STATES.FinishedCycle :			//
 											HMIData.bagsMade.Increment();
@@ -1361,7 +1372,7 @@ CASE releaseAndFeedSubState OF
 													IF zebraPrinter.printHeadDebounced THEN
 														bagDelivery.AutoStartPrintFeed();
 														zebraPrinter.AutoSendPrintSignal();
-														
+														barcodeVerifier.Trigger();
                                                         //bagDelivery.AutoStartPrintFeed();
 														//bagDelivery.AutoStartPrintFeed();
                                                         //zebraPrinter.AutoSendPrintSignal();
@@ -1370,6 +1381,7 @@ CASE releaseAndFeedSubState OF
                                                     END_IF                                        
 
     RELEASE_FEED_STATES.Printing :                // 
+													
                                                     IF zebraPrinter.state = PRINTER_STATES.DonePrinting THEN
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.StopPrinting;
                                                     END_IF
@@ -1386,9 +1398,7 @@ CASE releaseAndFeedSubState OF
                                                                                                             
     RELEASE_FEED_STATES.MovingJawOutAndFeedingBag :    // 
     
-													(*{warning 'TODO: This is a hack to use HPA as LPA'}
-														HPA.DwellSetting := 1500;		// Get rid on this - ha
-														HPA.Trigger();	*)	
+													
 													IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable)
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawOpened OR NOT pressureBar.enable)
@@ -1400,7 +1410,11 @@ CASE releaseAndFeedSubState OF
                                                             releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
                                                     
-    RELEASE_FEED_STATES.MovedJawOutAndFedBag :        releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
+    RELEASE_FEED_STATES.MovedJawOutAndFedBag :      // Wait until bag is fed out before triggering barcode fail.
+													IF barcodeVerifier.barcodeFault THEN
+														barcodeVerificationFailed.Trigger();
+													END_IF 
+													releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
     RELEASE_FEED_STATES.Done :
     RELEASE_FEED_STATES.Fault :
 END_CASE

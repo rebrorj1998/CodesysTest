@@ -459,7 +459,7 @@
     <TypeUserDef name="T_PneumaticPressureBarFB_1" size="15" nativesize="1124" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PneumaticPressureBarFB_1" basetype="T_BaseComponentFB">
       <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_PrinterFB_Mode2" size="4" nativesize="5476" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PrinterFB_Mode2" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_PrinterFB_Mode2" size="4" nativesize="18476" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PrinterFB_Mode2" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enableRibbonDetection" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -728,7 +728,7 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3649" nativesize="26752" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3649" nativesize="40056" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="990" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1005" vartype="VAR" />
@@ -1026,6 +1026,9 @@
         <Node name="iBagTensionFault" type="T_BIT_X_3" access="Read" directaddress="%IX528.3">
           <Comment>Bag_Delivery_Rear_Motor : </Comment>
         </Node>
+        <Node name="iBarcodeReadGood" type="T_BIT_X_4" access="Read" directaddress="%IX67.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="iEStopOK" type="T_BIT_X_2" access="Read" directaddress="%IX64.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1096,6 +1099,9 @@
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oAuxReadyForFiller" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX28.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oBarcodeTrigger" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX34.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oBOFDown" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX187.3">
