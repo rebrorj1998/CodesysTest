@@ -808,6 +808,7 @@ CASE state OF
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
+													AND NOT HMIData.sealBarNotAtTemperature.active
 													AND NOT setPassthroughPB THEN
                                                         state := HEAD_STATES.SealAndSeparateBag;
                                                         startCycle := FALSE;
