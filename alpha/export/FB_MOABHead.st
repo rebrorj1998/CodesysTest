@@ -154,7 +154,7 @@ murrIOBusNode(
 	enable:= , 
 	headNodeEnabled:= TRUE, 
 	guardNodeEnabled:= TRUE, 
-	printerNodeEnabled:= (HMIData.printerSelection = LabelPrinterSelection.ZebraPrinter), 
+	printerNodeEnabled:= (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled), 
 	dischargeNodeEnabled:= TRUE, 
 	auxIONodeEnabled:= , 
 	configVersion:= HMIData.murrIOConfigVersion, 

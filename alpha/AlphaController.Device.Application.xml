@@ -58,6 +58,12 @@
       <UserDefElement type="T_AuxiliaryIOSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_AuxiliaryIOSelection" iecname="AuxIOStandard" enumvalue="1" />
     </TypeUserDef>
+    <TypeUserDef name="T_BCVSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BCVSelection" basetype="T_INT">
+      <UserDefElement type="T_BCVSelection" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_BCVSelection" iecname="VisionBased" enumvalue="1" />
+      <UserDefElement type="T_BCVSelection" iecname="LaserScanner" enumvalue="2" />
+      <UserDefElement type="T_BCVSelection" iecname="TwoDimensional" enumvalue="3" />
+    </TypeUserDef>
     <TypeUserDef name="T_BagDeflatorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagDeflatorSelection" basetype="T_INT">
       <UserDefElement type="T_BagDeflatorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_BagDeflatorSelection" iecname="IBDStandard" enumvalue="1" />
@@ -233,7 +239,8 @@
     </TypeUserDef>
     <TypeUserDef name="T_LabelPrinterSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="LabelPrinterSelection" basetype="T_INT">
       <UserDefElement type="T_LabelPrinterSelection" iecname="NotInstalled" enumvalue="0" />
-      <UserDefElement type="T_LabelPrinterSelection" iecname="ZebraPrinter" enumvalue="1" />
+      <UserDefElement type="T_LabelPrinterSelection" iecname="ZebraPrinter203DPI" enumvalue="1" />
+      <UserDefElement type="T_LabelPrinterSelection" iecname="ZebraPrinter300DPI" enumvalue="2" />
     </TypeUserDef>
     <TypeSimple name="T_POINTER_TO_ARRAY__0__13__OF_DINT" size="4" swapsize="4" typeclass="Pointer" iecname="POINTER TO ARRAY [0..13] OF DINT" />
     <TypeSimple name="T_POINTER_TO_ARRAY__0__15__OF_DINT" size="4" swapsize="4" typeclass="Pointer" iecname="POINTER TO ARRAY [0..15] OF DINT" />
@@ -728,7 +735,7 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3649" nativesize="40056" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="40056" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="990" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1005" vartype="VAR" />
@@ -742,13 +749,14 @@
       <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="3582" vartype="VAR" />
       <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="3585" vartype="VAR" />
       <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="3588" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3591" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3600" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3609" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3618" vartype="VAR" />
-      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="3627" vartype="VAR" />
-      <UserDefElement iecname="murrIOBusNode" type="T_MurrIOFB" byteoffset="3634" vartype="VAR" />
-      <UserDefElement iecname="funnel" type="T_FunnelFB" byteoffset="3641" vartype="VAR" />
+      <UserDefElement iecname="barcodeVerificationFailed" type="T_FB_Fault" byteoffset="3591" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3594" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3603" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="3612" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="3621" vartype="VAR" />
+      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="3630" vartype="VAR" />
+      <UserDefElement iecname="murrIOBusNode" type="T_MurrIOFB" byteoffset="3637" vartype="VAR" />
+      <UserDefElement iecname="funnel" type="T_FunnelFB" byteoffset="3644" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
@@ -854,6 +862,13 @@
         <Node name="bagsRejectedTotal" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="bagThickness" type="T_REAL" access="ReadWrite" />
         <Node name="bagWidth" type="T_REAL" access="ReadWrite" />
+        <Node name="barcodeBadReadCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeBadReadFaultSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeGoodReadCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeScanDistance" type="T_REAL" access="ReadWrite" />
+        <Node name="barcodeStartPosition" type="T_REAL" access="ReadWrite" />
+        <Node name="barcodeVerifierInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeVerifierSelection" type="T_BCVSelection" access="ReadWrite" />
         <Node name="batchCount" type="T_UDINT" access="ReadWrite" />
         <Node name="batchEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="batchSetting" type="T_UDINT" access="ReadWrite" />
@@ -998,6 +1013,7 @@
         <Node name="sealFlattenersServiceRaise" type="T_BOOL" access="ReadWrite" />
         <Node name="separateBeforeSeal" type="T_BOOL" access="ReadWrite" />
         <Node name="stopMachine" type="T_BOOL" access="ReadWrite" />
+        <Node name="triggerBarcodeReaderService" type="T_BOOL" access="ReadWrite" />
         <Node name="vacuumDwell" type="T_REAL" access="ReadWrite" />
         <Node name="vacuumServiceOff" type="T_BOOL" access="ReadWrite" />
         <Node name="vacuumServiceOn" type="T_BOOL" access="ReadWrite" />
