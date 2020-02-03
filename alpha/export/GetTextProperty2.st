@@ -16,7 +16,7 @@ ELSIF stKey = "Project" THEN
 ELSIF stKey = "Title" THEN
 	GetTextProperty2 := ADR("MOAB Prototype");
 ELSIF stKey = "VersionPostfix" THEN
-	GetTextProperty2 := ADR("-feature/t-1225");
+	GetTextProperty2 := ADR("-feature/add-300spi-demo-mode");
 ELSE
 	GetTextProperty2 := ADR("");
 END_IF

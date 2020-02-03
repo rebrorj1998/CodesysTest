@@ -466,7 +466,7 @@
     <TypeUserDef name="T_PneumaticPressureBarFB_1" size="15" nativesize="1124" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PneumaticPressureBarFB_1" basetype="T_BaseComponentFB">
       <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_PrinterFB_Mode2" size="4" nativesize="18476" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PrinterFB_Mode2" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_PrinterFB_Mode2" size="4" nativesize="77476" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PrinterFB_Mode2" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enableRibbonDetection" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -735,7 +735,7 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="40056" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99056" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="990" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1005" vartype="VAR" />
