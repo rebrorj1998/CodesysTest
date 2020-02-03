@@ -19,6 +19,7 @@ SUPER^();
 
 METHOD CheckIfBagGrabbed : BOOL
 VAR_INPUT
+	incrementCounters : BOOL; // IF TRUE Incerment bag counters, otherwise just return bag grabbed status
 END_VAR
 
 // Returns true if bag grab successful.  Also increments appropriate counters
@@ -33,12 +34,21 @@ IF NOT __ISVALIDREF(successfulBagOpenCount)
 END_IF
 
 IF rightFingerBagPresent AND leftFingerBagPreset THEN
-	successfulBagOpenCount := successfulBagOpenCount +1;
+	IF incrementCounters THEN
+		successfulBagOpenCount := successfulBagOpenCount +1;
+	END_IF
 	CheckIfBagGrabbed := TRUE;
 ELSIF rightFingerBagPresent AND NOT leftFingerBagPreset THEN
-	bagFailedToGrabLeftFingerCount := bagFailedToGrabLeftFingerCount +1 ;
+	IF incrementCounters THEN
+		bagFailedToGrabLeftFingerCount := bagFailedToGrabLeftFingerCount +1 ;
+	END_IF
 ELSIF NOT rightFingerBagPresent AND leftFingerBagPreset THEN
-	bagFailedToGrabRightFingerCount := bagFailedToGrabRightFingerCount + 1;
-ELSE bagFailedToGrabBothFingersCount := bagFailedToGrabBothFingersCount + 1;
+	IF incrementCounters THEN
+		bagFailedToGrabRightFingerCount := bagFailedToGrabRightFingerCount + 1;
+	END_IF
+ELSE
+	IF incrementCounters THEN
+		bagFailedToGrabBothFingersCount := bagFailedToGrabBothFingersCount + 1;
+	END_IF
 END_IF
 {warning restore C0371}

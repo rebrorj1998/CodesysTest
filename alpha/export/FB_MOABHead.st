@@ -844,7 +844,7 @@ CASE state OF
 													END_IF
 													
 													IF bagOpened THEN
-														IF NOT bagOpenFingers.CheckIfBagGrabbed() THEN
+														IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
 															openedBagWasRemoved.Trigger();
 															bagOpened := FALSE;
 														END_IF
@@ -1473,7 +1473,7 @@ CASE openBagSubState OF
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
 															bagOpenCheckDelay.IN := TRUE;
 															IF bagOpenCheckDelay.Q THEN
-																IF bagOpenFingers.CheckIfBagGrabbed() THEN // This method checks to see if the bag is grabbed and returns true if so.
+																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) THEN // This method checks to see if the bag is grabbed and returns true if so.
 																	openBagSubState := BAG_OPEN_ASSIST_STATES.BagOpened;
 																ELSE 
 																	openBagSubState := BAG_OPEN_ASSIST_STATES.BagFailedToOpen;
