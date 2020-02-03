@@ -16,7 +16,7 @@ ELSIF stKey = "Project" THEN
 ELSIF stKey = "Title" THEN
 	GetTextProperty := "MOAB Prototype";
 ELSIF stKey = "VersionPostfix" THEN
-	GetTextProperty := "-feature/add-300spi-demo-mode";
+	GetTextProperty := "-alpha/master";
 ELSE
 	GetTextProperty := "";
 END_IF
