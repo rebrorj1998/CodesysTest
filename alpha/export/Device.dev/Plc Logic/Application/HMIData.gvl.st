@@ -130,10 +130,15 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerFactorySelection : FillerSelection;
 	funnelFactorySelection : FunnelSelection;
 	murrIOConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
+	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
 	printerConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
+	printerConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
+	frontFilmFeedMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
+	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	sealFlattenerMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
+	sealFlattenerMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	
 	(*Warnings*)
 	printerRibbonLow : Warning;
