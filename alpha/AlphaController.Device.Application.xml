@@ -735,7 +735,7 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99056" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99052" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="990" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1005" vartype="VAR" />
@@ -903,7 +903,7 @@
         <Node name="fillerModeCycleStartOnly" type="T_Warning" access="ReadWrite" />
         <Node name="forwardLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="frontFilmFeedMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
-        <Node name="frontFilmFeedMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="ReadWrite" />
+        <Node name="frontFilmFeedMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="funnelClosingTime" type="T_REAL" access="ReadWrite">
           <Comment> For funnel w/o sensors only : Time required to consider funnel closed after command to close</Comment>
         </Node>
@@ -958,7 +958,7 @@
         <Node name="motorizedSealFlattenerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="msfHorizontalMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
         <Node name="murrIOConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
-        <Node name="murrIOConfigVersionMax" type="T_CONFIG_VERSIONS" access="ReadWrite" />
+        <Node name="murrIOConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="packageEjectGuardRemoved" type="T_Warning" access="ReadWrite" />
         <Node name="packageEjectSelection" type="T_PackageEjectionSelection" access="ReadWrite" />
         <Node name="passthroughChanges" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -977,7 +977,7 @@
           <Comment>Misc</Comment>
         </Node>
         <Node name="printerConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
-        <Node name="printerConfigVersionMax" type="T_CONFIG_VERSIONS" access="ReadWrite" />
+        <Node name="printerConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="printerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="printerInstalled" type="T_BOOL" access="ReadWrite" />
         <Node name="printerInUse" type="T_BOOL" access="ReadWrite" />
@@ -994,7 +994,7 @@
         <Node name="printSpeed" type="T_UDINT" access="ReadWrite" />
         <Node name="rearLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="rearUnwindMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
-        <Node name="rearUnwindMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="ReadWrite" />
+        <Node name="rearUnwindMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -1007,7 +1007,7 @@
         <Node name="sealBarTemperature" type="T_UDINT" access="ReadWrite" />
         <Node name="sealBarTemperatureSetting" type="T_UDINT" access="ReadWrite" />
         <Node name="sealFlattenerMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
-        <Node name="sealFlattenerMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="ReadWrite" />
+        <Node name="sealFlattenerMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="sealFlattenersManualPositionSetting" type="T_REAL" access="ReadWrite" />
         <Node name="sealFlattenersMoveToManualPos" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersPosition" type="T_REAL" access="ReadWrite" />
