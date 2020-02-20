@@ -49,7 +49,7 @@ VAR
 	forwardLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	exitConveyorRun : MonostableMultivibratorFB() := (Dwellsetting := 6000);
-	externalExitConveyorRun : MonostableMultivibratorFB() := (Dwellsetting := 6000);
+	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	IBDCylinders : FB_ThreePositionCylinder();
 	IBDExtendONS : FB_ONS();
 	IBDRetractONS : FB_ONS();
@@ -102,6 +102,7 @@ VAR
 	murrIOBusNode : MurrIOFB();
 	funnel : FunnelFB();
 	barcodeVerifier : BarcodeReaderFB();
+
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -839,6 +840,11 @@ CASE state OF
 														homeJawPB := FALSE;
 														startCycle := FALSE;
 														HMIData.initiateCycle := FALSE;
+														factoryTestModeKeepCycling := FALSE;
+														hmiLight.TurnOff();
+													END_IF
+													
+													IF HMIData.sealBarNotAtTemperature.active THEN
 														factoryTestModeKeepCycling := FALSE;
 													END_IF
 													
