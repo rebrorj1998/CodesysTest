@@ -87,7 +87,7 @@ VAR
 	rearLoadPlateFaults : LoadPlateFaultsType;
 	loadShelfFaultTimer : FB_CylinderFaults();
 	loadShelfFaults : LoadPlateFaultsType;
-	LPA : MonostableMultivibratorFB();
+	LPA : DelayDwellFB();
 	hpaServiceOnONS : FB_ONS;
 	exitConveyorJogONS : FB_ONS;
 	externalExitConveyorJogONS : FB_ONS;
@@ -241,8 +241,8 @@ bagDropTimer(PT := TO_TIME((HMIData.loadPlateDelay * 1000) + (HMIData.bagDropTim
 HPA.DwellSetting := TO_UINT(HMIData.hpaDwell * 1000);
 HPA(Q => oHPAOn);
 hpaServiceOnONS(CLK := HMIData.hpaserviceOn);
-	 
-LPA.DwellSetting := TO_UINT(HMIData.lpaDwell * 1000);
+
+LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 LPA(Q => oLPAOn);
 	 
 CASE HMIData.independentBagDeflatorSelection OF
@@ -631,8 +631,8 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	
 	motorizedSealFlattenersMode := DEVICE_MODES.Auto;
 	motorizedSealFlatteners.Reset();
-	motorizedSealFlatteners.enable := TRUE;
-	IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired THEN
+	motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
+	IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN
 		motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 		motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
 	END_IF
@@ -1172,6 +1172,7 @@ CASE sealAndSeparateSubState OF
 	
 	SEAL_SEPARATE_STATES.WaitForJawCloseDelay : 	// Wait for jaw close delay. 
 													IF pressureBar.enable THEN
+														LPA.ManualOff();
 														pressureBarCloseDelay.IN := TRUE;
 														IF (pressureBarCloseDelay.Q OR TO_INT(HMIData.pressureBarCloseDelay) = 0) 
 															AND (funnel.closed OR NOT funnel.enable)
