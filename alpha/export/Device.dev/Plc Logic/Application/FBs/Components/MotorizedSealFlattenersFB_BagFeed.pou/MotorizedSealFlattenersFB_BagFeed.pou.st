@@ -181,6 +181,7 @@ CASE state OF
 																	
 																	IF raiseService THEN
 																		sealFlattenersVerticalAxis.Retract();  
+																		
 																		raiseService := FALSE;
 																	ELSIF lowerService THEN
 																		sealFlattenersVerticalAxis.Extend();  
