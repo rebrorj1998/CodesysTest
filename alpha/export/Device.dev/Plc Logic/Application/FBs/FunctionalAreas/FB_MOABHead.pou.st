@@ -1496,6 +1496,10 @@ CASE openBagSubState OF
 														bagOpenRetryCount := bagOpenRetryCount + 1;
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
 															openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawIn;
+														ELSIF HMIData.bagOpenFeedNewBagCount < HMIData.bagOpenFeedNewBagSetting THEN
+															HMIData.bagOpenFeedNewBagCount := HMIData.bagOpenFeedNewBagCount + 1;
+															openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
+															state := HEAD_STATES.SealAndSeparateBag;
 														ELSE 
 															//IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) THEN
 																motorizedSealFlatteners.AutoMoveToBagHolding();

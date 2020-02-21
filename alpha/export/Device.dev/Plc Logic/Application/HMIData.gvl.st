@@ -56,12 +56,13 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	barcodeStartPosition : REAL;
 	barcodeScanDistance : REAL := 1.0;
 	barcodeVerifierInUse : BOOL;
-	
 	lastCycleTime : REAL;
 	averageCycleTime : REAL;
 	resetAverageCycleTime : BOOL;
 	bagOpenRetrySetting : INT := 3;
 	bagOpenRetryCount : INT;
+	bagOpenFeedNewBagSetting : INT := 1;
+	bagOpenFeedNewBagCount : INT;
 	currentJobID : INT;
 	separateBeforeSeal : BOOL;
 	activateDemoMode : BOOL;
