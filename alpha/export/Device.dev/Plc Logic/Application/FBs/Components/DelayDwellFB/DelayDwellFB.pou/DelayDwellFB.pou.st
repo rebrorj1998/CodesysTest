@@ -7,8 +7,8 @@ VAR_OUTPUT
 END_VAR
 VAR
 	_trigger : BOOL;
-	_dwellTimeInMS : UINT := 80; 	// Pulse Dwell in mS 
-	_delayTimeInMS : UINT; 			// Delay before Pulse in mS
+	_dwellTimeInMS : DINT := 80; 	// Pulse Dwell in mS 
+	_delayTimeInMS : DINT; 			// Delay before Pulse in mS
 	_manualOn : BOOL;
 	_manualOff : BOOL;
 	active : BOOL;
@@ -23,10 +23,15 @@ END_VAR
 //    Created Date: February 20th, 2020
 
 // Setup timers for reading offset and scanning distance
-delayTimer(PT := UINT_TO_TIME(_delayTimeInMS));
-dwellTimer(PT := UINT_TO_TIME(_dwellTimeInMS));
+delayTimer(PT := UDINT_TO_TIME(_delayTimeInMS));
+// If negative dwell time, run forever
+IF _dwellTimeInMS < 0 THEN
+	dwellTimer(PT := T#0MS);
+ELSE
+	dwellTimer(PT := UDINT_TO_TIME(_dwellTimeInMS));
+END_IF
 
-
+// Manual On/Off
 IF _manualOff THEN
 	THIS^.Reset();
 	state := DELAY_DWELL_STATES.Idle;
@@ -59,25 +64,22 @@ CASE state OF
 	
 	DELAY_DWELL_STATES.Dwell: 			//
 										Q := TRUE;
-										dwellTimer.IN := TRUE;
-										
-										IF dwellTimer.Q THEN
-											dwellTimer.IN := FALSE;
-											Q := FALSE;
-											state := DELAY_DWELL_STATES.Idle;
+										IF _dwellTimeInMS >= 0 THEN
+											dwellTimer.IN := TRUE;
+											IF dwellTimer.Q THEN
+												dwellTimer.IN := FALSE;
+												Q := FALSE;
+												state := DELAY_DWELL_STATES.Idle;
+											END_IF
 										END_IF
-										
 										IF _trigger THEN
 											_trigger := FALSE;
 											state := DELAY_DWELL_STATES.ResettingDwell;
 										END_IF
 										
-	
 	DELAY_DWELL_STATES.ResettingDwell: 	//
 										dwellTimer.IN := FALSE;
 										state := DELAY_DWELL_STATES.Dwell;
 END_CASE
-
-
 
 SUPER^();

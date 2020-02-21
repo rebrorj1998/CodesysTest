@@ -1,2 +1,2 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-PROPERTY DwellSetting : UINT
+PROPERTY DwellSetting : DINT

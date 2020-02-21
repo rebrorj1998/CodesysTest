@@ -1,2 +1,2 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-PROPERTY DelaySetting : UINT
+PROPERTY DelaySetting : DINT
