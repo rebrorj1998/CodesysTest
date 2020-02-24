@@ -44,14 +44,14 @@ print("--- Saving files in the project: ---")
 # git 
 has_repo = False
 
-save_folder = r'C:\Users\bhess\source\repos\SharpController\alpha\export'
+save_folder = os.path.dirname(projects.primary.path) + '\\export'
 
 if not os.path.exists(save_folder):
     os.makedirs(save_folder)
 else:
     a = os.listdir(save_folder)
     for f in a:
-        if not f.startswith("."):  # 保留 svn,git 目录
+        if not f.startswith("."):  # ignore dotfile/dotdir
             sub_path = os.path.join(save_folder, f)
             if os.path.isdir(sub_path):
                 shutil.rmtree(sub_path)
@@ -81,7 +81,7 @@ type_dist = {
     '261bd6e6-249c-4232-bb6f-84c2fbeef430': 'gvl',  # gvl_Persistent
     '98a2708a-9b18-4f31-82ed-a1465b24fa2d': 'task',  # task
     '40989022-e4d2-4dc7-89d2-9a412930b20e': 'enum',  # enumeration
-    '6b3dfb6a-1865-4356-a39b-1fe0ef89651c': 'recipe'
+    '6b3dfb6a-1865-4356-a39b-1fe0ef89651c': 'recipe' # recipe
 };
 
 

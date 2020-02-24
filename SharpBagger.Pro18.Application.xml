@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="3.5.15.0" runtimeid="3.5.15.0" libversion="3.5.15.0" compiler="3.5.15.0" lmm="3.5.15.0" profile="CODESYS V3.5 SP15+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="3.5.15.30" runtimeid="3.5.15.30" libversion="3.5.15.20" compiler="3.5.15.30" lmm="3.5.15.0" profile="CODESYS V3.5 SP15 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="SharpBagger" devicename="Pro18" appname="Application" />
   </Header>
   <TypeList>
@@ -356,8 +356,9 @@
       <UserDefElement iecname="Halt" type="T_BOOL" byteoffset="8" vartype="VAR_INPUT" />
       <UserDefElement iecname="NewSetPoint" type="T_BOOL" byteoffset="9" vartype="VAR_INPUT" />
       <UserDefElement iecname="MoveAbs" type="T_BOOL" byteoffset="10" vartype="VAR_INPUT" />
-      <UserDefElement iecname="MoveRel" type="T_BOOL" byteoffset="11" vartype="VAR_INPUT" />
-      <UserDefElement iecname="MoveVelo" type="T_BOOL" byteoffset="12" vartype="VAR_INPUT" />
+      <UserDefElement iecname="MoveAbsTorque" type="T_BOOL" byteoffset="11" vartype="VAR_INPUT" />
+      <UserDefElement iecname="MoveRel" type="T_BOOL" byteoffset="12" vartype="VAR_INPUT" />
+      <UserDefElement iecname="MoveVelo" type="T_BOOL" byteoffset="13" vartype="VAR_INPUT" />
       <UserDefElement iecname="TargetPosDist" type="T_REAL" byteoffset="16" vartype="VAR_INPUT" />
       <UserDefElement iecname="TargetVelocity" type="T_REAL" byteoffset="20" vartype="VAR_INPUT" />
       <UserDefElement iecname="ProfileVelocity" type="T_REAL" byteoffset="24" vartype="VAR_INPUT" />
@@ -905,8 +906,9 @@
       <UserDefElement iecname="Halt" type="T_BOOL" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
       <UserDefElement iecname="NewSetPoint" type="T_BOOL" byteoffset="9" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
       <UserDefElement iecname="MoveAbs" type="T_BOOL" byteoffset="10" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
-      <UserDefElement iecname="MoveRel" type="T_BOOL" byteoffset="11" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
-      <UserDefElement iecname="MoveVelo" type="T_BOOL" byteoffset="12" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
+      <UserDefElement iecname="MoveAbsTorque" type="T_BOOL" byteoffset="11" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
+      <UserDefElement iecname="MoveRel" type="T_BOOL" byteoffset="12" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
+      <UserDefElement iecname="MoveVelo" type="T_BOOL" byteoffset="13" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
       <UserDefElement iecname="TargetPosDist" type="T_REAL" byteoffset="16" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
       <UserDefElement iecname="TargetVelocity" type="T_REAL" byteoffset="20" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
       <UserDefElement iecname="ProfileVelocity" type="T_REAL" byteoffset="24" vartype="VAR_INPUT" inherited_from="T_Axis_REF" />
