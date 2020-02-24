@@ -637,7 +637,8 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 		motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
 	END_IF
 	
-	
+	HMIData.bagOpenFeedNewBagCount := 0;
+	bagOpenRetryCount := 0;
 	
 	HMIData.stopMachine := FALSE;
 	
@@ -1481,6 +1482,7 @@ CASE openBagSubState OF
 															IF bagOpenCheckDelay.Q THEN
 																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) THEN // This method checks to see if the bag is grabbed and returns true if so.
 																	openBagSubState := BAG_OPEN_ASSIST_STATES.BagOpened;
+																	motorizedSealFlatteners.AutoMoveIn();
 																ELSE 
 																	openBagSubState := BAG_OPEN_ASSIST_STATES.BagFailedToOpen;
 																END_IF
@@ -1496,6 +1498,13 @@ CASE openBagSubState OF
 														bagOpenRetryCount := bagOpenRetryCount + 1;
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
 															openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawIn;
+														ELSIF HMIData.bagOpenFeedNewBagCount < HMIData.bagOpenFeedNewBagSetting THEN
+															HMIData.bagOpenFeedNewBagCount := HMIData.bagOpenFeedNewBagCount + 1;
+															bagOpenRetryCount := 0;
+															motorizedSealFlatteners.AutoMoveOut();
+															oVacOn := FALSE;
+															openBagSubState := BAG_OPEN_ASSIST_STATES.FeedNewBag;
+															
 														ELSE 
 															//IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) THEN
 																motorizedSealFlatteners.AutoMoveToBagHolding();
@@ -1503,6 +1512,7 @@ CASE openBagSubState OF
 																
 																openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab;
 																bagOpenRetryCount := 0; 
+																HMIData.bagOpenFeedNewBagCount := 0;
 																HMIData.bagsRejectedTotal.Increment();
 																Globals.rejectedBagCount := Globals.rejectedBagCount + 1;
 															//END_IF
@@ -1513,7 +1523,7 @@ CASE openBagSubState OF
 														bagOpened := TRUE;
                                                     	motorizedSealFlatteners.AutoMoveToBagHolding();
 														bagOpenRetryCount := 0;
-														
+														HMIData.bagOpenFeedNewBagCount := 0;
 														
 														openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
 														
@@ -1535,6 +1545,9 @@ CASE openBagSubState OF
                                                              
                                                 
 	BAG_OPEN_ASSIST_STATES.FeedNewBag :   			//
+													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) THEN
+														state := HEAD_STATES.SealAndSeparateBag;
+													END_IF
 													
 													
                                                 
