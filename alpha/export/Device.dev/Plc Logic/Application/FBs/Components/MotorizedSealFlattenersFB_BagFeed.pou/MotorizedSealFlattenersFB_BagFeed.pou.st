@@ -313,6 +313,15 @@ CASE state OF
 																		END_IF
                                                                         ClearCommands();
                                                                     END_IF    
+																	
+																	IF enable AND (autoModeSelected AND _amMoveOut) THEN
+																		sealFlattenersHorizontalAxisMotor.MoveToPosition(position := outSetpoint, 
+                                                                                                                        acceleration := horizontalAxisAccel,
+                                                                                                                        deceleration := horizontalAxisDecel,
+                                                                                                                        velocity := moveInSpeed);                                                    
+                                                                    	state := SEAL_FLATTENER_STATES.Idle;
+																		ClearCommands();
+																	END_IF
     
     SEAL_FLATTENER_STATES.MoveFlattenersDown :            // Do moves for down and bag holding
                                                                         
