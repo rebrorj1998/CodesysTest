@@ -48,7 +48,7 @@ VAR
     rearLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	forwardLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
-	exitConveyorRun : MonostableMultivibratorFB() := (Dwellsetting := 6000);
+	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	IBDCylinders : FB_ThreePositionCylinder();
 	IBDExtendONS : FB_ONS();
@@ -78,6 +78,7 @@ VAR
 	palmButtonConfigError : FB_Fault(name := 'Palm Button Configuration Error');
 	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
 	barcodeVerificationFailed : FB_Fault(name := 'Barcode Verification Failed');
+	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -102,7 +103,7 @@ VAR
 	murrIOBusNode : MurrIOFB();
 	funnel : FunnelFB();
 	barcodeVerifier : BarcodeReaderFB();
-
+	rearMotorCommsReturned : Standard.F_TRIG();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -130,7 +131,19 @@ barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotI
 				feedSpeed := TO_REAL(HMIData.printSpeed),
 				positionOffset := HMIData.barcodeStartPosition,
 				triggerScannerOutput => oBarcodeTrigger);
-					 
+// Enable comms to Keyence N-L20 if selected in factory config
+IF HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner THEN
+	Keyence_BCV.Enable := TRUE; 
+		 
+	IF Keyence_BCV.udiState <> 4 THEN 
+		barcodeVerifierCommFail.Trigger();
+	END_IF
+		 
+ELSE
+	Keyence_BCV.Enable := FALSE; 
+END_IF
+
+
 // Option setup and factory config  
 	 
 IF HMIData.resetAverageCycleTime THEN
@@ -722,7 +735,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	//homeJawPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-	
+	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	
 END_IF
@@ -776,8 +789,12 @@ END_IF
 IF Globals.enableDryCycle THEN
     zebraPrinter.enable := FALSE;
 END_IF
-                
 
+// Send torque value to motor                 
+rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
+IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
+	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue((TO_DINT(HMIData.bagTensionSetting * 100)));
+END_IF
 
 // Clear batch count on batch enable
 enableBatchONS(CLK := enableBatch);

@@ -47,15 +47,17 @@ IF saveParametersTimer.Q THEN
 END_IF
 
 IF testCreate THEN
-	recResult := recipieManager.CreateRecipe(RecipeDefinitionName := 'Recipes', RecipeName := 'Automatic');
-	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
-	testCreate := FALSE;
+// 	recResult := recipieManager.CreateRecipe(RecipeDefinitionName := 'Recipes', RecipeName := 'Automatic');
+// 	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
+ 	testCreate := FALSE;
+	SaveValues();
 END_IF
 
 IF testRead THEN
-	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
-	recResult := recipieManager.LoadAndWriteRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
-	testRead := FALSE;
+// 	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
+// 	recResult := recipieManager.LoadAndWriteRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
+ 	testRead := FALSE;
+	RecallValues();
 END_IF
 
 // 

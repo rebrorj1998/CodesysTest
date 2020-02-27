@@ -95,7 +95,7 @@ pData := ADR(_sTCPSendData),
 eError=> );
 //reset write enable
 IF(_TCPWrite.xDone) THEN
-_TCPWriteEn:= FALSE;
-_sendLabel := FALSE;
+	_TCPWriteEn:= FALSE;
+	_sendLabel := FALSE;
 END_IF
 
