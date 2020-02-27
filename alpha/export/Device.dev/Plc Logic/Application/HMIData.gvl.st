@@ -28,6 +28,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	bagLength : REAL := 23.5;
 	bagWidth : REAL := 17.5;
 	bagThickness : REAL := 2.5;
+	bagTensionSetting : REAL := 0.6;  // Bag takeup tension setting in amps
 	bagDropTime : REAL;
 	bagForwardSpeed : UDINT := 55;
 	bagReverseSpeed : UDINT := 3;
@@ -133,7 +134,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	murrIOConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
 	printerConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
-	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
+	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
 	sealFlattenerMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	
 	(*Warnings*)
@@ -190,6 +191,6 @@ VAR_GLOBAL CONSTANT
 	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
 	printerConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
-	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
+	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
 	sealFlattenerMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 END_VAR

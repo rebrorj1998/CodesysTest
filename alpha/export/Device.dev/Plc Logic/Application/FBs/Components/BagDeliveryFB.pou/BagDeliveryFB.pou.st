@@ -50,6 +50,8 @@ VAR
     _amStartPrint : BOOL;            // Auto Mode - Start Printing
     _amPrinterDone : BOOL;             // Auto Mode - Printer is Done
 	_amFeedToEye : BOOL;			  // Auto Mode - Feed Bag to Eye
+	testTorque : BOOL;
+	testTorqueValue : DINT := 60;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
@@ -102,6 +104,11 @@ bagFeedRearMotor(ptrEIPInputs := ADR(bagRearMotorInputs),
 				defaultCurrentSetpoint := 1150, 
 				commFail := Bag_Delivery_Rear_Motor.udiState <> 4);
 bagFeedRearMotor.Execute();
+
+IF testTorque THEN
+	bagFeedRearMotor.SetRearMotorTorqueValue(testTorqueValue);
+	testTorque := FALSE;
+END_IF
 
 IF enableONS.Q OR resetONS.Q THEN
     IF _mode = DEVICE_MODES.Manual THEN 

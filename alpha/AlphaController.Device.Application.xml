@@ -670,7 +670,7 @@
       <UserDefElement iecname="homeRequiredONS" type="T_R_TRIG" byteoffset="816" vartype="VAR" />
       <UserDefElement iecname="timerHomeDelay" type="T_TON" byteoffset="820" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_BagDeliveryFB" size="1702" nativesize="6452" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BagDeliveryFB" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_BagDeliveryFB" size="1702" nativesize="6456" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BagDeliveryFB" basetype="T_BaseComponentFB">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -735,7 +735,7 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99068" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99256" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="990" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1005" vartype="VAR" />
@@ -862,6 +862,9 @@
         <Node name="bagSkirtLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="bagsRejectedTotal" type="T_FB_CycleCounter" access="ReadWrite" />
+        <Node name="bagTensionSetting" type="T_REAL" access="ReadWrite">
+          <Comment> Bag takeup tension setting in amps</Comment>
+        </Node>
         <Node name="bagThickness" type="T_REAL" access="ReadWrite" />
         <Node name="bagWidth" type="T_REAL" access="ReadWrite" />
         <Node name="barcodeBadReadCount" type="T_UDINT" access="ReadWrite" />
