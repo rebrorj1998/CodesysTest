@@ -103,6 +103,7 @@ VAR
 	murrIOBusNode : MurrIOFB();
 	funnel : FunnelFB();
 	barcodeVerifier : BarcodeReaderFB();
+	keyenceBCV : KeyenceL20FB();
 	rearMotorCommsReturned : Standard.F_TRIG();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -123,7 +124,13 @@ safePowerFailure.faultTrigger := NOT iEStopOK AND murrIOBusNode.ok;
 
 // Bags Low warning
 HMIData.bagLevelLow.active := iBagsLow;
-	 
+
+keyenceBCV(
+	enable:= , 
+	ptrEIPInputs:= ADR(keyenceBCVInputs), 
+	ptrEIPOutputs:= ADR(keyenceBCVOutputs), 
+	triggerInput:= , 
+	commFail=> );	 
 // Barcode Verifier
 barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotInstalled AND HMIData.barcodeVerifierInUse),
 		 		readGoodInput := iBarcodeReadGood,
