@@ -17,6 +17,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;
 	passthroughSetting : REAL := 5.0;
+	passthroughOffset : REAL;
 	passthroughPosition : REAL;
 	lpaDwell : REAL;
 	hpaDwell : REAL;

@@ -40,7 +40,7 @@ SUPER^();
 jogInONS(CLK := jogInPB);
 jogOutONS(CLK := jogOutPB);
 //Add 2 inch offset
-passthroughPosition :=  (pressureBarEndStopMotor.CurrentPosition);
+passthroughPosition :=  (pressureBarEndStopMotor.CurrentPosition) - HMIData.passthroughOffset;
 timerHomeDelay();
 faultONS(CLK := HMIData.faultActive);
 
@@ -53,7 +53,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	Globals.jawMovingIn := FALSE;
 	 _homeEndStop := FALSE;
 	 timerHomeDelay.IN := FALSE;
-	passthroughSetpoint := HMIData.passthroughSetting;
+	passthroughSetpoint := HMIData.passthroughSetting + HMIData.passthroughOffset ;
 END_IF
 
 IF NOT enable THEN
@@ -136,7 +136,7 @@ CASE state OF
     PASSTHROUGH_SERVO_STATES.MovePassthroughOut :        // Move passthrough out
                                                         extendPressureBarRequest := TRUE;
                                                         IF _ackRequest THEN
-                                                            pressureBarEndStopMotor.MoveToPosition(position := (passthroughSetpoint), 
+                                                            pressureBarEndStopMotor.MoveToPosition(position := (passthroughSetpoint + HMIData.passthroughOffset), 
                                                                                     acceleration := 150, 
                                                                                     deceleration := 150, 
                                                                                     velocity := 2583);
@@ -153,7 +153,7 @@ CASE state OF
 														timerHomeDelay.PT := T#200MS;
 														timerHomeDelay.IN := TRUE;
 														IF timerHomeDelay.Q THEN
-															IF (REAL_TO_INT(passthroughSetpoint*100) = REAL_TO_INT(passthroughPosition*100)) THEN
+															IF (REAL_TO_INT((passthroughSetpoint + HMIData.passthroughOffset)*100) = REAL_TO_INT(passthroughPosition*100)) THEN
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedOut;
 																timerHomeDelay.IN := FALSE;
 															END_IF
@@ -181,7 +181,7 @@ CASE state OF
                                                         exhaustPressureBarRequest := TRUE;
 														Globals.jawMovingIn := TRUE;
                                                         IF _ackRequest THEN
-                                                            pressureBarEndStopMotor.MoveToPosition(position := (passthroughSetpoint), 
+                                                            pressureBarEndStopMotor.MoveToPosition(position := (passthroughSetpoint + HMIData.passthroughOffset), 
                                                                                     acceleration := 150, 
                                                                                     deceleration := 150, 
                                                                                     velocity := 2583);
@@ -196,7 +196,7 @@ CASE state OF
 														timerHomeDelay.PT := T#200MS;
 														timerHomeDelay.IN := TRUE;
 														IF timerHomeDelay.Q THEN
-															IF (REAL_TO_INT(passthroughSetpoint*100) = REAL_TO_INT(passthroughPosition*100)) THEN
+															IF (REAL_TO_INT((passthroughSetpoint + HMIData.passthroughOffset)*100) = REAL_TO_INT(passthroughPosition*100)) THEN
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedIn;
 																timerHomeDelay.IN := FALSE;
 															END_IF
@@ -224,11 +224,11 @@ CASE state OF
                                                         
     PASSTHROUGH_SERVO_STATES.Ready :                    // Keep track    
                                                         IF jogInPB THEN
-															passthroughSetpoint := 2.0;
+															passthroughSetpoint := 2.0 + HMIData.passthroughOffset;
 															capturePassthroughPos := passthroughPosition;
 															state := PASSTHROUGH_SERVO_STATES.MovePassthroughIn;
 														ELSIF jogOutPB THEN
-															passthroughSetpoint := 8.0;
+															passthroughSetpoint := 8.0 + HMIData.passthroughOffset;
 															capturePassthroughPos := passthroughPosition;
 															state := PASSTHROUGH_SERVO_STATES.MovePassthroughOut;
 														ELSIF jogInONS.OSF OR jogOutONS.OSF THEN
@@ -237,7 +237,7 @@ CASE state OF
 														END_IF
 														
                                                         IF _movePassthrough THEN
-															passthroughTravel := ABS(passthroughPosition - passthroughSetpoint);
+															passthroughTravel := ABS(passthroughPosition - (passthroughSetpoint + HMIData.passthroughOffset));
                                                             IF mustMovePassthroughOut THEN
                                                                 state := PASSTHROUGH_SERVO_STATES.MovePassthroughOut;
                                                                 ELSE state := PASSTHROUGH_SERVO_STATES.MovePassthroughIn;
