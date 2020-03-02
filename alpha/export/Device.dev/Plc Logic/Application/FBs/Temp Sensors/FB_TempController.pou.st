@@ -23,7 +23,7 @@ VAR
 	_deadBand : REAL := 1;
 	_pwmHz : REAL := 1;
 	updateTimer : TON := (PT := T#100ms);
-	PI : OSCAT_BASIC.CTRL_PI;	
+	PI : OSCAT_BASIC.CTRL_PI;
 	PWM : OSCAT_BASIC.CTRL_PWM;
 	tempScaled : DINT;
 	diffScaled : DINT;
@@ -61,6 +61,7 @@ IF updateTimer.Q THEN
 		Y=> , 
 		DIFF=> , 
 		LIM=> );
+
 END_IF
 cooling := (enable AND temperatureSensor.TempReadingF > temperatureSetpoint) OR NOT enable;
 heating := enable AND temperatureSensor.TempReadingF < temperatureSetpoint;

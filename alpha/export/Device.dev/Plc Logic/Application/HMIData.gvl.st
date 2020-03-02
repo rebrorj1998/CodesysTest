@@ -58,6 +58,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	barcodeStartPosition : REAL;
 	barcodeScanDistance : REAL := 1.0;
 	barcodeVerifierInUse : BOOL;
+	barcodeLastReadString : STRING[100];
 	lastCycleTime : REAL;
 	averageCycleTime : REAL;
 	resetAverageCycleTime : BOOL;

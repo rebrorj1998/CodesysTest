@@ -103,7 +103,7 @@ VAR
 	murrIOBusNode : MurrIOFB();
 	funnel : FunnelFB();
 	barcodeVerifier : BarcodeReaderFB();
-	keyenceBCV : KeyenceL20FB();
+	keyenceBCV : KeyenceNL20FB();
 	rearMotorCommsReturned : Standard.F_TRIG();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -125,29 +125,34 @@ safePowerFailure.faultTrigger := NOT iEStopOK AND murrIOBusNode.ok;
 // Bags Low warning
 HMIData.bagLevelLow.active := iBagsLow;
 
+// Ethernet/IP barcode verifier from Keyence
 keyenceBCV(
 	enable:= , 
 	ptrEIPInputs:= ADR(keyenceBCVInputs), 
 	ptrEIPOutputs:= ADR(keyenceBCVOutputs), 
 	triggerInput:= , 
-	commFail=> );	 
-// Barcode Verifier
+	commFail=> ,
+	lastReadData => HMIData.barcodeLastReadString);	 
+// Barcode Verifier interface to printer
 barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotInstalled AND HMIData.barcodeVerifierInUse),
-		 		readGoodInput := iBarcodeReadGood,
+		 		readGoodInput := keyenceBCV.goodRead,
 				distanceToScan := HMIData.barcodeScanDistance,
 				feedSpeed := TO_REAL(HMIData.printSpeed),
 				positionOffset := HMIData.barcodeStartPosition,
-				triggerScannerOutput => oBarcodeTrigger);
+				badReadFaultCountSetting := HMIData.barcodeBadReadFaultSetting,
+				currentBadReadCount => HMIData.barcodeBadReadCount,
+				currentGoodReadCount => HMIData.barcodeGoodReadCount,
+				triggerScannerOutput => keyenceBCV.triggerInput);
 // Enable comms to Keyence N-L20 if selected in factory config
 IF HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner THEN
 	Keyence_BCV.Enable := TRUE; 
-		 
+
 	IF Keyence_BCV.udiState <> 4 THEN 
 		barcodeVerifierCommFail.Trigger();
 	END_IF
-		 
+
 ELSE
-	Keyence_BCV.Enable := FALSE; 
+	Keyence_BCV.Enable := FALSE;
 END_IF
 
 
@@ -724,6 +729,8 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	configOutput1Pulse.ManualOff();
 	configOutput2Pulse.ManualOff();
 	fillerModeCycleStartOnlyPulse.Reset();
+	barcodeVerifier.Reset();
+	keyenceBCV.Reset();
 	//HMIData.airFilterClean.SetCount(27336);
 	//HMIData.driveRollerClean.SetCount(12041);
 	//HMIData.printHeadClean.SetCount(3224);
