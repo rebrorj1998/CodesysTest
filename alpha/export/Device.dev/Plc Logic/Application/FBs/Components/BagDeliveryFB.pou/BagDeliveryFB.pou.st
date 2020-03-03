@@ -35,7 +35,7 @@ VAR
 	sealBarToPrintHeadLength : REAL;
     bagsCurrentlyFed  :INT;            // Bags currently fed for testing
     remainingLength : REAL;            // Remaining bag length after print
-	delayForPrintFeed : TIME := T#250MS;
+	delayForPrintFeed : TIME := T#100MS;
 	printerExtraFeedLength : REAL := 0.25;
     //bagFeedMasterMotor : FB_AppliedMotionStepServoTCP();
     //bagFeedMasterMotor : FB_AppliedMotionBagDeliveryMotor();
@@ -52,6 +52,7 @@ VAR
 	_amFeedToEye : BOOL;			  // Auto Mode - Feed Bag to Eye
 	testTorque : BOOL;
 	testTorqueValue : DINT := 60;
+	reverseSpeedDistanceOffset : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
@@ -62,18 +63,13 @@ END_VAR
 
 SUPER^();
 tensionFailONS(CLK := iBagTensionFault);
-
+reverseSpeedDistanceOffset := OSCAT_BASIC.SCALE_R(HMIData.bagReverseSpeed,3,10,0,0.5);
+reverseToPrintHeadSetpoint := -1.75 + reverseSpeedDistanceOffset;
 delay();
 delayForReverseFault();
 autoFeedDelay(IN := _amFeedBagOut);
 // This is the master Applied Motion motor
-IF useLastPrinterDelta THEN
-	IF Globals.lastPrinterDelta >= T#90MS THEN
-		delayForPrintFeed := Globals.lastPrinterDelta - T#80MS;
-	ELSE
-		delayForPrintFeed := T#0MS;
-	END_IF
-END_IF
+
 bagLengthSetpoint := HMIData.bagLength;
 printVelocitySetpoint := HMIData.printSpeed;
 sealOffsetSetpoint := HMIData.bagSkirtLength;
