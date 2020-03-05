@@ -68,7 +68,6 @@ reverseToPrintHeadSetpoint := -1.75 + reverseSpeedDistanceOffset;
 delay();
 delayForReverseFault();
 autoFeedDelay(IN := _amFeedBagOut);
-// This is the master Applied Motion motor
 
 bagLengthSetpoint := HMIData.bagLength;
 printVelocitySetpoint := HMIData.printSpeed;

@@ -20,6 +20,7 @@
     <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
     <TypeSimple name="T_REAL" size="4" swapsize="4" typeclass="Real" iecname="REAL" />
     <TypeSimple name="T_STRING" size="81" swapsize="0" typeclass="String" iecname="STRING" />
+    <TypeSimple name="T_STRING_100_" size="101" swapsize="0" typeclass="String" iecname="STRING(100)" />
     <TypeSimple name="T_TIME" size="4" swapsize="4" typeclass="Time" iecname="TIME" />
     <TypeSimple name="T_UDINT" size="4" swapsize="4" typeclass="UDInt" iecname="UDINT" />
     <TypeUserDef name="T_AMP_EIP_MOVE_INITIAL_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AMP_EIP_MOVE_INITIAL_STATES" basetype="T_INT">
@@ -735,7 +736,11 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99636" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+=======
     <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99260" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+>>>>>>> alpha/master
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="990" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1005" vartype="VAR" />
@@ -870,6 +875,7 @@
         <Node name="barcodeBadReadCount" type="T_UDINT" access="ReadWrite" />
         <Node name="barcodeBadReadFaultSetting" type="T_UDINT" access="ReadWrite" />
         <Node name="barcodeGoodReadCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeLastReadString" type="T_STRING_100_" access="ReadWrite" />
         <Node name="barcodeScanDistance" type="T_REAL" access="ReadWrite" />
         <Node name="barcodeStartPosition" type="T_REAL" access="ReadWrite" />
         <Node name="barcodeVerifierInUse" type="T_BOOL" access="ReadWrite" />
