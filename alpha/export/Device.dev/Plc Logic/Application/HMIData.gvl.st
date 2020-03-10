@@ -130,6 +130,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
 	cycleStartButtonSelection : PalmButtonSelection := PalmButtonSelection.DualPalmButton;
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;
+	baggerModelSelection : ModelSelection;
 	auxIOConfig : AuxIOConfiguration;
 	fillerFactorySelection : FillerSelection;
 	funnelFactorySelection : FunnelSelection;
