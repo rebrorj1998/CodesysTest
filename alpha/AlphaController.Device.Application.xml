@@ -243,6 +243,10 @@
       <UserDefElement type="T_LabelPrinterSelection" iecname="ZebraPrinter203DPI" enumvalue="1" />
       <UserDefElement type="T_LabelPrinterSelection" iecname="ZebraPrinter300DPI" enumvalue="2" />
     </TypeUserDef>
+    <TypeUserDef name="T_ModelSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ModelSelection" basetype="T_INT">
+      <UserDefElement type="T_ModelSelection" iecname="Pro18" enumvalue="0" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro24" enumvalue="1" />
+    </TypeUserDef>
     <TypeSimple name="T_POINTER_TO_ARRAY__0__13__OF_DINT" size="4" swapsize="4" typeclass="Pointer" iecname="POINTER TO ARRAY [0..13] OF DINT" />
     <TypeSimple name="T_POINTER_TO_ARRAY__0__15__OF_DINT" size="4" swapsize="4" typeclass="Pointer" iecname="POINTER TO ARRAY [0..15] OF DINT" />
     <TypeUserDef name="T_PackageEjectionSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PackageEjectionSelection" basetype="T_INT">
@@ -736,11 +740,7 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
-<<<<<<< HEAD
-    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99636" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
-=======
-    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99260" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
->>>>>>> alpha/master
+    <TypeUserDef name="T_FB_MOABHead" size="3652" nativesize="99640" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_PneumaticPressureBarFB_1" byteoffset="990" vartype="VAR" />
       <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="1005" vartype="VAR" />
@@ -852,6 +852,7 @@
           <Comment>Counters</Comment>
         </Node>
         <Node name="baggerInhibited" type="T_Warning" access="ReadWrite" />
+        <Node name="baggerModelSelection" type="T_ModelSelection" access="ReadWrite" />
         <Node name="baggerNotReady" type="T_Warning" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagLevelLow" type="T_Warning" access="ReadWrite" />

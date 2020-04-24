@@ -35,7 +35,7 @@ VAR
 	sealBarToPrintHeadLength : REAL;
     bagsCurrentlyFed  :INT;            // Bags currently fed for testing
     remainingLength : REAL;            // Remaining bag length after print
-	delayForPrintFeed : TIME := T#100MS;
+	delayForPrintFeed : TIME := T#20MS;
 	printerExtraFeedLength : REAL := 0.25;
     //bagFeedMasterMotor : FB_AppliedMotionStepServoTCP();
     //bagFeedMasterMotor : FB_AppliedMotionBagDeliveryMotor();
