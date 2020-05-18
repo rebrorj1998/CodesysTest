@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
+  <Header>
+    <Version>3.5.14.0</Version>
+    <SymbolConfigObject version="3.5.16.0" runtimeid="3.5.11.0" libversion="3.5.16.0" compiler="3.5.16.0" lmm="3.5.16.0" profile="CODESYS V3.5 SP16+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <ProjectInfo name="SharpBagger" devicename="SX" appname="Application" />
+  </Header>
+  <TypeList>
+    <TypeSimple name="T_BOOL" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" />
+    <TypeSimple name="T_DINT" size="4" swapsize="4" typeclass="DInt" iecname="DINT" />
+    <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
+    <TypeSimple name="T_REAL" size="4" swapsize="4" typeclass="Real" iecname="REAL" />
+    <TypeSimple name="T_STRING" size="81" swapsize="0" typeclass="String" iecname="STRING" />
+    <TypeSimple name="T_UDINT" size="4" swapsize="4" typeclass="UDInt" iecname="UDINT" />
+    <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
+    <TypeArray name="T_ARRAY__0__20__OF_INT" size="42" nativesize="42" typeclass="Array" iecname="ARRAY [0..20] OF INT" basetype="T_INT">
+      <ArrayDim minrange="0" maxrange="20" />
+    </TypeArray>
+    <TypeUserDef name="T_FB_BaseObject" size="249" nativesize="264" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BaseObject">
+      <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="_prefix" type="T_STRING" byteoffset="81" vartype="VAR" />
+      <UserDefElement iecname="_logger" type="T_TYPE_REFERENCE" byteoffset="164" vartype="VAR" />
+      <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="168" vartype="VAR" propertytype="variable" />
+    </TypeUserDef>
+    <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
+      <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="retractCommand" type="T_BOOL" byteoffset="1" vartype="VAR" />
+      <UserDefElement iecname="exhaustCommand" type="T_BOOL" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="extendedFeedback" type="T_BOOL" byteoffset="3" vartype="VAR" />
+      <UserDefElement iecname="retractedFeedback" type="T_BOOL" byteoffset="4" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_ValveSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ValveSelection" basetype="T_INT">
+      <UserDefElement type="T_ValveSelection" iecname="PressureBar" enumvalue="0" />
+      <UserDefElement type="T_ValveSelection" iecname="SealBar" enumvalue="1" />
+      <UserDefElement type="T_ValveSelection" iecname="HPA_LPA" enumvalue="2" />
+      <UserDefElement type="T_ValveSelection" iecname="LoadPlate" enumvalue="3" />
+      <UserDefElement type="T_ValveSelection" iecname="BagOpenFingers" enumvalue="4" />
+      <UserDefElement type="T_ValveSelection" iecname="PrintHead" enumvalue="5" />
+      <UserDefElement type="T_ValveSelection" iecname="Vacuum" enumvalue="6" />
+      <UserDefElement type="T_ValveSelection" iecname="SealFlattenersVerticalAxis" enumvalue="7" />
+      <UserDefElement type="T_ValveSelection" iecname="LoadShelf" enumvalue="8" />
+      <UserDefElement type="T_ValveSelection" iecname="Blank" enumvalue="999" />
+    </TypeUserDef>
+    <TypeArray name="T_ARRAY__1__16__OF_VALVESELECTION" size="32" nativesize="32" typeclass="Array" iecname="ARRAY [1..16] OF VALVESELECTION" basetype="T_ValveSelection">
+      <ArrayDim minrange="1" maxrange="16" />
+    </TypeArray>
+    <TypeUserDef name="T_FB_MachineCounter" size="256" nativesize="272" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MachineCounter" basetype="T_FB_BaseObject">
+      <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" inherited_from="T_FB_BaseObject" />
+      <UserDefElement iecname="_prefix" type="T_STRING" byteoffset="81" vartype="VAR" inherited_from="T_FB_BaseObject" />
+      <UserDefElement iecname="_logger" type="T_TYPE_REFERENCE" byteoffset="164" vartype="VAR" inherited_from="T_FB_BaseObject" />
+      <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="168" vartype="VAR" inherited_from="T_FB_BaseObject" propertytype="variable" />
+      <UserDefElement iecname="count" type="T_UDINT" byteoffset="252" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_HMIDataSX" size="694" nativesize="716" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMIDataSX">
+      <UserDefElement iecname="initiateCycle" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
+      <UserDefElement iecname="ackAllFaults" type="T_BOOL" byteoffset="1" vartype="VAR_INPUT" />
+      <UserDefElement iecname="makeReady" type="T_BOOL" byteoffset="2" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarService" type="T_ServiceCommands" byteoffset="3" vartype="VAR_INPUT" />
+      <UserDefElement iecname="loadPlateService" type="T_ServiceCommands" byteoffset="8" vartype="VAR_INPUT" />
+      <UserDefElement iecname="stopMachine" type="T_BOOL" byteoffset="13" vartype="VAR_INPUT" />
+      <UserDefElement iecname="version" type="T_STRING" byteoffset="14" vartype="VAR_INPUT" />
+      <UserDefElement iecname="inCycle" type="T_BOOL" byteoffset="95" vartype="VAR_INPUT" />
+      <UserDefElement iecname="batchEnable" type="T_BOOL" byteoffset="96" vartype="VAR_INPUT" />
+      <UserDefElement iecname="batchSetting" type="T_UDINT" byteoffset="100" vartype="VAR_INPUT" />
+      <UserDefElement iecname="batchCount" type="T_UDINT" byteoffset="104" vartype="VAR_INPUT" />
+      <UserDefElement iecname="headCycleCount" type="T_UDINT" byteoffset="108" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarOpenDelay" type="T_REAL" byteoffset="112" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarCloseDelay" type="T_REAL" byteoffset="116" vartype="VAR_INPUT" />
+      <UserDefElement iecname="passthroughSetting" type="T_REAL" byteoffset="120" vartype="VAR_INPUT" />
+      <UserDefElement iecname="passthroughActual" type="T_REAL" byteoffset="124" vartype="VAR_INPUT" />
+      <UserDefElement iecname="lpaDwell" type="T_REAL" byteoffset="128" vartype="VAR_INPUT" />
+      <UserDefElement iecname="hpaDwell" type="T_REAL" byteoffset="132" vartype="VAR_INPUT" />
+      <UserDefElement iecname="sealBarDwell" type="T_REAL" byteoffset="136" vartype="VAR_INPUT" />
+      <UserDefElement iecname="sealBarCool" type="T_REAL" byteoffset="140" vartype="VAR_INPUT" />
+      <UserDefElement iecname="sealBarTemperatureSetting" type="T_UDINT" byteoffset="144" vartype="VAR_INPUT" />
+      <UserDefElement iecname="sealBarTemperature" type="T_UDINT" byteoffset="148" vartype="VAR_INPUT" />
+      <UserDefElement iecname="sealFlattenerBagOpenPositionSetting" type="T_REAL" byteoffset="152" vartype="VAR_INPUT" />
+      <UserDefElement iecname="sealFlattenerFlattenedPositionSetting" type="T_REAL" byteoffset="156" vartype="VAR_INPUT" />
+      <UserDefElement iecname="sealFlattenerMoveInPositionSetting" type="T_REAL" byteoffset="160" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagSkirtLength" type="T_REAL" byteoffset="164" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagLength" type="T_REAL" byteoffset="168" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagWidth" type="T_REAL" byteoffset="172" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagThickness" type="T_REAL" byteoffset="176" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagForwardSpeed" type="T_UDINT" byteoffset="180" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagReverseSpeed" type="T_UDINT" byteoffset="184" vartype="VAR_INPUT" />
+      <UserDefElement iecname="printSpeed" type="T_UDINT" byteoffset="188" vartype="VAR_INPUT" />
+      <UserDefElement iecname="printLength" type="T_REAL" byteoffset="192" vartype="VAR_INPUT" />
+      <UserDefElement iecname="printOffset" type="T_REAL" byteoffset="196" vartype="VAR_INPUT" />
+      <UserDefElement iecname="fillerCountSetting" type="T_UDINT" byteoffset="200" vartype="VAR_INPUT" />
+      <UserDefElement iecname="fillerCurrentCount" type="T_UDINT" byteoffset="204" vartype="VAR_INPUT" />
+      <UserDefElement iecname="fillerDropTime" type="T_REAL" byteoffset="208" vartype="VAR_INPUT" />
+      <UserDefElement iecname="loadPlateDelay" type="T_REAL" byteoffset="212" vartype="VAR_INPUT" />
+      <UserDefElement iecname="loadPlateDwell" type="T_REAL" byteoffset="216" vartype="VAR_INPUT" />
+      <UserDefElement iecname="exitConveyorService" type="T_ServiceCommands" byteoffset="220" vartype="VAR_INPUT" />
+      <UserDefElement iecname="exitConveyorDwell" type="T_REAL" byteoffset="228" vartype="VAR_INPUT" />
+      <UserDefElement iecname="lastCycleTime" type="T_REAL" byteoffset="232" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagDropClearanceDwell" type="T_REAL" byteoffset="236" vartype="VAR_INPUT" />
+      <UserDefElement iecname="averageCycleTime" type="T_REAL" byteoffset="240" vartype="VAR_INPUT" />
+      <UserDefElement iecname="resetAverageCycleTime" type="T_BOOL" byteoffset="244" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenRetrySetting" type="T_UINT" byteoffset="246" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenRetryCount" type="T_UINT" byteoffset="248" vartype="VAR_INPUT" />
+      <UserDefElement iecname="currentJobID" type="T_INT" byteoffset="250" vartype="VAR_INPUT" />
+      <UserDefElement iecname="separateBeforeSeal" type="T_BOOL" byteoffset="252" vartype="VAR_INPUT" />
+      <UserDefElement iecname="activateDemoMode" type="T_BOOL" byteoffset="253" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenAssistEnable" type="T_BOOL" byteoffset="254" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenSensorEnable" type="T_BOOL" byteoffset="255" vartype="VAR_INPUT" />
+      <UserDefElement iecname="grabBagDelay" type="T_REAL" byteoffset="256" vartype="VAR_INPUT" />
+      <UserDefElement iecname="checkForBagOpenDelay" type="T_REAL" byteoffset="260" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagClearedFromFingersDelay" type="T_REAL" byteoffset="264" vartype="VAR_INPUT" />
+      <UserDefElement iecname="vacuumDwell" type="T_REAL" byteoffset="268" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarState" type="T_STRING" byteoffset="272" vartype="VAR_INPUT" />
+      <UserDefElement iecname="activeScreen" type="T_DINT" byteoffset="356" vartype="VAR_INPUT" />
+      <UserDefElement iecname="profaceInterface" type="T_ARRAY__0__20__OF_INT" byteoffset="360" vartype="VAR_INPUT" />
+      <UserDefElement iecname="stationValveSelection" type="T_ARRAY__1__16__OF_VALVESELECTION" byteoffset="402" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarCycles" type="T_FB_MachineCounter" byteoffset="436" vartype="VAR_INPUT" />
+      <UserDefElement iecname="faultActive" type="T_BOOL" byteoffset="692" vartype="VAR_INPUT" />
+      <UserDefElement iecname="simulateAllIO" type="T_BOOL" byteoffset="693" vartype="VAR_INPUT" />
+    </TypeUserDef>
+    <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
+  </TypeList>
+  <NodeList>
+    <Node name="Application">
+      <Node name="HMI">
+        <Node name="data" type="T_FB_HMIDataSX" access="ReadWrite" />
+      </Node>
+    </Node>
+  </NodeList>
+</Symbolconfiguration>
