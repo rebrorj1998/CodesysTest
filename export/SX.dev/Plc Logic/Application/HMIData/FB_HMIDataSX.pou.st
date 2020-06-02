@@ -5,9 +5,32 @@ VAR_INPUT
 	initiateCycle : BOOL;  // Initiate Cycle Pushbutton
 	ackAllFaults : BOOL; // Acknowledge All Faults from HMI
 	makeReady : BOOL;
-	pressureBarService : ServiceCommands;
+	jawService : ServiceCommands;
+	jawJogOpen : BOOL;
+	jawjobClosed : BOOL;
 	loadPlateService : ServiceCommands;
+	IBDService : ServiceCommands;
+	IBDJogOpen : BOOL;
+	IBDJogClosed : BOOL;
+	jogFilmForward : BOOL;
+	jobFilmReverse : BOOL;
+	homeMachine : BOOL;
+	machineHomed : BOOL;
+	cycleSealer : BOOL;
+	printHeadService : ServiceCommands;
+	startJawCycleTest : BOOL;
+	stopJawCycleTest : BOOL;
+	jawCycleTestCount : FB_MachineCounter(name := 'Jaw Cycle Test Counter');
+	teachBagPhotoeye : BOOL;
+	teachingBagPhoteye : BOOL;
+	factoryHomeJaw : BOOL;
     stopMachine : BOOL;
+	printerAndVerifierEnablePB : BOOL;
+	printerAndVerifierEnableIndication : BOOL;
+	BPMBagsMade : DINT;
+	BPMActiveTime : REAL;
+	BPMBagsPerMinute : REAL;
+	BPMReset : BOOL;
 	{attribute 'FBVisuCreatorFormatString' := '%s'}
 	version : STRING := '0.2A';
 	inCycle : BOOL;
@@ -72,6 +95,10 @@ VAR_INPUT
 	loadPlateDelay : REAL;
 	{attribute 'FBVisuCreatorFormatString' := '%1.2f'}
 	loadPlateDwell : REAL := 2.5;
+	IBDInUse : BOOL;
+	IBDInstalled : BOOL;
+	IBDCurrentSetting : REAL := 50.0;
+	jawCloseDelay : REAL := 0.2;
 	exitConveyorService: ServiceCommands;
 	{attribute 'FBVisuCreatorFormatString' := '%1.2f'}
 	exitConveyorDwell : REAL := 9.0;
@@ -105,19 +132,33 @@ VAR_INPUT
 	pressureBarState : STRING;
 	activeScreen : DINT;
 	profaceInterface : ARRAY[0..20] OF INT;
-    stationValveSelection : ARRAY[1..16] OF ValveSelection := 	[ValveSelection.PressureBar,
-																ValveSelection.PressureBar,
-																ValveSelection.SealBar,
-																ValveSelection.HPA_LPA,
-																ValveSelection.LoadPlate,
-																ValveSelection.BagOpenFingers,
-																ValveSelection.PrintHead,
-																ValveSelection.Vacuum,
-																ValveSelection.SealFlattenersVerticalAxis,
-																ValveSelection.LoadShelf,
-																6(ValveSelection.Blank)];
+	partsCounterEnable : BOOL;
+	partsCounterCount : UDINT;
+	partsCounterSetting : UDINT;
+	consecutiveBagsEnable : BOOL;
+	consecutiveBagsCount : UDINT;
+	consecutiveBagsSetting : UDINT;
+	printerInstalled : BOOL;
+	printerInUse : BOOL;
+	printerCancelRequest : BOOL;
+	barcodeVerifierInstalled : BOOL;
+	barcodeGoodReadCount : UDINT;
+	barcodeBadReadCount : UDINT;
+	barcodeBadReadFaultSetting : UDINT;
+	barcodeStartPosition : REAL;
+	barcodeScanDistance : REAL := 1.0;
+	barcodeVerifierInUse : BOOL;
+	barcodeLastReadString : STRING[100];
+	barcodeReadGoodIndication : BOOL;
+	barcodeReadBadIndication : BOOL;
+	loadPlateInstalled : BOOL;
+	loadPlateInUse : BOOL;
+	fillerEnable : BOOL;
+	autoModeEnable : BOOL;
+	autoModeDwell : REAL := 0.75;
+	bannerManager : FB_BannerManager;
     (*Counters*)
-    //baggerCycles : FB_MachineCounter(name := 'Bagger Cycle Counter');
+    baggerCycles : FB_MachineCounter(name := 'Bagger Cycle Counter');
 	pressureBarCycles : FB_MachineCounter(name := 'Pressure Bar Cycle Counter');
 	//passthroughChanges : FB_MachineCounter(name := 'Passthrough Changes Counter');
 	//loadPlateCycles : FB_MachineCounter(name := 'Load Plate Cycle Counter');
@@ -140,6 +181,9 @@ VAR_INPUT
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
 	packageEjectEnable : BOOL := TRUE;
 	*)
+	
+	(*I/O*)
+	
 END_VAR
 VAR_OUTPUT
 END_VAR

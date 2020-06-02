@@ -13,10 +13,11 @@ _deviceController();
 
 IF _xExecute THEN
 	_xExecute := FALSE;
-	MainOutputs.Enable := FALSE;
+	OutputCard0.Enable := FALSE;
 	_xConfirm := DED.CanReconfigure(CVS_G_Series_Rack_);
 END_IF
 
 IF HMI.data.bagLength > 30 THEN
 	HMI.data.bagLength := 30;
 END_IF
+oSealWire := iBagEdgePhotoeye;
