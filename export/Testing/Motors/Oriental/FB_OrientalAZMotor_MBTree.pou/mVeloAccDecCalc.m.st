@@ -1,4 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD Close
+METHOD PRIVATE mVeloAccDecCalc : DINT
+VAR_INPUT
+	value : REAL;
+END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_CloseNow := TRUE;
+mVeloAccDecCalc := TO_DINT(value * TO_REAL(stepsPerInchSP));

@@ -49,7 +49,7 @@
       <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="168" vartype="VAR" inherited_from="T_FB_BaseObject" propertytype="variable" />
       <UserDefElement iecname="count" type="T_UDINT" byteoffset="252" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_HMIDataSX" size="1386" nativesize="1444" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMIDataSX">
+    <TypeUserDef name="T_FB_HMIDataSX" size="1390" nativesize="1448" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMIDataSX">
       <UserDefElement iecname="initiateCycle" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="ackAllFaults" type="T_BOOL" byteoffset="1" vartype="VAR_INPUT" />
       <UserDefElement iecname="makeReady" type="T_BOOL" byteoffset="2" vartype="VAR_INPUT" />
@@ -116,55 +116,56 @@
       <UserDefElement iecname="IBDInstalled" type="T_BOOL" byteoffset="517" vartype="VAR_INPUT" />
       <UserDefElement iecname="IBDCurrentSetting" type="T_REAL" byteoffset="520" vartype="VAR_INPUT" />
       <UserDefElement iecname="jawCloseDelay" type="T_REAL" byteoffset="524" vartype="VAR_INPUT" />
-      <UserDefElement iecname="exitConveyorService" type="T_ServiceCommands" byteoffset="528" vartype="VAR_INPUT" />
-      <UserDefElement iecname="exitConveyorDwell" type="T_REAL" byteoffset="536" vartype="VAR_INPUT" />
-      <UserDefElement iecname="lastCycleTime" type="T_REAL" byteoffset="540" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagDropClearanceDwell" type="T_REAL" byteoffset="544" vartype="VAR_INPUT" />
-      <UserDefElement iecname="averageCycleTime" type="T_REAL" byteoffset="548" vartype="VAR_INPUT" />
-      <UserDefElement iecname="resetAverageCycleTime" type="T_BOOL" byteoffset="552" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenRetrySetting" type="T_UINT" byteoffset="554" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenRetryCount" type="T_UINT" byteoffset="556" vartype="VAR_INPUT" />
-      <UserDefElement iecname="currentJobID" type="T_INT" byteoffset="558" vartype="VAR_INPUT" />
-      <UserDefElement iecname="separateBeforeSeal" type="T_BOOL" byteoffset="560" vartype="VAR_INPUT" />
-      <UserDefElement iecname="activateDemoMode" type="T_BOOL" byteoffset="561" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenAssistEnable" type="T_BOOL" byteoffset="562" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenSensorEnable" type="T_BOOL" byteoffset="563" vartype="VAR_INPUT" />
-      <UserDefElement iecname="grabBagDelay" type="T_REAL" byteoffset="564" vartype="VAR_INPUT" />
-      <UserDefElement iecname="checkForBagOpenDelay" type="T_REAL" byteoffset="568" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagClearedFromFingersDelay" type="T_REAL" byteoffset="572" vartype="VAR_INPUT" />
-      <UserDefElement iecname="vacuumDwell" type="T_REAL" byteoffset="576" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pressureBarState" type="T_STRING" byteoffset="580" vartype="VAR_INPUT" />
-      <UserDefElement iecname="activeScreen" type="T_DINT" byteoffset="664" vartype="VAR_INPUT" />
-      <UserDefElement iecname="profaceInterface" type="T_ARRAY__0__20__OF_INT" byteoffset="668" vartype="VAR_INPUT" />
-      <UserDefElement iecname="partsCounterEnable" type="T_BOOL" byteoffset="710" vartype="VAR_INPUT" />
-      <UserDefElement iecname="partsCounterCount" type="T_UDINT" byteoffset="712" vartype="VAR_INPUT" />
-      <UserDefElement iecname="partsCounterSetting" type="T_UDINT" byteoffset="716" vartype="VAR_INPUT" />
-      <UserDefElement iecname="consecutiveBagsEnable" type="T_BOOL" byteoffset="720" vartype="VAR_INPUT" />
-      <UserDefElement iecname="consecutiveBagsCount" type="T_UDINT" byteoffset="724" vartype="VAR_INPUT" />
-      <UserDefElement iecname="consecutiveBagsSetting" type="T_UDINT" byteoffset="728" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerInstalled" type="T_BOOL" byteoffset="732" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerInUse" type="T_BOOL" byteoffset="733" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerCancelRequest" type="T_BOOL" byteoffset="734" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeVerifierInstalled" type="T_BOOL" byteoffset="735" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeGoodReadCount" type="T_UDINT" byteoffset="736" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeBadReadCount" type="T_UDINT" byteoffset="740" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeBadReadFaultSetting" type="T_UDINT" byteoffset="744" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeStartPosition" type="T_REAL" byteoffset="748" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeScanDistance" type="T_REAL" byteoffset="752" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeVerifierInUse" type="T_BOOL" byteoffset="756" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeLastReadString" type="T_STRING_100_" byteoffset="757" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeReadGoodIndication" type="T_BOOL" byteoffset="858" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeReadBadIndication" type="T_BOOL" byteoffset="859" vartype="VAR_INPUT" />
-      <UserDefElement iecname="loadPlateInstalled" type="T_BOOL" byteoffset="860" vartype="VAR_INPUT" />
-      <UserDefElement iecname="loadPlateInUse" type="T_BOOL" byteoffset="861" vartype="VAR_INPUT" />
-      <UserDefElement iecname="fillerEnable" type="T_BOOL" byteoffset="862" vartype="VAR_INPUT" />
-      <UserDefElement iecname="autoModeEnable" type="T_BOOL" byteoffset="863" vartype="VAR_INPUT" />
-      <UserDefElement iecname="autoModeDwell" type="T_REAL" byteoffset="864" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bannerManager" type="T_FB_BannerManager" byteoffset="868" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerCycles" type="T_FB_MachineCounter" byteoffset="872" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pressureBarCycles" type="T_FB_MachineCounter" byteoffset="1128" vartype="VAR_INPUT" />
-      <UserDefElement iecname="faultActive" type="T_BOOL" byteoffset="1384" vartype="VAR_INPUT" />
-      <UserDefElement iecname="simulateAllIO" type="T_BOOL" byteoffset="1385" vartype="VAR_INPUT" />
+      <UserDefElement iecname="jawClosePositionSetting" type="T_REAL" byteoffset="528" vartype="VAR_INPUT" />
+      <UserDefElement iecname="exitConveyorService" type="T_ServiceCommands" byteoffset="532" vartype="VAR_INPUT" />
+      <UserDefElement iecname="exitConveyorDwell" type="T_REAL" byteoffset="540" vartype="VAR_INPUT" />
+      <UserDefElement iecname="lastCycleTime" type="T_REAL" byteoffset="544" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagDropClearanceDwell" type="T_REAL" byteoffset="548" vartype="VAR_INPUT" />
+      <UserDefElement iecname="averageCycleTime" type="T_REAL" byteoffset="552" vartype="VAR_INPUT" />
+      <UserDefElement iecname="resetAverageCycleTime" type="T_BOOL" byteoffset="556" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenRetrySetting" type="T_UINT" byteoffset="558" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenRetryCount" type="T_UINT" byteoffset="560" vartype="VAR_INPUT" />
+      <UserDefElement iecname="currentJobID" type="T_INT" byteoffset="562" vartype="VAR_INPUT" />
+      <UserDefElement iecname="separateBeforeSeal" type="T_BOOL" byteoffset="564" vartype="VAR_INPUT" />
+      <UserDefElement iecname="activateDemoMode" type="T_BOOL" byteoffset="565" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenAssistEnable" type="T_BOOL" byteoffset="566" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagOpenSensorEnable" type="T_BOOL" byteoffset="567" vartype="VAR_INPUT" />
+      <UserDefElement iecname="grabBagDelay" type="T_REAL" byteoffset="568" vartype="VAR_INPUT" />
+      <UserDefElement iecname="checkForBagOpenDelay" type="T_REAL" byteoffset="572" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bagClearedFromFingersDelay" type="T_REAL" byteoffset="576" vartype="VAR_INPUT" />
+      <UserDefElement iecname="vacuumDwell" type="T_REAL" byteoffset="580" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarState" type="T_STRING" byteoffset="584" vartype="VAR_INPUT" />
+      <UserDefElement iecname="activeScreen" type="T_DINT" byteoffset="668" vartype="VAR_INPUT" />
+      <UserDefElement iecname="profaceInterface" type="T_ARRAY__0__20__OF_INT" byteoffset="672" vartype="VAR_INPUT" />
+      <UserDefElement iecname="partsCounterEnable" type="T_BOOL" byteoffset="714" vartype="VAR_INPUT" />
+      <UserDefElement iecname="partsCounterCount" type="T_UDINT" byteoffset="716" vartype="VAR_INPUT" />
+      <UserDefElement iecname="partsCounterSetting" type="T_UDINT" byteoffset="720" vartype="VAR_INPUT" />
+      <UserDefElement iecname="consecutiveBagsEnable" type="T_BOOL" byteoffset="724" vartype="VAR_INPUT" />
+      <UserDefElement iecname="consecutiveBagsCount" type="T_UDINT" byteoffset="728" vartype="VAR_INPUT" />
+      <UserDefElement iecname="consecutiveBagsSetting" type="T_UDINT" byteoffset="732" vartype="VAR_INPUT" />
+      <UserDefElement iecname="printerInstalled" type="T_BOOL" byteoffset="736" vartype="VAR_INPUT" />
+      <UserDefElement iecname="printerInUse" type="T_BOOL" byteoffset="737" vartype="VAR_INPUT" />
+      <UserDefElement iecname="printerCancelRequest" type="T_BOOL" byteoffset="738" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeVerifierInstalled" type="T_BOOL" byteoffset="739" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeGoodReadCount" type="T_UDINT" byteoffset="740" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeBadReadCount" type="T_UDINT" byteoffset="744" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeBadReadFaultSetting" type="T_UDINT" byteoffset="748" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeStartPosition" type="T_REAL" byteoffset="752" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeScanDistance" type="T_REAL" byteoffset="756" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeVerifierInUse" type="T_BOOL" byteoffset="760" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeLastReadString" type="T_STRING_100_" byteoffset="761" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeReadGoodIndication" type="T_BOOL" byteoffset="862" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeReadBadIndication" type="T_BOOL" byteoffset="863" vartype="VAR_INPUT" />
+      <UserDefElement iecname="loadPlateInstalled" type="T_BOOL" byteoffset="864" vartype="VAR_INPUT" />
+      <UserDefElement iecname="loadPlateInUse" type="T_BOOL" byteoffset="865" vartype="VAR_INPUT" />
+      <UserDefElement iecname="fillerEnable" type="T_BOOL" byteoffset="866" vartype="VAR_INPUT" />
+      <UserDefElement iecname="autoModeEnable" type="T_BOOL" byteoffset="867" vartype="VAR_INPUT" />
+      <UserDefElement iecname="autoModeDwell" type="T_REAL" byteoffset="868" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bannerManager" type="T_FB_BannerManager" byteoffset="872" vartype="VAR_INPUT" />
+      <UserDefElement iecname="baggerCycles" type="T_FB_MachineCounter" byteoffset="876" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarCycles" type="T_FB_MachineCounter" byteoffset="1132" vartype="VAR_INPUT" />
+      <UserDefElement iecname="faultActive" type="T_BOOL" byteoffset="1388" vartype="VAR_INPUT" />
+      <UserDefElement iecname="simulateAllIO" type="T_BOOL" byteoffset="1389" vartype="VAR_INPUT" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
   </TypeList>

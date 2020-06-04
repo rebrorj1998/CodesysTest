@@ -1,4 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD Close
+METHOD BeginSealing
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_CloseNow := TRUE;
+_beginSealing := TRUE;
+sealTimer.IN := FALSE;
+_sealComplete := FALSE;

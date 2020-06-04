@@ -1,4 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD Close
+METHOD PRIVATE mCurrentCalc : DINT
+VAR_INPUT
+	current : REAL;
+END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_CloseNow := TRUE;
+mCurrentCalc := TO_DINT(current * 10.0);

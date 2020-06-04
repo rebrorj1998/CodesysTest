@@ -1,4 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD Close
+VAR
+END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_CloseNow := TRUE;
+SealComplete := _sealComplete;

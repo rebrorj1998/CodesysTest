@@ -10,6 +10,11 @@ TYPE eOrientalAZDriveStates :
 	Jogging := 20,
 	Moving := 50,
 	DoneMoving := 51,
+	Halt := 60,
+	Halting := 61,
+	Halted := 62,
+	Home := 70,
+	Homing := 71,
 	Faulting := 98,
 	Faulted := 99
 );

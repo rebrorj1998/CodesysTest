@@ -1,4 +1,8 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD Close
+METHOD PRIVATE mClearStatus : BOOL
+VAR_INPUT
+END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_CloseNow := TRUE;
+TargetReached := FALSE;
+freeMotor := FALSE;
+reset := FALSE;

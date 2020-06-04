@@ -1,14 +1,12 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_OrientalAZMotor EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_OrientalAZMotorGroup EXTENDS Sharp_Motion.Axis_REF
 VAR_INPUT
 	modbusAddress : USINT;
-	isGroup : BOOL;
+	enableCyclicReading : BOOL := TRUE;
 	stepsPerInchSP : DINT;
 	zeroOffset : REAL;
 	jogForwardCMD : BOOL;
 	jogReverseCMD : BOOL;
-	groupMotor0 : REFERENCE TO FB_OrientalAZMotor; // Master Motor
-	groupMotor1 : REFERENCE TO FB_OrientalAZMotor;	// Slave Motor
 END_VAR
 VAR_OUTPUT
 END_VAR
@@ -47,16 +45,16 @@ VAR
    	readRateTimer : Standard.TON := (PT:= T#20MS);
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
-	haltONS : FB_ONS;
 	triggerRIOWrite : BOOL;
 	(*Temp for testing*)
 	triggerNow : BOOL;
 	disable : BOOL;
 	state : eOrientalAZDriveStates;
-	
 END_VAR
 VAR_IN_OUT
 	comm : IoDrvModbus.RTS_IEC_HANDLE;
+	motor1 : FB_OrientalAZMotor;
+	motor2 : FB_OrientalAZMotor;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_OrientalAZMotor()
 //	Description: A PLCOpen Motion compliant library for a Oriental AZ Series drive/motor
@@ -92,16 +90,9 @@ modbusDirectDataToDrive[14] := directDataOp.Trigger.wWord[1];
 modbusDirectDataToDrive[15] := directDataOp.Trigger.wWord[0];
 
 // Get raw drive position
-IF isGroup THEN
-	IF __ISVALIDREF(groupMotor0) THEN
-		ActPos := groupMotor0.ActPos;
-	END_IF
-ELSE
-	distanceFromDrive.wWord[0] := modbusDataFromDrive[1];
-	distanceFromDrive.wWord[1] := modbusDataFromDrive[0];
-	ActPos := (TO_REAL(distanceFromDrive.diDint) / TO_REAL(stepsPerInchSP)) + zeroOffset;
-END_IF
-
+distanceFromDrive.wWord[0] := modbusDataFromDrive[1];
+distanceFromDrive.wWord[1] := modbusDataFromDrive[0];
+ActPos := (TO_REAL(distanceFromDrive.diDint) / TO_REAL(stepsPerInchSP)) + zeroOffset;
 // Pack RIO to write to drive
 packedRIO.dDword.0 := homeSwitchTrigger;
 packedRIO.dDword.1 := homeNow;
@@ -174,7 +165,7 @@ writeDirectOpData(
 
 // Read registers from drive
 // On a cyclic basis
-readRateTimer(IN := NOT readRateTimer.Q AND NOT (writeRIOData.xBusy OR writeDirectOpData.xBusy) AND NOT isGroup);
+readRateTimer(IN := NOT readRateTimer.Q AND NOT (writeRIOData.xBusy OR writeDirectOpData.xBusy OR enableCyclicReading));
 // And directly after a DD op write
 readAfterDDWrite(CLK := writeDirectOpData.xDone);
 readAfterRIOWrite(CLK := writeRIOData.xDone);
@@ -200,32 +191,15 @@ readData(
 	uiDataLength=> , 
 	byModbusError=> );
 
-// Get drive data directly from modbus or from master axis	
-IF isGroup THEN
-	IF __ISVALIDREF(groupMotor0) AND __ISVALIDREF(groupMotor1) THEN
-		ready := groupMotor0.ready AND groupMotor1.ready;
-		alarmActive := groupMotor0.alarmActive OR groupMotor1.alarmActive;
-		moving := groupMotor0.moving AND groupMotor1.moving;
-		inPosition := groupMotor0.inPosition AND groupMotor1.inPosition;
-		atTorqueLimit := groupMotor0.atTorqueLimit AND groupMotor1.atTorqueLimit;
-	END_IF
-ELSE
-	Ready := modbusDataFromDrive[5].5;
-	AlarmActive := modbusDataFromDrive[5].7;
-	Moving := modbusDataFromDrive[5].13;
-	InPosition := modbusDataFromDrive[5].14;
-	AtTorqueLimit := modbusDataFromDrive[5].15;
-END_IF
-
-haltONS(CLK := Halt);
-IF haltONS.OSR THEN
-	state := eOrientalAZDriveStates.Faulting;
-END_IF
+Ready := modbusDataFromDrive[5].5;
+AlarmActive := modbusDataFromDrive[5].7;
+Moving := modbusDataFromDrive[5].13;
+InPosition := modbusDataFromDrive[5].14;
+AtTorqueLimit := modbusDataFromDrive[5].15;
 
 IF alarmActive THEN
 	state := eOrientalAZDriveStates.Faulting;
 END_IF
-
 
 CASE state OF
 	eOrientalAZDriveStates.Idle:
@@ -238,13 +212,10 @@ CASE state OF
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveInc;
 				ELSIF MoveAbsTorque THEN
-					
+					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveInc;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					state := eOrientalAZDriveStates.Jogging;
-				ELSIF StartHoming THEN
-					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
-					state := eOrientalAZDriveStates.Home;
 				END_IF
 
 	eOrientalAZDriveStates.MoveABS:
@@ -285,43 +256,6 @@ CASE state OF
 					state := eOrientalAZDriveStates.Faulting;
 				END_IF
 				
-		eOrientalAZDriveStates.MoveInc:
-				// Move to absolute position
-				
-				directDataOp.OperationType.diDint := eOrientalOperationType.Incremental_Positioning;
-				directDataOp.Position.diDint := mDistanceCalc(TargetPosDist);
-				directDataOp.Speed.diDint := mVeloAccDecCalc(ProfileVelocity);
-				directDataOp.RateOfChange.diDint := mVeloAccDecCalc(ProfileAcceleration);
-				directDataOp.StoppingDecel.diDint := mVeloAccDecCalc(ProfileDeceleration);
-				directDataOp.Current.diDint := mCurrentCalc(DefaultCurrent);
-				directDataOp.Trigger.diDint := 1;
-				writeDirectOpData.xExecute := TRUE;
-				IF writeDirectOpData.xDone THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Moving;
-				ELSIF writeDirectOpData.xError THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Faulting;
-				END_IF		
-		
-		eOrientalAZDriveStates.Home:
-				//
-				zHome := TRUE;
-				IF writeRIOData.xDone THEN
-					state := eOrientalAZDriveStates.Homing;
-				ELSIF writeRIOData.xError THEN
-					state := eOrientalAZDriveStates.Faulting;
-				END_IF
-				
-		
-		eOrientalAZDriveStates.Homing:		
-				//
-				IF inPosition THEN
-					zHome := FALSE;
-					HomingDone := TRUE;
-					state := eOrientalAZDriveStates.DoneMoving;
-				END_IF
-				
 		eOrientalAZDriveStates.Jogging:
 				// Jog forward/reverse
 				jogForward := jogForwardCMD;
@@ -340,12 +274,11 @@ CASE state OF
 		
 		eOrientalAZDriveStates.DoneMoving:
 				// Wait for status to clear
-				IF NOT MoveAbs AND NOT MoveAbsTorque AND NOT MoveRel AND NOT StartHoming THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_Standstill;
+				IF NOT MoveAbs AND NOT MoveAbsTorque AND NOT MoveRel THEN
 					state := eOrientalAZDriveStates.Idle;
 				END_IF 
-
-				
+			
+		
 		eOrientalAZDriveStates.Faulting:
 				// Faulting - stop drive
 				mClearStatus();

@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD Exhaust
+METHOD PRIVATE mCurrentCalc : DINT
 VAR_INPUT
+	current : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-ExhaustIfPossible(cylinder);
+mCurrentCalc := TO_DINT(current * 10.0);

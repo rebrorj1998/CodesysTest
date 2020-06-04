@@ -99,6 +99,7 @@ VAR_INPUT
 	IBDInstalled : BOOL;
 	IBDCurrentSetting : REAL := 50.0;
 	jawCloseDelay : REAL := 0.2;
+	jawClosePositionSetting : REAL := -0.2;
 	exitConveyorService: ServiceCommands;
 	{attribute 'FBVisuCreatorFormatString' := '%1.2f'}
 	exitConveyorDwell : REAL := 9.0;
