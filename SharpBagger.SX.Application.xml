@@ -19,22 +19,13 @@
     <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
     <TypeSimple name="T_REAL" size="4" swapsize="4" typeclass="Real" iecname="REAL" />
     <TypeSimple name="T_STRING" size="81" swapsize="0" typeclass="String" iecname="STRING" />
-    <TypeSimple name="T_STRING_100_" size="101" swapsize="0" typeclass="String" iecname="STRING(100)" />
     <TypeSimple name="T_UDINT" size="4" swapsize="4" typeclass="UDInt" iecname="UDINT" />
-    <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
-    <TypeSimple name="T_WORD" size="2" swapsize="2" typeclass="Word" iecname="WORD" />
     <TypeArray name="T_ARRAY__0__20__OF_INT" size="42" nativesize="42" typeclass="Array" iecname="ARRAY [0..20] OF INT" basetype="T_INT">
       <ArrayDim minrange="0" maxrange="20" />
     </TypeArray>
-    <TypeUserDef name="T_FB_BannerManager" size="2" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BannerManager">
-      <UserDefElement iecname="messageDisplayIndication" type="T_WORD" byteoffset="0" vartype="VAR_OUTPUT" />
-    </TypeUserDef>
-    <TypeUserDef name="T_FB_BaseObject" size="249" nativesize="264" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BaseObject">
-      <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="_prefix" type="T_STRING" byteoffset="81" vartype="VAR" />
-      <UserDefElement iecname="_logger" type="T_TYPE_REFERENCE" byteoffset="164" vartype="VAR" />
-      <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="168" vartype="VAR" propertytype="variable" />
-    </TypeUserDef>
+    <TypeArray name="T_ARRAY__0__300__OF_STRING" size="24381" nativesize="24381" typeclass="Array" iecname="ARRAY [0..300] OF STRING" basetype="T_STRING">
+      <ArrayDim minrange="0" maxrange="300" />
+    </TypeArray>
     <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
       <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="retractCommand" type="T_BOOL" byteoffset="1" vartype="VAR" />
@@ -42,216 +33,207 @@
       <UserDefElement iecname="extendedFeedback" type="T_BOOL" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="retractedFeedback" type="T_BOOL" byteoffset="4" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MachineCounter" size="256" nativesize="272" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MachineCounter" basetype="T_FB_BaseObject">
-      <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" inherited_from="T_FB_BaseObject" />
-      <UserDefElement iecname="_prefix" type="T_STRING" byteoffset="81" vartype="VAR" inherited_from="T_FB_BaseObject" />
-      <UserDefElement iecname="_logger" type="T_TYPE_REFERENCE" byteoffset="164" vartype="VAR" inherited_from="T_FB_BaseObject" />
-      <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="168" vartype="VAR" inherited_from="T_FB_BaseObject" propertytype="variable" />
-      <UserDefElement iecname="count" type="T_UDINT" byteoffset="252" vartype="VAR" />
+    <TypeUserDef name="T_sctMotionProfile" size="16" nativesize="16" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctMotionProfile">
+      <UserDefElement iecname="velo" type="T_REAL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="accel" type="T_REAL" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="decel" type="T_REAL" byteoffset="8" vartype="VAR" />
+      <UserDefElement iecname="current" type="T_REAL" byteoffset="12" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_HMIDataSX" size="1390" nativesize="1448" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMIDataSX">
-      <UserDefElement iecname="initiateCycle" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="ackAllFaults" type="T_BOOL" byteoffset="1" vartype="VAR_INPUT" />
-      <UserDefElement iecname="makeReady" type="T_BOOL" byteoffset="2" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jawService" type="T_ServiceCommands" byteoffset="3" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jawJogOpen" type="T_BOOL" byteoffset="8" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jawjobClosed" type="T_BOOL" byteoffset="9" vartype="VAR_INPUT" />
-      <UserDefElement iecname="loadPlateService" type="T_ServiceCommands" byteoffset="10" vartype="VAR_INPUT" />
-      <UserDefElement iecname="IBDService" type="T_ServiceCommands" byteoffset="15" vartype="VAR_INPUT" />
-      <UserDefElement iecname="IBDJogOpen" type="T_BOOL" byteoffset="20" vartype="VAR_INPUT" />
-      <UserDefElement iecname="IBDJogClosed" type="T_BOOL" byteoffset="21" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jogFilmForward" type="T_BOOL" byteoffset="22" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jobFilmReverse" type="T_BOOL" byteoffset="23" vartype="VAR_INPUT" />
-      <UserDefElement iecname="homeMachine" type="T_BOOL" byteoffset="24" vartype="VAR_INPUT" />
-      <UserDefElement iecname="machineHomed" type="T_BOOL" byteoffset="25" vartype="VAR_INPUT" />
-      <UserDefElement iecname="cycleSealer" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printHeadService" type="T_ServiceCommands" byteoffset="27" vartype="VAR_INPUT" />
-      <UserDefElement iecname="startJawCycleTest" type="T_BOOL" byteoffset="32" vartype="VAR_INPUT" />
-      <UserDefElement iecname="stopJawCycleTest" type="T_BOOL" byteoffset="33" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jawCycleTestCount" type="T_FB_MachineCounter" byteoffset="36" vartype="VAR_INPUT" />
-      <UserDefElement iecname="teachBagPhotoeye" type="T_BOOL" byteoffset="292" vartype="VAR_INPUT" />
-      <UserDefElement iecname="teachingBagPhoteye" type="T_BOOL" byteoffset="293" vartype="VAR_INPUT" />
-      <UserDefElement iecname="factoryHomeJaw" type="T_BOOL" byteoffset="294" vartype="VAR_INPUT" />
-      <UserDefElement iecname="stopMachine" type="T_BOOL" byteoffset="295" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerAndVerifierEnablePB" type="T_BOOL" byteoffset="296" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerAndVerifierEnableIndication" type="T_BOOL" byteoffset="297" vartype="VAR_INPUT" />
-      <UserDefElement iecname="BPMBagsMade" type="T_DINT" byteoffset="300" vartype="VAR_INPUT" />
-      <UserDefElement iecname="BPMActiveTime" type="T_REAL" byteoffset="304" vartype="VAR_INPUT" />
-      <UserDefElement iecname="BPMBagsPerMinute" type="T_REAL" byteoffset="308" vartype="VAR_INPUT" />
-      <UserDefElement iecname="BPMReset" type="T_BOOL" byteoffset="312" vartype="VAR_INPUT" />
-      <UserDefElement iecname="version" type="T_STRING" byteoffset="313" vartype="VAR_INPUT" />
-      <UserDefElement iecname="inCycle" type="T_BOOL" byteoffset="394" vartype="VAR_INPUT" />
-      <UserDefElement iecname="batchEnable" type="T_BOOL" byteoffset="395" vartype="VAR_INPUT" />
-      <UserDefElement iecname="batchSetting" type="T_UDINT" byteoffset="396" vartype="VAR_INPUT" />
-      <UserDefElement iecname="batchCount" type="T_UDINT" byteoffset="400" vartype="VAR_INPUT" />
-      <UserDefElement iecname="headCycleCount" type="T_UDINT" byteoffset="404" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pressureBarOpenDelay" type="T_REAL" byteoffset="408" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pressureBarCloseDelay" type="T_REAL" byteoffset="412" vartype="VAR_INPUT" />
-      <UserDefElement iecname="passthroughSetting" type="T_REAL" byteoffset="416" vartype="VAR_INPUT" />
-      <UserDefElement iecname="passthroughActual" type="T_REAL" byteoffset="420" vartype="VAR_INPUT" />
-      <UserDefElement iecname="lpaDwell" type="T_REAL" byteoffset="424" vartype="VAR_INPUT" />
-      <UserDefElement iecname="hpaDwell" type="T_REAL" byteoffset="428" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealBarDwell" type="T_REAL" byteoffset="432" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealBarCool" type="T_REAL" byteoffset="436" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealBarTemperatureSetting" type="T_UDINT" byteoffset="440" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealBarTemperature" type="T_UDINT" byteoffset="444" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealFlattenerBagOpenPositionSetting" type="T_REAL" byteoffset="448" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealFlattenerFlattenedPositionSetting" type="T_REAL" byteoffset="452" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealFlattenerMoveInPositionSetting" type="T_REAL" byteoffset="456" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagSkirtLength" type="T_REAL" byteoffset="460" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagLength" type="T_REAL" byteoffset="464" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagWidth" type="T_REAL" byteoffset="468" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagThickness" type="T_REAL" byteoffset="472" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagForwardSpeed" type="T_UDINT" byteoffset="476" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagReverseSpeed" type="T_UDINT" byteoffset="480" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printSpeed" type="T_UDINT" byteoffset="484" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printLength" type="T_REAL" byteoffset="488" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printOffset" type="T_REAL" byteoffset="492" vartype="VAR_INPUT" />
-      <UserDefElement iecname="fillerCountSetting" type="T_UDINT" byteoffset="496" vartype="VAR_INPUT" />
-      <UserDefElement iecname="fillerCurrentCount" type="T_UDINT" byteoffset="500" vartype="VAR_INPUT" />
-      <UserDefElement iecname="fillerDropTime" type="T_REAL" byteoffset="504" vartype="VAR_INPUT" />
-      <UserDefElement iecname="loadPlateDelay" type="T_REAL" byteoffset="508" vartype="VAR_INPUT" />
-      <UserDefElement iecname="loadPlateDwell" type="T_REAL" byteoffset="512" vartype="VAR_INPUT" />
-      <UserDefElement iecname="IBDInUse" type="T_BOOL" byteoffset="516" vartype="VAR_INPUT" />
-      <UserDefElement iecname="IBDInstalled" type="T_BOOL" byteoffset="517" vartype="VAR_INPUT" />
-      <UserDefElement iecname="IBDCurrentSetting" type="T_REAL" byteoffset="520" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jawCloseDelay" type="T_REAL" byteoffset="524" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jawClosePositionSetting" type="T_REAL" byteoffset="528" vartype="VAR_INPUT" />
-      <UserDefElement iecname="exitConveyorService" type="T_ServiceCommands" byteoffset="532" vartype="VAR_INPUT" />
-      <UserDefElement iecname="exitConveyorDwell" type="T_REAL" byteoffset="540" vartype="VAR_INPUT" />
-      <UserDefElement iecname="lastCycleTime" type="T_REAL" byteoffset="544" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagDropClearanceDwell" type="T_REAL" byteoffset="548" vartype="VAR_INPUT" />
-      <UserDefElement iecname="averageCycleTime" type="T_REAL" byteoffset="552" vartype="VAR_INPUT" />
-      <UserDefElement iecname="resetAverageCycleTime" type="T_BOOL" byteoffset="556" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenRetrySetting" type="T_UINT" byteoffset="558" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenRetryCount" type="T_UINT" byteoffset="560" vartype="VAR_INPUT" />
-      <UserDefElement iecname="currentJobID" type="T_INT" byteoffset="562" vartype="VAR_INPUT" />
-      <UserDefElement iecname="separateBeforeSeal" type="T_BOOL" byteoffset="564" vartype="VAR_INPUT" />
-      <UserDefElement iecname="activateDemoMode" type="T_BOOL" byteoffset="565" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenAssistEnable" type="T_BOOL" byteoffset="566" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagOpenSensorEnable" type="T_BOOL" byteoffset="567" vartype="VAR_INPUT" />
-      <UserDefElement iecname="grabBagDelay" type="T_REAL" byteoffset="568" vartype="VAR_INPUT" />
-      <UserDefElement iecname="checkForBagOpenDelay" type="T_REAL" byteoffset="572" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagClearedFromFingersDelay" type="T_REAL" byteoffset="576" vartype="VAR_INPUT" />
-      <UserDefElement iecname="vacuumDwell" type="T_REAL" byteoffset="580" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pressureBarState" type="T_STRING" byteoffset="584" vartype="VAR_INPUT" />
-      <UserDefElement iecname="activeScreen" type="T_DINT" byteoffset="668" vartype="VAR_INPUT" />
-      <UserDefElement iecname="profaceInterface" type="T_ARRAY__0__20__OF_INT" byteoffset="672" vartype="VAR_INPUT" />
-      <UserDefElement iecname="partsCounterEnable" type="T_BOOL" byteoffset="714" vartype="VAR_INPUT" />
-      <UserDefElement iecname="partsCounterCount" type="T_UDINT" byteoffset="716" vartype="VAR_INPUT" />
-      <UserDefElement iecname="partsCounterSetting" type="T_UDINT" byteoffset="720" vartype="VAR_INPUT" />
-      <UserDefElement iecname="consecutiveBagsEnable" type="T_BOOL" byteoffset="724" vartype="VAR_INPUT" />
-      <UserDefElement iecname="consecutiveBagsCount" type="T_UDINT" byteoffset="728" vartype="VAR_INPUT" />
-      <UserDefElement iecname="consecutiveBagsSetting" type="T_UDINT" byteoffset="732" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerInstalled" type="T_BOOL" byteoffset="736" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerInUse" type="T_BOOL" byteoffset="737" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printerCancelRequest" type="T_BOOL" byteoffset="738" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeVerifierInstalled" type="T_BOOL" byteoffset="739" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeGoodReadCount" type="T_UDINT" byteoffset="740" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeBadReadCount" type="T_UDINT" byteoffset="744" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeBadReadFaultSetting" type="T_UDINT" byteoffset="748" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeStartPosition" type="T_REAL" byteoffset="752" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeScanDistance" type="T_REAL" byteoffset="756" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeVerifierInUse" type="T_BOOL" byteoffset="760" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeLastReadString" type="T_STRING_100_" byteoffset="761" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeReadGoodIndication" type="T_BOOL" byteoffset="862" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeReadBadIndication" type="T_BOOL" byteoffset="863" vartype="VAR_INPUT" />
-      <UserDefElement iecname="loadPlateInstalled" type="T_BOOL" byteoffset="864" vartype="VAR_INPUT" />
-      <UserDefElement iecname="loadPlateInUse" type="T_BOOL" byteoffset="865" vartype="VAR_INPUT" />
-      <UserDefElement iecname="fillerEnable" type="T_BOOL" byteoffset="866" vartype="VAR_INPUT" />
-      <UserDefElement iecname="autoModeEnable" type="T_BOOL" byteoffset="867" vartype="VAR_INPUT" />
-      <UserDefElement iecname="autoModeDwell" type="T_REAL" byteoffset="868" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bannerManager" type="T_FB_BannerManager" byteoffset="872" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerCycles" type="T_FB_MachineCounter" byteoffset="876" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pressureBarCycles" type="T_FB_MachineCounter" byteoffset="1132" vartype="VAR_INPUT" />
-      <UserDefElement iecname="faultActive" type="T_BOOL" byteoffset="1388" vartype="VAR_INPUT" />
-      <UserDefElement iecname="simulateAllIO" type="T_BOOL" byteoffset="1389" vartype="VAR_INPUT" />
-    </TypeUserDef>
-    <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
   </TypeList>
   <NodeList>
     <Node name="Application">
-      <Node name="HMI">
-        <Node name="data" type="T_FB_HMIDataSX" access="ReadWrite" />
+      <Node name="HMIData">
+        <Node name="ackAllFaults" type="T_BOOL" access="ReadWrite">
+          <Comment> Acknowledge All Faults from HMI</Comment>
+        </Node>
+        <Node name="activeFaults" type="T_ARRAY__0__300__OF_STRING" access="ReadWrite" />
+        <Node name="activeScreen" type="T_DINT" access="ReadWrite" />
+        <Node name="autoModeDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="autoModeEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
+        <Node name="bagDropClearanceDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="bagForwardSpeed" type="T_UDINT" access="ReadWrite" />
+        <Node name="bagLength" type="T_REAL" access="ReadWrite" />
+        <Node name="bagReverseSpeed" type="T_UDINT" access="ReadWrite" />
+        <Node name="bagSkirtLength" type="T_REAL" access="ReadWrite" />
+        <Node name="bagsMade" type="T_DINT" access="ReadWrite" />
+        <Node name="bagThickness" type="T_REAL" access="ReadWrite" />
+        <Node name="bagWidth" type="T_REAL" access="ReadWrite" />
+        <Node name="bannerMessageIndication" type="T_DINT" access="ReadWrite" />
+        <Node name="barcodeBadReadCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeBadReadFaultSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeGoodReadCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeReadBadIndication" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeReadGoodIndication" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeScanDistance" type="T_REAL" access="ReadWrite" />
+        <Node name="barcodeStartPosition" type="T_REAL" access="ReadWrite" />
+        <Node name="barcodeVerifierInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeVerifierInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="batchCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="batchEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="batchSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="BPMActiveTime" type="T_REAL" access="ReadWrite" />
+        <Node name="BPMBagsMade" type="T_DINT" access="ReadWrite" />
+        <Node name="BPMBagsPerMinute" type="T_REAL" access="ReadWrite" />
+        <Node name="BPMReset" type="T_BOOL" access="ReadWrite" />
+        <Node name="consecutiveBagsCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="consecutiveBagsEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="consecutiveBagsSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="currentJobID" type="T_INT" access="ReadWrite" />
+        <Node name="cycleSealer" type="T_BOOL" access="ReadWrite" />
+        <Node name="factoryHomeJaw" type="T_BOOL" access="ReadWrite" />
+        <Node name="faultActive" type="T_BOOL" access="ReadWrite" />
+        <Node name="fillerCountSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="fillerCurrentCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="fillerDropTime" type="T_REAL" access="ReadWrite" />
+        <Node name="fillerEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="headCycleCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="homeMachine" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDCloseMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="IBDInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDJogClosed" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDJogOpen" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDOpenMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="IBDService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="inCycle" type="T_BOOL" access="ReadWrite" />
+        <Node name="initiateCycle" type="T_BOOL" access="ReadWrite">
+          <Comment> Initiate Cycle Pushbutton</Comment>
+        </Node>
+        <Node name="jawCloseDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="jawCloseMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="jawClosePositionSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="jawCycleTestActive" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawCycleTestCycles" type="T_DINT" access="ReadWrite" />
+        <Node name="jawjobClosed" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawJogOpen" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawOpenMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="jawService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="jogFilmForward" type="T_BOOL" access="ReadWrite" />
+        <Node name="jogFilmReverse" type="T_BOOL" access="ReadWrite" />
+        <Node name="lastCycleTime" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="loadPlateInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="loadPlateLoweredPositionSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateLowerProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="loadPlateRaisedPositionSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateRaiseProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="loadPlateService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="machineHomed" type="T_BOOL" access="ReadWrite" />
+        <Node name="makeReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="partsCounterCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="partsCounterEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="partsCounterSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="passthroughActual" type="T_REAL" access="ReadWrite" />
+        <Node name="passthroughSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="pressureBarCloseDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="pressureBarOpenDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="pressureBarState" type="T_STRING" access="ReadWrite" />
+        <Node name="printerAndVerifierEnableIndication" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerAndVerifierEnablePB" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerCancelRequest" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="printHeadService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="printLength" type="T_REAL" access="ReadWrite" />
+        <Node name="printOffset" type="T_REAL" access="ReadWrite" />
+        <Node name="printSpeed" type="T_UDINT" access="ReadWrite" />
+        <Node name="profaceInterface" type="T_ARRAY__0__20__OF_INT" access="ReadWrite" />
+        <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
+        <Node name="sealBarCool" type="T_REAL" access="ReadWrite" />
+        <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="separateBeforeSeal" type="T_BOOL" access="ReadWrite" />
+        <Node name="simulateAllIO" type="T_BOOL" access="ReadWrite" />
+        <Node name="startJawCycleTest" type="T_BOOL" access="ReadWrite" />
+        <Node name="stopJawCycleTest" type="T_BOOL" access="ReadWrite" />
+        <Node name="stopMachine" type="T_BOOL" access="ReadWrite" />
+        <Node name="teachBagPhotoeye" type="T_BOOL" access="ReadWrite" />
+        <Node name="teachingBagPhoteye" type="T_BOOL" access="ReadWrite" />
+        <Node name="version" type="T_STRING" access="ReadWrite" />
       </Node>
       <Node name="IoConfig_Globals_Mapping">
         <Node name="iBagEdgePhotoeye" type="T_BIT_X_3" access="Read" directaddress="%IX0.3">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iBarcodeNG" type="T_BIT_X_1" access="Read" directaddress="%IX1.1">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iBarcodeOK" type="T_BIT_X_0" access="Read" directaddress="%IX1.0">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iCycleStart" type="T_BIT_X_4" access="Read" directaddress="%IX0.4">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iFillerTrigger" type="T_BIT_X_3" access="Read" directaddress="%IX1.3">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iJawClosed" type="T_BIT_X_6" access="Read" directaddress="%IX0.6">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iJawNearClosed" type="T_BIT_X_7" access="Read" directaddress="%IX0.7">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iJawNotObstructed" type="T_BIT_X_0" access="Read" directaddress="%IX0.0">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iLHPalmButton" type="T_BIT_X_4" access="Read" directaddress="%IX1.4">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iLightCurtain" type="T_BIT_X_2" access="Read" directaddress="%IX1.2">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iPrinterBusy" type="T_BIT_X_2" access="Read" directaddress="%IX0.2">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iPrinterDataReady" type="T_BIT_X_1" access="Read" directaddress="%IX0.1">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
+        </Node>
+        <Node name="iPrinterRibbonEncoder" type="T_BIT_X_7" access="Read" directaddress="%IX1.7">
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iPrintHeadLowered" type="T_BIT_X_5" access="Read" directaddress="%IX0.5">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iRHPalmButton" type="T_BIT_X_5" access="Read" directaddress="%IX1.5">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="iTopCoverClosed" type="T_BIT_X_6" access="Read" directaddress="%IX1.6">
-          <Comment>InputCard0 : </Comment>
+          <Comment>InputSlot0 : </Comment>
         </Node>
         <Node name="oGreenStackLight" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX0.7">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oLowerPrintHead" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX0.1">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oPalmButton0" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX1.1">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oPalmButton1" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX1.2">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oPrinterRibbonUnwind" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX0.3">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oReadyForFiller" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX1.0">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oRedStackLight" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX0.6">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oRequestPrint" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX0.2">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oSealWire" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX0.0">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oTeachPhotoeye" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX0.5">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
         <Node name="oTriggerBCV" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX0.4">
-          <Comment>OutputCard0 : </Comment>
+          <Comment>OutputSlot1 : </Comment>
         </Node>
       </Node>
     </Node>

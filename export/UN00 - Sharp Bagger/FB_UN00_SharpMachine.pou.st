@@ -2,6 +2,7 @@
 FUNCTION_BLOCK FINAL FB_UN00_SharpMachine EXTENDS FB_PackMLStates
 VAR_INPUT
 	faultActive : BOOL;
+	resetMachine : BOOL;
 END_VAR
 VAR_OUTPUT
 	currentState : PACK_ML.State;
@@ -20,7 +21,7 @@ VAR
 	startMachine : BOOL;
 	abortMachine : BOOL;
 	resetONS : FB_ONS;
-	resetMachine : BOOL;
+	
 	clearTimer : Standard.TON := (PT := T#3S);
 	testResetSim : BOOL;
 END_VAR

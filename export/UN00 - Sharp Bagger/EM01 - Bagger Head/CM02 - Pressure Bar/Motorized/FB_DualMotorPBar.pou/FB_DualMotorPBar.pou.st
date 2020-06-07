@@ -1,10 +1,10 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_DualMotorPBar EXTENDS FB_BaseComponent IMPLEMENTS IPressureBar, IHomable, IPostHomeMove
+FUNCTION_BLOCK FB_DualMotorPBar EXTENDS FB_BaseComponent IMPLEMENTS IPressureBar, IHomable
 VAR_INPUT
 	simulateIO : BOOL;												// Simulate all I/O for testing
-	frontMotor : REFERENCE TO FB_OrientalAZMotor_MBTree;				// The motor axis for the front (low torque) passthrough
-	rearMotor : REFERENCE TO FB_OrientalAZMotor_MBTree;					// The motor axis for the rear (high torque) passthrough
-	bothMotors : REFERENCE TO FB_OrientalAZMotor_MBTree;				// The motor axis for both passthrough motors
+	frontMotor : REFERENCE TO FB_OrientalAZMotor;				// The motor axis for the front (low torque) passthrough
+	rearMotor : REFERENCE TO FB_OrientalAZMotor;					// The motor axis for the rear (high torque) passthrough
+	bothMotors : REFERENCE TO FB_OrientalAZMotor;				// The motor axis for both passthrough motors
 	closeVelo : REAL := 10;											// Passthrough Motor Velocity
 	closeAccel : REAL := 100.0;											// Passthrough Motor Acceleration
 	closeDecel : REAL := 100.0;											// Passthrough Motor Deceleration
@@ -14,6 +14,7 @@ VAR_INPUT
 	homeTimeoutSetting : TIME := T#20S;								// Timeout for homing attempt
 	passthroughSetting : REAL := 5.5;
 	jawClosedSetting : REAL := -0.2;
+	moveInDelaySetting : TIME;
 	pressureBarClosedSensor : BOOL;
 	pressureBarNearClosedSensor : BOOL;
 	obstructionSensor : BOOL;
@@ -25,11 +26,11 @@ VAR_OUTPUT
 	failedToOpen : FB_Fault(name := CONCAT(_prefix, 'Failed to Open'));
 	failedToHome : FB_Fault(name := CONCAT(_prefix, 'Failed to Home'));
 	pressureBarObstructed : FB_Fault(name := CONCAT(_prefix, 'Obstructed'));
-	frontMotorFault : FB_Fault(name := CONCAT(_prefix, 'Motor Fault'));
-	frontMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Motor Fault'));
-	rearMotorFault : FB_Fault(name := CONCAT(_prefix, 'Motor Fault'));
-	rearMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Motor Fault'));
-	actualPassthrough : REAL := 5.5;								// Current Passthrough Opening
+	frontMotorFault : FB_Fault(name := CONCAT(_prefix, 'Front Motor Fault'));
+	frontMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Front Motor Comm Fault'));
+	rearMotorFault : FB_Fault(name := CONCAT(_prefix, 'Rear Motor Fault'));
+	rearMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Rear Motor Comm Fault'));
+	actualPosition : REAL := 5.5;								// Current Passthrough Opening
 END_VAR
 VAR
 	simClose : FB_SimulatedFeedbackPhysicalInput(name := CONCAT(_prefix,'Move In')) := (minDelay := 20, maxDelay := 60);
@@ -51,6 +52,7 @@ VAR
 	homeTimeout : Standard.TON;
 	failedToCloseTimer : Standard.TON;
 	failedToOpenTimer : Standard.TON;
+	moveInDelay : Standard.TON;
 	jawMotionFaultTimeOffset : TIME := T#200MS;
 	bothMotorsHomed : BOOL;
 	bothMotorsInPosition : BOOL;
@@ -82,12 +84,14 @@ MC_HaltBothMotors(Axis := frontMotor);
 homeTimeout(PT := homeTimeoutSetting);
 // If reset of motors fails state machine must move on
 resetTimer(IN := jawState = eDualMotorPBarStates.Resetting);
+// Jaw move in delay	 
+moveInDelay(IN := _closeNow, PT := moveInDelaySetting);	  
 {endregion}
 
 
 {region "I/O and Fault Setup"}
 // Passthrough position is based on reported motor position
-actualPassthrough := frontMotor.ActPos;
+actualPosition := frontMotor.ActPos;
 (*
 // Setup simulation of I/O and faults for testing
 simClose(in := cylinder.RetractAsserted, simFeedbackFault := UN00_Globals.simFaults.pressureBarFailedToMoveIn, inputToSimulate := PressureBarClosedSensor);
@@ -119,11 +123,23 @@ IF frontMotor.Error THEN
 ELSE 
 	frontMotorFault.faultTrigger := FALSE;
 END_IF
-	 
+
+IF NOT frontMotor.CommStatus THEN
+	frontMotorCommFault.faultTrigger := TRUE;
+ELSE 
+	frontMotorCommFault.faultTrigger := FALSE;
+END_IF
+ 
 IF rearMotor.Error THEN
 	rearMotorFault.faultTrigger := TRUE;
 ELSE 
 	rearMotorFault.faultTrigger := FALSE;
+END_IF
+	 
+IF NOT rearMotor.CommStatus THEN
+	rearMotorCommFault.faultTrigger := TRUE;
+ELSE 
+	rearMotorCommFault.faultTrigger := FALSE;
 END_IF
 
 IF homeTimeout.Q 
@@ -174,7 +190,7 @@ CASE jawState OF
 				openJawPB := FALSE;
 				_openNow := FALSE;
 				jawState := eDualMotorPBarStates.OpenJaw;
-			ELSIF _CloseNow OR closeJawPB THEN
+			ELSIF (_closeNow AND moveInDelay.Q) OR closeJawPB THEN
 				closeJawPB := FALSE;
 				_closeNow := FALSE;
 				jawState := eDualMotorPBarStates.CloseJaw;
@@ -221,7 +237,7 @@ CASE jawState OF
 						MC_HomeBothMotors.Execute := FALSE;
 						homeJawState := eDualMotorPbarHomingStates.MoveMotorsToPassthrough;
 					ELSIF MC_HomeBothMotors.Error THEN
-						MC_MoveBothMotorsINC.Execute := FALSE;
+						MC_HomeBothMotors.Execute := FALSE;
 						failedToHome.Trigger();
 						jawState := eDualMotorPBarStates.Faulting;
 					END_IF

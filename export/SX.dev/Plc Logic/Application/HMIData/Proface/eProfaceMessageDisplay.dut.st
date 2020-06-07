@@ -27,6 +27,9 @@ TYPE eProfaceMessageDisplay :
 	loadPlateMotorFaulted := 	22,
 	loadPlateMotorCommF := 		23,
 	topCoverLiftedFault := 		24,
-	topCoverLiftedWarning := 	25
+	topCoverLiftedWarning := 	25,
+	IBDMotorNotHomed := 		26,
+	IBDMotorFaulted := 			27,
+	IBDMotorCommF := 			28
 );
 END_TYPE

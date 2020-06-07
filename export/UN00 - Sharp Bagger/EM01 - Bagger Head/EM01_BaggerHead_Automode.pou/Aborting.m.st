@@ -16,6 +16,8 @@ IF NOT _abortingDone THEN
 	bagger.pressureBar.RemovePower();
 	bagger.printer.Reset();
 	bagger.bagDelivery.Reset();
+	bagger.IBD.RemovePower();
+	bagger.barcodeVerifier.Reset();
 	bagger.StartCycleRequest := FALSE;
 	bagger.ReadyForProduct := FALSE;
 	bagger.CurrentBagOpenRetryCount := 0;

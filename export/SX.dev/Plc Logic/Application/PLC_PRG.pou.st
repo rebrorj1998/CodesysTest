@@ -1,174 +1,138 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 PROGRAM PLC_PRG
 VAR
-	_deviceChecker 		: DeviceChecker;
-	_deviceController	: DeviceController;		// Care: Set xAckError if an Error occurred during reconfigure.6
-	_xExecute			: BOOL;					// rising edge starts the ExemplaryCase
-	_xDone				: BOOL;					// Gets TRUE after an ExemplaryCase was performed
-	_xConfirm			: BOOL;					// rising edge resets _xDone, eError and _xExecute.
-	_eError				: DED.ERROR;			// Error returned from the device controller.
 	
-	powerUpTestMotor : Sharp_Motion.MC_Power;
-	testMotor : FB_OrientalAZMotor_MBTree;
-	commPortInit : BOOL;
-	moveNewPos : Sharp_Motion.MC_MoveAbsolute;
-	pbar : FB_DualMotorPBar(name := 'Test Pbar');
 	firstScanDone: BOOL;
+	powerUpFrontJawMotor : Sharp_Motion.MC_Power;
+	powerUpRearJawMotor : Sharp_Motion.MC_Power;
+	powerUpBothJawMotors : Sharp_Motion.MC_Power;
+	powerUpLoadPlateMotor : Sharp_Motion.MC_Power;
+	powerUpBagDeliveryMotor : Sharp_Motion.MC_Power;
+	powerUpIBDMotor : Sharp_Motion.MC_Power;
+	UN00_SXMachine : FB_UN00_SharpMachine(name := 'UN00 - Sharp SX');
+	EM01_SXBaggerHead : EM01_BaggerHead(name := 'EM01 - SX Bagger Head');
+	EM02_SXDischarge : EM02_Discharge(name := 'EM02 - SX Discharge');
+	baggerCM : EM01_Bagger_Control_Modules;
+	bannerManager : FB_BannerManager;
+	topCoverLiftedFault : FB_Fault(name := 'Top Cover Lifeted During Cycle');
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_deviceChecker();
-_deviceController();
+
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
 	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := Globals.SystemLog);
 	GlobalObjects.CollectionOfFaults.FaultUpdateForHMI();
 	firstScanDone := TRUE;
 END_IF
-IF _xExecute THEN
-	_xExecute := FALSE;
-	OutputCard0.Enable := FALSE;
-	_xConfirm := DED.CanReconfigure(CVS_G_Series_Rack_);
+
+IF HMIData.bagLength > 30 THEN
+	HMIData.bagLength := 30;
 END_IF
 
-IF HMI.data.bagLength > 30 THEN
-	HMI.data.bagLength := 30;
-END_IF
-oSealWire := iBagEdgePhotoeye;
-IF NOT Globals.modbusRTUCom.xInit THEN
-	Globals.modbusRTUCom.hComPort := SysCom.SysComOpen2(pSettings := ADR(Globals.modbusRTUCom.sctSettings),0, pResult:=Globals.modbusRTUCom.pResult);
-	Globals.modbusRTUCom.xInit := TRUE;
-END_IF
+HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
 
-IF HMI.data.ackAllFaults THEN
-	pbar.Reset();
+IF HMIData.initiateCycle THEN
+	IF UN00_SXMachine.currentState = PACK_ML.State.Execute THEN
+		EM01_SXBaggerHead.StartCycle();
+	END_IF
+	HMIData.initiateCycle := FALSE;
 END_IF
 
-powerUpTestMotor(Enable := TRUE, Axis := testMotor);
-powerUpTestMotor.DriveStart := TRUE;
-powerUpTestMotor.RegulatorOn := TRUE;
+IF firstScanDone THEN
+	GlobalObjects.CollectionOfExecutable.ExecuteAll();
+END_IF
 
-moveNewPos(
-	Execute:= , 
-	Done=> , 
-	Busy=> , 
-	CommandAborted=> , 
-	Error=> , 
-	ErrorID=> , 
-	Axis:= testMotor, 
-	Position:= , 
-	Velocity:= , 
-	Acceleration:= , 
-	Deceleration:= );
-(*
-testMotor(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
-	DefaultCurrent:= 100, 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
-	modbusAddress:= 15, 
-	stepsPerInchSP := 1000,
-	jogForwardCMD := HMI.data.jawJogOpen,
-	jogReverseCMD := HMI.data.jawjobClosed,
-	comm:= Globals.modbusRTUCom.hComPort);
-*)
 
-testMotor(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
-	DefaultCurrent:= 100, 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
-	modbusAddress:= , 
-	isGroup:= , 
-	stepsPerInchSP:= 3999, 
-	zeroOffset:= , 
-	jogForwardCMD:= HMI.data.jawJogOpen, 
-	jogReverseCMD:= HMI.data.jawjobClosed, 
-	groupMotor0:= , 
-	groupMotor1:= , 
-	MBChannel:= TestMotorSlave, 
-	modbusDataFromDrive:= testMotorInputs, 
-	modbusDirectDataToDrive:= testMotorDDOutputs, 
-	modbusRIODataToDrive:= testMotorRIOOutputs);
+powerUpFrontJawMotor(Enable := TRUE, Axis := baggerCM.jawFrontMotor);
+powerUpFrontJawMotor.DriveStart := TRUE;
+powerUpFrontJawMotor.RegulatorOn := TRUE;
+
+powerUpRearJawMotor(Enable := TRUE, Axis := baggerCM.jawRearMotor);
+powerUpRearJawMotor.DriveStart := TRUE;
+powerUpRearJawMotor.RegulatorOn := TRUE;
+
+powerUpBothJawMotors(Enable := TRUE, Axis := baggerCM.jawBothMotors);
+powerUpBothJawMotors.DriveStart := TRUE;
+powerUpBothJawMotors.RegulatorOn := TRUE;
+
+powerUpLoadPlateMotor(Enable := TRUE, Axis := baggerCM.loadPlateMotor);
+powerUpLoadPlateMotor.DriveStart := TRUE;
+powerUpLoadPlateMotor.RegulatorOn := TRUE;
+
+powerUpBagDeliveryMotor(Enable := TRUE, Axis := baggerCM.bagDeliveryFrontMotor);
+powerUpBagDeliveryMotor.DriveStart := TRUE;
+powerUpBagDeliveryMotor.RegulatorOn := TRUE;
+
+powerUpIBDMotor(Enable := TRUE, Axis := baggerCM.IBDMotor);
+powerUpIBDMotor.DriveStart := TRUE;
+powerUpIBDMotor.RegulatorOn := TRUE;
+
+baggerCM();
+
+HMIData.activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames;
+
+
+
+EM01_SXBaggerHead(
+	bagOpenFingers:= baggerCM.dummyBOF, 
+	sealFlatteners:= baggerCM.dummySealFlatteners, 
+	sealer:= baggerCM.sealWire, 
+	pressureBar:= baggerCM.dualMotorPassthrough, 
+	printer:= baggerCM.labelPrinter, 
+	bagDelivery:= baggerCM.bagDelivery, 
+	vacuumBagOpen:= baggerCM.dummyVacuumCups, 
+	IBD:= baggerCM.IBD, 
+	loadPlate:= baggerCM.loadPlate, 
+	barcodeVerifier:= baggerCM.barcodeVerifier, 
+	bagOpenAssistEnabled:= FALSE, 
+	bagOpenSensorEnabled:= FALSE, 
+	separateBeforeSealEnabled:= HMIData.separateBeforeSeal, 
+	bagOpenRetrySetting:= , 
+	newJobLoaded:= , 
+	vacuumDwell:= , 
+	baggerCycleActive=> HMIData.inCycle, 
+	bagOpenRetryCount=> , 
+	failedToOpenBag=> );
 	
-pbar(
-	simulateIO:= , 
-	frontMotor:= testMotor, 
-	rearMotor:= testMotor, 
-	bothMotors:= testMotor, 
-	closeVelo:= , 
-	closeAccel:= , 
-	closeDecel:= , 
-	openVelo:= , 
-	openAccel:= , 
-	openDecel:= , 
-	homeTimeoutSetting:= , 
-	passthroughSetting:= HMI.data.passthroughSetting, 
-	jawClosedSetting:= , 
-	pressureBarClosedSensor:= , 
-	pressureBarNearClosedSensor:= , 
-	obstructionSensor:= , 
-	openJawPB:= HMI.data.jawService.extendCommand, 
-	closeJawPB:= HMI.data.jawService.retractCommand, 
-	failedToClose=> , 
-	failedToOpen=> , 
-	failedToHome=> , 
-	pressureBarObstructed=> , 
-	frontMotorFault=> , 
-	frontMotorCommFault=> , 
-	rearMotorFault=> , 
-	rearMotorCommFault=> , 
-	actualPassthrough=> HMI.data.passthroughActual);
 	
+EM02_SXDischarge();
+
+UN00_SXMachine(faultActive:= HMIData.faultActive, resetMachine := HMIData.ackAllFaults, currentState=> , baggerHead:= EM01_SXBaggerHead, discharge:= EM02_SXDischarge);
+
+IF HMIData.inCycle AND NOT iTopCoverClosed THEN
+	topCoverLiftedFault.Trigger();
+END_IF
+
+bannerManager(
+	baggerNotReady:= NOT UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
+	baggerReady:= UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
+	baggerInCycle:= HMIData.inCycle, 
+	noBagCoveringEye:= , 
+	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
+	pbarObstruction:= baggerCM.dualMotorPassthrough.pressureBarObstructed.Active, 
+	lightCurtainViolation:= , 
+	printHeadFTR:= baggerCM.labelPrinter.printHeadFailToRaise.Active, 
+	printHeadFTL:= baggerCM.labelPrinter.printHeadFailToLower.Active, 
+	barcodeFault:= EM01_SXBaggerHead.barcodeVerificationFailed.Active, 
+	tooManyPartsCounted:= , 
+	jawFailedToClose:= baggerCM.dualMotorPassthrough.failedToClose.Active, 
+	jawFailedToHome:= baggerCM.dualMotorPassthrough.failedToHome.Active, 
+	filmFeedMotionFault:= , 
+	jawMotionFault:= , 
+	waitingOnPrinter:= baggerCM.labelPrinter.waitingForPrinter, 
+	waitingOnFiller:= , 
+	batchCounterDone:= , 
+	jawNotHomed:= NOT baggerCM.dualMotorPassthrough.IsHomed, 
+	cycleBaggerTForFiller:= , 
+	machineNotTested:= NOT Counters.baggerCycles.count >= 1000, 
+	loadPlateMotorNotHomed:= NOT baggerCM.loadPlate.IsHomed AND baggerCM.loadPlate.OptionActive, 
+	loadPlateMotorFaulted:= , 
+	loadPlateMotorCommF:= , 
+	topCoverLiftedFault:= topCoverLiftedFault.Active, 
+	topCoverLiftedWarning:= iTopCoverClosed AND NOT HMIData.inCycle, 
+	IBDMotorNotHomed:= NOT baggerCM.IBD.IsHomed AND baggerCM.IBD.OptionActive, 
+	IBDMotorFaulted:= baggerCM.IBD.IBDMotorFault.Active, 
+	IBDMotorCommF:= baggerCM.IBD.IBDMotorCommFault.Active, 
+	printerRibbonFault := baggerCM.labelPrinter.ribbonFault.Active,
+	printerServiceRequired := ,
+	messageDisplayIndication=> HMIData.bannerMessageIndication);
+

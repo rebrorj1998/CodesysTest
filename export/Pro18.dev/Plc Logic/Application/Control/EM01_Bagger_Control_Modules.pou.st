@@ -28,6 +28,9 @@ VAR_OUTPUT
 	
 	labelPrinter : FB_Pro18ZebraPrinter(name := 'Zebra Label Printer') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
 	printHeadActuator : FB_PneumaticVerticalActuator(name := 'Print Head Actuator');
+	
+
+	
 END_VAR
 
 VAR
@@ -37,39 +40,39 @@ END_VAR
 // 	enable:= , 
 // 	installed:= , 
 // 	active=> , 
-// 	feedSpeed:= HMI.data.bagForwardSpeed, 
-// 	reverseSpeed:= HMI.data.bagReverseSpeed, 
-// 	printSpeed:= HMI.data.printSpeed, 
-// 	printLength:= HMI.data.printLength, 
-// 	bagLength:= HMI.data.bagLength, 
+// 	feedSpeed:= HMIData.bagForwardSpeed, 
+// 	reverseSpeed:= HMIData.bagReverseSpeed, 
+// 	printSpeed:= HMIData.printSpeed, 
+// 	printLength:= HMIData.printLength, 
+// 	bagLength:= HMIData.bagLength, 
 // 	reverseLength:= 2.0, 
-// 	printOffset:= HMI.data.printOffset);
+// 	printOffset:= HMIData.printOffset);
 	
 //sealFlattenerPneuVerticalAxis(cylinder := sealFlattenerVertAxisActuator);
 
 simExitConveyor(_optionActive=> );
 
-simLoadPlate(_optionActive=> , loadPlateDwell:= HMI.data.loadPlateDwell);
+simLoadPlate(_optionActive=> , loadPlateDwell:= HMIData.loadPlateDwell);
 
 passthroughMotor(simFault := UN00_Globals.simFaults.passthroughMotorFault);
 
 pneumaticPressureBar(
 	_optionActive=> , 
-	simulateIO:= HMI.data.simulateAllIO, 
+	simulateIO:= HMIData.simulateAllIO, 
 	passthroughMotor:= passthroughMotor, 
 	cylinder := Devices.pressureBarSolenoidValve,
 	ptVelo:= , 
 	ptAccel:= , 
 	ptDecel:= , 
 	homeTimeoutSetting:= ,
-	passthroughSetting := HMI.data.passthroughSetting, 
+	passthroughSetting := HMIData.passthroughSetting, 
 	failedToClose=> , 
 	failedToOpen=> , 
 	failedToHome=> , 
 	pressureBarObstructed=> , 
 	motorFault=> , 
 	failedToMovePassthrough=> , 
-	actualPassthrough=> HMI.data.passthroughActual, 
+	actualPassthrough=> HMIData.passthroughActual, 
 	PressureBarClosedSensor:= IO.iPressureBarRetracted, 
 	PressureBarOpenSensor:= IO.iPressureBarExtended,
 	ObstructionSensor := IO.iPressureBarNotObstructed);
@@ -77,9 +80,9 @@ pneumaticPressureBar(
 printHeadActuator(cylinder := Devices.printHeadSolenoidValve);
 labelPrinter(
 	_optionActive=> , 
-	simulateIO:= HMI.data.simulateAllIO, 
-	printSpeed:= HMI.data.printSpeed, 
-	printLength:= HMI.data.printLength, 
+	simulateIO:= HMIData.simulateAllIO, 
+	printSpeed:= HMIData.printSpeed, 
+	printLength:= HMIData.printLength, 
 	printHead:= printHeadActuator, 
 	dataReadyInput:= IO.iPrinterDataReady, 
 	serviceRequiredInput:= IO.iPrinterServiceRequired, 
@@ -93,8 +96,8 @@ labelPrinter(
 	
 standardSealBar( 
 	_optionActive=> , 
-	simulateIO:= HMI.data.simulateAllIO, 
-	sealDwell:= HMI.data.sealBarDwell, 
+	simulateIO:= HMIData.simulateAllIO, 
+	sealDwell:= HMIData.sealBarDwell, 
 	cylinder:= Devices.sealBarSolenoidValve);
 	
 
@@ -102,12 +105,12 @@ standardSealBar(
 vacuumCups(_optionActive=>, vacGenerator := Devices.vacuumSolenoidValve);	
 bagOpenFingersActuator(cylinder:= Devices.bagOpenFingersSolenoidValve);
 standardBagOpenFingersWithSensors(
-	simulateIO:= HMI.data.simulateAllIO,
+	simulateIO:= HMIData.simulateAllIO,
 	simMissedBag:= UN00_Globals.simFaults.failedToGrabBagLeftFinger,
 	_optionActive=> , 
-	delayToGrabSetting:= HMI.data.grabBagDelay,
-	delayToCheckBagPresentSetting:= HMI.data.checkForBagOpenDelay, 
-	delayToClearSetting:= HMI.data.bagClearedFromFingersDelay,
+	delayToGrabSetting:= HMIData.grabBagDelay,
+	delayToCheckBagPresentSetting:= HMIData.checkForBagOpenDelay, 
+	delayToClearSetting:= HMIData.bagClearedFromFingersDelay,
 	fingerActuators := bagOpenFingersActuator, 
 	BagPresentSensorLeft:= IO.iBagOpenFingersLeftBagPresent, 
 	BagPresentSensorRight:= IO.iBagOpenFingersRightBagPresent);
@@ -117,8 +120,8 @@ sealFlattenerVertAxisActuator(solenoid0=> , solenoid1=> , cylinder:= Devices.sea
 msfHorizontalMotor();
 motorizedSealFlatteners(
 	_optionActive=> , 
-	clearanceDwellSetting:= HMI.data.bagDropClearanceDwell, 
-	bagWidth:= HMI.data.bagWidth, 
+	clearanceDwellSetting:= HMIData.bagDropClearanceDwell, 
+	bagWidth:= HMIData.bagWidth, 
 	horizVelo:= , 
 	horizAccel:= , 
 	horizDecel:= , 
@@ -137,12 +140,12 @@ motorizedSealFlatteners(
 	
 	bagDeliveryFrontMotor();
 	bagDelivery(
-	simulateIO := HMI.data.simulateAllIO,
+	simulateIO := HMIData.simulateAllIO,
 	_optionActive=> , 
 	printer:= labelPrinter, 
-	bagLength:= HMI.data.bagLength, 
-	feedSpeed:= TO_REAL(HMI.data.bagForwardSpeed), 
-	reverseSpeed:= TO_REAL(HMI.data.bagReverseSpeed), 
+	bagLength:= HMIData.bagLength, 
+	feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 
+	reverseSpeed:= TO_REAL(HMIData.bagReverseSpeed), 
 	printSpeed:= , 
 	printOffset:= , 
 	printLength:= , 

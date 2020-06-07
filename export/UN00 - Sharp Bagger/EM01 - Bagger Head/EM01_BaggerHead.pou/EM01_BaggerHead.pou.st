@@ -9,7 +9,10 @@ VAR_INPUT
 	printer : IPrinter;
 	bagDelivery : IBagDelivery;
 	vacuumBagOpen : IVacuumBagOpen;
-	
+	IBD : I_IBD;
+	barcodeVerifier : IBarcodeVerifier;
+	{warning 'TODO: Move Load Plate to discharge, not baggerhead'}
+	loadPlate : IRetractingLoadPlate;
 	(*Options and settings*)
 	bagOpenAssistEnabled : BOOL;		// Bag Open Assist Option Enabled from HMI
 	bagOpenSensorEnabled : BOOL;		// Bag Open Sensors Enabled from HMI
@@ -22,6 +25,7 @@ VAR_OUTPUT
 	baggerCycleActive : BOOL;
 	bagOpenRetryCount : UINT;
 	failedToOpenBag : FB_Fault(name := CONCAT(_prefix,'Failed to Open Bag'));
+	barcodeVerificationFailed : FB_Fault(name := CONCAT(_prefix,'Barcode Fail'));
 END_VAR
 VAR
 	_startCycle : BOOL;

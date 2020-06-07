@@ -34,7 +34,7 @@ END_VAR
 
 // Valve manifold station selection
 FOR i := 1 TO Globals.MAX_VALVE_MANIFOLD_STATIONS DO
-	CASE HMI.data.stationValveSelection[i] OF
+	CASE HMIData.stationValveSelection[i] OF
 		
 		ValveSelection.PressureBar : 						valveManifold.station[i] := pressureBarSolenoidValve;
 		

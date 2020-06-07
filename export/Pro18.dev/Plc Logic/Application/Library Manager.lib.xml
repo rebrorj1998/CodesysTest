@@ -374,10 +374,10 @@
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemTextEditor</Single>
+              <Single Type="string">ElementCollections</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTextEditor, 3.5.16.0 (System)</Single>
+              <Single Type="string">Element Collections, 3.5.16.0 (3S - Smart Software Solutions GmbH)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -398,6 +398,14 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">System_VisuElemTextEditor</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemTextEditor, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
@@ -410,14 +418,6 @@
             </Key>
             <Value>
               <Single Type="string">VisuElem3DPath, 3.5.16.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">IoDriver Utility</Single>
-            </Key>
-            <Value>
-              <Single Type="string">IoDrvUtility, 3.5.16.0 (3S - Smart Software Solutions GmbH)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -442,14 +442,6 @@
             </Key>
             <Value>
               <Single Type="string">CmpEventMgr Implementation, 3.5.16.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">ElementCollections</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Element Collections, 3.5.16.0 (3S - Smart Software Solutions GmbH)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -486,6 +478,14 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">System_VisuElemsWinControls</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemsWinControls, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">IoDrvCIFXEthernetIP</Single>
             </Key>
             <Value>
@@ -494,10 +494,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemsWinControls</Single>
+              <Single Type="string">IoDriver Utility</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsWinControls, 3.5.16.0 (System)</Single>
+              <Single Type="string">IoDrvUtility, 3.5.16.0 (3S - Smart Software Solutions GmbH)</Single>
             </Value>
           </Entry>
           <Entry>

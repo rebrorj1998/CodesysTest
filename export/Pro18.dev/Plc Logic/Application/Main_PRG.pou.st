@@ -27,7 +27,7 @@ VAR
 
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {IF defined (IsSimulationMode)}
-	HMI.data.simulateAllIO := TRUE;
+	HMIData.simulateAllIO := TRUE;
 {END_IF}
 
 Devices();
@@ -45,32 +45,32 @@ powerUpBagDeliveryMotor(Enable := TRUE, Axis := machineComponents.bagDeliveryFro
 powerUpBagDeliveryMotor.DriveStart := TRUE;
 powerUpBagDeliveryMotor.RegulatorOn := TRUE;
 
-CASE HMI.data.bofSelection OF
+CASE HMIData.bofSelection OF
 	BagOpenFingersSelection.NotInstalled: 					
 															activeBagOpenFingers := machineComponents.standardBagOpenFingersWithSensors;
 															activeBagOpenFingers.OptionInstalled := FALSE;
 	
 	BagOpenFingersSelection.PneumaticWithBagOpenSensors: 	activeBagOpenFingers := machineComponents.standardBagOpenFingersWithSensors;
 															activeBagOpenFingers.OptionInstalled := TRUE;
-															activeBagOpenFingers.OptionEnabled := HMI.data.bofEnable;
+															activeBagOpenFingers.OptionEnabled := HMIData.bofEnable;
 END_CASE
 
-CASE HMI.data.sealFlattenersSelection OF
+CASE HMIData.sealFlattenersSelection OF
 	SealFlattenerSelection.NotInstalled:					activeSealFlatteners := machineComponents.motorizedSealFlatteners;
 															activeSealFlatteners.OptionInstalled := FALSE;
 	
 	SealFlattenerSelection.MotorizedSealFlatteners:			activeSealFlatteners := machineComponents.motorizedSealFlatteners;
 															activeSealFlatteners.OptionInstalled := TRUE;
-															activeSealFlatteners.OptionEnabled := HMI.data.sealFlattenersEnable;
+															activeSealFlatteners.OptionEnabled := HMIData.sealFlattenersEnable;
 END_CASE
 
-CASE HMI.data.printerSelection OF
+CASE HMIData.printerSelection OF
 	LabelPrinterSelection.NotInstalled:						activePrinter := machineComponents.labelPrinter;
 															activePrinter.OptionInstalled := FALSE;
 	
 	LabelPrinterSelection.ZebraPrinter:						activePrinter := machineComponents.labelPrinter;
 															activePrinter.OptionInstalled := TRUE;
-															activePrinter.OptionEnabled := HMI.data.printerEnable;
+															activePrinter.OptionEnabled := HMIData.printerEnable;
 END_CASE
 
 EM01_Pro18BaggerHead(
@@ -81,18 +81,18 @@ EM01_Pro18BaggerHead(
 	printer:= activePrinter, 
 	bagDelivery:= machineComponents.bagDelivery, 
 	vacuumBagOpen:= machineComponents.vacuumCups, 
-	bagOpenAssistEnabled:= HMI.data.bagOpenAssistEnable, 
-	bagOpenSensorEnabled:= HMI.data.bagOpenSensorEnable,
-	separateBeforeSealEnabled:= HMI.data.separateBeforeSeal,
-	bagOpenRetrySetting:= HMI.data.bagOpenRetrySetting,
-	vacuumDwell := TO_TIME(HMI.data.vacuumDwell * 1000), 
+	bagOpenAssistEnabled:= HMIData.bagOpenAssistEnable, 
+	bagOpenSensorEnabled:= HMIData.bagOpenSensorEnable,
+	separateBeforeSealEnabled:= HMIData.separateBeforeSeal,
+	bagOpenRetrySetting:= HMIData.bagOpenRetrySetting,
+	vacuumDwell := TO_TIME(HMIData.vacuumDwell * 1000), 
 	baggerCycleActive=> ,
-	bagOpenRetryCount=> HMI.data.bagOpenRetryCount);
+	bagOpenRetryCount=> HMIData.bagOpenRetryCount);
 	
 	
 activeBaggerHead REF= EM01_Pro18BaggerHead;	
 UN00_Pro18Machine(
-	faultActive := HMI.data.faultActive,
+	faultActive := HMIData.faultActive,
 	baggerHead := activeBaggerHead,
 	discharge := EM02_Pro18Discharge);
 	
@@ -106,17 +106,17 @@ IF NOT firstScanDone THEN
 END_IF
 
 
-HMI.data.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
-IF HMI.data.ackAllFaults THEN
+HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
+IF HMIData.ackAllFaults THEN
 	GlobalObjects.CollectionOfActiveFaults.AckAll();
-	HMI.data.ackAllFaults := FALSE;
+	HMIData.ackAllFaults := FALSE;
 END_IF
 
-IF HMI.data.initiateCycle THEN
+IF HMIData.initiateCycle THEN
 	IF UN00_Pro18Machine.currentState = PACK_ML.State.Execute THEN
 		activeBaggerHead.StartCycle();
 	END_IF
-	HMI.data.initiateCycle := FALSE;
+	HMIData.initiateCycle := FALSE;
 END_IF
 
 IF firstScanDone THEN

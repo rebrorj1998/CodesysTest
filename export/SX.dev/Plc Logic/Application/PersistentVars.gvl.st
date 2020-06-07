@@ -1,0 +1,144 @@
+(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+{attribute 'qualified_only'}
+VAR_GLOBAL PERSISTENT RETAIN
+	// Generated instance path of persistent variable
+	HMIData.printerAndVerifierEnablePB: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.printerAndVerifierEnableIndication: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.BPMBagsMade: DINT;
+	// Generated instance path of persistent variable
+	HMIData.BPMActiveTime: REAL;
+	// Generated instance path of persistent variable
+	HMIData.BPMBagsPerMinute: REAL;
+	// Generated instance path of persistent variable
+	HMIData.BPMReset: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.version: STRING := '0.2A';
+	// Generated instance path of persistent variable
+	HMIData.batchEnable: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.batchSetting: UDINT := UDINT#10;
+	// Generated instance path of persistent variable
+	HMIData.batchCount: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.headCycleCount: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.pressureBarOpenDelay: REAL;
+	// Generated instance path of persistent variable
+	HMIData.pressureBarCloseDelay: REAL;
+	// Generated instance path of persistent variable
+	HMIData.passthroughSetting: REAL := REAL#5.5;
+	// Generated instance path of persistent variable
+	HMIData.sealBarDwell: REAL := REAL#0;
+	// Generated instance path of persistent variable
+	HMIData.sealBarCool: REAL := REAL#0;
+	// Generated instance path of persistent variable
+	HMIData.bagSkirtLength: REAL := REAL#1.35;
+	// Generated instance path of persistent variable
+	HMIData.bagLength: REAL := REAL#23.5;
+	// Generated instance path of persistent variable
+	HMIData.bagWidth: REAL := REAL#17.5;
+	// Generated instance path of persistent variable
+	HMIData.bagThickness: REAL := REAL#2.5;
+	// Generated instance path of persistent variable
+	HMIData.bagForwardSpeed: UDINT := UDINT#20;
+	// Generated instance path of persistent variable
+	HMIData.bagReverseSpeed: UDINT := UDINT#3;
+	// Generated instance path of persistent variable
+	HMIData.printSpeed: UDINT := UDINT#6;
+	// Generated instance path of persistent variable
+	HMIData.printLength: REAL := REAL#8;
+	// Generated instance path of persistent variable
+	HMIData.printOffset: REAL := REAL#2;
+	// Generated instance path of persistent variable
+	HMIData.fillerCountSetting: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.fillerCurrentCount: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.fillerDropTime: REAL;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateDelay: REAL;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateDwell: REAL := REAL#2.5;
+	// Generated instance path of persistent variable
+	HMIData.IBDInUse: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.IBDInstalled: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.IBDOpenMotionProfile: sctMotionProfile := STRUCT(velo := REAL#10, accel := REAL#10, decel := REAL#10, current := REAL#100);
+	// Generated instance path of persistent variable
+	HMIData.IBDCloseMotionProfile: sctMotionProfile := STRUCT(velo := REAL#10, accel := REAL#10, decel := REAL#10, current := REAL#50);
+	// Generated instance path of persistent variable
+	HMIData.jawCloseDelay: REAL := REAL#0.2;
+	// Generated instance path of persistent variable
+	HMIData.jawClosePositionSetting: REAL := REAL#-0.2;
+	// Generated instance path of persistent variable
+	HMIData.jawOpenMotionProfile: sctMotionProfile := STRUCT(velo := REAL#10, accel := REAL#10, decel := REAL#10, current := REAL#100);
+	// Generated instance path of persistent variable
+	HMIData.jawCloseMotionProfile: sctMotionProfile := STRUCT(velo := REAL#10, accel := REAL#10, decel := REAL#10, current := REAL#100);
+	// Generated instance path of persistent variable
+	HMIData.lastCycleTime: REAL;
+	// Generated instance path of persistent variable
+	HMIData.bagDropClearanceDwell: REAL := REAL#0.5;
+	// Generated instance path of persistent variable
+	HMIData.averageCycleTime: REAL;
+	// Generated instance path of persistent variable
+	HMIData.currentJobID: INT;
+	// Generated instance path of persistent variable
+	HMIData.separateBeforeSeal: BOOL := TRUE;
+	// Generated instance path of persistent variable
+	HMIData.partsCounterEnable: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.partsCounterCount: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.partsCounterSetting: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.consecutiveBagsEnable: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.consecutiveBagsCount: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.consecutiveBagsSetting: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.printerInstalled: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.printerInUse: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.printerCancelRequest: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.barcodeVerifierInstalled: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.barcodeGoodReadCount: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.barcodeBadReadCount: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.barcodeBadReadFaultSetting: UDINT;
+	// Generated instance path of persistent variable
+	HMIData.barcodeStartPosition: REAL;
+	// Generated instance path of persistent variable
+	HMIData.barcodeScanDistance: REAL := REAL#1;
+	// Generated instance path of persistent variable
+	HMIData.barcodeVerifierInUse: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.barcodeReadGoodIndication: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.barcodeReadBadIndication: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateInstalled: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateLoweredPositionSetting: REAL := 0.0;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateRaisedPositionSetting: REAL := REAL#3;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateInUse: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateRaiseProfile: sctMotionProfile := STRUCT(velo := REAL#10, accel := REAL#10, decel := REAL#10, current := REAL#100);
+	// Generated instance path of persistent variable
+	HMIData.loadPlateLowerProfile: sctMotionProfile := STRUCT(velo := REAL#10, accel := REAL#10, decel := REAL#10, current := REAL#100);
+	// Generated instance path of persistent variable
+	HMIData.fillerEnable: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.autoModeEnable: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.autoModeDwell: REAL := REAL#0.75;
+END_VAR

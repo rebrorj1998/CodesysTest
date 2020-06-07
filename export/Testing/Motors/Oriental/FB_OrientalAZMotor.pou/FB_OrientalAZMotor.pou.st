@@ -3,7 +3,7 @@ FUNCTION_BLOCK FB_OrientalAZMotor EXTENDS Sharp_Motion.Axis_REF
 VAR_INPUT
 	modbusAddress : USINT;
 	isGroup : BOOL;
-	stepsPerInchSP : DINT;
+	stepsPerInchSP : DINT := 3999;
 	zeroOffset : REAL;
 	jogForwardCMD : BOOL;
 	jogReverseCMD : BOOL;
@@ -34,16 +34,15 @@ VAR
 	jogForward : BOOL;
 	packedRIO : uModbusDWORD;
 	packedRIOLast : DWORD;
-	modbusDataFromDrive : ARRAY[0..39] OF WORD;
-	modbusDirectDataToDrive : ARRAY[0..16] OF WORD;
-	modbusRIODataToDrive : ARRAY[0..1] OF WORD;
+	
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
-	readData : IoDrvModbus.ModbusRequest2;
-	readDataMBCommand : IoDrvModbus.ModbusCommand;
-	writeDirectOpData : IoDrvModbus.ModbusRequest2;
-  	writeDirectOpDataMBCommand : IoDrvModbus.ModbusCommand;
-	writeRIOData : IoDrvModbus.ModbusRequest2;
-  	writeRIODataMBCommand : IoDrvModbus.ModbusCommand;
+	readData : IoDrvModbus.ModbusChannel;
+	readDataAfterWrite : IoDrvModbus.ModbusChannel;
+	//readDataMBCommand : IoDrvModbus.ModbusCommand;
+	writeDirectOpData : IoDrvModbus.ModbusChannel;
+  	//writeDirectOpDataMBCommand : IoDrvModbus.ModbusCommand;
+	writeRIOData : IoDrvModbus.ModbusChannel;
+  	//writeRIODataMBCommand : IoDrvModbus.ModbusCommand;
    	readRateTimer : Standard.TON := (PT:= T#20MS);
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
@@ -56,7 +55,10 @@ VAR
 	
 END_VAR
 VAR_IN_OUT
-	comm : IoDrvModbus.RTS_IEC_HANDLE;
+	MBChannel : IoDrvModbus.ModbusSlaveComPort;
+	modbusDataFromDrive : ARRAY[0..39] OF WORD;
+	modbusDirectDataToDrive : ARRAY[0..16] OF WORD;
+	modbusRIODataToDrive : ARRAY[0..1] OF WORD;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_OrientalAZMotor()
 //	Description: A PLCOpen Motion compliant library for a Oriental AZ Series drive/motor
@@ -117,7 +119,50 @@ packedRIO.dDword.14 := jogForward;
 modbusRIODataToDrive[0] := packedRIO.wWord[1];
 modbusRIODataToDrive[1] := packedRIO.wWord[0];
 
+
 // Trigger an RIO write whenever it changes
+
+
+
+writeRIOData(
+	slave:= MBChannel, 
+	xExecute:= , 
+	xAbort:= , 
+	iChannelIndex:= 2, 
+	xBusy=> , 
+	xDone=> , 
+	xError=> , 
+	xAborted=> , 
+	ModbusError=> );
+
+writeDirectOpData(
+	slave:= MBChannel, 
+	xExecute:= , 
+	xAbort:= , 
+	iChannelIndex:= 1, 
+	xBusy=> , 
+	xDone=> , 
+	xError=> , 
+	xAborted=> , 
+	ModbusError=> );
+	
+// Read registers from drive
+// On a cyclic basis	
+readRateTimer(IN := NOT readRateTimer.Q AND NOT (writeRIOData.xBusy OR writeDirectOpData.xBusy) AND NOT isGroup);
+// And directly after a DD op write
+readAfterDDWrite(CLK := writeDirectOpData.xDone);
+readAfterRIOWrite(CLK := writeRIOData.xDone);
+
+readData(
+	slave:= MBChannel, 
+	xExecute:= readRateTimer.Q OR readData.xBusy, 
+	xAbort:= , 
+	iChannelIndex:= 0, 
+	xBusy=> , 
+	xDone=> , 
+	xError=> , 
+	xAborted=> , 
+	ModbusError=> );
 
 IF packedRIO.dDword <> packedRIOLast 
 	OR readData.xDone AND modbusDataFromDrive[21] <> packedRIO.dDword
@@ -125,11 +170,31 @@ IF packedRIO.dDword <> packedRIOLast
 	packedRIOLast := packedRIO.dDword;
 	writeRIOData.xExecute := TRUE;
 END_IF
-
 IF writeRIOData.xDone OR writeRIOData.xError THEN
 		writeRIOData.xExecute := FALSE;
 END_IF
+	
+readDataAfterWrite(
+	slave:= MBChannel, 
+	xExecute:= writeDirectOpData.xDone OR writeRIOData.xDone, 
+	xAbort:= , 
+	iChannelIndex:= 0, 
+	xBusy=> , 
+	xDone=> , 
+	xError=> , 
+	xAborted=> , 
+	ModbusError=> );
 
+IF readData.xError
+	OR readDataAfterWrite.xError
+	OR writeDirectOpData.xError
+	OR writeRIOData.xError 
+THEN
+	state := eOrientalAZDriveStates.Faulting;
+	CommStatus := FALSE;
+END_IF
+	
+(*
 writeRIODataMBCommand.uiFunctionCode := 16;
 writeRIODataMBCommand.uiwriteLen := 2;
 writeRIODataMBCommand.uiwriteOffset := 124;
@@ -199,6 +264,8 @@ readData(
 	xAborted=> , 
 	uiDataLength=> , 
 	byModbusError=> );
+*)
+
 
 // Get drive data directly from modbus or from master axis	
 IF isGroup THEN
@@ -238,8 +305,8 @@ CASE state OF
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveInc;
 				ELSIF MoveAbsTorque THEN
-					
-					state := eOrientalAZDriveStates.MoveInc;
+					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					state := eOrientalAZDriveStates.MovePush;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					state := eOrientalAZDriveStates.Jogging;
 				ELSIF StartHoming THEN
@@ -258,7 +325,7 @@ CASE state OF
 				directDataOp.Current.diDint := mCurrentCalc(DefaultCurrent);
 				directDataOp.Trigger.diDint := 1;
 				writeDirectOpData.xExecute := TRUE;
-				IF writeDirectOpData.xDone THEN
+				IF writeDirectOpData.xDone AND readDataAfterWrite.xDone THEN
 					writeDirectOpData.xExecute := FALSE;
 					state := eOrientalAZDriveStates.Moving;
 				ELSIF writeDirectOpData.xError THEN
@@ -357,6 +424,7 @@ CASE state OF
 		eOrientalAZDriveStates.Faulted:
 				// Faulted - wait for clear
 				IF AckError THEN
+					CommStatus := TRUE;
 					IF alarmActive THEN
 						reset := TRUE;
 					END_IF

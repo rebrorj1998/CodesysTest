@@ -94,7 +94,10 @@ CASE state OF
 														SetBagOpenState(BAG_OPEN_ASSIST_STATES.Idle);
                                                     END_IF
                                                     
-    HEAD_STATES.OpenedBag :                         // End cycle              
+    HEAD_STATES.OpenedBag :                         // End cycle           
+													IF bagger.barcodeVerifier.VerificationFault THEN
+														bagger.barcodeVerificationFailed.Trigger();
+													END_IF   
                                                     SetHeadState(HEAD_STATES.Idle);
 													cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
 													cycleTimer.IN := FALSE;
@@ -112,6 +115,9 @@ CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.MoveJawIn :                // Perform actions as enabled - close jaw and move flatteners out. If jaw is disabled then go right to reverse bag
                                                     IF bagger.sealFlatteners.OptionActive THEN
 														bagger.sealFlatteners.ToSeal();
+													END_IF
+													IF bagger.IBD.OptionActive THEN
+														bagger.IBD.MoveInToDeflate();
 													END_IF
                                                     bagger.pressureBar.Close();
 													SetSealSeparateState(SEAL_SEPARATE_STATES.MovingJawIn);
@@ -157,6 +163,9 @@ CASE sealAndSeparateSubState OF
 	SEAL_SEPARATE_STATES.SealingBag:				//
 													IF bagger.sealer.SealComplete THEN
 														SetSealSeparateState(SEAL_SEPARATE_STATES.Done);
+														IF bagger.IBD.OptionActive THEN
+															bagger.IBD.MoveOut();
+														END_IF
 													END_IF
 																												
                                                     
@@ -174,7 +183,7 @@ CASE releaseAndFeedSubState OF
 													bagger.bagOpenFingers.ReleaseBag();
 													bagger.sealFlatteners.ToBagFeed();
 													bagger.pressureBar.Open();
-															
+													bagger.loadPlate.BeginDischarge();	
 													discharge.TakeAwayBag(THIS^);
 													releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	
 													// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
@@ -214,6 +223,9 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.StartPrinting :             // Printer starts print cycle and bag delivery starts moving at print speed
 													bagger.printer.BeginPrinting();
 													bagger.bagDelivery.FeedAtPrintSpeed();
+													IF bagger.barcodeVerifier.OptionActive THEN
+														bagger.barcodeVerifier.Trigger();
+													END_IF
 													SetReleaseFeedState(RELEASE_FEED_STATES.Printing);
 
     //RELEASE_FEED_STATES.SendPrintSignal:            //                                     
