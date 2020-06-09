@@ -15,6 +15,7 @@ VAR
 	baggerCM : EM01_Bagger_Control_Modules;
 	bannerManager : FB_BannerManager;
 	topCoverLiftedFault : FB_Fault(name := 'Top Cover Lifeted During Cycle');
+
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 IF NOT firstScanDone THEN
@@ -101,6 +102,8 @@ UN00_SXMachine(faultActive:= HMIData.faultActive, resetMachine := HMIData.ackAll
 IF HMIData.inCycle AND NOT iTopCoverClosed THEN
 	topCoverLiftedFault.Trigger();
 END_IF
+
+
 
 bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 

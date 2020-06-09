@@ -38,7 +38,7 @@ VAR
   	//writeDirectOpDataMBCommand : IoDrvModbus.ModbusCommand;
 	writeOpcode : IoDrvModbus.ModbusChannel;
   	//writeRIODataMBCommand : IoDrvModbus.ModbusCommand;
-   	readRateTimer : Standard.TON := (PT:= T#20MS);
+   	readRateTimer : Standard.TON := (PT:= T#200MS);
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
 	haltONS : FB_ONS;
@@ -118,14 +118,14 @@ writeParameters(
 	
 // Read registers from drive
 // On a cyclic basis	
-readRateTimer(IN := NOT readRateTimer.Q AND NOT (writeOpcode.xBusy OR writeParameters.xBusy));
+readRateTimer(IN := NOT readRateTimer.Q AND NOT (writeOpcode.xBusy OR writeParameters.xBusy OR readData.xBusy OR readDataAfterWrite.xBusy));
 // And directly after a DD op write
 readAfterDDWrite(CLK := writeParameters.xDone);
 readAfterRIOWrite(CLK := writeOpcode.xDone);
 
 readData(
 	slave:= MBChannel, 
-	xExecute:= readRateTimer.Q, 
+	xExecute:= ,//readRateTimer.Q OR readData.xBusy, 
 	xAbort:= , 
 	iChannelIndex:= 0, 
 	xBusy=> , 
@@ -315,7 +315,6 @@ CASE state OF
 				// Jog forward/reverse
 				jogForward := jogForwardCMD;
 				jogReverse := jogReverseCMD;
-				
 				IF NOT jogForward AND NOT jogReverse THEN
 					state := eAppliedMotionDriveStates.Idle;
 				END_IF

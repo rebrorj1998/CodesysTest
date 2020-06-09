@@ -43,7 +43,7 @@ VAR
   	//writeDirectOpDataMBCommand : IoDrvModbus.ModbusCommand;
 	writeRIOData : IoDrvModbus.ModbusChannel;
   	//writeRIODataMBCommand : IoDrvModbus.ModbusCommand;
-   	readRateTimer : Standard.TON := (PT:= T#20MS);
+   	readRateTimer : Standard.TON := (PT:= T#200MS);
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
 	haltONS : FB_ONS;
@@ -148,7 +148,7 @@ writeDirectOpData(
 	
 // Read registers from drive
 // On a cyclic basis	
-readRateTimer(IN := NOT readRateTimer.Q AND NOT (writeRIOData.xBusy OR writeDirectOpData.xBusy) AND NOT isGroup);
+readRateTimer(IN := NOT readRateTimer.Q AND NOT (writeRIOData.xBusy OR writeDirectOpData.xBusy OR readData.xBusy OR readDataAfterWrite.xBusy) AND NOT isGroup);
 // And directly after a DD op write
 readAfterDDWrite(CLK := writeDirectOpData.xDone);
 readAfterRIOWrite(CLK := writeRIOData.xDone);
@@ -176,7 +176,7 @@ END_IF
 	
 readDataAfterWrite(
 	slave:= MBChannel, 
-	xExecute:= writeDirectOpData.xDone OR writeRIOData.xDone, 
+	xExecute:= (writeDirectOpData.xDone OR writeRIOData.xDone) AND NOT isGroup, 
 	xAbort:= , 
 	iChannelIndex:= 0, 
 	xBusy=> , 
@@ -312,6 +312,9 @@ CASE state OF
 				ELSIF StartHoming THEN
 					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
 					state := eOrientalAZDriveStates.Home;
+				END_IF
+				IF readData.xDone OR isGroup THEN
+					CommStatus := TRUE;
 				END_IF
 
 	eOrientalAZDriveStates.MoveABS:

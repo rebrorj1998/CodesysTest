@@ -1,13 +1,13 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {attribute 'qualified_only'}
 {attribute 'strict'}
-TYPE eAppliedMotionDriveStates :
+TYPE eAppliedMotionDriveStatesASCII :
 (
 	Idle := 0,
 	MoveABS := 10,
 	MovePush := 11,
 	MoveInc := 12,
-	SendSpeed := 40,
+	SendPars := 40,
 	SendOpcodeAfterPars := 41,
 	Jogging := 20,
 	Moving := 50,

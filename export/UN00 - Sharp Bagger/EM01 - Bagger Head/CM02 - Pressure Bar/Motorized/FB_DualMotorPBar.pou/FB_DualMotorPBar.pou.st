@@ -2,9 +2,9 @@
 FUNCTION_BLOCK FB_DualMotorPBar EXTENDS FB_BaseComponent IMPLEMENTS IPressureBar, IHomable
 VAR_INPUT
 	simulateIO : BOOL;												// Simulate all I/O for testing
-	frontMotor : REFERENCE TO FB_OrientalAZMotor;				// The motor axis for the front (low torque) passthrough
-	rearMotor : REFERENCE TO FB_OrientalAZMotor;					// The motor axis for the rear (high torque) passthrough
-	bothMotors : REFERENCE TO FB_OrientalAZMotor;				// The motor axis for both passthrough motors
+	frontMotor : REFERENCE TO Sharp_Motion.Axis_REF;				// The motor axis for the front (low torque) passthrough
+	rearMotor : REFERENCE TO Sharp_Motion.Axis_REF;					// The motor axis for the rear (high torque) passthrough
+	bothMotors : REFERENCE TO Sharp_Motion.Axis_REF;				// The motor axis for both passthrough motors
 	closeVelo : REAL := 10;											// Passthrough Motor Velocity
 	closeAccel : REAL := 100.0;											// Passthrough Motor Acceleration
 	closeDecel : REAL := 100.0;											// Passthrough Motor Deceleration
@@ -157,7 +157,7 @@ END_IF
 
 
 bothMotorsHomed := frontMotor.HomingDone AND rearMotor.HomingDone;
-bothMotorsInPosition := frontMotor.inPosition AND rearMotor.inPosition;
+bothMotorsInPosition := frontMotor.TargetReached AND rearMotor.TargetReached;
 
 CASE jawState OF
 	
