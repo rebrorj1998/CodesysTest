@@ -55,7 +55,7 @@ VAR
 	failedToCloseTimer : Standard.TON;
 	failedToOpenTimer : Standard.TON;
 	moveInDelay : Standard.TON;
-	jawMotionFaultTimeOffset : TIME := T#200MS;
+	jawMotionFaultTimeOffset : TIME := T#800MS;
 	bothMotorsHomed : BOOL;
 	bothMotorsInPosition : BOOL;
 	jawHomeClearDistance : REAL := 0.5;

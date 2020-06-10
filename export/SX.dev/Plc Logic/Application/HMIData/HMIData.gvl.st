@@ -34,6 +34,7 @@ VAR_GLOBAL
 	simulateAllIO : BOOL;
 	activeFaults : ARRAY[0..GlobalObjects.MAX_FAULTS] OF STRING;
 	passthroughActual : REAL;
+	currentPackMLState : STRING;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN

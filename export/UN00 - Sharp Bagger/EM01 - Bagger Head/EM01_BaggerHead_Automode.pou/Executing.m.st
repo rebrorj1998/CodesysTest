@@ -7,7 +7,7 @@ METHOD Executing
 //				 The logic below is generic and coded to interfaces for each component	
 //	Created by: Ben Hess
 //	Created Date: Tuesday, March 26, 2019
-
+currentBaggerState := 'Executing';
 
 IF NOT __ISVALIDREF(bagger) THEN
 	RETURN;

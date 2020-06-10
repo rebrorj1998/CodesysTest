@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 METHOD Aborting
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+currentBaggerState := 'Aborting';
 IF NOT _abortingDone THEN
 	_clearingDone := FALSE;
 	_completingDone := FALSE;

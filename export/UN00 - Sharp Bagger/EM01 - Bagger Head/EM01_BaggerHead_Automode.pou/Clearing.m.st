@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 METHOD Clearing
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+currentBaggerState := 'Clearing';
 IF NOT resetTriggered THEN
 	bagger.pressureBar.Reset();
 	bagger.IBD.Reset();

@@ -11,6 +11,8 @@ VAR_INPUT
 	groupMotor1 : REFERENCE TO FB_OrientalAZMotor;	// Slave Motor
 END_VAR
 VAR_OUTPUT
+	triggerDDWriteNow : BOOL;
+	triggerRIOWriteNow : BOOL;
 END_VAR
 VAR
 	directDataOp : sctOrientalDirectData;
@@ -34,7 +36,7 @@ VAR
 	jogForward : BOOL;
 	packedRIO : uModbusDWORD;
 	packedRIOLast : DWORD;
-	delayTimer : Standard.TON := (PT := T#25MS);
+	delayTimer : Standard.TON := (PT := T#250MS);
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readData : IoDrvModbus.ModbusChannel;
 	readDataAfterWrite : IoDrvModbus.ModbusChannel;
@@ -49,8 +51,7 @@ VAR
 	haltONS : FB_ONS;
 	alarmActiveONS : FB_ONS;
 	triggerRIOWrite : BOOL;
-	(*Temp for testing*)
-	triggerNow : BOOL;
+	
 	disable : BOOL;
 	state : eOrientalAZDriveStates;
 	nextState : eOrientalAZDriveStates;
@@ -126,8 +127,8 @@ delayTimer(IN := state = eOrientalAZDriveStates.DelayAfterWrite);
 // Trigger an RIO write whenever it changes
 
 
-
-writeRIOData(
+IF NOT isGroup THEN
+	writeRIOData(
 	slave:= MBChannel, 
 	xExecute:= , 
 	xAbort:= , 
@@ -138,7 +139,7 @@ writeRIOData(
 	xAborted=> , 
 	ModbusError=> );
 
-writeDirectOpData(
+	writeDirectOpData(
 	slave:= MBChannel, 
 	xExecute:= , 
 	xAbort:= , 
@@ -148,6 +149,8 @@ writeDirectOpData(
 	xError=> , 
 	xAborted=> , 
 	ModbusError=> );
+END_IF
+
 	
 // Read registers from drive
 // On a cyclic basis	
@@ -475,3 +478,5 @@ CASE state OF
 					
 				END_IF
 END_CASE
+triggerDDWriteNow := writeDirectOpData.xExecute;
+triggerRIOWriteNow := writeRIOData.xExecute;

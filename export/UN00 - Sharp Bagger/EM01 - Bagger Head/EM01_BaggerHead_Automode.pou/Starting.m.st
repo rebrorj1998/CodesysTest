@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 METHOD Starting
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+currentBaggerState := 'Starting';
 IF NOT _startingDone THEN
 	bagger.pressureBar.Open();
 	bagger.bagOpenFingers.ReleaseBag();

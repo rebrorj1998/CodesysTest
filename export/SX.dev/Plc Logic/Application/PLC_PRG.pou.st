@@ -95,7 +95,9 @@ EM01_SXBaggerHead(
 	
 EM02_SXDischarge();
 
-UN00_SXMachine(faultActive:= HMIData.faultActive, resetMachine := HMIData.ackAllFaults, currentState=> , baggerHead:= EM01_SXBaggerHead, discharge:= EM02_SXDischarge);
+UN00_SXMachine(faultActive:= HMIData.faultActive, resetMachine := HMIData.ackAllFaults, homeMachine := HMIData.homeMachine, currentState=> , baggerHead:= EM01_SXBaggerHead, discharge:= EM02_SXDischarge);
+
+HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.currentBaggerState;
 
 IF HMIData.inCycle AND NOT iTopCoverClosed THEN
 	topCoverLiftedFault.Trigger();

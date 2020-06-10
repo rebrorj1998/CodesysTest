@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 METHOD Resetting
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+currentBaggerState := 'Resetting';
 state := HEAD_STATES.Idle;
 sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;

@@ -3,6 +3,7 @@ FUNCTION_BLOCK FINAL FB_UN00_SharpMachine EXTENDS FB_PackMLStates
 VAR_INPUT
 	faultActive : BOOL;
 	resetMachine : BOOL;
+	homeMachine : BOOL;
 END_VAR
 VAR_OUTPUT
 	currentState : PACK_ML.State;
@@ -21,6 +22,7 @@ VAR
 	startMachine : BOOL;
 	abortMachine : BOOL;
 	resetONS : FB_ONS;
+	homeONS : FB_ONS;
 	
 	clearTimer : Standard.TON := (PT := T#3S);
 	testResetSim : BOOL;
@@ -68,15 +70,15 @@ baggerManager(
 	
 clearTimer();
 resetONS(CLK := resetMachine);
+homeONS(CLK := homeMachine);
 
 IF testResetSim THEN
 	UN00_Globals.simFaults.FB_Init(TRUE,TRUE);
 END_IF
 
-
 CASE unitModeManager.ActiveUnitMode.CurrentState OF
 	
-	PACK_ML.State.Stopped: 		IF resetONS.OSR OR _clearingDone THEN
+	PACK_ML.State.Stopped: 		IF homeONS.OSR THEN
 									currentUnitMode.Reset();
 								END_IF	
 								_clearingDone := FALSE;

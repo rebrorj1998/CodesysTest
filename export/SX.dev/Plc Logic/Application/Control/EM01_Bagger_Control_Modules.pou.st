@@ -203,7 +203,9 @@ jawBothMotors(
 	MBChannel:= Both_Jaw_Motors, 
 	modbusDataFromDrive:= bothJawMotorInputs, 
 	modbusDirectDataToDrive:= bothJawMotorDDOutputs, 
-	modbusRIODataToDrive:= bothJawMotorRIOOutputs);
+	modbusRIODataToDrive:= bothJawMotorRIOOutputs,
+	triggerDDWriteNow => triggerBothDDOutputs,
+	triggerRIOWriteNow => triggerBothRIO);
 
 dualMotorPassthrough(
 	simulateIO:= , 
