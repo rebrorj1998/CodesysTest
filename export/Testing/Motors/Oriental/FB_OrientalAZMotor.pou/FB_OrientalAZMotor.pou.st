@@ -37,6 +37,7 @@ VAR
 	packedRIO : uModbusDWORD;
 	packedRIOLast : DWORD;
 	delayTimer : Standard.TON := (PT := T#250MS);
+	zHomeDelay : Standard.TON := (PT := T#3500MS);
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readData : IoDrvModbus.ModbusChannel;
 	readDataAfterWrite : IoDrvModbus.ModbusChannel;
@@ -102,8 +103,8 @@ IF isGroup THEN
 		ActPos := groupMotor0.ActPos;
 	END_IF
 ELSE
-	distanceFromDrive.wWord[0] := modbusDataFromDrive[1];
-	distanceFromDrive.wWord[1] := modbusDataFromDrive[0];
+	distanceFromDrive.wWord[0] := modbusDataFromDrive[3];
+	distanceFromDrive.wWord[1] := modbusDataFromDrive[2];
 	ActPos := (TO_REAL(distanceFromDrive.diDint) / TO_REAL(stepsPerInchSP)) + zeroOffset;
 END_IF
 
@@ -123,11 +124,11 @@ modbusRIODataToDrive[0] := packedRIO.wWord[1];
 modbusRIODataToDrive[1] := packedRIO.wWord[0];
 
 delayTimer(IN := state = eOrientalAZDriveStates.DelayAfterWrite);
-
+zHomeDelay(IN := state = eOrientalAZDriveStates.Homing);
 // Trigger an RIO write whenever it changes
 
 
-IF NOT isGroup THEN
+//IF NOT isGroup THEN
 	writeRIOData(
 	slave:= MBChannel, 
 	xExecute:= , 
@@ -149,7 +150,7 @@ IF NOT isGroup THEN
 	xError=> , 
 	xAborted=> , 
 	ModbusError=> );
-END_IF
+//END_IF
 
 	
 // Read registers from drive
@@ -182,7 +183,7 @@ END_IF
 	
 readDataAfterWrite(
 	slave:= MBChannel, 
-	xExecute:= (writeDirectOpData.xDone OR writeRIOData.xDone) AND NOT isGroup, 
+	xExecute:= readAfterDDWrite.OSR OR readDataAfterWrite.xBusy,//(writeDirectOpData.xDone OR writeRIOData.xDone) AND NOT isGroup, 
 	xAbort:= , 
 	iChannelIndex:= 0, 
 	xBusy=> , 
@@ -295,7 +296,7 @@ END_IF
 
 haltONS(CLK := Halt);
 IF haltONS.OSR THEN
-	state := eOrientalAZDriveStates.Faulting;
+	state := eOrientalAZDriveStates.Halt;
 END_IF
 
 alarmActiveONS(clk:= alarmActive);
@@ -320,6 +321,7 @@ CASE state OF
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					state := eOrientalAZDriveStates.Jogging;
 				ELSIF StartHoming THEN
+					HomingDone := FALSE;
 					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
 					state := eOrientalAZDriveStates.Home;
 				END_IF
@@ -341,7 +343,7 @@ CASE state OF
 				IF isGroup THEN
 					state := eOrientalAZDriveStates.DelayAfterWrite;
 					nextState := eOrientalAZDriveStates.Moving;
-				ELSE 
+ 				ELSE 
 					IF writeDirectOpData.xDone AND readDataAfterWrite.xDone THEN
 						writeDirectOpData.xExecute := FALSE;
 						state := eOrientalAZDriveStates.Moving;
@@ -418,7 +420,7 @@ CASE state OF
 		
 		eOrientalAZDriveStates.Homing:		
 				//
-				IF inPosition THEN
+				IF inPosition AND zHomeDelay.Q THEN
 					zHome := FALSE;
 					HomingDone := TRUE;
 					state := eOrientalAZDriveStates.DoneMoving;
@@ -455,6 +457,10 @@ CASE state OF
 					state := eOrientalAZDriveStates.Idle;
 				END_IF 
 
+		eOrientalAZDriveStates.Halt:
+				// 
+				freeMotor := TRUE;
+				state := eOrientalAZDriveStates.Idle;
 				
 		eOrientalAZDriveStates.Faulting:
 				// Faulting - stop drive

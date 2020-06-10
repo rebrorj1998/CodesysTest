@@ -3,6 +3,7 @@ FUNCTION_BLOCK EM01_BaggerHead_Automode EXTENDS FB_PackMLStates
 VAR_INPUT
 	infeed : IEM00_Product_Infeed;
 	discharge : IEM02_Discharge;
+	
 END_VAR
 VAR_OUTPUT
 	state : HEAD_STATES;

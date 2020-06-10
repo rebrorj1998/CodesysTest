@@ -204,8 +204,8 @@ jawBothMotors(
 	modbusDataFromDrive:= bothJawMotorInputs, 
 	modbusDirectDataToDrive:= bothJawMotorDDOutputs, 
 	modbusRIODataToDrive:= bothJawMotorRIOOutputs,
-	triggerDDWriteNow => triggerBothDDOutputs,
-	triggerRIOWriteNow => triggerBothRIO);
+	triggerDDWriteNow => ,
+	triggerRIOWriteNow => );
 
 dualMotorPassthrough(
 	simulateIO:= , 
@@ -219,6 +219,7 @@ dualMotorPassthrough(
 	openAccel:= HMIData.jawOpenMotionProfile.accel, 
 	openDecel:= HMIData.jawOpenMotionProfile.decel, 
 	homeTimeoutSetting:= , 
+	moveInDelaySetting := TO_TIME(HMIData.jawCloseDelay * 1000),
 	passthroughSetting:= HMIData.passthroughSetting, 
 	jawClosedSetting:= HMIData.jawClosePositionSetting, 
 	pressureBarClosedSensor:= iJawClosed, 
@@ -381,7 +382,7 @@ bagDelivery(
 	sealOffset:= HMIData.bagSkirtLength, 
 	distanceFromSealBarToBagEdge:= , 
 	distanceFromNipToBagEdge:= , 
-	bagPhotoeyeInput:= iBagEdgePhotoeye, 
+	bagPresent:= iBagEdgePhotoeye, 
 	trapezoidalPercent:= , 
 	reverseFault=> , 
 	bagFailedToSeparate=> , 

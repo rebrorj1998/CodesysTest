@@ -109,7 +109,7 @@ bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
 	baggerReady:= UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
 	baggerInCycle:= HMIData.inCycle, 
-	noBagCoveringEye:= , 
+	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
 	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
 	pbarObstruction:= baggerCM.dualMotorPassthrough.pressureBarObstructed.Active, 
 	lightCurtainViolation:= , 

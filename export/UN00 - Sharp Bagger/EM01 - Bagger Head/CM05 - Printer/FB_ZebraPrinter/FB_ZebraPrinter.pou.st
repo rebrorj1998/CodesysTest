@@ -64,7 +64,7 @@ END_IF
 IF serviceRequiredInput AND THIS^.OptionEnabled THEN
 	serviceRequired.Trigger();
 END_IF
-
+resetONS(CLK := _reset);
 IF enableONS.Q OR resetONS.Q THEN
     state := eZebraPrinterStates.Idle;
 	_reset := FALSE;

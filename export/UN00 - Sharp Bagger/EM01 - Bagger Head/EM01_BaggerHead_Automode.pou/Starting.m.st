@@ -3,7 +3,7 @@ METHOD Starting
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 currentBaggerState := 'Starting';
 IF NOT _startingDone THEN
-	bagger.pressureBar.Open();
+	//bagger.pressureBar.Open();
 	bagger.bagOpenFingers.ReleaseBag();
 	bagger.sealFlatteners.ToBagFeed();
 	_startingDone := TRUE;

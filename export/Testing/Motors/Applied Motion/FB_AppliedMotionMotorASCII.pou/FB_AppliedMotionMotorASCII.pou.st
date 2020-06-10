@@ -31,9 +31,10 @@ VAR
 	jogForward : BOOL;
 	readStatusState : INT;
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
-
+	
   	//writeRIODataMBCommand : IoDrvModbus.ModbusCommand;
    	readRateTimer : Standard.TON := (PT:= T#50MS);
+	waitForHaltTimer : Standard.TON := (PT := T#250MS);
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
 	haltONS : FB_ONS;
@@ -65,8 +66,15 @@ IF NOT DriveEnable THEN
 	RETURN;
 END_IF
 
-readRateTimer(IN := state = eAppliedMotionDriveStatesASCII.Moving AND NOT readRateTimer.Q);
+haltONS(CLK := Halt);
+IF haltONS.OSR THEN
+	asciiHandler.xExecute := FALSE;
+	asciiHandler();
+	state := eAppliedMotionDriveStatesASCII.Halt;
+END_IF
 
+readRateTimer(IN := (state = eAppliedMotionDriveStatesASCII.Moving OR state = eAppliedMotionDriveStatesASCII.Halting) AND NOT readRateTimer.Q);
+waitForHaltTimer(IN := state = eAppliedMotionDriveStatesASCII.Halting);
 
 
 CASE readStatusState OF
@@ -76,6 +84,9 @@ CASE readStatusState OF
 			asciiHandler.xExecute := TRUE;
 			readStatusState := 1;
 		END_IF
+		IF haltONS.OSR THEN
+			asciiHandler.xExecute := FALSE;
+		END_IF
 		
 	1:	// Parse Status word
 		IF asciiHandler.xDone THEN
@@ -83,20 +94,27 @@ CASE readStatusState OF
 			status(statusCode := TO_WORD(mParseStatusWord(asciiHandler.receivedData)));
 			readStatusState := 0;
 		END_IF
+		
+		IF haltONS.OSR THEN
+			readStatusState := 0;
+			asciiHandler.xExecute := FALSE;
+		END_IF
 END_CASE
 
-// Get drive data directly from modbus or from master axis	
 
+// Get drive data directly from modbus or from master axis	
 Ready := status.motorEnabled;
 AlarmActive := status.driveFaulted;
 Moving := status.moving;
 InPosition := status.inPosition;
 
-
-haltONS(CLK := Halt);
-IF haltONS.OSR THEN
-	state := eAppliedMotionDriveStatesASCII.Halt;
+IF moving THEN 
+	ActVelocity := ProfileVelocity;
+ELSE
+	ActVelocity := 0;
 END_IF
+
+
 
 IF alarmActive THEN
 	state := eAppliedMotionDriveStatesASCII.Faulting;
@@ -125,7 +143,12 @@ CASE state OF
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					asciiHandler.sendData := (CONCAT('2VE', mVeloAccDecCalc(1)));
 					asciiHandler.xExecute := TRUE;
-					state := eAppliedMotionDriveStatesASCII.StartJogging;
+					IF asciiHandler.xDone THEN
+						asciiHandler.xExecute := FALSE;
+						AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+						state := eAppliedMotionDriveStatesASCII.StartJogging;
+					END_IF
+					
 				ELSIF StartHoming THEN
 					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
 					state := eAppliedMotionDriveStatesASCII.Home;
@@ -165,22 +188,25 @@ CASE state OF
 					asciiHandler.sendData := (CONCAT('2FL', mDistanceCalc(30)));
 					asciiHandler.xExecute := TRUE;
 					IF asciiHandler.xDone THEN
+						asciiHandler.xExecute := FALSE;
 						state := eAppliedMotionDriveStatesASCII.Jogging;
 					END_IF
 				ELSIF jogReverseCMD THEN
 					asciiHandler.sendData := (CONCAT('2FL', mDistanceCalc(-30)));
 					asciiHandler.xExecute := TRUE;
 					IF asciiHandler.xDone THEN
+						asciiHandler.xExecute := FALSE;
 						state := eAppliedMotionDriveStatesASCII.Jogging;
 					END_IF
 				ELSE
+					asciiHandler.xExecute := FALSE;
 					state := eAppliedMotionDriveStatesASCII.Idle;
 				END_IF
 		
 		eAppliedMotionDriveStatesASCII.Jogging:
 				// Jog forward/reverse
 				IF NOT jogForwardCMD AND NOT jogReverseCMD THEN
-					asciiHandler.sendData := ('2ST');
+					asciiHandler.sendData := ('2ST$R');
 					asciiHandler.xExecute := TRUE;
 					IF asciiHandler.xDone THEN
 						asciiHandler.xExecute := FALSE;
@@ -208,21 +234,37 @@ CASE state OF
 
 		eAppliedMotionDriveStatesASCII.Halt:
 				//
-				asciiHandler.sendData := ('2ST');
-				asciiHandler.xExecute := TRUE;
-				IF asciiHandler.xDone THEN
-					asciiHandler.xExecute := FALSE;
-					state := eAppliedMotionDriveStatesASCII.Idle;
+				
+				IF NOT asciiHandler.xExecute THEN
+					asciiHandler.sendData := ('2ST$R');
+					asciiHandler.xExecute := TRUE;
+					state := eAppliedMotionDriveStatesASCII.HaltSending;
 				END_IF
 				
-			
+				
+				
+		eAppliedMotionDriveStatesASCII.HaltSending:
+				//
+				IF asciiHandler.xDone THEN
+					asciiHandler.xExecute := FALSE;
+					state := eAppliedMotionDriveStatesASCII.Halting;
+				END_IF
+		
+		eAppliedMotionDriveStatesASCII.Halting:
+				//		
+				
+				IF NOT moving AND waitForHaltTimer.Q THEN
+					state := eAppliedMotionDriveStatesASCII.Idle;
+				END_IF
+		
+				
 		eAppliedMotionDriveStatesASCII.Faulting:
 				// Faulting - stop drive
 				mClearStatus();
 				AxisState := Sharp_Motion.AXIS_STATE.AS_ErrorStop;
 				Error := TRUE;
 				freeMotor := TRUE;
-				asciiHandler.sendData := ('2ST');
+				asciiHandler.sendData := ('2ST$R');
 				asciiHandler.xExecute := TRUE;
 				IF asciiHandler.xDone THEN
 					asciiHandler.xExecute := FALSE;

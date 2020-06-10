@@ -30,7 +30,7 @@ CASE resettingState OF
 		
 	1:	// Move everything into place to start machine
 		IF CheckIfHomed(bagger.pressureBar) THEN
-			PostHomeMoveIfNeeded(bagger.pressureBar);
+			//PostHomeMoveIfNeeded(bagger.pressureBar);
 			resettingState := 2;
 		END_IF
 	

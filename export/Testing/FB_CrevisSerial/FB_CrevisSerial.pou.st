@@ -28,7 +28,9 @@ executeONS(CLK := xExecute);
 RR := inputs[0].2;
 TA := inputs[0].1;
 
-
+IF executeONS.OSF THEN
+	serialState := eSerialStates.Idle;
+END_IF
 readBufferHasData := inputs[0].4;
 readBufferDataSize := inputs[1];
 readTimeout(IN := serialState = eSerialStates.getResponse); 
@@ -48,7 +50,7 @@ CASE serialState OF
 												TR := TRUE;
 											END_IF
 											xBusy := TRUE;
-											serialState := eSerialStates.getResponse;
+											serialState := eSerialStates.writingOutBuffer;
 										END_IF
 	
 	eSerialStates.writeOutBuffer :		// 

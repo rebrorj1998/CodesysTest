@@ -2,4 +2,4 @@
 VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-IsHomed := frontMotor.HomingDone;
+IsHomed := _IsHomed;

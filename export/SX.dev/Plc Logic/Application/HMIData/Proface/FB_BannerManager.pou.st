@@ -41,7 +41,7 @@ VAR
 	totalMessages : DINT;
 	activeMessages : ARRAY[0..MAX_MESSAGES] OF DINT;
 	mappedMessages : ARRAY[0..MAX_MESSAGES] OF BOOL;
-	messageDisplayScrollTimer : Standard.TON := (PT := T#3S);
+	messageDisplayScrollTimer : Standard.TON := (PT := T#2S);
 	i : UINT;
 	lastMessageFound : UINT;
 	atEndOfList : BOOL;

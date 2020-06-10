@@ -75,7 +75,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	IBDCloseMotionProfile : sctMotionProfile := (velo := 10.0, accel := 10.0, decel := 10.0, current := 50.0);
 	IBDZeroOffset : REAL := 2.0;
 	jawCloseDelay : REAL := 0.2;
-	jawClosePositionSetting : REAL := -0.2;
+	jawClosePositionSetting : REAL := -0.35;
 	jawOpenMotionProfile : sctMotionProfile := (velo := 10.0, accel := 10.0, decel := 10.0, current := 100.0);
 	jawCloseMotionProfile : sctMotionProfile := (velo := 10.0, accel := 10.0, decel := 10.0, current := 100.0);
 	jawCycleTestCycles : DINT;

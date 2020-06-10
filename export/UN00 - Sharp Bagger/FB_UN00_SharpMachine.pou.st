@@ -71,10 +71,10 @@ baggerManager(
 clearTimer();
 resetONS(CLK := resetMachine);
 homeONS(CLK := homeMachine);
-
 IF testResetSim THEN
 	UN00_Globals.simFaults.FB_Init(TRUE,TRUE);
 END_IF
+
 
 CASE unitModeManager.ActiveUnitMode.CurrentState OF
 	
@@ -95,6 +95,10 @@ CASE unitModeManager.ActiveUnitMode.CurrentState OF
 	PACK_ML.State.Resetting:	IF BaggerManager.ResettingDone THEN
 									currentUnitMode.ActingStateCompleted();
 								END_IF	
+								
+								IF resetONS.OSR THEN
+									currentUnitMode.Clear();
+								END_IF	
 	
 	PACK_ML.State.Clearing :	clearTimer.IN := TRUE;
 								IF BaggerManager.ClearingDone AND NOT faultActive THEN
@@ -110,7 +114,10 @@ CASE unitModeManager.ActiveUnitMode.CurrentState OF
 									currentUnitMode.ActingStateCompleted();
 								END_IF
 								
-	//PACK_ML.State.Execute :
+	PACK_ML.State.Execute :		IF resetONS.OSR THEN
+									currentUnitMode.Clear();
+								END_IF	
+	
 	PACK_ML.State.Holding :		IF BaggerManager.HoldingDone THEN
 									currentUnitMode.ActingStateCompleted();
 								END_IF

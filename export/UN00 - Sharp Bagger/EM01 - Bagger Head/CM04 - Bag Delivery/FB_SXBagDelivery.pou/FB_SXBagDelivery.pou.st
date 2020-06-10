@@ -2,7 +2,7 @@
 FUNCTION_BLOCK FINAL FB_SXBagDelivery EXTENDS FB_BaseComponent IMPLEMENTS IBagDelivery
 VAR_INPUT
 	simulateIO : BOOL;
-	bagPhotoeyeInput : BOOL;
+	bagPresent : BOOL;
 	printer : IPrinter;
 	bagLength : REAL := 24.0;
 	feedSpeed : REAL := 30.0;
@@ -19,6 +19,7 @@ END_VAR
 VAR_OUTPUT
 	reverseFault : FB_Fault(name := Standard.CONCAT(_prefix,'Reverse Fault'));
 	bagFailedToSeparate : FB_Fault(name := Standard.CONCAT(_prefix,'Failed To Separate'));
+	noBagOverEye : FB_Fault(name := Standard.CONCAT(_prefix,'No Bag Over Photoeye'));
 END_VAR
 VAR
 	_feedAtPrintSpeed : BOOL;
@@ -60,7 +61,7 @@ IF _reset THEN
 	_reset := FALSE;
 END_IF
 
-
+_ready := state = 0 AND NOT bagDeliveryMotor.Error;
 //EnableSimulation(bagDeliveryMotor, simulateIO);
 
 
@@ -85,7 +86,7 @@ CASE state OF
 			IF _reverseToSeparate THEN
 				
 				_bagSeparated := FALSE;
-				state := 30;
+				state := 50;
 				_reverseToSeparate := FALSE;
 				ClearStatus();
 			END_IF
@@ -158,10 +159,54 @@ CASE state OF
 			state := 0;
 			nextState := 0;	
 	
+	50: 	// Feed bag if not over photoeye
+			IF NOT bagPresent THEN
+				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
+				MC_MoveBagDelivery.Velocity := reverseSpeed;
+				MC_MoveBagDelivery.Distance := maxReverseSetpoint;
+				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
+				moveBagDeliveryTimeout.IN := TRUE;
+				MC_MoveBagDelivery.Execute := TRUE;
+				_logger.AddLogItem(CONCAT(_prefix, 'Feed to Photoeye'));
+				//bagEdgePhotoeyeSim.in := TRUE;
+				state := 51;
+			ELSE
+				state := 30;
+			END_IF
+			
+	51: 	// If move completed then fault, otherwise stop at photoeye
+			IF MC_MoveBagDelivery.Done THEN
+				MC_MoveBagDelivery.Execute := FALSE;
+				noBagOverEye.Trigger();
+				ClearStatus();
+				state := 100;
+				nextState := 0;
+			END_IF
+			
+			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
+				reverseFault.Trigger();
+				MC_MoveBagDelivery.Execute := FALSE;
+				MC_HaltBagDelivery.Execute := TRUE;
+				ClearStatus();
+				nextState := 0;
+				state := 100;
+			END_IF
+			
+			IF bagPresent THEN
+				MC_MoveBagDelivery.Execute := FALSE;
+				MC_HaltBagDelivery.Execute := TRUE;
+				bagEdgePhotoeyeSim.in := FALSE;
+				IF MC_HaltBagDelivery.Done THEN
+					MC_HaltBagDelivery.Execute := FALSE;
+					state := 30;
+				END_IF
+				
+			END_IF
+			
 	30:		// Reverse to Separate
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := reverseSpeed;
-			MC_MoveBagDelivery.Distance := maxReverseSetpoint;
+			MC_MoveBagDelivery.Distance := maxReverseSetpoint * -1;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
 			moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
@@ -172,6 +217,7 @@ CASE state OF
 	
 	31:		// Stop bag once edge clears photoeye. If move command finishes that means the bag didn't separate 
 			IF MC_MoveBagDelivery.Done THEN
+				MC_MoveBagDelivery.Execute := FALSE;
 				bagFailedToSeparate.Trigger();
 				ClearStatus();
 				state := 100;
@@ -187,8 +233,9 @@ CASE state OF
 				state := 100;
 			END_IF
 			
-			IF bagPhotoeyeInput THEN
+			IF NOT bagPresent THEN
 				MC_MoveBagDelivery.Execute := FALSE;
+				
 				MC_HaltBagDelivery.Execute := TRUE;
 				bagEdgePhotoeyeSim.in := FALSE;
 				state := 32;
@@ -200,7 +247,7 @@ CASE state OF
 				IF NOT printer.OptionActive OR
 				   printOffset >= distanceFromNipToBagEdge
 				THEN
-					remainingLength := bagLength + printOffset;
+					remainingLength := bagLength - sealOffset - distanceFromNipToBagEdge;
 					_bagSeparated := TRUE;
 					state := 0;
 					nextState := 0;
@@ -228,8 +275,8 @@ CASE state OF
 			nextState := 0;
 
 	40:		// Feed at Print Speed
-			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
-			MC_MoveBagDelivery.Velocity := reverseSpeed;
+			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
+			MC_MoveBagDelivery.Velocity := printSpeed;
 			MC_MoveBagDelivery.Distance := printLength;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 1000);
 			moveBagDeliveryTimeout.IN := TRUE;

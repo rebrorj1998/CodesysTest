@@ -30,6 +30,7 @@ VAR_OUTPUT
 	frontMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Front Motor Comm Fault'));
 	rearMotorFault : FB_Fault(name := CONCAT(_prefix, 'Rear Motor Fault'));
 	rearMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Rear Motor Comm Fault'));
+	bothMotorsFault : FB_Fault(name := CONCAT(_prefix, 'Both Motors Fault'));
 	actualPosition : REAL := 5.5;								// Current Passthrough Opening
 END_VAR
 VAR
@@ -49,6 +50,7 @@ VAR
 	_closeNow : BOOL;
 	_isFullyClosed : BOOL;
 	_isFullyOpen : BOOL;
+	_IsHomed : BOOL;
 	jawState : eDualMotorPBarStates;
 	homeJawState : eDualMotorPbarHomingStates;
 	homeTimeout : Standard.TON;
@@ -107,7 +109,7 @@ EnableSimulation(device := cylinder, enableSim := simulateIO);
 
 _isFullyClosed := pressureBarClosedSensor;
 _isFullyOpen := TO_DINT(frontMotor.ActualPosition * 1000) = TO_DINT(passthroughSetting * 1000);
-
+//_IsHomed := _isFullyOpen AND bothMotorsHomed;
 
 // Failed to reach sensor timers
 // Guestimate closing/opening time with a bit of a cushion
@@ -145,7 +147,13 @@ IF NOT rearMotor.CommStatus THEN
 ELSE 
 	rearMotorCommFault.faultTrigger := FALSE;
 END_IF
-
+	 
+IF bothMotors.Error THEN
+	bothMotorsFault.faultTrigger := TRUE;
+ELSE 
+	bothMotorsFault.faultTrigger := FALSE;
+END_IF
+	 
 IF homeTimeout.Q 
 	OR MC_HomeBothMotors.Error 
 	OR UN00_Globals.simFaults.pressureBarfailedToHome
@@ -182,7 +190,9 @@ CASE jawState OF
 			END_IF
 			
 			IF _homeNow THEN
+				_IsHomed := FALSE;
 				_homeNow := FALSE;
+				homeJawState := eDualMotorPbarHomingStates.Idle;
 				jawState := eDualMotorPBarStates.HomeJaw;
 			END_IF
 			
@@ -247,14 +257,20 @@ CASE jawState OF
 					
 			eDualMotorPbarHomingStates.MoveMotorsToPassthrough:
 					// Move jaw out to passthrough
-					homeJawState := eDualMotorPbarHomingStates.Idle;
-					jawState := eDualMotorPBarStates.OpenJaw;
+					MC_MoveBothMotorsABS.Position := passthroughSetting;
+					MC_MoveBothMotorsABS.Velocity := openVelo;
+					MC_MoveBothMotorsABS.Acceleration := openAccel;
+					MC_MoveBothMotorsABS.Deceleration := openDecel;
+					MC_MoveBothMotorsABS.Execute := TRUE;
+					homeJawState := eDualMotorPbarHomingStates.MovingMotorsToPassthrough;
+					//jawState := eDualMotorPBarStates.OpenJaw;
 					
 					
 			eDualMotorPbarHomingStates.MovingMotorsToPassthrough:
 					// If moved out to passthrough then we are done
 					IF MC_MoveBothMotorsABS.Done THEN
 						MC_MoveBothMotorsABS.Execute := FALSE;
+						_IsHomed := TRUE;
 						homeJawState := eDualMotorPbarHomingStates.Idle;
 						jawState := eDualMotorPBarStates.Idle;
 					ELSIF MC_MoveBothMotorsABS.Error THEN

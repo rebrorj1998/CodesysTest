@@ -16,6 +16,12 @@ END_IF
 // Clear starting done status because if we're here starting state is complete.
 _startingDone := FALSE;
 
+IF resetTriggered THEN
+	state := HEAD_STATES.Idle;
+	sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
+	releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
+	bagOpenSubState := BAG_OPEN_ASSIST_STATES.Idle;
+END_IF
 // Run Cycle timer for machine cycle
 cycleTimer();
 vacuumDwellTimer(PT := bagger.vacuumDwell);

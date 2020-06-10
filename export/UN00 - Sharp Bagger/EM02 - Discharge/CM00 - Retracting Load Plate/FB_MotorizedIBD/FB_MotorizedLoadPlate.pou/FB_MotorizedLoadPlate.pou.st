@@ -160,7 +160,7 @@ CASE state OF
 			MC_MoveMotorABS.Execute := FALSE;
 			state := eMotorizedLoadPlateStates.Idle;
 		ELSIF MC_MoveMotorABS.Error THEN
-			MC_MoveMotorINC.Execute := FALSE;
+			MC_MoveMotorABS.Execute := FALSE;
 			//failedToOpen.Trigger();
 			state := eMotorizedLoadPlateStates.Faulting;
 		END_IF
@@ -196,6 +196,7 @@ CASE state OF
 		// Stay lowered for dwell time then move shelf back up
    		IF dwellTimer.Q THEN
 			dwellTimer.IN := FALSE;
+	  		_beginDischarge := FALSE;
 			state := eMotorizedLoadPlateStates.Raise;	   
 		END_IF
 				
@@ -215,7 +216,6 @@ CASE state OF
 		//  Send reset to motors if they're faulted
 		
 		MC_ResetMotor.Execute := TRUE;
-		
 		MC_HomeMotor.Execute := FALSE;
 		//resetPassthoughMotor.Execute := FALSE;
 		MC_MoveMotorABS.Execute := FALSE;
