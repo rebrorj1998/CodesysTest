@@ -125,7 +125,7 @@ readAfterRIOWrite(CLK := writeOpcode.xDone);
 
 readData(
 	slave:= MBChannel, 
-	xExecute:= ,//readRateTimer.Q OR readData.xBusy, 
+	xExecute:= readRateTimer.Q OR readData.xBusy, 
 	xAbort:= , 
 	iChannelIndex:= 0, 
 	xBusy=> , 

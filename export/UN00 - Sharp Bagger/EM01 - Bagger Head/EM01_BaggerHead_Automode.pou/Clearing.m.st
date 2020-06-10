@@ -3,7 +3,8 @@ METHOD Clearing
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF NOT resetTriggered THEN
 	bagger.pressureBar.Reset();
-	
+	bagger.IBD.Reset();
+	bagger.loadPlate.Reset();
 	_completingDone := FALSE;
 	_holdingDone := FALSE;
 	_resettingDone := FALSE;

@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mVeloAccDecCalc : WORD
+METHOD PRIVATE mVeloAccDecCalc : STRING
 VAR_INPUT
 	value : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-mVeloAccDecCalc := TO_WORD(value * TO_REAL(stepsPerInchSP));
+mVeloAccDecCalc := CONCAT(TO_STRING((value * 0.489)),'$R');

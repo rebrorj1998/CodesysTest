@@ -15,6 +15,7 @@ TYPE eOrientalAZDriveStates :
 	Halted := 62,
 	Home := 70,
 	Homing := 71,
+	DelayAfterWrite := 80,
 	Faulting := 98,
 	Faulted := 99
 );

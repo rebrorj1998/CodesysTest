@@ -84,11 +84,6 @@ ELSE
 	motorCommFault.faultTrigger := FALSE;
 END_IF
 
-IF homeTimeout.Q 
-	OR MC_HomeMotor.Error 
-THEN
-	failedToHome.Trigger();
-END_IF
 {endregion}
 
 IF _reset THEN
@@ -143,7 +138,7 @@ CASE state OF
 		IF MC_HomeMotor.Done THEN				
 			MC_HomeMotor.Execute := FALSE;
 			state := eMotorizedLoadPlateStates.Raise;
-		ELSIF MC_HomeMotor.Error THEN
+		ELSIF MC_HomeMotor.Error OR homeTimeout.Q THEN
 			MC_HomeMotor.Execute := FALSE;
 			failedToHome.Trigger();
 			state := eMotorizedLoadPlateStates.Faulting;
@@ -218,9 +213,9 @@ CASE state OF
 		
 	eMotorizedLoadPlateStates.Reset:
 		//  Send reset to motors if they're faulted
-		IF loadPlateMotor.Error THEN
-			MC_ResetMotor.Execute := TRUE;
-		END_IF
+		
+		MC_ResetMotor.Execute := TRUE;
+		
 		MC_HomeMotor.Execute := FALSE;
 		//resetPassthoughMotor.Execute := FALSE;
 		MC_MoveMotorABS.Execute := FALSE;

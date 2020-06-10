@@ -33,7 +33,7 @@ VAR
 	MC_HaltIBDMotor : Sharp_Motion.MC_Halt;
 	homeTimeout : Standard.TON;
 	failedToOpenTimer : Standard.TON;
-	motionFaultTimeOffset : TIME := T#200MS;
+	motionFaultTimeOffset : TIME := T#800MS;
 	resetTimer: TON := (PT := T#2S);
 	state : eMotorizedIBDStates;
 END_VAR
@@ -70,7 +70,7 @@ resetTimer(IN := state = eMotorizedIBDStates.Resetting);
 
 failedToOpenTimer(IN := state = eMotorizedIBDStates.MovingOut AND NOT _isFullyOpen,
 					PT := TO_TIME((passthroughSetting / openVelo) * 1000.0) + motionFaultTimeOffset,
-					Q => failedToOpen.faultTrigger);
+					Q => );
 					
 // Trigger motor faults from drive					
 IF IBDMotor.Error THEN
@@ -168,8 +168,8 @@ CASE state OF
 		IF MC_MoveIBDMotorABS.Done THEN
 			MC_MoveIBDMotorABS.Execute := FALSE;
 			state := eMotorizedIBDStates.Idle;
-		ELSIF MC_MoveIBDMotorABS.Error THEN
-			MC_MoveIBDMotorINC.Execute := FALSE;
+		ELSIF MC_MoveIBDMotorABS.Error OR failedToOpenTimer.Q THEN
+			MC_MoveIBDMotorABS.Execute := FALSE;
 			failedToOpen.Trigger();
 			state := eMotorizedIBDStates.Faulting;
 		END_IF
@@ -211,9 +211,9 @@ CASE state OF
 		
 	eMotorizedIBDStates.Reset:
 		//  Send reset to motors if they're faulted
-		IF IBDMotor.Error THEN
+		//IF IBDMotor.Error THEN
 			MC_ResetIBDMotor.Execute := TRUE;
-		END_IF
+		//END_IF
 		MC_HomeIBDMotor.Execute := FALSE;
 		//resetPassthoughMotor.Execute := FALSE;
 		MC_MoveIBDMotorABS.Execute := FALSE;

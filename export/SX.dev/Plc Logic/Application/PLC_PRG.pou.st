@@ -15,9 +15,8 @@ VAR
 	baggerCM : EM01_Bagger_Control_Modules;
 	bannerManager : FB_BannerManager;
 	topCoverLiftedFault : FB_Fault(name := 'Top Cover Lifeted During Cycle');
-
+	
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
 	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := Globals.SystemLog);
@@ -41,7 +40,6 @@ END_IF
 IF firstScanDone THEN
 	GlobalObjects.CollectionOfExecutable.ExecuteAll();
 END_IF
-
 
 powerUpFrontJawMotor(Enable := TRUE, Axis := baggerCM.jawFrontMotor);
 powerUpFrontJawMotor.DriveStart := TRUE;

@@ -34,7 +34,7 @@ VAR
 	jogForward : BOOL;
 	packedRIO : uModbusDWORD;
 	packedRIOLast : DWORD;
-	
+	delayTimer : Standard.TON := (PT := T#25MS);
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readData : IoDrvModbus.ModbusChannel;
 	readDataAfterWrite : IoDrvModbus.ModbusChannel;
@@ -47,11 +47,13 @@ VAR
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
 	haltONS : FB_ONS;
+	alarmActiveONS : FB_ONS;
 	triggerRIOWrite : BOOL;
 	(*Temp for testing*)
 	triggerNow : BOOL;
 	disable : BOOL;
 	state : eOrientalAZDriveStates;
+	nextState : eOrientalAZDriveStates;
 	
 END_VAR
 VAR_IN_OUT
@@ -119,6 +121,7 @@ packedRIO.dDword.14 := jogForward;
 modbusRIODataToDrive[0] := packedRIO.wWord[1];
 modbusRIODataToDrive[1] := packedRIO.wWord[0];
 
+delayTimer(IN := state = eOrientalAZDriveStates.DelayAfterWrite);
 
 // Trigger an RIO write whenever it changes
 
@@ -155,7 +158,7 @@ readAfterRIOWrite(CLK := writeRIOData.xDone);
 
 readData(
 	slave:= MBChannel, 
-	xExecute:= readRateTimer.Q OR readData.xBusy, 
+	xExecute:= ,//readRateTimer.Q OR readData.xBusy, 
 	xAbort:= , 
 	iChannelIndex:= 0, 
 	xBusy=> , 
@@ -185,15 +188,18 @@ readDataAfterWrite(
 	xAborted=> , 
 	ModbusError=> );
 
-IF readData.xError
-	OR readDataAfterWrite.xError
-	OR writeDirectOpData.xError
-	OR writeRIOData.xError 
-THEN
-	state := eOrientalAZDriveStates.Faulting;
-	CommStatus := FALSE;
-END_IF
-	
+IF NOT isGroup THEN
+	IF readData.xError
+		OR readDataAfterWrite.xError
+		OR writeDirectOpData.xError
+		OR writeRIOData.xError 
+		OR MBChannel.xError
+	THEN
+		state := eOrientalAZDriveStates.Faulting;
+		CommStatus := FALSE;
+	END_IF
+END_IF	
+
 (*
 writeRIODataMBCommand.uiFunctionCode := 16;
 writeRIODataMBCommand.uiwriteLen := 2;
@@ -289,7 +295,8 @@ IF haltONS.OSR THEN
 	state := eOrientalAZDriveStates.Faulting;
 END_IF
 
-IF alarmActive THEN
+alarmActiveONS(clk:= alarmActive);
+IF alarmActiveONS.OSR THEN
 	state := eOrientalAZDriveStates.Faulting;
 END_IF
 
@@ -313,7 +320,7 @@ CASE state OF
 					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
 					state := eOrientalAZDriveStates.Home;
 				END_IF
-				IF readData.xDone OR isGroup THEN
+				IF MBChannel.xDone OR isGroup THEN
 					CommStatus := TRUE;
 				END_IF
 
@@ -328,13 +335,19 @@ CASE state OF
 				directDataOp.Current.diDint := mCurrentCalc(DefaultCurrent);
 				directDataOp.Trigger.diDint := 1;
 				writeDirectOpData.xExecute := TRUE;
-				IF writeDirectOpData.xDone AND readDataAfterWrite.xDone THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Moving;
-				ELSIF writeDirectOpData.xError THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Faulting;
+				IF isGroup THEN
+					state := eOrientalAZDriveStates.DelayAfterWrite;
+					nextState := eOrientalAZDriveStates.Moving;
+				ELSE 
+					IF writeDirectOpData.xDone AND readDataAfterWrite.xDone THEN
+						writeDirectOpData.xExecute := FALSE;
+						state := eOrientalAZDriveStates.Moving;
+					ELSIF writeDirectOpData.xError OR readDataAfterWrite.xError  THEN
+						writeDirectOpData.xExecute := FALSE;
+						state := eOrientalAZDriveStates.Faulting;
+					END_IF
 				END_IF
+				
 		
 	eOrientalAZDriveStates.MovePush:
 				// Move to absolute position
@@ -347,12 +360,17 @@ CASE state OF
 				directDataOp.Current.diDint := mCurrentCalc(ProfileCurrentLimit);
 				directDataOp.Trigger.diDint := 1;
 				writeDirectOpData.xExecute := TRUE;
-				IF writeDirectOpData.xDone THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Moving;
-				ELSIF writeDirectOpData.xError THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Faulting;
+				IF isGroup THEN
+					state := eOrientalAZDriveStates.DelayAfterWrite;
+					nextState := eOrientalAZDriveStates.Moving;
+				ELSE 
+					IF writeDirectOpData.xDone AND readDataAfterWrite.xDone THEN
+						writeDirectOpData.xExecute := FALSE;
+						state := eOrientalAZDriveStates.Moving;
+					ELSIF writeDirectOpData.xError OR readDataAfterWrite.xError  THEN
+						writeDirectOpData.xExecute := FALSE;
+						state := eOrientalAZDriveStates.Faulting;
+					END_IF
 				END_IF
 				
 		eOrientalAZDriveStates.MoveInc:
@@ -366,22 +384,33 @@ CASE state OF
 				directDataOp.Current.diDint := mCurrentCalc(DefaultCurrent);
 				directDataOp.Trigger.diDint := 1;
 				writeDirectOpData.xExecute := TRUE;
-				IF writeDirectOpData.xDone THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Moving;
-				ELSIF writeDirectOpData.xError THEN
-					writeDirectOpData.xExecute := FALSE;
-					state := eOrientalAZDriveStates.Faulting;
-				END_IF		
+				IF isGroup THEN
+					state := eOrientalAZDriveStates.DelayAfterWrite;
+					nextState := eOrientalAZDriveStates.Moving;
+				ELSE 
+					IF writeDirectOpData.xDone AND readDataAfterWrite.xDone THEN
+						writeDirectOpData.xExecute := FALSE;
+						state := eOrientalAZDriveStates.Moving;
+					ELSIF writeDirectOpData.xError OR readDataAfterWrite.xError  THEN
+						writeDirectOpData.xExecute := FALSE;
+						state := eOrientalAZDriveStates.Faulting;
+					END_IF
+				END_IF
 		
 		eOrientalAZDriveStates.Home:
 				//
 				zHome := TRUE;
-				IF writeRIOData.xDone THEN
-					state := eOrientalAZDriveStates.Homing;
-				ELSIF writeRIOData.xError THEN
-					state := eOrientalAZDriveStates.Faulting;
+				IF isGroup THEN
+					state := eOrientalAZDriveStates.DelayAfterWrite;
+					nextState := eOrientalAZDriveStates.Homing;
+				ELSE 
+					IF writeRIOData.xDone THEN
+						state := eOrientalAZDriveStates.Homing;
+					ELSIF writeRIOData.xError THEN
+						state := eOrientalAZDriveStates.Faulting;
+					END_IF
 				END_IF
+				
 				
 		
 		eOrientalAZDriveStates.Homing:		
@@ -399,6 +428,14 @@ CASE state OF
 				
 				IF NOT jogForward AND NOT jogReverse THEN
 					state := eOrientalAZDriveStates.Idle;
+				END_IF
+		
+		eOrientalAZDriveStates.DelayAfterWrite:
+				//
+				IF delayTimer.Q THEN
+					writeDirectOpData.xExecute := FALSE;
+					writeRIOData.xExecute := FALSE;
+					state := nextState;
 				END_IF
 		
 		eOrientalAZDriveStates.Moving:
@@ -432,6 +469,7 @@ CASE state OF
 						reset := TRUE;
 					END_IF
 					IF NOT alarmActive THEN
+						reset := FALSE;
 						state := eOrientalAZDriveStates.Idle;
 					END_IF
 					

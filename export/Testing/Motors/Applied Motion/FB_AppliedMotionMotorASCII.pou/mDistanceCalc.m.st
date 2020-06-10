@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mDistanceCalc : DINT
+METHOD PRIVATE mDistanceCalc : STRING
 VAR_INPUT
 	distanceSP : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-mDistanceCalc := TO_DINT((distanceSP) * TO_REAL(stepsPerInchSP));
+mDistanceCalc := CONCAT(TO_STRING(TO_DINT((distanceSP *TO_REAL(stepsPerInchSP)))),'$R');

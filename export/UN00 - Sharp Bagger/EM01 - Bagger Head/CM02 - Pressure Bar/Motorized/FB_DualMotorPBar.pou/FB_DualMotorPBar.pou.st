@@ -41,6 +41,8 @@ VAR
 	MC_MoveBothMotorsINC : Sharp_Motion.MC_MoveRelative;
 	MC_ResetBothMotors : Sharp_Motion.MC_Reset;
 	MC_HaltBothMotors : Sharp_Motion.MC_Halt;
+	MC_ResetFrontMotor : Sharp_Motion.MC_Reset;
+	MC_ResetRearMotor : Sharp_Motion.MC_Reset;
 	_homeNow : BOOL;
 	_movePassthroughNow : BOOL;
 	_openNow : BOOL;
@@ -71,17 +73,19 @@ SUPER^();
 
 {region "Axis Setup"}
 // Setup of Motion Commands for passthrough motor axis
-MC_HomeBothMotors(Axis := frontMotor);
-MC_MoveBothMotorsABS(Axis := frontMotor);
-MC_MoveBothMotorsABSTorque(Axis := frontMotor);
-MC_MoveBothMotorsINC(Axis := frontMotor);
-MC_ResetBothMotors(Axis := frontMotor);
-MC_HaltBothMotors(Axis := frontMotor);
+MC_HomeBothMotors(Axis := bothMotors);
+MC_MoveBothMotorsABS(Axis := bothMotors);
+MC_MoveBothMotorsABSTorque(Axis := bothMotors);
+MC_MoveBothMotorsINC(Axis := bothMotors);
+MC_ResetBothMotors(Axis := bothMotors);
+MC_ResetFrontMotor(Axis := frontMotor);
+MC_ResetRearMotor(Axis := rearMotor);
+MC_HaltBothMotors(Axis := bothMotors);
 {endregion}
 	 
 {region "Timers"}
 // If homing not complete within reasonable time, error out
-homeTimeout(PT := homeTimeoutSetting);
+homeTimeout(IN := jawState = eDualMotorPBarStates.HomeJaw, PT := homeTimeoutSetting);
 // If reset of motors fails state machine must move on
 resetTimer(IN := jawState = eDualMotorPBarStates.Resetting);
 // Jaw move in delay	 
@@ -156,7 +160,7 @@ IF _reset THEN
 END_IF
 
 
-bothMotorsHomed := frontMotor.HomingDone AND rearMotor.HomingDone;
+bothMotorsHomed := bothMotors.HomingDone;
 bothMotorsInPosition := frontMotor.TargetReached AND rearMotor.TargetReached;
 
 CASE jawState OF
@@ -201,7 +205,6 @@ CASE jawState OF
 	
 	eDualMotorPBarStates.HomeJaw:	
 		// Normal Homing - not factory homing.
-		homeTimeout.IN := TRUE;
 		CASE homeJawState OF  // Begin homing sub state machine
 			
 			eDualMotorPbarHomingStates.Idle:
@@ -244,25 +247,17 @@ CASE jawState OF
 					
 			eDualMotorPbarHomingStates.MoveMotorsToPassthrough:
 					// Move jaw out to passthrough
-					MC_MoveBothMotorsABS.Position := passthroughSetting;
-					MC_MoveBothMotorsABS.Velocity := openVelo;
-					MC_MoveBothMotorsABS.Acceleration := openAccel;
-					MC_MoveBothMotorsABS.Deceleration := openDecel;
-					MC_MoveBothMotorsABS.Execute := TRUE;
-					IF MC_MoveBothMotorsABS.Busy OR MC_MoveBothMotorsABS.Error THEN
-						homeJawState := eDualMotorPbarHomingStates.MovingMotorsToPassthrough;
-					END_IF
+					homeJawState := eDualMotorPbarHomingStates.Idle;
+					jawState := eDualMotorPBarStates.OpenJaw;
 					
 					
 			eDualMotorPbarHomingStates.MovingMotorsToPassthrough:
 					// If moved out to passthrough then we are done
 					IF MC_MoveBothMotorsABS.Done THEN
 						MC_MoveBothMotorsABS.Execute := FALSE;
-						homeTimeout.IN := FALSE;
 						homeJawState := eDualMotorPbarHomingStates.Idle;
 						jawState := eDualMotorPBarStates.Idle;
 					ELSIF MC_MoveBothMotorsABS.Error THEN
-						homeTimeout.IN := FALSE;
 						MC_MoveBothMotorsINC.Execute := FALSE;
 						failedToHome.Trigger();
 						jawState := eDualMotorPBarStates.Faulting;
@@ -327,9 +322,10 @@ CASE jawState OF
 		
 	eDualMotorPBarStates.Reset:
 		//  Send reset to motors if they're faulted
-		IF bothMotors.Error THEN
-			MC_ResetBothMotors.Execute := TRUE;
-		END_IF
+		
+		MC_ResetBothMotors.Execute := TRUE;
+		MC_ResetFrontMotor.Execute := TRUE;	
+		MC_ResetRearMotor.Execute := TRUE;	
 		homeJawState := eDualMotorPbarHomingStates.Idle;
 		MC_HomeBothMotors.Execute := FALSE;
 		//resetPassthoughMotor.Execute := FALSE;
@@ -347,6 +343,8 @@ CASE jawState OF
 		//
 		IF NOT bothMotors.Error OR resetTimer.Q THEN
 			MC_ResetBothMotors.Execute := FALSE;
+			MC_ResetFrontMotor.Execute := FALSE;	
+			MC_ResetRearMotor.Execute := FALSE;
 			jawState := eDualMotorPBarStates.Idle;
 		END_IF
 		

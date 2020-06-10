@@ -29,16 +29,12 @@ VAR
 	EL_Preset : BOOL;
 	jogReverse : BOOL;
 	jogForward : BOOL;
-	
+	readStatusState : INT;
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
-	readData : IoDrvModbus.ModbusChannel;
-	readDataAfterWrite : IoDrvModbus.ModbusChannel;
-	//readDataMBCommand : IoDrvModbus.ModbusCommand;
-	writeParameters : IoDrvModbus.ModbusChannel;
-  	//writeDirectOpDataMBCommand : IoDrvModbus.ModbusCommand;
-	writeOpcode : IoDrvModbus.ModbusChannel;
+
+
   	//writeRIODataMBCommand : IoDrvModbus.ModbusCommand;
-   	readRateTimer : Standard.TON := (PT:= T#200MS);
+   	readRateTimer : Standard.TON := (PT:= T#50MS);
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
 	haltONS : FB_ONS;
@@ -52,7 +48,7 @@ VAR
 	
 END_VAR
 VAR_IN_OUT
-	asciiHandler : FB_ASCII;
+	asciiHandler : FB_CrevisSerial;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_OrientalAZMotor()
 //	Description: A PLCOpen Motion compliant library for a Oriental AZ Series drive/motor
@@ -70,6 +66,25 @@ IF NOT DriveEnable THEN
 	RETURN;
 END_IF
 
+readRateTimer(IN := state = eAppliedMotionDriveStatesASCII.Moving AND NOT readRateTimer.Q);
+
+
+
+CASE readStatusState OF
+	0: 	//Idle
+		IF readRateTimer.Q AND NOT asciiHandler.xExecute THEN
+			asciiHandler.sendData := '2SC$R';
+			asciiHandler.xExecute := TRUE;
+			readStatusState := 1;
+		END_IF
+		
+	1:	// Parse Status word
+		IF asciiHandler.xDone THEN
+			asciiHandler.xExecute := FALSE;
+			status(statusCode := TO_WORD(mParseStatusWord(asciiHandler.receivedData)));
+			readStatusState := 0;
+		END_IF
+END_CASE
 
 // Get drive data directly from modbus or from master axis	
 
@@ -97,7 +112,7 @@ CASE state OF
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStatesASCII.MoveABS;
 				ELSIF MoveRel THEN
-					asciiHandler.strSendData := (CONCAT('VE', TO_STRING(mVeloAccDecCalc(ProfileVelocity))));
+					asciiHandler.sendData := (CONCAT('2VE', mVeloAccDecCalc(ProfileVelocity)));
 					asciiHandler.xExecute := TRUE;
 					IF asciiHandler.xDone THEN
 						asciiHandler.xExecute := FALSE;
@@ -123,7 +138,7 @@ CASE state OF
 				
 		eAppliedMotionDriveStatesASCII.MoveInc:
 				// Move to incremental position
-				asciiHandler.strSendData := (CONCAT('FL', TO_STRING(mDistanceCalc(TargetPosDist))));
+				asciiHandler.sendData := (CONCAT('2FL', mDistanceCalc(TargetPosDist)));
 				asciiHandler.xExecute := TRUE;
 				IF asciiHandler.xDone THEN
 					asciiHandler.xExecute := FALSE;
@@ -132,12 +147,7 @@ CASE state OF
 		
 		eAppliedMotionDriveStatesASCII.Home:
 				//
-				zHome := TRUE;
-				IF writeOpcode.xDone THEN
-					state := eAppliedMotionDriveStatesASCII.Homing;
-				ELSIF writeOpcode.xError THEN
-					state := eAppliedMotionDriveStatesASCII.Faulting;
-				END_IF
+				
 				
 		
 		eAppliedMotionDriveStatesASCII.Homing:		
@@ -157,18 +167,11 @@ CASE state OF
 				END_IF
 		eAppliedMotionDriveStatesASCII.SendOpcodeAfterPars:
 				// 
-				writeOpcode.xExecute := TRUE;
-				IF writeParameters.xDone AND readDataAfterWrite.xDone THEN
-					writeOpcode.xExecute := FALSE;
-					state := eAppliedMotionDriveStatesASCII.Moving;
-				ELSIF writeOpcode.xError THEN
-					writeOpcode.xExecute := FALSE;
-					state := eAppliedMotionDriveStatesASCII.Faulting;
-				END_IF		
+				
 				
 		eAppliedMotionDriveStatesASCII.Moving:
 				// After sending data, we are moving
-				IF inPosition THEN
+				IF inPosition AND asciiHandler.xDone THEN
 					TargetReached := TRUE;
 					state := eAppliedMotionDriveStatesASCII.DoneMoving;
 				END_IF
