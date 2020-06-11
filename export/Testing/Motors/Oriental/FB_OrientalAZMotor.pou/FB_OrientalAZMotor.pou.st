@@ -37,7 +37,7 @@ VAR
 	packedRIO : uModbusDWORD;
 	packedRIOLast : DWORD;
 	delayTimer : Standard.TON := (PT := T#250MS);
-	zHomeDelay : Standard.TON := (PT := T#3500MS);
+	zHomeDelay : Standard.TON := (PT := T#2000MS);
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readData : IoDrvModbus.ModbusChannel;
 	readDataAfterWrite : IoDrvModbus.ModbusChannel;
@@ -284,7 +284,7 @@ IF isGroup THEN
 		alarmActive := groupMotor0.alarmActive OR groupMotor1.alarmActive;
 		moving := groupMotor0.moving AND groupMotor1.moving;
 		inPosition := groupMotor0.inPosition AND groupMotor1.inPosition;
-		atTorqueLimit := groupMotor0.atTorqueLimit AND groupMotor1.atTorqueLimit;
+		atTorqueLimit := groupMotor0.atTorqueLimit OR groupMotor1.atTorqueLimit;
 	END_IF
 ELSE
 	Ready := modbusDataFromDrive[5].5;
@@ -296,9 +296,12 @@ END_IF
 
 haltONS(CLK := Halt);
 IF haltONS.OSR THEN
-	state := eOrientalAZDriveStates.Halt;
+	state := eOrientalAZDriveStates.Faulting;
 END_IF
 
+IF AckError THEN
+	state := eOrientalAZDriveStates.Resetting;
+END_IF
 alarmActiveONS(clk:= alarmActive);
 IF alarmActiveONS.OSR THEN
 	state := eOrientalAZDriveStates.Faulting;
@@ -308,14 +311,18 @@ END_IF
 CASE state OF
 	eOrientalAZDriveStates.Idle:
 				// 	Idle state, wait for command
-				mClearStatus();
+				//mClearStatus();
+				
 				IF MoveAbs THEN
+					TargetReached := FALSE;
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveABS;
 				ELSIF MoveRel THEN
+					TargetReached := FALSE;
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveInc;
 				ELSIF MoveAbsTorque THEN
+					TargetReached := FALSE;
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MovePush;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
@@ -462,6 +469,11 @@ CASE state OF
 				freeMotor := TRUE;
 				state := eOrientalAZDriveStates.Idle;
 				
+		eOrientalAZDriveStates.Halted:
+				// 
+				freeMotor := TRUE;
+				state := eOrientalAZDriveStates.Idle;
+				
 		eOrientalAZDriveStates.Faulting:
 				// Faulting - stop drive
 				mClearStatus();
@@ -473,16 +485,29 @@ CASE state OF
 		eOrientalAZDriveStates.Faulted:
 				// Faulted - wait for clear
 				IF AckError THEN
+					state := eOrientalAZDriveStates.Resetting;
+				END_IF
+		
+		eOrientalAZDriveStates.Resetting:
+				// 
 					CommStatus := TRUE;
 					IF alarmActive THEN
 						reset := TRUE;
 					END_IF
 					IF NOT alarmActive THEN
+						AckError := FALSE;
+						Error := FALSE;
+						freeMotor := FALSE;
 						reset := FALSE;
+						MoveAbs := FALSE;
+						MoveRel := FALSE;
+						MoveAbsTorque := FALSE;
+						StartHoming := FALSE;
 						state := eOrientalAZDriveStates.Idle;
 					END_IF
 					
-				END_IF
+					
+					
 END_CASE
 triggerDDWriteNow := writeDirectOpData.xExecute;
 triggerRIOWriteNow := writeRIOData.xExecute;

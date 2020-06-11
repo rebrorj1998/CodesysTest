@@ -20,6 +20,8 @@ TYPE eAppliedMotionDriveStatesASCII :
 	Home := 70,
 	Homing := 71,
 	Faulting := 98,
-	Faulted := 99
+	Faulted := 99,
+	Reset := 100, 
+	EnableMotor := 101
 );
 END_TYPE

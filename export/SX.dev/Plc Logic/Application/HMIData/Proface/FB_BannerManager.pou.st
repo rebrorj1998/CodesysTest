@@ -32,6 +32,14 @@ VAR_INPUT
 	IBDMotorCommF : BOOL;
 	printerRibbonFault : BOOL;
 	printerServiceRequired : BOOL;
+	jawFailedToOpen : BOOL;
+	IBDFailedToClose : BOOL;
+	IBDFailedToOpen : BOOL;
+	IBDNotReady : BOOL;
+	pressureBarNotReady : BOOL;
+	printerNotReady : BOOL;
+	loadPlateNotReady : BOOL;
+
 END_VAR
 VAR_OUTPUT
 	messageDisplayIndication : DINT;
@@ -45,11 +53,14 @@ VAR
 	i : UINT;
 	lastMessageFound : UINT;
 	atEndOfList : BOOL;
+	displayedMessageCleared : BOOL;
 END_VAR
 VAR CONSTANT
 	MAX_MESSAGES : UINT := 64;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+// Map all messages for Proface banner.  Banner displays certain messages based on INT value.
+
 mappedMessages[0] := baggerNotReady;
 mappedMessages[1] := baggerReady;
 mappedMessages[2] := baggerInCycle;
@@ -82,15 +93,19 @@ mappedMessages[28] := IBDMotorCommF;
 mappedMessages[29] := printerRibbonFault;
 mappedMessages[30] := printerServiceRequired;
 
+IF NOT mappedMessages[messageDisplayIndication] THEN
+	displayedMessageCleared := TRUE;
+END_IF
 
 messageDisplayScrollTimer(IN := NOT messageDisplayScrollTimer.q);
 
-IF messageDisplayScrollTimer.Q OR atEndOfList THEN
+IF messageDisplayScrollTimer.Q OR atEndOfList OR displayedMessageCleared THEN
 	FOR i:= lastMessageFound  TO MAX_MESSAGES DO
 		IF mappedMessages[i] THEN
 			messageDisplayIndication := i;
 			lastMessageFound := i +1;
 			atEndOfList := FALSE;
+			displayedMessageCleared := FALSE;
 			RETURN;
 		END_IF
 	END_FOR

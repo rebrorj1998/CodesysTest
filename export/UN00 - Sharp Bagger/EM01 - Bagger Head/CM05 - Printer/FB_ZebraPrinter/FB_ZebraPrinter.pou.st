@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_ZebraPrinter EXTENDS FB_BasicPrinter
 VAR_INPUT
-	printHeadDebounceSetting : TIME := T#50MS;
+	printHeadDebounceSetting : TIME := T#100MS;
 	printHeadDownInput : BOOL;
 	dataReadyInput : BOOL;
 	serviceRequiredInput : BOOL;
@@ -10,6 +10,7 @@ VAR_INPUT
 	ribbonEncoderPulseInput : BOOL;
 	serviceRaisePrintHead : BOOL;
 	serviceLowerPrintHead : BOOL;
+	cancelPrint : BOOL;
 END_VAR
 VAR_OUTPUT
 	serviceRequired : FB_Fault(name := Standard.CONCAT(_prefix,'Service Required'));
@@ -64,6 +65,7 @@ END_IF
 IF serviceRequiredInput AND THIS^.OptionEnabled THEN
 	serviceRequired.Trigger();
 END_IF
+
 resetONS(CLK := _reset);
 IF enableONS.Q OR resetONS.Q THEN
     state := eZebraPrinterStates.Idle;
@@ -114,9 +116,12 @@ CASE state OF
                                                     IF dataReadyInput THEN
                                                         state := eZebraPrinterStates.DataReady;    
                                                     END_IF
+													IF cancelPrint THEN
+														state := eZebraPrinterStates.Idle;  
+													END_IF
                                                 
     eZebraPrinterStates.DataReady :                        // Wait for command to begin printing
-                                                    IF NOT dataReadyInput THEN
+                                                    IF NOT dataReadyInput OR cancelPrint THEN
 														state := eZebraPrinterStates.Idle;
 													END_IF
 													IF _beginPrinting THEN

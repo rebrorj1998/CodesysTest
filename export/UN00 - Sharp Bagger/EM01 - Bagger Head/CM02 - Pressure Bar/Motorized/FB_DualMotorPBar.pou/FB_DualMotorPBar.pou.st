@@ -20,6 +20,9 @@ VAR_INPUT
 	obstructionSensor : BOOL;
 	openJawPB : BOOL;
 	closeJawPB : BOOL;
+	beginJawTestMode : BOOL;
+	stopJawTestMode : BOOL;
+	
 END_VAR
 VAR_OUTPUT
 	failedToClose : FB_Fault(name := CONCAT(_prefix, 'Failed to Close'));
@@ -32,6 +35,8 @@ VAR_OUTPUT
 	rearMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Rear Motor Comm Fault'));
 	bothMotorsFault : FB_Fault(name := CONCAT(_prefix, 'Both Motors Fault'));
 	actualPosition : REAL := 5.5;								// Current Passthrough Opening
+	jawTestModeActive : BOOL;
+	currentTestCycles : DINT;
 END_VAR
 VAR
 	simClose : FB_SimulatedFeedbackPhysicalInput(name := CONCAT(_prefix,'Move In')) := (minDelay := 20, maxDelay := 60);
@@ -62,6 +67,7 @@ VAR
 	bothMotorsInPosition : BOOL;
 	jawHomeClearDistance : REAL := 0.5;
 	resetTimer: TON := (PT := T#2S);
+	jawTestDelayTimer : Standard.TON := (PT := T#250MS);
 END_VAR
 VAR_IN_OUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -92,6 +98,8 @@ homeTimeout(IN := jawState = eDualMotorPBarStates.HomeJaw, PT := homeTimeoutSett
 resetTimer(IN := jawState = eDualMotorPBarStates.Resetting);
 // Jaw move in delay	 
 moveInDelay(IN := _closeNow, PT := moveInDelaySetting);	  
+// Jaw test delay timer
+jawTestDelayTimer();
 {endregion}
 
 
@@ -121,7 +129,7 @@ failedToOpenTimer(IN := jawState = eDualMotorPBarStates.OpeningJaw AND NOT _isFu
 					Q => failedToOpen.faultTrigger);
 
 // Obstruction fault is normally closed, fail safe.  Fault if collapsable faceplate is broken anywhere outside of all the way in or all the way out
-pressureBarObstructed.faultTrigger := NOT obstructionSensor AND NOT (_isFullyClosed OR _isFullyOpen);
+pressureBarObstructed.faultTrigger := NOT obstructionSensor AND NOT (pressureBarNearClosedSensor OR _isFullyOpen);
 
 // Trigger motor faults from drive					
 IF frontMotor.Error THEN
@@ -155,18 +163,22 @@ ELSE
 END_IF
 	 
 IF homeTimeout.Q 
-	OR MC_HomeBothMotors.Error 
 	OR UN00_Globals.simFaults.pressureBarfailedToHome
 THEN
 	failedToHome.Trigger();
 END_IF
 {endregion}
 
+IF stopJawTestMode THEN
+	jawTestModeActive := FALSE;
+END_IF
+
 IF _reset THEN
 	jawState := eDualMotorPBarStates.Reset;
 	_reset := FALSE;
 END_IF
 
+_IsHomed := bothMotorsHomed AND _isFullyOpen;
 
 bothMotorsHomed := bothMotors.HomingDone;
 bothMotorsInPosition := frontMotor.TargetReached AND rearMotor.TargetReached;
@@ -175,6 +187,7 @@ CASE jawState OF
 	
 	eDualMotorPBarStates.Idle:
 	 		// Idle State.
+			jawTestDelayTimer.IN := FALSE;
 			MC_ResetBothMotors.Execute := FALSE;
 			IF bothMotorsHomed
 				AND NOT failedToClose.Active
@@ -190,12 +203,16 @@ CASE jawState OF
 			END_IF
 			
 			IF _homeNow THEN
-				_IsHomed := FALSE;
 				_homeNow := FALSE;
 				homeJawState := eDualMotorPbarHomingStates.Idle;
 				jawState := eDualMotorPBarStates.HomeJaw;
 			END_IF
 			
+			IF beginJawTestMode THEN
+				jawTestModeActive := TRUE;
+				currentTestCycles := 0;
+				jawState := eDualMotorPBarStates.CloseJaw;
+			END_IF
 			
 			IF _movePassthroughNow THEN
 				_movePassthroughNow := FALSE;
@@ -270,7 +287,7 @@ CASE jawState OF
 					// If moved out to passthrough then we are done
 					IF MC_MoveBothMotorsABS.Done THEN
 						MC_MoveBothMotorsABS.Execute := FALSE;
-						_IsHomed := TRUE;
+						//_IsHomed := TRUE;
 						homeJawState := eDualMotorPbarHomingStates.Idle;
 						jawState := eDualMotorPBarStates.Idle;
 					ELSIF MC_MoveBothMotorsABS.Error THEN
@@ -293,7 +310,16 @@ CASE jawState OF
 		// wait for jaw to report open
 		IF MC_MoveBothMotorsABS.Done THEN
 			MC_MoveBothMotorsABS.Execute := FALSE;
-			jawState := eDualMotorPBarStates.Idle;
+			IF jawTestModeActive THEN
+				jawTestDelayTimer.IN := TRUE;
+				IF jawTestDelayTimer.Q THEN
+					jawTestDelayTimer.IN := FALSE;
+					jawState := eDualMotorPBarStates.CloseJaw;
+					currentTestCycles := currentTestCycles + 1;
+				END_IF
+			ELSE
+				jawState := eDualMotorPBarStates.Idle;
+			END_IF
 		ELSIF MC_MoveBothMotorsABS.Error THEN
 			MC_MoveBothMotorsINC.Execute := FALSE;
 			failedToOpen.Trigger();
@@ -316,7 +342,16 @@ CASE jawState OF
 		// Wait for jaw closed indication
 		IF MC_MoveBothMotorsABSTorque.Done THEN
 			MC_MoveBothMotorsABSTorque.Execute := FALSE;
-			jawState := eDualMotorPBarStates.Idle;
+			IF jawTestModeActive THEN
+				jawTestDelayTimer.IN := TRUE;
+				IF jawTestDelayTimer.Q THEN
+					jawTestDelayTimer.IN := FALSE;
+					jawState := eDualMotorPBarStates.OpenJaw;
+				END_IF
+			ELSE
+				jawState := eDualMotorPBarStates.Idle;
+			END_IF
+			
 		ELSIF MC_MoveBothMotorsABSTorque.Error THEN
 			MC_MoveBothMotorsABSTorque.Execute := FALSE;
 			failedToClose.Trigger();
@@ -327,14 +362,21 @@ CASE jawState OF
 		
 	eDualMotorPBarStates.Faulting:
 		// Free up motors on a fault
+		MC_HomeBothMotors.Execute := FALSE;
+		//resetPassthoughMotor.Execute := FALSE;
+		MC_MoveBothMotorsABS.Execute := FALSE;
+		MC_MoveBothMotorsINC.Execute := FALSE;
+		MC_HaltBothMotors.Execute := FALSE;
+		MC_MoveBothMotorsABSTorque.Execute := FALSE;
 		MC_HaltBothMotors.Execute := TRUE;
-		IF MC_HaltBothMotors.Done OR  MC_HaltBothMotors.Error THEN
-			jawState := eDualMotorPBarStates.Faulted;
-		END_IF
+		jawState := eDualMotorPBarStates.Faulted;
 		
 	eDualMotorPBarStates.Faulted:
 		//
-		
+		IF MC_HaltBothMotors.Done OR  MC_HaltBothMotors.Error THEN
+			MC_HaltBothMotors.Execute := FALSE;
+			
+		END_IF
 		
 	eDualMotorPBarStates.Reset:
 		//  Send reset to motors if they're faulted

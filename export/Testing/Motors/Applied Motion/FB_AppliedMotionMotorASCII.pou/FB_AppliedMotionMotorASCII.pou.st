@@ -34,7 +34,7 @@ VAR
 	
   	//writeRIODataMBCommand : IoDrvModbus.ModbusCommand;
    	readRateTimer : Standard.TON := (PT:= T#50MS);
-	waitForHaltTimer : Standard.TON := (PT := T#250MS);
+	waitForHaltTimer : Standard.TON := (PT := T#20MS);
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
 	haltONS : FB_ONS;
@@ -45,7 +45,7 @@ VAR
 	status : FB_AppliedMotionStatus;
 	alarms : FB_AppliedMotionAlarms;
 	state : eAppliedMotionDriveStatesASCII;
-	
+	alarmONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	asciiHandler : FB_CrevisSerial;
@@ -73,7 +73,7 @@ IF haltONS.OSR THEN
 	state := eAppliedMotionDriveStatesASCII.Halt;
 END_IF
 
-readRateTimer(IN := (state = eAppliedMotionDriveStatesASCII.Moving OR state = eAppliedMotionDriveStatesASCII.Halting) AND NOT readRateTimer.Q);
+readRateTimer(IN := (state = eAppliedMotionDriveStatesASCII.Moving) AND NOT readRateTimer.Q);
 waitForHaltTimer(IN := state = eAppliedMotionDriveStatesASCII.Halting);
 
 
@@ -115,8 +115,9 @@ ELSE
 END_IF
 
 
-
-IF alarmActive THEN
+alarmONS(CLK := alarmActive);
+IF alarmONS.OSR THEN
+	Error := TRUE;
 	state := eAppliedMotionDriveStatesASCII.Faulting;
 END_IF
 
@@ -220,8 +221,10 @@ CASE state OF
 				
 		eAppliedMotionDriveStatesASCII.Moving:
 				// After sending data, we are moving
+				ActVelocity := ProfileVelocity;
 				IF inPosition AND asciiHandler.xDone THEN
 					TargetReached := TRUE;
+					asciiHandler.xExecute := FALSE;
 					state := eAppliedMotionDriveStatesASCII.DoneMoving;
 				END_IF
 		
@@ -238,7 +241,7 @@ CASE state OF
 				IF NOT asciiHandler.xExecute THEN
 					asciiHandler.sendData := ('2ST$R');
 					asciiHandler.xExecute := TRUE;
-					state := eAppliedMotionDriveStatesASCII.HaltSending;
+					state := eAppliedMotionDriveStatesASCII.Halting;
 				END_IF
 				
 				
@@ -253,7 +256,9 @@ CASE state OF
 		eAppliedMotionDriveStatesASCII.Halting:
 				//		
 				
-				IF NOT moving AND waitForHaltTimer.Q THEN
+				IF waitForHaltTimer.Q THEN
+					asciiHandler.xExecute := FALSE;
+					ActVelocity := 0;
 					state := eAppliedMotionDriveStatesASCII.Idle;
 				END_IF
 		
@@ -275,11 +280,25 @@ CASE state OF
 				// Faulted - wait for clear
 				IF AckError THEN
 					IF alarmActive THEN
-						reset := TRUE;
-					END_IF
-					IF NOT alarmActive THEN
+						asciiHandler.sendData := ('2AX$R');
+						asciiHandler.xExecute := TRUE;
+						IF asciiHandler.xDone THEN
+							asciiHandler.xExecute := FALSE;
+							state := eAppliedMotionDriveStatesASCII.EnableMotor;
+						END_IF
+					ELSE
 						state := eAppliedMotionDriveStatesASCII.Idle;
 					END_IF
 					
+				END_IF
+				
+		eAppliedMotionDriveStatesASCII.EnableMotor:
+				//
+				asciiHandler.sendData := ('2ME$R');
+				asciiHandler.xExecute := TRUE;
+				IF asciiHandler.xDone THEN
+					asciiHandler.xExecute := FALSE;
+					Error := FALSE;
+					state := eAppliedMotionDriveStatesASCII.Idle;
 				END_IF
 END_CASE

@@ -227,6 +227,8 @@ dualMotorPassthrough(
 	obstructionSensor:= iJawNotObstructed, 
 	openJawPB:= HMIData.jawService.extendCommand, 
 	closeJawPB:= HMIData.jawService.retractCommand, 
+	beginJawTestMode := HMIData.startJawCycleTest,
+	stopJawTestMode := HMIData.stopJawCycleTest,
 	failedToClose=> , 
 	failedToOpen=> , 
 	failedToHome=> , 
@@ -235,7 +237,9 @@ dualMotorPassthrough(
 	frontMotorCommFault=> , 
 	rearMotorFault=> , 
 	rearMotorCommFault=> , 
-	actualPosition=> HMIData.passthroughActual);
+	actualPosition=> HMIData.passthroughActual,
+	currentTestCycles => HMIData.jawCycleTestCycles,
+	jawTestModeActive => HMIData.jawCycleTestActive);
 
 
 	
@@ -245,11 +249,12 @@ labelPrinter(
 	printLength:= HMIData.printLength, 
 	printHeadDebounceSetting:= , 
 	dataReadyInput:= iPrinterDataReady, 
-	serviceRequiredInput:= , 
+	serviceRequiredInput:= iPrinterServiceRequired, 
 	ribbonLowInput:= , 
 	endOfPrintInput:= iPrinterBusy,
 	printHeadDownInput := iPrintHeadLowered, 
 	ribbonEncoderPulseInput:= iPrinterRibbonEncoder, 
+	cancelPrint := HMIData.printerCancelRequest,
 	serviceRaisePrintHead:= HMIData.printHeadService.retractCommand, 
 	serviceLowerPrintHead:= HMIData.printHeadService.extendCommand, 
 	serviceRequired=> , 

@@ -8,7 +8,7 @@ VAR_INPUT
 	openVelo : REAL := 10;											// IBD Motor Velocity
 	openAccel : REAL := 100.0;										// IBD Motor Acceleration
 	openDecel : REAL := 100.0;										// IBD Motor Deceleration
-	homeTimeoutSetting : TIME := T#20S;								// Timeout for homing attempt
+	homeTimeoutSetting : TIME := T#10S;								// Timeout for homing attempt
 	passthroughSetting : REAL := 5.5;
 	jawClosedSetting : REAL := 0;
 	openIBDPB : BOOL;
@@ -63,7 +63,7 @@ _isFullyOpen := TO_DINT(IBDMotor.ActualPosition * 1000) = TO_DINT(passthroughSet
 _isHomed := IBDMotor.HomingDone;
 {region "Timers"}
 // If homing not complete within reasonable time, error out
-homeTimeout(PT := homeTimeoutSetting);
+homeTimeout(PT := homeTimeoutSetting, IN := state = eMotorizedIBDStates.Homing);
 // If reset of motors fails state machine must move on
 resetTimer(IN := state = eMotorizedIBDStates.Resetting);
 {endregion}
@@ -136,7 +136,6 @@ CASE state OF
 	
 	eMotorizedIBDStates.Home:	
 		// Normal Homing - not factory homing.
-		homeTimeout.IN := TRUE;
 		// Move the IBD to zero
 		MC_HomeIBDMotor.Execute := TRUE;
 		state := eMotorizedIBDStates.Homing;
@@ -220,7 +219,6 @@ CASE state OF
 		MC_MoveIBDMotorINC.Execute := FALSE;
 		MC_HaltIBDMotor.Execute := FALSE;
 		MC_MoveIBDMotorABSTorque.Execute := FALSE;
-		homeTimeout.IN := FALSE;
 		_homeNow := FALSE;
 		_moveOut := FALSE;
 		_moveInToDeflate := FALSE;

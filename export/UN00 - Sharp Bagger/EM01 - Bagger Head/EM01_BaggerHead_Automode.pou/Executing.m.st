@@ -223,15 +223,16 @@ CASE releaseAndFeedSubState OF
                                                         
     RELEASE_FEED_STATES.FeedingToOffset :            // Once offset done start printing
                                                     IF bagger.bagDelivery.ReadyForPrint THEN
+														bagger.printer.BeginPrinting();
+														bagger.bagDelivery.FeedAtPrintSpeed();
+														IF bagger.barcodeVerifier.OptionActive THEN
+															bagger.barcodeVerifier.Trigger();
+														END_IF
 														SetReleaseFeedState(RELEASE_FEED_STATES.StartPrinting);
                                                     END_IF                                            
     
     RELEASE_FEED_STATES.StartPrinting :             // Printer starts print cycle and bag delivery starts moving at print speed
-													bagger.printer.BeginPrinting();
-													bagger.bagDelivery.FeedAtPrintSpeed();
-													IF bagger.barcodeVerifier.OptionActive THEN
-														bagger.barcodeVerifier.Trigger();
-													END_IF
+													
 													SetReleaseFeedState(RELEASE_FEED_STATES.Printing);
 
     //RELEASE_FEED_STATES.SendPrintSignal:            //                                     
@@ -239,10 +240,11 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.Printing :                  // Wait for print to finish
                                                     IF bagger.printer.PrintDone THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.StopPrinting);
+														bagger.bagDelivery.FeedBagOut();
                                                     END_IF
                                                     
     RELEASE_FEED_STATES.StopPrinting :              // Tell bag delivery it's okay to feed out the rest of the bag and the printer that it can prep itself for the next print
-                                                    bagger.bagDelivery.FeedBagOut();
+                                                   
 													SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
                                                                                 
                                                                                                             

@@ -20,21 +20,30 @@ CASE resettingState OF
 		vacuumDwellTimer.IN := FALSE;
 		
 		bagger.bagDelivery.Reset();
+		bagger.IBD.Reset();
+		bagger.pressureBar.Reset();
+		bagger.printer.Reset();
+		
+		resettingState := 1;
+		
+	1:	// Home everything
 		HomeIfNeeded(bagger.pressureBar);
 		HomeIfNeeded(bagger.sealFlatteners);
 		HomeIfNeeded(bagger.loadPlate);
 		HomeIfNeeded(bagger.IBD);
-		resettingState := 1;
+		resettingState := 2;
 		
+	2:	// Move everything into place to start machine
 		
-		
-	1:	// Move everything into place to start machine
-		IF CheckIfHomed(bagger.pressureBar) THEN
+		IF CheckIfHomed(bagger.pressureBar) AND
+			CheckIfHomed(bagger.loadPlate) AND
+			CheckIfHomed(bagger.IBD)
+		THEN
 			//PostHomeMoveIfNeeded(bagger.pressureBar);
-			resettingState := 2;
+			resettingState := 3;
 		END_IF
 	
-	2:	// Once everything is moved into position and ready move on
+	3:	// Once everything is moved into position and ready move on
 		IF (bagger.pressureBar.Ready OR NOT bagger.pressureBar.OptionActive) 
 			AND (bagger.IBD.Ready OR NOT bagger.IBD.OptionActive)
 			AND (bagger.printer.Ready OR NOT bagger.printer.OptionActive)
@@ -43,6 +52,7 @@ CASE resettingState OF
 			_resettingDone := TRUE;
 			resettingState := 0;
 		END_IF
+	
 	
 END_CASE
 
