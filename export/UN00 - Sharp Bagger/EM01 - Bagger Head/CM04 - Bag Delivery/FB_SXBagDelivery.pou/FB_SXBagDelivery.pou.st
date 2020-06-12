@@ -283,8 +283,9 @@ CASE state OF
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding At Print Speed'));
 			remainingLength := remainingLength - printLength;
+			_feedBagOut := FALSE;
 			state := 101;
-			nextState := 0;
+			nextState := 10;
 	
 	100:	// Cleanup
 			MC_MoveBagDelivery.Execute := FALSE;

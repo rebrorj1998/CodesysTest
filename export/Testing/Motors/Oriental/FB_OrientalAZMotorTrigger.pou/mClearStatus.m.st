@@ -1,7 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD AddLogItem
+METHOD PRIVATE mClearStatus : BOOL
 VAR_INPUT
-	//category : STRING;
-	message : STRING;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+TargetReached := FALSE;
+freeMotor := FALSE;
+reset := FALSE;
+Error := FALSE;

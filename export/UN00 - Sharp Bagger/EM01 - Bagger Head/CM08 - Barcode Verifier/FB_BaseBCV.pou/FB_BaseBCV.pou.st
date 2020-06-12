@@ -40,14 +40,15 @@ ELSE
 	positionOffsetDelay(PT := T#0S);
 END_IF
 
-IF distanceToScan > 0 THEN
-	waitForReadTimer(PT := TO_TIME(MILLISECONDS_IN_SECOND / (TO_REAL(feedSpeed) / distanceToScan)));
-ELSE
-	waitForReadTimer(PT := T#0S);
-END_IF
+// IF distanceToScan > 0 THEN
+// 	waitForReadTimer(PT := TO_TIME(MILLISECONDS_IN_SECOND / (TO_REAL(feedSpeed) / distanceToScan)));
+// ELSE
+// 	waitForReadTimer(PT := T#0S);
+// END_IF
 
 IF _reset OR NOT THIS^.OptionActive THEN
 	//
+	_reset := FALSE;
 	state := eBaseBCVStates.Idle;
 	barcodeFault := FALSE;
 END_IF
@@ -77,11 +78,12 @@ CASE state OF
 									
 	eBaseBCVStates.TriggerReader:		// Trigger the reader and then move to waiting state for result
 									triggerScannerOutput := TRUE;
-									waitForReadTimer.IN := TRUE;
+									
 									state := eBaseBCVStates.WaitingForResult;
 									
 	
 	eBaseBCVStates.WaitingForResult:	// Wait for delayToCheckReadStatus timer.  If it times out we did not get a good read
+									waitForReadTimer.IN := TRUE;
 									IF readGoodInput THEN
 										_goodRead := TRUE;
 										_badread := FALSE;

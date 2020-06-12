@@ -9,9 +9,5 @@ VAR
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // For each active fault in the array, ack it.
 FOR J:= 0 TO _TotalObj - 1 DO
-	IF (__QUERYINTERFACE(Collection[J], Cast)) THEN
-		Cast.Ack();
-	ELSE 
-		RETURN;
-	END_IF
+		Collection[J].Ack();
 END_FOR

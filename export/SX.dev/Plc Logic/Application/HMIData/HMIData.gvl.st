@@ -35,15 +35,16 @@ VAR_GLOBAL
 	activeFaults : ARRAY[0..GlobalObjects.MAX_FAULTS] OF STRING;
 	passthroughActual : REAL;
 	currentPackMLState : STRING;
+	BPMBagsMade : DINT;
+	BPMActiveTime : REAL;
+	BPMBagsPerMinute : REAL;
+	BPMReset : BOOL;
+	cycleTime : REAL;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN
 	printerAndVerifierEnablePB : BOOL;
 	printerAndVerifierEnableIndication : BOOL;
-	BPMBagsMade : DINT;
-	BPMActiveTime : REAL;
-	BPMBagsPerMinute : REAL;
-	BPMReset : BOOL;
 	version : STRING := '0.2A';
 	bagsMade : DINT;
 	batchEnable : BOOL;

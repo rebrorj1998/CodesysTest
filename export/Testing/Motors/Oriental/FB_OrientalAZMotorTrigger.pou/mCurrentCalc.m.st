@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD AddLogItem
+METHOD PRIVATE mCurrentCalc : DINT
 VAR_INPUT
-	//category : STRING;
-	message : STRING;
+	current : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+mCurrentCalc := TO_DINT(current * 10.0);

@@ -72,13 +72,13 @@ dwellTimer(PT := TO_TIME(dwellSetting * 1000.0));
 {endregion}
 
 // Trigger motor faults from drive					
-IF loadPlateMotor.Error THEN
+IF loadPlateMotor.Error AND THIS^.OptionActive THEN
 	motorFault.faultTrigger := TRUE;
 ELSE 
 	motorFault.faultTrigger := FALSE;
 END_IF
 
-IF NOT loadPlateMotor.CommStatus THEN
+IF NOT loadPlateMotor.CommStatus AND THIS^.OptionActive THEN
 	motorCommFault.faultTrigger := TRUE;
 ELSE
 	motorCommFault.faultTrigger := FALSE;

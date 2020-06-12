@@ -74,9 +74,9 @@ failedToOpenTimer(IN := state = eMotorizedIBDStates.MovingOut AND NOT _isFullyOp
 					
 // Trigger motor faults from drive					
 IF IBDMotor.Error THEN
-	IBDMotorFault.faultTrigger := TRUE;
+	//IBDMotorFault.faultTrigger := TRUE;
 ELSE 
-	IBDMotorFault.faultTrigger := FALSE;
+	//IBDMotorFault.faultTrigger := FALSE;
 END_IF
 
 IF NOT IBDMotor.CommStatus THEN

@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseObject IMPLEMENTS IComponent, IMachineOption, IExecuteAutomatically
+FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseObject IMPLEMENTS IComponent, IMachineOption
 VAR_INPUT
 END_VAR
 VAR_OUTPUT

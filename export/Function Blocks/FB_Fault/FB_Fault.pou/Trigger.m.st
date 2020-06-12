@@ -6,4 +6,4 @@ IF _active = TRUE THEN
 END_IF
 _active := TRUE;
 GlobalObjects.CollectionOfActiveFaults.AddObject(THIS^);
-_logger.AddLogItem(CONCAT(InstanceName,  ' Active'));
+//_logger.AddLogItem(CONCAT(InstanceName,  ' Active'));

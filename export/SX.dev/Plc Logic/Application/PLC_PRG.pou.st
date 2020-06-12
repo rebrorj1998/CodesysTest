@@ -3,6 +3,7 @@ PROGRAM PLC_PRG
 VAR
 	
 	firstScanDone: BOOL;
+	cycleStartONS : FB_ONS;
 	powerUpFrontJawMotor : Sharp_Motion.MC_Power;
 	powerUpRearJawMotor : Sharp_Motion.MC_Power;
 	powerUpBothJawMotors : Sharp_Motion.MC_Power;
@@ -12,10 +13,11 @@ VAR
 	UN00_SXMachine : FB_UN00_SharpMachine(name := 'UN00 - Sharp SX');
 	EM01_SXBaggerHead : EM01_BaggerHead(name := 'EM01 - SX Bagger Head');
 	EM02_SXDischarge : EM02_Discharge(name := 'EM02 - SX Discharge');
-	baggerCM : EM01_Bagger_Control_Modules;
+	baggerCM : EM01_Bagger_Control_Modules_1;
 	bannerManager : FB_BannerManager;
+	palmButton : FB_BannerPalmButton;
 	topCoverLiftedFault : FB_Fault(name := 'Top Cover Lifeted During Cycle');
-	
+	amazonBPM : FB_AmazonThroughput();
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
@@ -30,7 +32,8 @@ END_IF
 
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
 
-IF HMIData.initiateCycle THEN
+cycleStartONS(clk := iCycleStart);
+IF HMIData.initiateCycle OR cycleStartONS.OSR THEN
 	IF UN00_SXMachine.currentState = PACK_ML.State.Execute THEN
 		EM01_SXBaggerHead.StartCycle();
 	END_IF
@@ -77,7 +80,7 @@ EM01_SXBaggerHead(
 	sealer:= baggerCM.sealWire, 
 	pressureBar:= baggerCM.dualMotorPassthrough, 
 	printer:= baggerCM.labelPrinter, 
-	bagDelivery:= baggerCM.bagDelivery, 
+	bagDelivery:= POU.fastBagDelivery, 
 	vacuumBagOpen:= baggerCM.dummyVacuumCups, 
 	IBD:= baggerCM.IBD, 
 	loadPlate:= baggerCM.loadPlate, 
@@ -103,7 +106,9 @@ IF HMIData.inCycle AND NOT iTopCoverClosed THEN
 	topCoverLiftedFault.Trigger();
 END_IF
 
-
+IF NOT HMIData.loadPlateInstalled THEN
+	Load_Plate_Motor.Enable := FALSE;
+END_IF
 
 bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
@@ -139,3 +144,21 @@ bannerManager(
 	printerServiceRequired := ,
 	messageDisplayIndication=> HMIData.bannerMessageIndication);
 
+HMIData.cycleTime := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTime;
+HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTimer.IN;
+
+palmButton(
+	baggerReady:= UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
+	baggerFaulted:= HMIData.faultActive, 
+	baggerInCycle:= HMIData.inCycle, 
+	palmState0Output=> oPalmButton0, 
+	palmState1Output=> oPalmButton1);
+	
+amazonBPM(
+	inCycle:= , 
+	runtimeTimeout:= , 
+	resetRuntime:= , 
+	BPM=> , 
+	BPMCycles=> , 
+	BPMSeconds=> , 
+	BPMIndication=> );

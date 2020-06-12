@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD AddLogItem
+METHOD PRIVATE mVeloAccDecCalc : DINT
 VAR_INPUT
-	//category : STRING;
-	message : STRING;
+	value : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+mVeloAccDecCalc := TO_DINT(value * TO_REAL(stepsPerInchSP));

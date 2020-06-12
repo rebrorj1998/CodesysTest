@@ -10,3 +10,4 @@ VAR
 	_RemovePower : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+SUPER^();

@@ -240,7 +240,7 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.Printing :                  // Wait for print to finish
                                                     IF bagger.printer.PrintDone THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.StopPrinting);
-														bagger.bagDelivery.FeedBagOut();
+														//bagger.bagDelivery.FeedBagOut();
                                                     END_IF
                                                     
     RELEASE_FEED_STATES.StopPrinting :              // Tell bag delivery it's okay to feed out the rest of the bag and the printer that it can prep itself for the next print
