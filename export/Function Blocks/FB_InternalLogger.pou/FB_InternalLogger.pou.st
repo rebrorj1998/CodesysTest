@@ -20,3 +20,4 @@ END_VAR
 //	Created by: Ben Hess
 //	Created Date: Tuesday, September 11, 2018
 
+// DISABLED LOGGING FOR CREVIS PLC - SCAN TIMES OUT OF CONTROL

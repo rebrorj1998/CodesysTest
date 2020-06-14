@@ -3,7 +3,9 @@ FUNCTION_BLOCK EM01_BaggerHead_Automode EXTENDS FB_PackMLStates
 VAR_INPUT
 	infeed : IEM00_Product_Infeed;
 	discharge : IEM02_Discharge;
-	
+	alarmActive : BOOL;
+	resetCMD : BOOL;
+
 END_VAR
 VAR_OUTPUT
 	state : HEAD_STATES;
@@ -16,7 +18,9 @@ VAR
 	cycleTimer : TON() := (PT := T#1000S);
 	cycleTime : REAL;
 	resetTriggered : BOOL;
+	resetFailed : BOOL;
 	resettingState : INT;
+	resettingTimer : Standard.TON := (PT := T#200MS);
 	vacuumDwellTimer : TON;
 END_VAR
 VAR_IN_OUT
@@ -28,3 +32,4 @@ END_VAR
 //				 Each method is a PackML state.
 //	Created by: Ben Hess
 //	Created Date: Tuesday, March 26, 2019
+resettingTimer();

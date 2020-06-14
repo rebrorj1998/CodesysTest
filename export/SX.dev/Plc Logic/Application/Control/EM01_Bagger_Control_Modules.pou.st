@@ -16,12 +16,15 @@ VAR_OUTPUT
 	dualMotorPassthrough : FB_DualMotorPBar(name := 'Dual Motor Jaw') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
 	dummySealFlatteners : FB_BaseSealFlatteners(name := 'Dummy Seal Flatteners') := (_optionEnabled := FALSE, _optionInstalled := FALSE); 
 	
-	jawFrontMotor : FB_OrientalAZMotor;
-	jawRearMotor : FB_OrientalAZMotor;
-	jawBothMotors : FB_OrientalAZMotor;
+	//jawFrontMotor : FB_OrientalAZMotor;
+	//jawRearMotor : FB_OrientalAZMotor;
+	//jawBothMotors : FB_OrientalAZMotor;
 	//jawFrontMotor : FB_SimMotor;
 	//jawRearMotor : FB_SimMotor;
 	//jawBothMotors : FB_SimMotor;
+	jawFrontMotor : FB_OrientalAZMotorTrigger := (DefaultCurrent := 100);
+	jawRearMotor : FB_OrientalAZMotorTrigger := (DefaultCurrent := 100);
+	jawBothMotors : FB_OrientalAZMotorTrigger := (DefaultCurrent := 100);
 	bagOpenFingersActuator : FB_PneumaticVerticalActuator(name := 'Bag Open Fingers Actuator');
 	sealFlattenerVertAxisActuator : FB_PneumaticVerticalActuator(name := 'Seal Flat Pneu Vert Axis Actuator');
 	
@@ -33,11 +36,12 @@ VAR_OUTPUT
 	printHeadActuator : FB_ElectricSolenoid(name := 'Print Head Actuator');
 	
 	
-	IBDMotor : FB_OrientalAZMotor() := (DefaultCurrent := 100);
+	//IBDMotor : FB_OrientalAZMotor() := (DefaultCurrent := 100);
 	//IBDMotor : FB_SimMotor();
+	IBDMotor : FB_OrientalAZMotorTrigger() := (DefaultCurrent := 100);
 	IBD : FB_MotorizedIBD(name := 'Motorized IBD');
 	
-	loadPlateMotor : FB_OrientalAZMotor() := (DefaultCurrent := 100);
+	loadPlateMotor : FB_OrientalAZMotorTrigger() := (DefaultCurrent := 100);
 	//loadPlateMotor : FB_SimMotor;
 	loadPlate : FB_MotorizedLoadPlate(name := 'Motorized Load Plate');
 	
@@ -67,6 +71,52 @@ simExitConveyor(_optionActive=> );
 
 
 //jawFrontMotor();
+
+// jawFrontMotor(
+// 	AxisState:= , 
+// 	SetOpMode:= , 
+// 	PowerOn:= , 
+// 	DriveEnable:= , 
+// 	AckError:= , 
+// 	StartHoming:= , 
+// 	Halt:= , 
+// 	NewSetPoint:= , 
+// 	MoveAbs:= , 
+// 	MoveAbsTorque:= , 
+// 	MoveRel:= , 
+// 	MoveVelo:= , 
+// 	TargetPosDist:= , 
+// 	TargetVelocity:= , 
+// 	ProfileVelocity:= , 
+// 	ProfileAcceleration:= , 
+// 	ProfileDeceleration:= , 
+// 	ProfileCurrentLimit:= , 
+// 	QuickStopDeceleration:= , 
+// 	DefaultCurrent:= , 
+// 	ActOpMode=> , 
+// 	CommStatus=> , 
+// 	PowerState=> , 
+// 	EnableState=> , 
+// 	Error=> , 
+// 	ActPos=> , 
+// 	ActVelocity=> , 
+// 	SetPointAck=> , 
+// 	TargetReached=> , 
+// 	InVelocity=> , 
+// 	HomingDone=> , 
+// 	modbusAddress:= , 
+// 	isGroup:= , 
+// 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
+// 	zeroOffset:= HMIData.jawZeroOffset, 
+// 	jogForwardCMD:= , 
+// 	jogReverseCMD:= , 
+// 	groupMotor0:= , 
+// 	groupMotor1:= , 
+// 	MBChannel:= Front_Jaw_Motor, 
+// 	modbusDataFromDrive:= frontJawMotorInputs, 
+// 	modbusDirectDataToDrive:= frontJawMotorDDOutputs, 
+// 	modbusRIODataToDrive:= frontJawMotorRIOOutputs);
+
 jawFrontMotor(
 	AxisState:= , 
 	SetOpMode:= , 
@@ -99,7 +149,6 @@ jawFrontMotor(
 	TargetReached=> , 
 	InVelocity=> , 
 	HomingDone=> , 
-	modbusAddress:= , 
 	isGroup:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
 	zeroOffset:= HMIData.jawZeroOffset, 
@@ -110,9 +159,58 @@ jawFrontMotor(
 	MBChannel:= Front_Jaw_Motor, 
 	modbusDataFromDrive:= frontJawMotorInputs, 
 	modbusDirectDataToDrive:= frontJawMotorDDOutputs, 
-	modbusRIODataToDrive:= frontJawMotorRIOOutputs);
+	modbusRIODataToDrive:= frontJawMotorRIOOutputs,
+	triggerDDWriteNow => frontJawMotorDDTrigger,
+	triggerRIOWriteNow => frontJawMotorRIOTrigger);
+
+//jawRearMotor();
 	
-//jawRearMotor();	
+
+// jawRearMotor(
+// 	AxisState:= , 
+// 	SetOpMode:= , 
+// 	PowerOn:= , 
+// 	DriveEnable:= , 
+// 	AckError:= , 
+// 	StartHoming:= , 
+// 	Halt:= , 
+// 	NewSetPoint:= , 
+// 	MoveAbs:= , 
+// 	MoveAbsTorque:= , 
+// 	MoveRel:= , 
+// 	MoveVelo:= , 
+// 	TargetPosDist:= , 
+// 	TargetVelocity:= , 
+// 	ProfileVelocity:= , 
+// 	ProfileAcceleration:= , 
+// 	ProfileDeceleration:= , 
+// 	ProfileCurrentLimit:= , 
+// 	QuickStopDeceleration:= , 
+// 	DefaultCurrent:= , 
+// 	ActOpMode=> , 
+// 	CommStatus=> , 
+// 	PowerState=> , 
+// 	EnableState=> , 
+// 	Error=> , 
+// 	ActPos=> , 
+// 	ActVelocity=> , 
+// 	SetPointAck=> , 
+// 	TargetReached=> , 
+// 	InVelocity=> , 
+// 	HomingDone=> , 
+// 	modbusAddress:= , 
+// 	isGroup:= , 
+// 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
+// 	zeroOffset:= HMIData.jawZeroOffset, 
+// 	jogForwardCMD:= , 
+// 	jogReverseCMD:= , 
+// 	groupMotor0:= , 
+// 	groupMotor1:= , 
+// 	MBChannel:= Rear_Jaw_Motor, 
+// 	modbusDataFromDrive:= rearJawMotorInputs, 
+// 	modbusDirectDataToDrive:= rearJawMotorDDOutputs, 
+// 	modbusRIODataToDrive:= rearJawMotorRIOOutputs);
+
 jawRearMotor(
 	AxisState:= , 
 	SetOpMode:= , 
@@ -145,7 +243,6 @@ jawRearMotor(
 	TargetReached=> , 
 	InVelocity=> , 
 	HomingDone=> , 
-	modbusAddress:= , 
 	isGroup:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
 	zeroOffset:= HMIData.jawZeroOffset, 
@@ -156,9 +253,58 @@ jawRearMotor(
 	MBChannel:= Rear_Jaw_Motor, 
 	modbusDataFromDrive:= rearJawMotorInputs, 
 	modbusDirectDataToDrive:= rearJawMotorDDOutputs, 
-	modbusRIODataToDrive:= rearJawMotorRIOOutputs);
+	modbusRIODataToDrive:= rearJawMotorRIOOutputs,
+	triggerDDWriteNow => rearJawMotorDDTrigger,
+	triggerRIOWriteNow => rearJowMotorRIOTrigger);
 
 //jawBothMotors();
+
+// jawBothMotors(
+// 	AxisState:= , 
+// 	SetOpMode:= , 
+// 	PowerOn:= , 
+// 	DriveEnable:= , 
+// 	AckError:= , 
+// 	StartHoming:= , 
+// 	Halt:= , 
+// 	NewSetPoint:= , 
+// 	MoveAbs:= , 
+// 	MoveAbsTorque:= , 
+// 	MoveRel:= , 
+// 	MoveVelo:= , 
+// 	TargetPosDist:= , 
+// 	TargetVelocity:= , 
+// 	ProfileVelocity:= , 
+// 	ProfileAcceleration:= , 
+// 	ProfileDeceleration:= , 
+// 	ProfileCurrentLimit:= , 
+// 	QuickStopDeceleration:= , 
+// 	DefaultCurrent:= 100, 
+// 	ActOpMode=> , 
+// 	CommStatus=> , 
+// 	PowerState=> , 
+// 	EnableState=> , 
+// 	Error=> , 
+// 	ActPos=> , 
+// 	ActVelocity=> , 
+// 	SetPointAck=> , 
+// 	TargetReached=> , 
+// 	InVelocity=> , 
+// 	HomingDone=> , 
+// 	modbusAddress:= 1, 
+// 	isGroup:= TRUE, 
+// 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
+// 	zeroOffset:= HMIData.jawZeroOffset, 
+// 	jogForwardCMD:= HMIData.jawJogOpen, 
+// 	jogReverseCMD:= HMIData.jawjobClosed, 
+// 	groupMotor0:= jawFrontMotor, 
+// 	groupMotor1:= jawRearMotor, 
+// 	MBChannel:= Both_Jaw_Motors, 
+// 	modbusDataFromDrive:= bothJawMotorInputs, 
+// 	modbusDirectDataToDrive:= bothJawMotorDDOutputs, 
+// 	modbusRIODataToDrive:= bothJawMotorRIOOutputs,
+// 	triggerDDWriteNow => ,
+// 	triggerRIOWriteNow => );
 
 jawBothMotors(
 	AxisState:= , 
@@ -192,7 +338,6 @@ jawBothMotors(
 	TargetReached=> , 
 	InVelocity=> , 
 	HomingDone=> , 
-	modbusAddress:= 1, 
 	isGroup:= TRUE, 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
 	zeroOffset:= HMIData.jawZeroOffset, 
@@ -204,8 +349,8 @@ jawBothMotors(
 	modbusDataFromDrive:= bothJawMotorInputs, 
 	modbusDirectDataToDrive:= bothJawMotorDDOutputs, 
 	modbusRIODataToDrive:= bothJawMotorRIOOutputs,
-	triggerDDWriteNow => ,
-	triggerRIOWriteNow => );
+	triggerDDWriteNow => bothJawMotorDDTrigger,
+	triggerRIOWriteNow => bothJawMotorRIOTrigger);
 
 dualMotorPassthrough(
 	simulateIO:= , 
@@ -347,6 +492,51 @@ dummySealFlatteners();
 	
 //IBDMotor();
 
+// IBDMotor(
+// 	AxisState:= , 
+// 	SetOpMode:= , 
+// 	PowerOn:= , 
+// 	DriveEnable:= , 
+// 	AckError:= , 
+// 	StartHoming:= , 
+// 	Halt:= , 
+// 	NewSetPoint:= , 
+// 	MoveAbs:= , 
+// 	MoveAbsTorque:= , 
+// 	MoveRel:= , 
+// 	MoveVelo:= , 
+// 	TargetPosDist:= , 
+// 	TargetVelocity:= , 
+// 	ProfileVelocity:= , 
+// 	ProfileAcceleration:= , 
+// 	ProfileDeceleration:= , 
+// 	ProfileCurrentLimit:= , 
+// 	QuickStopDeceleration:= , 
+// 	DefaultCurrent:= , 
+// 	ActOpMode=> , 
+// 	CommStatus=> , 
+// 	PowerState=> , 
+// 	EnableState=> , 
+// 	Error=> , 
+// 	ActPos=> , 
+// 	ActVelocity=> , 
+// 	SetPointAck=> , 
+// 	TargetReached=> , 
+// 	InVelocity=> , 
+// 	HomingDone=> , 
+// 	modbusAddress:= , 
+// 	isGroup:= , 
+// 	stepsPerInchSP:= Globals.STEPS_PER_INCH_IBD, 
+// 	zeroOffset:= HMIData.IBDZeroOffset, 
+// 	jogForwardCMD:= HMIData.IBDJogClosed, 
+// 	jogReverseCMD:= HMIData.IBDJogOpen, 
+// 	groupMotor0:= , 
+// 	groupMotor1:= , 
+// 	MBChannel:= IBD_Motor, 
+// 	modbusDataFromDrive:= IBDMotorInputs, 
+// 	modbusDirectDataToDrive:= IBDMotorDDOutputs, 
+// 	modbusRIODataToDrive:= IBDMotorRIOOutputs);
+
 IBDMotor(
 	AxisState:= , 
 	SetOpMode:= , 
@@ -367,7 +557,7 @@ IBDMotor(
 	ProfileDeceleration:= , 
 	ProfileCurrentLimit:= , 
 	QuickStopDeceleration:= , 
-	DefaultCurrent:= , 
+	DefaultCurrent:= 100, 
 	ActOpMode=> , 
 	CommStatus=> , 
 	PowerState=> , 
@@ -379,7 +569,6 @@ IBDMotor(
 	TargetReached=> , 
 	InVelocity=> , 
 	HomingDone=> , 
-	modbusAddress:= , 
 	isGroup:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_IBD, 
 	zeroOffset:= HMIData.IBDZeroOffset, 
@@ -390,8 +579,9 @@ IBDMotor(
 	MBChannel:= IBD_Motor, 
 	modbusDataFromDrive:= IBDMotorInputs, 
 	modbusDirectDataToDrive:= IBDMotorDDOutputs, 
-	modbusRIODataToDrive:= IBDMotorRIOOutputs);
-	
+	modbusRIODataToDrive:= IBDMotorRIOOutputs,
+	triggerDDWriteNow => IBDMotorDDTRigger,
+	triggerRIOWriteNow => IBDMotorRIOTRigger);
 IBD(
 	closeVelo:= HMIData.IBDCloseMotionProfile.velo, 
 	closeAccel:= HMIData.IBDCloseMotionProfile.accel, 
@@ -412,6 +602,7 @@ IBD(
 	actualPosition=> , 
 	IBDMotor:= IBDMotor);
 //loadPlateMotor();
+
 loadPlateMotor(
 	AxisState:= , 
 	SetOpMode:= , 
@@ -444,7 +635,6 @@ loadPlateMotor(
 	TargetReached=> , 
 	InVelocity=> , 
 	HomingDone=> , 
-	modbusAddress:= , 
 	isGroup:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_LOAD_PLATE, 
 	zeroOffset:= , 
@@ -455,7 +645,9 @@ loadPlateMotor(
 	MBChannel:= Load_Plate_Motor, 
 	modbusDataFromDrive:= loadPlateMotorInputs, 
 	modbusDirectDataToDrive:= loadPlateMotorDDOutputs, 
-	modbusRIODataToDrive:= loadPlateMotorRIOOutputs);
+	modbusRIODataToDrive:= loadPlateMotorRIOOutputs,
+	triggerDDWriteNow => loadPlateMotorDDTrigger,
+	triggerRIOWriteNow => loadPlateMotorRIOTrigger);
 	
 loadPlate(
 	lowerVelo:= HMIData.loadPlateLowerProfile.velo, 

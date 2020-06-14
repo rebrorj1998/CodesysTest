@@ -11,12 +11,11 @@ IF NOT _abortingDone THEN
 	_unholdingDone := FALSE;
 	_stoppingDone := FALSE;
 	resetTriggered := FALSE;
+	resetFailed := FALSE;
 	resettingState := 0;
 	bagger.bagOpenFingers.RemovePower();
 	bagger.vacuumBagOpen.StopVacuum();
 	bagger.pressureBar.RemovePower();
-	bagger.printer.Reset();
-	bagger.bagDelivery.Reset();
 	bagger.IBD.RemovePower();
 	bagger.barcodeVerifier.Reset();
 	bagger.StartCycleRequest := FALSE;

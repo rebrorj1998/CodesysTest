@@ -95,9 +95,11 @@ CASE unitModeManager.ActiveUnitMode.CurrentState OF
 	PACK_ML.State.Resetting:	IF BaggerManager.ResettingDone THEN
 									currentUnitMode.ActingStateCompleted();
 								END_IF	
-								
+								IF baggerManager.BaggerAutoMode.resetFailed THEN
+									currentUnitMode.Abort();
+								END_IF
 								IF resetONS.OSR THEN
-									currentUnitMode.Clear();
+									//baggerManager.BaggerAutoMode.resetCMD := TRUE;
 								END_IF	
 	
 	PACK_ML.State.Clearing :	clearTimer.IN := TRUE;

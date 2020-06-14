@@ -30,7 +30,7 @@ VAR
 	totalTempS : UDINT;	
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-// Runtime calculation. The goal is to capture actual runtime of the machine 
+// Runtime calculation. The goal is to capture actual runtime of the machine (i.e being used, including loading time)
 inCycleONS(CLK := inCycle);
 // Reset timeout time 
 IF inCycleONS.OSR THEN
@@ -39,17 +39,19 @@ IF inCycleONS.OSR THEN
 	BPMCycles := BPMCycles + 1;
 END_IF;
 
+// After timeout, assume machine in unmanned
 runtimeTimeoutTimer(IN := NOT resetRuntime, PT := TO_TIME(runtimeTimeout * 1000.0));
 resetRuntime := FALSE;
-
 timeoutONS(CLK := runtimeTimeoutTimer.Q);
 
+// 1 second ticker while being used.
 actualRuntimeTimer(IN := cycleStarted AND NOT actualRuntimeTimer.Q AND NOT runtimeTimeoutTimer.Q, PT := T#1s);
 
 IF actualRuntimeTimer.Q THEN
 	BPMSeconds := BPMSeconds + 1;
 END_IF;
 
+// Subtract 5 seconds after machine is abandoned
 runtimeSubtractedToGetFiveSeconds := ANY_TO_UDINT(ABS(5.0 - runtimeTimeout));
 
 IF timeoutONS.OSR THEN
@@ -59,6 +61,7 @@ IF timeoutONS.OSR THEN
 	cycleStarted := FALSE;
 END_IF;
 
+// Pressing reset for 5 seconds to reset throughput numbers
 resetRuntimeTimer(IN := reset);
 IF resetRuntimeTimer.q THEN
 	BPMSeconds := 0;
@@ -66,6 +69,8 @@ IF resetRuntimeTimer.q THEN
 	resetRuntime := FALSE;
 END_IF;
 
+
+// Concat to string for display
 runtimeHours := BPMSeconds / 3600;
 runtimeMinutes := (BPMSeconds MOD 3600) / 60;
 runtimeSeconds := BPMSeconds MOD 60;

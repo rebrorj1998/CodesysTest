@@ -4,8 +4,6 @@ VAR
 	testASCII : FB_PrinterSerial;
 	serial : FB_CrevisSerial();
 	fastBagDelivery : FB_SXBagDelivery(name := 'Bag Delivery') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
-	//bagDeliveryFrontMotor : FB_AppliedMotionMotorMB;
-	//bagDeliveryFrontMotor : FB_SimMotor;
 	fastBagDeliveryFrontMotor : FB_AppliedMotionMotorASCII;
 	powerUpBagDeliveryMotor : Sharp_Motion.MC_Power();
 END_VAR

@@ -60,7 +60,7 @@ MC_HaltIBDMotor(Axis := IBDMotor);
 {endregion}
 
 _isFullyOpen := TO_DINT(IBDMotor.ActualPosition * 1000) = TO_DINT(passthroughSetting * 1000);
-_isHomed := IBDMotor.HomingDone;
+
 {region "Timers"}
 // If homing not complete within reasonable time, error out
 homeTimeout(PT := homeTimeoutSetting, IN := state = eMotorizedIBDStates.Homing);
@@ -68,7 +68,7 @@ homeTimeout(PT := homeTimeoutSetting, IN := state = eMotorizedIBDStates.Homing);
 resetTimer(IN := state = eMotorizedIBDStates.Resetting);
 {endregion}
 
-failedToOpenTimer(IN := state = eMotorizedIBDStates.MovingOut AND NOT _isFullyOpen,
+failedToOpenTimer(IN := (state = eMotorizedIBDStates.MovingOut OR state = eMotorizedIBDStates.MovingOutAfterHome) AND NOT _isFullyOpen,
 					PT := TO_TIME((passthroughSetting / openVelo) * 1000.0) + motionFaultTimeOffset,
 					Q => );
 					
@@ -119,6 +119,7 @@ CASE state OF
 			
 			IF _homeNow THEN
 				_homeNow := FALSE;
+		   		_isHomed := FALSE;
 				state := eMotorizedIBDStates.Home;
 			END_IF
 			
@@ -145,14 +146,32 @@ CASE state OF
 		// When ZHomed, Move out to Open s
 		IF MC_HomeIBDMotor.Done THEN				
 			MC_HomeIBDMotor.Execute := FALSE;
-			state := eMotorizedIBDStates.MoveOut;
+	   		// Move jaw out to passthrough
+			MC_MoveIBDMotorABS.Position := passthroughSetting;
+			MC_MoveIBDMotorABS.Velocity := openVelo;
+			MC_MoveIBDMotorABS.Acceleration := openAccel;
+			MC_MoveIBDMotorABS.Deceleration := openDecel;
+			MC_MoveIBDMotorABS.Execute := TRUE;
+			state := eMotorizedIBDStates.MovingOutAfterHome;
 		ELSIF MC_HomeIBDMotor.Error THEN
 			MC_HomeIBDMotor.Execute := FALSE;
 			failedToHome.Trigger();
 			state := eMotorizedIBDStates.Faulting;
 		END_IF
 			
-	
+	eMotorizedIBDStates.MovingOutAfterHome:		
+		//
+   		// wait for jaw to report open
+		IF MC_MoveIBDMotorABS.Done THEN
+			MC_MoveIBDMotorABS.Execute := FALSE;
+	   		_isHomed := TRUE;
+			state := eMotorizedIBDStates.Idle;
+		ELSIF MC_MoveIBDMotorABS.Error OR failedToOpenTimer.Q THEN
+			MC_MoveIBDMotorABS.Execute := FALSE;
+			failedToOpen.Trigger();
+			state := eMotorizedIBDStates.Faulting;
+		END_IF
+   
 	eMotorizedIBDStates.MoveOut:	
 		// Move jaw out to passthrough
 		MC_MoveIBDMotorABS.Position := passthroughSetting;

@@ -40,6 +40,7 @@ VAR_INPUT
 	printerNotReady : BOOL;
 	loadPlateNotReady : BOOL;
 
+
 END_VAR
 VAR_OUTPUT
 	messageDisplayIndication : DINT;
@@ -92,6 +93,14 @@ mappedMessages[27] := IBDMotorFaulted;
 mappedMessages[28] := IBDMotorCommF;
 mappedMessages[29] := printerRibbonFault;
 mappedMessages[30] := printerServiceRequired;
+mappedMessages[31] := jawFailedToOpen;
+mappedMessages[32] := IBDFailedToClose;
+mappedMessages[33] := IBDFailedToOpen;
+mappedMessages[34] := IBDNotReady;
+mappedMessages[35] := pressureBarNotReady;
+mappedMessages[36] := printerNotReady;
+mappedMessages[37] := loadPlateNotReady;
+
 
 IF NOT mappedMessages[messageDisplayIndication] THEN
 	displayedMessageCleared := TRUE;

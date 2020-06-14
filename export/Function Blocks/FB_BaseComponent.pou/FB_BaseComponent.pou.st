@@ -17,7 +17,7 @@ END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: BaseComponentFB
 //	Description:  Extend this FB for each component as it contains the basic variables and logic that all components must share
-//	In all extended FBs that have an Execute() method you must run the parent logic with SUPER^()
+//	In all extended FBs must run the parent logic with SUPER^()
 //	Created by: Ben Hess
 //	Created Date: Friday, June 1, 2018
 

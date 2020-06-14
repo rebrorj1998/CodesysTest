@@ -53,6 +53,8 @@ IF _reset OR NOT THIS^.OptionActive THEN
 	barcodeFault := FALSE;
 END_IF
 
+_ready := state = eBaseBCVStates.Idle;
+
 CASE state OF
 	
 	eBaseBCVStates.Idle:				// Wait for trigger

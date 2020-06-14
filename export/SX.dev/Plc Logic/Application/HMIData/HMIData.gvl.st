@@ -35,11 +35,17 @@ VAR_GLOBAL
 	activeFaults : ARRAY[0..GlobalObjects.MAX_FAULTS] OF STRING;
 	passthroughActual : REAL;
 	currentPackMLState : STRING;
-	BPMBagsMade : DINT;
-	BPMActiveTime : REAL;
+	BPMBagsMade : UDINT;
+	BPMActiveTime : STRING;
 	BPMBagsPerMinute : REAL;
 	BPMReset : BOOL;
 	cycleTime : REAL;
+	printerReady : BOOL;
+	bagDeliveryReady : BOOL;
+	loadPlateReady : BOOL;
+	jawReady : BOOL;
+	bcvReady : BOOL;
+	IBDReady : BOOL;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN
@@ -73,12 +79,12 @@ VAR_GLOBAL PERSISTENT RETAIN
 	IBDInUse : BOOL;
 	IBDInstalled : BOOL;
 	IBDOpenMotionProfile : sctMotionProfile := (velo := 13.0, accel := 150.0, decel := 150.0, current := 100.0);
-	IBDCloseMotionProfile : sctMotionProfile := (velo := 10.0, accel := 10.0, decel := 10.0, current := 50.0);
+	IBDCloseMotionProfile : sctMotionProfile := (velo := 15.0, accel := 10.0, decel := 10.0, current := 50.0);
 	IBDZeroOffset : REAL := 2.0;
 	jawCloseDelay : REAL := 0.2;
 	jawClosePositionSetting : REAL := -0.35;
-	jawOpenMotionProfile : sctMotionProfile := (velo := 10.0, accel := 10.0, decel := 10.0, current := 100.0);
-	jawCloseMotionProfile : sctMotionProfile := (velo := 10.0, accel := 10.0, decel := 10.0, current := 100.0);
+	jawOpenMotionProfile : sctMotionProfile := (velo := 13.0, accel := 100.0, decel := 100.0, current := 100.0);
+	jawCloseMotionProfile : sctMotionProfile := (velo := 14.0, accel := 10.0, decel := 10.0, current := 100.0);
 	jawCycleTestCycles : DINT;
 	jawCycleTestActive : BOOL;
 	jawZeroOffset : REAL := 2.0;
@@ -114,4 +120,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	fillerEnable : BOOL;
 	autoModeEnable : BOOL;
 	autoModeDwell : REAL := 0.75;
+	frontJawMotorData : sctOrientalHMIData;
+	rearJawMotorData : sctOrientalHMIData;
+	loadPlateMotorData : sctOrientalHMIData;
+	IBDMotorData : sctOrientalHMIData;
 END_VAR

@@ -10,12 +10,14 @@ VAR_INPUT
 	groupMotor1 : REFERENCE TO FB_OrientalAZMotorTrigger;	// Slave Motor
 END_VAR
 VAR_OUTPUT
+	alarmCode : STRING;
 	triggerDDWriteNow : BOOL;
 	triggerRIOWriteNow : BOOL;
 END_VAR
 VAR
 	directDataOp : sctOrientalDirectData;
 	distanceFromDrive : uModbusDWORD;
+	alarmCodeFromDrive : uModbusDWORD;
 	ready : BOOL;
 	alarmActive : BOOL;
 	moving : BOOL;
@@ -45,6 +47,7 @@ VAR
 	triggerRIOWrite : BOOL;
 	resetRIOWrite : Standard.TON := (PT := T#50MS);
 	disable : BOOL;
+	enumAlarmCode : eOrientalAZDriveFaults;
 	state : eOrientalAZDriveStates;
 	nextState : eOrientalAZDriveStates;
 	
@@ -72,16 +75,21 @@ END_IF
 
 
 
-// Get raw drive position
+// Get raw drive position and alarm code
 IF isGroup THEN
 	IF __ISVALIDREF(groupMotor0) THEN
 		ActPos := groupMotor0.ActPos;
+		enumAlarmCode := groupMotor0.enumAlarmCode;
 	END_IF
 ELSE
 	distanceFromDrive.wWord[0] := modbusDataFromDrive[3];
 	distanceFromDrive.wWord[1] := modbusDataFromDrive[2];
 	ActPos := (TO_REAL(distanceFromDrive.diDint) / TO_REAL(stepsPerInchSP)) + zeroOffset;
+	alarmCodeFromDrive.wWord[0] := modbusDataFromDrive[7];
+	alarmCodeFromDrive.wWord[1] := modbusDataFromDrive[6];
+	enumAlarmCode := TO_INT(alarmCodeFromDrive.diDint);
 END_IF
+alarmCode := TO_STRING(enumAlarmCode);
 
 // Pack RIO to write to drive
 packedRIO.dDword.0 := homeSwitchTrigger;
