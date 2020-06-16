@@ -62,12 +62,13 @@ VAR
 	failedToCloseTimer : Standard.TON;
 	failedToOpenTimer : Standard.TON;
 	moveInDelay : Standard.TON;
-	jawMotionFaultTimeOffset : TIME := T#800MS;
+	jawMotionFaultTimeOffset : TIME := T#5S;
 	bothMotorsHomed : BOOL;
 	bothMotorsInPosition : BOOL;
 	jawHomeClearDistance : REAL := 0.5;
 	resetTimer: TON := (PT := T#2S);
 	jawTestDelayTimer : Standard.TON := (PT := T#250MS);
+	faultONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -168,7 +169,10 @@ THEN
 	failedToHome.Trigger();
 END_IF
 {endregion}
-
+faultONS(CLK := pressureBarObstructed.Active OR failedToClose.Active OR bothMotorsFault.Active OR failedToOpen.Active);
+IF faultONS.OSR THEN
+	jawState := eDualMotorPBarStates.Faulting;
+END_IF
 IF stopJawTestMode THEN
 	jawTestModeActive := FALSE;
 END_IF

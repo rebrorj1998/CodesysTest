@@ -33,7 +33,7 @@ VAR
 	MC_HaltIBDMotor : Sharp_Motion.MC_Halt;
 	homeTimeout : Standard.TON;
 	failedToOpenTimer : Standard.TON;
-	motionFaultTimeOffset : TIME := T#800MS;
+	motionFaultTimeOffset : TIME := T#5S;
 	resetTimer: TON := (PT := T#2S);
 	state : eMotorizedIBDStates;
 END_VAR
@@ -87,7 +87,7 @@ END_IF
 
 
 IF homeTimeout.Q 
-	OR MC_HomeIBDMotor.Error 
+	//OR MC_HomeIBDMotor.Error 
 	OR UN00_Globals.simFaults.pressureBarfailedToHome
 THEN
 	failedToHome.Trigger();

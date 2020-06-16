@@ -19,7 +19,9 @@ TYPE eAppliedMotionDriveStatesASCII :
 	Halted := 63,
 	Home := 70,
 	Homing := 71,
-	Faulting := 98,
+	Faulting := 96,
+	FaultGetAlarmCode := 97,
+	FaultGettingAlarmCode := 98,
 	Faulted := 99,
 	Reset := 100, 
 	EnableMotor := 101

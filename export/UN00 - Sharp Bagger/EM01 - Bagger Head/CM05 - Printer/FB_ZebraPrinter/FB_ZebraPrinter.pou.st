@@ -11,6 +11,7 @@ VAR_INPUT
 	serviceRaisePrintHead : BOOL;
 	serviceLowerPrintHead : BOOL;
 	cancelPrint : BOOL;
+	dryCycleEnable : BOOL;
 END_VAR
 VAR_OUTPUT
 	serviceRequired : FB_Fault(name := Standard.CONCAT(_prefix,'Service Required'));
@@ -97,6 +98,7 @@ CASE state OF
 													printerRibbonMovingTimer2.IN := FALSE;
 													_printing := FALSE;
 													IF _beginPrinting AND THIS^.OptionEnabled THEN
+														_printDone := FALSE;
 														IF NOT dataReadyInput THEN
 															state := eZebraPrinterStates.WaitingForData;
 														ELSE
@@ -113,7 +115,7 @@ CASE state OF
     
     eZebraPrinterStates.WaitingForData :                    //If printerDataReady drops out the label data was received
                                                     
-                                                    IF dataReadyInput THEN
+                                                    IF dataReadyInput OR dryCycleEnable THEN
                                                         state := eZebraPrinterStates.DataReady;    
                                                     END_IF
 													IF cancelPrint THEN
@@ -121,7 +123,7 @@ CASE state OF
 													END_IF
                                                 
     eZebraPrinterStates.DataReady :                        // Wait for command to begin printing
-                                                    IF NOT dataReadyInput OR cancelPrint THEN
+                                                    IF (NOT dataReadyInput AND NOT dryCycleEnable) OR cancelPrint THEN
 														state := eZebraPrinterStates.Idle;
 													END_IF
 													IF _beginPrinting THEN
@@ -129,8 +131,8 @@ CASE state OF
                                                         _beginPrinting := FALSE;
 														_printing := TRUE;
 														printHeadDebounce.IN := TRUE;
-                                                        lowerPrintHeadOutput := TRUE;
-                                                        ribbonUnwindRunOutput := TRUE;
+                                                        lowerPrintHeadOutput := TRUE AND NOT dryCycleEnable;
+                                                        ribbonUnwindRunOutput := TRUE AND NOT dryCycleEnable;
 														//oPrinterStartPrint := TRUE;
                                                     END_IF                                    
             
@@ -139,7 +141,7 @@ CASE state OF
                                                     
                                                     
                                                     IF printHeadDebounced THEN
-                                                        startPrintOutput := TRUE;
+                                                        startPrintOutput := TRUE AND NOT dryCycleEnable;
                                                         state := eZebraPrinterStates.Printing;
                                                         printHeadDebounce.IN := FALSE;
                                                     END_IF                                                    
@@ -149,7 +151,7 @@ CASE state OF
     eZebraPrinterStates.Printing :                        //While printing, wait for End of Print signal
 													printerRibbonMovingTimer1.IN := ribbonEncoderPulseInput;
 													printerRibbonMovingTimer2.IN := NOT ribbonEncoderPulseInput;
-                                                    IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN
+                                                    IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable THEN
                                                         startPrintOutput := FALSE;
                                                         lowerPrintHeadOutput := FALSE;
 														IF printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN

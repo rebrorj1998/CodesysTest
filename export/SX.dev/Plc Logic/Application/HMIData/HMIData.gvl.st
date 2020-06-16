@@ -52,7 +52,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	printerAndVerifierEnablePB : BOOL;
 	printerAndVerifierEnableIndication : BOOL;
 	version : STRING := '0.2A';
-	bagsMade : DINT;
+	bagsMade : UDINT;
 	batchEnable : BOOL;
 	batchSetting : UDINT := 10;
 	batchCount : UDINT;
@@ -67,7 +67,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	bagWidth : REAL := 17.5;
 	bagThickness : REAL := 2.5;
 	bagForwardSpeed : UDINT := 20;
-	bagReverseSpeed : UDINT := 3;
+	bagReverseSpeed : UDINT := 8;
 	printSpeed : UDINT := 6;
 	printLength : REAL := 8.0;
 	printOffset : REAL := 2.0;
@@ -82,7 +82,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	IBDCloseMotionProfile : sctMotionProfile := (velo := 15.0, accel := 10.0, decel := 10.0, current := 50.0);
 	IBDZeroOffset : REAL := 2.0;
 	jawCloseDelay : REAL := 0.2;
-	jawClosePositionSetting : REAL := -0.35;
+	jawClosePositionSetting : REAL := -0.45;
 	jawOpenMotionProfile : sctMotionProfile := (velo := 13.0, accel := 100.0, decel := 100.0, current := 100.0);
 	jawCloseMotionProfile : sctMotionProfile := (velo := 14.0, accel := 10.0, decel := 10.0, current := 100.0);
 	jawCycleTestCycles : DINT;
@@ -120,8 +120,10 @@ VAR_GLOBAL PERSISTENT RETAIN
 	fillerEnable : BOOL;
 	autoModeEnable : BOOL;
 	autoModeDwell : REAL := 0.75;
+	dryCycleEnable : BOOL;
 	frontJawMotorData : sctOrientalHMIData;
 	rearJawMotorData : sctOrientalHMIData;
 	loadPlateMotorData : sctOrientalHMIData;
 	IBDMotorData : sctOrientalHMIData;
+	bagDeliveryMotorData : sctAppliedMotionHMIData;
 END_VAR

@@ -1,8 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-TYPE sctOrientalHMIData :
+TYPE sctAppliedMotionHMIData :
 STRUCT
-	CommandedPos : REAL;
-	ActPos : REAL;
-	CurrentAlarmCode : DWORD;
+	statusCode : WORD;
+	alarmCode : WORD;
 END_STRUCT
 END_TYPE

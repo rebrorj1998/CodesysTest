@@ -9,7 +9,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.version: STRING := '0.2A';
 	// Generated instance path of persistent variable
-	HMIData.bagsMade: DINT;
+	HMIData.bagsMade: UDINT;
 	// Generated instance path of persistent variable
 	HMIData.batchEnable: BOOL;
 	// Generated instance path of persistent variable
@@ -39,7 +39,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.bagForwardSpeed: UDINT := UDINT#20;
 	// Generated instance path of persistent variable
-	HMIData.bagReverseSpeed: UDINT := UDINT#3;
+	HMIData.bagReverseSpeed: UDINT := UDINT#8;
 	// Generated instance path of persistent variable
 	HMIData.printSpeed: UDINT := UDINT#6;
 	// Generated instance path of persistent variable
@@ -69,7 +69,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.jawCloseDelay: REAL := REAL#0.2;
 	// Generated instance path of persistent variable
-	HMIData.jawClosePositionSetting: REAL := REAL#-0.35;
+	HMIData.jawClosePositionSetting: REAL := REAL#-0.45;
 	// Generated instance path of persistent variable
 	HMIData.jawOpenMotionProfile: sctMotionProfile := STRUCT(velo := REAL#13, accel := REAL#100, decel := REAL#100, current := REAL#100);
 	// Generated instance path of persistent variable
@@ -144,4 +144,14 @@ VAR_GLOBAL PERSISTENT RETAIN
 	HMIData.autoModeEnable: BOOL;
 	// Generated instance path of persistent variable
 	HMIData.autoModeDwell: REAL := REAL#0.75;
+	// Generated instance path of persistent variable
+	HMIData.frontJawMotorData: sctOrientalHMIData;
+	// Generated instance path of persistent variable
+	HMIData.rearJawMotorData: sctOrientalHMIData;
+	// Generated instance path of persistent variable
+	HMIData.loadPlateMotorData: sctOrientalHMIData;
+	// Generated instance path of persistent variable
+	HMIData.IBDMotorData: sctOrientalHMIData;
+	// Generated instance path of persistent variable
+	HMIData.bagDeliveryMotorData: sctAppliedMotionHMIData;
 END_VAR

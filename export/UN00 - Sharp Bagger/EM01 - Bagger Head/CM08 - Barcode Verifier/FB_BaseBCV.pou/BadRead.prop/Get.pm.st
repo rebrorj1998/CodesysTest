@@ -2,3 +2,4 @@
 VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+BadRead :=  _badread;

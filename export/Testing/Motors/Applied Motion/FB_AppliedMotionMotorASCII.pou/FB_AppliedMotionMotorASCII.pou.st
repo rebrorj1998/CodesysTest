@@ -8,6 +8,8 @@ VAR_INPUT
 	jogReverseCMD : BOOL;
 END_VAR
 VAR_OUTPUT
+	statusCode : WORD;
+	alarmCode : WORD;
 END_VAR
 VAR
 	directDataOp : sctAppliedMotionPars;
@@ -273,9 +275,19 @@ CASE state OF
 				asciiHandler.xExecute := TRUE;
 				IF asciiHandler.xDone THEN
 					asciiHandler.xExecute := FALSE;
-					state := eAppliedMotionDriveStatesASCII.Faulted;
+					state := eAppliedMotionDriveStatesASCII.FaultGetAlarmCode;
 				END_IF
-				
+		
+		eAppliedMotionDriveStatesASCII.FaultGetAlarmCode:
+				// Get alarm code and display
+				asciiHandler.sendData := ('2AL$R');
+				asciiHandler.xExecute := TRUE;
+				IF asciiHandler.xDone THEN
+					asciiHandler.xExecute := FALSE;
+					alarms(alarmCode := TO_WORD((mParseStatusWord(asciiHandler.receivedData))));
+					state := eAppliedMotionDriveStatesASCII.EnableMotor;
+				END_IF
+		
 		eAppliedMotionDriveStatesASCII.Faulted:
 				// Faulted - wait for clear
 				IF AckError THEN
@@ -302,3 +314,6 @@ CASE state OF
 					state := eAppliedMotionDriveStatesASCII.Idle;
 				END_IF
 END_CASE
+
+alarmCode := alarms.alarmCode;
+statusCode := status.statusCode;

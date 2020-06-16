@@ -7,6 +7,7 @@ VAR_INPUT
 	readGoodInput : BOOL;
 	badReadInput : BOOL;
 	badReadFaultCountSetting : UDINT;
+	dryCycleEnable : BOOL;
 END_VAR	
 VAR_OUTPUT
 	triggerScannerOutput : BOOL;
@@ -68,6 +69,8 @@ CASE state OF
 										positionOffsetDelay.IN := TRUE;
 										xBusy := TRUE;
 										xDone := FALSE;
+										_goodRead := FALSE;
+										_badread := FALSE;
 									END_IF
 									
 									_trigger := FALSE;
@@ -86,7 +89,7 @@ CASE state OF
 	
 	eBaseBCVStates.WaitingForResult:	// Wait for delayToCheckReadStatus timer.  If it times out we did not get a good read
 									waitForReadTimer.IN := TRUE;
-									IF readGoodInput THEN
+									IF readGoodInput OR dryCycleEnable THEN
 										_goodRead := TRUE;
 										_badread := FALSE;
 										currentGoodReadCount := currentGoodReadCount + 1;

@@ -21,6 +21,7 @@ VAR
 	autoModeTimer : Standard.TON;
 	autoModeKeepCycling : BOOL;
 	autoModeInitiateCycleONS : FB_ONS;
+	cycleComplete : FB_ONS;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
@@ -57,7 +58,7 @@ IF HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q THEN
 	HMIData.initiateCycle := FALSE;
 END_IF
 // Unlatch flag for auto mode when faulted or stopped
-IF UN00_SXMachine.currentState <> PACK_ML.State.Execute OR HMIData.ackAllFaults THEN
+IF UN00_SXMachine.currentState <> PACK_ML.State.Execute OR HMIData.ackAllFaults OR NOT HMIData.autoModeEnable THEN
 	autoModeKeepCycling := FALSE;
 END_IF
 
@@ -80,29 +81,43 @@ powerUpBothJawMotors(Enable := TRUE, Axis := baggerCM.jawBothMotors);
 powerUpBothJawMotors.DriveStart := TRUE;
 powerUpBothJawMotors.RegulatorOn := TRUE;
 
-powerUpLoadPlateMotor(Enable := TRUE, Axis := baggerCM.loadPlateMotor);
-powerUpLoadPlateMotor.DriveStart := TRUE;
-powerUpLoadPlateMotor.RegulatorOn := TRUE;
+powerUpLoadPlateMotor(Enable := HMIData.loadPlateInstalled, Axis := baggerCM.loadPlateMotor);
+powerUpLoadPlateMotor.DriveStart := HMIData.loadPlateInstalled;
+powerUpLoadPlateMotor.RegulatorOn := HMIData.loadPlateInstalled;
 
-powerUpBagDeliveryMotor(Enable := TRUE, Axis := baggerCM.bagDeliveryFrontMotor);
+powerUpBagDeliveryMotor(Enable := TRUE, Axis := SerialComms.fastBagDeliveryFrontMotor);
 powerUpBagDeliveryMotor.DriveStart := TRUE;
 powerUpBagDeliveryMotor.RegulatorOn := TRUE;
 
-powerUpIBDMotor(Enable := TRUE, Axis := baggerCM.IBDMotor);
-powerUpIBDMotor.DriveStart := TRUE;
-powerUpIBDMotor.RegulatorOn := TRUE;
+powerUpIBDMotor(Enable := HMIData.IBDInstalled, Axis := baggerCM.IBDMotor);
+powerUpIBDMotor.DriveStart := HMIData.IBDInstalled;
+powerUpIBDMotor.RegulatorOn := HMIData.IBDInstalled;
+
+// Disable Modbus device tree objects if option not installed
+IF NOT HMIData.loadPlateInstalled THEN
+	Load_Plate_Motor.Enable := FALSE;
+ELSE
+	Load_Plate_Motor.Enable := TRUE;
+END_IF
+
+IF NOT HMIData.IBDInstalled THEN
+	IBD_Motor.Enable := FALSE;
+ELSE
+	IBD_Motor.Enable := TRUE;
+END_IF
+
 
 // Run collection of bagger control modules
 baggerCM();
 
-
+// Set bagger head control modules
 EM01_SXBaggerHead(
 	bagOpenFingers:= baggerCM.dummyBOF, 
 	sealFlatteners:= baggerCM.dummySealFlatteners, 
 	sealer:= baggerCM.sealWire, 
 	pressureBar:= baggerCM.dualMotorPassthrough, 
 	printer:= baggerCM.labelPrinter, 
-	bagDelivery:= POU.fastBagDelivery, 
+	bagDelivery:= SerialComms.fastBagDelivery, 
 	vacuumBagOpen:= baggerCM.dummyVacuumCups, 
 	IBD:= baggerCM.IBD, 
 	loadPlate:= baggerCM.loadPlate, 
@@ -113,27 +128,20 @@ EM01_SXBaggerHead(
 	bagOpenRetrySetting:= , 
 	newJobLoaded:= , 
 	vacuumDwell:= , 
-	baggerCycleActive=> HMIData.inCycle, 
 	bagOpenRetryCount=> , 
 	failedToOpenBag=> );
 	
-	
+
 EM02_SXDischarge();
 
+// Machine unit
 UN00_SXMachine(faultActive:= HMIData.faultActive, resetMachine := HMIData.ackAllFaults, homeMachine := HMIData.homeMachine, currentState=> , baggerHead:= EM01_SXBaggerHead, discharge:= EM02_SXDischarge);
 
-
+// Trigger fault if top cover lifted during cycle
 IF HMIData.inCycle AND NOT iTopCoverClosed THEN
 	topCoverLiftedFault.Trigger();
 END_IF
 
-IF NOT HMIData.loadPlateInstalled THEN
-	Load_Plate_Motor.Enable := FALSE;
-END_IF
-
-IF NOT HMIData.IBDInstalled THEN
-	IBD_Motor.Enable := FALSE;
-END_IF
 
 // Banner palm button has 4 states - off, solid green, 50/50 green/white rotating, and flashing red
 palmButton(
@@ -143,13 +151,14 @@ palmButton(
 	palmState0Output=> oPalmButton0, 
 	palmState1Output=> oPalmButton1);
 	
-
+//
 // HMI Mapping
-
+//
 
 // Send the list of active fault strings to HMI for viewing
 HMIData.activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames;
 
+HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive;
 // PackML state to string for HMI
 HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.currentBaggerState;
 
@@ -157,10 +166,10 @@ HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.curren
 // Banner manager takes care of the Multistate lamp used as a banner on the proface 
 bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
-	baggerReady:= UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
+	baggerReady:= UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
 	baggerInCycle:= HMIData.inCycle, 
-	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
-	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
+	noBagCoveringEye:= SerialComms.fastBagDelivery.noBagOverEye.Active, 
+	bagFailedToSeperate:= SerialComms.fastBagDelivery.bagFailedToSeparate.Active, 
 	pbarObstruction:= baggerCM.dualMotorPassthrough.pressureBarObstructed.Active, 
 	lightCurtainViolation:= , 
 	printHeadFTR:= baggerCM.labelPrinter.printHeadFailToRaise.Active, 
@@ -176,12 +185,12 @@ bannerManager(
 	batchCounterDone:= , 
 	jawNotHomed:= NOT baggerCM.dualMotorPassthrough.IsHomed, 
 	cycleBaggerTForFiller:= , 
-	machineNotTested:= NOT Counters.baggerCycles.count >= 1000, 
+	machineNotTested:=  HMIData.bagsMade < 1000, 
 	loadPlateMotorNotHomed:= NOT baggerCM.loadPlate.IsHomed AND baggerCM.loadPlate.OptionActive, 
 	loadPlateMotorFaulted:= baggerCM.loadPlate.motorFault.Active, 
 	loadPlateMotorCommF:= baggerCM.loadPlate.motorCommFault.Active, 
 	topCoverLiftedFault:= topCoverLiftedFault.Active, 
-	topCoverLiftedWarning:= iTopCoverClosed AND NOT HMIData.inCycle, 
+	topCoverLiftedWarning:= NOT iTopCoverClosed AND NOT HMIData.inCycle, 
 	IBDMotorNotHomed:= NOT baggerCM.IBD.IsHomed AND baggerCM.IBD.OptionActive, 
 	IBDMotorFaulted:= baggerCM.IBD.IBDMotorFault.Active, 
 	IBDMotorCommF:= baggerCM.IBD.IBDMotorCommFault.Active, 
@@ -194,14 +203,11 @@ bannerManager(
 
 // Ready indications for bagger control modules
 HMIData.printerReady := baggerCM.labelPrinter.Ready;
-HMIData.bagDeliveryReady := baggerCM.bagDelivery.Ready;
+HMIData.bagDeliveryReady := SerialComms.fastBagDelivery.Ready;
 HMIData.loadPlateReady := baggerCM.loadPlate.Ready;
 HMIData.jawReady := baggerCM.dualMotorPassthrough.Ready;
 HMIData.bcvReady := baggerCM.barcodeVerifier.Ready;
 HMIData.IBDReady := baggerCM.IBD.Ready;
-
-HMIData.cycleTime := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTime;
-HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTimer.IN;
 
 // Motor data to HMI for troubleshooting
 HMIData.frontJawMotorData.ActPos := baggerCM.jawFrontMotor.ActPos;
@@ -219,6 +225,18 @@ HMIData.IBDMotorData.CurrentAlarmCode := baggerCM.IBDMotor.alarmCode;
 HMIData.loadPlateMotorData.ActPos := baggerCM.loadPlateMotor.ActPos;
 HMIData.loadPlateMotorData.CommandedPos := baggerCM.loadPlateMotor.TargetPosDist;
 HMIData.loadPlateMotorData.CurrentAlarmCode := baggerCM.loadPlateMotor.alarmCode;
+
+HMIData.bagDeliveryMotorData.alarmCode := SerialComms.fastBagDeliveryFrontMotor.alarmCode;
+HMIData.bagDeliveryMotorData.statusCode := SerialComms.fastBagDeliveryFrontMotor.statusCode;
+
+
+// Cycle time and bags made counters
+HMIData.cycleTime := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTime;
+HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTimer.IN;
+cycleComplete(CLK := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleComplete);
+IF cycleComplete.OSR THEN
+	HMIData.bagsMade := HMIData.bagsMade + 1;
+END_IF
 
 // Amazon Bags per minute throughput calculator
 amazonBPM(

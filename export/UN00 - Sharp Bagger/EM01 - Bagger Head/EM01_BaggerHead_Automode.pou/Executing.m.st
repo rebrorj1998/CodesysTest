@@ -28,8 +28,11 @@ vacuumDwellTimer(PT := bagger.vacuumDwell);
 // State machine for overall head states
 CASE state OF
     HEAD_STATES.Idle :                              // Start cycle
+													
                                                     IF bagger.StartCycleRequest THEN
+														baggerCycleActive := TRUE;
 														bagger.StartCycleRequest := FALSE;
+														cycleComplete := FALSE;
 														cycleTimer.IN := TRUE;
 														_logger.AddLogItem('Cycle Started');
 														SetHeadState(HEAD_STATES.SealAndSeparateBag);
@@ -101,13 +104,26 @@ CASE state OF
                                                     END_IF
                                                     
     HEAD_STATES.OpenedBag :                         // End cycle           
-													IF bagger.barcodeVerifier.VerificationFault THEN
-														bagger.barcodeVerificationFailed.Trigger();
-													END_IF   
-                                                    SetHeadState(HEAD_STATES.Idle);
-													cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
-													cycleTimer.IN := FALSE;
-													_logger.AddLogItem(CONCAT('Cycle Complete in ',TO_STRING(cycleTime)));
+													IF bagger.barcodeVerifier.OptionActive THEN
+														IF bagger.barcodeVerifier.VerificationFault THEN
+															bagger.barcodeVerificationFailed.Trigger();
+														ELSIF bagger.barcodeVerifier.GoodRead OR bagger.barcodeVerifier.BadRead THEN
+															baggerCycleActive := FALSE;
+															SetHeadState(HEAD_STATES.Idle);
+															cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
+															cycleTimer.IN := FALSE;
+															_logger.AddLogItem(CONCAT('Cycle Complete in ',TO_STRING(cycleTime)));
+														END_IF 
+													ELSE
+														baggerCycleActive := FALSE;
+														SetHeadState(HEAD_STATES.Idle);
+														cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
+														cycleTimer.IN := FALSE;
+														_logger.AddLogItem(CONCAT('Cycle Complete in ',TO_STRING(cycleTime)));
+													END_IF
+													cycleComplete := TRUE;
+													 
+                                                    
                                                   
     //HEAD_STATES.Fault :                                
                                                     
@@ -213,7 +229,7 @@ CASE releaseAndFeedSubState OF
 													                                         
     
     RELEASE_FEED_STATES.WaitForPrinter :            // Data Ready means the printer has a label and we're all set to print
-                                                    IF bagger.printer.HasLabel THEN
+                                                    IF bagger.printer.HasLabel AND NOT bagger.pressureBar.IsFullyClosed THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.FeedToOffset);
                                                     END_IF
                                                     

@@ -1,14 +1,14 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-PROGRAM POU
+PROGRAM SerialComms
 VAR
-	testASCII : FB_PrinterSerial;
+	//testASCII : FB_PrinterSerial;
 	serial : FB_CrevisSerial();
 	fastBagDelivery : FB_SXBagDelivery(name := 'Bag Delivery') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
 	fastBagDeliveryFrontMotor : FB_AppliedMotionMotorASCII;
 	powerUpBagDeliveryMotor : Sharp_Motion.MC_Power();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-testASCII();
+//testASCII();
 
 powerUpBagDeliveryMotor(Enable := TRUE, Axis := fastBagDeliveryFrontMotor);
 powerUpBagDeliveryMotor.DriveStart := TRUE;
@@ -24,7 +24,7 @@ serial(
 	inputs:= ADR(serialInputs), 
 	outputs:= ADR(serialOutputs));
 	
-	fastBagDeliveryFrontMotor(
+fastBagDeliveryFrontMotor(
 	AxisState:= , 
 	SetOpMode:= , 
 	PowerOn:= , 
@@ -61,11 +61,12 @@ serial(
 	zeroOffset:= , 
 	jogForwardCMD:= HMIData.jogFilmForward, 
 	jogReverseCMD:= HMIData.jogFilmReverse, 
-	asciiHandler:= POU.serial);
+	asciiHandler:= SerialComms.serial);
 
 	
 fastBagDelivery(
 	simulateIO := HMIData.simulateAllIO,
+	dryCycleEnable := HMIData.dryCycleEnable,
 	_optionActive=> , 
 	printer:= PLC_PRG.baggerCM.labelPrinter, 
 	bagLength:= HMIData.bagLength, 

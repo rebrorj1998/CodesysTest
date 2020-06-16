@@ -22,7 +22,6 @@ VAR_INPUT
 	vacuumDwell : TIME;
 END_VAR
 VAR_OUTPUT
-	baggerCycleActive : BOOL;
 	bagOpenRetryCount : UINT;
 	failedToOpenBag : FB_Fault(name := CONCAT(_prefix,'Failed to Open Bag'));
 	barcodeVerificationFailed : FB_Fault(name := CONCAT(_prefix,'Barcode Fail'));

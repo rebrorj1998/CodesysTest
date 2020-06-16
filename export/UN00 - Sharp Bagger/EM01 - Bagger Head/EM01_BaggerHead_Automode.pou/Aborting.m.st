@@ -12,10 +12,12 @@ IF NOT _abortingDone THEN
 	_stoppingDone := FALSE;
 	resetTriggered := FALSE;
 	resetFailed := FALSE;
+	resettingTimer.IN := FALSE;
+	baggerCycleActive := FALSE;
 	resettingState := 0;
 	bagger.bagOpenFingers.RemovePower();
 	bagger.vacuumBagOpen.StopVacuum();
-	bagger.pressureBar.RemovePower();
+	//bagger.pressureBar.RemovePower();
 	bagger.IBD.RemovePower();
 	bagger.barcodeVerifier.Reset();
 	bagger.StartCycleRequest := FALSE;
@@ -27,5 +29,6 @@ IF NOT _abortingDone THEN
     releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
     bagOpenSubState := BAG_OPEN_ASSIST_STATES.Idle;
 	cycleTimer.IN := FALSE;
+	cycleComplete := FALSE;
 	_abortingDone := TRUE;
 END_IF

@@ -7,3 +7,4 @@ TargetReached := FALSE;
 freeMotor := FALSE;
 reset := FALSE;
 Error := FALSE;
+zHome := FALSE;

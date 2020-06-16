@@ -10,7 +10,7 @@ VAR_INPUT
 	groupMotor1 : REFERENCE TO FB_OrientalAZMotorTrigger;	// Slave Motor
 END_VAR
 VAR_OUTPUT
-	alarmCode : STRING;
+	alarmCode : DWORD;
 	triggerDDWriteNow : BOOL;
 	triggerRIOWriteNow : BOOL;
 END_VAR
@@ -70,6 +70,7 @@ EnableState := DriveEnable;
 
 // Exit if drive isn't enabled.
 IF NOT DriveEnable THEN
+	Error := FALSE;
 	RETURN;
 END_IF
 
@@ -89,7 +90,7 @@ ELSE
 	alarmCodeFromDrive.wWord[1] := modbusDataFromDrive[6];
 	enumAlarmCode := TO_INT(alarmCodeFromDrive.diDint);
 END_IF
-alarmCode := TO_STRING(enumAlarmCode);
+alarmCode := enumAlarmCode;
 
 // Pack RIO to write to drive
 packedRIO.dDword.0 := homeSwitchTrigger;
@@ -301,6 +302,8 @@ CASE state OF
 				AxisState := Sharp_Motion.AXIS_STATE.AS_ErrorStop;
 				Error := TRUE;
 				freeMotor := TRUE;
+				zHome := FALSE;
+				triggerRIOWriteNow := TRUE;
 				state := eOrientalAZDriveStates.Faulted;
 				
 		eOrientalAZDriveStates.Faulted:
@@ -322,6 +325,7 @@ CASE state OF
 						Error := FALSE;
 						freeMotor := FALSE;
 						reset := FALSE;
+						zHome := FALSE;
 						MoveAbs := FALSE;
 						MoveRel := FALSE;
 						MoveAbsTorque := FALSE;

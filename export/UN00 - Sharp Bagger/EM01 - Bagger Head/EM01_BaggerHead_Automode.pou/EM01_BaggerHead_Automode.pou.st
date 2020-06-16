@@ -13,6 +13,8 @@ VAR_OUTPUT
     releaseAndFeedSubState : RELEASE_FEED_STATES;
     bagOpenSubState : BAG_OPEN_ASSIST_STATES;
 	currentBaggerState : STRING;
+	cycleComplete : BOOL;
+	baggerCycleActive : BOOL;
 END_VAR
 VAR
 	cycleTimer : TON() := (PT := T#1000S);
@@ -32,4 +34,3 @@ END_VAR
 //				 Each method is a PackML state.
 //	Created by: Ben Hess
 //	Created Date: Tuesday, March 26, 2019
-resettingTimer();

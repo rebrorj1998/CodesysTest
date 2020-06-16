@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_OrientalAZMotor EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_OrientalAZMotorMB EXTENDS Sharp_Motion.Axis_REF
 VAR_INPUT
 	modbusAddress : USINT;
 	isGroup : BOOL;
@@ -7,8 +7,8 @@ VAR_INPUT
 	zeroOffset : REAL;
 	jogForwardCMD : BOOL;
 	jogReverseCMD : BOOL;
-	groupMotor0 : REFERENCE TO FB_OrientalAZMotor; // Master Motor
-	groupMotor1 : REFERENCE TO FB_OrientalAZMotor;	// Slave Motor
+	groupMotor0 : REFERENCE TO FB_OrientalAZMotorMB; // Master Motor
+	groupMotor1 : REFERENCE TO FB_OrientalAZMotorMB;	// Slave Motor
 END_VAR
 VAR_OUTPUT
 	triggerDDWriteNow : BOOL;

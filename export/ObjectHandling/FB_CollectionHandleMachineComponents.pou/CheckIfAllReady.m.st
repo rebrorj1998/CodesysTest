@@ -4,10 +4,12 @@ VAR_INPUT
 END_VAR
 VAR
 	J : UINT;
-	ready : BOOL;
+	notReady : BOOL;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // Go through list of homable components and return true if all are homed OR if component isn't active
 FOR J:= 0 TO _TotalObj - 1 DO
-	ready := CheckIfReady(Collection[J]);
+	IF NOT CheckIfReady(Collection[J]) THEN
+		notReady := TRUE;
+	END_IF
 END_FOR
-CheckIfAllReady := ready;
+CheckIfAllReady := NOT notReady;

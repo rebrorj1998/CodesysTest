@@ -60,7 +60,8 @@ MC_ResetMotor(Axis := loadPlateMotor);
 MC_HaltMotor(Axis := loadPlateMotor);
 {endregion}
 
-_readyToLoad := TO_DINT(loadPlateMotor.ActualPosition * 1000) = TO_DINT(raisedSetting * 1000);
+_readyToLoad := TO_DINT(loadPlateMotor.ActualPosition * 1000) < TO_DINT(raisedSetting * 1000) + 10 AND TO_DINT(loadPlateMotor.ActualPosition * 1000) > TO_DINT(raisedSetting * 1000) - 10;
+_ready := _readyToLoad AND state = eMotorizedLoadPlateStates.Idle;
 _isHomed := loadPlateMotor.HomingDone;
 {region "Timers"}
 // If homing not complete within reasonable time, error out
@@ -97,6 +98,30 @@ CASE state OF
 	
 	eMotorizedLoadPlateStates.Idle:
 	 		// Idle State.
+	   		
+				   
+				IF _homeNow THEN
+					_homeNow := FALSE;
+			   		IF THIS^.OptionActive THEN
+					   state := eMotorizedLoadPlateStates.Home;
+				  	END_IF
+					
+				END_IF
+				
+				
+				IF raiseShelfPB THEN
+			   		IF THIS^.OptionActive THEN
+					   state := eMotorizedLoadPlateStates.Raise;
+				  	END_IF
+				ELSIF _beginDischarge OR lowerShelfPB THEN
+					IF THIS^.OptionActive THEN
+					   state := eMotorizedLoadPlateStates.Lower;
+				  	END_IF
+					
+				END_IF
+							
+		  
+	   
 			MC_ResetMotor.Execute := FALSE;
 			IF loadPlateMotor.HomingDone
 				AND NOT failedToHome.Active
@@ -108,20 +133,7 @@ CASE state OF
 			ELSE
 				_ready := FALSE;
 			END_IF
-			
-			IF _homeNow THEN
-				_homeNow := FALSE;
-				state := eMotorizedLoadPlateStates.Home;
-			END_IF
-			
-			
-			IF raiseShelfPB THEN
-				state := eMotorizedLoadPlateStates.Raise;
-			ELSIF _beginDischarge OR lowerShelfPB THEN
-				
-				state := eMotorizedLoadPlateStates.Lower;
-			END_IF
-								
+					
 		
 		
 	

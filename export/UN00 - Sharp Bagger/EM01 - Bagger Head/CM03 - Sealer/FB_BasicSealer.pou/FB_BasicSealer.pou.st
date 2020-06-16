@@ -25,9 +25,10 @@ IF _reset THEN
 	sealActive := FALSE;
 	_sealComplete := FALSE;
 	sealTimer.IN := FALSE;
+	_reset := FALSE;
 	state := 0;
 END_IF
-
+_ready := state = 0;
 CASE state OF
 	
 	0:	IF beginSealingONS.OSR THEN

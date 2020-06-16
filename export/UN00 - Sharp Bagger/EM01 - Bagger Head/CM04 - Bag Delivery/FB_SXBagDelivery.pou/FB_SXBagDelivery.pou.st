@@ -2,6 +2,7 @@
 FUNCTION_BLOCK FINAL FB_SXBagDelivery EXTENDS FB_BaseComponent IMPLEMENTS IBagDelivery
 VAR_INPUT
 	simulateIO : BOOL;
+	dryCycleEnable : BOOL;
 	bagPresent : BOOL;
 	printer : IPrinter;
 	bagLength : REAL := 24.0;
@@ -149,6 +150,7 @@ CASE state OF
 				moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag to Print Offset'));
+				
 				state := 101;
 				nextState := 21;	
 			END_IF
@@ -160,7 +162,7 @@ CASE state OF
 			nextState := 0;	
 	
 	50: 	// Feed bag if not over photoeye
-			IF NOT bagPresent THEN
+			IF NOT bagPresent AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
 				MC_MoveBagDelivery.Velocity := reverseSpeed;
 				MC_MoveBagDelivery.Distance := maxReverseSetpoint;
@@ -216,7 +218,7 @@ CASE state OF
 			//nextState := 31;
 	
 	31:		// Stop bag once edge clears photoeye. If move command finishes that means the bag didn't separate 
-			IF MC_MoveBagDelivery.Done THEN
+			IF MC_MoveBagDelivery.Done AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				bagFailedToSeparate.Trigger();
 				ClearStatus();
@@ -224,16 +226,23 @@ CASE state OF
 				nextState := 0;
 			END_IF
 			
+			IF MC_MoveBagDelivery.Done AND dryCycleEnable THEN
+				MC_MoveBagDelivery.Execute := FALSE;
+				MC_HaltBagDelivery.Execute := FALSE;
+				bagEdgePhotoeyeSim.in := FALSE;
+				state := 32;
+			END_IF
+			
 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
 				reverseFault.Trigger();
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				ClearStatus();
-				nextState := 0;
+				nextState := 32;
 				state := 100;
 			END_IF
 			
-			IF NOT bagPresent THEN
+			IF NOT bagPresent AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				
 				MC_HaltBagDelivery.Execute := TRUE;
@@ -242,7 +251,7 @@ CASE state OF
 			END_IF
 		
 	32: 	// Set Bag Reversed OR reverse further for zero print datum if needed
-			IF MC_HaltBagDelivery.Done THEN
+			IF MC_HaltBagDelivery.Done OR dryCycleEnable THEN
 				MC_HaltBagDelivery.Execute := FALSE;
 				IF NOT printer.OptionActive OR
 				   printOffset >= distanceFromNipToBagEdge
