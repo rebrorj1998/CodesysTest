@@ -22,3 +22,5 @@ END_VAR
 //	Created Date: Friday, June 1, 2018
 
 _optionActive := _optionEnabled AND _optionInstalled;
+enableONS(CLK := _optionActive);
+resetONS(CLK := _reset);

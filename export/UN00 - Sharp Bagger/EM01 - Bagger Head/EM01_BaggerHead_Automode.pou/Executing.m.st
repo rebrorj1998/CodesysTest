@@ -210,8 +210,10 @@ CASE releaseAndFeedSubState OF
 													releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	
 													// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
 													IF NOT bagger.printer.OptionActive THEN
-														bagger.bagDelivery.FeedBagOut();
-														SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+														IF NOT bagger.pressureBar.IsFullyClosed THEN
+															bagger.bagDelivery.FeedBagOut();
+															SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+														END_IF
 													ELSE 
 														SetReleaseFeedState(RELEASE_FEED_STATES.WaitForPrinter);
 													END_IF

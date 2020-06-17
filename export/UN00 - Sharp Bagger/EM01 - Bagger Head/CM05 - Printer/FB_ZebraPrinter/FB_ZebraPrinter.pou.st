@@ -71,6 +71,7 @@ resetONS(CLK := _reset);
 IF enableONS.Q OR resetONS.Q THEN
     state := eZebraPrinterStates.Idle;
 	_reset := FALSE;
+	_beginPrinting := FALSE;
 	printHeadDebounced := FALSE;
 	ribbonUnwindRunOutput := FALSE;
 	lowerPrintHeadOutput := FALSE;
