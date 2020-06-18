@@ -6,8 +6,8 @@ VAR_INPUT
 	zeroOffset : REAL;
 	jogForwardCMD : BOOL;
 	jogReverseCMD : BOOL;
-	groupMotor0 : REFERENCE TO FB_OrientalAZMotorTrigger; // Master Motor
-	groupMotor1 : REFERENCE TO FB_OrientalAZMotorTrigger;	// Slave Motor
+	groupMotor0 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest; // Master Motor
+	groupMotor1 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest;	// Slave Motor
 END_VAR
 VAR_OUTPUT
 	alarmCode : DWORD;
@@ -251,7 +251,7 @@ CASE state OF
 		eOrientalAZDriveStates.Homing:		
 				//
 				//IF inPosition AND zHomeDelay.Q AND TO_DINT(ActPos) = 0 THEN
-				IF zHomeDelay.Q AND TO_DINT(ActPos * 1000) = 0 THEN
+				IF zHomeDelay.Q AND TO_DINT(ActPos * 1000) = TO_DINT(zeroOffset * 1000) THEN
 					zHome := FALSE;
 					HomingDone := TRUE;
 					state := eOrientalAZDriveStates.DoneMoving;
@@ -275,7 +275,7 @@ CASE state OF
 		
 		eOrientalAZDriveStates.Moving:
 				// After sending data, we are moving
-				IF mInPosition() OR (atTorqueLimit AND MoveAbsTorque) THEN
+				IF (mInPosition() AND (MoveAbs OR MoveAbsTorque)) OR (atTorqueLimit AND MoveAbsTorque) OR (inPosition AND MoveRel) THEN
 					TargetReached := TRUE;
 					state := eOrientalAZDriveStates.DoneMoving;
 				END_IF

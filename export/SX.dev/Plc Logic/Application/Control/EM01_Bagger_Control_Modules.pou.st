@@ -12,19 +12,19 @@ VAR_OUTPUT
 	dualMotorPassthrough : FB_DualMotorPBar(name := 'Dual Motor Jaw') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
 	dummySealFlatteners : FB_BaseSealFlatteners(name := 'Dummy Seal Flatteners') := (_optionEnabled := FALSE, _optionInstalled := FALSE); 
 	
-	jawFrontMotor : FB_OrientalAZMotorTrigger := (DefaultCurrent := 100);
-	jawRearMotor : FB_OrientalAZMotorTrigger := (DefaultCurrent := 100);
-	jawBothMotors : FB_OrientalAZMotorTrigger := (DefaultCurrent := 100);
+	jawFrontMotor : FB_OrientalAZMotorTriggerPositionTest := (DefaultCurrent := 100);
+	jawRearMotor : FB_OrientalAZMotorTriggerPositionTest := (DefaultCurrent := 100);
+	jawBothMotors : FB_OrientalAZMotorTriggerPositionTest := (DefaultCurrent := 100);
 	bagOpenFingersActuator : FB_PneumaticVerticalActuator(name := 'Bag Open Fingers Actuator');
 	sealFlattenerVertAxisActuator : FB_PneumaticVerticalActuator(name := 'Seal Flat Pneu Vert Axis Actuator');
 	
 	labelPrinter : FB_ZebraPrinter(name := 'Zebra Label Printer') := (_optionEnabled := FALSE, _optionInstalled := TRUE);
 	printHeadActuator : FB_ElectricSolenoid(name := 'Print Head Actuator');
 	
-	IBDMotor : FB_OrientalAZMotorTrigger() := (DefaultCurrent := 100);
+	IBDMotor : FB_OrientalAZMotorTriggerPositionTest() := (DefaultCurrent := 100);
 	IBD : FB_MotorizedIBD(name := 'Motorized IBD');
 	
-	loadPlateMotor : FB_OrientalAZMotorTrigger() := (DefaultCurrent := 100);
+	loadPlateMotor : FB_OrientalAZMotorTriggerPositionTest() := (DefaultCurrent := 100);
 
 	loadPlate : FB_MotorizedLoadPlate(name := 'Motorized Load Plate');
 	

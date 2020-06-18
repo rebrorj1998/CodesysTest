@@ -20,6 +20,7 @@ VAR
 	TR : BOOL;
 	RA : BOOL;
 	RR : BOOL;
+	ClearOutReadBuffer : BOOL;
 END_VAR
 VAR_IN_OUT
 
@@ -34,6 +35,12 @@ END_IF
 readBufferHasData := inputs[0].4;
 readBufferDataSize := inputs[1];
 readTimeout(IN := serialState = eSerialStates.getResponse); 
+
+// IF readBufferHasData AND serialState = eSerialStates.Idle THEN
+// 	ClearOutReadBuffer := TRUE;
+// ELSE 
+// 	ClearOutReadBuffer := FALSE;
+// END_IF
 
 CASE serialState OF
 	eSerialStates.Idle :				// Wait for execute
@@ -89,6 +96,6 @@ CASE serialState OF
 
 	
 END_CASE
-
+//outputs[0].0 := ClearOutReadBuffer;
 outputs[0].1 := TR;
 outputs[0].2 := RA;

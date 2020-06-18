@@ -4,6 +4,7 @@
 TYPE eSerialStates :
 (
 	Idle := 0,
+	ClearReadBuffer := 1,
 	writeOutBuffer := 10,
 	writingOutBuffer := 11,
 	waitForResponse := 12,

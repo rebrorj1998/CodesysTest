@@ -59,7 +59,7 @@ MC_ResetIBDMotor(Axis := IBDMotor);
 MC_HaltIBDMotor(Axis := IBDMotor);
 {endregion}
 
-_isFullyOpen := TO_DINT(IBDMotor.ActualPosition * 1000) = TO_DINT(passthroughSetting * 1000);
+_isFullyOpen := TO_DINT(IBDMotor.ActualPosition * 1000) <= (TO_DINT(passthroughSetting * 1000) + 10) AND TO_DINT(IBDMotor.ActualPosition * 1000) >= (TO_DINT(passthroughSetting * 1000) - 10);
 
 {region "Timers"}
 // If homing not complete within reasonable time, error out

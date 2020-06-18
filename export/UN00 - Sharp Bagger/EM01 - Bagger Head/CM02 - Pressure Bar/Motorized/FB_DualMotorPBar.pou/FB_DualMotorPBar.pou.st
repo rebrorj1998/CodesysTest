@@ -117,7 +117,7 @@ EnableSimulation(device := cylinder, enableSim := simulateIO);
 *)
 
 _isFullyClosed := pressureBarClosedSensor;
-_isFullyOpen := TO_DINT(frontMotor.ActualPosition * 1000) = TO_DINT(passthroughSetting * 1000);
+_isFullyOpen := TO_DINT(frontMotor.ActualPosition * 1000) <= (TO_DINT(passthroughSetting * 1000) + 10) AND TO_DINT(frontMotor.ActualPosition * 1000) >= (TO_DINT(passthroughSetting * 1000) - 10);
 //_IsHomed := _isFullyOpen AND bothMotorsHomed;
 
 // Failed to reach sensor timers
