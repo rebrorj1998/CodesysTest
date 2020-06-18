@@ -49,7 +49,7 @@ autoModeTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCyc
 cycleStartONS(clk := iCycleStart);
 // All start conditions
 IF HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q THEN
-	IF UN00_SXMachine.currentState = PACK_ML.State.Execute THEN
+	IF UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle THEN
 		EM01_SXBaggerHead.StartCycle();
 		IF HMIData.autoModeEnable THEN
 			autoModeKeepCycling := TRUE;
@@ -237,6 +237,16 @@ cycleComplete(CLK := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleComplete);
 IF cycleComplete.OSR THEN
 	HMIData.bagsMade := HMIData.bagsMade + 1;
 END_IF
+
+// Position Indications for service commands
+HMIData.jawService.extendedFeedback := baggerCM.dualMotorPassthrough.IsFullyOpen;
+HMIData.jawService.retractedFeedback := baggerCM.dualMotorPassthrough.IsFullyClosed;
+
+HMIData.IBDService.extendedFeedback := baggerCM.IBD._isFullyOpen;
+HMIData.IBDService.retractedFeedback := NOT baggerCM.IBD._isFullyOpen;
+
+HMIData.printHeadService.extendedFeedback := iPrintHeadLowered;
+HMIData.printHeadService.retractedFeedback := NOT iPrintHeadLowered;
 
 // Amazon Bags per minute throughput calculator
 amazonBPM(
