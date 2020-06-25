@@ -2,7 +2,7 @@
 PROGRAM SerialComms
 VAR
 	serial : FB_CrevisSerial();
-	printerLabel : FB_PrinterSerial();
+	
 	hIecTask : RTS_IEC_HANDLE;
 	firstScanDone  : BOOL;
 END_VAR
@@ -24,9 +24,3 @@ serial(
 	inputs:= ADR(serialInputs), 
 	outputs:= ADR(serialOutputs));
 	
-IF HMIData.sendSampleLabels AND NOT printerLabel.xDone THEN
-	printerLabel.xExecute := TRUE;
-	printerLabel.sendSampleLabel := TRUE;
-	HMIData.sendSampleLabels := FALSE;
-END_IF
-printerLabel();

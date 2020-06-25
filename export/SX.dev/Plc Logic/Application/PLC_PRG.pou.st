@@ -18,6 +18,7 @@ VAR
 	palmButton : FB_BannerPalmButton;
 	topCoverLiftedFault : FB_Fault(name := 'Top Cover Lifeted During Cycle');
 	amazonBPM : FB_AmazonThroughput();
+	printerLabel : FB_PrinterSerial();
 	autoModeTimer : Standard.TON;
 	autoModeKeepCycling : BOOL;
 	autoModeInitiateCycleONS : FB_ONS;
@@ -117,6 +118,23 @@ ELSE
 	IBD_Motor.Enable := TRUE;
 END_IF
 
+// Printer sample label sending
+IF HMIData.sendSampleLabels AND NOT printerLabel.xExecute THEN
+	printerLabel.xExecute := TRUE;
+	printerLabel.sendSampleLabel := TRUE;
+	printerLabel.sendClearLabel := FALSE;
+	HMIData.sendSampleLabels := FALSE;
+ELSIF HMIData.clearAllLabels AND NOT printerLabel.xExecute THEN
+	printerLabel.xExecute := TRUE;
+	printerLabel.sendSampleLabel := FALSE;
+	printerLabel.sendClearLabel := TRUE;
+	HMIData.clearAllLabels := FALSE;
+END_IF
+
+IF printerLabel.xDone THEN
+	printerLabel.xExecute := FALSE;
+END_IF
+printerLabel();
 
 // Run collection of bagger control modules
 baggerCM();

@@ -75,6 +75,10 @@ IF testResetSim THEN
 	UN00_Globals.simFaults.FB_Init(TRUE,TRUE);
 END_IF
 
+IF (faultActive AND currentState <> PACK_ML.State.Clearing) OR abortMachine THEN
+	currentUnitMode.Abort();
+	abortMachine := FALSE;
+END_IF
 
 CASE currentState OF
 	
@@ -136,9 +140,6 @@ CASE currentState OF
 			
 END_CASE
 
-IF (faultActive AND currentState <> PACK_ML.State.Clearing) OR abortMachine THEN
-	currentUnitMode.Abort();
-	abortMachine := FALSE;
-END_IF
+
 
 startMachine := FALSE;

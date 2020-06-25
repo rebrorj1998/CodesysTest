@@ -29,6 +29,8 @@ VAR
 	xCom1OpenError : BOOL;
 	xCom1CloseError : BOOL;
 	xCom1WriteError : BOOL;
+	executeONS : Standard.R_TRIG;
+	sendLabelNow : BOOL;
 END_VAR
 
 VAR CONSTANT
@@ -396,8 +398,19 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //The first one writes a string of characters, which is read by the second one. 
 //After successful execution, the two COM Ports are closed and the test is done.
 
-IF xExecute THEN
-	
+executeONS(CLK := xExecute);
+
+IF executeONS.Q THEN
+	sendLabelNow := TRUE;
+END_IF
+
+IF xExecute = FALSE THEN
+	sendLabelNow := FALSE;
+	iState := 0;
+	xDone := FALSE;
+END_IF
+
+IF sendLabelNow THEN
 	CASE iState OF
 		0:	//The parameters are set for the COM Port
 			aCom1Params[1].udiParameterId := COM.CAA_Parameter_Constants.udiPort;
@@ -469,7 +482,7 @@ IF xExecute THEN
 			END_IF
 		1000:
 			xDone := TRUE;
-            xExecute := FALSE;
+            sendLabelNow := FALSE;
 			iState := 0;
 			como1(xExecute := FALSE);
 			comw1(xExecute := FALSE);

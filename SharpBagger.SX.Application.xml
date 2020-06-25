@@ -90,6 +90,7 @@
         <Node name="BPMBagsMade" type="T_UDINT" access="ReadWrite" />
         <Node name="BPMBagsPerMinute" type="T_REAL" access="ReadWrite" />
         <Node name="BPMReset" type="T_BOOL" access="ReadWrite" />
+        <Node name="clearAllLabels" type="T_BOOL" access="ReadWrite" />
         <Node name="consecutiveBagsCount" type="T_UDINT" access="ReadWrite" />
         <Node name="consecutiveBagsEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="consecutiveBagsSetting" type="T_UDINT" access="ReadWrite" />

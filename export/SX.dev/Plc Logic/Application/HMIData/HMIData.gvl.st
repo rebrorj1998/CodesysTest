@@ -47,6 +47,7 @@ VAR_GLOBAL
 	bcvReady : BOOL;
 	IBDReady : BOOL;
 	sendSampleLabels : BOOL;
+	clearAllLabels : BOOL;
 	printerAndVerifierEnablePB : BOOL;
 	printerAndVerifierEnableIndication : BOOL;
 	frontJawMotorData : sctOrientalHMIData;
@@ -129,5 +130,5 @@ VAR_GLOBAL PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.0.3.7';
+	version : STRING := '1.0.4.0';
 END_VAR
