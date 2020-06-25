@@ -6,9 +6,11 @@ VAR
 	Cast : IHomable;
 	J : UINT;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-// For each homable objest in the array, run its "HomeNow()" method
+// For each homable objest in the array, run its "HomeNow()" method if object is not homed
 FOR J:= 0 TO _TotalObj - 1 DO
 	IF (__QUERYINTERFACE(Collection[J], Cast)) THEN
-		Cast.HomeNow();
+		IF NOT Cast.IsHomed THEN
+			Cast.HomeNow();
+		END_IF
 	END_IF
 END_FOR

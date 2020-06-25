@@ -16,7 +16,7 @@ VAR_OUTPUT
 	jawRearMotor : FB_OrientalAZMotorTriggerPositionTest := (DefaultCurrent := 100);
 	jawBothMotors : FB_OrientalAZMotorTriggerPositionTest := (DefaultCurrent := 100);
 	bagOpenFingersActuator : FB_PneumaticVerticalActuator(name := 'Bag Open Fingers Actuator');
-	sealFlattenerVertAxisActuator : FB_PneumaticVerticalActuator(name := 'Seal Flat Pneu Vert Axis Actuator');
+	sealFlattenerVertAxisActuator : FB_DummyUpDown;
 	
 	labelPrinter : FB_ZebraPrinter(name := 'Zebra Label Printer') := (_optionEnabled := FALSE, _optionInstalled := TRUE);
 	printHeadActuator : FB_ElectricSolenoid(name := 'Print Head Actuator');
@@ -29,6 +29,9 @@ VAR_OUTPUT
 	loadPlate : FB_MotorizedLoadPlate(name := 'Motorized Load Plate');
 	
 	barcodeVerifier : FB_BaseBCV(name := 'Barcode Verifier');
+	
+	bagDelivery : FB_SXBagDelivery(name := 'Bag Delivery') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
+	bagDeliveryFrontMotor : FB_AppliedMotionMotorASCII;
 END_VAR
 
 VAR
@@ -248,7 +251,7 @@ standardBagOpenFingersWithSensors(
 	missedCounter=> );
 
 
-sealFlattenerVertAxisActuator(solenoid0=> , solenoid1=> , cylinder:= Devices.sealFlattenersVertAxisSolenoidValve);
+sealFlattenerVertAxisActuator();
 dummySealFlatteners();
 
 	
@@ -397,6 +400,67 @@ barcodeVerifier(
 	currentBadReadCount=> HMIData.barcodeBadReadCount, 
 	barcodeFault=> );	
 
+bagDeliveryFrontMotor(
+	AxisState:= , 
+	SetOpMode:= , 
+	PowerOn:= , 
+	DriveEnable:= , 
+	AckError:= , 
+	StartHoming:= , 
+	Halt:= , 
+	NewSetPoint:= , 
+	MoveAbs:= , 
+	MoveAbsTorque:= , 
+	MoveRel:= , 
+	MoveVelo:= , 
+	TargetPosDist:= , 
+	TargetVelocity:= , 
+	ProfileVelocity:= , 
+	ProfileAcceleration:= , 
+	ProfileDeceleration:= , 
+	ProfileCurrentLimit:= , 
+	QuickStopDeceleration:= , 
+	DefaultCurrent:= , 
+	ActOpMode=> , 
+	CommStatus=> , 
+	PowerState=> , 
+	EnableState=> , 
+	Error=> , 
+	ActPos=> , 
+	ActVelocity=> , 
+	SetPointAck=> , 
+	TargetReached=> , 
+	InVelocity=> , 
+	HomingDone=> , 
+	modbusAddress:= , 
+	stepsPerInchSP:= Globals.STEPS_PER_INCH_FILM, 
+	zeroOffset:= , 
+	jogForwardCMD:= HMIData.jogFilmForward, 
+	jogReverseCMD:= HMIData.jogFilmReverse, 
+	asciiHandler:= SerialComms.serial);
+
+	
+bagDelivery(
+	simulateIO := HMIData.simulateAllIO,
+	dryCycleEnable := HMIData.dryCycleEnable,
+	_optionActive=> , 
+	printer:= PLC_PRG.baggerCM.labelPrinter, 
+	bagLength:= HMIData.bagLength, 
+	feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 
+	reverseSpeed:= TO_REAL(HMIData.bagReverseSpeed), 
+	printSpeed:= TO_REAL(HMIData.printSpeed), 
+	printOffset:= HMIData.printOffset, 
+	printLength:= HMIData.printLength, 
+	maxReverseSetpoint:= 4.0, 
+	sealOffset:= HMIData.bagSkirtLength, 
+	distanceFromSealBarToBagEdge:= Globals.SEAL_TO_PHOTOEYE_DISTANCE, 
+	distanceFromNipToBagEdge:= , 
+	bagPresent:= iBagEdgePhotoeye, 
+	trapezoidalPercent:= , 
+	reverseFault=> , 
+	bagFailedToSeparate=> , 
+	bagDeliveryMotor:= bagDeliveryFrontMotor);	
+	
 IBD.OptionInstalled := HMIData.IBDInstalled;
 IBD.OptionEnabled := HMIData.IBDInUse;
 

@@ -50,19 +50,34 @@ CASE resettingState OF
 		IF resettingTimer.Q THEN
 			resetFailed := TRUE;
 			resettingTimer.IN := FALSE;
+			resettingState := 5;
+		END_IF
+		
+		IF GlobalObjects.CollectionOfComponents.CheckIfAllHomed() THEN
+			GlobalObjects.CollectionOfComponents.MakeReadyAll();
+			resettingTimer.IN := FALSE;
 			resettingState := 4;
+		END_IF
+		
+	4:	// Move everything into place to start machine
+		resettingTimer.PT := T#10S;
+		resettingTimer.IN := TRUE;
+		IF resettingTimer.Q THEN
+			resetFailed := TRUE;
+			resettingTimer.IN := FALSE;
+			resettingState := 5;
 		END_IF
 		
 		IF GlobalObjects.CollectionOfComponents.CheckIfAllReady() 
 		THEN
 			_resettingDone := TRUE;
 			resettingTimer.IN := FALSE;
-			resettingState := 4;
+			resettingState := 5;
 		END_IF
+		
 	
-	4:	// Once everything is moved into position and ready move on
+	5:	// Once everything is moved into position and ready move on
 		resettingState := 0;
-	
 	
 END_CASE
 

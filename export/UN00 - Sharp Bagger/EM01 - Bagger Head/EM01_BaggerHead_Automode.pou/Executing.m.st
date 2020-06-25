@@ -222,8 +222,11 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.WaitForOKFromDischarge :   	// Wait for EM02 - Discharge to give OK to feed bag signal
 													IF discharge.OKToFeedBag THEN
 														IF NOT bagger.printer.OptionActive THEN
-															bagger.bagDelivery.FeedBagOut();
-															SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+															IF NOT bagger.pressureBar.IsFullyClosed THEN
+																bagger.bagDelivery.FeedBagOut();
+																SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+															END_IF
+															
 														ELSE 
 															SetReleaseFeedState(RELEASE_FEED_STATES.WaitForPrinter);
 														END_IF   
@@ -234,6 +237,10 @@ CASE releaseAndFeedSubState OF
                                                     IF bagger.printer.HasLabel AND NOT bagger.pressureBar.IsFullyClosed THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.FeedToOffset);
                                                     END_IF
+													IF bagger.cancelPrint THEN
+														bagger.bagDelivery.FeedBagOut();
+														SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+													END_IF
                                                     
     RELEASE_FEED_STATES.FeedToOffset :              // Start feeding to the print offset
                                                     bagger.bagDelivery.FeedToPrintOffset();

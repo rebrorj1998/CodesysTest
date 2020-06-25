@@ -40,7 +40,7 @@ END_VAR
 //    Created Date: April 2nd, 2018
 SUPER^();
 
-_hasLabel := dataReadyInput OR simulateIO;
+_hasLabel := dataReadyInput OR simulateIO OR dryCycleEnable;
 
 endOfPrintONS(CLK := endOfPrintInput);
 //Report as ready if mode is auto and we're not faulted

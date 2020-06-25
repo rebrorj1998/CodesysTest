@@ -16,8 +16,9 @@ END_VAR
 IF (__QUERYINTERFACE(Component, homableDevice)) THEN
 	IF homableDevice.IsHomed OR NOT Component.OptionActive THEN
 		CheckIfHomed := TRUE;
-		RETURN;
-	ELSE
+	ELSE 
 		RETURN;
 	END_IF
+ELSE
+	CheckIfHomed := TRUE;
 END_IF

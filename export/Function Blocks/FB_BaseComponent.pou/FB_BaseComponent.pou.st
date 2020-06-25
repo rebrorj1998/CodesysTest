@@ -8,11 +8,13 @@ END_VAR
 VAR
     _ready : BOOL;                    // Ready to be controlled
 	_reset : BOOL;
+	_makeReady : BOOL;
 	_optionActive : BOOL;
 	_optionEnabled : BOOL;
 	_optionInstalled : BOOL;
 	enableONS : R_TRIG;
 	resetONS : R_TRIG;
+	makeReadyONS : Standard.R_TRIG;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: BaseComponentFB
@@ -24,3 +26,4 @@ END_VAR
 _optionActive := _optionEnabled AND _optionInstalled;
 enableONS(CLK := _optionActive);
 resetONS(CLK := _reset);
+makeReadyONS(CLK := _makeReady);

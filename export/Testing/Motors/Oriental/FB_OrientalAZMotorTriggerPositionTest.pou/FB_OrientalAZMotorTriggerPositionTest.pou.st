@@ -37,8 +37,8 @@ VAR
 	jogForward : BOOL;
 	packedRIO : uModbusDWORD;
 	packedRIOLast : DWORD;
-	delayTimer : Standard.TON := (PT := T#250MS);
-	zHomeDelay : Standard.TON := (PT := T#2000MS);
+	delayTimer : Standard.TON := (PT := T#50MS);
+	zHomeDelay : Standard.TON := (PT := T#250ms);
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
@@ -112,7 +112,7 @@ zHomeDelay(IN := state = eOrientalAZDriveStates.Homing);
 // Trigger an RIO write whenever it changes
 
 
-IF packedRIO.dDword <> packedRIOLast THEN
+IF packedRIO.dDword <> packedRIOLast AND NOT triggerRIOWriteNow THEN
 	packedRIOLast := packedRIO.dDword;
 	triggerRIOWriteNow := TRUE;
 END_IF
@@ -304,7 +304,7 @@ CASE state OF
 				Error := TRUE;
 				freeMotor := TRUE;
 				zHome := FALSE;
-				triggerRIOWriteNow := TRUE;
+				//triggerRIOWriteNow := TRUE;
 				state := eOrientalAZDriveStates.Faulted;
 				
 		eOrientalAZDriveStates.Faulted:
@@ -332,6 +332,7 @@ CASE state OF
 						MoveAbsTorque := FALSE;
 						StartHoming := FALSE;
 						state := eOrientalAZDriveStates.Idle;
+						nextState := eOrientalAZDriveStates.Idle;
 					END_IF
 END_CASE
 

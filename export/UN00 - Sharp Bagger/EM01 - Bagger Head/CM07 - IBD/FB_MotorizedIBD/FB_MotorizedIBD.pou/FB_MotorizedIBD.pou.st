@@ -124,8 +124,9 @@ CASE state OF
 			END_IF
 			
 			
-			IF _MoveOut OR openIBDPB THEN
+			IF _MoveOut OR openIBDPB OR _makeReady THEN
 				_MoveOut := FALSE;
+		   		_makeReady := FALSE;
 				state := eMotorizedIBDStates.MoveOut;
 			ELSIF _moveInToDeflate OR closeIBDPB THEN
 				_moveInToDeflate := FALSE;

@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">637266944637658335</Single>
+        <Single Name="Timestamp" Type="long">637286081650730232</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
@@ -358,6 +358,102 @@
             </Key>
             <Value>
               <Single Type="string">OMAC PackML State Machine, 1.0.0.0 (3S - Smart Software Solutions GmbH)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElems</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElems, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemMeter</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemMeter, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemsSpecialControls</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemsSpecialControls, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemsWinControls</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemsWinControls, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemTextEditor</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemTextEditor, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemTrace</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemTrace, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuNativeControl</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuNativeControl, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemsAlarm</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemsAlarm, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemCamDisplayer</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemCamDisplayer, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElem3DPath</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElem3DPath, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemsDateTime</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemsDateTime, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuElemXYChart</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemXYChart, 3.5.16.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>

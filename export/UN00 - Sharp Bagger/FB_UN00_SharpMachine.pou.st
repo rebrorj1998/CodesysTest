@@ -64,7 +64,7 @@ IF xNextState THEN
 	xNextState := FALSE;
 END_IF
 baggerManager(
-	modeManager := unitModeManager, 
+	currentState := currentState, 
 	baggerHead := baggerHead, 
 	discharge := discharge);
 	
@@ -76,11 +76,11 @@ IF testResetSim THEN
 END_IF
 
 
-CASE unitModeManager.ActiveUnitMode.CurrentState OF
+CASE currentState OF
 	
-	PACK_ML.State.Stopped: 		IF homeONS.OSR THEN
+	PACK_ML.State.Stopped: 		//IF homeONS.OSR THEN
 									currentUnitMode.Reset();
-								END_IF	
+								//END_IF	
 								_clearingDone := FALSE;
 								
 	PACK_ML.State.Aborted:		IF resetONS.OSR THEN
@@ -136,7 +136,7 @@ CASE unitModeManager.ActiveUnitMode.CurrentState OF
 			
 END_CASE
 
-IF (faultActive AND unitModeManager.ActiveUnitMode.CurrentState <> PACK_ML.State.Clearing) OR abortMachine THEN
+IF (faultActive AND currentState <> PACK_ML.State.Clearing) OR abortMachine THEN
 	currentUnitMode.Abort();
 	abortMachine := FALSE;
 END_IF

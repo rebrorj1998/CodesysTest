@@ -14,6 +14,7 @@ VAR_INPUT
 	homeTimeoutSetting : TIME := T#20S;								// Timeout for homing attempt
 	passthroughSetting : REAL := 5.5;
 	jawClosedSetting : REAL := -0.2;
+	jawTorqueSetting : REAL := 100.0;
 	moveInDelaySetting : TIME;
 	pressureBarClosedSensor : BOOL;
 	pressureBarNearClosedSensor : BOOL;
@@ -130,8 +131,14 @@ failedToOpenTimer(IN := jawState = eDualMotorPBarStates.OpeningJaw AND NOT _isFu
 					Q => failedToOpen.faultTrigger);
 
 // Obstruction fault is normally closed, fail safe.  Fault if collapsable faceplate is broken anywhere outside of all the way in or all the way out
-pressureBarObstructed.faultTrigger := NOT obstructionSensor AND NOT (pressureBarNearClosedSensor OR _isFullyOpen);
-
+	 
+IF NOT obstructionSensor AND NOT (pressureBarNearClosedSensor OR _isFullyOpen) THEN
+	pressureBarObstructed.faultTrigger := TRUE;
+ELSE
+	pressureBarObstructed.faultTrigger := FALSE;
+END_IF
+	 
+		  
 // Trigger motor faults from drive					
 IF frontMotor.Error THEN
 	frontMotorFault.faultTrigger := TRUE;
@@ -221,9 +228,10 @@ CASE jawState OF
 			IF _movePassthroughNow THEN
 				_movePassthroughNow := FALSE;
 				jawState := eDualMotorPBarStates.OpenJaw;
-			ELSIF _openNow OR openJawPB THEN
+			ELSIF _openNow OR openJawPB OR _makeReady THEN
 				openJawPB := FALSE;
 				_openNow := FALSE;
+				_makeReady := FALSE;
 				jawState := eDualMotorPBarStates.OpenJaw;
 			ELSIF (_closeNow AND moveInDelay.Q) OR closeJawPB THEN
 				closeJawPB := FALSE;
@@ -338,7 +346,7 @@ CASE jawState OF
 		MC_MoveBothMotorsABSTorque.Velocity := closeVelo;
 		MC_MoveBothMotorsABSTorque.Acceleration := closeAccel;
 		MC_MoveBothMotorsABSTorque.Deceleration := closeDecel;
-		MC_MoveBothMotorsABSTorque.CurrentLimit := 100;
+		MC_MoveBothMotorsABSTorque.CurrentLimit := jawTorqueSetting;
 		MC_MoveBothMotorsABSTorque.Execute := TRUE;
 		jawState := eDualMotorPBarStates.ClosingJaw;
 		

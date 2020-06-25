@@ -14,7 +14,7 @@ VAR
 	readBufferHasData : BOOL;
 	readBufferDataSize : BYTE;
 	writeBufferDataSize : BYTE;
-	readTimeout : Standard.TON := (PT := T#20MS);
+	readTimeout : Standard.TON := (PT := T#30MS);
 	timeToResponse : TIME;
 	TA : BOOL;
 	TR : BOOL;

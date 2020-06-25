@@ -20,6 +20,7 @@ VAR_INPUT
 	bagOpenRetrySetting : UINT;
 	newJobLoaded : BOOL;
 	vacuumDwell : TIME;
+	cancelPrint : BOOL;
 END_VAR
 VAR_OUTPUT
 	bagOpenRetryCount : UINT;

@@ -22,6 +22,8 @@ VAR
 	autoModeKeepCycling : BOOL;
 	autoModeInitiateCycleONS : FB_ONS;
 	cycleComplete : FB_ONS;
+	hIecTask : RTS_IEC_HANDLE;//Declaration of the variable hIecTask
+	teachPhotoeyeTimer : Standard.TOF() := (PT := T#3S);
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
@@ -30,13 +32,22 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Created Date: 
 
 
+
+
 // Initialze global objects on first scan
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
 	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := Globals.SystemLog);
 	GlobalObjects.CollectionOfFaults.FaultUpdateForHMI();
+	hIecTask := IecTaskGetCurrent(0);
+	IecTaskDisableWatchdog(hIecTask); // Watchdog disabled
 	firstScanDone := TRUE;
 END_IF
+
+// Teach bag photoeye
+teachPhotoeyeTimer(IN := HMIData.teachBagPhotoeye, Q => oTeachPhotoeye);
+HMIData.teachingBagPhoteye := oTeachPhotoeye;
+
 
 // Use fault collection for faultActive indication
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
@@ -85,7 +96,7 @@ powerUpLoadPlateMotor(Enable := HMIData.loadPlateInstalled, Axis := baggerCM.loa
 powerUpLoadPlateMotor.DriveStart := HMIData.loadPlateInstalled;
 powerUpLoadPlateMotor.RegulatorOn := HMIData.loadPlateInstalled;
 
-powerUpBagDeliveryMotor(Enable := TRUE, Axis := SerialComms.fastBagDeliveryFrontMotor);
+powerUpBagDeliveryMotor(Enable := TRUE, Axis := baggerCM.bagDeliveryFrontMotor);
 powerUpBagDeliveryMotor.DriveStart := TRUE;
 powerUpBagDeliveryMotor.RegulatorOn := TRUE;
 
@@ -117,13 +128,14 @@ EM01_SXBaggerHead(
 	sealer:= baggerCM.sealWire, 
 	pressureBar:= baggerCM.dualMotorPassthrough, 
 	printer:= baggerCM.labelPrinter, 
-	bagDelivery:= SerialComms.fastBagDelivery, 
+	bagDelivery:= baggercm.bagDelivery, 
 	vacuumBagOpen:= baggerCM.dummyVacuumCups, 
 	IBD:= baggerCM.IBD, 
 	loadPlate:= baggerCM.loadPlate, 
 	barcodeVerifier:= baggerCM.barcodeVerifier, 
 	bagOpenAssistEnabled:= FALSE, 
 	bagOpenSensorEnabled:= FALSE, 
+	cancelPrint := HMIData.printerCancelRequest,
 	separateBeforeSealEnabled:= HMIData.separateBeforeSeal, 
 	bagOpenRetrySetting:= , 
 	newJobLoaded:= , 
@@ -145,7 +157,7 @@ END_IF
 
 // Banner palm button has 4 states - off, solid green, 50/50 green/white rotating, and flashing red
 palmButton(
-	baggerReady:= UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
+	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute, 
 	baggerFaulted:= HMIData.faultActive, 
 	baggerInCycle:= HMIData.inCycle, 
 	palmState0Output=> oPalmButton0, 
@@ -165,11 +177,11 @@ HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.curren
 
 // Banner manager takes care of the Multistate lamp used as a banner on the proface 
 bannerManager(
-	baggerNotReady:= NOT UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute, 
-	baggerReady:= UN00_SXMachine.unitModeManager.ActiveUnitMode.CurrentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
+	baggerNotReady:= NOT UN00_SXMachine.currentState = PACK_ML.State.Execute, 
+	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
 	baggerInCycle:= HMIData.inCycle, 
-	noBagCoveringEye:= SerialComms.fastBagDelivery.noBagOverEye.Active, 
-	bagFailedToSeperate:= SerialComms.fastBagDelivery.bagFailedToSeparate.Active, 
+	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
+	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
 	pbarObstruction:= baggerCM.dualMotorPassthrough.pressureBarObstructed.Active, 
 	lightCurtainViolation:= , 
 	printHeadFTR:= baggerCM.labelPrinter.printHeadFailToRaise.Active, 
@@ -203,7 +215,7 @@ bannerManager(
 
 // Ready indications for bagger control modules
 HMIData.printerReady := baggerCM.labelPrinter.Ready;
-HMIData.bagDeliveryReady := SerialComms.fastBagDelivery.Ready;
+HMIData.bagDeliveryReady := baggerCM.bagDelivery.Ready;
 HMIData.loadPlateReady := baggerCM.loadPlate.Ready;
 HMIData.jawReady := baggerCM.dualMotorPassthrough.Ready;
 HMIData.bcvReady := baggerCM.barcodeVerifier.Ready;
@@ -226,8 +238,9 @@ HMIData.loadPlateMotorData.ActPos := baggerCM.loadPlateMotor.ActPos;
 HMIData.loadPlateMotorData.CommandedPos := baggerCM.loadPlateMotor.TargetPosDist;
 HMIData.loadPlateMotorData.CurrentAlarmCode := baggerCM.loadPlateMotor.alarmCode;
 
-HMIData.bagDeliveryMotorData.alarmCode := SerialComms.fastBagDeliveryFrontMotor.alarmCode;
-HMIData.bagDeliveryMotorData.statusCode := SerialComms.fastBagDeliveryFrontMotor.statusCode;
+HMIData.bagDeliveryMotorData.alarmCode := baggerCM.bagDeliveryFrontMotor.alarmCode;
+HMIData.bagDeliveryMotorData.statusCode := baggerCM.bagDeliveryFrontMotor.statusCode;
+
 
 
 // Cycle time and bags made counters
@@ -236,6 +249,21 @@ HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTimer.IN;
 cycleComplete(CLK := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleComplete);
 IF cycleComplete.OSR THEN
 	HMIData.bagsMade := HMIData.bagsMade + 1;
+END_IF
+
+// Printer and Barcode Verifier combination enable/disable
+HMIData.printerAndVerifierEnableIndication := HMIData.printerInUse AND HMIData.barcodeVerifierInUse;
+IF HMIData.printerAndVerifierEnablePB THEN
+	IF HMIData.printerAndVerifierEnableIndication THEN
+		HMIData.printerInUse := FALSE;
+		HMIData.barcodeVerifierInUse := FALSE;
+	ELSE
+		HMIData.printerInstalled := TRUE;
+		HMIData.barcodeVerifierInstalled := TRUE;
+		HMIData.printerInUse := TRUE;
+		HMIData.barcodeVerifierInUse := TRUE;
+	END_IF
+	HMIData.printerAndVerifierEnablePB := FALSE;
 END_IF
 
 // Position Indications for service commands

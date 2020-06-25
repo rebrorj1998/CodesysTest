@@ -198,13 +198,16 @@ CASE state OF
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				bagEdgePhotoeyeSim.in := FALSE;
-				IF MC_HaltBagDelivery.Done THEN
-					MC_HaltBagDelivery.Execute := FALSE;
-					state := 30;
-				END_IF
+				state := 52;
 				
 			END_IF
-			
+		
+	52:		// Wait for bag to stop
+			IF MC_HaltBagDelivery.Done THEN
+				MC_HaltBagDelivery.Execute := FALSE;
+				state := 30;
+			END_IF
+	
 	30:		// Reverse to Separate
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := reverseSpeed;
@@ -250,39 +253,17 @@ CASE state OF
 				state := 32;
 			END_IF
 		
-	32: 	// Set Bag Reversed OR reverse further for zero print datum if needed
+	32: 	// Set Bag Reversed
 			IF MC_HaltBagDelivery.Done OR dryCycleEnable THEN
 				MC_HaltBagDelivery.Execute := FALSE;
-				IF NOT printer.OptionActive OR
-				   printOffset >= distanceFromNipToBagEdge
-				THEN
-					remainingLength := bagLength - sealOffset - distanceFromNipToBagEdge;
-					_bagSeparated := TRUE;
-					state := 0;
-					nextState := 0;
-				ELSE
-					state := 33;
-				END_IF
+				remainingLength := bagLength - sealOffset + distanceFromSealBarToBagEdge;
+				_bagSeparated := TRUE;
+				state := 0;
+				nextState := 0;
 			END_IF
 			
 	
-	33: 	// Reverse to Nip for zero print datum
-			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
-			MC_MoveBagDelivery.Velocity := reverseSpeed;
-			MC_MoveBagDelivery.Distance := (distanceFromNipToBagEdge - printOffset) * -1;
-			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 1000);
-			moveBagDeliveryTimeout.IN := TRUE;
-			MC_MoveBagDelivery.Execute := TRUE;
-			_logger.AddLogItem(CONCAT(_prefix, 'Reversing to Nip'));
-			remainingLength := remainingLength + distanceFromNipToBagEdge;
-			state := 101;
-			nextState := 34;
-
-	34: 	_bagSeparated := TRUE;
-			//_readyForPrint := TRUE;
-			state := 0;
-			nextState := 0;
-
+	
 	40:		// Feed at Print Speed
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := printSpeed;

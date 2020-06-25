@@ -109,7 +109,8 @@ CASE state OF
 				END_IF
 				
 				
-				IF raiseShelfPB THEN
+				IF raiseShelfPB OR _makeReady THEN
+			   		_makeReady := FALSE;
 			   		IF THIS^.OptionActive THEN
 					   state := eMotorizedLoadPlateStates.Raise;
 				  	END_IF
