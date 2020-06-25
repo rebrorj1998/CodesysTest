@@ -38,7 +38,7 @@ VAR
 	packedRIO : uModbusDWORD;
 	packedRIOLast : DWORD;
 	delayTimer : Standard.TON := (PT := T#50MS);
-	zHomeDelay : Standard.TON := (PT := T#250ms);
+	zHomeDelay : Standard.TON := (PT := T#250MS);
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
@@ -90,7 +90,7 @@ ELSE
 	alarmCodeFromDrive.wWord[1] := modbusDataFromDrive[6];
 	enumAlarmCode := TO_INT(alarmCodeFromDrive.diDint);
 END_IF
-alarmCode := enumAlarmCode;
+alarmCode := TO_DWORD(enumAlarmCode);
 
 // Pack RIO to write to drive
 packedRIO.dDword.0 := homeSwitchTrigger;

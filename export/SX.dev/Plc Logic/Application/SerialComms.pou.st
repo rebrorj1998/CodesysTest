@@ -23,6 +23,7 @@ serial(
 	receivedData=> , 
 	inputs:= ADR(serialInputs), 
 	outputs:= ADR(serialOutputs));
+	
 IF HMIData.sendSampleLabels AND NOT printerLabel.xDone THEN
 	printerLabel.xExecute := TRUE;
 	printerLabel.sendSampleLabel := TRUE;

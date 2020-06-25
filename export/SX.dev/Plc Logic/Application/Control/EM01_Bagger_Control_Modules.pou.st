@@ -32,6 +32,7 @@ VAR_OUTPUT
 	
 	bagDelivery : FB_SXBagDelivery(name := 'Bag Delivery') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
 	bagDeliveryFrontMotor : FB_AppliedMotionMotorASCII;
+	serial : FB_CrevisSerial();
 END_VAR
 
 VAR
@@ -438,7 +439,7 @@ bagDeliveryFrontMotor(
 	jogForwardCMD:= HMIData.jogFilmForward, 
 	jogReverseCMD:= HMIData.jogFilmReverse, 
 	asciiHandler:= SerialComms.serial);
-
+	//asciiHandler:= serial);
 	
 bagDelivery(
 	simulateIO := HMIData.simulateAllIO,

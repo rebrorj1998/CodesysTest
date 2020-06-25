@@ -49,7 +49,7 @@ CASE serialState OF
 										END_IF
 										IF executeONS.OSR THEN
 											xDone := FALSE;
-											OSCAT_BASIC._STRING_TO_BUFFER(STR := sendData,0,ADR(outputs[2]),LEN(sendData));
+											OSCAT_BASIC._STRING_TO_BUFFER(STR := sendData,0,ADR(outputs[2]),TO_UINT(LEN(sendData)));
 											outputs[1] := TO_BYTE(Standard.LEN(sendData));
 											IF TA THEN
 												TR := FALSE;

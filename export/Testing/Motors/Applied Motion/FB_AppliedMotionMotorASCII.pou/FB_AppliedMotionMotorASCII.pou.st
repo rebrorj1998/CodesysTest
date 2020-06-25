@@ -48,6 +48,10 @@ VAR
 	alarms : FB_AppliedMotionAlarms;
 	state : eAppliedMotionDriveStatesASCII;
 	alarmONS : FB_ONS;
+	//testing and troubleshooting
+	tryWeirdString : BOOL;
+	weirdString : STRING;
+	result : DWORD;
 END_VAR
 VAR_IN_OUT
 	asciiHandler : FB_CrevisSerial;
@@ -103,6 +107,10 @@ CASE readStatusState OF
 		END_IF
 END_CASE
 
+IF tryWeirdString THEN
+	tryWeirdString := FALSE;
+	result := mParseStatusWord(weirdString);
+END_IF
 
 // Get drive data directly from modbus or from master axis	
 Ready := status.motorEnabled;
