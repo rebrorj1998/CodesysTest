@@ -1,9 +1,8 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_AppliedMotionStepServoEIPBase IMPLEMENTS IPositionableMotor, IStoredProgramMotor
+FUNCTION_BLOCK FB_AppliedMotionStepServoEIPBase IMPLEMENTS IPositionableMotor
 VAR_INPUT
     ptrEIPInputs : POINTER TO ARRAY[0..13] OF  DINT;
     ptrEIPOutputs : POINTER TO ARRAY[0..15] OF DINT;
-    faultHandler : REFERENCE TO FB_FaultHandler;
 	commFail : BOOL;
     stepsPerInchSetpoint : INT;             //Steps per inch setpoint
     reversePolarity : BOOL;                 //0 = Normal, 1 = reversed polarity for display
@@ -44,8 +43,9 @@ VAR
 	_reset : BOOL;			//Reset Motor
 	_homeNow : BOOL;
 	homingOSF : F_TRIG;
-	
+	resetState : INT;
 	IECReferenceGood : BOOL;
+	resetTimeout : Standard.TON;
 END_VAR
 VAR_OUTPUT
     absolutePositonInches : REAL; //Immediate Absolute Positon in inches
@@ -56,6 +56,3 @@ VAR_OUTPUT
 	faults : StepServoFaultsType;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-IF NOT faultListRegisterSuccess THEN
-    faultListRegisterSuccess := RegisterWithFaultHandler();
-END_IF

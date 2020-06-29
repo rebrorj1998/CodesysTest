@@ -12,7 +12,6 @@ IF _reset THEN
 	homingState := JAW_HOMING_STATES.Idle;
 	_homeNow := FALSE;
 	timerHomeDelay.IN := FALSE;
-	_reset := FALSE;
 END_IF
 
 CASE homingState OF
@@ -59,7 +58,7 @@ CASE homingState OF
                                                        END_IF
 												END_IF 
 												
-	JAW_HOMING_STATES.HomeComplete:				MoveToPosition(2, 1000,1000,2583);
+	JAW_HOMING_STATES.HomeComplete:				//MoveToPosition(2, 1000,1000,2583);
 												homingState := JAW_HOMING_STATES.MovingToTwoInches;
 
 	JAW_HOMING_STATES.MovingToTwoInches : 		timerHomeDelay.PT := T#200MS;

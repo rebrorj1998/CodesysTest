@@ -89,7 +89,7 @@ feedVelocitySetpoint := TO_INT(HMIData.bagForwardSpeed);
 bagFeedMasterMotor(ptrEIPInputs := ADR(bagDeliveryMotorInputs),
                 ptrEIPOutputs := ADR(bagDeliveryMotorOutputs),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
-                faultHandler := PRG_Bagger.faultHandler,
+                //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE, 
 				defaultCurrentSetpoint := 1150, 
 				commFail := Bag_Delivery_EIP_Motor.udiState <> 4);
@@ -98,7 +98,7 @@ bagFeedMasterMotor.Execute();
 bagFeedRearMotor(ptrEIPInputs := ADR(bagRearMotorInputs),
                 ptrEIPOutputs := ADR(bagRearMotorOutputs),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
-                faultHandler := PRG_Bagger.faultHandler,
+                //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE, 
 				defaultCurrentSetpoint := 1150, 
 				commFail := Bag_Delivery_Rear_Motor.udiState <> 4);

@@ -7,7 +7,7 @@ VAR_OUTPUT
     
 END_VAR
 VAR
-    moabHead : FB_MOABHead;
+    moabHead : FB_MOABHead_Electric;
     //angledHead : FB_20degHead();
     //pneuHead : FB_PneumaticHead();
     testEIPMotor : FB_AppliedMotionStepServoEIPBase();

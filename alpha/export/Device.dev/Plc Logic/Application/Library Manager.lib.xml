@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">637183906520773796</Single>
+        <Single Name="Timestamp" Type="long">637290138259418356</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
@@ -262,6 +262,18 @@
                   <Single Name="PositionToSave" Type="long">10696049115004930</Single>
                   <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
                   <Single Name="LongValue" Type="long">2</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
+                <Single Name="Name" Type="string">RETAIN_INSTANCES</Single>
+                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">8162774324609031</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">10</Single>
                   <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
                   <Single Name="Negative" Type="bool">False</Single>
                   <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
@@ -658,6 +670,22 @@
             </Key>
             <Value>
               <Single Type="string">VisuNativeControl, 3.5.15.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">CmpEventMgr</Single>
+            </Key>
+            <Value>
+              <Single Type="string">CmpEventMgr, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">CmpEventMgr Implementation</Single>
+            </Key>
+            <Value>
+              <Single Type="string">CmpEventMgr Implementation, 3.5.16.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>
