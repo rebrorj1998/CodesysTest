@@ -21,6 +21,7 @@ VAR
 	_goodRead : BOOL;
 	_badread : BOOL;
 	_trigger : BOOL;
+	_triggerImmediate : BOOL;
 	state : eBaseBCVStates;
 	waitForReadTimer : Standard.TON;
 	positionOffsetDelay : Standard.TON;
@@ -73,7 +74,16 @@ CASE state OF
 										_badread := FALSE;
 									END_IF
 									
+									IF _triggerImmediate THEN
+										state := eBaseBCVStates.TriggerReader;
+										xBusy := TRUE;
+										xDone := FALSE;
+										_goodRead := FALSE;
+										_badread := FALSE;
+									END_IF
+									
 									_trigger := FALSE;
+									_triggerImmediate := FALSE;
 									
 	eBaseBCVStates.WaitForOffset: 		// Wait for offset to trigger read
 									IF positionOffsetDelay.Q THEN

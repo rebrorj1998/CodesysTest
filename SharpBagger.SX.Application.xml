@@ -82,6 +82,7 @@
         <Node name="barcodeStartPosition" type="T_REAL" access="ReadWrite" />
         <Node name="barcodeVerifierInstalled" type="T_BOOL" access="ReadWrite" />
         <Node name="barcodeVerifierInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeVerifierTrigger" type="T_BOOL" access="ReadWrite" />
         <Node name="batchCount" type="T_UDINT" access="ReadWrite" />
         <Node name="batchEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="batchSetting" type="T_UDINT" access="ReadWrite" />

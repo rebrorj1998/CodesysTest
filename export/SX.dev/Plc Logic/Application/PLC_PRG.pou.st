@@ -118,6 +118,12 @@ ELSE
 	IBD_Motor.Enable := TRUE;
 END_IF
 
+// Barcode Verifier manual trigger
+IF HMIData.barcodeVerifierTrigger THEN
+	baggerCM.barcodeVerifier.TriggerImmediate();
+	HMIData.barcodeVerifierTrigger := FALSE;
+END_IF
+
 // Printer sample label sending
 IF HMIData.sendSampleLabels AND NOT printerLabel.xExecute THEN
 	printerLabel.xExecute := TRUE;

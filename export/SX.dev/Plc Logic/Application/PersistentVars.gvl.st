@@ -60,7 +60,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.IBDZeroOffset: REAL := REAL#2;
 	// Generated instance path of persistent variable
-	HMIData.jawCloseDelay: REAL := REAL#0.2;
+	HMIData.jawCloseDelay: REAL := REAL#0.1;
 	// Generated instance path of persistent variable
 	HMIData.jawClosePositionSetting: REAL := REAL#-0.45;
 	// Generated instance path of persistent variable

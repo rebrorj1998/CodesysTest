@@ -57,6 +57,7 @@ VAR_GLOBAL
 	bagDeliveryMotorData : sctAppliedMotionHMIData;
 	barcodeReadGoodIndication : BOOL;
 	barcodeReadBadIndication : BOOL;
+	barcodeVerifierTrigger : BOOL;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN
@@ -89,7 +90,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	IBDOpenMotionProfile : sctMotionProfile := (velo := 9.0, accel := 30.0, decel := 50.0, current := 100.0);
 	IBDCloseMotionProfile : sctMotionProfile := (velo := 15.0, accel := 10.0, decel := 10.0, current := 50.0);
 	IBDZeroOffset : REAL := 2.0;
-	jawCloseDelay : REAL := 0.2;
+	jawCloseDelay : REAL := 0.1;
 	jawClosePositionSetting : REAL := -0.45;
 	jawOpenMotionProfile : sctMotionProfile := (velo := 14.0, accel := 300.0, decel := 300.0, current := 100.0);
 	jawCloseMotionProfile : sctMotionProfile := (velo := 14.0, accel := 10.0, decel := 10.0, current := 100.0);
@@ -130,5 +131,5 @@ VAR_GLOBAL PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.0.4.0';
+	version : STRING := '1.0.5.0';
 END_VAR

@@ -91,13 +91,15 @@ mappedMessages[32] := IBDFailedToClose;
 mappedMessages[33] := IBDFailedToOpen;
 
 
-
+// Clear out currently displayed message if no longer active
 IF NOT mappedMessages[messageDisplayIndication] THEN
 	displayedMessageCleared := TRUE;
 END_IF
 
+// Self resetting timer to switch between messages
 messageDisplayScrollTimer(IN := NOT messageDisplayScrollTimer.q);
 
+// Scroll through active messages in order
 IF messageDisplayScrollTimer.Q OR atEndOfList OR displayedMessageCleared THEN
 	FOR i:= lastMessageFound  TO MAX_MESSAGES DO
 		IF mappedMessages[i] THEN
