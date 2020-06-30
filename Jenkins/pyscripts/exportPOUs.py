@@ -90,6 +90,10 @@ def save(text, path, name, tp):
         tp = ''
     else:
         tp = '.' + tp
+   
+    name = name.replace('<','')
+    name = name.replace('>','')
+   
     with open(os.path.join(path, name + tp + '.st'), 'w') as f:
         f.write(text.encode('utf-8'))
 

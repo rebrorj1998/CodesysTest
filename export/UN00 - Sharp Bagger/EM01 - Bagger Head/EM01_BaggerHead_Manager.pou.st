@@ -12,7 +12,7 @@ VAR
 	xInit : BOOL;
 END_VAR
 VAR_IN_OUT
-	modeManager : PACK_ML.UnitModeManager;
+	currentState : PACK_ML.State;
 	baggerHead : EM01_BaggerHead;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
@@ -23,11 +23,11 @@ IF NOT xInit THEN
 END_IF
 
 
-IF modeManager.ActiveUnitMode.Name = UN00_Globals.sAutomatic THEN
+//IF modeManager.ActiveUnitMode.Name = UN00_Globals.sAutomatic THEN
 	activeBaggerMode := BaggerAutoMode;
-ELSIF modeManager.ActiveUnitMode.Name = UN00_Globals.sMaintenance THEN
-	activeBaggerMode := BaggerMaintMode;
-END_IF
+//ELSIF modeManager.ActiveUnitMode.Name = UN00_Globals.sMaintenance THEN
+//	activeBaggerMode := BaggerMaintMode;
+//END_IF
 
 _abortingDone := activeBaggerMode.AbortingDone;
 _clearingDone := activeBaggerMode.ClearingDone;
@@ -38,7 +38,7 @@ _startingDone := activeBaggerMode.StartingDone;
 _unholdingDone := activeBaggerMode.UnholdingDone;
 _stoppingDone := activeBaggerMode.StoppingDone;
 
-CASE modeManager.ActiveUnitMode.CurrentState OF
+CASE currentState OF
 	PACK_ML.State.Stopped: 			activeBaggerMode.Stopped();
 	PACK_ML.State.Aborted:			activeBaggerMode.Aborted();
 	PACK_ML.State.Idle:				activeBaggerMode.Idle();

@@ -44,7 +44,7 @@ END_IF
 
 IF activeONS.OSF THEN
 	GlobalObjects.CollectionOfActiveFaults.RemoveObject(THIS^);
-	_logger.AddLogItem(CONCAT(InstanceName, ' Cleared'));
+	//_logger.AddLogItem(CONCAT(InstanceName, ' Cleared'));
 END_IF
 
 // The following is for external communication to HMI etc.

@@ -25,16 +25,21 @@ IF _reset THEN
 	sealActive := FALSE;
 	_sealComplete := FALSE;
 	sealTimer.IN := FALSE;
+	_reset := FALSE;
 	state := 0;
 END_IF
-
+_ready := state = 0;
 CASE state OF
 	
 	0:	IF beginSealingONS.OSR THEN
+			
 			_beginSealing := FALSE;
+			_sealComplete := FALSE;
 			sealTimer.PT := TO_TIME(sealDwell * 1000.0);
 			sealTimer.IN := TRUE;
-			sealActive := TRUE;
+			IF sealDwell <> 0 THEN
+				sealActive := TRUE;
+			END_IF
 			state := 1;
 		END_IF
 	
@@ -46,6 +51,7 @@ CASE state OF
 		END_IF
 	
 	2: //
+			
 	
 	3: //
 END_CASE

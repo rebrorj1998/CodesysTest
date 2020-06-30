@@ -6,7 +6,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	//loggedItems : ARRAY[0..500] OF FaultLogType;
-	loggedItems : ARRAY[0..GLobals.MAX_LOGGED_ITEMS] OF LogMessageType;
+	loggedItems : ARRAY[0..Globals.MAX_LOGGED_ITEMS] OF LogMessageType;
 	numOfLogEntries : UINT;
 	logFull : BOOL;
 	RTC : FB_GetTime();
@@ -20,14 +20,4 @@ END_VAR
 //	Created by: Ben Hess
 //	Created Date: Tuesday, September 11, 2018
 
-RTC();
-
-IF clearLog THEN
-	FOR i := 0 TO Globals.MAX_LOGGED_ITEMS BY 1 DO
-		loggedItems[i].logMessage := '';
-		loggedItems[i].logTime := DT#1970-1-1-1:0:0;
-	END_FOR
-	numOfLogEntries := 0;
-	logFull := FALSE;
-	clearLog := FALSE;
-END_IF
+// DISABLED LOGGING FOR CREVIS PLC - SCAN TIMES OUT OF CONTROL

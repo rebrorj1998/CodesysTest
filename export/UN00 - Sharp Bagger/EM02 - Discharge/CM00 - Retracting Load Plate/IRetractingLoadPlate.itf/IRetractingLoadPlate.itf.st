@@ -1,2 +1,2 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-INTERFACE IRetractingLoadPlate
+INTERFACE IRetractingLoadPlate EXTENDS IComponent

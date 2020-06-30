@@ -5,4 +5,4 @@ IF _ackCommand OR _acked THEN
 END_IF
 _acked := TRUE;
 // Log the ACK.
-_logger.AddLogItem(CONCAT(InstanceName,  ' Acked'));
+//_logger.AddLogItem(CONCAT(InstanceName,  ' Acked'));
