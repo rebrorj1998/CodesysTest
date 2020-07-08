@@ -1116,7 +1116,7 @@ CASE state OF
                                                     
     HEAD_STATES.OpenedBag :                            // Move fingers in and to bag holding and reset cycle
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) //OR bagFailedToOpen
-														 AND pressureBar.state = PRESSURE_BAR_STATES.JawOpened THEN
+														 AND pressureBar.state = PRESSURE_BAR_STATES.Idle THEN
 														state := HEAD_STATES.FinishCycle;
                                                     END_IF
 	HEAD_STATES.FinishCycle :			//
@@ -1333,9 +1333,9 @@ CASE releaseAndFeedSubState OF
                                                                 pressureBar.OpenJaw();
                                                             END_IF
                                                             
-															IF enableBagOpen THEN
-																bagOpenFingers.Release();
-															END_IF
+// 															IF enableBagOpen THEN
+// 																bagOpenFingers.Release();
+// 															END_IF
 															
 															IF enableIBDEject THEN
 																IBD.CloseIBD();
@@ -1368,6 +1368,10 @@ CASE releaseAndFeedSubState OF
 	 RELEASE_FEED_STATES.MovingJawOutAndDroppingBag :
 														 // If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
                                                             // In the case that bagDelivery is disabled then we're done with release and feed
+														IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+ 															bagOpenFingers.Release();
+ 														END_IF	
+														
                                                         IF bagDropTimer.Q 
 															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable)
 															THEN   

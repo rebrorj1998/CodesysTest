@@ -92,6 +92,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	loadShelfService : ServiceCommands;
 	IBDService : ServiceCommands;
 	funnelService : ServiceCommands;
+	baggerHeadService : ServiceCommands;
 	jogBagForward : BOOL;
 	jogBagReverse : BOOL;
 	jogPassthroughForward : BOOL;
