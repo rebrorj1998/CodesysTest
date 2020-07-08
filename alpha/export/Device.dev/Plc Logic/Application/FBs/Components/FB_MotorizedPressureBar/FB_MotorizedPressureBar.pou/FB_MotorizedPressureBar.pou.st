@@ -5,12 +5,10 @@ VAR_INPUT
 	iPressureBarClosed : BOOL;
 	iPressureBarNotObstructed : BOOL;
 	iBaggerEnableButton : BOOL;
-	iJawClampLeftExtended : BOOL;
-	iJawCLampLeftRetracted : BOOL;
-	iJawClampRightExtended : BOOL;
-	iJawClampRightRetracted : BOOL;
+	iJawClampExtended : BOOL;
+	iJawCLampRetracted : BOOL;
 	pbarOutSetting : REAL := 12.0;
-	pbarInSetting : REAL;
+	pbarInSetting : REAL := 0.02;
 	closeDelay : REAL;
 	disableFaults : BOOL;
 	extendJawClamp : BOOL;
@@ -19,34 +17,38 @@ VAR_INPUT
 	retractJaw : BOOL;
 END_VAR
 VAR_OUTPUT
-	obstructionFault : FB_Fault(name := 'Pbar Obstruction Fault');
-	failToClose : FB_Fault(name := 'Pbar Fail to Close');
-	failToOpen : FB_Fault(name := 'Pbar Fail to Open');
+	
+	
 	failToClampLeft : FB_Fault(name := 'Pbar Left Fail to Clamp');
 	failToReleaseLeft : FB_Fault(name := 'Pbar Left Fail to Release');
 	failToClampRight : FB_Fault(name := 'Pbar Right Fail to Clamp');
 	failToReleaseRight : FB_Fault(name := 'Pbar Right Fail to Release');
+	faults : PressureBarFaultsType;
 	state : MotorizedPbarStates;
 	actualPosition : REAL;
-	IBDOpen : BOOL;
 	pressureBarOpen : BOOL;
+	pressureBarClosed : BOOL;
 	homeRequired : BOOL;
 	clamped : BOOL;
 END_VAR
 VAR
 	_homeNow : BOOL;
 	_openJaw : BOOL;
-	_openIBD : BOOL;
 	_closeJaw : BOOL;
-	_closeIBD : BOOL;
-	accel : INT := 300;
-	decel : INT := 300;
-	velo : INT := 2000;
-	testCurrent : DINT := 200;
+	_closeJawNoLatch : BOOL;
+	jawClampsDelay : TIME := T#250ms;
+	accel : INT := 40;
+	decel : INT := 60;
+	velo : INT := 1250;
+	testCurrent : DINT := 500;
 	testZeroCurrent : BOOL;
 	testSomeCurrent : BOOL;
 	testClamp : BOOL;
 	testRelease : BOOL;
+	testPosLimit : BOOL;
+	testDisable : BOOL;
+	testEnable : BOOL;
+	posLimit : DINT := 3000;
 	pbarFeedbackHandler : FB_CylinderFeedback;
 	jawClampsLeftFeedbackHandler : FB_CylinderFeedback;
 	jawClampsRightFeedbackHandler : FB_CylinderFeedback;
@@ -54,6 +56,8 @@ VAR
 	testActive : BOOL;
 	movePassthroughNow : BOOL;
 	delayTimer : Standard.TON := (PT:= T#500MS);
+	homeRequiredONS : FB_ONS;
+	faultingONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
@@ -62,8 +66,8 @@ VAR_IN_OUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 actualPosition := pbarMotor.absolutePositonInches;
-pressureBarOpen := pbarMotor.InPosition;
-//IBDOpen := TO_DINT(IBDMotor.absolutePositonInches) = TO_DINT(pbarOutSetting);
+pressureBarOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutSetting * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(pbarOutSetting * 1000) + 10);
+pressureBarClosed := pbarMotor.absolutePositionSteps >= (pbarMotor.distanceToMoveInSteps - 4) AND pbarMotor.absolutePositionSteps <= (pbarMotor.distanceToMoveInSteps + 4);
 delayTimer();
 
 clamped := state = MotorizedPbarStates.Clamping;
@@ -73,33 +77,33 @@ pbarFeedbackHandler(
 	retractedFeedbackInput:= iPressureBarClosed, 
 	extendOutput:= , 
 	retractOutput:= , 
-	extendFaultDelay:= 1500, 
-	retractFaultDelay:= 1500, 
+	extendFaultDelay:= 5000, 
+	retractFaultDelay:= 5000, 
 	faultMonitoring:= NOT disableFaults, 
-	failedToExtend=> failToOpen.faultTrigger, 
-	failedToRetract=> failToClose.faultTrigger);
+	failedToExtend=> faults.failedToOpen.faultTrigger, 
+	failedToRetract=> faults.failedToClose.faultTrigger);
 
-jawClampsLeftFeedbackHandler(
-	extendedFeedbackInput:= iJawClampLeftExtended, 
-	retractedFeedbackInput:= iJawCLampLeftRetracted, 
-	extendOutput:= jawClamps.extendOutput, 
-	retractOutput:= jawClamps.retractOutput, 
-	extendFaultDelay:= 1000, 
-	retractFaultDelay:= 1000, 
-	faultMonitoring:= NOT disableFaults, 
-	failedToExtend=> failToReleaseLeft.faultTrigger, 
-	failedToRetract=> failToClampLeft.faultTrigger);
-
-jawClampsRightFeedbackHandler(
-	extendedFeedbackInput:= iJawClampRightExtended, 
-	retractedFeedbackInput:= iJawCLampRightRetracted, 
-	retractOutput:= jawClamps.retractOutput, 
-	extendOutput:= jawClamps.extendOutput, 
-	extendFaultDelay:= 1000, 
-	retractFaultDelay:= 1000, 
-	faultMonitoring:= NOT disableFaults, 
-	failedToExtend=> failToReleaseRight.faultTrigger, 
-	failedToRetract=> failToClampRight.faultTrigger);
+// jawClampsLeftFeedbackHandler(
+// 	extendedFeedbackInput:= iJawClampLeftExtended, 
+// 	retractedFeedbackInput:= iJawCLampLeftRetracted, 
+// 	extendOutput:= jawClamps.extendOutput, 
+// 	retractOutput:= jawClamps.retractOutput, 
+// 	extendFaultDelay:= 1000, 
+// 	retractFaultDelay:= 1000, 
+// 	faultMonitoring:= NOT disableFaults, 
+// 	failedToExtend=> failToReleaseLeft.faultTrigger, 
+// 	failedToRetract=> failToClampLeft.faultTrigger);
+// 
+// jawClampsRightFeedbackHandler(
+// 	extendedFeedbackInput:= iJawClampRightExtended, 
+// 	retractedFeedbackInput:= iJawCLampRightRetracted, 
+// 	retractOutput:= jawClamps.retractOutput, 
+// 	extendOutput:= jawClamps.extendOutput, 
+// 	extendFaultDelay:= 1000, 
+// 	retractFaultDelay:= 1000, 
+// 	faultMonitoring:= NOT disableFaults, 
+// 	failedToExtend=> failToReleaseRight.faultTrigger, 
+// 	failedToRetract=> failToClampRight.faultTrigger);
 
 
 IF extendJawClamp THEN
@@ -120,6 +124,16 @@ IF NOT pbarMotor.HomeRequired THEN
 	END_IF
 END_IF
 
+IF testDisable THEN
+	pbarMotor.Disable();
+	testDisable := FALSE;
+END_IF
+
+IF testEnable THEN
+	pbarMotor.Enable();
+	testEnable := FALSE;
+END_IF
+
 IF testClamp THEN
 	pbarMotor.AllowClamping();
 	testClamp := FALSE;
@@ -131,7 +145,8 @@ IF testRelease THEN
 END_IF
 
 IF testZeroCurrent THEN
-	pbarMotor.SetTorque(0);
+	pbarMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 1);
+	//pbarMotor.SetTorque(1);
 	testZeroCurrent := FALSE;
 END_IF
 
@@ -140,6 +155,10 @@ IF testSomeCurrent THEN
 	testSomeCurrent := FALSE;
 END_IF
 
+IF testPosLimit THEN
+	pbarMotor.SetPositionLimit(posLimit);
+	testPosLimit := FALSE;
+END_IF
 
 IF _reset THEN
 	pbarMotor.Reset();
@@ -149,23 +168,28 @@ IF _reset THEN
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
+	//pbarMotor.DoneClamping();
+	jawClamps.Extend();
 	pbarFeedbackHandler.extendOutput := FALSE;
 	pbarFeedbackHandler.retractOutput := FALSE;
 	state := MotorizedPbarStates.Idle; 
 END_IF
-
-IF 	(	pbarMotor.Faulted AND NOT disableFaults)
+faultingONS(CLK := (	pbarMotor.Faulted AND NOT disableFaults)
 	OR (pbarFeedbackHandler.faultIndication
 	OR jawClampsLeftFeedbackHandler.faultIndication
-	OR jawClampsRightFeedbackHandler.faultIndication)
-	AND state <> MotorizedPbarStates.Faulted
+	OR jawClampsRightFeedbackHandler.faultIndication));
+
+IF 	faultingONS.OSR
+	AND state <> MotorizedPbarStates.Faulted 
 THEN
 	state := MotorizedPbarStates.Faulting; 
 END_IF
 
-IF pbarMotor.homeRequired THEN
+homeRequiredONS(CLK := pbarMotor.homeRequired);
+IF homeRequiredONS.OSR THEN
 	homeRequired := TRUE;
 END_IF
+
 
 _ready := state = MotorizedPbarStates.Idle AND NOT homeRequired AND pressureBarOpen;
 
@@ -185,7 +209,11 @@ CASE state OF
 											
 										IF _homeNow THEN
 											_homeNow := FALSE;
-											pbarMotor.HomeNow();
+											//IF (pbarMotor.homeRequired) THEN
+												pbarMotor.HomeNow();
+											//END_IF
+											delayTimer.PT := T#150MS;
+											delayTimer.IN := TRUE;
 											state := MotorizedPbarStates.Homing;
 										END_IF
 										
@@ -198,36 +226,55 @@ CASE state OF
 											_closeJaw := FALSE;
 											state := MotorizedPbarStates.MoveJawIn;
 										END_IF
+										
+										IF _closeJawNoLatch THEN
+											//_closeJawNoLatch := FALSE;
+											state := MotorizedPbarStates.MoveJawIn;
+										END_IF
 	
 	MotorizedPbarStates.Homing :				//
 										Globals.jawMovingIn := TRUE;
-										IF NOT (pbarMotor.homeRequired) THEN
-												pbarMotor.DoneClamping();
+										IF NOT (pbarMotor.homeRequired) AND delayTimer.Q THEN
+												delayTimer.IN := FALSE;
+												//pbarMotor.DoneClamping();
+												
 												homeRequired := FALSE;
+												
 												state := MotorizedPbarStates.Initialize;
 										END_IF
 	
 	
 	MotorizedPbarStates.Initialize :			//
+										delayTimer.PT := T#500MS;
+										delayTimer.IN := TRUE;
 										Globals.jawMovingIn := TRUE;
-										IF pressureBarOpen AND IBDOpen THEN
-											state := MotorizedPbarStates.Initialized;
-										ELSE
-											jawClamps.Extend();
-											pbarMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
-											//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
-											state := MotorizedPbarStates.Initializing;
+										IF delayTimer.Q THEN
+											IF pressureBarOpen THEN
+												state := MotorizedPbarStates.Initialized;
+											ELSE
+												jawClamps.Extend();
+												pbarMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
+												//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
+												state := MotorizedPbarStates.Initializing;
+											END_IF
+											delayTimer.IN := FALSE;
 										END_IF
+										
 	
 	
 	MotorizedPbarStates.Initializing :			//
-										IF pressureBarOpen AND IBDOpen THEN
+										IF pressureBarOpen THEN
 											state := MotorizedPbarStates.Initialized;
 										END_IF
 	
 	
 	MotorizedPbarStates.Initialized :			//
-										state := MotorizedPbarStates.Idle;
+										IF testActive THEN
+											state := MotorizedPbarStates.MoveJawIn;
+										ELSE
+											state := MotorizedPbarStates.Idle;
+										END_IF
+										
 	
 	
 	MotorizedPbarStates.MoveJawOut :			//
@@ -240,7 +287,17 @@ CASE state OF
 	
 	MotorizedPbarStates.MovingJawOut :			//
 										IF pressureBarOpen THEN
-											state := MotorizedPbarStates.Idle;
+											IF testActive THEN
+												delayTimer.PT := T#500MS;
+												delayTimer.IN := TRUE;
+												IF delayTimer.Q  THEN
+													delayTimer.IN := FALSE;
+													state := MotorizedPbarStates.MoveJawIn;
+												END_IF
+											ELSE
+												state := MotorizedPbarStates.Idle;
+											END_IF
+											
 										END_IF
 	
 	
@@ -254,20 +311,37 @@ CASE state OF
 	MotorizedPbarStates.MoveJawIn :				//
 										Globals.jawMovingIn := TRUE;
 										pbarMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
+										//pbarMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
 										//IBDMotor.MoveToPosition(0,accel,decel,velo+(TO_INT(TO_REAL(velo)*0.25)));
 										
 										state := MotorizedPbarStates.MovingJawIn;
 	
 	
 	MotorizedPbarStates.MovingJawIn : 			//
-										IF iPressureBarClosed THEN
-											pbarMotor.AllowClamping();
+										//IF iPressureBarClosed AND pbarMotor.absolutePositonInches = 0 THEN
+										IF iPressureBarClosed AND pressureBarClosed THEN
+											IF NOT  _closeJawNoLatch THEN
+												pbarMotor.AllowClamping();
+											END_IF
+											
+											delayTimer.PT := jawClampsDelay;
+											delayTimer.IN := TRUE;
+											//pbarMotor.Disable();
 											state := MotorizedPbarStates.MovedJawIn;
 										END_IF
 	
 	
 	MotorizedPbarStates.MovedJawIn :			//
-										state := MotorizedPbarStates.StartClamping;
+										IF delayTimer.Q THEN
+											delayTimer.IN := FALSE;
+											IF _closeJawNoLatch THEN
+												_closeJawNoLatch := FALSE;
+												state := MotorizedPbarStates.Idle;
+											ELSE
+												state := MotorizedPbarStates.StartClamping;
+											END_IF
+										END_IF
+										
 	
 	
 	MotorizedPbarStates.StartClamping :			//
@@ -279,24 +353,38 @@ CASE state OF
 										IF iPressureBarClamped THEN
 											state := MotorizedPbarStates.Clamping;	
 										END_IF
+										
+										IF testActive THEN
+											delayTimer.PT := T#2S;
+											delayTimer.IN := TRUE;
+										END_IF
 	
 	
 	MotorizedPbarStates.Clamping :				//
-										IF _openJaw THEN
+										IF _openJaw OR (testActive AND delayTimer.Q) THEN
+											_openJaw := FALSE;
+											delayTimer.IN := FALSE;
+											jawClamps.Extend();
 											state := MotorizedPbarStates.ReleaseClamp;
 										END_IF
+										
 	
 	
 	
 	MotorizedPbarStates.ReleaseClamp :			//  
-										jawClamps.Extend();
-										pbarMotor.DoneClamping();
-										state := MotorizedPbarStates.ReleasingClamp;
+										IF iJawClampExtended THEN
+											pbarMotor.DoneClamping();
+											//pbarMotor.Enable();
+											delayTimer.PT := jawClampsDelay;
+											delayTimer.IN := TRUE;
+											state := MotorizedPbarStates.ReleasingClamp;
+										END_IF
+										
 	
 	
 	MotorizedPbarStates.ReleasingClamp :		//
-										IF iJawClampLeftExtended AND iJawClampRightExtended THEN
-											
+										IF delayTimer.Q THEN
+											delayTimer.IN := FALSE;
 											state := MotorizedPbarStates.MoveJawOut;
 											//HMI.data.TFBeltPressureBarCycles := HMI.data.TFBeltPressureBarCycles + 1;
 										END_IF
@@ -307,12 +395,13 @@ CASE state OF
 										_openJaw := FALSE;
 										_closeJaw := FALSE;
 										_homeNow := FALSE;
+										_closeJawNoLatch := FALSE;
 										startTest := FALSE;
 										testActive := FALSE;
 										delayTimer.IN := FALSE;
 										pbarFeedbackHandler.extendOutput := FALSE;
 										pbarFeedbackHandler.retractOutput := FALSE;
-										pbarMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 0);
+										//pbarMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 0);
 										//IBDMotor.Disable();
 										state := MotorizedPbarStates.Faulted;
 	
@@ -320,10 +409,11 @@ CASE state OF
 	
 END_CASE
 
-IF Globals.jawMovingIn AND NOT disableFaults THEN
-	IF NOT iPressureBarNotObstructed AND NOT iPressureBarClosed THEN
-		obstructionFault.Trigger();
-		state := MotorizedPbarStates.Faulting;
-	END_IF
+
+IF pbarMotor.alarms.positionLimit THEN
+	faults.obstructionDetected.Trigger();
+	homeRequired := TRUE;
+	//state := MotorizedPbarStates.Faulting;
 END_IF
+
 

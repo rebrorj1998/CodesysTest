@@ -47,7 +47,7 @@ HMIData.airFilterClean();
 HMIData.pressureBarGuideShaftGuides();
 HMIData.driveRollerClean();
 HMIData.printHeadClean();
-HMIData.pressureBarLeak(iExtended := iPressureBarExtended, iRetracted := iPressureBarRetracted, maximumStrokeTime := (TO_REAL(HMIData.passthroughSetting / 26.6)) + 0.3);
+//HMIData.pressureBarLeak(iExtended := iPressureBarExtended, iRetracted := iPressureBarRetracted, maximumStrokeTime := (TO_REAL(HMIData.passthroughSetting / 26.6)) + 0.3);
 HMIData.loadPlateLeak(iExtended := iLoadPlateExtended, iRetracted := iLoadPlateRetracted, maximumStrokeTime := 0.4);
 //HMIData.msfHorizontalMotorTemp(iDriveTemp := sealFlattenerHorizontalMotorInputs[4]);
 //HMIData.bagDeliveryMotorTemp(iDriveTemp := bagDeliveryMotorInputs[4]);

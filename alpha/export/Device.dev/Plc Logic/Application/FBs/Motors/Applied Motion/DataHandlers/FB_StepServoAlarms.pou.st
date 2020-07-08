@@ -31,19 +31,19 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Created by: Ben Hess
 //    Created Date: September 5th, 2018
 
-faults.positionLimit.faultTrigger := positionLimit := alarmCode.0;
-faults.CCWLimit.faultTrigger := CCWLimit := alarmCode.1;
-faults.CWLimit.faultTrigger := CWLimit := alarmCode.2;
-faults.overTemp.faultTrigger := overTemp := alarmCode.3;
-faults.internalVoltage.faultTrigger := internalVoltage := alarmCode.4;
-faults.overVoltage.faultTrigger := overVoltage := alarmCode.5;
-faults.underVoltage.faultTrigger := underVoltage := alarmCode.6;
-faults.overCurrent.faultTrigger := overCurrent    := alarmCode.7;
-faults.openMotorWinding.faultTrigger := openMotorWinding := alarmCode.8;
-faults.badEncoder.faultTrigger := badEncoder := alarmCode.9;
+positionLimit := alarmCode.0;
+CCWLimit := alarmCode.1;
+CWLimit := alarmCode.2;
+overTemp := alarmCode.3;
+internalVoltage := alarmCode.4;
+overVoltage := alarmCode.5;
+underVoltage := alarmCode.6;
+overCurrent    := alarmCode.7;
+openMotorWinding := alarmCode.8;
+badEncoder := alarmCode.9;
 commError := alarmCode.10;
 badFlash := alarmCode.11;
-faults.noMove.faultTrigger := noMove := alarmCode.12;
-faults.currentFoldback.faultTrigger := currentFoldback := alarmCode.13;
+noMove := alarmCode.12;
+currentFoldback := alarmCode.13;
 blankQSegment := alarmCode.14;
 NVMemoryDoubleError := alarmCode.15;

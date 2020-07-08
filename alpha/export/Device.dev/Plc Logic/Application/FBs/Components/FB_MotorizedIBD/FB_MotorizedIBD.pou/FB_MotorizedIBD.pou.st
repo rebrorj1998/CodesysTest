@@ -21,23 +21,24 @@ VAR
 	_homeNow : BOOL;
 	_openIBD : BOOL;
 	_closeIBD : BOOL;
-	accel : INT := 300;
-	decel : INT := 300;
+	accel : INT := 100;
+	decel : INT := 100;
 	velo : INT := 2500;
-	testCurrent : DINT := 200;
+	testCurrent : DINT := 500;
 	testZeroCurrent : BOOL;
 	testSomeCurrent : BOOL;
 	startTest : BOOL;
 	testActive : BOOL;
 	movePassthroughNow : BOOL;
 	delayTimer : Standard.TON := (PT:= T#500MS);
+	homeRequiredONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	IBDMotor : FB_AppliedMotionStepServoEIPPassthrough;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 actualPosition := IBDMotor.absolutePositonInches;
-IBDOpen := IBDMotor.InPosition;
+IBDOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutSetting * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(pbarOutSetting * 1000) + 10);
 //IBDOpen := TO_DINT(IBDMotor.absolutePositonInches) = TO_DINT(pbarOutSetting);
 delayTimer();
 
@@ -83,7 +84,8 @@ THEN
 	state := MotorizedPbarStates.Faulting; 
 END_IF
 
-IF IBDMotor.homeRequired THEN
+homeRequiredONS(CLK := IBDMotor.homeRequired);
+IF homeRequiredONS.OSR THEN
 	homeRequired := TRUE;
 END_IF
 
@@ -105,7 +107,10 @@ CASE state OF
 											
 										IF _homeNow THEN
 											_homeNow := FALSE;
-											IBDMotor.HomeNow();
+											IF IBDMotor.HomeRequired THEN
+												IBDMotor.HomeNow();
+											END_IF
+											
 											state := MotorizedPbarStates.Homing;
 										END_IF
 										
@@ -132,7 +137,7 @@ CASE state OF
 										IF IBDOpen THEN
 											state := MotorizedPbarStates.Initialized;
 										ELSE
-											IBDMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
+											IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
 											//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
 											state := MotorizedPbarStates.Initializing;
 										END_IF

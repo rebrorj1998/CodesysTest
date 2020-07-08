@@ -200,28 +200,39 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting);
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
+pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
+                ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
+                stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
+                //faultHandler := PRG_Bagger.faultHandler,
+				reversePolarity := FALSE,
+				defaultCurrentSetpoint := 500,
+				commFail := Pbar_ServoEIP.udiState <> 4,
+				isHomable := TRUE);			
+pressureBarMotor.Execute();
 
-
+jawClamps(
+	mode:= , 
+	extendedStatus=> , 
+	retractedStatus=> , 
+	extendOutput=> oJawClampExtend, 
+	retractOutput=> oJawClampRetract);	 
+	 
 pressureBar(
 	enable:= , 
-	iPressureBarClamped:= , 
-	iPressureBarClosed:= , 
-	iPressureBarNotObstructed:= , 
+	iPressureBarClamped:= NOT iJawClamped, 
+	iPressureBarClosed:= NOT iJawClearToClamp, 
+	iPressureBarNotObstructed:= TRUE, 
 	iBaggerEnableButton:= , 
-	iJawClampLeftExtended:= , 
-	iJawCLampLeftRetracted:= , 
-	iJawClampRightExtended:= , 
-	iJawClampRightRetracted:= , 
+	iJawClampExtended:= iJawClampsExtended, 
+	iJawCLampRetracted:= iJawClampsRetracted, 
 	pbarOutSetting:= HMIData.passthroughSetting, 
-	pbarInSetting:= -0.45, 
+	pbarInSetting:= , 
 	disableFaults:= , 
 	extendJawClamp:= , 
 	retractJawClamp:= , 
 	extendJaw:= , 
 	retractJaw:= , 
-	obstructionFault=> , 
-	failToClose=> , 
-	failToOpen=> , 
+	faults => , 
 	failToClampLeft=> , 
 	failToReleaseLeft=> , 
 	failToClampRight=> , 
@@ -622,27 +633,41 @@ bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInst
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
-pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
-                ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
-                stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
-                //faultHandler := PRG_Bagger.faultHandler,
-				reversePolarity := TRUE,
-				defaultCurrentSetpoint := 650,
-				commFail := Pbar_ServoEIP.udiState <> 4,
-				isHomable := TRUE);			
-pressureBarMotor.Execute();
+
 	 
 IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
                 ptrEIPOutputs := ADR(oIBDMotorEIP),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
                 //faultHandler := PRG_Bagger.faultHandler,
-				reversePolarity := TRUE,
+				reversePolarity := FALSE,
 				defaultCurrentSetpoint := 650,
-				commFail := Pbar_ServoEIP.udiState <> 4,
+				commFail := IBD_Motor.udiState <> 4,
 				isHomable := TRUE);			
 IBDMotor.Execute();
 
-
+IBD(
+	enable:= , 
+	pbarOutSetting:= HMIData.passthroughSetting, 
+	pbarInSetting:= , 
+	disableFaults:= , 
+	extendCommand:= HMIData.IBDService.extendCommand, 
+	retractCommand:= HMIData.IBDService.retractCommand , 
+	failToClose=> , 
+	failToOpen=> , 
+	state=> , 
+	actualPosition=> , 
+	IBDOpen=> , 
+	homeRequired=> , 
+	clamped=> , 
+	IBDMotor:= IBDMotor);
+		 
+IF HMIData.IBDService.extendCommand THEN
+	HMIData.IBDService.extendCommand := FALSE;
+END_IF
+	 
+IF HMIData.IBDService.retractCommand THEN
+	HMIData.IBDService.retractCommand := FALSE;
+END_IF
 {endregion}
 	 
 hmiLight(lightOutput => oHMILight);
@@ -720,7 +745,11 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	forwardLoadPlateRetract.Reset();
 	loadShelfExtend.Reset();
 	IBD.Reset();
-	IBD.OpenIBD();
+	IF IBD.homeRequired THEN
+		IBD.HomeNow();
+	ELSE
+		IBD.OpenIBD();
+	END_IF
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
@@ -799,10 +828,11 @@ IF enableBatchONS.Q THEN
     batchCount := 0;
 END_IF
 
-IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
+//IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
+IF NOT enable OR faultONS.OSR THEN
     state := HEAD_STATES.Fault;
 	enableBatch := FALSE;
-	pressureBarMotor.Stop();
+	//pressureBarMotor.Stop();
 	cycleTimer.IN := FALSE;
 END_IF
 pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
@@ -1137,10 +1167,10 @@ CASE state OF
     
     HEAD_STATES.MovePassthrough :        // 
                                             pressureBar.OpenJaw();
-											pressureBar.OpenIBD();
+											IBD.OpenIBD();
                                             state := HEAD_STATES.MovingPassthrough;
     
-    HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND pressureBar.IBDOpen THEN
+    HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND IBD.IBDOpen THEN
                                                 state := HEAD_STATES.MovedPassthrough;     
                                             END_IF
                                             
@@ -1160,7 +1190,7 @@ CASE state OF
 											oVacOn := FALSE;
 											filler.Reset();
 											LPA.ManualOff();
-											IBD.Reset();
+											//IBD.Reset();
 											exitConveyorRun.Reset();
 											externalExitConveyorRun.Reset();
 											oRunPrinterRibbonUnwindMotor := FALSE;
@@ -1445,7 +1475,7 @@ CASE openBagSubState OF
                                                     
                                                     
     BAG_OPEN_ASSIST_STATES.MoveJawIn :                // Close jaw against bag. In the future we may also start vacuum here
-                                                    pressureBar.CloseJaw();
+                                                    pressureBar.CloseJawNoLatch();
 													(*HPA.DwellSetting := 80;
 													HPA.Trigger();*)
 													IF HPA.DwellSetting <> 0 THEN
@@ -1457,7 +1487,7 @@ CASE openBagSubState OF
                                                     
                                                     
     BAG_OPEN_ASSIST_STATES.MovingJawIn :            // Move on once jaw is closed
-                                                    IF pressureBar.clamped OR NOT pressureBar.enable THEN
+                                                    IF pressureBar.iPressureBarClosed OR NOT pressureBar.enable THEN
                                                         openBagSubState := BAG_OPEN_ASSIST_STATES.MovedJawIn;        
                                                     END_IF
                                                     
