@@ -88,7 +88,7 @@ CASE currentState OF
 								_clearingDone := FALSE;
 								
 	PACK_ML.State.Aborted:		IF resetONS.OSR THEN
-									GlobalObjects.CollectionOfActiveFaults.AckAll();
+									GlobalObjects.CollectionOfFaults.AckAll();
 									currentUnitMode.Clear();
 								END_IF	
 	

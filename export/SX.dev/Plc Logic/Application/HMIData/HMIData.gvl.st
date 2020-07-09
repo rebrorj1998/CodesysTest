@@ -69,7 +69,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;
 	passthroughSetting : REAL := 5.5;
-	sealBarDwell : REAL := 0.18;
+	sealBarDwell : REAL := 0.16;
 	sealBarCool : REAL := 0.25;
 	bagSkirtLength : REAL := 2;
 	bagLength : REAL := 17.62;
@@ -115,8 +115,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;
 	barcodeBadReadFaultSetting : UDINT;
-	barcodeStartPosition : REAL;
-	barcodeScanDistance : REAL := 1.0;
+	barcodeStartPosition : REAL := 3.0;
+	barcodeScanDistance : REAL := 0.1;
 	barcodeVerifierInUse : BOOL := TRUE;
 	loadPlateInstalled : BOOL := TRUE;
 	loadPlateLoweredPositionSetting : REAL := 0;
@@ -131,5 +131,5 @@ VAR_GLOBAL PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.0.5.0';
+	version : STRING := '1.0.5.1';
 END_VAR

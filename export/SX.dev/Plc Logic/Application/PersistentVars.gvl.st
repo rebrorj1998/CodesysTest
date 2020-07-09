@@ -18,7 +18,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.passthroughSetting: REAL := REAL#5.5;
 	// Generated instance path of persistent variable
-	HMIData.sealBarDwell: REAL := REAL#0.18;
+	HMIData.sealBarDwell: REAL := REAL#0.16;
 	// Generated instance path of persistent variable
 	HMIData.sealBarCool: REAL := REAL#0.25;
 	// Generated instance path of persistent variable
@@ -110,9 +110,9 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.barcodeBadReadFaultSetting: UDINT;
 	// Generated instance path of persistent variable
-	HMIData.barcodeStartPosition: REAL;
+	HMIData.barcodeStartPosition: REAL := REAL#3.0;
 	// Generated instance path of persistent variable
-	HMIData.barcodeScanDistance: REAL := REAL#1;
+	HMIData.barcodeScanDistance: REAL := REAL#0.1;
 	// Generated instance path of persistent variable
 	HMIData.barcodeVerifierInUse: BOOL := TRUE;
 	// Generated instance path of persistent variable

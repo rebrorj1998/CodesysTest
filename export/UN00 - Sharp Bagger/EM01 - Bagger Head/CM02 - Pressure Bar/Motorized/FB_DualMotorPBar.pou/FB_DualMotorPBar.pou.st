@@ -249,7 +249,7 @@ CASE jawState OF
 			eDualMotorPbarHomingStates.Idle:
 					// Move the jaw out a little bit in order to allow ZHome to happen without jamming.  Clears the rack from the rear motor
 					MC_MoveBothMotorsINC.Distance := jawHomeClearDistance;
-					MC_MoveBothMotorsINC.Velocity := openVelo;
+					MC_MoveBothMotorsINC.Velocity := 2;
 					MC_MoveBothMotorsINC.Acceleration := openAccel;
 					MC_MoveBothMotorsINC.Deceleration := openDecel;
 					MC_MoveBothMotorsINC.Execute := TRUE;

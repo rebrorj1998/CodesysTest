@@ -50,7 +50,10 @@ VAR
 	enumAlarmCode : eOrientalAZDriveFaults;
 	state : eOrientalAZDriveStates;
 	nextState : eOrientalAZDriveStates;
-	
+	commErrorONS : FB_ONS;
+	commErrorFaultONS : FB_ONS;
+	commErrorCount : DINT;
+	commErrorFaultSetting : DINT := 3;
 END_VAR
 VAR_IN_OUT
 	MBChannel : IoDrvModbus.ModbusSlaveComPort;
@@ -121,9 +124,14 @@ IF resetRIOWrite.Q THEN
 	triggerRIOWriteNow := FALSE;
 END_IF
 
-
+// Only set comm error status after x modbus errors
+commErrorONS(CLK := MBChannel.xError);
+IF commErrorONS.OSR THEN
+	commErrorCount := commErrorCount + 1;
+END_IF
+commErrorFaultONS(CLK := commErrorCount = commErrorFaultSetting);
 IF NOT isGroup THEN
-	IF MBChannel.xError THEN
+	IF commErrorFaultONS.OSR THEN
 		state := eOrientalAZDriveStates.Faulting;
 		CommStatus := FALSE;
 	END_IF
@@ -187,6 +195,7 @@ CASE state OF
 				END_IF
 				IF MBChannel.xDone OR isGroup THEN
 					CommStatus := TRUE;
+					commErrorCount := 0;
 				END_IF
 
 	eOrientalAZDriveStates.MoveABS:
@@ -316,6 +325,7 @@ CASE state OF
 		eOrientalAZDriveStates.Resetting:
 				// 
 					CommStatus := TRUE;
+					commErrorCount := 0;
 					IF alarmActive THEN
 						reset := TRUE;
 					END_IF
