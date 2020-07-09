@@ -108,6 +108,7 @@ VAR
 	barcodeVerifier : BarcodeReaderFB();
 	keyenceBCV : KeyenceNL20FB();
 	rearMotorCommsReturned : Standard.F_TRIG();
+	baggerHeadMovement : FB_BaggerHeadRaise();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -120,6 +121,7 @@ END_VAR
 // Run BaseComponentFB
 SUPER^();
 
+		  
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
 Globals.machinePowerOK := powerSettlingTimer.Q;
@@ -158,7 +160,25 @@ ELSE
 	Keyence_BCV.Enable := FALSE;
 END_IF
 
-
+// Raise/Lower bagger head logic
+// Indications and commands from HMI
+HMIData.baggerHeadService.extendedFeedback := iHeadRaised;
+HMIData.baggerHeadService.retractedFeedback := iHeadLowered;
+IF HMIData.baggerHeadService.retractedFeedback THEN
+	HMIData.baggerHeadService.retractCommand := FALSE;
+END_IF
+IF HMIData.baggerHeadService.extendedFeedback THEN
+	HMIData.baggerHeadService.extendCommand := FALSE;
+END_IF
+baggerHeadMovement(
+	faultIndication:= HMIData.faultActive, 
+	raiseCommand:= HMIData.baggerHeadService.extendCommand, 
+	lowerCommand:= HMIData.baggerHeadService.retractCommand, 
+	raiseLimitSwitch:= HMIData.baggerHeadService.extendedFeedback, 
+	lowerLimitSwitch:= HMIData.baggerHeadService.retractedFeedback, 
+	runMotorOutput=> oRunBaggerHeadMotor, 
+	motorDirectionOutput=> oBaggerHeadMotorDir);
+	 
 // Option setup and factory config  
 	 
 IF HMIData.resetAverageCycleTime THEN
@@ -551,7 +571,7 @@ IF filler.activateFiller AND NOT filler.cycleBaggerToActivateFiller.active THEN
 END_IF
 	 
 
-HMIData.packageEjectGuardRemoved.active :=  HMIData.packageEjectSelection = PackageEjectionSelection.LabelSideUp AND NOT iPackageEjectGuardClosed;
+//HMIData.packageEjectGuardRemoved.active :=  HMIData.packageEjectSelection = PackageEjectionSelection.LabelSideUp AND NOT iPackageEjectGuardClosed;
 HMIData.loadPlateService.extendedFeedback := HMIData.rearLoadPlateService.extendedFeedback := iLoadPlateExtended;
 HMIData.loadPlateService.retractedFeedback := HMIData.rearLoadPlateService.retractedFeedback := iLoadPlateRetracted;
 

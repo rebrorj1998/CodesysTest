@@ -232,6 +232,15 @@
       <UserDefElement type="T_ExteralConveyorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_ExteralConveyorSelection" iecname="ExternalExitConveyor" enumvalue="1" />
     </TypeUserDef>
+    <TypeUserDef name="T_FB_BaggerHeadRaise" size="7" nativesize="12" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BaggerHeadRaise">
+      <UserDefElement iecname="faultIndication" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
+      <UserDefElement iecname="raiseCommand" type="T_BOOL" byteoffset="1" vartype="VAR_INPUT" />
+      <UserDefElement iecname="lowerCommand" type="T_BOOL" byteoffset="2" vartype="VAR_INPUT" />
+      <UserDefElement iecname="raiseLimitSwitch" type="T_BOOL" byteoffset="3" vartype="VAR_INPUT" />
+      <UserDefElement iecname="lowerLimitSwitch" type="T_BOOL" byteoffset="4" vartype="VAR_INPUT" />
+      <UserDefElement iecname="runMotorOutput" type="T_BOOL" byteoffset="5" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="motorDirectionOutput" type="T_BOOL" byteoffset="6" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
     <TypeUserDef name="T_FB_CycleCounter" size="8" nativesize="12" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CycleCounter">
       <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" />
@@ -1202,7 +1211,7 @@
       <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="274" vartype="VAR_IN_OUT" />
       <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="280" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="5645" nativesize="103412" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="5652" nativesize="103424" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1310,6 +1319,7 @@
       <UserDefElement iecname="barcodeVerifier" type="T_BarcodeReaderFB" byteoffset="5380" vartype="VAR" />
       <UserDefElement iecname="keyenceBCV" type="T_KeyenceNL20FB" byteoffset="5468" vartype="VAR" />
       <UserDefElement iecname="rearMotorCommsReturned" type="T_F_TRIG" byteoffset="5643" vartype="VAR" />
+      <UserDefElement iecname="baggerHeadMovement" type="T_FB_BaggerHeadRaise" byteoffset="5645" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
@@ -1655,9 +1665,6 @@
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iLoadShelfRetracted" type="T_BIT_X_1" access="Read" directaddress="%IX64.1">
-          <Comment>Cube67_BN_E_V2 : </Comment>
-        </Node>
-        <Node name="iPackageEjectGuardClosed" type="T_BIT_X_6" access="Read" directaddress="%IX64.6">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iPowerOffButton" type="T_BIT_X_3" access="Read" directaddress="%IX69.3">
