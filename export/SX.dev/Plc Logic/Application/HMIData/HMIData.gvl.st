@@ -22,6 +22,8 @@ VAR_GLOBAL
 	printHeadService : ServiceCommands;
 	startJawCycleTest : BOOL;
 	stopJawCycleTest : BOOL;
+	jawCycleTestCycles : DINT;
+	jawCycleTestActive : BOOL;
 	teachBagPhotoeye : BOOL;
 	teachingBagPhoteye : BOOL;
 	factoryHomeJaw : BOOL;
@@ -94,8 +96,6 @@ VAR_GLOBAL PERSISTENT RETAIN
 	jawClosePositionSetting : REAL := -0.45;
 	jawOpenMotionProfile : sctMotionProfile := (velo := 14.0, accel := 300.0, decel := 300.0, current := 100.0);
 	jawCloseMotionProfile : sctMotionProfile := (velo := 14.0, accel := 10.0, decel := 10.0, current := 100.0);
-	jawCycleTestCycles : DINT;
-	jawCycleTestActive : BOOL;
 	jawZeroOffset : REAL := 2.0;
 	lastCycleTime : REAL;
 	bagDropClearanceDwell : REAL := 0.5;
@@ -114,7 +114,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	barcodeVerifierInstalled : BOOL := TRUE;
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;
-	barcodeBadReadFaultSetting : UDINT;
+	barcodeBadReadFaultSetting : UDINT := 1;
 	barcodeStartPosition : REAL := 3.0;
 	barcodeScanDistance : REAL := 0.1;
 	barcodeVerifierInUse : BOOL := TRUE;
@@ -131,5 +131,5 @@ VAR_GLOBAL PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.0.5.1';
+	version : STRING := '1.0.6.0';
 END_VAR

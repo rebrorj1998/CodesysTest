@@ -246,18 +246,20 @@ CASE jawState OF
 		// Normal Homing - not factory homing.
 		CASE homeJawState OF  // Begin homing sub state machine
 			
+// 			eDualMotorPbarHomingStates.Idle:
+// 					// Move the jaw out a little bit in order to allow ZHome to happen without jamming.  Clears the rack from the rear motor
+// 					MC_MoveBothMotorsINC.Distance := jawHomeClearDistance;
+// 					MC_MoveBothMotorsINC.Velocity := 2;
+// 					MC_MoveBothMotorsINC.Acceleration := openAccel;
+// 					MC_MoveBothMotorsINC.Deceleration := openDecel;
+// 					MC_MoveBothMotorsINC.Execute := TRUE;
+// 					homeJawState := eDualMotorPbarHomingStates.MovingBothMotorsOutToClear;
+					
 			eDualMotorPbarHomingStates.Idle:
-					// Move the jaw out a little bit in order to allow ZHome to happen without jamming.  Clears the rack from the rear motor
-					MC_MoveBothMotorsINC.Distance := jawHomeClearDistance;
-					MC_MoveBothMotorsINC.Velocity := 2;
-					MC_MoveBothMotorsINC.Acceleration := openAccel;
-					MC_MoveBothMotorsINC.Deceleration := openDecel;
-					MC_MoveBothMotorsINC.Execute := TRUE;
-					homeJawState := eDualMotorPbarHomingStates.MovingBothMotorsOutToClear;
-					
-					
+					// Z home right away
+					homeJawState := eDualMotorPbarHomingStates.ZHomeBothMotors;	
 			
-			eDualMotorPbarHomingStates.MovingBothMotorsOutToClear:
+			eDualMotorPbarHomingStates.MovingBothMotorsOutToClear: // skipping this for testing - may not be needed 
 					// Wait for motors to move out to clear rack
 					IF MC_MoveBothMotorsINC.Done THEN
 						MC_MoveBothMotorsINC.Execute := FALSE;
@@ -407,6 +409,7 @@ CASE jawState OF
 		_homeNow := FALSE;
 		_openNow := FALSE;
 		_closeNow := FALSE;
+		jawTestModeActive := FALSE;
 		jawState := eDualMotorPBarStates.Resetting;
 
 	eDualMotorPBarStates.Resetting:

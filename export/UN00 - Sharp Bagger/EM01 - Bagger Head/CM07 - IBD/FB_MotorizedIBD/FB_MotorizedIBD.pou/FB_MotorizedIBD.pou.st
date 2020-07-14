@@ -36,6 +36,7 @@ VAR
 	motionFaultTimeOffset : TIME := T#5S;
 	resetTimer: TON := (PT := T#2S);
 	state : eMotorizedIBDStates;
+	faultONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	IBDMotor : Sharp_Motion.Axis_REF;
@@ -99,8 +100,11 @@ IF _reset THEN
 	_reset := FALSE;
 END_IF
 
+faultONS(CLK := _RemovePower OR failedToHome.Active OR failedToOpen.Active OR IBDMotorFault.Active OR IBDMotorCommFault.Active);
 
-
+IF faultONS.OSR THEN
+	state := eMotorizedIBDStates.Faulting;
+END_IF
 CASE state OF
 	
 	eMotorizedIBDStates.Idle:
@@ -220,6 +224,7 @@ CASE state OF
 	eMotorizedIBDStates.Faulting:
 		// Free up motors on a fault
 		MC_HaltIBDMotor.Execute := TRUE;
+   		_RemovePower := FALSE;
 		IF MC_HaltIBDMotor.Done OR  MC_HaltIBDMotor.Error THEN
 			state := eMotorizedIBDStates.Faulted;
 		END_IF

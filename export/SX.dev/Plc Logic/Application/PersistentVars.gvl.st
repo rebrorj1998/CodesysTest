@@ -68,10 +68,6 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.jawCloseMotionProfile: sctMotionProfile := STRUCT(velo := REAL#14, accel := REAL#10, decel := REAL#10, current := REAL#100);
 	// Generated instance path of persistent variable
-	HMIData.jawCycleTestCycles: DINT;
-	// Generated instance path of persistent variable
-	HMIData.jawCycleTestActive: BOOL;
-	// Generated instance path of persistent variable
 	HMIData.jawZeroOffset: REAL := REAL#2;
 	// Generated instance path of persistent variable
 	HMIData.lastCycleTime: REAL;
@@ -108,7 +104,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.barcodeBadReadCount: UDINT;
 	// Generated instance path of persistent variable
-	HMIData.barcodeBadReadFaultSetting: UDINT;
+	HMIData.barcodeBadReadFaultSetting: UDINT := UDINT#1;
 	// Generated instance path of persistent variable
 	HMIData.barcodeStartPosition: REAL := REAL#3.0;
 	// Generated instance path of persistent variable

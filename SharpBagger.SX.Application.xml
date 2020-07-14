@@ -45,10 +45,11 @@
       <UserDefElement iecname="decel" type="T_REAL" byteoffset="8" vartype="VAR" />
       <UserDefElement iecname="current" type="T_REAL" byteoffset="12" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_sctOrientalHMIData" size="12" nativesize="12" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctOrientalHMIData">
+    <TypeUserDef name="T_sctOrientalHMIData" size="13" nativesize="16" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctOrientalHMIData">
       <UserDefElement iecname="CommandedPos" type="T_REAL" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="ActPos" type="T_REAL" byteoffset="4" vartype="VAR" />
       <UserDefElement iecname="CurrentAlarmCode" type="T_DWORD" byteoffset="8" vartype="VAR" />
+      <UserDefElement iecname="setPreset" type="T_BOOL" byteoffset="12" vartype="VAR" />
     </TypeUserDef>
   </TypeList>
   <NodeList>
