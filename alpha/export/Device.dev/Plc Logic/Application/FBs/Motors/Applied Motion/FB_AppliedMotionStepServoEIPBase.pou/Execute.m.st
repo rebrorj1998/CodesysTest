@@ -95,7 +95,7 @@ CASE resetState OF
 	4 :		//
 			IF commandSuccessful THEN;
 				resetState := 0;
-				ResetEncoderPosition();	
+				ResetEncoderPosition(driveInputs[5]);	
 				_reset := FALSE;
 			END_IF
 	

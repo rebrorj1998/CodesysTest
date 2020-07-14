@@ -36,7 +36,7 @@ VAR
 	_openJaw : BOOL;
 	_closeJaw : BOOL;
 	_closeJawNoLatch : BOOL;
-	jawClampsDelay : TIME := T#250ms;
+	jawClampsDelay : TIME := T#75ms;
 	accel : INT := 40;
 	decel : INT := 60;
 	velo : INT := 1250;
@@ -48,6 +48,7 @@ VAR
 	testPosLimit : BOOL;
 	testDisable : BOOL;
 	testEnable : BOOL;
+	testResetPosition : BOOL;
 	posLimit : DINT := 3000;
 	pbarFeedbackHandler : FB_CylinderFeedback;
 	jawClampsLeftFeedbackHandler : FB_CylinderFeedback;
@@ -71,6 +72,8 @@ pressureBarClosed := pbarMotor.absolutePositionSteps >= (pbarMotor.distanceToMov
 delayTimer();
 
 clamped := state = MotorizedPbarStates.Clamping;
+
+
 
 pbarFeedbackHandler(
 	extendedFeedbackInput:= pressureBarOpen, 
@@ -142,6 +145,11 @@ END_IF
 IF testRelease THEN
 	pbarMotor.DoneClamping();
 	testRelease := FALSE;
+END_IF
+
+IF testResetPosition THEN
+	pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
+	testResetPosition := FALSE;
 END_IF
 
 IF testZeroCurrent THEN
@@ -287,6 +295,7 @@ CASE state OF
 	
 	MotorizedPbarStates.MovingJawOut :			//
 										IF pressureBarOpen THEN
+											
 											IF testActive THEN
 												delayTimer.PT := T#500MS;
 												delayTimer.IN := TRUE;
@@ -295,9 +304,14 @@ CASE state OF
 													state := MotorizedPbarStates.MoveJawIn;
 												END_IF
 											ELSE
-												state := MotorizedPbarStates.Idle;
+												delayTimer.PT := T#100MS;
+												delayTimer.IN := TRUE;
+												IF delayTimer.Q  THEN
+													//pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
+													delayTimer.IN := FALSE;
+													state := MotorizedPbarStates.Idle;
+												END_IF
 											END_IF
-											
 										END_IF
 	
 	
@@ -319,7 +333,7 @@ CASE state OF
 	
 	MotorizedPbarStates.MovingJawIn : 			//
 										//IF iPressureBarClosed AND pbarMotor.absolutePositonInches = 0 THEN
-										IF iPressureBarClosed AND pressureBarClosed THEN
+										IF iPressureBarClosed THEN
 											IF NOT  _closeJawNoLatch THEN
 												pbarMotor.AllowClamping();
 											END_IF
@@ -351,7 +365,13 @@ CASE state OF
 	
 	MotorizedPbarStates.StartedClamping :		//
 										IF iPressureBarClamped THEN
-											state := MotorizedPbarStates.Clamping;	
+											delayTimer.PT := T#100MS;
+											delayTimer.IN := TRUE;
+											IF delayTimer.Q THEN
+												pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
+												state := MotorizedPbarStates.Clamping;	
+											END_IF
+											
 										END_IF
 										
 										IF testActive THEN

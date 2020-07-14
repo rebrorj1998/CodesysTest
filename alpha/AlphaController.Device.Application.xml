@@ -1198,6 +1198,7 @@
       <UserDefElement iecname="testPosLimit" type="T_BOOL" byteoffset="100" vartype="VAR" />
       <UserDefElement iecname="testDisable" type="T_BOOL" byteoffset="101" vartype="VAR" />
       <UserDefElement iecname="testEnable" type="T_BOOL" byteoffset="102" vartype="VAR" />
+      <UserDefElement iecname="testResetPosition" type="T_BOOL" byteoffset="103" vartype="VAR" />
       <UserDefElement iecname="posLimit" type="T_DINT" byteoffset="104" vartype="VAR" />
       <UserDefElement iecname="pbarFeedbackHandler" type="T_FB_CylinderFeedback" byteoffset="108" vartype="VAR" />
       <UserDefElement iecname="jawClampsLeftFeedbackHandler" type="T_FB_CylinderFeedback" byteoffset="152" vartype="VAR" />
