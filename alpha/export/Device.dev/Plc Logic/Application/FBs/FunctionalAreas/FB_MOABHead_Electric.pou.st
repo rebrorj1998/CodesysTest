@@ -725,7 +725,11 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	pressureBar.Reset();
 	pressureBar.enable := TRUE;
 	//pressureBar.ExtendCylinderLowPressure();
-	
+	IF pressureBar.homeRequired THEN
+		homeJawPB := TRUE;
+	ELSE
+		pressureBar.OpenJaw();
+	END_IF
 	//HMIData.sealBarTemperatureSetting := 300;
 	enableHeater := TRUE;
 	
@@ -751,15 +755,12 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 			HMIData.bagsMade.Clear();
 		END_IF 
 	END_IF  
+	
 	//passthrough.Reset();
 	pressureBarMotor.Reset();
 	passthroughMode := DEVICE_MODES.Auto;
 	//passthrough.enable := TRUE;
-	IF pressureBar.homeRequired THEN
-		homeJawPB := TRUE;
-	ELSE
-		pressureBar.OpenJaw();
-	END_IF
+	
 	oVacOn := FALSE;
 	rearLoadPlateRetract.Reset();
 	forwardLoadPlateRetract.Reset();
@@ -798,6 +799,8 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	hmiLight.TurnOff();
 	
 END_IF
+
+
 IF enableONS.Q OR resetONS.Q THEN
     state := HEAD_STATES.Idle;
 	sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
