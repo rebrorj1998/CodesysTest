@@ -365,7 +365,7 @@ CASE state OF
 	
 	MotorizedPbarStates.StartedClamping :		//
 										IF iPressureBarClamped THEN
-											delayTimer.PT := T#100MS;
+											delayTimer.PT := T#250MS;
 											delayTimer.IN := TRUE;
 											IF delayTimer.Q THEN
 												pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
