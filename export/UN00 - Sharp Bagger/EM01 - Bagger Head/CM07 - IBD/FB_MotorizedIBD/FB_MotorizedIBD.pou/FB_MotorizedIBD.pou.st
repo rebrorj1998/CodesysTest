@@ -75,9 +75,9 @@ failedToOpenTimer(IN := (state = eMotorizedIBDStates.MovingOut OR state = eMotor
 					
 // Trigger motor faults from drive					
 IF IBDMotor.Error THEN
-	//IBDMotorFault.faultTrigger := TRUE;
+	IBDMotorFault.faultTrigger := TRUE;
 ELSE 
-	//IBDMotorFault.faultTrigger := FALSE;
+	IBDMotorFault.faultTrigger := FALSE;
 END_IF
 
 IF NOT IBDMotor.CommStatus THEN
@@ -247,6 +247,7 @@ CASE state OF
 		_homeNow := FALSE;
 		_moveOut := FALSE;
 		_moveInToDeflate := FALSE;
+   		_RemovePower := FALSE;
 		state := eMotorizedIBDStates.Resetting;
 
 	eMotorizedIBDStates.Resetting:
