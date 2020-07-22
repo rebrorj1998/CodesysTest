@@ -77,6 +77,12 @@ sealBarToPrintHeadLength := ABS(reverseToPrintHeadSetpoint) + 2.25;
 printLengthSetpoint := HMIData.printLength;
 reverseVelocitySetpoint := TO_INT(HMIData.bagReverseSpeed);
 feedVelocitySetpoint := TO_INT(HMIData.bagForwardSpeed);
+IF HMIData.baggerModelSelection = ModelSelection.Pro18 THEN
+	reverseToPrintHeadSetpoint := -1.25;
+ELSE
+	reverseToPrintHeadSetpoint := -1.0;
+END_IF
+
 
 (*bagFeedMasterMotor(modbusInputParameters := BagDeliverMasterMotorModbusInputs, 
                     stepsPerInchSetpoint := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY, 
@@ -122,7 +128,7 @@ END_IF
 delay();
 _ready := (_mode = DEVICE_MODES.Auto) AND (NOT (state = BAG_DELIVERY_STATES.Fault) OR NOT (state = BAG_DELIVERY_STATES.Idle));
 
-IF tensionFailONS.OSR THEN
+IF tensionFailONS.OSR AND NOT Globals.enableDryCycle THEN
 	bagTensionFault.Trigger();
 END_IF
 

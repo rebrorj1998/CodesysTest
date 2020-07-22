@@ -685,7 +685,7 @@
       <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="44" vartype="VAR" />
       <UserDefElement iecname="state" type="T_DELAY_DWELL_STATES" byteoffset="60" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="2788" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="2816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_CylinderLeak" size="204" nativesize="236" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CylinderLeak" basetype="T_FB_PredictiveMaint">
@@ -863,7 +863,7 @@
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="18" vartype="VAR_IN_OUT" />
     </TypeUserDef>
     <TypeSimple name="T_REFERENCE_TO_FB_ThreePositionCylinder_REF" size="6" swapsize="0" typeclass="Reference" iecname="REFERENCE TO FB_ThreePositionCylinder_REF" basetype="T_FB_ThreePositionCylinder" />
-    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor_1" size="458" nativesize="2852" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor_1" basetype="T_FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor_1" size="474" nativesize="2880" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor_1" basetype="T_FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="ptrEIPInputs" type="T_POINTER_TO_ARRAY__0__13__OF_DINT" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="ptrEIPOutputs" type="T_POINTER_TO_ARRAY__0__15__OF_DINT" byteoffset="4" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
@@ -904,30 +904,31 @@
       <UserDefElement iecname="resetState" type="T_INT" byteoffset="266" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="IECReferenceGood" type="T_BOOL" byteoffset="268" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="resetTimeout" type="T_TON" byteoffset="272" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="absolutePositonInches" type="T_REAL" byteoffset="288" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="velocity" type="T_INT" byteoffset="292" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="status" type="T_StepServoStatusFB" byteoffset="294" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="alarms" type="T_FB_StepServoAlarms" byteoffset="312" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="QSegmentRunning" type="T_INT" byteoffset="372" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="374" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="ActiveStoredProgramNumber" type="T_INT" byteoffset="416" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="CommandAcknowledged" type="T_BOOL" byteoffset="418" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="CurrentPosition" type="T_REAL" byteoffset="420" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="Faulted" type="T_BOOL" byteoffset="424" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="HomeRequired" type="T_BOOL" byteoffset="425" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="Homing" type="T_BOOL" byteoffset="426" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="427" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="428" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="_moveDistance" type="T_BOOL" byteoffset="429" vartype="VAR" />
-      <UserDefElement iecname="_moveDistanceONS" type="T_R_TRIG" byteoffset="430" vartype="VAR" />
-      <UserDefElement iecname="_moveFinal" type="T_BOOL" byteoffset="432" vartype="VAR" />
-      <UserDefElement iecname="_moveFinalONS" type="T_R_TRIG" byteoffset="433" vartype="VAR" />
-      <UserDefElement iecname="_moveDone" type="T_BOOL" byteoffset="435" vartype="VAR" />
-      <UserDefElement iecname="waitForMove" type="T_TON" byteoffset="436" vartype="VAR" />
-      <UserDefElement iecname="manualFinalMovePB" type="T_BOOL" byteoffset="452" vartype="VAR" />
-      <UserDefElement iecname="movedFinal" type="T_BOOL" byteoffset="453" vartype="VAR" />
-      <UserDefElement iecname="moveDistanceState" type="T_AMP_EIP_MOVE_INITIAL_STATES" byteoffset="454" vartype="VAR" />
-      <UserDefElement iecname="moveDistanceFinalState" type="T_AMP_EIP_MOVE_INITIAL_STATES" byteoffset="456" vartype="VAR" />
+      <UserDefElement iecname="encoderResetTimeout" type="T_TON" byteoffset="288" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="absolutePositonInches" type="T_REAL" byteoffset="304" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="velocity" type="T_INT" byteoffset="308" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="status" type="T_StepServoStatusFB" byteoffset="310" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="alarms" type="T_FB_StepServoAlarms" byteoffset="328" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="QSegmentRunning" type="T_INT" byteoffset="388" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="390" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="ActiveStoredProgramNumber" type="T_INT" byteoffset="432" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="CommandAcknowledged" type="T_BOOL" byteoffset="434" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="CurrentPosition" type="T_REAL" byteoffset="436" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Faulted" type="T_BOOL" byteoffset="440" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="HomeRequired" type="T_BOOL" byteoffset="441" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Homing" type="T_BOOL" byteoffset="442" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="443" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="444" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="_moveDistance" type="T_BOOL" byteoffset="445" vartype="VAR" />
+      <UserDefElement iecname="_moveDistanceONS" type="T_R_TRIG" byteoffset="446" vartype="VAR" />
+      <UserDefElement iecname="_moveFinal" type="T_BOOL" byteoffset="448" vartype="VAR" />
+      <UserDefElement iecname="_moveFinalONS" type="T_R_TRIG" byteoffset="449" vartype="VAR" />
+      <UserDefElement iecname="_moveDone" type="T_BOOL" byteoffset="451" vartype="VAR" />
+      <UserDefElement iecname="waitForMove" type="T_TON" byteoffset="452" vartype="VAR" />
+      <UserDefElement iecname="manualFinalMovePB" type="T_BOOL" byteoffset="468" vartype="VAR" />
+      <UserDefElement iecname="movedFinal" type="T_BOOL" byteoffset="469" vartype="VAR" />
+      <UserDefElement iecname="moveDistanceState" type="T_AMP_EIP_MOVE_INITIAL_STATES" byteoffset="470" vartype="VAR" />
+      <UserDefElement iecname="moveDistanceFinalState" type="T_AMP_EIP_MOVE_INITIAL_STATES" byteoffset="472" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBaseQX" size="813" nativesize="2768" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBaseQX">
       <UserDefElement iecname="ptrEIPInputs" type="T_POINTER_TO_ARRAY__0__13__OF_DINT" byteoffset="0" vartype="VAR_INPUT" />
@@ -984,7 +985,7 @@
       <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="811" vartype="VAR" propertytype="variable" />
       <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="812" vartype="VAR" propertytype="variable" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="452" nativesize="2828" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="468" nativesize="2856" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="ptrEIPInputs" type="T_POINTER_TO_ARRAY__0__13__OF_DINT" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="ptrEIPOutputs" type="T_POINTER_TO_ARRAY__0__15__OF_DINT" byteoffset="4" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
@@ -1025,31 +1026,32 @@
       <UserDefElement iecname="resetState" type="T_INT" byteoffset="266" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="IECReferenceGood" type="T_BOOL" byteoffset="268" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
       <UserDefElement iecname="resetTimeout" type="T_TON" byteoffset="272" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="absolutePositonInches" type="T_REAL" byteoffset="288" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="velocity" type="T_INT" byteoffset="292" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="status" type="T_StepServoStatusFB" byteoffset="294" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="alarms" type="T_FB_StepServoAlarms" byteoffset="312" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="QSegmentRunning" type="T_INT" byteoffset="372" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="374" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
-      <UserDefElement iecname="ActiveStoredProgramNumber" type="T_INT" byteoffset="416" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="CommandAcknowledged" type="T_BOOL" byteoffset="418" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="CurrentPosition" type="T_REAL" byteoffset="420" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="Faulted" type="T_BOOL" byteoffset="424" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="HomeRequired" type="T_BOOL" byteoffset="425" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="Homing" type="T_BOOL" byteoffset="426" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="427" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="428" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
-      <UserDefElement iecname="homingState" type="T_JAW_HOMING_STATES" byteoffset="430" vartype="VAR" />
-      <UserDefElement iecname="homeRequiredONS" type="T_R_TRIG" byteoffset="432" vartype="VAR" />
-      <UserDefElement iecname="timerHomeDelay" type="T_TON" byteoffset="436" vartype="VAR" />
+      <UserDefElement iecname="encoderResetTimeout" type="T_TON" byteoffset="288" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="absolutePositonInches" type="T_REAL" byteoffset="304" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="velocity" type="T_INT" byteoffset="308" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="status" type="T_StepServoStatusFB" byteoffset="310" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="alarms" type="T_FB_StepServoAlarms" byteoffset="328" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="QSegmentRunning" type="T_INT" byteoffset="388" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="390" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="ActiveStoredProgramNumber" type="T_INT" byteoffset="432" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="CommandAcknowledged" type="T_BOOL" byteoffset="434" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="CurrentPosition" type="T_REAL" byteoffset="436" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Faulted" type="T_BOOL" byteoffset="440" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="HomeRequired" type="T_BOOL" byteoffset="441" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Homing" type="T_BOOL" byteoffset="442" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="443" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="444" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="homingState" type="T_JAW_HOMING_STATES" byteoffset="446" vartype="VAR" />
+      <UserDefElement iecname="homeRequiredONS" type="T_R_TRIG" byteoffset="448" vartype="VAR" />
+      <UserDefElement iecname="timerHomeDelay" type="T_TON" byteoffset="452" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_BagDeliveryFB" size="934" nativesize="6500" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BagDeliveryFB" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_BagDeliveryFB" size="966" nativesize="6556" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BagDeliveryFB" basetype="T_BaseComponentFB">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="delayForPrintFeed" type="T_TIME" byteoffset="12" vartype="VAR" />
       <UserDefElement iecname="bagFeedMasterMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
-      <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="476" vartype="VAR" />
+      <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="492" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_MotorizedSealFlattenersFB_BagFeed" size="990" nativesize="3056" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="MotorizedSealFlattenersFB_BagFeed" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
@@ -1108,8 +1110,8 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="988" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
-    <TypeSimple name="T_REFERENCE_TO_FB_AppliedMotionStepServoEIPPassthrough_REF" size="452" swapsize="0" typeclass="Reference" iecname="REFERENCE TO FB_AppliedMotionStepServoEIPPassthrough_REF" basetype="T_FB_AppliedMotionStepServoEIPPassthrough" />
-    <TypeUserDef name="T_FB_MotorizedIBD" size="540" nativesize="472" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_BaseComponentFB">
+    <TypeSimple name="T_REFERENCE_TO_FB_AppliedMotionStepServoEIPPassthrough_REF" size="468" swapsize="0" typeclass="Reference" iecname="REFERENCE TO FB_AppliedMotionStepServoEIPPassthrough_REF" basetype="T_FB_AppliedMotionStepServoEIPPassthrough" />
+    <TypeUserDef name="T_FB_MotorizedIBD" size="556" nativesize="472" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1147,7 +1149,7 @@
       <UserDefElement iecname="homeRequiredONS" type="T_FB_ONS" byteoffset="80" vartype="VAR" />
       <UserDefElement iecname="IBDMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="88" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedPressureBar" size="732" nativesize="1924" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MotorizedPressureBar" size="760" nativesize="1932" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1209,10 +1211,12 @@
       <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="244" vartype="VAR" />
       <UserDefElement iecname="homeRequiredONS" type="T_FB_ONS" byteoffset="260" vartype="VAR" />
       <UserDefElement iecname="faultingONS" type="T_FB_ONS" byteoffset="267" vartype="VAR" />
-      <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="274" vartype="VAR_IN_OUT" />
-      <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="280" vartype="VAR_IN_OUT" />
+      <UserDefElement iecname="faultTimeMultiplier" type="T_REAL" byteoffset="276" vartype="VAR" />
+      <UserDefElement iecname="distanceToMove" type="T_REAL" byteoffset="280" vartype="VAR" />
+      <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="284" vartype="VAR_IN_OUT" />
+      <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="292" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="5652" nativesize="103424" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="5760" nativesize="103544" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1245,82 +1249,82 @@
       <UserDefElement iecname="motorizedSealFlatteners" type="T_MotorizedSealFlattenersFB_BagFeed" byteoffset="64" vartype="VAR" />
       <UserDefElement iecname="msfVerticalAxis" type="T_FB_ThreePositionCylinder" byteoffset="1054" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="1060" vartype="VAR" />
-      <UserDefElement iecname="IBD" type="T_FB_MotorizedIBD" byteoffset="1792" vartype="VAR" />
-      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="2332" vartype="VAR" />
-      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="2335" vartype="VAR" />
-      <UserDefElement iecname="startCycleONS" type="T_R_TRIG" byteoffset="2341" vartype="VAR" />
-      <UserDefElement iecname="enableBagOpen" type="T_BOOL" byteoffset="2343" vartype="VAR" />
-      <UserDefElement iecname="enableLoadPlate" type="T_BOOL" byteoffset="2344" vartype="VAR" />
-      <UserDefElement iecname="enableHeater" type="T_BOOL" byteoffset="2345" vartype="VAR" />
-      <UserDefElement iecname="enableIBDDeflate" type="T_BOOL" byteoffset="2346" vartype="VAR" />
-      <UserDefElement iecname="enableIBDEject" type="T_BOOL" byteoffset="2347" vartype="VAR" />
-      <UserDefElement iecname="enableLabelSideUp" type="T_BOOL" byteoffset="2348" vartype="VAR" />
-      <UserDefElement iecname="factoryTestModeKeepCycling" type="T_BOOL" byteoffset="2349" vartype="VAR" />
-      <UserDefElement iecname="bagDelivery" type="T_BagDeliveryFB" byteoffset="2352" vartype="VAR" />
-      <UserDefElement iecname="zebraPrinter" type="T_PrinterFB_Mode2" byteoffset="3286" vartype="VAR" />
-      <UserDefElement iecname="sealTimer" type="T_TON" byteoffset="3292" vartype="VAR" />
-      <UserDefElement iecname="bagOpenFingerDelay" type="T_TON" byteoffset="3308" vartype="VAR" />
-      <UserDefElement iecname="bagDropTimer" type="T_TON" byteoffset="3324" vartype="VAR" />
-      <UserDefElement iecname="HPA" type="T_MonostableMultivibratorFB" byteoffset="3340" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateRetract" type="T_MonostableMultivibratorFB" byteoffset="3396" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateRetract" type="T_MonostableMultivibratorFB" byteoffset="3452" vartype="VAR" />
-      <UserDefElement iecname="loadShelfExtend" type="T_MonostableMultivibratorFB" byteoffset="3508" vartype="VAR" />
-      <UserDefElement iecname="exitConveyorRun" type="T_DelayDwellFB" byteoffset="3564" vartype="VAR" />
-      <UserDefElement iecname="externalExitConveyorRun" type="T_DelayDwellFB" byteoffset="3628" vartype="VAR" />
-      <UserDefElement iecname="IBDExtendONS" type="T_FB_ONS" byteoffset="3690" vartype="VAR" />
-      <UserDefElement iecname="IBDRetractONS" type="T_FB_ONS" byteoffset="3697" vartype="VAR" />
-      <UserDefElement iecname="bagOpenFingers" type="T_BagOpenFingersWithSensorsFB" byteoffset="3704" vartype="VAR" />
-      <UserDefElement iecname="bagOpenCheckDelay" type="T_TON" byteoffset="3740" vartype="VAR" />
-      <UserDefElement iecname="bagOpenRetrySetting" type="T_UINT" byteoffset="3756" vartype="VAR" />
-      <UserDefElement iecname="bagOpenRetryCount" type="T_UINT" byteoffset="3758" vartype="VAR" />
-      <UserDefElement iecname="bagOpenFeedNewBagSetting" type="T_UINT" byteoffset="3760" vartype="VAR" />
-      <UserDefElement iecname="bagOpenFeedNewBagCount" type="T_UINT" byteoffset="3762" vartype="VAR" />
-      <UserDefElement iecname="bagOpened" type="T_BOOL" byteoffset="3764" vartype="VAR" />
-      <UserDefElement iecname="recoveryModeActive" type="T_BOOL" byteoffset="3765" vartype="VAR" />
-      <UserDefElement iecname="startCycleReqFromPalmButtons" type="T_BOOL" byteoffset="3766" vartype="VAR" />
-      <UserDefElement iecname="startCycleReqFromPalmButtonsONS" type="T_FB_ONS" byteoffset="3767" vartype="VAR" />
-      <UserDefElement iecname="pressureBarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="3776" vartype="VAR" />
-      <UserDefElement iecname="IBDMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="4228" vartype="VAR" />
-      <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="4680" vartype="VAR" />
-      <UserDefElement iecname="homeJawPB" type="T_BOOL" byteoffset="4686" vartype="VAR" />
-      <UserDefElement iecname="setPassthroughPB" type="T_BOOL" byteoffset="4687" vartype="VAR" />
-      <UserDefElement iecname="vacuumHoldTimer" type="T_TON" byteoffset="4688" vartype="VAR" />
-      <UserDefElement iecname="cycleTimer" type="T_TON" byteoffset="4704" vartype="VAR" />
-      <UserDefElement iecname="cycleTime" type="T_REAL" byteoffset="4720" vartype="VAR" />
-      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="4724" vartype="VAR" />
-      <UserDefElement iecname="openedBagWasRemoved" type="T_FB_Fault" byteoffset="4727" vartype="VAR" />
-      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="4730" vartype="VAR" />
-      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="4733" vartype="VAR" />
-      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="4736" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerificationFailed" type="T_FB_Fault" byteoffset="4739" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerifierCommFail" type="T_FB_Fault" byteoffset="4742" vartype="VAR" />
-      <UserDefElement iecname="iPowerOffButtonONS" type="T_FB_ONS" byteoffset="4745" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4752" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="4800" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4812" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="4860" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4872" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="4920" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaultTimer" type="T_FB_CylinderFaults" byteoffset="4932" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="4980" vartype="VAR" />
-      <UserDefElement iecname="LPA" type="T_DelayDwellFB" byteoffset="4992" vartype="VAR" />
-      <UserDefElement iecname="hpaServiceOnONS" type="T_FB_ONS" byteoffset="5054" vartype="VAR" />
-      <UserDefElement iecname="exitConveyorJogONS" type="T_FB_ONS" byteoffset="5061" vartype="VAR" />
-      <UserDefElement iecname="externalExitConveyorJogONS" type="T_FB_ONS" byteoffset="5068" vartype="VAR" />
-      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="5076" vartype="VAR" />
-      <UserDefElement iecname="faultONS" type="T_FB_ONS" byteoffset="5148" vartype="VAR" />
-      <UserDefElement iecname="powerSettlingTimer" type="T_TON" byteoffset="5156" vartype="VAR" />
-      <UserDefElement iecname="pressureBarCloseDelay" type="T_TON" byteoffset="5172" vartype="VAR" />
-      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="5188" vartype="VAR" />
-      <UserDefElement iecname="configOutput1Pulse" type="T_MonostableMultivibratorFB" byteoffset="5196" vartype="VAR" />
-      <UserDefElement iecname="configOutput2Pulse" type="T_MonostableMultivibratorFB" byteoffset="5252" vartype="VAR" />
-      <UserDefElement iecname="fillerModeCycleStartOnlyPulse" type="T_MonostableMultivibratorFB" byteoffset="5308" vartype="VAR" />
-      <UserDefElement iecname="murrIOBusNode" type="T_MurrIOFB" byteoffset="5364" vartype="VAR" />
-      <UserDefElement iecname="funnel" type="T_FunnelFB" byteoffset="5371" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerifier" type="T_BarcodeReaderFB" byteoffset="5380" vartype="VAR" />
-      <UserDefElement iecname="keyenceBCV" type="T_KeyenceNL20FB" byteoffset="5468" vartype="VAR" />
-      <UserDefElement iecname="rearMotorCommsReturned" type="T_F_TRIG" byteoffset="5643" vartype="VAR" />
-      <UserDefElement iecname="baggerHeadMovement" type="T_FB_BaggerHeadRaise" byteoffset="5645" vartype="VAR" />
+      <UserDefElement iecname="IBD" type="T_FB_MotorizedIBD" byteoffset="1820" vartype="VAR" />
+      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="2376" vartype="VAR" />
+      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="2379" vartype="VAR" />
+      <UserDefElement iecname="startCycleONS" type="T_R_TRIG" byteoffset="2385" vartype="VAR" />
+      <UserDefElement iecname="enableBagOpen" type="T_BOOL" byteoffset="2387" vartype="VAR" />
+      <UserDefElement iecname="enableLoadPlate" type="T_BOOL" byteoffset="2388" vartype="VAR" />
+      <UserDefElement iecname="enableHeater" type="T_BOOL" byteoffset="2389" vartype="VAR" />
+      <UserDefElement iecname="enableIBDDeflate" type="T_BOOL" byteoffset="2390" vartype="VAR" />
+      <UserDefElement iecname="enableIBDEject" type="T_BOOL" byteoffset="2391" vartype="VAR" />
+      <UserDefElement iecname="enableLabelSideUp" type="T_BOOL" byteoffset="2392" vartype="VAR" />
+      <UserDefElement iecname="factoryTestModeKeepCycling" type="T_BOOL" byteoffset="2393" vartype="VAR" />
+      <UserDefElement iecname="bagDelivery" type="T_BagDeliveryFB" byteoffset="2396" vartype="VAR" />
+      <UserDefElement iecname="zebraPrinter" type="T_PrinterFB_Mode2" byteoffset="3362" vartype="VAR" />
+      <UserDefElement iecname="sealTimer" type="T_TON" byteoffset="3368" vartype="VAR" />
+      <UserDefElement iecname="bagOpenFingerDelay" type="T_TON" byteoffset="3384" vartype="VAR" />
+      <UserDefElement iecname="bagDropTimer" type="T_TON" byteoffset="3400" vartype="VAR" />
+      <UserDefElement iecname="HPA" type="T_MonostableMultivibratorFB" byteoffset="3416" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateRetract" type="T_MonostableMultivibratorFB" byteoffset="3472" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateRetract" type="T_MonostableMultivibratorFB" byteoffset="3528" vartype="VAR" />
+      <UserDefElement iecname="loadShelfExtend" type="T_MonostableMultivibratorFB" byteoffset="3584" vartype="VAR" />
+      <UserDefElement iecname="exitConveyorRun" type="T_DelayDwellFB" byteoffset="3640" vartype="VAR" />
+      <UserDefElement iecname="externalExitConveyorRun" type="T_DelayDwellFB" byteoffset="3704" vartype="VAR" />
+      <UserDefElement iecname="IBDExtendONS" type="T_FB_ONS" byteoffset="3766" vartype="VAR" />
+      <UserDefElement iecname="IBDRetractONS" type="T_FB_ONS" byteoffset="3773" vartype="VAR" />
+      <UserDefElement iecname="bagOpenFingers" type="T_BagOpenFingersWithSensorsFB" byteoffset="3780" vartype="VAR" />
+      <UserDefElement iecname="bagOpenCheckDelay" type="T_TON" byteoffset="3816" vartype="VAR" />
+      <UserDefElement iecname="bagOpenRetrySetting" type="T_UINT" byteoffset="3832" vartype="VAR" />
+      <UserDefElement iecname="bagOpenRetryCount" type="T_UINT" byteoffset="3834" vartype="VAR" />
+      <UserDefElement iecname="bagOpenFeedNewBagSetting" type="T_UINT" byteoffset="3836" vartype="VAR" />
+      <UserDefElement iecname="bagOpenFeedNewBagCount" type="T_UINT" byteoffset="3838" vartype="VAR" />
+      <UserDefElement iecname="bagOpened" type="T_BOOL" byteoffset="3840" vartype="VAR" />
+      <UserDefElement iecname="recoveryModeActive" type="T_BOOL" byteoffset="3841" vartype="VAR" />
+      <UserDefElement iecname="startCycleReqFromPalmButtons" type="T_BOOL" byteoffset="3842" vartype="VAR" />
+      <UserDefElement iecname="startCycleReqFromPalmButtonsONS" type="T_FB_ONS" byteoffset="3843" vartype="VAR" />
+      <UserDefElement iecname="pressureBarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="3852" vartype="VAR" />
+      <UserDefElement iecname="IBDMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="4320" vartype="VAR" />
+      <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="4788" vartype="VAR" />
+      <UserDefElement iecname="homeJawPB" type="T_BOOL" byteoffset="4794" vartype="VAR" />
+      <UserDefElement iecname="setPassthroughPB" type="T_BOOL" byteoffset="4795" vartype="VAR" />
+      <UserDefElement iecname="vacuumHoldTimer" type="T_TON" byteoffset="4796" vartype="VAR" />
+      <UserDefElement iecname="cycleTimer" type="T_TON" byteoffset="4812" vartype="VAR" />
+      <UserDefElement iecname="cycleTime" type="T_REAL" byteoffset="4828" vartype="VAR" />
+      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="4832" vartype="VAR" />
+      <UserDefElement iecname="openedBagWasRemoved" type="T_FB_Fault" byteoffset="4835" vartype="VAR" />
+      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="4838" vartype="VAR" />
+      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="4841" vartype="VAR" />
+      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="4844" vartype="VAR" />
+      <UserDefElement iecname="barcodeVerificationFailed" type="T_FB_Fault" byteoffset="4847" vartype="VAR" />
+      <UserDefElement iecname="barcodeVerifierCommFail" type="T_FB_Fault" byteoffset="4850" vartype="VAR" />
+      <UserDefElement iecname="iPowerOffButtonONS" type="T_FB_ONS" byteoffset="4853" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4860" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="4908" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4920" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="4968" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4980" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="5028" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaultTimer" type="T_FB_CylinderFaults" byteoffset="5040" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="5088" vartype="VAR" />
+      <UserDefElement iecname="LPA" type="T_DelayDwellFB" byteoffset="5100" vartype="VAR" />
+      <UserDefElement iecname="hpaServiceOnONS" type="T_FB_ONS" byteoffset="5162" vartype="VAR" />
+      <UserDefElement iecname="exitConveyorJogONS" type="T_FB_ONS" byteoffset="5169" vartype="VAR" />
+      <UserDefElement iecname="externalExitConveyorJogONS" type="T_FB_ONS" byteoffset="5176" vartype="VAR" />
+      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="5184" vartype="VAR" />
+      <UserDefElement iecname="faultONS" type="T_FB_ONS" byteoffset="5256" vartype="VAR" />
+      <UserDefElement iecname="powerSettlingTimer" type="T_TON" byteoffset="5264" vartype="VAR" />
+      <UserDefElement iecname="pressureBarCloseDelay" type="T_TON" byteoffset="5280" vartype="VAR" />
+      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="5296" vartype="VAR" />
+      <UserDefElement iecname="configOutput1Pulse" type="T_MonostableMultivibratorFB" byteoffset="5304" vartype="VAR" />
+      <UserDefElement iecname="configOutput2Pulse" type="T_MonostableMultivibratorFB" byteoffset="5360" vartype="VAR" />
+      <UserDefElement iecname="fillerModeCycleStartOnlyPulse" type="T_MonostableMultivibratorFB" byteoffset="5416" vartype="VAR" />
+      <UserDefElement iecname="murrIOBusNode" type="T_MurrIOFB" byteoffset="5472" vartype="VAR" />
+      <UserDefElement iecname="funnel" type="T_FunnelFB" byteoffset="5479" vartype="VAR" />
+      <UserDefElement iecname="barcodeVerifier" type="T_BarcodeReaderFB" byteoffset="5488" vartype="VAR" />
+      <UserDefElement iecname="keyenceBCV" type="T_KeyenceNL20FB" byteoffset="5576" vartype="VAR" />
+      <UserDefElement iecname="rearMotorCommsReturned" type="T_F_TRIG" byteoffset="5751" vartype="VAR" />
+      <UserDefElement iecname="baggerHeadMovement" type="T_FB_BaggerHeadRaise" byteoffset="5753" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />

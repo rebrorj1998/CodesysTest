@@ -65,8 +65,10 @@ END_IF
 
 
 resetTimeout(IN := _reset, PT := T#1S);
+encoderResetTimeout(PT := T#150MS);
 IF resetTimeout.Q THEN
 	resetState := 0;
+	encoderResetTimeout.IN := FALSE;
 	_reset := FALSE;
 END_IF
 CASE resetState OF
@@ -88,14 +90,18 @@ CASE resetState OF
 	
 	3 :		//
 			IF commandSuccessful THEN;
-				resetState := 4;	
-				_reset := FALSE;
+				
+				encoderResetTimeout.IN := TRUE;
+				IF encoderResetTimeout.Q THEN
+					resetState := 4;	
+					ResetEncoderPosition(driveInputs[5]);	
+				END_IF
 			END_IF
 	
 	4 :		//
 			IF commandSuccessful THEN;
 				resetState := 0;
-				ResetEncoderPosition(driveInputs[5]);	
+				
 				_reset := FALSE;
 			END_IF
 	

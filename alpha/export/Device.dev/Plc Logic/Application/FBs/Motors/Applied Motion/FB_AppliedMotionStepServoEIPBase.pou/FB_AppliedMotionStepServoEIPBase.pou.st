@@ -46,6 +46,7 @@ VAR
 	resetState : INT;
 	IECReferenceGood : BOOL;
 	resetTimeout : Standard.TON;
+	encoderResetTimeout : Standard.TON;
 END_VAR
 VAR_OUTPUT
     absolutePositonInches : REAL; //Immediate Absolute Positon in inches

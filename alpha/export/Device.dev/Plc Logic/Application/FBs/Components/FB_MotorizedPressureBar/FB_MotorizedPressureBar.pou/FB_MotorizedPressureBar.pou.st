@@ -59,6 +59,8 @@ VAR
 	delayTimer : Standard.TON := (PT:= T#500MS);
 	homeRequiredONS : FB_ONS;
 	faultingONS : FB_ONS;
+	faultTimeMultiplier : REAL := 150;
+	distanceToMove : REAL;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
@@ -68,23 +70,15 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 actualPosition := pbarMotor.absolutePositonInches;
 pressureBarOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutSetting * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(pbarOutSetting * 1000) + 10);
-pressureBarClosed := pbarMotor.absolutePositionSteps >= (pbarMotor.distanceToMoveInSteps - 4) AND pbarMotor.absolutePositionSteps <= (pbarMotor.distanceToMoveInSteps + 4);
+//pressureBarClosed := pbarMotor.absolutePositionSteps >= (pbarMotor.distanceToMoveInSteps - 4) AND pbarMotor.absolutePositionSteps <= (pbarMotor.distanceToMoveInSteps + 4);
+pressureBarClosed := iPressureBarClosed;
 delayTimer();
 
 clamped := state = MotorizedPbarStates.Clamping;
 
 
 
-pbarFeedbackHandler(
-	extendedFeedbackInput:= pressureBarOpen, 
-	retractedFeedbackInput:= iPressureBarClosed, 
-	extendOutput:= , 
-	retractOutput:= , 
-	extendFaultDelay:= 5000, 
-	retractFaultDelay:= 5000, 
-	faultMonitoring:= NOT disableFaults, 
-	failedToExtend=> faults.failedToOpen.faultTrigger, 
-	failedToRetract=> faults.failedToClose.faultTrigger);
+
 
 // jawClampsLeftFeedbackHandler(
 // 	extendedFeedbackInput:= iJawClampLeftExtended, 
@@ -290,6 +284,7 @@ CASE state OF
 										Globals.jawMovingIn := FALSE;
 										pbarMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
 										//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
+										distanceToMove := ABS(actualPosition - pbarOutSetting);
 										state := MotorizedPbarStates.MovingJawOut;
 										//pbarMotor.SetPositionLimit(150);
 	
@@ -327,7 +322,7 @@ CASE state OF
 										pbarMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
 										//pbarMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
 										//IBDMotor.MoveToPosition(0,accel,decel,velo+(TO_INT(TO_REAL(velo)*0.25)));
-										
+										distanceToMove := ABS(actualPosition - pbarInSetting);
 										state := MotorizedPbarStates.MovingJawIn;
 	
 	
@@ -421,7 +416,7 @@ CASE state OF
 										delayTimer.IN := FALSE;
 										pbarFeedbackHandler.extendOutput := FALSE;
 										pbarFeedbackHandler.retractOutput := FALSE;
-										//pbarMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 0);
+										pbarMotor.Disable();
 										//IBDMotor.Disable();
 										state := MotorizedPbarStates.Faulted;
 	
@@ -436,4 +431,13 @@ IF pbarMotor.alarms.positionLimit THEN
 	//state := MotorizedPbarStates.Faulting;
 END_IF
 
-
+pbarFeedbackHandler(
+	extendedFeedbackInput:= pressureBarOpen, 
+	retractedFeedbackInput:= iPressureBarClosed, 
+	extendOutput:= state = MotorizedPbarStates.MovingJawOut, 
+	retractOutput:= state = MotorizedPbarStates.MovingJawIn, 
+	extendFaultDelay:= TO_INT((distanceToMove) * faultTimeMultiplier) , 
+	retractFaultDelay:= TO_INT((distanceToMove) * faultTimeMultiplier), 
+	faultMonitoring:= NOT disableFaults, 
+	failedToExtend=> faults.failedToOpen.faultTrigger, 
+	failedToRetract=> faults.failedToClose.faultTrigger);

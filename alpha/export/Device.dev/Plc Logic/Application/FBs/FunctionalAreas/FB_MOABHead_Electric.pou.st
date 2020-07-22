@@ -258,7 +258,9 @@ pressureBar(
 	failToClampRight=> , 
 	failToReleaseRight=> , 
 	state=> , 
-	actualPosition=> HMIData.passthroughPosition, 
+	actualPosition=> HMIData.passthroughPosition,
+	pressureBarClosed => HMIData.pressureBarService.retractedFeedback,
+	pressureBarOpen => HMIData.pressureBarService.extendedFeedback, 
 	jawClamps:= jawClamps, 
 	pbarMotor:= pressureBarMotor);
 pressureBar.Mode := electricPressureBarMode;
@@ -965,6 +967,8 @@ CASE state OF
 														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
 													
+													
+														
 													IF HMIData.IBDService.retractCommand THEN
 														IBD.CloseIBD();
 														HMIData.IBDService.retractCommand := FALSE;
@@ -984,7 +988,17 @@ CASE state OF
 														funnel.CloseNow();
 														HMIData.funnelService.extendCommand := FALSE;
 													END_IF	
-	 
+	 													
+													IF HMIData.pressureBarService.extendCommand THEN
+														pressureBar.OpenJaw();
+														HMIData.pressureBarService.extendCommand := FALSE;
+													END_IF	
+														 
+													IF HMIData.pressureBarService.retractCommand THEN
+														pressureBar.CloseJaw();
+														HMIData.pressureBarService.retractCommand := FALSE;
+													END_IF	
+														 
 													IF HMIData.lpaServicePulse THEN
 														LPA.Trigger();
 														HMIData.lpaServicePulse := FALSE;
