@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_OrientalAZMotorTriggerPositionTest EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_OrientalAZMotorTriggerPositionTest_1 EXTENDS Sharp_Motion.Axis_REF
 VAR_INPUT
 	isGroup : BOOL;
 	stepsPerInchSP : DINT := 3999;
@@ -157,7 +157,7 @@ END_IF
 
 haltONS(CLK := Halt);
 IF haltONS.OSR THEN
-	state := eOrientalAZDriveStates.Halt;
+	state := eOrientalAZDriveStates.Faulting;
 END_IF
 
 IF AckError THEN
@@ -175,24 +175,20 @@ CASE state OF
 				//mClearStatus();
 				
 				IF MoveAbs THEN
-					freeMotor := FALSE;
 					TargetReached := FALSE;
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveABS;
 				ELSIF MoveRel THEN
-					freeMotor := FALSE;
 					TargetReached := FALSE;
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveInc;
 				ELSIF MoveAbsTorque THEN
-					freeMotor := FALSE;
 					TargetReached := FALSE;
 					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MovePush;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					state := eOrientalAZDriveStates.Jogging;
 				ELSIF StartHoming THEN
-					freeMotor := FALSE;
 					HomingDone := FALSE;
 					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
 					state := eOrientalAZDriveStates.Home;
@@ -303,16 +299,12 @@ CASE state OF
 		eOrientalAZDriveStates.Halt:
 				// 
 				freeMotor := TRUE;
-				AxisState := Sharp_Motion.AXIS_STATE.AS_ErrorStop;
-				state := eOrientalAZDriveStates.Halted;
+				state := eOrientalAZDriveStates.Idle;
 				
 		eOrientalAZDriveStates.Halted:
 				// 
-				IF AckError THEN
-					state := eOrientalAZDriveStates.Resetting;
-					freeMotor := FALSE;
-				END_IF
-				
+				freeMotor := TRUE;
+				state := eOrientalAZDriveStates.Idle;
 				
 		eOrientalAZDriveStates.Faulting:
 				// Faulting - stop drive
