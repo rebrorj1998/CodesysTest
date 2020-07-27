@@ -21,7 +21,7 @@ CASE diTestCaseIndex OF
 			
 			IF testee.ActualPosition = 0 
 				AND MC_MoveRELTestee.Error
-				AND MC_MoveRELTestee.ErrorID = Sharp_Motion.MC_ERROR.AXIS_NOT_READY 
+				AND MC_MoveRELTestee.ErrorID = MC_ERROR.AXIS_NOT_READY 
 				THEN
 				 xDone := TRUE;
 			ELSE

@@ -155,6 +155,9 @@ CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.MovedJawIn :               // Seal bag now if separate before seal option selected
 													IF NOT bagger.separateBeforeSealEnabled THEN
 														bagger.sealer.BeginSealing();
+														IF bagger.IBD.OptionActive THEN
+															bagger.IBD.MoveOut();
+														END_IF
 													END_IF
 													SetSealSeparateState(SEAL_SEPARATE_STATES.ReverseBag);
                                                     

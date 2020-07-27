@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_AppliedMotionMotorASCII EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_AppliedMotionMotorASCII EXTENDS Axis_REF
 VAR_INPUT
 	modbusAddress : USINT;
 	stepsPerInchSP : DINT := 3999;
@@ -137,31 +137,31 @@ CASE state OF
 				// 	Idle state, wait for command
 				mClearStatus();
 				IF MoveAbs THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStatesASCII.MoveABS;
 				ELSIF MoveRel THEN
 					asciiHandler.sendData := (CONCAT('2VE', mVeloAccDecCalc(ProfileVelocity)));
 					asciiHandler.xExecute := TRUE;
 					IF asciiHandler.xDone THEN
 						asciiHandler.xExecute := FALSE;
-						AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+						AxisState := AXIS_STATE.AS_DiscreteMotion;
 						state := eAppliedMotionDriveStatesASCII.MoveInc;
 					END_IF
 					
 				ELSIF MoveAbsTorque THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStatesASCII.MoveABS;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					asciiHandler.sendData := (CONCAT('2VE', mVeloAccDecCalc(1)));
 					asciiHandler.xExecute := TRUE;
 					IF asciiHandler.xDone THEN
 						asciiHandler.xExecute := FALSE;
-						AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+						AxisState := AXIS_STATE.AS_DiscreteMotion;
 						state := eAppliedMotionDriveStatesASCII.StartJogging;
 					END_IF
 					
 				ELSIF StartHoming THEN
-					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
+					//AxisState := AXIS_STATE.AS_Homing;
 					state := eAppliedMotionDriveStatesASCII.Home;
 				END_IF
 
@@ -241,7 +241,7 @@ CASE state OF
 		eAppliedMotionDriveStatesASCII.DoneMoving:
 				// Wait for status to clear
 				IF NOT MoveAbs AND NOT MoveAbsTorque AND NOT MoveRel AND NOT StartHoming THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_Standstill;
+					AxisState := AXIS_STATE.AS_Standstill;
 					state := eAppliedMotionDriveStatesASCII.Idle;
 				END_IF 
 
@@ -276,7 +276,7 @@ CASE state OF
 		eAppliedMotionDriveStatesASCII.Faulting:
 				// Faulting - stop drive
 				mClearStatus();
-				AxisState := Sharp_Motion.AXIS_STATE.AS_ErrorStop;
+				AxisState := AXIS_STATE.AS_ErrorStop;
 				Error := TRUE;
 				freeMotor := TRUE;
 				asciiHandler.sendData := ('2ST$R');

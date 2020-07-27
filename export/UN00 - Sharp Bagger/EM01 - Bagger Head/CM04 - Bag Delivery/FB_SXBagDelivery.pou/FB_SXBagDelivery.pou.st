@@ -33,15 +33,15 @@ VAR
 	state : INT;
 	nextState : INT;
 	moveBagDeliveryTimeout : Standard.TON;
-	MC_MoveBagDelivery : Sharp_Motion.MC_MoveRelative;
-	MC_HaltBagDelivery : Sharp_Motion.MC_Halt;
-	MC_ResetBagDelivery : Sharp_Motion.MC_Reset;
+	MC_MoveBagDelivery : MC_MoveRelative;
+	MC_HaltBagDelivery : MC_Halt;
+	MC_ResetBagDelivery : MC_Reset;
 	remainingLength : REAL;
 	bagReversedToPrintOffset : BOOL;
 	bagEdgePhotoeyeSim : FB_SimulatedFeedbackPhysicalInput(name := 'Bag Edge Photoeye Sim');
 END_VAR
 VAR_IN_OUT
-	bagDeliveryMotor : Sharp_Motion.Axis_REF;
+	bagDeliveryMotor : Axis_REF;
 
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();

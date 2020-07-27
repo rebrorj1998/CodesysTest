@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_OrientalAZMotorTrigger EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_OrientalAZMotorTrigger EXTENDS Axis_REF
 VAR_INPUT
 	isGroup : BOOL;
 	stepsPerInchSP : DINT := 3999;
@@ -168,21 +168,21 @@ CASE state OF
 				
 				IF MoveAbs THEN
 					TargetReached := FALSE;
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveABS;
 				ELSIF MoveRel THEN
 					TargetReached := FALSE;
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveInc;
 				ELSIF MoveAbsTorque THEN
 					TargetReached := FALSE;
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MovePush;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					state := eOrientalAZDriveStates.Jogging;
 				ELSIF StartHoming THEN
 					HomingDone := FALSE;
-					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
+					//AxisState := AXIS_STATE.AS_Homing;
 					state := eOrientalAZDriveStates.Home;
 				END_IF
 				IF MBChannel.xDone OR isGroup THEN
@@ -282,7 +282,7 @@ CASE state OF
 		eOrientalAZDriveStates.DoneMoving:
 				// Wait for status to clear
 				IF NOT MoveAbs AND NOT MoveAbsTorque AND NOT MoveRel AND NOT StartHoming THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_Standstill;
+					AxisState := AXIS_STATE.AS_Standstill;
 					state := eOrientalAZDriveStates.Idle;
 				END_IF 
 
@@ -299,7 +299,7 @@ CASE state OF
 		eOrientalAZDriveStates.Faulting:
 				// Faulting - stop drive
 				mClearStatus();
-				AxisState := Sharp_Motion.AXIS_STATE.AS_ErrorStop;
+				AxisState := AXIS_STATE.AS_ErrorStop;
 				Error := TRUE;
 				freeMotor := TRUE;
 				zHome := FALSE;

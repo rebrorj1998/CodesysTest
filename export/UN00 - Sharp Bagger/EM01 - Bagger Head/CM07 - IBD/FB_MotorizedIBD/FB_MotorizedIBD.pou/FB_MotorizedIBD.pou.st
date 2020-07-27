@@ -25,12 +25,12 @@ VAR
 	_homeNow : BOOL;
 	_isFullyOpen : BOOL;
 	_isHomed : BOOL;
-	MC_HomeIBDMotor : Sharp_Motion.MC_Home;
-	MC_MoveIBDMotorABS : Sharp_Motion.MC_MoveAbsolute;
-	MC_MoveIBDMotorABSTorque : Sharp_Motion.MC_MoveAbsoluteTorqueLimited;
-	MC_MoveIBDMotorINC : Sharp_Motion.MC_MoveRelative;
-	MC_ResetIBDMotor : Sharp_Motion.MC_Reset;
-	MC_HaltIBDMotor : Sharp_Motion.MC_Halt;
+	MC_HomeIBDMotor : MC_Home;
+	MC_MoveIBDMotorABS : MC_MoveAbsolute;
+	MC_MoveIBDMotorABSTorque : MC_MoveAbsoluteTorqueLimited;
+	MC_MoveIBDMotorINC : MC_MoveRelative;
+	MC_ResetIBDMotor : MC_Reset;
+	MC_HaltIBDMotor : MC_Halt;
 	homeTimeout : Standard.TON;
 	failedToOpenTimer : Standard.TON;
 	motionFaultTimeOffset : TIME := T#5S;
@@ -39,7 +39,7 @@ VAR
 	faultONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
-	IBDMotor : Sharp_Motion.Axis_REF;
+	IBDMotor : Axis_REF;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_MotorizedIBD()

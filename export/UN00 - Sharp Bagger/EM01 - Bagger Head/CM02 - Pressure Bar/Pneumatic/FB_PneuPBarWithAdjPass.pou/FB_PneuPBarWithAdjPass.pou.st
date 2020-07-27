@@ -2,7 +2,7 @@
 FUNCTION_BLOCK FB_PneuPBarWithAdjPass EXTENDS FB_BaseComponent IMPLEMENTS IPressureBar, IHomable, IPostHomeMove
 VAR_INPUT
 	simulateIO : BOOL;												// Simulate all I/O for testing
-	passthroughMotor : REFERENCE TO Sharp_Motion.Axis_REF;			// The motor axis for the passthrough
+	passthroughMotor : REFERENCE TO Axis_REF;			// The motor axis for the passthrough
 	ptVelo : REAL := 0.5;											// Passthrough Motor Velocity
 	ptAccel : REAL := 10.0;											// Passthrough Motor Acceleration
 	ptDecel : REAL := 1.0;											// Passthrough Motor Deceleration
@@ -24,10 +24,10 @@ END_VAR
 VAR
 	simClose : FB_SimulatedFeedbackPhysicalInput(name := CONCAT(_prefix,'Move In')) := (minDelay := 20, maxDelay := 60);
 	simOpen : FB_SimulatedFeedbackPhysicalInput(name := CONCAT(_prefix,'Move Out')) := (minDelay := 20, maxDelay := 60);
-	MC_HomePassthrough : Sharp_Motion.MC_Home;
-	MC_MovePassthrough : Sharp_Motion.MC_MoveAbsolute;
-	MC_ResetPassthoughMotor : Sharp_Motion.MC_Reset;
-	MC_HaltPasstroughMotor : Sharp_Motion.MC_Halt;
+	MC_HomePassthrough : MC_Home;
+	MC_MovePassthrough : MC_MoveAbsolute;
+	MC_ResetPassthoughMotor : MC_Reset;
+	MC_HaltPasstroughMotor : MC_Halt;
 	_homeNow : BOOL;
 	_movePassthroughNow : BOOL;
 	_isFullyClosed : BOOL;

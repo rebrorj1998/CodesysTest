@@ -22,13 +22,13 @@ VAR_OUTPUT
 	motorFault : FB_Fault(name := CONCAT(_prefix, 'Motor Fault'));
 END_VAR
 VAR
-	MC_MoveMSFHorizTorqueLimited : Sharp_Motion.MC_MoveAbsoluteTorqueLimited;
-	MC_MoveMSFHoriz : Sharp_Motion.MC_MoveAbsolute;
-	MC_HomeMSFHoriz : Sharp_Motion.MC_Home;
-	MC_HaltMSFHoriz : Sharp_Motion.MC_Halt;
-	MC_ResetMSFHoriz : Sharp_Motion.MC_Reset;
+	MC_MoveMSFHorizTorqueLimited : MC_MoveAbsoluteTorqueLimited;
+	MC_MoveMSFHoriz : MC_MoveAbsolute;
+	MC_HomeMSFHoriz : MC_Home;
+	MC_HaltMSFHoriz : MC_Halt;
+	MC_ResetMSFHoriz : MC_Reset;
 	
-	horizontalAxisInterface : Sharp_Motion.IAxisRef;
+	horizontalAxisInterface : IAxisRef;
 	state : INT;
 	_inPosition : BOOL;
 	_bagIsOpen : BOOL;
@@ -43,7 +43,7 @@ VAR
 	testBool : BOOL;
 END_VAR
 VAR_IN_OUT
-	horizontalAxis : Sharp_Motion.Axis_REF;
+	horizontalAxis : Axis_REF;
 	
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 

@@ -2,9 +2,9 @@
 FUNCTION_BLOCK FB_DualMotorPBar EXTENDS FB_BaseComponent IMPLEMENTS IPressureBar, IHomable
 VAR_INPUT
 	simulateIO : BOOL;												// Simulate all I/O for testing
-	frontMotor : REFERENCE TO Sharp_Motion.Axis_REF;				// The motor axis for the front (low torque) passthrough
-	rearMotor : REFERENCE TO Sharp_Motion.Axis_REF;					// The motor axis for the rear (high torque) passthrough
-	bothMotors : REFERENCE TO Sharp_Motion.Axis_REF;				// The motor axis for both passthrough motors
+	frontMotor : REFERENCE TO Axis_REF;				// The motor axis for the front (low torque) passthrough
+	rearMotor : REFERENCE TO Axis_REF;					// The motor axis for the rear (high torque) passthrough
+	bothMotors : REFERENCE TO Axis_REF;				// The motor axis for both passthrough motors
 	closeVelo : REAL := 10;											// Passthrough Motor Velocity
 	closeAccel : REAL := 100.0;											// Passthrough Motor Acceleration
 	closeDecel : REAL := 100.0;											// Passthrough Motor Deceleration
@@ -42,14 +42,14 @@ END_VAR
 VAR
 	simClose : FB_SimulatedFeedbackPhysicalInput(name := CONCAT(_prefix,'Move In')) := (minDelay := 20, maxDelay := 60);
 	simOpen : FB_SimulatedFeedbackPhysicalInput(name := CONCAT(_prefix,'Move Out')) := (minDelay := 20, maxDelay := 60);
-	MC_HomeBothMotors : Sharp_Motion.MC_Home;
-	MC_MoveBothMotorsABS : Sharp_Motion.MC_MoveAbsolute;
-	MC_MoveBothMotorsABSTorque : Sharp_Motion.MC_MoveAbsoluteTorqueLimited;
-	MC_MoveBothMotorsINC : Sharp_Motion.MC_MoveRelative;
-	MC_ResetBothMotors : Sharp_Motion.MC_Reset;
-	MC_HaltBothMotors : Sharp_Motion.MC_Halt;
-	MC_ResetFrontMotor : Sharp_Motion.MC_Reset;
-	MC_ResetRearMotor : Sharp_Motion.MC_Reset;
+	MC_HomeBothMotors : MC_Home;
+	MC_MoveBothMotorsABS : MC_MoveAbsolute;
+	MC_MoveBothMotorsABSTorque : MC_MoveAbsoluteTorqueLimited;
+	MC_MoveBothMotorsINC : MC_MoveRelative;
+	MC_ResetBothMotors : MC_Reset;
+	MC_HaltBothMotors : MC_Halt;
+	MC_ResetFrontMotor : MC_Reset;
+	MC_ResetRearMotor : MC_Reset;
 	_homeNow : BOOL;
 	_movePassthroughNow : BOOL;
 	_openNow : BOOL;
@@ -63,7 +63,8 @@ VAR
 	failedToCloseTimer : Standard.TON;
 	failedToOpenTimer : Standard.TON;
 	moveInDelay : Standard.TON;
-	jawMotionFaultTimeOffset : TIME := T#5S;
+	jawOpenMotionFaultTimeOffset : TIME := T#500MS;
+	jawCloseMotionFaultTimeOffset : TIME := T#100MS;
 	bothMotorsHomed : BOOL;
 	bothMotorsInPosition : BOOL;
 	jawHomeClearDistance : REAL := 0.5;
@@ -124,10 +125,10 @@ _isFullyOpen := TO_DINT(frontMotor.ActualPosition * 1000) <= (TO_DINT(passthroug
 // Failed to reach sensor timers
 // Guestimate closing/opening time with a bit of a cushion
 failedToCloseTimer(IN := jawState = eDualMotorPBarStates.ClosingJaw AND NOT _isFullyClosed,
-					PT := TO_TIME((passthroughSetting / closeVelo) * 1000.0) + jawMotionFaultTimeOffset,
+					PT := TO_TIME((passthroughSetting / closeVelo) * 1000.0) + jawCloseMotionFaultTimeOffset,
 					Q => failedToClose.faultTrigger);
 failedToOpenTimer(IN := jawState = eDualMotorPBarStates.OpeningJaw AND NOT _isFullyOpen,
-					PT := TO_TIME((passthroughSetting / openVelo) * 1000.0) + jawMotionFaultTimeOffset,
+					PT := TO_TIME((passthroughSetting / openVelo) * 1000.0) + jawOpenMotionFaultTimeOffset,
 					Q => failedToOpen.faultTrigger);
 
 // Obstruction fault is normally closed, fail safe.  Fault if collapsable faceplate is broken anywhere outside of all the way in or all the way out
@@ -354,7 +355,7 @@ CASE jawState OF
 		
 	eDualMotorPBarStates.ClosingJaw:
 		// Wait for jaw closed indication
-		IF MC_MoveBothMotorsABSTorque.Done THEN
+		IF MC_MoveBothMotorsABSTorque.Done AND _isFullyClosed THEN
 			MC_MoveBothMotorsABSTorque.Execute := FALSE;
 			IF jawTestModeActive THEN
 				jawTestDelayTimer.IN := TRUE;

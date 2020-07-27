@@ -4,12 +4,12 @@ VAR
 	
 	firstScanDone: BOOL;
 	cycleStartONS : FB_ONS;
-	powerUpFrontJawMotor : Sharp_Motion.MC_Power;
-	powerUpRearJawMotor : Sharp_Motion.MC_Power;
-	powerUpBothJawMotors : Sharp_Motion.MC_Power;
-	powerUpLoadPlateMotor : Sharp_Motion.MC_Power;
-	powerUpBagDeliveryMotor : Sharp_Motion.MC_Power;
-	powerUpIBDMotor : Sharp_Motion.MC_Power;
+	powerUpFrontJawMotor : MC_Power;
+	powerUpRearJawMotor : MC_Power;
+	powerUpBothJawMotors : MC_Power;
+	powerUpLoadPlateMotor : MC_Power;
+	powerUpBagDeliveryMotor : MC_Power;
+	powerUpIBDMotor : MC_Power;
 	UN00_SXMachine : FB_UN00_SharpMachine(name := 'UN00 - Sharp SX');
 	EM01_SXBaggerHead : EM01_BaggerHead(name := 'EM01 - SX Bagger Head');
 	EM02_SXDischarge : EM02_Discharge(name := 'EM02 - SX Discharge');

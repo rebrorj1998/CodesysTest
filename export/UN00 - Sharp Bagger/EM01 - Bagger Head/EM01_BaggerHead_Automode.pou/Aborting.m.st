@@ -17,7 +17,7 @@ IF NOT _abortingDone THEN
 	resettingState := 0;
 	bagger.bagOpenFingers.RemovePower();
 	bagger.vacuumBagOpen.StopVacuum();
-	//bagger.pressureBar.RemovePower();
+	bagger.pressureBar.RemovePower();
 	bagger.IBD.RemovePower();
 	bagger.barcodeVerifier.Reset();
 	bagger.StartCycleRequest := FALSE;

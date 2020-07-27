@@ -1,9 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_AppliedMotionMotor EXTENDS Axis_REF
+METHOD PROTECTED SetInVelo
 VAR_INPUT
 END_VAR
-VAR_OUTPUT
-END_VAR
-VAR
-END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+InVelocity := TRUE;
+Busy := FALSE;
+Error := FALSE;
+CommandAborted := FALSE;
