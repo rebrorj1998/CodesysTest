@@ -6,6 +6,8 @@ VAR_INPUT
 	zeroOffset : REAL;
 	jogForwardCMD : BOOL;
 	jogReverseCMD : BOOL;
+	positionPresetRequest : BOOL;
+	freeMotorRequest : BOOL;
 	groupMotor0 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest; // Master Motor
 	groupMotor1 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest;	// Slave Motor
 END_VAR
@@ -42,6 +44,7 @@ VAR
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
+	triggerPositonPreset : FB_ONS;
 	haltONS : FB_ONS;
 	alarmActiveONS : FB_ONS;
 	triggerRIOWrite : BOOL;
@@ -160,6 +163,8 @@ IF haltONS.OSR THEN
 	state := eOrientalAZDriveStates.Halt;
 END_IF
 
+triggerPositonPreset(CLK := positionPresetRequest);
+
 IF AckError THEN
 	state := eOrientalAZDriveStates.Resetting;
 END_IF
@@ -196,6 +201,8 @@ CASE state OF
 					HomingDone := FALSE;
 					//AxisState := AXIS_STATE.AS_Homing;
 					state := eOrientalAZDriveStates.Home;
+				ELSIF triggerPositonPreset.OSR THEN
+					state := eOrientalAZDriveStates.SetPreset;
 				END_IF
 				IF MBChannel.xDone OR isGroup THEN
 					CommStatus := TRUE;
@@ -278,6 +285,16 @@ CASE state OF
 				IF NOT jogForward AND NOT jogReverse THEN
 					state := eOrientalAZDriveStates.Idle;
 				END_IF
+		
+		eOrientalAZDriveStates.SetPreset:		
+				// Set factory ZERO preset
+				P_Preset := TRUE;
+				IF distanceFromDrive.dDword = 0 THEN
+					P_Preset := FALSE;
+					state := eOrientalAZDriveStates.Idle;
+				END_IF
+				
+		eOrientalAZDriveStates.SetPresetDone:
 		
 		eOrientalAZDriveStates.DelayAfterWrite:
 				//

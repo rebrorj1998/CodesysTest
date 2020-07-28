@@ -71,8 +71,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;
 	passthroughSetting : REAL := 5.5;
-	sealBarDwell : REAL := 0.16;
-	sealBarCool : REAL := 0.25;
+	sealBarDwell : REAL := 0.2;
+	sealBarCool : REAL := 0.4;
 	bagSkirtLength : REAL := 2;
 	bagLength : REAL := 17.62;
 	bagWidth : REAL := 11;
@@ -80,8 +80,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	bagForwardSpeed : UDINT := 40;
 	bagReverseSpeed : UDINT := 8;
 	printSpeed : UDINT := 6;
-	printLength : REAL := 3.0;
-	printOffset : REAL := 8.0;
+	printLength : REAL := 1.25;
+	printOffset : REAL := 10.0;
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;

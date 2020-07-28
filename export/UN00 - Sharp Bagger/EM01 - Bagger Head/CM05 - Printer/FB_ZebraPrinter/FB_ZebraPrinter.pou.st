@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_ZebraPrinter EXTENDS FB_BasicPrinter
 VAR_INPUT
-	printHeadDebounceSetting : TIME := T#100MS;
+	printHeadDebounceSetting : TIME := T#25MS;
 	printHeadDownInput : BOOL;
 	dataReadyInput : BOOL;
 	serviceRequiredInput : BOOL;
@@ -28,6 +28,7 @@ VAR
 	printHeadDebounce : TON;
 	printHeadLowerFaultTimer : Standard.TON := (PT := T#1S);
 	printHeadRaiseFaultTimer : Standard.TON := (PT := T#1S);
+	raisePrintHeadDelay  : Standard.TON := (PT := T#75MS);
 	endOfPrintONS : Standard.F_TRIG();
 	printerRibbonMovingTimer1 : Standard.TON;
 	printerRibbonMovingTimer2 : Standard.TON;
@@ -50,6 +51,7 @@ printerRibbonMovingTimer1(PT := printerRibbonMovingSettleTime);
 printerRibbonMovingTimer2(PT := printerRibbonMovingSettleTime);
 
 printHeadDebounce(PT:= printHeadDebounceSetting, Q=> printHeadDebounced);
+raisePrintHeadDelay();
 
 waitingForPrinter := state = eZebraPrinterStates.WaitingForData;
 printHeadLowerFaultTimer(IN := lowerPrintHeadOutput AND NOT printHeadDownInput);
@@ -72,6 +74,7 @@ IF enableONS.Q OR resetONS.Q THEN
     state := eZebraPrinterStates.Idle;
 	_reset := FALSE;
 	_beginPrinting := FALSE;
+	_stopPrinting := FALSE;
 	printHeadDebounced := FALSE;
 	ribbonUnwindRunOutput := FALSE;
 	lowerPrintHeadOutput := FALSE;
@@ -95,9 +98,11 @@ CASE state OF
 													startPrintOutput := FALSE;
 													printHeadDebounce.IN := FALSE;
 													printHeadDebounced := FALSE;
+													raisePrintHeadDelay.IN := FALSE;
 													printerRibbonMovingTimer1.IN := FALSE;
 													printerRibbonMovingTimer2.IN := FALSE;
 													_printing := FALSE;
+													_stopPrinting := FALSE;
 													IF _beginPrinting AND THIS^.OptionEnabled THEN
 														_printDone := FALSE;
 														IF NOT dataReadyInput THEN
@@ -152,9 +157,11 @@ CASE state OF
     eZebraPrinterStates.Printing :                        //While printing, wait for End of Print signal
 													printerRibbonMovingTimer1.IN := ribbonEncoderPulseInput;
 													printerRibbonMovingTimer2.IN := NOT ribbonEncoderPulseInput;
-                                                    IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable THEN
+                                                    IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable OR _stopPrinting THEN
                                                         startPrintOutput := FALSE;
-                                                        lowerPrintHeadOutput := FALSE;
+														_stopPrinting := FALSE;
+                                                        //lowerPrintHeadOutput := FALSE;
+														ribbonUnwindRunOutput := FALSE;
 														IF printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN
 															ribbonFault.Trigger();
 														END_IF
@@ -162,14 +169,20 @@ CASE state OF
 														printerRibbonMovingTimer2.IN := FALSE;
 														 
                                                         //oRunPrinterRibbonUnwindMotor := FALSE;
+														raisePrintHeadDelay.IN := TRUE;
                                                         state := eZebraPrinterStates.DonePrinting;    
                                                     END_IF
                                         
     eZebraPrinterStates.DonePrinting :              //Done printing, feed a little more through
-                                                     ribbonUnwindRunOutput := FALSE;
-													 _printing := FALSE;
-													 _printDone := TRUE;
-                                                     state := eZebraPrinterStates.Idle;
+													IF raisePrintHeadDelay.Q THEN
+														raisePrintHeadDelay.IN := FALSE;
+														lowerPrintHeadOutput := FALSE;
+														_printing := FALSE;
+														_printDone := TRUE;
+														state := eZebraPrinterStates.Idle;
+													END_IF
+                                                    
+													
                                                     
         
     eZebraPrinterStates.FeedThrough :                        

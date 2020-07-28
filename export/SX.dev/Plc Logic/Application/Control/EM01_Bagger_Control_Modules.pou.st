@@ -241,7 +241,7 @@ labelPrinter(
 	lowerPrintHeadOutput=> oLowerPrintHead);
 	
 
-sealWire(simulateIO:= HMIData.simulateAllIO, sealDwell:= HMIData.sealBarDwell, sealWireOutput=> oSealWire);	
+sealWire(simulateIO:= HMIData.simulateAllIO, sealDwell:= HMIData.sealBarDwell, sealCool := HMIData.sealBarCool , sealWireOutput=> oSealWire);	
 
 standardBagOpenFingersWithSensors(
 	delayToGrabSetting:= , 

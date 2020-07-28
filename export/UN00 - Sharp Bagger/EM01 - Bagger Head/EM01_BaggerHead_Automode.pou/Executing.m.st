@@ -155,9 +155,6 @@ CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.MovedJawIn :               // Seal bag now if separate before seal option selected
 													IF NOT bagger.separateBeforeSealEnabled THEN
 														bagger.sealer.BeginSealing();
-														IF bagger.IBD.OptionActive THEN
-															bagger.IBD.MoveOut();
-														END_IF
 													END_IF
 													SetSealSeparateState(SEAL_SEPARATE_STATES.ReverseBag);
                                                     
@@ -188,9 +185,7 @@ CASE sealAndSeparateSubState OF
 	SEAL_SEPARATE_STATES.SealingBag:				//
 													IF bagger.sealer.SealComplete THEN
 														SetSealSeparateState(SEAL_SEPARATE_STATES.Done);
-														IF bagger.IBD.OptionActive THEN
-															bagger.IBD.MoveOut();
-														END_IF
+														
 													END_IF
 																												
                                                     
@@ -208,6 +203,9 @@ CASE releaseAndFeedSubState OF
 													bagger.bagOpenFingers.ReleaseBag();
 													bagger.sealFlatteners.ToBagFeed();
 													bagger.pressureBar.Open();
+													IF bagger.IBD.OptionActive THEN
+														bagger.IBD.MoveOut();
+													END_IF
 													bagger.loadPlate.BeginDischarge();	
 													discharge.TakeAwayBag(THIS^);
 													releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	

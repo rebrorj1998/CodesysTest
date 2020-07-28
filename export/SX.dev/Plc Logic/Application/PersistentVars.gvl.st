@@ -18,9 +18,9 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.passthroughSetting: REAL := REAL#5.5;
 	// Generated instance path of persistent variable
-	HMIData.sealBarDwell: REAL := REAL#0.16;
+	HMIData.sealBarDwell: REAL := REAL#0.2;
 	// Generated instance path of persistent variable
-	HMIData.sealBarCool: REAL := REAL#0.25;
+	HMIData.sealBarCool: REAL := REAL#0.4;
 	// Generated instance path of persistent variable
 	HMIData.bagSkirtLength: REAL := 2.0;
 	// Generated instance path of persistent variable
@@ -36,9 +36,9 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.printSpeed: UDINT := UDINT#6;
 	// Generated instance path of persistent variable
-	HMIData.printLength: REAL := REAL#3;
+	HMIData.printLength: REAL := REAL#1.25;
 	// Generated instance path of persistent variable
-	HMIData.printOffset: REAL := REAL#8;
+	HMIData.printOffset: REAL := REAL#10;
 	// Generated instance path of persistent variable
 	HMIData.fillerCountSetting: UDINT;
 	// Generated instance path of persistent variable

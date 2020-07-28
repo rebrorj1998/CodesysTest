@@ -1,7 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mCurrentCalc : DINT
+METHOD StopPrinting
 VAR_INPUT
-	current : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-mCurrentCalc := TO_DINT(current * 10.0);
+_stopPrinting := TRUE;
