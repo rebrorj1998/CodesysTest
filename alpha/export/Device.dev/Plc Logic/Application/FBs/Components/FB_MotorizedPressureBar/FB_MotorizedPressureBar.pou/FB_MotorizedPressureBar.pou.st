@@ -8,7 +8,7 @@ VAR_INPUT
 	iJawClampExtended : BOOL;
 	iJawCLampRetracted : BOOL;
 	pbarOutSetting : REAL := 12.0;
-	pbarInSetting : REAL := 0.02;
+	pbarInSetting : REAL := 0.03;
 	closeDelay : REAL;
 	disableFaults : BOOL;
 	extendJawClamp : BOOL;
