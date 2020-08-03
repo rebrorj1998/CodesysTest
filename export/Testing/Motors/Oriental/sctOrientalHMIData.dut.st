@@ -5,5 +5,6 @@ STRUCT
 	ActPos : REAL;
 	CurrentAlarmCode : DWORD;
 	setPreset : BOOL;
+	freeMotor : BOOL;
 END_STRUCT
 END_TYPE

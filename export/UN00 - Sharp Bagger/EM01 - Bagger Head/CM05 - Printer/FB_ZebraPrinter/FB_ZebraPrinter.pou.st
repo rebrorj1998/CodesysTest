@@ -5,6 +5,7 @@ VAR_INPUT
 	printHeadDownInput : BOOL;
 	dataReadyInput : BOOL;
 	serviceRequiredInput : BOOL;
+	eStopOK : BOOL;
 	ribbonLowInput : BOOL;
 	endOfPrintInput : BOOL;
 	ribbonEncoderPulseInput : BOOL;
@@ -65,7 +66,7 @@ IF printHeadRaiseFaultTimer.Q AND THIS^.OptionEnabled THEN
 	printHeadFailToRaise.Trigger();
 END_IF
 
-IF serviceRequiredInput AND THIS^.OptionEnabled THEN
+IF NOT serviceRequiredInput AND eStopOK AND THIS^.OptionEnabled THEN
 	serviceRequired.Trigger();
 END_IF
 

@@ -47,6 +47,7 @@ VAR
 	triggerPositonPreset : FB_ONS;
 	haltONS : FB_ONS;
 	alarmActiveONS : FB_ONS;
+	freeMotorRequestONS : FB_ONS;
 	triggerRIOWrite : BOOL;
 	resetRIOWrite : Standard.TON := (PT := T#50MS);
 	disable : BOOL;
@@ -126,7 +127,7 @@ resetRIOWrite(IN := triggerRIOWriteNow);
 IF resetRIOWrite.Q THEN
 	triggerRIOWriteNow := FALSE;
 END_IF
-
+P_Preset := positionPresetRequest;
 // Only set comm error status after x modbus errors
 commErrorONS(CLK := MBChannel.xError);
 IF commErrorONS.OSR THEN
@@ -164,6 +165,8 @@ IF haltONS.OSR THEN
 END_IF
 
 triggerPositonPreset(CLK := positionPresetRequest);
+freeMotorRequestONS(CLK := freeMotorRequest);
+
 
 IF AckError THEN
 	state := eOrientalAZDriveStates.Resetting;
