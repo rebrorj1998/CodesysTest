@@ -109,6 +109,8 @@ VAR
 	keyenceBCV : KeyenceNL20FB();
 	rearMotorCommsReturned : Standard.F_TRIG();
 	baggerHeadMovement : FB_BaggerHeadRaise();
+	resettingActive : BOOL;
+	resetTimer : Standard.TOF := (PT := T#1S);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -702,9 +704,9 @@ readyToRun := (motorizedSealFlatteners.Ready OR NOT motorizedSealFlatteners.enab
                 AND (zebraPrinter.Ready OR NOT zebraPrinter.enable)
 				AND murrIOBusNode.ok;
 iPowerOffButtonONS(CLK := iPowerOffButton);
-
+resetTimer(IN := iPowerOffButtonONS.OSR);
 				
-IF HMIData.makeReady OR iPowerOffButton THEN
+IF HMIData.makeReady OR resetTimer.Q THEN
 	HMIData.ackAllFaults := TRUE;
 	enable := TRUE;
 	

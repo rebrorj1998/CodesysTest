@@ -57,6 +57,7 @@ VAR
 	testActive : BOOL;
 	movePassthroughNow : BOOL;
 	delayTimer : Standard.TON := (PT:= T#500MS);
+	failTimer : Standard.TON := (PT:= T#500MS);
 	homeRequiredONS : FB_ONS;
 	faultingONS : FB_ONS;
 	faultTimeMultiplier : REAL := 150;
@@ -73,7 +74,7 @@ pressureBarOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutSetting * 1
 //pressureBarClosed := pbarMotor.absolutePositionSteps >= (pbarMotor.distanceToMoveInSteps - 4) AND pbarMotor.absolutePositionSteps <= (pbarMotor.distanceToMoveInSteps + 4);
 pressureBarClosed := iPressureBarClosed;
 delayTimer();
-
+failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT iPressureBarClamped OR NOT iPressureBarClosed));
 clamped := state = MotorizedPbarStates.Clamping;
 
 
@@ -164,6 +165,7 @@ END_IF
 
 IF _reset THEN
 	pbarMotor.Reset();
+	//pbarMotor.DoneClamping();
 	//IBDMotor.Reset();
 	Globals.jawMovingIn := FALSE;
 	_reset := FALSE;
@@ -179,7 +181,8 @@ END_IF
 faultingONS(CLK := (	pbarMotor.Faulted AND NOT disableFaults)
 	OR (pbarFeedbackHandler.faultIndication
 	OR jawClampsLeftFeedbackHandler.faultIndication
-	OR jawClampsRightFeedbackHandler.faultIndication));
+	OR jawClampsRightFeedbackHandler.faultIndication
+	OR faults.obstructionDetected.active));
 
 IF 	faultingONS.OSR
 	AND state <> MotorizedPbarStates.Faulted 
@@ -366,8 +369,8 @@ CASE state OF
 												pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
 												state := MotorizedPbarStates.Clamping;	
 											END_IF
-											
 										END_IF
+										
 										
 										IF testActive THEN
 											delayTimer.PT := T#2S;
@@ -414,6 +417,7 @@ CASE state OF
 										startTest := FALSE;
 										testActive := FALSE;
 										delayTimer.IN := FALSE;
+										jawClamps.Extend();
 										pbarFeedbackHandler.extendOutput := FALSE;
 										pbarFeedbackHandler.retractOutput := FALSE;
 										pbarMotor.Disable();
@@ -425,7 +429,7 @@ CASE state OF
 END_CASE
 
 
-IF pbarMotor.alarms.positionLimit THEN
+IF pbarMotor.alarms.positionLimit OR failTimer.Q THEN
 	faults.obstructionDetected.Trigger();
 	homeRequired := TRUE;
 	//state := MotorizedPbarStates.Faulting;
