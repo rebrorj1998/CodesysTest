@@ -58,6 +58,7 @@ VAR
 	commErrorFaultONS : FB_ONS;
 	commErrorCount : DINT;
 	commErrorFaultSetting : DINT := 3;
+	positionPresetONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	MBChannel : IoDrvModbus.ModbusSlaveComPort;
@@ -127,7 +128,8 @@ resetRIOWrite(IN := triggerRIOWriteNow);
 IF resetRIOWrite.Q THEN
 	triggerRIOWriteNow := FALSE;
 END_IF
-P_Preset := positionPresetRequest;
+positionPresetONS(CLK := positionPresetRequest);
+
 // Only set comm error status after x modbus errors
 commErrorONS(CLK := MBChannel.xError);
 IF commErrorONS.OSR THEN
@@ -291,8 +293,18 @@ CASE state OF
 		
 		eOrientalAZDriveStates.SetPreset:		
 				// Set factory ZERO preset
+				freeMotor := TRUE;
+				//P_Preset := TRUE;
+				IF triggerPositonPreset.OSF THEN
+					//freeMotor := FALSE;
+					state := eOrientalAZDriveStates.SettingPreset;
+				END_IF
+		
+		eOrientalAZDriveStates.SettingPreset:
+				//
 				P_Preset := TRUE;
 				IF distanceFromDrive.dDword = 0 THEN
+					freeMotor := FALSE;
 					P_Preset := FALSE;
 					state := eOrientalAZDriveStates.Idle;
 				END_IF
