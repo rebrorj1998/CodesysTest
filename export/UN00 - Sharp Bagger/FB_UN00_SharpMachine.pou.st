@@ -83,7 +83,11 @@ END_IF
 CASE currentState OF
 	
 	PACK_ML.State.Stopped: 		//IF homeONS.OSR THEN
+								
 									currentUnitMode.Reset();
+									_stoppingDone := FALSE;
+								
+									
 								//END_IF	
 								_clearingDone := FALSE;
 								
@@ -121,7 +125,7 @@ CASE currentState OF
 								END_IF
 								
 	PACK_ML.State.Execute :		IF resetONS.OSR THEN
-									currentUnitMode.Stop();
+									currentUnitMode.Clear();
 								END_IF	
 	
 	PACK_ML.State.Holding :		IF BaggerManager.HoldingDone THEN

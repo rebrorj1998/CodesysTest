@@ -9,7 +9,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF stKey = "Company" THEN
 	GetTextProperty := "Sharp Packaging";
 ELSIF stKey = "Project" THEN
-	GetTextProperty := "SharpBagger-1.0.5.1";
+	GetTextProperty := "SharpBagger-1.0.7.2";
 ELSIF stKey = "Title" THEN
 	GetTextProperty := "Sharp Bagger";
 ELSE

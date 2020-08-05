@@ -81,7 +81,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	bagReverseSpeed : UDINT := 8;
 	printSpeed : UDINT := 6;
 	printLength : REAL := 1.25;
-	printOffset : REAL := 10.0;
+	printOffset : REAL := 9.0;
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
@@ -131,5 +131,5 @@ VAR_GLOBAL PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.0.7.1';
+	version : STRING := '1.0.7.2';
 END_VAR

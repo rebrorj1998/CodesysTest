@@ -38,7 +38,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.printLength: REAL := REAL#1.25;
 	// Generated instance path of persistent variable
-	HMIData.printOffset: REAL := REAL#10;
+	HMIData.printOffset: REAL := REAL#9;
 	// Generated instance path of persistent variable
 	HMIData.fillerCountSetting: UDINT;
 	// Generated instance path of persistent variable
