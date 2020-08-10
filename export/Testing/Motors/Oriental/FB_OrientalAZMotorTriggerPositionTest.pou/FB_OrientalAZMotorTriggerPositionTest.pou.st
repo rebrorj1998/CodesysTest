@@ -276,7 +276,8 @@ CASE state OF
 		eOrientalAZDriveStates.Homing:		
 				//
 				//IF inPosition AND zHomeDelay.Q AND TO_DINT(ActPos) = 0 THEN
-				IF zHomeDelay.Q AND TO_DINT(ActPos * 1000) = TO_DINT(zeroOffset * 1000) THEN
+				//IF zHomeDelay.Q AND TO_DINT(ActPos * 1000) = TO_DINT(zeroOffset * 1000) THEN
+				IF zHomeDelay.Q AND TO_DINT(ActPos * 1000) >= (TO_DINT(zeroOffset * 1000) - 10) AND TO_DINT(ActPos * 1000) <= (TO_DINT(zeroOffset * 1000) + 10) THEN
 					zHome := FALSE;
 					HomingDone := TRUE;
 					state := eOrientalAZDriveStates.DoneMoving;
