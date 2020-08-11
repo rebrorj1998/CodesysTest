@@ -58,15 +58,15 @@ waitingForPrinter := state = eZebraPrinterStates.WaitingForData;
 printHeadLowerFaultTimer(IN := lowerPrintHeadOutput AND NOT printHeadDownInput);
 printHeadRaiseFaultTimer(IN := NOT lowerPrintHeadOutput AND printHeadDownInput);
 
-IF printHeadLowerFaultTimer.Q AND THIS^.OptionEnabled THEN
+IF printHeadLowerFaultTimer.Q AND THIS^.OptionActive THEN
 	printHeadFailToLower.Trigger();
 END_IF
 
-IF printHeadRaiseFaultTimer.Q AND THIS^.OptionEnabled THEN
+IF printHeadRaiseFaultTimer.Q AND THIS^.OptionActive THEN
 	printHeadFailToRaise.Trigger();
 END_IF
 
-IF NOT serviceRequiredInput AND eStopOK AND THIS^.OptionEnabled THEN
+IF NOT serviceRequiredInput AND eStopOK AND THIS^.OptionActive THEN
 	serviceRequired.Trigger();
 END_IF
 

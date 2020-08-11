@@ -106,7 +106,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.barcodeBadReadFaultSetting: UDINT := UDINT#1;
 	// Generated instance path of persistent variable
-	HMIData.barcodeStartPosition: REAL := REAL#3.0;
+	HMIData.barcodeStartPosition: REAL := REAL#4.5;
 	// Generated instance path of persistent variable
 	HMIData.barcodeScanDistance: REAL := REAL#0.1;
 	// Generated instance path of persistent variable

@@ -115,7 +115,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;
 	barcodeBadReadFaultSetting : UDINT := 1;
-	barcodeStartPosition : REAL := 3.0;
+	barcodeStartPosition : REAL := 4.5;
 	barcodeScanDistance : REAL := 0.1;
 	barcodeVerifierInUse : BOOL := TRUE;
 	loadPlateInstalled : BOOL := TRUE;

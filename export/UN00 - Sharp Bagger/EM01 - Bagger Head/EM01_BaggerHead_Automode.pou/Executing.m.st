@@ -22,6 +22,7 @@ IF resetTriggered THEN
 	releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 	bagOpenSubState := BAG_OPEN_ASSIST_STATES.Idle;
 END_IF
+
 // Run Cycle timer for machine cycle
 cycleTimer();
 vacuumDwellTimer(PT := bagger.vacuumDwell);
@@ -107,7 +108,7 @@ CASE state OF
 													IF bagger.barcodeVerifier.OptionActive THEN
 														IF bagger.barcodeVerifier.VerificationFault THEN
 															bagger.barcodeVerificationFailed.Trigger();
-														ELSIF bagger.barcodeVerifier.GoodRead OR bagger.barcodeVerifier.BadRead THEN
+														ELSIF bagger.barcodeVerifier.GoodRead OR bagger.barcodeVerifier.BadRead OR (NOT bagger.barcodeVerifier.GoodRead AND NOT bagger.barcodeVerifier.BadRead) THEN
 															baggerCycleActive := FALSE;
 															SetHeadState(HEAD_STATES.Idle);
 															cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
