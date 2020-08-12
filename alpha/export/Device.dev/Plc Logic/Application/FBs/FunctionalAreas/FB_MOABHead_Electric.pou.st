@@ -1290,7 +1290,7 @@ CASE sealAndSeparateSubState OF
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
                                                     
     SEAL_SEPARATE_STATES.ReverseBag :                // Reverse bag if bag delivery enabled, otherwise open jaw
-													IBD.OpenIBD();
+													//IBD.OpenFull();
                                                     IF bagDelivery.enable THEN
                                                         bagDelivery.AutoReverseBag();
                                                         sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReversingBag;
@@ -1371,7 +1371,7 @@ CASE releaseAndFeedSubState OF
                                                             IF pressureBar.enable THEN
                                                                 pressureBar.OpenJaw();
                                                             END_IF
-                                                            
+                                                            //IBD.OpenFull();
 // 															IF enableBagOpen THEN
 // 																bagOpenFingers.Release();
 // 															END_IF
@@ -1400,6 +1400,7 @@ CASE releaseAndFeedSubState OF
 															IF HMIData.lpaBagEjectAssistEnable THEN
 																LPA.ManualOn();
 															END_IF
+															IBD.OpenFull();
                                                            bagDropTimer.IN := TRUE;
 														   releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndDroppingBag;
                                                     END_IF
@@ -1415,7 +1416,7 @@ CASE releaseAndFeedSubState OF
 															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable)
 															THEN   
 															bagDropTimer.IN := FALSE;
-															IBD.OpenIBD();
+															
 															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
                                                                 bagDelivery.AutoFeedBagOut();
 																LPA.ManualOff();
@@ -1499,7 +1500,7 @@ CASE releaseAndFeedSubState OF
 															IF LPA.DwellSetting = 0 THEN
 																LPA.ManualOff();
 															END_IF
-															IBD.OpenIBD();
+															//IBD.OpenIBD();
                                                             releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
                                                     
@@ -1507,6 +1508,10 @@ CASE releaseAndFeedSubState OF
 													IF barcodeVerifier.barcodeFault THEN
 														barcodeVerificationFailed.Trigger();
 													END_IF 
+													
+													IF enableIBDDeflate OR enableIBDEject THEN
+														IBD.OpenIBD();
+													END_IF
 													releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
     RELEASE_FEED_STATES.Done :
     RELEASE_FEED_STATES.Fault :

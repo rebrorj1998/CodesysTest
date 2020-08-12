@@ -23,7 +23,7 @@ VAR_GLOBAL CONSTANT
 	STEPS_PER_INCH_ADJUSTABLE_PASSTHROUGH : INT := 3030;  // Steps per inch for the Adjustable Passthrough motor
 	STEPS_PER_INCH_TFBelt : INT := 3030;  // Steps per inch for the Adjustable Passthrough motor
 	STEPS_PER_INCH_TFLS : INT := 10000;  // Steps per inch for the Adjustable Passthrough motor
-    VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY: REAL := 61;
+    VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY: REAL := 53;
     PASSTHROUGH_ZERO_OFFSET : REAL := 2;            //Zero offset for passthough (minimum passthough)
     MAX_BAG_WIDTH : REAL := 18;                //Passthrough setting
 	AMP_MOTOR_RPI : INT := 10;

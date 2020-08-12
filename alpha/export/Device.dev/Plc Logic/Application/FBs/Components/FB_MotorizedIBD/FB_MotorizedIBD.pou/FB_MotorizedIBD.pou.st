@@ -11,9 +11,10 @@ VAR_OUTPUT
 	
 	failToClose : FB_Fault(name := 'IBD Fail to Close');
 	failToOpen : FB_Fault(name := 'IBD Fail to Open');
-	state : MotorizedPbarStates;
+	state : MotorizedIBDStates;
 	actualPosition : REAL;
 	IBDOpen : BOOL;
+	IBDFullyOpen : BOOL;
 	homeRequired : BOOL;
 	clamped : BOOL;
 END_VAR
@@ -21,6 +22,7 @@ VAR
 	_homeNow : BOOL;
 	_openIBD : BOOL;
 	_closeIBD : BOOL;
+	_openFull : BOOL;
 	accel : INT := 100;
 	decel : INT := 100;
 	velo : INT := 2500;
@@ -39,10 +41,11 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 actualPosition := IBDMotor.absolutePositonInches;
 IBDOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutSetting * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(pbarOutSetting * 1000) + 10);
+IBDFullyOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(12 * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(12 * 1000) + 10);
 //IBDOpen := TO_DINT(IBDMotor.absolutePositonInches) = TO_DINT(pbarOutSetting);
 delayTimer();
 
-clamped := state = MotorizedPbarStates.Clamping;
+clamped := state = MotorizedIBDStates.Clamping;
 
 
 IF NOT IBDMotor.HomeRequired THEN
@@ -75,13 +78,13 @@ IF _reset THEN
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
-	state := MotorizedPbarStates.Idle; 
+	state := MotorizedIBDStates.Idle; 
 END_IF
 
-IF 	(	IBDMotor.Faulted AND NOT disableFaults)
-	AND state <> MotorizedPbarStates.Faulted
+IF (IBDMotor.Faulted AND NOT disableFaults)
+	AND state <> MotorizedIBDStates.Faulted
 THEN
-	state := MotorizedPbarStates.Faulting; 
+	state := MotorizedIBDStates.Faulting; 
 END_IF
 
 homeRequiredONS(CLK := IBDMotor.homeRequired);
@@ -89,18 +92,18 @@ IF homeRequiredONS.OSR THEN
 	homeRequired := TRUE;
 END_IF
 
-_ready := state = MotorizedPbarStates.Idle AND NOT homeRequired AND IBDOpen;
+_ready := state = MotorizedIBDStates.Idle AND NOT homeRequired AND IBDOpen;
 
 CASE state OF
-	MotorizedPbarStates.Idle :					//
+	MotorizedIBDStates.Idle :					//
 										IF startTest THEN
 											startTest := FALSE;
 											testActive := TRUE;
 											IF IBDMotor.homeRequired THEN
 												IBDMotor.HomeNow();
-												state := MotorizedPbarStates.Homing;
+												state := MotorizedIBDStates.Homing;
 											ELSE
-												state := MotorizedPbarStates.Initialize;
+												state := MotorizedIBDStates.Initialize;
 											END_IF
 												
 										END_IF
@@ -111,103 +114,127 @@ CASE state OF
 												IBDMotor.HomeNow();
 											END_IF
 											
-											state := MotorizedPbarStates.Homing;
+											state := MotorizedIBDStates.Homing;
 										END_IF
 										
 										IF _openIBD THEN
 											_openIBD := FALSE;
-											state := MotorizedPbarStates.MoveJawOut;
+											state := MotorizedIBDStates.MoveJawOut;
 										END_IF
 										
 										IF _closeIBD THEN
 											_closeIBD := FALSE;
-											state := MotorizedPbarStates.MoveJawIn;
+											state := MotorizedIBDStates.MoveJawIn;
+										END_IF
+										
+										IF _openFull THEN
+											_openFull := FALSE;
+											state := MotorizedIBDStates.MoveOutFull;
 										END_IF
 	
-	MotorizedPbarStates.Homing :				//
+	MotorizedIBDStates.Homing :				//
 										
 										IF NOT (IBDMotor.homeRequired) THEN
 												homeRequired := FALSE;
-												state := MotorizedPbarStates.Initialize;
+												state := MotorizedIBDStates.Initialize;
 										END_IF
 	
 	
-	MotorizedPbarStates.Initialize :			//
+	MotorizedIBDStates.Initialize :			//
 										
 										IF IBDOpen THEN
-											state := MotorizedPbarStates.Initialized;
+											state := MotorizedIBDStates.Initialized;
 										ELSE
 											IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
 											//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
-											state := MotorizedPbarStates.Initializing;
+											state := MotorizedIBDStates.Initializing;
 										END_IF
 	
 	
-	MotorizedPbarStates.Initializing :			//
+	MotorizedIBDStates.Initializing :			//
 										IF IBDOpen THEN
-											state := MotorizedPbarStates.Initialized;
+											state := MotorizedIBDStates.Initialized;
 										END_IF
 	
 	
-	MotorizedPbarStates.Initialized :			//
-										state := MotorizedPbarStates.Idle;
+	MotorizedIBDStates.Initialized :			//
+										state := MotorizedIBDStates.Idle;
 	
 	
-	MotorizedPbarStates.MoveJawOut :			//
+	MotorizedIBDStates.MoveJawOut :			//
 										
 										//IBDMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
 										IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
-										state := MotorizedPbarStates.MovingJawOut;
+										state := MotorizedIBDStates.MovingJawOut;
 										//IBDMotor.SetPositionLimit(150);
 	
-	MotorizedPbarStates.MovingJawOut :			//
+	MotorizedIBDStates.MovingJawOut :			//
 										IF IBDOpen THEN
-											state := MotorizedPbarStates.Idle;
+											state := MotorizedIBDStates.Idle;
 										END_IF
 	
 	
-	MotorizedPbarStates.MovedJawOut :			//
+	MotorizedIBDStates.MovedJawOut :			//
 										
 	
+	MotorizedIBDStates.MoveOutFull :			//
+										
+										//IBDMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
+										IBDMotor.MoveToPosition(12,accel,decel,velo);
+										state := MotorizedIBDStates.MovingOutFull;
+										//IBDMotor.SetPositionLimit(150);
 	
-	MotorizedPbarStates.MoveJawIn :				//
+	MotorizedIBDStates.MovingOutFull :			//
+										IF IBDFullyOpen THEN
+											state := MotorizedIBDStates.Idle;
+										END_IF
+	
+	
+	MotorizedIBDStates.MovedOutFull :			//
+	
+	MotorizedIBDStates.MoveJawIn :				//
 									
 										IBDMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
 										//IBDMotor.MoveToPosition(0,accel,decel,velo+(TO_INT(TO_REAL(velo)*0.25)));
-										state := MotorizedPbarStates.MovingJawIn;
+										state := MotorizedIBDStates.MovingJawIn;
 	
 	
-	MotorizedPbarStates.MovingJawIn : 			//
+	MotorizedIBDStates.MovingJawIn : 			//
 										IF IBDMotor.alarms.currentFoldback OR IBDMotor.InPosition THEN
-											state := MotorizedPbarStates.Clamping;
+											state := MotorizedIBDStates.Clamping;
 										END_IF
 	
 	
-	MotorizedPbarStates.MovedJawIn :			//
-										state := MotorizedPbarStates.StartClamping;
+	MotorizedIBDStates.MovedJawIn :			//
+										state := MotorizedIBDStates.StartClamping;
 	
 	
-	MotorizedPbarStates.StartClamping :			//
+	MotorizedIBDStates.StartClamping :			//
 										
 	
-	MotorizedPbarStates.StartedClamping :		//
+	MotorizedIBDStates.StartedClamping :		//
 										
 	
 	
-	MotorizedPbarStates.Clamping :				//
+	MotorizedIBDStates.Clamping :				//
 										IF _openIBD THEN
-											state := MotorizedPbarStates.MoveJawOut;
+											_openIBD := FALSE;
+											state := MotorizedIBDStates.MoveJawOut;
+										END_IF
+											
+										IF _openFull THEN
+											_openFull := FALSE;
+											state := MotorizedIBDStates.MoveOutFull;
 										END_IF
 	
 	
-	
-	MotorizedPbarStates.ReleaseClamp :			//  
+	MotorizedIBDStates.ReleaseClamp :			//  
 										
 	
-	MotorizedPbarStates.ReleasingClamp :		//
+	MotorizedIBDStates.ReleasingClamp :		//
 										
 	
-	MotorizedPbarStates.Faulting :			// 
+	MotorizedIBDStates.Faulting :			// 
 										Globals.jawMovingIn := FALSE;
 										_reset := FALSE;
 										_openIBD := FALSE;
@@ -218,8 +245,8 @@ CASE state OF
 										delayTimer.IN := FALSE;
 										IBDMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 0);
 										//IBDMotor.Disable();
-										state := MotorizedPbarStates.Faulted;
+										state := MotorizedIBDStates.Faulted;
 	
-	MotorizedPbarStates.Faulted :				//
+	MotorizedIBDStates.Faulted :				//
 	
 END_CASE
