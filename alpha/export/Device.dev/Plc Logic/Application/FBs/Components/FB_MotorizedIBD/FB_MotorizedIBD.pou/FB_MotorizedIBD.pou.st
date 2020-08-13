@@ -75,6 +75,9 @@ IF _reset THEN
 	//IBDMotor.Reset();
 	Globals.jawMovingIn := FALSE;
 	_reset := FALSE;
+	_openIBD := FALSE;
+	_closeIBD := FALSE;
+	_homeNow := FALSE;
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
