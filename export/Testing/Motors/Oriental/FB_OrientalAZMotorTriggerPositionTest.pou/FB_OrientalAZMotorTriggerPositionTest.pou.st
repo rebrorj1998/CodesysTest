@@ -1,17 +1,31 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_OrientalAZMotorTriggerPositionTest EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_OrientalAZMotorTriggerPositionTest EXTENDS Axis_REF
 VAR_INPUT
+	// Set this flag if this motor is actually a group
 	isGroup : BOOL;
+	// Steps per inch of motion
 	stepsPerInchSP : DINT := 3999;
+	// At factory "zero" there can be an offset
 	zeroOffset : REAL;
+	// Jog motor forward command
 	jogForwardCMD : BOOL;
+	// Jog motor reverse command
 	jogReverseCMD : BOOL;
-	groupMotor0 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest; // Master Motor
-	groupMotor1 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest;	// Slave Motor
+	// Factory "zero" positon preset command
+	positionPresetRequest : BOOL;
+	// Free up motor command
+	freeMotorRequest : BOOL;
+	// Ref to Master Motor if group
+	groupMotor0 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest;
+	// Ref to Slave Motor if group
+	groupMotor1 : REFERENCE TO FB_OrientalAZMotorTriggerPositionTest;	
 END_VAR
 VAR_OUTPUT
+	// Hex alarm code reported from AZ Drive
 	alarmCode : DWORD;
+	// Trigger direct data write through modbus
 	triggerDDWriteNow : BOOL;
+	// Trigger Remote I/O data write through modbus
 	triggerRIOWriteNow : BOOL;
 END_VAR
 VAR
@@ -42,15 +56,21 @@ VAR
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
+	triggerPositonPreset : FB_ONS;
 	haltONS : FB_ONS;
 	alarmActiveONS : FB_ONS;
+	freeMotorRequestONS : FB_ONS;
 	triggerRIOWrite : BOOL;
 	resetRIOWrite : Standard.TON := (PT := T#50MS);
 	disable : BOOL;
 	enumAlarmCode : eOrientalAZDriveFaults;
 	state : eOrientalAZDriveStates;
 	nextState : eOrientalAZDriveStates;
-	
+	commErrorONS : FB_ONS;
+	commErrorFaultONS : FB_ONS;
+	commErrorCount : DINT;
+	commErrorFaultSetting : DINT := 3;
+	positionPresetONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	MBChannel : IoDrvModbus.ModbusSlaveComPort;
@@ -107,11 +127,11 @@ packedRIO.dDword.14 := jogForward;
 modbusRIODataToDrive[0] := packedRIO.wWord[1];
 modbusRIODataToDrive[1] := packedRIO.wWord[0];
 
+// Setup delay timers
 delayTimer(IN := state = eOrientalAZDriveStates.DelayAfterWrite);
 zHomeDelay(IN := state = eOrientalAZDriveStates.Homing);
+
 // Trigger an RIO write whenever it changes
-
-
 IF packedRIO.dDword <> packedRIOLast AND NOT triggerRIOWriteNow THEN
 	packedRIOLast := packedRIO.dDword;
 	triggerRIOWriteNow := TRUE;
@@ -120,10 +140,16 @@ resetRIOWrite(IN := triggerRIOWriteNow);
 IF resetRIOWrite.Q THEN
 	triggerRIOWriteNow := FALSE;
 END_IF
+positionPresetONS(CLK := positionPresetRequest);
 
-
+// Only set comm error status after x modbus errors
+commErrorONS(CLK := MBChannel.xError);
+IF commErrorONS.OSR THEN
+	commErrorCount := commErrorCount + 1;
+END_IF
+commErrorFaultONS(CLK := commErrorCount = commErrorFaultSetting);
 IF NOT isGroup THEN
-	IF MBChannel.xError THEN
+	IF commErrorFaultONS.OSR THEN
 		state := eOrientalAZDriveStates.Faulting;
 		CommStatus := FALSE;
 	END_IF
@@ -147,11 +173,16 @@ ELSE
 	AtTorqueLimit := modbusDataFromDrive[5].15;
 END_IF
 
+// Halt motor when Halt command seen
 haltONS(CLK := Halt);
 IF haltONS.OSR THEN
-	state := eOrientalAZDriveStates.Faulting;
+	state := eOrientalAZDriveStates.Halt;
 END_IF
 
+triggerPositonPreset(CLK := positionPresetRequest);
+freeMotorRequestONS(CLK := freeMotorRequest);
+
+// Reset motor when AckError command seen
 IF AckError THEN
 	state := eOrientalAZDriveStates.Resetting;
 END_IF
@@ -160,38 +191,43 @@ IF alarmActiveONS.OSR THEN
 	state := eOrientalAZDriveStates.Faulting;
 END_IF
 
-
+// Main motor state machine
 CASE state OF
 	eOrientalAZDriveStates.Idle:
+	
 				// 	Idle state, wait for command
-				//mClearStatus();
-				
 				IF MoveAbs THEN
+					freeMotor := FALSE;
 					TargetReached := FALSE;
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveABS;
 				ELSIF MoveRel THEN
+					freeMotor := FALSE;
 					TargetReached := FALSE;
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MoveInc;
 				ELSIF MoveAbsTorque THEN
+					freeMotor := FALSE;
 					TargetReached := FALSE;
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eOrientalAZDriveStates.MovePush;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					state := eOrientalAZDriveStates.Jogging;
 				ELSIF StartHoming THEN
+					freeMotor := FALSE;
 					HomingDone := FALSE;
-					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
+					//AxisState := AXIS_STATE.AS_Homing;
 					state := eOrientalAZDriveStates.Home;
+				ELSIF triggerPositonPreset.OSR THEN
+					state := eOrientalAZDriveStates.SetPreset;
 				END_IF
 				IF MBChannel.xDone OR isGroup THEN
 					CommStatus := TRUE;
+					commErrorCount := 0;
 				END_IF
 
 	eOrientalAZDriveStates.MoveABS:
 				// Move to absolute position
-				
 				directDataOp.OperationType.diDint := eOrientalOperationType.Absolute_Positioning;
 				directDataOp.Position.diDint := mDistanceCalc(TargetPosDist);
 				directDataOp.Speed.diDint := mVeloAccDecCalc(ProfileVelocity);
@@ -207,8 +243,8 @@ CASE state OF
 				
 		
 	eOrientalAZDriveStates.MovePush:
-				// Move to absolute position
-				
+	
+				// Move to absolute position "push" (at a limited current)
 				directDataOp.OperationType.diDint := eOrientalOperationType.Absolute_Push;
 				directDataOp.Position.diDint := mDistanceCalc(TargetPosDist);
 				directDataOp.Speed.diDint := mVeloAccDecCalc(ProfileVelocity);
@@ -225,8 +261,8 @@ CASE state OF
 				
 				
 		eOrientalAZDriveStates.MoveInc:
-				// Move to absolute position
-				
+		
+				// Move to incremental position
 				directDataOp.OperationType.diDint := eOrientalOperationType.Incremental_Positioning;
 				directDataOp.Position.diDint := mDistanceCalc(TargetPosDist);
 				directDataOp.Speed.diDint := mVeloAccDecCalc(ProfileVelocity);
@@ -241,17 +277,15 @@ CASE state OF
 				nextState := eOrientalAZDriveStates.Moving;
 				
 		eOrientalAZDriveStates.Home:
-				//
+				// Home motor
 				zHome := TRUE;
-				
 				state := eOrientalAZDriveStates.DelayAfterWrite;
 				nextState := eOrientalAZDriveStates.Homing;
 				
 		
 		eOrientalAZDriveStates.Homing:		
-				//
-				//IF inPosition AND zHomeDelay.Q AND TO_DINT(ActPos) = 0 THEN
-				IF zHomeDelay.Q AND TO_DINT(ActPos * 1000) = TO_DINT(zeroOffset * 1000) THEN
+				// Wait until ZHome is done
+				IF zHomeDelay.Q AND TO_DINT(ActPos * 1000) >= (TO_DINT(zeroOffset * 1000) - 10) AND TO_DINT(ActPos * 1000) <= (TO_DINT(zeroOffset * 1000) + 10) THEN
 					zHome := FALSE;
 					HomingDone := TRUE;
 					state := eOrientalAZDriveStates.DoneMoving;
@@ -266,8 +300,27 @@ CASE state OF
 					state := eOrientalAZDriveStates.Idle;
 				END_IF
 		
-		eOrientalAZDriveStates.DelayAfterWrite:
+		eOrientalAZDriveStates.SetPreset:		
+				// Set factory ZERO preset
+				freeMotor := TRUE;
+				//P_Preset := TRUE;
+				IF triggerPositonPreset.OSF THEN
+					state := eOrientalAZDriveStates.SettingPreset;
+				END_IF
+		
+		eOrientalAZDriveStates.SettingPreset:
+				// Set factory zero preset on AZ Motor
+				P_Preset := TRUE;
+				IF distanceFromDrive.dDword = 0 THEN
+					freeMotor := FALSE;
+					P_Preset := FALSE;
+					state := eOrientalAZDriveStates.Idle;
+				END_IF
+				
+		eOrientalAZDriveStates.SetPresetDone:
 				//
+		eOrientalAZDriveStates.DelayAfterWrite:
+				// A small delay before moving on to next state
 				IF delayTimer.Q THEN
 					triggerDDWriteNow := FALSE;
 					state := nextState;
@@ -283,24 +336,28 @@ CASE state OF
 		eOrientalAZDriveStates.DoneMoving:
 				// Wait for status to clear
 				IF NOT MoveAbs AND NOT MoveAbsTorque AND NOT MoveRel AND NOT StartHoming THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_Standstill;
+					AxisState := AXIS_STATE.AS_Standstill;
 					state := eOrientalAZDriveStates.Idle;
 				END_IF 
 
 		eOrientalAZDriveStates.Halt:
 				// 
 				freeMotor := TRUE;
-				state := eOrientalAZDriveStates.Idle;
+				AxisState := AXIS_STATE.AS_ErrorStop;
+				state := eOrientalAZDriveStates.Halted;
 				
 		eOrientalAZDriveStates.Halted:
 				// 
-				freeMotor := TRUE;
-				state := eOrientalAZDriveStates.Idle;
+				IF AckError THEN
+					state := eOrientalAZDriveStates.Resetting;
+					freeMotor := FALSE;
+				END_IF
+				
 				
 		eOrientalAZDriveStates.Faulting:
 				// Faulting - stop drive
 				mClearStatus();
-				AxisState := Sharp_Motion.AXIS_STATE.AS_ErrorStop;
+				AxisState := AXIS_STATE.AS_ErrorStop;
 				Error := TRUE;
 				freeMotor := TRUE;
 				zHome := FALSE;
@@ -316,6 +373,7 @@ CASE state OF
 		eOrientalAZDriveStates.Resetting:
 				// 
 					CommStatus := TRUE;
+					commErrorCount := 0;
 					IF alarmActive THEN
 						reset := TRUE;
 					END_IF

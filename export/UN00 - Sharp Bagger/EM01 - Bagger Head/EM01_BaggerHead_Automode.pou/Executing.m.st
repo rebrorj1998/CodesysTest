@@ -22,6 +22,7 @@ IF resetTriggered THEN
 	releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 	bagOpenSubState := BAG_OPEN_ASSIST_STATES.Idle;
 END_IF
+
 // Run Cycle timer for machine cycle
 cycleTimer();
 vacuumDwellTimer(PT := bagger.vacuumDwell);
@@ -107,7 +108,7 @@ CASE state OF
 													IF bagger.barcodeVerifier.OptionActive THEN
 														IF bagger.barcodeVerifier.VerificationFault THEN
 															bagger.barcodeVerificationFailed.Trigger();
-														ELSIF bagger.barcodeVerifier.GoodRead OR bagger.barcodeVerifier.BadRead THEN
+														ELSIF bagger.barcodeVerifier.GoodRead OR bagger.barcodeVerifier.BadRead OR (NOT bagger.barcodeVerifier.GoodRead AND NOT bagger.barcodeVerifier.BadRead) THEN
 															baggerCycleActive := FALSE;
 															SetHeadState(HEAD_STATES.Idle);
 															cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
@@ -185,9 +186,7 @@ CASE sealAndSeparateSubState OF
 	SEAL_SEPARATE_STATES.SealingBag:				//
 													IF bagger.sealer.SealComplete THEN
 														SetSealSeparateState(SEAL_SEPARATE_STATES.Done);
-														IF bagger.IBD.OptionActive THEN
-															bagger.IBD.MoveOut();
-														END_IF
+														
 													END_IF
 																												
                                                     
@@ -205,6 +204,9 @@ CASE releaseAndFeedSubState OF
 													bagger.bagOpenFingers.ReleaseBag();
 													bagger.sealFlatteners.ToBagFeed();
 													bagger.pressureBar.Open();
+													IF bagger.IBD.OptionActive THEN
+														bagger.IBD.MoveOut();
+													END_IF
 													bagger.loadPlate.BeginDischarge();	
 													discharge.TakeAwayBag(THIS^);
 													releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	

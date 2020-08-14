@@ -23,7 +23,7 @@ VAR
 	_trigger : BOOL;
 	_triggerImmediate : BOOL;
 	state : eBaseBCVStates;
-	waitForReadTimer : Standard.TON;
+	waitForReadTimer : Standard.TON := (PT := T#2S);
 	positionOffsetDelay : Standard.TON;
 END_VAR
 VAR CONSTANT
@@ -51,11 +51,16 @@ END_IF
 IF _reset OR NOT THIS^.OptionActive THEN
 	//
 	_reset := FALSE;
+	IF barcodeFault THEN
+		currentBadReadCount := 0;
+	END_IF
 	state := eBaseBCVStates.Idle;
 	barcodeFault := FALSE;
 END_IF
 
 _ready := state = eBaseBCVStates.Idle;
+
+waitForReadTimer();
 
 CASE state OF
 	
@@ -104,6 +109,7 @@ CASE state OF
 										_badread := FALSE;
 										currentGoodReadCount := currentGoodReadCount + 1;
 										currentBadReadCount := 0;
+										waitForReadTimer.IN := FALSE;
 										xDone := TRUE;
 										state := eBaseBCVStates.Idle;
 									ELSIF waitForReadTimer.Q OR badReadInput THEN
@@ -116,6 +122,7 @@ CASE state OF
 												barcodeFault := TRUE;
 											END_IF
 										END_IF
+										waitForReadTimer.IN := FALSE;
 										xDone := TRUE;
 										state := eBaseBCVStates.Idle;
 									END_IF

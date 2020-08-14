@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_SimMotor EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_SimMotor EXTENDS Axis_REF
 VAR_INPUT
 	simFault : BOOL;
 END_VAR
@@ -69,7 +69,7 @@ CASE state OF
 				END_IF
 				distanceToMove := ABS(ActPos - TargetPosDist);
 				MoveAbs := FALSE;
-				AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+				AxisState := AXIS_STATE.AS_DiscreteMotion;
 				state := 2;
 			END_IF
 			
@@ -101,12 +101,12 @@ CASE state OF
 			
 			IF Halt THEN
 				state := 100;
-				AxisState := Sharp_Motion.AXIS_STATE.AS_Standstill;
+				AxisState := AXIS_STATE.AS_Standstill;
 			END_IF
 			IF movingTimer.Q THEN
 				movingTimer.IN := FALSE;
 				TargetReached := TRUE;
-				AxisState := Sharp_Motion.AXIS_STATE.AS_Standstill;
+				AxisState := AXIS_STATE.AS_Standstill;
 				state := 100;
 			END_IF
 			

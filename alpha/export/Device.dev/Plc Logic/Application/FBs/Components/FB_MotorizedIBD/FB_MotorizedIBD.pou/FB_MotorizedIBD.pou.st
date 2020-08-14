@@ -73,11 +73,11 @@ END_IF
 IF _reset THEN
 	IBDMotor.Reset();
 	//IBDMotor.Reset();
-	Globals.jawMovingIn := FALSE;
+	
 	_reset := FALSE;
 	_openIBD := FALSE;
 	_closeIBD := FALSE;
-	_homeNow := FALSE;
+	//_homeNow := FALSE;
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
@@ -113,10 +113,11 @@ CASE state OF
 											
 										IF _homeNow THEN
 											_homeNow := FALSE;
-											IF IBDMotor.HomeRequired THEN
+											//IF IBDMotor.HomeRequired THEN
 												IBDMotor.HomeNow();
-											END_IF
-											
+											//END_IF
+											delayTimer.PT := T#150MS;
+											delayTimer.IN := TRUE;
 											state := MotorizedIBDStates.Homing;
 										END_IF
 										
@@ -137,9 +138,10 @@ CASE state OF
 	
 	MotorizedIBDStates.Homing :				//
 										
-										IF NOT (IBDMotor.homeRequired) THEN
-												homeRequired := FALSE;
-												state := MotorizedIBDStates.Initialize;
+										IF NOT (IBDMotor.homeRequired) AND delayTimer.Q THEN
+											delayTimer.IN := FALSE;
+											homeRequired := FALSE;
+											state := MotorizedIBDStates.Initialize;
 										END_IF
 	
 	
@@ -246,8 +248,8 @@ CASE state OF
 										startTest := FALSE;
 										testActive := FALSE;
 										delayTimer.IN := FALSE;
-										IBDMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 0);
-										//IBDMotor.Disable();
+										//IBDMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 0);
+										IBDMotor.Disable();
 										state := MotorizedIBDStates.Faulted;
 	
 	MotorizedIBDStates.Faulted :				//

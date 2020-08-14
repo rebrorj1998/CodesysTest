@@ -1,7 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mCurrentCalc : DINT
+METHOD PROTECTED SetDone
 VAR_INPUT
-	current : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-mCurrentCalc := TO_DINT(current * 10.0);
+Done := TRUE;
+Busy := FALSE;
+Error := FALSE;
+CommandAborted := FALSE;

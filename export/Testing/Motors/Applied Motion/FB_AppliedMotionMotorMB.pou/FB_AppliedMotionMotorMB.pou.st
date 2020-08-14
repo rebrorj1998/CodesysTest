@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_AppliedMotionMotorMB EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_AppliedMotionMotorMB EXTENDS Axis_REF
 VAR_INPUT
 	modbusAddress : USINT;
 	stepsPerInchSP : DINT := 3999;
@@ -244,18 +244,18 @@ CASE state OF
 				// 	Idle state, wait for command
 				mClearStatus();
 				IF MoveAbs THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStates.MoveABS;
 				ELSIF MoveRel THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStates.MoveInc;
 				ELSIF MoveAbsTorque THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_DiscreteMotion;
+					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStates.MoveABS;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
 					state := eAppliedMotionDriveStates.Jogging;
 				ELSIF StartHoming THEN
-					//AxisState := Sharp_Motion.AXIS_STATE.AS_Homing;
+					//AxisState := AXIS_STATE.AS_Homing;
 					state := eAppliedMotionDriveStates.Home;
 				END_IF
 
@@ -339,7 +339,7 @@ CASE state OF
 		eAppliedMotionDriveStates.DoneMoving:
 				// Wait for status to clear
 				IF NOT MoveAbs AND NOT MoveAbsTorque AND NOT MoveRel AND NOT StartHoming THEN
-					AxisState := Sharp_Motion.AXIS_STATE.AS_Standstill;
+					AxisState := AXIS_STATE.AS_Standstill;
 					state := eAppliedMotionDriveStates.Idle;
 				END_IF 
 
@@ -347,7 +347,7 @@ CASE state OF
 		eAppliedMotionDriveStates.Faulting:
 				// Faulting - stop drive
 				mClearStatus();
-				AxisState := Sharp_Motion.AXIS_STATE.AS_ErrorStop;
+				AxisState := AXIS_STATE.AS_ErrorStop;
 				Error := TRUE;
 				freeMotor := TRUE;
 				state := eAppliedMotionDriveStates.Faulted;

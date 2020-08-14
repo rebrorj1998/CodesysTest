@@ -25,12 +25,12 @@ VAR
 	_readyToLoad : BOOL;
 	_beginDischarge : BOOL;
 	_isHomed : BOOL;
-	MC_HomeMotor : Sharp_Motion.MC_Home;
-	MC_MoveMotorABS : Sharp_Motion.MC_MoveAbsolute;
-	MC_MoveMotorTorque : Sharp_Motion.MC_MoveAbsoluteTorqueLimited;
-	MC_MoveMotorINC : Sharp_Motion.MC_MoveRelative;
-	MC_ResetMotor : Sharp_Motion.MC_Reset;
-	MC_HaltMotor : Sharp_Motion.MC_Halt;
+	MC_HomeMotor : MC_Home;
+	MC_MoveMotorABS : MC_MoveAbsolute;
+	MC_MoveMotorTorque : MC_MoveAbsoluteTorqueLimited;
+	MC_MoveMotorINC : MC_MoveRelative;
+	MC_ResetMotor : MC_Reset;
+	MC_HaltMotor : MC_Halt;
 	homeTimeout : Standard.TON;
 	failedToOpenTimer : Standard.TON;
 	dwellTimer : Standard.TON;
@@ -39,7 +39,7 @@ VAR
 	state : eMotorizedLoadPlateStates;
 END_VAR
 VAR_IN_OUT
-	loadPlateMotor : Sharp_Motion.Axis_REF;
+	loadPlateMotor : Axis_REF;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_MotorizedIBD()

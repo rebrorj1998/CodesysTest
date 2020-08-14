@@ -6,3 +6,4 @@ END_VAR
 _bagFeedDone := FALSE;
 _bagSeparated := FALSE;
 _readyForPrint := FALSE;
+printingNow := FALSE;

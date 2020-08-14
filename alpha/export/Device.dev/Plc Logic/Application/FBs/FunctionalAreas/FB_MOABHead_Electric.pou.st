@@ -95,6 +95,7 @@ VAR
 	hpaServiceOnONS : FB_ONS;
 	exitConveyorJogONS : FB_ONS;
 	externalExitConveyorJogONS : FB_ONS;
+	obstructionFaultONS : FB_ONS;
 	hmiLight  : FB_HMILight;
 	faultONS : FB_ONS;
 	powerSettlingTimer : Standard.TON := (PT := T#6S);
@@ -684,6 +685,11 @@ IBD(
 	homeRequired=> , 
 	clamped=> , 
 	IBDMotor:= IBDMotor);
+
+obstructionFaultONS(CLK := pressureBar.faults.obstructionDetected.active);
+IF obstructionFaultONS.OSR THEN
+	IBD.RemovePower();
+END_IF
 		 
 IF HMIData.IBDService.extendCommand THEN
 	HMIData.IBDService.extendCommand := FALSE;
@@ -771,7 +777,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	loadShelfExtend.Reset();
 	IBD.Reset();
 	IF IBD.homeRequired THEN
-		IBD.HomeNow();
+		homeJawPB := TRUE;
 	ELSE
 		IBD.OpenIBD();
 	END_IF
@@ -1191,10 +1197,11 @@ CASE state OF
 											
     HEAD_STATES.StartHoming :            // 
                                             pressureBar.HomeNow();
+											IBD.HomeNow();
                                             state := HEAD_STATES.Homing;                                        
     
     HEAD_STATES.Homing :                // 
-                                            IF NOT pressureBar.homeRequired THEN
+                                            IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
                                                 state := HEAD_STATES.HomingComplete;       
                                             END_IF
                                             

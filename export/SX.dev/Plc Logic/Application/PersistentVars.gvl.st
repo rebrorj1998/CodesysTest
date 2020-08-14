@@ -18,9 +18,9 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.passthroughSetting: REAL := REAL#5.5;
 	// Generated instance path of persistent variable
-	HMIData.sealBarDwell: REAL := REAL#0.18;
+	HMIData.sealBarDwell: REAL := REAL#0.2;
 	// Generated instance path of persistent variable
-	HMIData.sealBarCool: REAL := REAL#0.25;
+	HMIData.sealBarCool: REAL := REAL#0.4;
 	// Generated instance path of persistent variable
 	HMIData.bagSkirtLength: REAL := 2.0;
 	// Generated instance path of persistent variable
@@ -36,9 +36,9 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.printSpeed: UDINT := UDINT#6;
 	// Generated instance path of persistent variable
-	HMIData.printLength: REAL := REAL#3;
+	HMIData.printLength: REAL := REAL#1.25;
 	// Generated instance path of persistent variable
-	HMIData.printOffset: REAL := REAL#8;
+	HMIData.printOffset: REAL := REAL#9;
 	// Generated instance path of persistent variable
 	HMIData.fillerCountSetting: UDINT;
 	// Generated instance path of persistent variable
@@ -67,10 +67,6 @@ VAR_GLOBAL PERSISTENT RETAIN
 	HMIData.jawOpenMotionProfile: sctMotionProfile := STRUCT(velo := REAL#14, accel := REAL#300, decel := REAL#300, current := REAL#100);
 	// Generated instance path of persistent variable
 	HMIData.jawCloseMotionProfile: sctMotionProfile := STRUCT(velo := REAL#14, accel := REAL#10, decel := REAL#10, current := REAL#100);
-	// Generated instance path of persistent variable
-	HMIData.jawCycleTestCycles: DINT;
-	// Generated instance path of persistent variable
-	HMIData.jawCycleTestActive: BOOL;
 	// Generated instance path of persistent variable
 	HMIData.jawZeroOffset: REAL := REAL#2;
 	// Generated instance path of persistent variable
@@ -108,11 +104,11 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.barcodeBadReadCount: UDINT;
 	// Generated instance path of persistent variable
-	HMIData.barcodeBadReadFaultSetting: UDINT;
+	HMIData.barcodeBadReadFaultSetting: UDINT := UDINT#1;
 	// Generated instance path of persistent variable
-	HMIData.barcodeStartPosition: REAL;
+	HMIData.barcodeStartPosition: REAL := REAL#4.5;
 	// Generated instance path of persistent variable
-	HMIData.barcodeScanDistance: REAL := REAL#1;
+	HMIData.barcodeScanDistance: REAL := REAL#0.1;
 	// Generated instance path of persistent variable
 	HMIData.barcodeVerifierInUse: BOOL := TRUE;
 	// Generated instance path of persistent variable

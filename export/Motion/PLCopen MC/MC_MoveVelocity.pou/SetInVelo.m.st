@@ -1,7 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mVeloAccDecCalc : DINT
+METHOD PROTECTED SetInVelo
 VAR_INPUT
-	value : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-mVeloAccDecCalc := TO_DINT(value * TO_REAL(stepsPerInchSP));
+InVelocity := TRUE;
+Busy := FALSE;
+Error := FALSE;
+CommandAborted := FALSE;

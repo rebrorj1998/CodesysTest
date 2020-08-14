@@ -1,10 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mClearStatus : BOOL
+METHOD PROTECTED SetError
 VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-TargetReached := FALSE;
-freeMotor := FALSE;
-reset := FALSE;
-Error := FALSE;
-zHome := FALSE;
+Done := FALSE;
+Busy := FALSE;
+Error := TRUE;
+CommandAborted := FALSE;

@@ -1,7 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mVeloAccDecCalc : DINT
-VAR_INPUT
-	value : REAL;
+VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-mVeloAccDecCalc := TO_DINT(value * TO_REAL(stepsPerInchSP));
+ActualPosition := ActPos;

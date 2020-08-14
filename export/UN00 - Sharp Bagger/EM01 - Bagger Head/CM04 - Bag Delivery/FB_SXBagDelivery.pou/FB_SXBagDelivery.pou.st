@@ -33,15 +33,16 @@ VAR
 	state : INT;
 	nextState : INT;
 	moveBagDeliveryTimeout : Standard.TON;
-	MC_MoveBagDelivery : Sharp_Motion.MC_MoveRelative;
-	MC_HaltBagDelivery : Sharp_Motion.MC_Halt;
-	MC_ResetBagDelivery : Sharp_Motion.MC_Reset;
+	MC_MoveBagDelivery : MC_MoveRelative;
+	MC_HaltBagDelivery : MC_Halt;
+	MC_ResetBagDelivery : MC_Reset;
 	remainingLength : REAL;
 	bagReversedToPrintOffset : BOOL;
 	bagEdgePhotoeyeSim : FB_SimulatedFeedbackPhysicalInput(name := 'Bag Edge Photoeye Sim');
+	printingNow : BOOL;
 END_VAR
 VAR_IN_OUT
-	bagDeliveryMotor : Sharp_Motion.Axis_REF;
+	bagDeliveryMotor : Axis_REF;
 
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();
@@ -274,6 +275,7 @@ CASE state OF
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding At Print Speed'));
 			remainingLength := remainingLength - printLength;
 			_feedBagOut := FALSE;
+			printingNow := TRUE;
 			state := 101;
 			nextState := 10;
 	
@@ -295,9 +297,21 @@ CASE state OF
 			END_IF
 			
 			IF MC_MoveBagDelivery.Done THEN
-				moveBagDeliveryTimeout.IN := FALSE;
-				MC_MoveBagDelivery.Execute := FALSE;
-				state := nextState;
+				IF printingNow THEN
+					printer.StopPrinting();
+					IF printer.PrintDone THEN
+						printingNow := FALSE;
+						moveBagDeliveryTimeout.IN := FALSE;
+						MC_MoveBagDelivery.Execute := FALSE;
+						state := nextState;
+					END_IF
+				ELSE
+					moveBagDeliveryTimeout.IN := FALSE;
+					MC_MoveBagDelivery.Execute := FALSE;
+					state := nextState;
+				END_IF
+			
+				
 			END_IF
 			
 	

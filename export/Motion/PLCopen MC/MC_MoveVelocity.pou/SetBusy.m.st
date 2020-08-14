@@ -1,9 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mClearStatus : BOOL
+METHOD PROTECTED SetBusy
 VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-TargetReached := FALSE;
-freeMotor := FALSE;
-reset := FALSE;
+InVelocity := FALSE;
+Busy := TRUE;
 Error := FALSE;
+CommandAborted := FALSE;

@@ -22,6 +22,8 @@ VAR_GLOBAL
 	printHeadService : ServiceCommands;
 	startJawCycleTest : BOOL;
 	stopJawCycleTest : BOOL;
+	jawCycleTestCycles : DINT;
+	jawCycleTestActive : BOOL;
 	teachBagPhotoeye : BOOL;
 	teachingBagPhoteye : BOOL;
 	factoryHomeJaw : BOOL;
@@ -69,8 +71,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;
 	passthroughSetting : REAL := 5.5;
-	sealBarDwell : REAL := 0.18;
-	sealBarCool : REAL := 0.25;
+	sealBarDwell : REAL := 0.2;
+	sealBarCool : REAL := 0.4;
 	bagSkirtLength : REAL := 2;
 	bagLength : REAL := 17.62;
 	bagWidth : REAL := 11;
@@ -78,8 +80,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	bagForwardSpeed : UDINT := 40;
 	bagReverseSpeed : UDINT := 8;
 	printSpeed : UDINT := 6;
-	printLength : REAL := 3.0;
-	printOffset : REAL := 8.0;
+	printLength : REAL := 1.25;
+	printOffset : REAL := 9.0;
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
@@ -94,8 +96,6 @@ VAR_GLOBAL PERSISTENT RETAIN
 	jawClosePositionSetting : REAL := -0.45;
 	jawOpenMotionProfile : sctMotionProfile := (velo := 14.0, accel := 300.0, decel := 300.0, current := 100.0);
 	jawCloseMotionProfile : sctMotionProfile := (velo := 14.0, accel := 10.0, decel := 10.0, current := 100.0);
-	jawCycleTestCycles : DINT;
-	jawCycleTestActive : BOOL;
 	jawZeroOffset : REAL := 2.0;
 	lastCycleTime : REAL;
 	bagDropClearanceDwell : REAL := 0.5;
@@ -114,9 +114,9 @@ VAR_GLOBAL PERSISTENT RETAIN
 	barcodeVerifierInstalled : BOOL := TRUE;
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;
-	barcodeBadReadFaultSetting : UDINT;
-	barcodeStartPosition : REAL;
-	barcodeScanDistance : REAL := 1.0;
+	barcodeBadReadFaultSetting : UDINT := 1;
+	barcodeStartPosition : REAL := 4.5;
+	barcodeScanDistance : REAL := 0.1;
 	barcodeVerifierInUse : BOOL := TRUE;
 	loadPlateInstalled : BOOL := TRUE;
 	loadPlateLoweredPositionSetting : REAL := 0;
@@ -131,5 +131,5 @@ VAR_GLOBAL PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.0.5.0';
+	version : STRING := '1.0.7.3';
 END_VAR

@@ -11,6 +11,7 @@ VAR
 	_hasLabel : BOOL;
 	_printDone : BOOL;
 	_beginPrinting : BOOL;
+	_stopPrinting : BOOL;
 	_printing : BOOL;
 	_simulate : BOOL;
 	state : INT;

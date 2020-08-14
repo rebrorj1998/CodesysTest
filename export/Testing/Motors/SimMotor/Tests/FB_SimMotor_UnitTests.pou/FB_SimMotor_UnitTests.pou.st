@@ -22,11 +22,11 @@ VAR_OUTPUT
 END_VAR
 VAR
 	testee : FB_SimMotor();
-	MC_MoveABSTestee : Sharp_Motion.MC_MoveAbsolute;
-	MC_MoveABSTorqueTestee : Sharp_Motion.MC_MoveAbsoluteTorqueLimited;
-	MC_MoveRELTestee : Sharp_Motion.MC_MoveRelative;
-	MC_PowerTestee : Sharp_Motion.MC_Power;
-	MC_HomeTestee : Sharp_Motion.MC_Home;
+	MC_MoveABSTestee : MC_MoveAbsolute;
+	MC_MoveABSTorqueTestee : MC_MoveAbsoluteTorqueLimited;
+	MC_MoveRELTestee : MC_MoveRelative;
+	MC_PowerTestee : MC_Power;
+	MC_HomeTestee : MC_Home;
 	delayTimer : Standard.TON;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();

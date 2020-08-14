@@ -25,20 +25,21 @@ VAR
 	_homeNow : BOOL;
 	_isFullyOpen : BOOL;
 	_isHomed : BOOL;
-	MC_HomeIBDMotor : Sharp_Motion.MC_Home;
-	MC_MoveIBDMotorABS : Sharp_Motion.MC_MoveAbsolute;
-	MC_MoveIBDMotorABSTorque : Sharp_Motion.MC_MoveAbsoluteTorqueLimited;
-	MC_MoveIBDMotorINC : Sharp_Motion.MC_MoveRelative;
-	MC_ResetIBDMotor : Sharp_Motion.MC_Reset;
-	MC_HaltIBDMotor : Sharp_Motion.MC_Halt;
+	MC_HomeIBDMotor : MC_Home;
+	MC_MoveIBDMotorABS : MC_MoveAbsolute;
+	MC_MoveIBDMotorABSTorque : MC_MoveAbsoluteTorqueLimited;
+	MC_MoveIBDMotorINC : MC_MoveRelative;
+	MC_ResetIBDMotor : MC_Reset;
+	MC_HaltIBDMotor : MC_Halt;
 	homeTimeout : Standard.TON;
 	failedToOpenTimer : Standard.TON;
 	motionFaultTimeOffset : TIME := T#5S;
 	resetTimer: TON := (PT := T#2S);
 	state : eMotorizedIBDStates;
+	faultONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
-	IBDMotor : Sharp_Motion.Axis_REF;
+	IBDMotor : Axis_REF;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_MotorizedIBD()
@@ -74,9 +75,9 @@ failedToOpenTimer(IN := (state = eMotorizedIBDStates.MovingOut OR state = eMotor
 					
 // Trigger motor faults from drive					
 IF IBDMotor.Error THEN
-	//IBDMotorFault.faultTrigger := TRUE;
+	IBDMotorFault.faultTrigger := TRUE;
 ELSE 
-	//IBDMotorFault.faultTrigger := FALSE;
+	IBDMotorFault.faultTrigger := FALSE;
 END_IF
 
 IF NOT IBDMotor.CommStatus THEN
@@ -99,8 +100,11 @@ IF _reset THEN
 	_reset := FALSE;
 END_IF
 
+faultONS(CLK := _RemovePower OR failedToHome.Active OR failedToOpen.Active OR IBDMotorFault.Active OR IBDMotorCommFault.Active);
 
-
+IF faultONS.OSR THEN
+	state := eMotorizedIBDStates.Faulting;
+END_IF
 CASE state OF
 	
 	eMotorizedIBDStates.Idle:
@@ -220,6 +224,7 @@ CASE state OF
 	eMotorizedIBDStates.Faulting:
 		// Free up motors on a fault
 		MC_HaltIBDMotor.Execute := TRUE;
+   		_RemovePower := FALSE;
 		IF MC_HaltIBDMotor.Done OR  MC_HaltIBDMotor.Error THEN
 			state := eMotorizedIBDStates.Faulted;
 		END_IF
@@ -242,6 +247,7 @@ CASE state OF
 		_homeNow := FALSE;
 		_moveOut := FALSE;
 		_moveInToDeflate := FALSE;
+   		_RemovePower := FALSE;
 		state := eMotorizedIBDStates.Resetting;
 
 	eMotorizedIBDStates.Resetting:

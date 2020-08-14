@@ -83,12 +83,16 @@ END_IF
 CASE currentState OF
 	
 	PACK_ML.State.Stopped: 		//IF homeONS.OSR THEN
+								
 									currentUnitMode.Reset();
+									_stoppingDone := FALSE;
+								
+									
 								//END_IF	
 								_clearingDone := FALSE;
 								
 	PACK_ML.State.Aborted:		IF resetONS.OSR THEN
-									GlobalObjects.CollectionOfActiveFaults.AckAll();
+									GlobalObjects.CollectionOfFaults.AckAll();
 									currentUnitMode.Clear();
 								END_IF	
 	
