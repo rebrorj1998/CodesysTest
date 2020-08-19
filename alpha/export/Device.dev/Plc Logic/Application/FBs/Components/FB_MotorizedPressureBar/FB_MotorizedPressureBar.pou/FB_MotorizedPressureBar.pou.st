@@ -163,16 +163,17 @@ IF testPosLimit THEN
 	testPosLimit := FALSE;
 END_IF
 
-IF _reset THEN
+IF resetONS.Q THEN
 	pbarMotor.Reset();
-	//pbarMotor.DoneClamping();
+	//pbarMotor.Enable();
+	
 	//IBDMotor.Reset();
 	Globals.jawMovingIn := FALSE;
 	_reset := FALSE;
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
-	//pbarMotor.DoneClamping();
+	pbarMotor.DoneClamping();
 	jawClamps.Extend();
 	pbarFeedbackHandler.extendOutput := FALSE;
 	pbarFeedbackHandler.retractOutput := FALSE;
@@ -222,7 +223,8 @@ CASE state OF
 											state := MotorizedPbarStates.Homing;
 										END_IF
 										
-										IF _openJaw THEN
+										IF _openJaw AND NOT _reset THEN
+											//pbarMotor.DoneClamping();
 											_openJaw := FALSE;
 											state := MotorizedPbarStates.MoveJawOut;
 										END_IF
@@ -423,16 +425,18 @@ CASE state OF
 										pbarMotor.Disable();
 										//IBDMotor.Disable();
 										state := MotorizedPbarStates.Faulted;
-	
+			
 	MotorizedPbarStates.Faulted :				//
 	
 END_CASE
 
 
 IF pbarMotor.alarms.positionLimit OR failTimer.Q THEN
-	faults.obstructionDetected.Trigger();
+	faults.obstructionDetected.faultTrigger := TRUE;
 	homeRequired := TRUE;
 	//state := MotorizedPbarStates.Faulting;
+ELSE
+	faults.obstructionDetected.faultTrigger := FALSE;
 END_IF
 
 pbarFeedbackHandler(
@@ -445,3 +449,5 @@ pbarFeedbackHandler(
 	faultMonitoring:= NOT disableFaults, 
 	failedToExtend=> faults.failedToOpen.faultTrigger, 
 	failedToRetract=> faults.failedToClose.faultTrigger);
+	
+SUPER^();

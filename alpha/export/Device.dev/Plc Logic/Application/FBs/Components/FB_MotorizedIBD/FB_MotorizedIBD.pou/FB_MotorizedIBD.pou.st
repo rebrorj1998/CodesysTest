@@ -34,6 +34,7 @@ VAR
 	movePassthroughNow : BOOL;
 	delayTimer : Standard.TON := (PT:= T#500MS);
 	homeRequiredONS : FB_ONS;
+	faultingONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	IBDMotor : FB_AppliedMotionStepServoEIPPassthrough;
@@ -70,21 +71,23 @@ IF testSomeCurrent THEN
 END_IF
 
 
-IF _reset THEN
-	IBDMotor.Reset();
-	//IBDMotor.Reset();
+IF resetONS.Q THEN
+	//IF IBDMotor.Faulted THEN
+		IBDMotor.Reset();
+	//END_IF
 	
 	_reset := FALSE;
 	_openIBD := FALSE;
 	_closeIBD := FALSE;
-	//_homeNow := FALSE;
+	_homeNow := FALSE;
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
 	state := MotorizedIBDStates.Idle; 
 END_IF
+faultingONS(CLK := IBDMotor.Faulted AND NOT disableFaults);
 
-IF (IBDMotor.Faulted AND NOT disableFaults)
+IF (faultingONS.OSR AND disableFaults)
 	AND state <> MotorizedIBDStates.Faulted
 THEN
 	state := MotorizedIBDStates.Faulting; 
@@ -111,17 +114,9 @@ CASE state OF
 												
 										END_IF
 											
-										IF _homeNow THEN
-											_homeNow := FALSE;
-											//IF IBDMotor.HomeRequired THEN
-												IBDMotor.HomeNow();
-											//END_IF
-											delayTimer.PT := T#150MS;
-											delayTimer.IN := TRUE;
-											state := MotorizedIBDStates.Homing;
-										END_IF
 										
-										IF _openIBD THEN
+										IF IBDMotor.status.motorEnabled THEN
+											IF _openIBD AND NOT _reset THEN
 											_openIBD := FALSE;
 											state := MotorizedIBDStates.MoveJawOut;
 										END_IF
@@ -135,6 +130,18 @@ CASE state OF
 											_openFull := FALSE;
 											state := MotorizedIBDStates.MoveOutFull;
 										END_IF
+										
+										IF _homeNow THEN
+											_homeNow := FALSE;
+											//IF IBDMotor.HomeRequired THEN
+												IBDMotor.HomeNow();
+											//END_IF
+											delayTimer.PT := T#150MS;
+											delayTimer.IN := TRUE;
+											state := MotorizedIBDStates.Homing;
+										END_IF
+										END_IF
+										
 	
 	MotorizedIBDStates.Homing :				//
 										
@@ -171,6 +178,7 @@ CASE state OF
 										//IBDMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
 										IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
 										state := MotorizedIBDStates.MovingJawOut;
+										_openIBD := FALSE;
 										//IBDMotor.SetPositionLimit(150);
 	
 	MotorizedIBDStates.MovingJawOut :			//
@@ -255,3 +263,5 @@ CASE state OF
 	MotorizedIBDStates.Faulted :				//
 	
 END_CASE
+
+SUPER^();

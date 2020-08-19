@@ -112,6 +112,7 @@ VAR
 	baggerHeadMovement : FB_BaggerHeadRaise();
 	resettingActive : BOOL;
 	resetTimer : Standard.TOF := (PT := T#1S);
+	allMotorCommsGood : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -711,6 +712,14 @@ readyToRun := (motorizedSealFlatteners.Ready OR NOT motorizedSealFlatteners.enab
 				AND murrIOBusNode.ok;
 iPowerOffButtonONS(CLK := iPowerOffButton);
 resetTimer(IN := iPowerOffButtonONS.OSR);
+
+allMotorCommsGood := NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.commFail.active
+					AND NOT IBDMotor.faults.commFail.active
+					AND NOT pressureBarMotor.faults.commFail.active;
+
+IF iPowerOffButtonONS.OSR THEN
+	reset();
+END_IF
 				
 IF HMIData.makeReady OR resetTimer.Q THEN
 	HMIData.ackAllFaults := TRUE;
@@ -721,10 +730,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	motorizedSealFlattenersMode := DEVICE_MODES.Auto;
 	motorizedSealFlatteners.Reset();
 	motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
-	IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN
-		motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
-		motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
-	END_IF
+	
 	
 	HMIData.bagOpenFeedNewBagCount := 0;
 	bagOpenRetryCount := 0;
@@ -732,14 +738,10 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	HMIData.stopMachine := FALSE;
 	
 	electricPressureBarMode := DEVICE_MODES.Auto;
-	pressureBar.Reset();
+	
 	pressureBar.enable := TRUE;
 	//pressureBar.ExtendCylinderLowPressure();
-	IF pressureBar.homeRequired THEN
-		homeJawPB := TRUE;
-	ELSE
-		pressureBar.OpenJaw();
-	END_IF
+	
 	//HMIData.sealBarTemperatureSetting := 300;
 	enableHeater := TRUE;
 	
@@ -775,12 +777,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	rearLoadPlateRetract.Reset();
 	forwardLoadPlateRetract.Reset();
 	loadShelfExtend.Reset();
-	IBD.Reset();
-	IF IBD.homeRequired THEN
-		homeJawPB := TRUE;
-	ELSE
-		IBD.OpenIBD();
-	END_IF
+	
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
@@ -800,7 +797,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	barcodeVerifier.Reset();
 	keyenceBCV.Reset();
 	state := HEAD_STATES.Idle;
-	reset();
+	
 	setPassthroughPB := FALSE;
 	//homeJawPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
@@ -819,8 +816,22 @@ IF enableONS.Q OR resetONS.Q THEN
 	finishCycleSubState := FINISH_CYCLE_STATES.Idle;
 	motorizedSealFlatteners.Reset();
 	pressureBar.Reset();
+	IBD.Reset();
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
+	homeJawPB := FALSE;
+	IF IBD.homeRequired THEN
+		homeJawPB := TRUE;
+	ELSE
+		//IBD.OpenIBD();
+		homeJawPB := TRUE;
+	END_IF
+	IF pressureBar.homeRequired THEN
+		homeJawPB := TRUE;
+	ELSE
+		//pressureBar.OpenJaw();
+		homeJawPB := TRUE;
+	END_IF
 	//pressureBar.ExtendCylinderLowPressure();
 	bagDropTimer.IN := FALSE;
 	_reset := FALSE;
@@ -1194,22 +1205,47 @@ CASE state OF
 													factoryTestModeKeepCycling := TRUE;
 												END_IF
 											END_IF	
-											
+	HEAD_STATES.StartReset 	:			// Reset all 
+	
+	HEAD_STATES.Resetting : 
+
+										
     HEAD_STATES.StartHoming :            // 
-                                            pressureBar.HomeNow();
-											IBD.HomeNow();
-                                            state := HEAD_STATES.Homing;                                        
+											IF allMotorCommsGood THEN
+												motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.notHomed.Ack();
+												IF pressureBar.homeRequired THEN
+													pressureBar.HomeNow();
+												ELSE
+													pressureBar.OpenJaw();
+												END_IF
+												IF IBD.homeRequired THEN
+													IBD.HomeNow();
+												ELSE
+													IBD.OpenIBD();
+												END_IF
+												
+                                            	state := HEAD_STATES.Homing; 
+											END_IF
+                                                                                   
     
     HEAD_STATES.Homing :                // 
-                                            IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
-                                                state := HEAD_STATES.HomingComplete;       
+                                            //IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
+											IF pressureBar.pressureBarOpen AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
+                                                state := HEAD_STATES.HomingComplete;   
+												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN
+													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
+													motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
+												END_IF    
                                             END_IF
                                             
     HEAD_STATES.HomingComplete :        // 
-                                            homeJawPB := FALSE;
-                                            state := HEAD_STATES.Idle;
-											//HMIData.passthroughSetting := 6.0;
-											setPassthroughPB := TRUE;
+											IF NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired THEN
+												 homeJawPB := FALSE;
+												state := HEAD_STATES.Idle;
+												//HMIData.passthroughSetting := 6.0;
+												setPassthroughPB := TRUE;
+											END_IF
+                                           
     
     HEAD_STATES.MovePassthrough :        // 
                                             pressureBar.OpenJaw();
