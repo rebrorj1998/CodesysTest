@@ -53,6 +53,7 @@ VAR
 	packedRIOLast : DWORD;
 	delayTimer : Standard.TON := (PT := T#50MS);
 	zHomeDelay : Standard.TON := (PT := T#250MS);
+	presetDelay : Standard.TON := (PT := T#200MS);
 	modbusWriteResponse : ARRAY[0..20] OF WORD;
 	readAfterDDWrite : FB_ONS;
 	readAfterRIOWrite : FB_ONS;
@@ -130,7 +131,7 @@ modbusRIODataToDrive[1] := packedRIO.wWord[0];
 // Setup delay timers
 delayTimer(IN := state = eOrientalAZDriveStates.DelayAfterWrite);
 zHomeDelay(IN := state = eOrientalAZDriveStates.Homing);
-
+presetDelay(IN := state = eOrientalAZDriveStates.SettingPreset);
 // Trigger an RIO write whenever it changes
 IF packedRIO.dDword <> packedRIOLast AND NOT triggerRIOWriteNow THEN
 	packedRIOLast := packedRIO.dDword;
@@ -311,7 +312,7 @@ CASE state OF
 		eOrientalAZDriveStates.SettingPreset:
 				// Set factory zero preset on AZ Motor
 				P_Preset := TRUE;
-				IF distanceFromDrive.dDword = 0 THEN
+				IF distanceFromDrive.dDword = 0 OR presetDelay.Q THEN
 					freeMotor := FALSE;
 					P_Preset := FALSE;
 					state := eOrientalAZDriveStates.Idle;

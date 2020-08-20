@@ -194,7 +194,8 @@ CASE state OF
 				END_IF
 		
 		eAppliedMotionDriveStatesASCII.StartJogging:
-				// 
+				// Begin jog move 
+				
 				IF jogForwardCMD THEN
 					asciiHandler.sendData := (CONCAT('2FL', mDistanceCalc(30)));
 					asciiHandler.xExecute := TRUE;
@@ -211,19 +212,22 @@ CASE state OF
 					END_IF
 				ELSE
 					asciiHandler.xExecute := FALSE;
-					state := eAppliedMotionDriveStatesASCII.Idle;
+					state := eAppliedMotionDriveStatesASCII.Jogging;
 				END_IF
+				
+				
 		
 		eAppliedMotionDriveStatesASCII.Jogging:
 				// Jog forward/reverse
 				IF NOT jogForwardCMD AND NOT jogReverseCMD THEN
-					asciiHandler.sendData := ('2ST$R');
-					asciiHandler.xExecute := TRUE;
-					IF asciiHandler.xDone THEN
-						asciiHandler.xExecute := FALSE;
-						state := eAppliedMotionDriveStatesASCII.Idle;
+					IF NOT asciiHandler.xBusy THEN
+						asciiHandler.sendData := ('2ST$R');
+						asciiHandler.xExecute := TRUE;
+						IF asciiHandler.xDone THEN
+							asciiHandler.xExecute := FALSE;
+							state := eAppliedMotionDriveStatesASCII.Idle;
+						END_IF
 					END_IF
-					
 				END_IF
 		eAppliedMotionDriveStatesASCII.SendOpcodeAfterPars:
 				// 

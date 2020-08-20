@@ -314,17 +314,18 @@ CASE jawState OF
 	
 	eDualMotorPBarStates.OpenJaw:	
 		// Move jaw out to passthrough
-		MC_MoveBothMotorsABS.Position := passthroughSetting;
-		MC_MoveBothMotorsABS.Velocity := openVelo;
-		MC_MoveBothMotorsABS.Acceleration := openAccel;
-		MC_MoveBothMotorsABS.Deceleration := openDecel;
-		MC_MoveBothMotorsABS.Execute := TRUE;
+		MC_MoveBothMotorsABSTorque.Position := passthroughSetting;
+		MC_MoveBothMotorsABSTorque.Velocity := openVelo;
+		MC_MoveBothMotorsABSTorque.Acceleration := openAccel;
+		MC_MoveBothMotorsABSTorque.Deceleration := openDecel;
+		MC_MoveBothMotorsABSTorque.CurrentLimit := jawTorqueSetting;
+		MC_MoveBothMotorsABSTorque.Execute := TRUE;
 		jawState := eDualMotorPBarStates.OpeningJaw;
 		
 	eDualMotorPBarStates.OpeningJaw:
 		// wait for jaw to report open
-		IF MC_MoveBothMotorsABS.Done THEN
-			MC_MoveBothMotorsABS.Execute := FALSE;
+		IF MC_MoveBothMotorsABSTorque.Done THEN
+			MC_MoveBothMotorsABSTorque.Execute := FALSE;
 			IF jawTestModeActive THEN
 				jawTestDelayTimer.IN := TRUE;
 				IF jawTestDelayTimer.Q THEN
@@ -335,7 +336,7 @@ CASE jawState OF
 			ELSE
 				jawState := eDualMotorPBarStates.Idle;
 			END_IF
-		ELSIF MC_MoveBothMotorsABS.Error THEN
+		ELSIF MC_MoveBothMotorsABSTorque.Error THEN
 			MC_MoveBothMotorsINC.Execute := FALSE;
 			failedToOpen.Trigger();
 			jawState := eDualMotorPBarStates.Faulting;

@@ -46,6 +46,7 @@ CASE serialState OF
 	eSerialStates.Idle :				// Wait for execute
 										IF NOT xExecute THEN 
 											xDone := FALSE;
+											xBusy := FALSE;
 										END_IF
 										IF executeONS.OSR THEN
 											xDone := FALSE;

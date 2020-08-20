@@ -239,7 +239,7 @@ CASE releaseAndFeedSubState OF
                                                     IF bagger.printer.HasLabel AND NOT bagger.pressureBar.IsFullyClosed THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.FeedToOffset);
                                                     END_IF
-													IF bagger.cancelPrint THEN
+													IF bagger.cancelPrint OR NOT bagger.printer.OptionActive THEN
 														bagger.bagDelivery.FeedBagOut();
 														SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
 													END_IF

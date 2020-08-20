@@ -11,6 +11,7 @@ TYPE eAppliedMotionDriveStatesASCII :
 	SendOpcodeAfterPars := 41,
 	StartJogging := 20,
 	Jogging := 21,
+	StopJogging := 22,
 	Moving := 50,
 	DoneMoving := 51,
 	Halt := 60,
