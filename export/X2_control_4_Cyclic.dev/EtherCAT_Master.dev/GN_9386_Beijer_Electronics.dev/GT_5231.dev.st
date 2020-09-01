@@ -1,0 +1,3 @@
+type=68
+id=29D_47545231_GSpecial_474E9386
+ver=0
