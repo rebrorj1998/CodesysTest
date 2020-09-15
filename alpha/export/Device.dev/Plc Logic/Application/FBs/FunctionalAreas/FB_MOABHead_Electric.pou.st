@@ -1300,7 +1300,7 @@ CASE sealAndSeparateSubState OF
 													IF pressureBar.enable THEN
 														LPA.ManualOff();
 														pressureBarCloseDelay.IN := TRUE;
-														IF (pressureBarCloseDelay.Q OR TO_INT(HMIData.pressureBarCloseDelay) = 0) 
+														IF (pressureBarCloseDelay.Q OR HMIData.pressureBarCloseDelay = 0) 
 															AND (funnel.closed OR NOT funnel.enable)
 															THEN
 															sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
