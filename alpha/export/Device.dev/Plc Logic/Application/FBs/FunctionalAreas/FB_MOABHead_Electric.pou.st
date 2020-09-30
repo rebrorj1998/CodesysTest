@@ -205,7 +205,7 @@ HMIData.bagOpenRetryCount := bagOpenRetryCount;
 murrIOBusNode(
 	enable:= , 
 	headNodeEnabled:= TRUE, 
-	guardNodeEnabled:= TRUE, 
+	guardNodeEnabled:= (HMIData.cycleStartButtonSelection <> PalmButtonSelection.NotInstalled) OR (HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled), 
 	printerNodeEnabled:= (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled), 
 	dischargeNodeEnabled:= TRUE, 
 	auxIONodeEnabled:= , 
