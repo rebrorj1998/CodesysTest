@@ -32,9 +32,6 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Created by: Ben Hess
 //	Created Date: 
 
-
-
-
 // Initialze global objects on first scan
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
@@ -49,10 +46,8 @@ END_IF
 teachPhotoeyeTimer(IN := HMIData.teachBagPhotoeye, Q => oTeachPhotoeye);
 HMIData.teachingBagPhoteye := oTeachPhotoeye;
 
-
 // Use fault collection for faultActive indication
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
-
 
 // Cycle start conditions
 // Auto mode dwell timer
@@ -167,7 +162,6 @@ EM01_SXBaggerHead(
 	bagOpenRetryCount=> , 
 	failedToOpenBag=> );
 	
-
 EM02_SXDischarge();
 
 // Machine unit
@@ -199,10 +193,11 @@ HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive
 HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.currentBaggerState;
 
 
-// Banner manager takes care of the Multistate lamp used as a banner on the proface 
+// Banner manager takes care of the Multistate lamp used as a banner on the proface/Beijer 
 bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.currentState = PACK_ML.State.Execute, 
 	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
+	baggerInStandby:= ,
 	baggerInCycle:= HMIData.inCycle, 
 	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
 	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
@@ -264,8 +259,6 @@ HMIData.loadPlateMotorData.CurrentAlarmCode := baggerCM.loadPlateMotor.alarmCode
 
 HMIData.bagDeliveryMotorData.alarmCode := baggerCM.bagDeliveryFrontMotor.alarmCode;
 HMIData.bagDeliveryMotorData.statusCode := baggerCM.bagDeliveryFrontMotor.statusCode;
-
-
 
 // Cycle time and bags made counters
 HMIData.cycleTime := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTime;

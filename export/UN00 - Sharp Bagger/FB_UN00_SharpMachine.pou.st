@@ -36,6 +36,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // Setup of unit modes
 
 IF NOT xInit THEN
+	
 	automaticUnitMode(		sName := UN00_Globals.sAutomatic, 
 							dwSupportedStates := PACK_ML.State.All - PACK_ML.State.Completing - PACK_ML.State.Complete - PACK_ML.State.Suspended - PACK_ML.State.Suspending - PACK_ML.State.UnSuspending, 
 							dwAllowsLeavingFromStates := PACK_ML.State.Stopped OR PACK_ML.State.Aborted OR PACK_ML.State.Idle, 

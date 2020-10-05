@@ -1,7 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_SolenoidValve EXTENDS FB_BaseObject IMPLEMENTS ISolenoidValve, ISimulateable
 VAR_INPUT
-	
 END_VAR
 VAR_OUTPUT
 	solenoid0 : BOOL;

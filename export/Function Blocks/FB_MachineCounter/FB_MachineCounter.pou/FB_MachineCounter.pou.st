@@ -5,7 +5,6 @@ END_VAR
 VAR_OUTPUT
 	count : UDINT;
 END_VAR
-VAR 
-    
+VAR   
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

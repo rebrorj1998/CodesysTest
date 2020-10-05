@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD PRIVATE mVeloAccDecCalc : STRING
+METHOD PRIVATE mDistanceCalc : DINT
 VAR_INPUT
-	value : REAL;
+	distanceSP : REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-mVeloAccDecCalc := CONCAT(TO_STRING((value * 0.489)),'$R');
+mDistanceCalc := TO_DINT(distanceSP * TO_REAL(stepsPerInchSP));

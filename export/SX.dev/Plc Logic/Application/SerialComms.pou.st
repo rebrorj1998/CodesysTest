@@ -1,8 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 PROGRAM SerialComms
 VAR
-	serial : FB_CrevisSerial();
-	
+	serial : FB_FilmDriveSerial();
 	hIecTask : RTS_IEC_HANDLE;
 	firstScanDone  : BOOL;
 END_VAR
@@ -14,13 +13,4 @@ IF NOT firstScanDone THEN
 	firstScanDone := TRUE;
 END_IF
 
-serial(
-	xExecute:= , 
-	xDone=> , 
-	xBusy=> , 
-	xError=> , 
-	sendData:= , 
-	receivedData=> , 
-	inputs:= ADR(serialInputs), 
-	outputs:= ADR(serialOutputs));
 	

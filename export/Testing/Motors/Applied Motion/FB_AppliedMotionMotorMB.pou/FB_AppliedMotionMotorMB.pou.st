@@ -261,7 +261,6 @@ CASE state OF
 
 	eAppliedMotionDriveStates.MoveABS:
 				// Move to absolute position
-				
 				directDataOp.Position.diDint := mDistanceCalc(TargetPosDist);
 				directDataOp.Speed := mVeloAccDecCalc(ProfileVelocity);
 				directDataOp.Accel := mVeloAccDecCalc(ProfileAcceleration);
@@ -343,7 +342,6 @@ CASE state OF
 					state := eAppliedMotionDriveStates.Idle;
 				END_IF 
 
-				
 		eAppliedMotionDriveStates.Faulting:
 				// Faulting - stop drive
 				mClearStatus();
@@ -361,6 +359,5 @@ CASE state OF
 					IF NOT alarmActive THEN
 						state := eAppliedMotionDriveStates.Idle;
 					END_IF
-					
 				END_IF
 END_CASE

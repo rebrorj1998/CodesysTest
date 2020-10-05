@@ -3,6 +3,7 @@ FUNCTION_BLOCK FB_BannerManager
 VAR_INPUT
 	baggerNotReady : BOOL;
 	baggerReady : BOOL;
+	baggerInStandby : BOOL;
 	baggerInCycle : BOOL;
 	noBagCoveringEye : BOOL;
 	bagFailedToSeperate : BOOL;
@@ -89,7 +90,7 @@ mappedMessages[30] := printerServiceRequired;
 mappedMessages[31] := jawFailedToOpen;
 mappedMessages[32] := IBDFailedToClose;
 mappedMessages[33] := IBDFailedToOpen;
-
+mappedMessages[34] := baggerInStandby;
 
 // Clear out currently displayed message if no longer active
 IF NOT mappedMessages[messageDisplayIndication] THEN
@@ -113,5 +114,3 @@ IF messageDisplayScrollTimer.Q OR atEndOfList OR displayedMessageCleared THEN
 	atEndOfList := TRUE;
 	lastMessageFound := 0;
 END_IF
-
-

@@ -17,5 +17,4 @@ VAR
 	activeONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
-	
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

@@ -3,6 +3,7 @@ FUNCTION_BLOCK EM01_Bagger_Control_Modules
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
+	
 	dummyVacuumCups : FB_BaseVacuum(name := 'Pneumatic Vacuum Cups') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
 	simExitConveyor : FB_SimBasicExitConveyor(name := 'Sim Exit Conveyor') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
 	standardBagOpenFingersWithSensors : FB_BaseBagOpenFingers(name := 'Standard Bag Open Fingers') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
@@ -31,59 +32,20 @@ VAR_OUTPUT
 	barcodeVerifier : FB_BaseBCV(name := 'Barcode Verifier');
 	
 	bagDelivery : FB_SXBagDelivery(name := 'Bag Delivery') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
-	bagDeliveryFrontMotor : FB_AppliedMotionMotorASCII;
-	serial : FB_CrevisSerial();
+	bagDeliveryFrontMotor : FB_AppliedMotionMotorModbus;
+	
 END_VAR
-
 VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
-
 simExitConveyor(_optionActive=> );
 
-
 jawFrontMotor(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
-	DefaultCurrent:= , 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
-	isGroup:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
-	zeroOffset:= HMIData.jawZeroOffset, 
-	jogForwardCMD:= , 
-	jogReverseCMD:= , 
+	zeroOffset:= HMIData.jawZeroOffset,  
 	positionPresetRequest := HMIData.frontJawMotorData.setPreset,
 	freeMotorRequest := HMIData.frontJawMotorData.freeMotor,
-	groupMotor0:= , 
-	groupMotor1:= , 
 	MBChannel:= Front_Jaw_Motor, 
 	modbusDataFromDrive:= frontJawMotorInputs, 
 	modbusDirectDataToDrive:= frontJawMotorDDOutputs, 
@@ -92,46 +54,10 @@ jawFrontMotor(
 	triggerRIOWriteNow => frontJawMotorRIOTrigger);
 
 jawRearMotor(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
-	DefaultCurrent:= , 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
-	isGroup:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
 	zeroOffset:= HMIData.jawZeroOffset, 
-	jogForwardCMD:= , 
-	jogReverseCMD:= , 
 	positionPresetRequest := HMIData.rearJawMotorData.setPreset,
 	freeMotorRequest := HMIData.rearJawMotorData.freeMotor,
-	groupMotor0:= , 
-	groupMotor1:= , 
 	MBChannel:= Rear_Jaw_Motor, 
 	modbusDataFromDrive:= rearJawMotorInputs, 
 	modbusDirectDataToDrive:= rearJawMotorDDOutputs, 
@@ -139,38 +65,8 @@ jawRearMotor(
 	triggerDDWriteNow => rearJawMotorDDTrigger,
 	triggerRIOWriteNow => rearJowMotorRIOTrigger);
 
-jawBothMotors(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
+jawBothMotors( 
 	DefaultCurrent:= 100, 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
 	isGroup:= TRUE, 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
 	zeroOffset:= HMIData.jawZeroOffset, 
@@ -186,7 +82,6 @@ jawBothMotors(
 	triggerRIOWriteNow => bothJawMotorRIOTrigger);
 
 dualMotorPassthrough(
-	simulateIO:= , 
 	frontMotor:= jawFrontMotor, 
 	rearMotor:= jawRearMotor, 
 	bothMotors:= jawBothMotors, 
@@ -196,7 +91,6 @@ dualMotorPassthrough(
 	openVelo:= HMIData.jawOpenMotionProfile.velo, 
 	openAccel:= HMIData.jawOpenMotionProfile.accel, 
 	openDecel:= HMIData.jawOpenMotionProfile.decel, 
-	homeTimeoutSetting:= , 
 	moveInDelaySetting := TO_TIME(HMIData.jawCloseDelay * 1000),
 	passthroughSetting:= HMIData.passthroughSetting, 
 	jawClosedSetting:= HMIData.jawClosePositionSetting, 
@@ -207,99 +101,39 @@ dualMotorPassthrough(
 	closeJawPB:= HMIData.jawService.retractCommand, 
 	beginJawTestMode := HMIData.startJawCycleTest,
 	stopJawTestMode := HMIData.stopJawCycleTest,
-	failedToClose=> , 
-	failedToOpen=> , 
-	failedToHome=> , 
-	pressureBarObstructed=> , 
-	frontMotorFault=> , 
-	frontMotorCommFault=> , 
-	rearMotorFault=> , 
-	rearMotorCommFault=> , 
 	actualPosition=> HMIData.passthroughActual,
 	currentTestCycles => HMIData.jawCycleTestCycles,
 	jawTestModeActive => HMIData.jawCycleTestActive);
 
-
-	
 labelPrinter(
-	simulateIO:= , 
 	dryCycleEnable := HMIData.dryCycleEnable,
 	printSpeed:= HMIData.printSpeed, 
 	printLength:= HMIData.printLength, 
-	printHeadDebounceSetting:= , 
 	dataReadyInput:= iPrinterDataReady, 
 	serviceRequiredInput:= iPrinterServiceRequired AND iTopCoverClosed, 
-	ribbonLowInput:= , 
 	endOfPrintInput:= iPrinterBusy,
 	printHeadDownInput := iPrintHeadLowered, 
 	ribbonEncoderPulseInput:= iPrinterRibbonEncoder, 
 	eStopOK := iTopCoverClosed,
 	cancelPrint := HMIData.printerCancelRequest,
 	serviceRaisePrintHead:= HMIData.printHeadService.retractCommand, 
-	serviceLowerPrintHead:= HMIData.printHeadService.extendCommand, 
-	serviceRequired=> , 
-	ribbonFault=> ,
-	printHeadFailToLower=> ,
-	printHeadDebounced=> , 
+	serviceLowerPrintHead:= HMIData.printHeadService.extendCommand,
 	startPrintOutput=> oRequestPrint, 
 	ribbonUnwindRunOutput=> oPrinterRibbonUnwind,
 	lowerPrintHeadOutput=> oLowerPrintHead);
 	
-
 sealWire(simulateIO:= HMIData.simulateAllIO, sealDwell:= HMIData.sealBarDwell, sealCool := HMIData.sealBarCool , sealWireOutput=> oSealWire);	
 
-standardBagOpenFingersWithSensors(
-	delayToGrabSetting:= , 
-	delayToCheckBagPresentSetting:= , 
-	delayToClearSetting:= , 
-	grabCounter=> , 
-	releaseCounter=> , 
-	missedCounter=> );
-
-
+standardBagOpenFingersWithSensors();
 sealFlattenerVertAxisActuator();
 dummySealFlatteners();
 
-	
 IBDMotor(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
 	DefaultCurrent:= 100, 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
-	isGroup:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_IBD, 
 	zeroOffset:= HMIData.IBDZeroOffset, 
 	jogForwardCMD:= HMIData.IBDJogClosed, 
 	jogReverseCMD:= HMIData.IBDJogOpen, 
-	groupMotor0:= , 
-	groupMotor1:= , 
 	positionPresetRequest := HMIData.IBDMotorData.setPreset,
 	freeMotorRequest := HMIData.IBDMotorData.freeMotor,
 	MBChannel:= IBD_Motor, 
@@ -316,59 +150,15 @@ IBD(
 	openVelo:= HMIData.IBDOpenMotionProfile.velo, 
 	openAccel:= HMIData.IBDOpenMotionProfile.accel, 
 	openDecel:= HMIData.IBDOpenMotionProfile.decel, 
-	homeTimeoutSetting:= , 
-	passthroughSetting:= HMIData.passthroughSetting, 
-	jawClosedSetting:= , 
+	passthroughSetting:= HMIData.passthroughSetting,  
 	openIBDPB:= HMIData.IBDService.extendCommand, 
-	closeIBDPB:= HMIData.IBDService.retractCommand, 
-	failedToOpen=> , 
-	failedToHome=> , 
-	IBDMotorFault=> , 
-	IBDMotorCommFault=> , 
-	actualPosition=> , 
+	closeIBDPB:= HMIData.IBDService.retractCommand,  
 	IBDMotor:= IBDMotor);
 
-loadPlateMotor(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
-	DefaultCurrent:= , 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
-	isGroup:= , 
+loadPlateMotor( 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_LOAD_PLATE, 
-	zeroOffset:= , 
-	jogForwardCMD:= , 
-	jogReverseCMD:= , 
 	positionPresetRequest := HMIData.loadPlateMotorData.setPreset,
 	freeMotorRequest := HMIData.loadPlateMotorData.freeMotor,
-	groupMotor0:= , 
-	groupMotor1:= , 
 	MBChannel:= Load_Plate_Motor, 
 	modbusDataFromDrive:= loadPlateMotorInputs, 
 	modbusDirectDataToDrive:= loadPlateMotorDDOutputs, 
@@ -383,16 +173,11 @@ loadPlate(
 	raiseVelo:= HMIData.loadPlateRaiseProfile.velo, 
 	raiseAccel:= HMIData.loadPlateRaiseProfile.accel, 
 	raiseDecel:= HMIData.loadPlateRaiseProfile.decel,
-	homeTimeoutSetting:= , 
 	raisedSetting:= HMIData.loadPlateRaisedPositionSetting, 
 	loweredSetting:= HMIData.loadPlateLoweredPositionSetting, 
 	dwellSetting:= HMIData.loadPlateDwell, 
 	raiseShelfPB:= HMIData.loadPlateService.extendCommand, 
 	lowerShelfPB:= HMIData.loadPlateService.retractCommand, 
-	failedToHome=> , 
-	motorFault=> , 
-	motorCommFault=> , 
-	actualPosition=> , 
 	loadPlateMotor:= loadPlateMotor);
 
 barcodeVerifier(
@@ -404,56 +189,17 @@ barcodeVerifier(
 	badReadInput:= iBarcodeNG, 
 	badReadFaultCountSetting:= HMIData.barcodeBadReadFaultSetting, 
 	triggerScannerOutput=> oTriggerBCV, 
-	xBusy=> , 
-	xDone=> , 
 	currentGoodReadCount=> HMIData.barcodeGoodReadCount, 
-	currentBadReadCount=> HMIData.barcodeBadReadCount, 
-	barcodeFault=> );	
+	currentBadReadCount=> HMIData.barcodeBadReadCount);	
 
 bagDeliveryFrontMotor(
-	AxisState:= , 
-	SetOpMode:= , 
-	PowerOn:= , 
-	DriveEnable:= , 
-	AckError:= , 
-	StartHoming:= , 
-	Halt:= , 
-	NewSetPoint:= , 
-	MoveAbs:= , 
-	MoveAbsTorque:= , 
-	MoveRel:= , 
-	MoveVelo:= , 
-	TargetPosDist:= , 
-	TargetVelocity:= , 
-	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
-	ProfileDeceleration:= , 
-	ProfileCurrentLimit:= , 
-	QuickStopDeceleration:= , 
-	DefaultCurrent:= , 
-	ActOpMode=> , 
-	CommStatus=> , 
-	PowerState=> , 
-	EnableState=> , 
-	Error=> , 
-	ActPos=> , 
-	ActVelocity=> , 
-	SetPointAck=> , 
-	TargetReached=> , 
-	InVelocity=> , 
-	HomingDone=> , 
-	modbusAddress:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_FILM, 
-	zeroOffset:= , 
 	jogForwardCMD:= HMIData.jogFilmForward, 
-	jogReverseCMD:= HMIData.jogFilmReverse, 
-	asciiHandler:= SerialComms.serial);
-	//asciiHandler:= serial);
+	jogReverseCMD:= HMIData.jogFilmReverse);
 	
 bagDelivery(
 	simulateIO := HMIData.simulateAllIO,
 	dryCycleEnable := HMIData.dryCycleEnable,
-	_optionActive=> , 
 	printer:= PLC_PRG.baggerCM.labelPrinter, 
 	bagLength:= HMIData.bagLength, 
 	feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 
@@ -464,11 +210,7 @@ bagDelivery(
 	maxReverseSetpoint:= 4.0, 
 	sealOffset:= HMIData.bagSkirtLength, 
 	distanceFromSealBarToBagEdge:= Globals.SEAL_TO_PHOTOEYE_DISTANCE, 
-	distanceFromNipToBagEdge:= , 
-	bagPresent:= iBagEdgePhotoeye, 
-	trapezoidalPercent:= , 
-	reverseFault=> , 
-	bagFailedToSeparate=> , 
+	bagPresent:= iBagEdgePhotoeye,  
 	bagDeliveryMotor:= bagDeliveryFrontMotor);	
 	
 IBD.OptionInstalled := HMIData.IBDInstalled;

@@ -95,8 +95,6 @@ IF NOT DriveEnable THEN
 	RETURN;
 END_IF
 
-
-
 // Get raw drive position and alarm code
 IF isGroup THEN
 	IF __ISVALIDREF(groupMotor0) THEN

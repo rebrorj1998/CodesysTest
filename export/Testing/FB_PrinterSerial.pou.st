@@ -399,7 +399,6 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //After successful execution, the two COM Ports are closed and the test is done.
 
 executeONS(CLK := xExecute);
-
 IF executeONS.Q THEN
 	sendLabelNow := TRUE;
 END_IF
@@ -447,7 +446,7 @@ IF sendLabelNow THEN
 		
 			
 		10: // the write process is started for the first port
-		    comw1(xExecute := TRUE,hCom:= como1.hCom,pBuffer:= ADR(labelFile),szSize:= SIZEOF(labelFile));
+		    comw1(xExecute := TRUE, hCom:= como1.hCom, pBuffer:= ADR(labelFile), szSize:= SIZEOF(labelFile));
 			
 			IF comw1.xError THEN
 				xCom1WriteError := TRUE;

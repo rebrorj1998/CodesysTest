@@ -3,6 +3,7 @@ FUNCTION_BLOCK EM01_Bagger_Control_Modules
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
+	
 	dummyVacuumCups : FB_BaseVacuum(name := 'Pneumatic Vacuum Cups') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
 	simExitConveyor : FB_SimBasicExitConveyor(name := 'Sim Exit Conveyor') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
 	standardBagOpenFingersWithSensors : FB_BaseBagOpenFingers(name := 'Standard Bag Open Fingers') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
@@ -31,10 +32,9 @@ VAR_OUTPUT
 	barcodeVerifier : FB_BaseBCV(name := 'Barcode Verifier');
 	
 	bagDelivery : FB_SXBagDelivery(name := 'Bag Delivery') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
-	bagDeliveryFrontMotor : FB_AppliedMotionMotorASCII;
-	serial : FB_CrevisSerial();
+	bagDeliveryFrontMotor : FB_AppliedMotionMotorModbus;
+	
 END_VAR
-
 VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -442,13 +442,11 @@ bagDeliveryFrontMotor(
 	TargetReached=> , 
 	InVelocity=> , 
 	HomingDone=> , 
-	modbusAddress:= , 
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_FILM, 
 	zeroOffset:= , 
 	jogForwardCMD:= HMIData.jogFilmForward, 
 	jogReverseCMD:= HMIData.jogFilmReverse, 
 	asciiHandler:= SerialComms.serial);
-	//asciiHandler:= serial);
 	
 bagDelivery(
 	simulateIO := HMIData.simulateAllIO,

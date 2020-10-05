@@ -24,7 +24,7 @@ END_IF
 
 
 //IF modeManager.ActiveUnitMode.Name = UN00_Globals.sAutomatic THEN
-	activeBaggerMode := BaggerAutoMode;
+activeBaggerMode := BaggerAutoMode;
 //ELSIF modeManager.ActiveUnitMode.Name = UN00_Globals.sMaintenance THEN
 //	activeBaggerMode := BaggerMaintMode;
 //END_IF

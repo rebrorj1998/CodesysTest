@@ -4,41 +4,38 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
     currentDateAndTime : DATE_AND_TIME;
-    
 END_VAR
 VAR
-    iState                    : INT;
-    udiUtcTime             : UDINT;
-    udiUtcTimeLocal     : UDINT;
-    strTimeDate         : SYSTIMEDATE;
-    strTimeDateLocal     : SYSTIMEDATE;
-    dtDateTimeUTC        : DATE_AND_TIME;
-    timeLeftTime        : TIME;
-    timeLeftDWORD        : DWORD;
-    dDateUTC            : DATE;
-    todTimeOfDayUTC        : TOD;
+    iState : INT;
+    udiUtcTime : UDINT;
+    udiUtcTimeLocal : UDINT;
+    strTimeDate : SYSTIMEDATE;
+    strTimeDateLocal : SYSTIMEDATE;
+    dtDateTimeUTC : DATE_AND_TIME;
+    timeLeftTime : TIME;
+    timeLeftDWORD : DWORD;
+    dDateUTC : DATE;
+    todTimeOfDayUTC : TOD;
     
-    tSysStartTime        : TIME;
-    systimeStartNano    : SYSTIME;
-    udiStartTimeResult    : UDINT;
+    tSysStartTime : TIME;
+    systimeStartNano : SYSTIME;
+    udiStartTimeResult : UDINT;
+    udiResult : UDINT;
     
-    udiResult             : UDINT;
+    GetDateAndTime : DTU.GetDateAndTime;
+    SetTimeZoneInformation : DTU.SetTimeZoneInformation;
     
-    
-    GetDateAndTime            : DTU.GetDateAndTime;
-    SetTimeZoneInformation    : DTU.SetTimeZoneInformation;
-    
-    dtCurrent                : DATE_AND_TIME;
-    dtConcated                : DATE_AND_TIME;
+    dtCurrent : DATE_AND_TIME;
+    dtConcated : DATE_AND_TIME;
     //eWeekday                 : RTCLK.WEEKDAY;
-    uiYear                     : UINT;
-    uiMonth                     : UINT;
-    uiDay                     : UINT;
-    uiHour                     : UINT;
-    uiMinute                 : UINT;
-    uiSecond                 : UINT;
+    uiYear : UINT;
+    uiMonth : UINT;
+    uiDay : UINT;
+    uiHour : UINT;
+    uiMinute : UINT;
+    uiSecond : UINT;
         
-    dtuError                : DTU.ERROR;
+    dtuError : DTU.ERROR;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 CASE iState OF

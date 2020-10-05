@@ -4,10 +4,8 @@ VAR_INPUT
 	inputToSimulate : REFERENCE TO FB_PhysicalDigitalInput;					
 END_VAR
 VAR_OUTPUT
-
 END_VAR
 VAR
-
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_SimulatedFeedbackPhysicalInput

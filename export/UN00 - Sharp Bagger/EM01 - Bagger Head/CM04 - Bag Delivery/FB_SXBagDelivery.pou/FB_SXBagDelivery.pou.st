@@ -43,7 +43,6 @@ VAR
 END_VAR
 VAR_IN_OUT
 	bagDeliveryMotor : Axis_REF;
-
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();
 
@@ -66,7 +65,6 @@ END_IF
 _ready := state = 0 AND NOT bagDeliveryMotor.Error;
 //EnableSimulation(bagDeliveryMotor, simulateIO);
 
-
 IF trapezoidalPercent <= 0 THEN
 	trapezoidalPercent := 0.1;
 END_IF
@@ -86,7 +84,6 @@ CASE state OF
 			END_IF
 			
 			IF _reverseToSeparate THEN
-				
 				_bagSeparated := FALSE;
 				state := 50;
 				_reverseToSeparate := FALSE;
@@ -101,16 +98,7 @@ CASE state OF
 			
 	1:		// Homing
 			
-			
-			
 	2:		// 
-			
-	
-		
-	
-
-			
-			
 			
 	4: 		// 
 	
@@ -155,7 +143,6 @@ CASE state OF
 				state := 101;
 				nextState := 21;	
 			END_IF
-			
 	
 	21: 	// Set Ready For Print
 			_readyForPrint := TRUE;
@@ -248,7 +235,6 @@ CASE state OF
 			
 			IF NOT bagPresent AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Execute := FALSE;
-				
 				MC_HaltBagDelivery.Execute := TRUE;
 				bagEdgePhotoeyeSim.in := FALSE;
 				state := 32;
@@ -263,8 +249,6 @@ CASE state OF
 				nextState := 0;
 			END_IF
 			
-	
-	
 	40:		// Feed at Print Speed
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := printSpeed;
@@ -288,7 +272,6 @@ CASE state OF
 	
 	101: 	// Wait for Move to complete
 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
-				
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				ClearStatus();
@@ -310,11 +293,7 @@ CASE state OF
 					MC_MoveBagDelivery.Execute := FALSE;
 					state := nextState;
 				END_IF
-			
-				
 			END_IF
-			
-	
 			
 	103:	// Set In Position and go back to idle
 			
