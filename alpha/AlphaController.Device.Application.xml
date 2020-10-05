@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="3.5.16.10" runtimeid="3.5.13.0" libversion="3.5.15.20" compiler="3.5.15.30" lmm="3.5.16.0" profile="CODESYS V3.5 SP16 Patch 1+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="3.5.16.20" runtimeid="3.5.13.0" libversion="3.5.15.20" compiler="3.5.15.30" lmm="3.5.16.0" profile="CODESYS V3.5 SP16 Patch 2+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="Device" appname="Application" />
   </Header>
   <TypeList>
@@ -250,6 +250,12 @@
       <UserDefElement iecname="acknowledged" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="active" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+    <TypeUserDef name="T_FB_MurrK50" size="4" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrK50">
+      <UserDefElement iecname="baggerReady" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
+      <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="1" vartype="VAR_INPUT" />
+      <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="2" vartype="VAR_INPUT" />
+      <UserDefElement iecname="IOLinkStateOutput" type="T_BYTE" byteoffset="3" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
     <TypeUserDef name="T_FB_TemperatureSensor" size="184" nativesize="192" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TemperatureSensor">
       <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="_rawTemperatureReading" type="T_INT" byteoffset="82" vartype="VAR" />
@@ -394,6 +400,7 @@
       <UserDefElement type="T_PalmButtonSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_PalmButtonSelection" iecname="SinglePalmButton" enumvalue="1" />
       <UserDefElement type="T_PalmButtonSelection" iecname="DualPalmButton" enumvalue="2" />
+      <UserDefElement type="T_PalmButtonSelection" iecname="LightedPalmButton" enumvalue="3" />
     </TypeUserDef>
     <TypeSimple name="T_REFERENCE_TO_BOOL_REF" size="1" swapsize="0" typeclass="Reference" iecname="REFERENCE TO BOOL_REF" basetype="T_BOOL" />
     <TypeSimple name="T_REFERENCE_TO_UDINT_REF" size="4" swapsize="4" typeclass="Reference" iecname="REFERENCE TO UDINT_REF" basetype="T_UDINT" />
@@ -1251,7 +1258,7 @@
       <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="300" vartype="VAR_IN_OUT" />
       <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="308" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="5817" nativesize="103660" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="5821" nativesize="103668" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1364,6 +1371,7 @@
       <UserDefElement iecname="resettingActive" type="T_BOOL" byteoffset="5796" vartype="VAR" />
       <UserDefElement iecname="resetTimer" type="T_TOF" byteoffset="5800" vartype="VAR" />
       <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="5816" vartype="VAR" />
+      <UserDefElement iecname="lightedPalmButton" type="T_FB_MurrK50" byteoffset="5817" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />

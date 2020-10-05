@@ -113,6 +113,7 @@ VAR
 	resettingActive : BOOL;
 	resetTimer : Standard.TOF := (PT := T#1S);
 	allMotorCommsGood : BOOL;
+	lightedPalmButton : FB_MurrK50;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -205,7 +206,9 @@ HMIData.bagOpenRetryCount := bagOpenRetryCount;
 murrIOBusNode(
 	enable:= , 
 	headNodeEnabled:= TRUE, 
-	guardNodeEnabled:= (HMIData.cycleStartButtonSelection <> PalmButtonSelection.NotInstalled) OR (HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled), 
+	guardNodeEnabled:= (HMIData.cycleStartButtonSelection = PalmButtonSelection.SinglePalmButton 
+						OR HMIData.cycleStartButtonSelection = PalmButtonSelection.DualPalmButton
+						OR (HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled)), 
 	printerNodeEnabled:= (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled), 
 	dischargeNodeEnabled:= TRUE, 
 	auxIONodeEnabled:= , 
@@ -243,8 +246,8 @@ jawClamps(
 	 
 pressureBar(
 	enable:= , 
-	iPressureBarClamped:= NOT iJawClamped, 
-	iPressureBarClosed:= NOT iJawClearToClamp, 
+	iPressureBarClamped:= iJawClamped, 
+	iPressureBarClosed:= iJawClearToClamp, 
 	iPressureBarNotObstructed:= TRUE, 
 	iBaggerEnableButton:= , 
 	iJawClampExtended:= iJawClampsExtended, 
@@ -422,9 +425,19 @@ CASE HMIData.cycleStartButtonSelection OF
 		 
 	PalmButtonSelection.DualPalmButton:					// Both buttons must be pressed
 		 												startCycleReqFromPalmButtons := iRightPalmButton AND iLeftPalmButton;
+															 
+	PalmButtonSelection.LightedPalmButton:				// Lighted Murr palm button input comes from IO Link
+		 												startCycleReqFromPalmButtons := iMurrTouchButtonStatus.0;
+															 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
 
+lightedPalmButton(	baggerReady:= readyToRun AND NOT HMIData.sealBarNotAtTemperature.active, 
+					baggerFaulted:= HMIData.faultActive, 
+					baggerInCycle:= HMIData.inCycle, 
+					IOLinkStateOutput=> oMurrTouchbuttonState);
+
+		  
 CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off
 		 												oAuxBaggerOK := FALSE;

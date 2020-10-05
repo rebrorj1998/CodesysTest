@@ -90,7 +90,7 @@ xDone=> ,
 xBusy=> , 
 xError=> ,
 hConnection := _TCPConnection_hConnection,
-szSize := 16000, // write length only
+szSize := 25000, // write length only
 pData := ADR(_sTCPSendData), 
 eError=> );
 //reset write enable
