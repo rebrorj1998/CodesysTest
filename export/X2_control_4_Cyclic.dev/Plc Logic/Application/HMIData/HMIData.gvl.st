@@ -60,6 +60,8 @@ VAR_GLOBAL
 	barcodeReadGoodIndication : BOOL;
 	barcodeReadBadIndication : BOOL;
 	barcodeVerifierTrigger : BOOL;
+	standbyActive : BOOL;
+	resetMotors : BOOL;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN
@@ -128,6 +130,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	autoModeEnable : BOOL;
 	autoModeDwell : REAL;
 	dryCycleEnable : BOOL;
+	standbyTimeSetting : REAL := 5.0;  // Standby timeout in minutes
 END_VAR
 
 VAR_GLOBAL CONSTANT

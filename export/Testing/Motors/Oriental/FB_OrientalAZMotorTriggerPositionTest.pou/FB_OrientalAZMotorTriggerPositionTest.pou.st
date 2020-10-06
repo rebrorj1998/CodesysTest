@@ -154,7 +154,6 @@ IF NOT isGroup THEN
 	END_IF
 END_IF	
 
-
 // Get drive data directly from modbus or from master axis	
 IF isGroup THEN
 	IF __ISVALIDREF(groupMotor0) AND __ISVALIDREF(groupMotor1) THEN

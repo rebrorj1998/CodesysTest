@@ -9,6 +9,8 @@ END_VAR
 VAR_OUTPUT
 	statusCode : WORD;
 	alarmCode : WORD;
+	modbusRIODataTrigger:BOOL;
+	modbusOPCodeTrigger:BOOL;
 END_VAR
 VAR
 	xFirstScan:BOOL := TRUE;
@@ -17,21 +19,27 @@ VAR
 	status : FB_AppliedMotionStatus;
 	alarms : FB_AppliedMotionAlarms;
 	state : eAppliedMotionDriveStatesASCII;
+	commErrorONS : FB_ONS;
+	commErrorFaultONS : FB_ONS;
+	commErrorCount : DINT;
+	commErrorFaultSetting : DINT := 3;
 	alarmONS : FB_ONS;
 	haltONS : FB_ONS;
 	freeMotor: BOOL;
 	zHome: BOOL;
 	reset: BOOL;
 END_VAR
+VAR_IN_OUT
+	MBChannel:IoDrvModbus.ModbusSlaveComPort;
+	modbusDataFromDrive:ARRAY[0..31] OF WORD;
+	modbusRIODataToDrive:ARRAY[0..4] OF WORD;
+	modbusOPCodeToDrive:WORD;
+END_VAR
 VAR CONSTANT
-	UNITS_PER_ROTATION:REAL := 4;
-	RPS_TO_RPM:REAL := 60;
+	UNITS_PER_ROTATION:REAL := 4; // 1 unit = .25 RPM
+	RPS_TO_RPM:REAL := 60; // Convert Revolution Per Seconds to Revolution Per Minute
 	REVS_PER_INCH_OF_FEED:REAL := 0.489;
-	ACCEL_DECEL_RATE_IN_RPM:WORD := 600;
-	SK_OPCODE:WORD :=  225;
-	FL_OPCODE:WORD := 102;
-	AX_OPCODE:WORD := 186;
-	ME_OPCODE:WORD := 159;
+	ACCEL_DECEL_RATE_IN_RPM:WORD := 600; // 1 unit = 10 RPM/S, 600 equals 100 RPS/S which is the default Accel/Decel in SCL
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_OrientalAZMotor()
 //	Description: A PLCOpen Motion compliant library for a Oriental AZ Series drive/motor
@@ -48,6 +56,17 @@ IF NOT DriveEnable THEN
 	RETURN;
 END_IF
 
+// Only set comm error status after x modbus errors
+commErrorONS(CLK := MBChannel.xError);
+IF commErrorONS.OSR THEN
+	commErrorCount := commErrorCount + 1;
+END_IF
+commErrorFaultONS(CLK := commErrorCount = commErrorFaultSetting);
+IF commErrorFaultONS.OSR THEN
+	state := eAppliedMotionDriveStatesASCII.Faulting;
+	CommStatus := FALSE;
+END_IF
+
 haltONS(CLK := Halt);
 IF haltONS.OSR THEN
 	state := eAppliedMotionDriveStatesASCII.Halt;
@@ -55,7 +74,7 @@ END_IF
 waitForHaltTimer(IN := state = eAppliedMotionDriveStatesASCII.Halting);
 
 // Get drive data directly from master axis	
-status(statusCode:= filmFeedDriveInputs[1]);
+status(statusCode:= modbusDataFromDrive[1]);
 IF status.moving THEN 
 	ActVelocity := ProfileVelocity;
 ELSE
@@ -77,10 +96,10 @@ CASE state OF
 					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStatesASCII.MoveABS;
 				ELSIF MoveRel THEN
-					filmFeedDriveOutputs[2] := TO_WORD(mVeloAccDecCalc(ProfileVelocity));
-					triggerFilmDriveOutputUpdate := TRUE;
-					IF filmFeedDriveInputs[29] = filmFeedDriveOutputs[2] THEN
-						triggerFilmDriveOutputUpdate := FALSE;
+					modbusRIODataToDrive[2] := TO_WORD(mVeloAccDecCalc(ProfileVelocity));
+					modbusRIODataTrigger := TRUE;
+					IF modbusDataFromDrive[29] = modbusRIODataToDrive[2] THEN
+						modbusRIODataTrigger := FALSE;
 						AxisState := AXIS_STATE.AS_DiscreteMotion;
 						state := eAppliedMotionDriveStatesASCII.MoveInc;
 					END_IF		
@@ -88,10 +107,10 @@ CASE state OF
 					AxisState := AXIS_STATE.AS_DiscreteMotion;
 					state := eAppliedMotionDriveStatesASCII.MoveABS;
 				ELSIF jogForwardCMD OR jogReverseCMD THEN
-					filmFeedDriveOutputs[2] := TO_WORD(mVeloAccDecCalc(1));
-					triggerFilmDriveOutputUpdate := TRUE;
-					IF filmFeedDriveInputs[29] = filmFeedDriveOutputs[2] THEN
-						triggerFilmDriveOutputUpdate := FALSE;
+					modbusRIODataToDrive[2] := TO_WORD(mVeloAccDecCalc(1));
+					modbusRIODataTrigger := TRUE;
+					IF modbusDataFromDrive[29] = modbusRIODataToDrive[2] THEN
+						modbusRIODataTrigger := FALSE;
 						AxisState := AXIS_STATE.AS_DiscreteMotion;
 						state := eAppliedMotionDriveStatesASCII.StartJogging;
 					END_IF					
@@ -104,12 +123,12 @@ CASE state OF
 		eAppliedMotionDriveStatesASCII.MoveInc:
 				// Move to incremental position
 				mSetFeedToLength(mDistanceCalc(TargetPosDist));
-				IF filmFeedDriveInputs[31] = filmFeedDriveOutputs[4] THEN
-					triggerFilmDriveOutputUpdate := FALSE;
-					currentOpcodeOutput := FL_OPCODE;
-					triggerFilmDriveOpCode := TRUE;
+				IF modbusDataFromDrive[31] = modbusRIODataToDrive[4] THEN
+					modbusRIODataTrigger := FALSE;
+					modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.FEED_TO_LENGTH);
+					modbusOPCodeTrigger := TRUE;
 					IF status.moving THEN
-						triggerFilmDriveOpCode := FALSE;
+						modbusOPCodeTrigger := FALSE;
 						state := eAppliedMotionDriveStatesASCII.Moving;
 					END_IF
 				END_IF
@@ -127,32 +146,32 @@ CASE state OF
 				// Begin jog move 
 				IF jogForwardCMD THEN
 					mSetFeedToLength(mDistanceCalc(30));
-					IF filmFeedDriveInputs[31] = filmFeedDriveOutputs[4] THEN
-						triggerFilmDriveOutputUpdate := FALSE;
-						currentOpcodeOutput := FL_OPCODE;
-						triggerFilmDriveOpCode := TRUE;
+					IF modbusDataFromDrive[31] = modbusRIODataToDrive[4] THEN
+						modbusRIODataTrigger := FALSE;
+						modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.FEED_TO_LENGTH);
+						modbusOPCodeTrigger := TRUE;
 					END_IF
 				ELSIF jogReverseCMD THEN
 					mSetFeedToLength(mDistanceCalc(-30));
-					IF filmFeedDriveInputs[31] = filmFeedDriveOutputs[4] THEN
-						triggerFilmDriveOutputUpdate := FALSE;
-						currentOpcodeOutput := FL_OPCODE;
-						triggerFilmDriveOpCode := TRUE;
+					IF modbusDataFromDrive[31] = modbusRIODataToDrive[4] THEN
+						modbusRIODataTrigger := FALSE;
+						modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.FEED_TO_LENGTH);
+						modbusOPCodeTrigger := TRUE;
 					END_IF
 				END_IF
 				
 				IF status.moving THEN
-					triggerFilmDriveOpCode := FALSE;
+					modbusOPCodeTrigger := FALSE;
 					state := eAppliedMotionDriveStatesASCII.Jogging;
 				END_IF
 				
 		eAppliedMotionDriveStatesASCII.Jogging:
 				// Jog forward/reverse
 				IF NOT jogForwardCMD AND NOT jogReverseCMD THEN
-					currentOpcodeOutput := SK_OPCODE;
-					triggerFilmDriveOpCode := TRUE;
+					modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.STOP_MOVE_KILL_BUFFER);
+					modbusOPCodeTrigger := TRUE;
 					IF NOT status.moving THEN
-						triggerFilmDriveOpCode := FALSE;
+						modbusOPCodeTrigger := FALSE;
 						state := eAppliedMotionDriveStatesASCII.Idle;
 					END_IF
 				END_IF
@@ -175,14 +194,14 @@ CASE state OF
 
 		eAppliedMotionDriveStatesASCII.Halt:
 				//
-				currentOpcodeOutput := SK_OPCODE;
-				triggerFilmDriveOpCode := TRUE;
+				modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.STOP_MOVE_KILL_BUFFER);
+				modbusOPCodeTrigger := TRUE;
 				state := eAppliedMotionDriveStatesASCII.HaltSending;
 				
 		eAppliedMotionDriveStatesASCII.HaltSending:
 				//
 				IF NOT status.moving THEN
-					triggerFilmDriveOpCode := FALSE;
+					modbusOPCodeTrigger := FALSE;
 					state := eAppliedMotionDriveStatesASCII.Halting;
 				END_IF
 		
@@ -199,26 +218,26 @@ CASE state OF
 				AxisState := AXIS_STATE.AS_ErrorStop;
 				Error := TRUE;
 				freeMotor := TRUE;
-				currentOpcodeOutput := SK_OPCODE;
-				triggerFilmDriveOpCode := TRUE;
+				modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.STOP_MOVE_KILL_BUFFER);
+				modbusOPCodeTrigger := TRUE;
 				IF NOT status.moving THEN
-					triggerFilmDriveOpCode := FALSE;
+					modbusOPCodeTrigger := FALSE;
 					state := eAppliedMotionDriveStatesASCII.FaultGetAlarmCode;
 				END_IF
 		
 		eAppliedMotionDriveStatesASCII.FaultGetAlarmCode:
 				// Get alarm code and display
-				alarms(alarmCode:= filmFeedDriveInputs[0]);
+				alarms(alarmCode:= modbusDataFromDrive[0]);
 				state := eAppliedMotionDriveStatesASCII.EnableMotor;
 		
 		eAppliedMotionDriveStatesASCII.Faulted:
 				// Faulted - wait for clear
 				IF AckError THEN
 					IF status.driveFaulted THEN
-						currentOpcodeOutput := AX_OPCODE;
-						triggerFilmDriveOpCode := TRUE;
+						modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.ALARM_OUTPUT);
+						modbusOPCodeTrigger := TRUE;
 						IF alarms.alarmCode = 0 THEN
-							triggerFilmDriveOpCode := FALSE;
+							modbusOPCodeTrigger := FALSE;
 							state := eAppliedMotionDriveStatesASCII.EnableMotor;
 						END_IF
 					ELSE
@@ -228,10 +247,10 @@ CASE state OF
 				
 		eAppliedMotionDriveStatesASCII.EnableMotor:
 				//
-				currentOpcodeOutput := ME_OPCODE;
-				triggerFilmDriveOpCode := TRUE;
+				modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.MOTOR_ENABLE);
+				modbusOPCodeTrigger := TRUE;
 				IF status.motorEnabled THEN
-					triggerFilmDriveOpCode := FALSE;
+					modbusOPCodeTrigger := FALSE;
 					Error := FALSE;
 					state := eAppliedMotionDriveStatesASCII.Idle;
 				END_IF

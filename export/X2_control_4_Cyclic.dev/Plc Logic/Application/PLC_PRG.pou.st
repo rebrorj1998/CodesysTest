@@ -1,7 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 PROGRAM PLC_PRG
 VAR
-	
 	firstScanDone: BOOL;
 	cycleStartONS : FB_ONS;
 	powerUpFrontJawMotor : MC_Power;
@@ -25,12 +24,58 @@ VAR
 	cycleComplete : FB_ONS;
 	hIecTask : RTS_IEC_HANDLE;//Declaration of the variable hIecTask
 	teachPhotoeyeTimer : Standard.TOF() := (PT := T#3S);
+	standbyTimer : Standard.TON;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
+//		Control modules are set up in EM01_Bagger_Control_Modules
+//		Automatic cycle control is set up in POUs - EM01_BaggerHead_Automode.Executing
+// 		This program sets up machine specific contol modules and interfaces to the HMI.
 //				 
 //	Created by: Ben Hess
 //	Created Date: 
+(*
+
+PackML Machine States for Sharp Baggers                       
+                                                                                         
+                                                                                         
++---------------------------------------------------------------------------------------+
+| +----------------+          +----------------+         +----------------+             |
+| |                |          |                |         |                |             |
+| |      Idle      |--------->|    Starting    |-------->|     Execute    |             |
+| |                |          |                |         |                |             |
+| +----------------+          +----------------+         +----------------+             |
+|          ^                                                                            |
+|          |                                                                            |
+|          |                                                                            |
+|          |                                                                            |
+| +----------------+                                                                    |
+| |                |                                                                    |
+| |   Resetting    |                                                                    |
+| |                |                                                                    |
+| +----------------+                                                                    |
+|          ^                                                                            |
++---------------------------------------------------------------------------------------+
+|          |                     |                                                      |
+|          |                     |                                                      |
++---------------------------------------------------------------------------------------+
+|          |                     v          |                                   |        
+| +----------------+    +----------------+  |                                   |        
+| |                |    |                |  |                                   |        
+| |    Stopped     |<-- |    Stopping    |  |                                   v        
+| |                |    |                |  |    +----------------+    +----------------+
+| +----------------+    +----------------+  |    |                |    |                |
+|                                ^          |    |    Aborted     | <- |    Aborting    |
+|                                |          |    |                |    |                |
+|                       +----------------+  |    +----------------+    +----------------+
+|                       |                |  |             |                              
+|                       |    Clearing    |  |             |                              
+|                       |                |<---------------|                              
+|                       +----------------+  |                                            
++-------------------------------------------+                                            
+*)
+
+
 
 // Initialze global objects on first scan
 IF NOT firstScanDone THEN
@@ -38,18 +83,18 @@ IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := Globals.SystemLog);
 	GlobalObjects.CollectionOfFaults.FaultUpdateForHMI();
 	hIecTask := IecTaskGetCurrent(0);
-	IecTaskDisableWatchdog(hIecTask); // Watchdog disabled
-	firstScanDone := TRUE;
+	IecTaskDisableWatchdog(hIecTask); // Watchdog disabled 
 END_IF
 
 // Teach bag photoeye
 teachPhotoeyeTimer(IN := HMIData.teachBagPhotoeye, Q => oTeachPhotoeye);
 HMIData.teachingBagPhoteye := oTeachPhotoeye;
 
+
 // Use fault collection for faultActive indication
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
-
-// Cycle start conditions
+		
+(* Cycle start conditions *)
 // Auto mode dwell timer
 autoModeTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle);
 // Start from Cycle Start input
@@ -69,7 +114,7 @@ IF UN00_SXMachine.currentState <> PACK_ML.State.Execute OR HMIData.ackAllFaults 
 	autoModeKeepCycling := FALSE;
 END_IF
 
-// Only faults execute automatically to handle acking and clearing without being run in each FB that contains them
+// Fault FB's execute automatically to handle acking and clearing without having to be run in each FB that contains them
 IF firstScanDone THEN
 	GlobalObjects.CollectionOfExecutable.ExecuteAll();
 END_IF
@@ -140,7 +185,7 @@ printerLabel();
 // Run collection of bagger control modules
 baggerCM();
 
-// Set bagger head control modules
+// Set bagger head control modules and run head Equipment Module
 EM01_SXBaggerHead(
 	bagOpenFingers:= baggerCM.dummyBOF, 
 	sealFlatteners:= baggerCM.dummySealFlatteners, 
@@ -162,6 +207,7 @@ EM01_SXBaggerHead(
 	bagOpenRetryCount=> , 
 	failedToOpenBag=> );
 	
+// Run discharge Equipment Module
 EM02_SXDischarge();
 
 // Machine unit
@@ -180,7 +226,20 @@ palmButton(
 	baggerInCycle:= HMIData.inCycle, 
 	palmState0Output=> oPalmButton0, 
 	palmState1Output=> oPalmButton1);
-	
+
+// Standby timer - timeout and turn off fans if not cycled. Turn them back on once reset
+standbyTimer(IN := NOT HMIData.inCycle AND UN00_SXMachine.currentState = PACK_ML.State.Execute, PT := TO_TIME(HMIData.standbyTimeSetting * 60 * 1000));
+IF standbyTimer.Q AND HMIData.standbyTimeSetting > 0 THEN
+	UN00_SXMachine.StopMachine();
+	HMIData.standbyActive := TRUE;
+END_IF
+
+IF HMIData.ackAllFaults THEN
+	HMIData.standbyActive := FALSE;
+END_IF
+
+oFansEnable := HMIData.standbyActive;
+
 //
 // HMI Mapping
 //
@@ -188,16 +247,16 @@ palmButton(
 // Send the list of active fault strings to HMI for viewing
 HMIData.activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames;
 
+// In cycle indication
 HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive;
+
 // PackML state to string for HMI
 HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.currentBaggerState;
 
-
-// Banner manager takes care of the Multistate lamp used as a banner on the proface/Beijer 
+// Banner manager takes care of the Multistate lamp used as a banner on the proface 
 bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.currentState = PACK_ML.State.Execute, 
 	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
-	baggerInStandby:= ,
 	baggerInCycle:= HMIData.inCycle, 
 	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
 	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
@@ -230,6 +289,7 @@ bannerManager(
 	jawFailedToOpen:= baggerCM.dualMotorPassthrough.failedToOpen.Active, 
 	IBDFailedToClose:= , 
 	IBDFailedToOpen:= baggerCM.IBD.failedToOpen.Active, 
+	baggerInStandby := HMIData.standbyActive,
 	messageDisplayIndication=> HMIData.bannerMessageIndication);
 
 // Ready indications for bagger control modules
@@ -259,6 +319,8 @@ HMIData.loadPlateMotorData.CurrentAlarmCode := baggerCM.loadPlateMotor.alarmCode
 
 HMIData.bagDeliveryMotorData.alarmCode := baggerCM.bagDeliveryFrontMotor.alarmCode;
 HMIData.bagDeliveryMotorData.statusCode := baggerCM.bagDeliveryFrontMotor.statusCode;
+
+
 
 // Cycle time and bags made counters
 HMIData.cycleTime := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTime;
@@ -302,3 +364,7 @@ amazonBPM(
 	BPMCycles=> HMIData.BPMBagsMade, 
 	BPMSeconds=> , 
 	BPMIndication=> HMIData.BPMActiveTime);
+	
+
+// Set first scan complete flag
+firstScanDone := TRUE;

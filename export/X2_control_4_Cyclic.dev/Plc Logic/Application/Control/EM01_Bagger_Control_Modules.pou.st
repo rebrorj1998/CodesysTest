@@ -142,6 +142,7 @@ IBDMotor(
 	modbusRIODataToDrive:= IBDMotorRIOOutputs,
 	triggerDDWriteNow => IBDMotorDDTRigger,
 	triggerRIOWriteNow => IBDMotorRIOTRigger);
+	
 IBD(
 	closeVelo:= HMIData.IBDCloseMotionProfile.velo, 
 	closeAccel:= HMIData.IBDCloseMotionProfile.accel, 
@@ -193,13 +194,19 @@ barcodeVerifier(
 	currentBadReadCount=> HMIData.barcodeBadReadCount);	
 
 bagDeliveryFrontMotor(
+	MBChannel:= Film_Feed_Drive,
+	modbusDataFromDrive:= filmFeedDriveInputs,
+	modbusRIODataToDrive:= filmFeedDriveOutputs,
+	modbusOPCodeToDrive:= filmFeedOpcodeOutput,
 	stepsPerInchSP:= Globals.STEPS_PER_INCH_FILM, 
 	jogForwardCMD:= HMIData.jogFilmForward, 
-	jogReverseCMD:= HMIData.jogFilmReverse);
+	jogReverseCMD:= HMIData.jogFilmReverse,
+	modbusRIODataTrigger=> triggerFilmDriveOutputUpdate,
+    modbusOPCodeTrigger=> triggerFilmDriveOpCode);
 	
 bagDelivery(
-	simulateIO := HMIData.simulateAllIO,
-	dryCycleEnable := HMIData.dryCycleEnable,
+	simulateIO:= HMIData.simulateAllIO,
+	dryCycleEnable:= HMIData.dryCycleEnable,
 	printer:= PLC_PRG.baggerCM.labelPrinter, 
 	bagLength:= HMIData.bagLength, 
 	feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 

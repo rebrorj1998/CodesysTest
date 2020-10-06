@@ -131,4 +131,6 @@ VAR_GLOBAL PERSISTENT RETAIN
 	HMIData.autoModeDwell: REAL;
 	// Generated instance path of persistent variable
 	HMIData.dryCycleEnable: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.standbyTimeSetting : REAL;
 END_VAR

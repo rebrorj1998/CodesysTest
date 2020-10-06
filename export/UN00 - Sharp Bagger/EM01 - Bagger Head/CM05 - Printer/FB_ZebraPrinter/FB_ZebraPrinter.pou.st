@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_ZebraPrinter EXTENDS FB_BasicPrinter
 VAR_INPUT
-	printHeadDebounceSetting : TIME := T#25MS;
+	printHeadDebounceSetting : TIME := T#20MS;
 	printHeadDownInput : BOOL;
 	dataReadyInput : BOOL;
 	serviceRequiredInput : BOOL;

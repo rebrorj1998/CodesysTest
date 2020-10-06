@@ -5,6 +5,6 @@ VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 modbusDwordBuffer.diDint := position;
-filmFeedDriveOutputs[3] := modbusDwordBuffer.wWord[1];
-filmFeedDriveOutputs[4] := modbusDwordBuffer.wWord[0];
-triggerFilmDriveOutputUpdate := TRUE;
+modbusRIODataToDrive[3] := modbusDwordBuffer.wWord[1];
+modbusRIODataToDrive[4] := modbusDwordBuffer.wWord[0];
+modbusRIODataTrigger := TRUE;

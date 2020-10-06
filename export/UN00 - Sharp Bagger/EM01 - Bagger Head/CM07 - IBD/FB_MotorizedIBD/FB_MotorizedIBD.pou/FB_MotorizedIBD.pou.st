@@ -86,7 +86,6 @@ ELSE
 	IBDMotorCommFault.faultTrigger := FALSE;
 END_IF
 
-
 IF homeTimeout.Q 
 	//OR MC_HomeIBDMotor.Error 
 	OR UN00_Globals.simFaults.pressureBarfailedToHome
@@ -127,7 +126,6 @@ CASE state OF
 				state := eMotorizedIBDStates.Home;
 			END_IF
 			
-			
 			IF _MoveOut OR openIBDPB OR _makeReady THEN
 				_MoveOut := FALSE;
 		   		_makeReady := FALSE;
@@ -136,16 +134,12 @@ CASE state OF
 				_moveInToDeflate := FALSE;
 				state := eMotorizedIBDStates.MoveIn;
 			END_IF
-								
-		
-		
 	
 	eMotorizedIBDStates.Home:	
 		// Normal Homing - not factory homing.
 		// Move the IBD to zero
 		MC_HomeIBDMotor.Execute := TRUE;
-		state := eMotorizedIBDStates.Homing;
-					
+		state := eMotorizedIBDStates.Homing;		
 					
 	eMotorizedIBDStates.Homing:		
 		// When ZHomed, Move out to Open s
@@ -197,8 +191,6 @@ CASE state OF
 			state := eMotorizedIBDStates.Faulting;
 		END_IF
 	eMotorizedIBDStates.MovedOut:
-		//
-		
 	eMotorizedIBDStates.MoveIn:	
 		// Start Moving jaw to closed position
 		MC_MoveIBDMotorABSTorque.Position := jawClosedSetting;
@@ -219,8 +211,6 @@ CASE state OF
 			state := eMotorizedIBDStates.Faulting;
 		END_IF
 	eMotorizedIBDStates.MovedIn:
-		//
-		
 	eMotorizedIBDStates.Faulting:
 		// Free up motors on a fault
 		MC_HaltIBDMotor.Execute := TRUE;
@@ -230,9 +220,6 @@ CASE state OF
 		END_IF
 		
 	eMotorizedIBDStates.Faulted:
-		//
-		
-		
 	eMotorizedIBDStates.Reset:
 		//  Send reset to motors if they're faulted
 		//IF IBDMotor.Error THEN
