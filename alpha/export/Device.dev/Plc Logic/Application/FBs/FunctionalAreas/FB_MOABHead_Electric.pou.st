@@ -167,8 +167,8 @@ END_IF
 
 // Raise/Lower bagger head logic
 // Indications and commands from HMI
-HMIData.baggerHeadService.extendedFeedback := iHeadRaised;
-HMIData.baggerHeadService.retractedFeedback := iHeadLowered;
+HMIData.baggerHeadService.extendedFeedback := NOT iHeadRaised;
+HMIData.baggerHeadService.retractedFeedback := NOT iHeadLowered;
 IF HMIData.baggerHeadService.retractedFeedback THEN
 	HMIData.baggerHeadService.retractCommand := FALSE;
 END_IF
