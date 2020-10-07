@@ -22,12 +22,7 @@ IF NOT xInit THEN
 	xInit := TRUE;
 END_IF
 
-
-//IF modeManager.ActiveUnitMode.Name = UN00_Globals.sAutomatic THEN
 activeBaggerMode := BaggerAutoMode;
-//ELSIF modeManager.ActiveUnitMode.Name = UN00_Globals.sMaintenance THEN
-//	activeBaggerMode := BaggerMaintMode;
-//END_IF
 
 _abortingDone := activeBaggerMode.AbortingDone;
 _clearingDone := activeBaggerMode.ClearingDone;
@@ -45,12 +40,12 @@ CASE currentState OF
 	PACK_ML.State.Held:				activeBaggerMode.Held();
 	PACK_ML.State.Complete:			activeBaggerMode.Complete();
 	PACK_ML.State.Resetting:		activeBaggerMode.Resetting();
-	PACK_ML.State.Starting :		activeBaggerMode.Starting();
-	PACK_ML.State.Execute :			activeBaggerMode.Executing();
-	PACK_ML.State.Holding :			activeBaggerMode.Holding();
-	PACK_ML.State.UnHolding :		activeBaggerMode.UnHolding();
-	PACK_ML.State.Completing :		activeBaggerMode.Completing();
-	PACK_ML.State.Aborting :		activeBaggerMode.Aborting();
+	PACK_ML.State.Starting:		activeBaggerMode.Starting();
+	PACK_ML.State.Execute:			activeBaggerMode.Executing();
+	PACK_ML.State.Holding:			activeBaggerMode.Holding();
+	PACK_ML.State.UnHolding:		activeBaggerMode.UnHolding();
+	PACK_ML.State.Completing:		activeBaggerMode.Completing();
+	PACK_ML.State.Aborting:		activeBaggerMode.Aborting();
 	PACK_ML.State.Stopping:			activeBaggerMode.Stopping();
-	PACK_ML.State.Clearing :		activeBaggerMode.Clearing();
+	PACK_ML.State.Clearing:		activeBaggerMode.Clearing();
 END_CASE

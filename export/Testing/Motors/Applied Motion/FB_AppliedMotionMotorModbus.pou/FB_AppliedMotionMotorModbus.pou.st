@@ -15,7 +15,7 @@ END_VAR
 VAR
 	xFirstScan:BOOL := TRUE;
 	waitForHaltTimer : Standard.TON := (PT := T#20MS);
-	modbusDwordBuffer: uModbusDWORD;
+	modbusDwordBuffer : uModbusDWORD;
 	status : FB_AppliedMotionStatus;
 	alarms : FB_AppliedMotionAlarms;
 	state : eAppliedMotionDriveStatesASCII;
@@ -53,6 +53,7 @@ EnableState := DriveEnable;
 
 // Exit if drive isn't enabled.
 IF NOT DriveEnable THEN
+	Error := FALSE;
 	RETURN;
 END_IF
 
@@ -73,7 +74,8 @@ IF haltONS.OSR THEN
 END_IF
 waitForHaltTimer(IN := state = eAppliedMotionDriveStatesASCII.Halting);
 
-// Get drive data directly from master axis	
+alarms(alarmCode:= modbusDataFromDrive[0]);	
+// Get drive data directly from master axis
 status(statusCode:= modbusDataFromDrive[1]);
 IF status.moving THEN 
 	ActVelocity := ProfileVelocity;
@@ -117,6 +119,10 @@ CASE state OF
 				ELSIF StartHoming THEN
 					//AxisState := AXIS_STATE.AS_Homing;
 					state := eAppliedMotionDriveStatesASCII.Home;
+				END_IF
+				IF MBChannel.xDone THEN
+					commStatus := TRUE;
+					commErrorCount := 0;
 				END_IF
 
 		eAppliedMotionDriveStatesASCII.MoveABS:	
@@ -214,33 +220,39 @@ CASE state OF
 		
 		eAppliedMotionDriveStatesASCII.Faulting:
 				// Faulting - stop drive
-				mClearStatus();
+				IF Error THEN
+					mClearStatus();
+					Error := TRUE;
+				ELSE
+					mClearStatus();
+				END_IF
+				
 				AxisState := AXIS_STATE.AS_ErrorStop;
-				Error := TRUE;
 				freeMotor := TRUE;
+				
 				modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.STOP_MOVE_KILL_BUFFER);
 				modbusOPCodeTrigger := TRUE;
 				IF NOT status.moving THEN
 					modbusOPCodeTrigger := FALSE;
-					state := eAppliedMotionDriveStatesASCII.FaultGetAlarmCode;
+					state := eAppliedMotionDriveStatesASCII.Faulted;
 				END_IF
-		
-		eAppliedMotionDriveStatesASCII.FaultGetAlarmCode:
-				// Get alarm code and display
-				alarms(alarmCode:= modbusDataFromDrive[0]);
-				state := eAppliedMotionDriveStatesASCII.EnableMotor;
 		
 		eAppliedMotionDriveStatesASCII.Faulted:
 				// Faulted - wait for clear
-				IF AckError THEN
-					IF status.driveFaulted THEN
-						modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.ALARM_OUTPUT);
-						modbusOPCodeTrigger := TRUE;
-						IF alarms.alarmCode = 0 THEN
-							modbusOPCodeTrigger := FALSE;
+				IF status.driveFaulted THEN
+					modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.ALARM_OUTPUT);
+					modbusOPCodeTrigger := TRUE;
+					IF alarms.alarmCode = 0 THEN
+						modbusOPCodeTrigger := FALSE;
+						IF AckError THEN
 							state := eAppliedMotionDriveStatesASCII.EnableMotor;
 						END_IF
-					ELSE
+					END_IF
+				ELSE
+					IF AckError THEN
+						Error := FALSE;
+						CommStatus := TRUE;
+						commErrorCount := 0;
 						state := eAppliedMotionDriveStatesASCII.Idle;
 					END_IF
 				END_IF
@@ -252,6 +264,8 @@ CASE state OF
 				IF status.motorEnabled THEN
 					modbusOPCodeTrigger := FALSE;
 					Error := FALSE;
+					CommStatus := TRUE;
+					commErrorCount := 0;
 					state := eAppliedMotionDriveStatesASCII.Idle;
 				END_IF
 END_CASE

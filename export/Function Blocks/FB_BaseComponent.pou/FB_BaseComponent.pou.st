@@ -3,7 +3,6 @@ FUNCTION_BLOCK FB_BaseComponent EXTENDS FB_BaseObject IMPLEMENTS IComponent, IMa
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
-	
 END_VAR
 VAR
     _ready : BOOL;                    // Ready to be controlled

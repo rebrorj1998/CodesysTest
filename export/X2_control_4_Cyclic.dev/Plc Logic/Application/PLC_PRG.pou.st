@@ -90,7 +90,6 @@ END_IF
 teachPhotoeyeTimer(IN := HMIData.teachBagPhotoeye, Q => oTeachPhotoeye);
 HMIData.teachingBagPhoteye := oTeachPhotoeye;
 
-
 // Use fault collection for faultActive indication
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
 		
@@ -146,17 +145,17 @@ powerUpIBDMotor.DriveStart := HMIData.IBDInstalled;
 powerUpIBDMotor.RegulatorOn := HMIData.IBDInstalled;
 
 // Disable Modbus device tree objects if option not installed
-// IF NOT HMIData.loadPlateInstalled THEN
-// 	Load_Plate_Motor.Enable := FALSE;
-// ELSE
-// 	Load_Plate_Motor.Enable := TRUE;
-// END_IF
-// 
-// IF NOT HMIData.IBDInstalled THEN
-// 	IBD_Motor.Enable := FALSE;
-// ELSE
-// 	IBD_Motor.Enable := TRUE;
-// END_IF
+IF NOT HMIData.loadPlateInstalled THEN
+	Load_Plate_Motor.Enable := FALSE;
+ELSE
+	Load_Plate_Motor.Enable := TRUE;
+END_IF
+
+IF NOT HMIData.IBDInstalled THEN
+	IBD_Motor.Enable := FALSE;
+ELSE
+	IBD_Motor.Enable := TRUE;
+END_IF
 
 // Barcode Verifier manual trigger
 IF HMIData.barcodeVerifierTrigger THEN
@@ -218,7 +217,6 @@ IF HMIData.inCycle AND NOT iTopCoverClosed THEN
 	topCoverLiftedFault.Trigger();
 END_IF
 
-
 // Banner palm button has 4 states - off, solid green, 50/50 green/white rotating, and flashing red
 palmButton(
 	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute, 
@@ -238,7 +236,7 @@ IF HMIData.ackAllFaults THEN
 	HMIData.standbyActive := FALSE;
 END_IF
 
-oFansEnable := HMIData.standbyActive;
+oFansEnable := NOT HMIData.standbyActive;
 
 //
 // HMI Mapping
@@ -255,8 +253,8 @@ HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.curren
 
 // Banner manager takes care of the Multistate lamp used as a banner on the proface 
 bannerManager(
-	baggerNotReady:= NOT UN00_SXMachine.currentState = PACK_ML.State.Execute, 
-	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
+	baggerNotReady:= NOT (UN00_SXMachine.currentState = PACK_ML.State.Execute) AND NOT HMIData.standbyActive, 
+	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle AND NOT HMIData.standbyActive, 
 	baggerInCycle:= HMIData.inCycle, 
 	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
 	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
@@ -268,7 +266,8 @@ bannerManager(
 	tooManyPartsCounted:= , 
 	jawFailedToClose:= baggerCM.dualMotorPassthrough.failedToClose.Active, 
 	jawFailedToHome:= baggerCM.dualMotorPassthrough.failedToHome.Active, 
-	filmFeedMotionFault:= , 
+	filmFeedMotorFault:= baggerCM.bagDelivery.motorFault.Active, 
+	filmFeedMotorCommF:= baggerCM.bagDelivery.motorCommFault.Active,
 	jawMotionFault:= baggerCM.dualMotorPassthrough.bothMotorsFault.Active, 
 	waitingOnPrinter:= UN00_SXMachine.baggerManager.BaggerAutoMode.releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter,
 	waitingOnFiller:= , 
@@ -319,8 +318,6 @@ HMIData.loadPlateMotorData.CurrentAlarmCode := baggerCM.loadPlateMotor.alarmCode
 
 HMIData.bagDeliveryMotorData.alarmCode := baggerCM.bagDeliveryFrontMotor.alarmCode;
 HMIData.bagDeliveryMotorData.statusCode := baggerCM.bagDeliveryFrontMotor.statusCode;
-
-
 
 // Cycle time and bags made counters
 HMIData.cycleTime := UN00_SXMachine.baggerManager.BaggerAutoMode.cycleTime;

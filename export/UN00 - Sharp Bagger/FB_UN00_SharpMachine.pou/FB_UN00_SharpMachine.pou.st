@@ -27,11 +27,9 @@ VAR
 	clearTimer : Standard.TON := (PT := T#3S);
 	testResetSim : BOOL;
 END_VAR
-
 VAR_IN_OUT
 	baggerHead : EM01_BaggerHead;
 	discharge : EM02_Discharge;
-	//baggerManager : EM01_Bagger_Manager;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // Setup of unit modes
 
@@ -67,7 +65,7 @@ END_IF
 baggerManager(
 	currentState := currentState, 
 	baggerHead := baggerHead, 
-	discharge := discharge);
+	discharge := discharge );
 	
 clearTimer();
 resetONS(CLK := resetMachine);

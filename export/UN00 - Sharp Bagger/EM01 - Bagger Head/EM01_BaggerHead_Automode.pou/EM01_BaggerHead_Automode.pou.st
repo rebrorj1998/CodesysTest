@@ -5,7 +5,6 @@ VAR_INPUT
 	discharge : IEM02_Discharge;
 	alarmActive : BOOL;
 	resetCMD : BOOL;
-
 END_VAR
 VAR_OUTPUT
 	state : HEAD_STATES;

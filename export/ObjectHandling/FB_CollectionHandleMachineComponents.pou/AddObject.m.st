@@ -1,10 +1,10 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 METHOD AddObject
 VAR_INPUT
-	Obj   : IComponent;
+	Obj : IComponent;
 END_VAR
 VAR
-	I   : UINT;
+	I : UINT;
 	J : UINT;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // Add the active fault to the array 

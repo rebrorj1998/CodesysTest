@@ -21,6 +21,8 @@ VAR_OUTPUT
 	reverseFault : FB_Fault(name := Standard.CONCAT(_prefix,'Reverse Fault'));
 	bagFailedToSeparate : FB_Fault(name := Standard.CONCAT(_prefix,'Failed To Separate'));
 	noBagOverEye : FB_Fault(name := Standard.CONCAT(_prefix,'No Bag Over Photoeye'));
+	motorFault : FB_Fault(name := CONCAT(_prefix, 'Film Feed Motor Fault'));
+	motorCommFault : FB_Fault(name := CONCAT(_prefix, 'Film Feed Motor Comm Fault'));
 END_VAR
 VAR
 	_feedAtPrintSpeed : BOOL;
@@ -52,18 +54,32 @@ MC_MoveBagDelivery(Axis := bagDeliveryMotor);
 MC_HaltBagDelivery(Axis := bagDeliveryMotor);
 MC_ResetBagDelivery(Axis := bagDeliveryMotor);
 {endregion}
-IF _reset THEN
+	 
+IF MC_ResetBagDelivery.Execute THEN
+	MC_ResetBagDelivery.Execute := FALSE;
+END_IF
+	 
+IF resetONS.Q THEN
 	state := 100;
 	nextState := 0;
 	ClearStatus();
-	IF bagDeliveryMotor.Error THEN
+	IF bagDeliveryMotor.Error OR NOT bagDeliveryMotor.CommStatus THEN
 		MC_ResetBagDelivery.Execute := TRUE;
 	END_IF
-	_reset := FALSE;
 END_IF
 
-_ready := state = 0 AND NOT bagDeliveryMotor.Error;
-//EnableSimulation(bagDeliveryMotor, simulateIO);
+_ready := state = 0 AND bagDeliveryMotor.CommStatus AND NOT bagDeliveryMotor.Error;
+IF bagDeliveryMotor.Error THEN
+	motorFault.faultTrigger := TRUE;
+ELSE 
+	motorFault.faultTrigger := FALSE;
+END_IF
+
+IF NOT bagDeliveryMotor.CommStatus THEN
+	motorCommFault.faultTrigger := TRUE;
+ELSE
+	motorCommFault.faultTrigger := FALSE;
+END_IF
 
 IF trapezoidalPercent <= 0 THEN
 	trapezoidalPercent := 0.1;
@@ -296,7 +312,6 @@ CASE state OF
 			END_IF
 			
 	103:	// Set In Position and go back to idle
-			
 			nextState := 0;
 			state := 100;
 			

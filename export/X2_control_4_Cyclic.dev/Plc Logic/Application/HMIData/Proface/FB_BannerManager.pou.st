@@ -15,7 +15,8 @@ VAR_INPUT
 	tooManyPartsCounted : BOOL;
 	jawFailedToClose : BOOL;
 	jawFailedToHome : BOOL;
-	filmFeedMotionFault : BOOL;
+	filmFeedMotorFault : BOOL;
+	filmFeedMotorCommF : BOOL;
 	jawMotionFault : BOOL;
 	waitingOnPrinter : BOOL;
 	waitingOnFiller : BOOL;
@@ -68,7 +69,7 @@ mappedMessages[8] := printHeadFTL;
 mappedMessages[9] := barcodeFault;
 mappedMessages[10] := tooManyPartsCounted;
 mappedMessages[11] := jawFailedToClose;
-mappedMessages[12] := filmFeedMotionFault;
+mappedMessages[12] := filmFeedMotorFault;
 mappedMessages[13] := jawMotionFault;
 mappedMessages[14] := jawFailedToHome;
 mappedMessages[15] := waitingOnPrinter;
@@ -91,6 +92,7 @@ mappedMessages[31] := jawFailedToOpen;
 mappedMessages[32] := IBDFailedToClose;
 mappedMessages[33] := IBDFailedToOpen;
 mappedMessages[34] := baggerInStandby;
+mappedMessages[35] := filmFeedMotorCommF;
 
 // Clear out currently displayed message if no longer active
 IF NOT mappedMessages[messageDisplayIndication] THEN
