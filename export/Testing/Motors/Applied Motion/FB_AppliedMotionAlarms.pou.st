@@ -9,7 +9,7 @@ VAR_OUTPUT
     CWLimit : BOOL;      // WARNING - Motor is at CW Limit
     overTemp : BOOL;      // FAULT - Motor Over Temperature Limit
     internalVoltage : BOOL;      // FAULT - Internal Voltage Fault
-    overVoltage    : BOOL;      // FAULT - Overvoltage Fault
+    overVoltage : BOOL;      // FAULT - Overvoltage Fault
     underVoltage : BOOL;      // WARNING - Undervoltage Warning
     overCurrent : BOOL;      // FAULT - Motor Overcurrent
     openMotorWinding : BOOL;      // FAULT - Motor Detected Open Winding
@@ -17,7 +17,7 @@ VAR_OUTPUT
     commError : BOOL;      // WARNING - Communications Error
     badFlash : BOOL;      // WARNING - Bad Flash
     noMove : BOOL;      // WARNING - No Move
-    currentFoldback    : BOOL;      // WARNING - Current Foldback
+    currentFoldback  : BOOL;      // WARNING - Current Foldback
     blankQSegment : BOOL;      // WARNING - Blank Q Segment
     NVMemoryDoubleError : BOOL;      // WARNING - NV Memory Double Error
 END_VAR

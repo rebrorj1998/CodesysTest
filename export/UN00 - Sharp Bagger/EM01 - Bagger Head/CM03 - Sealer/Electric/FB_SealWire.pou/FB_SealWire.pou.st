@@ -11,8 +11,6 @@ END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();
 
-
-
 IF sealActive THEN
 	sealWireOutput := TRUE;
 ELSE

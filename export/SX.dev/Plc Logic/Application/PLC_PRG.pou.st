@@ -49,10 +49,8 @@ END_IF
 teachPhotoeyeTimer(IN := HMIData.teachBagPhotoeye, Q => oTeachPhotoeye);
 HMIData.teachingBagPhoteye := oTeachPhotoeye;
 
-
 // Use fault collection for faultActive indication
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
-
 
 // Cycle start conditions
 // Auto mode dwell timer
@@ -78,7 +76,6 @@ END_IF
 IF firstScanDone THEN
 	GlobalObjects.CollectionOfExecutable.ExecuteAll();
 END_IF
-
 
 // Power up all motors
 powerUpFrontJawMotor(Enable := TRUE, Axis := baggerCM.jawFrontMotor);

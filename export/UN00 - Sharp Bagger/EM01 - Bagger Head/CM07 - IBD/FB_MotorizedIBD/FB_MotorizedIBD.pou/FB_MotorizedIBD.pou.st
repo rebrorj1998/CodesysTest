@@ -74,18 +74,17 @@ failedToOpenTimer(IN := (state = eMotorizedIBDStates.MovingOut OR state = eMotor
 					Q => );
 					
 // Trigger motor faults from drive					
-IF IBDMotor.Error THEN
+IF IBDMotor.Error AND THIS^.OptionActive THEN
 	IBDMotorFault.faultTrigger := TRUE;
 ELSE 
 	IBDMotorFault.faultTrigger := FALSE;
 END_IF
 
-IF NOT IBDMotor.CommStatus THEN
+IF NOT IBDMotor.CommStatus AND THIS^.OptionActive THEN
 	IBDMotorCommFault.faultTrigger := TRUE;
 ELSE
 	IBDMotorCommFault.faultTrigger := FALSE;
 END_IF
-
 
 IF homeTimeout.Q 
 	//OR MC_HomeIBDMotor.Error 
@@ -137,16 +136,12 @@ CASE state OF
 				state := eMotorizedIBDStates.MoveIn;
 			END_IF
 								
-		
-		
-	
 	eMotorizedIBDStates.Home:	
 		// Normal Homing - not factory homing.
 		// Move the IBD to zero
 		MC_HomeIBDMotor.Execute := TRUE;
 		state := eMotorizedIBDStates.Homing;
-					
-					
+									
 	eMotorizedIBDStates.Homing:		
 		// When ZHomed, Move out to Open s
 		IF MC_HomeIBDMotor.Done THEN				
@@ -231,7 +226,6 @@ CASE state OF
 		
 	eMotorizedIBDStates.Faulted:
 		//
-		
 		
 	eMotorizedIBDStates.Reset:
 		//  Send reset to motors if they're faulted

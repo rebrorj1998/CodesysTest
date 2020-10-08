@@ -178,6 +178,10 @@
         <Node name="sendSampleLabels" type="T_BOOL" access="ReadWrite" />
         <Node name="separateBeforeSeal" type="T_BOOL" access="ReadWrite" />
         <Node name="simulateAllIO" type="T_BOOL" access="ReadWrite" />
+        <Node name="standbyActive" type="T_BOOL" access="ReadWrite" />
+        <Node name="standbyTimeSetting" type="T_REAL" access="ReadWrite">
+          <Comment> Standby timeout in minutes</Comment>
+        </Node>
         <Node name="startJawCycleTest" type="T_BOOL" access="ReadWrite" />
         <Node name="stopJawCycleTest" type="T_BOOL" access="ReadWrite" />
         <Node name="stopMachine" type="T_BOOL" access="ReadWrite" />
