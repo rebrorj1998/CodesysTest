@@ -114,6 +114,7 @@ VAR
 	resetTimer : Standard.TOF := (PT := T#1S);
 	allMotorCommsGood : BOOL;
 	lightedPalmButton : FB_MurrK50;
+	footSwitchONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -311,7 +312,7 @@ funnel.DelaySetting := HMIData.funnelOpenDelay;
 
 sealBarTempSensor(ptrTemperatureBytes := ADR(iHeaterBarTempInputs));
 sealBarTempSensor.Execute();
-sealBarHeater(enable := NOT HMIData.faultActive,
+sealBarHeater(enable := NOT safePowerFailure.active,
 				temperatureSensor := sealBarTempSensor,
 				temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
 				heaterPulse => 	oHeaterPulse);	  
@@ -894,6 +895,9 @@ IF NOT enable OR faultONS.OSR THEN
 END_IF
 pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
 cycleTimer();
+
+footSwitchONS(CLK := iFootSwitch);
+
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
 END_IF
@@ -907,6 +911,7 @@ CASE state OF
 													OR startCycleReqFromPalmButtonsONS.OSR AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR filler.cycleBagRequest) 
+													OR footSwitchONS.OSR
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active

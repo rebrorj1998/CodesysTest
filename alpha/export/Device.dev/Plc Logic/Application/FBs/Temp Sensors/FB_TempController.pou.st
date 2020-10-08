@@ -78,7 +78,11 @@ PWM(
 	F:= _pwmHz , 
 	Q=> heaterPulse);
 	
-IF NOT enable OR REAL_TO_INT(temperatureSensor.TempReadingC) = 0 THEN
+IF NOT enable 
+	OR REAL_TO_INT(temperatureSensor.TempReadingC) = 0 
+	OR thermalRunawayNotHeating.active
+	OR thermalRunawayOvershoot.active
+	THEN
 	_manualMode := TRUE;
 	_manualOutput := 0.0;
 ELSE
