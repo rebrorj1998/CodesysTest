@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="3.5.16.20" runtimeid="3.5.13.0" libversion="3.5.15.20" compiler="3.5.15.30" lmm="3.5.16.0" profile="CODESYS V3.5 SP16 Patch 2+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="3.5.16.20" runtimeid="3.5.16.10" libversion="3.5.15.20" compiler="3.5.15.30" lmm="3.5.16.0" profile="CODESYS V3.5 SP16 Patch 2+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="Device" appname="Application" />
   </Header>
   <TypeList>
@@ -1190,7 +1190,7 @@
       <UserDefElement iecname="faultingONS" type="T_FB_ONS" byteoffset="91" vartype="VAR" />
       <UserDefElement iecname="IBDMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="100" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedPressureBar" size="776" nativesize="1988" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MotorizedPressureBar" size="776" nativesize="1960" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1258,7 +1258,7 @@
       <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="300" vartype="VAR_IN_OUT" />
       <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="308" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="5828" nativesize="103720" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="5828" nativesize="103692" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1735,106 +1735,106 @@
         <Node name="iRightPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX62.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oAuxBaggerOK" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX28.0">
+        <Node name="oAuxBaggerOK" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX29.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oAuxConfigOut1" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX28.1">
+        <Node name="oAuxConfigOut1" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX29.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oAuxConfigOut2" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX28.3">
+        <Node name="oAuxConfigOut2" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX29.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oAuxReadyForFiller" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX28.2">
+        <Node name="oAuxReadyForFiller" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX29.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oBarcodeTrigger" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX34.2">
+        <Node name="oBarcodeTrigger" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX35.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oBOFDown" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX187.1">
+        <Node name="oBOFDown" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX188.1">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oBOFUp" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">
+        <Node name="oBOFUp" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX188.0">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oFrontLoadPlateToLoad" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX188.2">
+        <Node name="oFrontLoadPlateToLoad" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX189.2">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oFunnelClose" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX189.1">
+        <Node name="oFunnelClose" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX190.1">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oFunnelOpen" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX189.0">
+        <Node name="oFunnelOpen" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX190.0">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oHeaterPulse" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX37.4">
+        <Node name="oHeaterPulse" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX38.4">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oHMILight" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX36.3">
+        <Node name="oHMILight" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX37.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oHPAOn" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX186.5">
+        <Node name="oHPAOn" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX187.5">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oIBDExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX188.6">
+        <Node name="oIBDExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX189.6">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oIBDRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX188.7">
+        <Node name="oIBDRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX189.7">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oJawClampExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX186.0">
+        <Node name="oJawClampExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oJawClampRetract" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX186.1">
+        <Node name="oJawClampRetract" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX187.1">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oLoadPlateExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX186.6">
+        <Node name="oLoadPlateExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX187.6">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oLoadPlateRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX186.7">
+        <Node name="oLoadPlateRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX187.7">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oLoadShelfUp" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX188.4">
+        <Node name="oLoadShelfUp" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX189.4">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oLPAOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX186.4">
+        <Node name="oLPAOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX187.4">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oMOMConfig" type="T_BYTE" access="ReadWrite" directaddress="%QB0">
+        <Node name="oMOMConfig" type="T_BYTE" access="ReadWrite" directaddress="%QB1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oPrinterStartPrint" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX34.0">
+        <Node name="oPrinterStartPrint" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX35.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oPrintHeadDown" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX187.2">
+        <Node name="oPrintHeadDown" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX188.2">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oPrintHeadUp" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX187.3">
+        <Node name="oPrintHeadUp" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX188.3">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oRunExitConveyor" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX33.2">
+        <Node name="oRunExitConveyor" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX34.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oRunExternalExitConveyor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX36.1">
+        <Node name="oRunExternalExitConveyor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX37.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oRunPrinterRibbonUnwindMotor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX34.1">
+        <Node name="oRunPrinterRibbonUnwindMotor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX35.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oSealBarExtend" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX186.2">
+        <Node name="oSealBarExtend" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX187.2">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oSealBarRetract" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX186.3">
+        <Node name="oSealBarRetract" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX187.3">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oSealFlatDown" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX187.7">
+        <Node name="oSealFlatDown" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX188.7">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oSealFlatUp" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX187.6">
+        <Node name="oSealFlatUp" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX188.6">
           <Comment>FestoManifold : </Comment>
         </Node>
-        <Node name="oSoftStart" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX32.4">
+        <Node name="oSoftStart" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX33.4">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oVacOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX187.4">
+        <Node name="oVacOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX188.4">
           <Comment>FestoManifold : </Comment>
         </Node>
         <Node name="printerDataReady" type="T_BIT_X_0" access="Read" directaddress="%IX67.0">

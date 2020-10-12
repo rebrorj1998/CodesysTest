@@ -94,7 +94,7 @@ bagFeedMasterMotor(ptrEIPInputs := ADR(bagDeliveryMotorInputs),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE, 
 				defaultCurrentSetpoint := 1150, 
-				commFail := Bag_Delivery_EIP_Motor.udiState <> 4);
+				commFail := Bag_Delivery_EIP_Motor.xDiagnosticAvailable);
 bagFeedMasterMotor.Execute();
 
 bagFeedRearMotor(ptrEIPInputs := ADR(bagRearMotorInputs),
@@ -103,7 +103,7 @@ bagFeedRearMotor(ptrEIPInputs := ADR(bagRearMotorInputs),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE, 
 				defaultCurrentSetpoint := 1150, 
-				commFail := Bag_Delivery_Rear_Motor.udiState <> 4);
+				commFail := Bag_Delivery_Rear_Motor.xDiagnosticAvailable);
 bagFeedRearMotor.Execute();
 
 IF testTorque THEN

@@ -158,7 +158,7 @@ barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotI
 IF HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner THEN
 	Keyence_BCV.Enable := TRUE; 
 
-	IF Keyence_BCV.udiState <> 4 THEN 
+	IF Keyence_BCV.xDiagnosticAvailable THEN 
 		barcodeVerifierCommFail.Trigger();
 	END_IF
 
@@ -234,7 +234,7 @@ pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE,
 				defaultCurrentSetpoint := 500,
-				commFail := Pbar_ServoEIP.udiState <> 4,
+				commFail := Pbar_ServoEIP.xDiagnosticAvailable,
 				isHomable := TRUE);			
 pressureBarMotor.Execute();
 
@@ -681,7 +681,7 @@ IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE,
 				defaultCurrentSetpoint := 650,
-				commFail := IBD_Motor.udiState <> 4,
+				commFail := IBD_Motor.xDiagnosticAvailable,
 				isHomable := TRUE);			
 IBDMotor.Execute();
 
@@ -734,8 +734,17 @@ allMotorCommsGood := NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMot
 IF iPowerOffButtonONS.OSR THEN
 	reset();
 END_IF
-				
+			
 IF HMIData.makeReady OR resetTimer.Q THEN
+	Cube67_BN_E_V2.xAcknowledge := TRUE;
+	FestoManifold.xAcknowledge := TRUE;
+	MSFMotor.xAcknowledge := TRUE;
+	Bag_Delivery_EIP_Motor.xAcknowledge := TRUE;
+	Pbar_ServoEIP.xAcknowledge := TRUE;
+	Bag_Delivery_Rear_Motor.xAcknowledge := TRUE;
+	Keyence_BCV.xAcknowledge := TRUE;
+	IBD_MOtor.xAcknowledge := TRUE;
+	
 	HMIData.ackAllFaults := TRUE;
 	enable := TRUE;
 	
@@ -818,7 +827,15 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	HMIData.makeReady := FALSE;
 	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
-	
+ELSE
+	Cube67_BN_E_V2.xAcknowledge := FALSE;
+	FestoManifold.xAcknowledge := FALSE;
+	MSFMotor.xAcknowledge := FALSE;
+	Bag_Delivery_EIP_Motor.xAcknowledge := FALSE;
+	Pbar_ServoEIP.xAcknowledge := FALSE;
+	Bag_Delivery_Rear_Motor.xAcknowledge := FALSE;
+	Keyence_BCV.xAcknowledge := FALSE;
+	IBD_MOtor.xAcknowledge := FALSE;
 END_IF
 
 

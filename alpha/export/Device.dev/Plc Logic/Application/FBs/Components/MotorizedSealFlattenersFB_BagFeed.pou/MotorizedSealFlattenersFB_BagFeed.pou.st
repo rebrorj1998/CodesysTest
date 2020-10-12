@@ -106,7 +106,7 @@ sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMot
                 faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := TRUE, 
 				defaultCurrentSetpoint := defaultCurrentMSF, 
-				commFail := MSFMotor.udiState <> 4,
+				commFail := MSFMotor.xDiagnosticAvailable,
 				isHomable := TRUE);
 				
 sealFlattenersHorizontalAxisMotor.Execute();
