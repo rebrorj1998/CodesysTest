@@ -92,7 +92,7 @@ bagFeedMasterMotor(ptrEIPInputs := ADR(bagDeliveryMotorInputs),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE, 
 				defaultCurrentSetpoint := 1150, 
-				commFail := Bag_Delivery_EIP_Motor.xDiagnosticAvailable);
+				commFail := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING);
 bagFeedMasterMotor.Execute();
 
 bagFeedRearMotor(ptrEIPInputs := ADR(bagRearMotorInputs),
@@ -101,7 +101,7 @@ bagFeedRearMotor(ptrEIPInputs := ADR(bagRearMotorInputs),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE, 
 				defaultCurrentSetpoint := 1150, 
-				commFail := Bag_Delivery_Rear_Motor.xDiagnosticAvailable);
+				commFail := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING);
 bagFeedRearMotor.Execute();
 
 IF enableONS.Q OR resetONS.Q THEN

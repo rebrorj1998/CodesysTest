@@ -74,7 +74,7 @@ pressureBarOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutSetting * 1
 //pressureBarClosed := pbarMotor.absolutePositionSteps >= (pbarMotor.distanceToMoveInSteps - 4) AND pbarMotor.absolutePositionSteps <= (pbarMotor.distanceToMoveInSteps + 4);
 pressureBarClosed := iPressureBarClosed;
 delayTimer();
-failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT iPressureBarClamped OR NOT iPressureBarClosed));
+failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClamped AND iPressureBarClosed)));
 clamped := state = MotorizedPbarStates.Clamping;
 
 
@@ -364,7 +364,7 @@ CASE state OF
 										state := MotorizedPbarStates.StartedClamping;
 	
 	MotorizedPbarStates.StartedClamping :		//
-										IF iPressureBarClamped THEN
+										IF iPressureBarClamped AND iJawClampsRetracted THEN
 											delayTimer.PT := T#250MS;
 											delayTimer.IN := TRUE;
 											IF delayTimer.Q THEN
@@ -446,7 +446,7 @@ pbarFeedbackHandler(
 	retractOutput:= state = MotorizedPbarStates.MovingJawIn, 
 	extendFaultDelay:= TO_INT((distanceToMove) * faultTimeMultiplier) , 
 	retractFaultDelay:= TO_INT((distanceToMove) * faultTimeMultiplier), 
-	faultMonitoring:= NOT disableFaults, 
+	faultMonitoring:= distanceToMove > 0.5, 
 	failedToExtend=> faults.failedToOpen.faultTrigger, 
 	failedToRetract=> faults.failedToClose.faultTrigger);
 	

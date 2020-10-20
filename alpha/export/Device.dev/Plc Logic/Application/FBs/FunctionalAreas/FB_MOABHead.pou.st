@@ -147,7 +147,7 @@ barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotI
 IF HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner THEN
 	Keyence_BCV.Enable := TRUE; 
 
-	IF Keyence_BCV.xDiagnosticAvailable THEN 
+	IF Keyence_BCV.eState <> IoDrvEthernetIP.AdapterState.RUNNING THEN 
 		barcodeVerifierCommFail.Trigger();
 	END_IF
 
@@ -621,7 +621,7 @@ pressureBarEndStopMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := TRUE,
 				defaultCurrentSetpoint := 650,
-				commFail := Pbar_ServoEIP.xDiagnosticAvailable,
+				commFail := Pbar_ServoEIP.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 				isHomable := TRUE);			
 pressureBarEndStopMotor.Execute();
 

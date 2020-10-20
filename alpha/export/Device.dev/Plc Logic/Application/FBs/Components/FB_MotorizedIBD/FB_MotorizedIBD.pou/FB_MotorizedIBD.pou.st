@@ -3,6 +3,7 @@ FUNCTION_BLOCK FB_MotorizedIBD EXTENDS BaseComponentFB
 VAR_INPUT
 	pbarOutSetting : REAL := 12.0;
 	pbarInSetting : REAL;
+	IBDOffset : REAL := 2.0;
 	disableFaults : BOOL;
 	extendCommand : BOOL;
 	retractCommand : BOOL;
@@ -193,12 +194,12 @@ CASE state OF
 	MotorizedIBDStates.MoveOutFull :			//
 										
 										//IBDMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
-										IBDMotor.MoveToPosition(12,accel,decel,velo);
+										IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
 										state := MotorizedIBDStates.MovingOutFull;
 										//IBDMotor.SetPositionLimit(150);
 	
 	MotorizedIBDStates.MovingOutFull :			//
-										IF IBDFullyOpen THEN
+										IF IBDOpen THEN
 											state := MotorizedIBDStates.Idle;
 										END_IF
 	

@@ -158,7 +158,7 @@ barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotI
 IF HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner THEN
 	Keyence_BCV.Enable := TRUE; 
 
-	IF Keyence_BCV.xDiagnosticAvailable THEN 
+	IF Keyence_BCV.eState <> IoDrvEthernetIP.AdapterState.RUNNING THEN 
 		barcodeVerifierCommFail.Trigger();
 	END_IF
 
@@ -234,7 +234,7 @@ pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE,
 				defaultCurrentSetpoint := 500,
-				commFail := Pbar_ServoEIP.xDiagnosticAvailable,
+				commFail := Pbar_ServoEIP.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 				isHomable := TRUE);			
 pressureBarMotor.Execute();
 
@@ -407,7 +407,7 @@ CASE HMIData.packageEjectSelection OF
 														loadPlateFaultTimer.enable := FALSE;
 														forwardLoadPlateFaultTimer.enable := Globals.machinePowerOK;
 														rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
-														loadShelfFaultTimer.enable := Globals.machinePowerOK;
+														//loadShelfFaultTimer.enable := Globals.machinePowerOK;
 														rearLoadPlateRetract.DelaySetting := 0;
 														rearLoadPlateRetract.DwellSetting := TO_UINT((HMIData.loadPlateDwell + HMIData.loadPlateDelay) * 1000);
 END_CASE
@@ -623,6 +623,7 @@ forwardLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
 forwardLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
 forwardLoadPlateRetract();
 oFrontLoadPlateToLoad := NOT forwardLoadPlateRetract.Q;
+oFrontLoadPlateToDischarge := NOT oFrontLoadPlateToLoad;
 forwardLoadPlateFaultTimer(
 	enable:= , 
 	extendCommand:= NOT oFrontLoadPlateToLoad, 
@@ -681,7 +682,8 @@ IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
                 //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE,
 				defaultCurrentSetpoint := 650,
-				commFail := IBD_Motor.xDiagnosticAvailable,
+				//commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+				commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 				isHomable := TRUE);			
 IBDMotor.Execute();
 
@@ -1254,6 +1256,9 @@ CASE state OF
 													pressureBar.OpenJaw();
 												END_IF
 												IF IBD.homeRequired THEN
+													IF NOT enableLabelSideUp THEN
+														rearLoadPlateRetract.ManualOn();
+													END_IF
 													IBD.HomeNow();
 												ELSE
 													IBD.OpenIBD();
@@ -1266,7 +1271,8 @@ CASE state OF
     HEAD_STATES.Homing :                // 
                                             //IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
 											IF pressureBar.pressureBarOpen AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
-                                                state := HEAD_STATES.HomingComplete;   
+                                                state := HEAD_STATES.HomingComplete;
+												rearLoadPlateRetract.ManualOff();   
 												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN
 													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 													motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
@@ -1519,7 +1525,7 @@ CASE releaseAndFeedSubState OF
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.FeedToOffset;
                                                     END_IF
                                                     
-    RELEASE_FEED_STATES.FeedToOffset :                // This starts feeding to the print offset
+    RELEASE_FEED_STATES.FeedToOffset :              // This starts feeding to the print offset
 													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) THEN
 														bagDelivery.AutoPrinterReady();
                                                     	releaseAndFeedSubState := RELEASE_FEED_STATES.FeedingToOffset;

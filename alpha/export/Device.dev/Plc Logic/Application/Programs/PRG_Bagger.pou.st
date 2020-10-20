@@ -39,7 +39,7 @@ moabHead();
 faultHandler();
 hmiInitiate := HMIData.initiateCycle;
 currentDateAndTime();
-//msfCommFaultONS(CLK := MSFMotor.xDiagnosticAvailable);
+//msfCommFaultONS(CLK := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING);
 HMIData.bagEdgePhotoeyeCovered := NOT iBagNotPresent;
 oSoftStart := TRUE;
 
