@@ -2,6 +2,7 @@
 FUNCTION_BLOCK FB_MotorizedIBD EXTENDS BaseComponentFB
 VAR_INPUT
 	pbarOutSetting : REAL := 12.0;
+	IBDOutCalculated : REAL := 12.0;
 	pbarInSetting : REAL;
 	IBDOffset : REAL := 2.0;
 	disableFaults : BOOL;
@@ -26,7 +27,7 @@ VAR
 	_openFull : BOOL;
 	accel : INT := 100;
 	decel : INT := 100;
-	velo : INT := 2500;
+	velo : INT := 500;
 	testCurrent : DINT := 500;
 	testZeroCurrent : BOOL;
 	testSomeCurrent : BOOL;
@@ -42,7 +43,7 @@ VAR_IN_OUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 actualPosition := IBDMotor.absolutePositonInches;
-IBDOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutSetting * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(pbarOutSetting * 1000) + 10);
+IBDOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT((pbarOutSetting) * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT((pbarOutSetting)* 1000) + 10);
 IBDFullyOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(12 * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(12 * 1000) + 10);
 //IBDOpen := TO_DINT(IBDMotor.absolutePositonInches) = TO_DINT(pbarOutSetting);
 delayTimer();

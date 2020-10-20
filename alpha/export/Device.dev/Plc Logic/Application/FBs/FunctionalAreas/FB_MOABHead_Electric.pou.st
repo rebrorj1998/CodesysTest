@@ -115,6 +115,8 @@ VAR
 	allMotorCommsGood : BOOL;
 	lightedPalmButton : FB_MurrK50;
 	footSwitchONS : FB_ONS;
+	IBDOffset : REAL := 2.0;
+	IBDOutSetting: REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -687,9 +689,15 @@ IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
 				isHomable := TRUE);			
 IBDMotor.Execute();
 
+IF HMIData.passthroughSetting + IBDOffset > 12.0 THEN
+	 IBDOutSetting := 12.0;
+ELSE
+	IBDOutSetting := HMIData.passthroughSetting + IBDOffset;
+END_IF
+		  
 IBD(
 	enable:= , 
-	pbarOutSetting:= HMIData.passthroughSetting, 
+	pbarOutSetting:= IBDOutSetting, 
 	pbarInSetting:= , 
 	disableFaults:= , 
 	extendCommand:= HMIData.IBDService.extendCommand, 
