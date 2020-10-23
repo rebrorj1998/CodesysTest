@@ -937,8 +937,8 @@ CASE state OF
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND factoryTestModeKeepCycling AND NOT LPA.Q
 													OR startCycleReqFromPalmButtonsONS.OSR AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													OR filler.cycleBagRequest) 
-													OR footSwitchONS.OSR
+													OR filler.cycleBagRequest 
+													OR footSwitchONS.OSR)
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
