@@ -444,8 +444,8 @@ pbarFeedbackHandler(
 	retractedFeedbackInput:= iPressureBarClosed, 
 	extendOutput:= state = MotorizedPbarStates.MovingJawOut, 
 	retractOutput:= state = MotorizedPbarStates.MovingJawIn, 
-	extendFaultDelay:= TO_INT((distanceToMove) * faultTimeMultiplier) , 
-	retractFaultDelay:= TO_INT((distanceToMove) * faultTimeMultiplier), 
+	extendFaultDelay:= 3000 , 
+	retractFaultDelay:= 3000 , 
 	faultMonitoring:= distanceToMove > 0.5, 
 	failedToExtend=> faults.failedToOpen.faultTrigger, 
 	failedToRetract=> faults.failedToClose.faultTrigger);

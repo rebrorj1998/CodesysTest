@@ -1278,7 +1278,7 @@ CASE state OF
     
     HEAD_STATES.Homing :                // 
                                             //IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
-											IF pressureBar.pressureBarOpen AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
+											IF pressureBar.pressureBarOpen AND (NOT IBD.Ready OR NOT IBD.enable) THEN
                                                 state := HEAD_STATES.HomingComplete;
 												rearLoadPlateRetract.ManualOff();   
 												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN

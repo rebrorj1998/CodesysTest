@@ -35,6 +35,7 @@ VAR
 	testActive : BOOL;
 	movePassthroughNow : BOOL;
 	delayTimer : Standard.TON := (PT:= T#500MS);
+	failToOpenTimer : Standard.TON := (PT := T#2s);
 	homeRequiredONS : FB_ONS;
 	faultingONS : FB_ONS;
 END_VAR
@@ -50,6 +51,7 @@ delayTimer();
 
 clamped := state = MotorizedIBDStates.Clamping;
 
+failToOpenTimer(IN := state = MotorizedIBDStates.MovingJawOut OR state = MotorizedIBDStates.MovingOutFull);
 
 IF NOT IBDMotor.HomeRequired THEN
 	IF extendCommand THEN
