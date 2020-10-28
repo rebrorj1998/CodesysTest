@@ -115,7 +115,6 @@ VAR
 	allMotorCommsGood : BOOL;
 	lightedPalmButton : FB_MurrK50;
 	footSwitchONS : FB_ONS;
-	IBDOffset : REAL := 2.0;
 	IBDOutSetting: REAL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -686,13 +685,13 @@ IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
 				defaultCurrentSetpoint := 650,
 				//commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 				commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-				isHomable := TRUE);			
+				isHomable := TRUE);
 IBDMotor.Execute();
 
-IF HMIData.passthroughSetting + IBDOffset > 12.0 THEN
+IF HMIData.passthroughSetting + HMIData.IBDOffset > 12.0 THEN
 	 IBDOutSetting := 12.0;
 ELSE
-	IBDOutSetting := HMIData.passthroughSetting + IBDOffset;
+	IBDOutSetting := HMIData.passthroughSetting + HMIData.IBDOffset;
 END_IF
 		  
 IBD(

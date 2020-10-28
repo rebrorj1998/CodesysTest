@@ -120,6 +120,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	externalExitConveyorJog : BOOL;
 	externalExitConveyorStartDwell : BOOL;
 	triggerBarcodeReaderService : BOOL;
+	IBDOffset : REAL := 3.0;
 	
 	(*Factoy Config*)
 	bofSelection : BagOpenFingersSelection := BagOpenFingersSelection.PneumaticWithBagOpenSensors;
