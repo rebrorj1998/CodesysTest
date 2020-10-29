@@ -10,8 +10,6 @@ VAR_INPUT
 	retractCommand : BOOL;
 END_VAR
 VAR_OUTPUT
-	
-	failToClose : FB_Fault(name := 'IBD Fail to Close');
 	failToOpen : FB_Fault(name := 'IBD Fail to Open');
 	state : MotorizedIBDStates;
 	actualPosition : REAL;
