@@ -280,6 +280,11 @@ CASE HMIData.independentBagDeflatorSelection OF
 															IBDRetractToEject.DwellSetting := 0;
 	
 	BagDeflatorSelection.IBDStandard:	// Enable IBD
+															IBDRetractToDeflate();
+															IBDRetractToEject();
+															IBDRetractONS(CLK := (IBDRetractToDeflate.Q OR IBDRetractToEject.Q));
+															IBDExtendONS(CLK := NOT (IBDRetractToDeflate.Q OR IBDRetractToEject.Q));
+																 
 															IF HMIData.IBDDeflateDwellTime <> 0 THEN
 																enableIBDDeflate := TRUE;
 															ELSE
@@ -292,8 +297,13 @@ CASE HMIData.independentBagDeflatorSelection OF
 																enableIBDEject := FALSE;
 															END_IF
 	 														IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);
-															oIBDRetract := IBDRetractToDeflate.Q OR IBDRetractToEject.Q;
-															oIBDExtend := NOT oIBDRetract;
+															IF IBDRetractONS.OSR THEN
+																IBDCylinders.Retract();
+															END_IF
+															IF IBDExtendONS.OSR THEN
+																IBDCylinders.Extend();
+															END_IF
+																 
 															IBDRetractToDeflate.DelaySetting := 0;
 															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
 															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
@@ -600,17 +610,7 @@ bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInst
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
 					 
 			
-IBDRetractToDeflate();
-IBDRetractToEject();
-IBDRetractONS(CLK := IBDRetractToDeflate.Q OR IBDRetractToEject.Q);
-IBDExtendONS(CLK := NOT (IBDRetractToDeflate.Q AND IBDRetractToEject.Q));
-// IF IBDRetractONS.OSR THEN
-// 	IBDCylinders.Retract();
-// ELSIF IBDExtendONS.OSR THEN
-// 	IBDCylinders.Extend();
-// ELSIF HMIData.faultActive THEN
-// 	IBDCylinders.Exhaust();
-// END_IF
+
 
 
 // Setup and run adjustable passthrough
@@ -773,11 +773,13 @@ END_IF
 {warning 'TODO: Put this inside the passtrough FB'}
 IF passthrough.exhaustPressureBarRequest THEN
     pressureBar.ExhaustCylinder();
+	IBDCylinders.Exhaust();
 	IF NOT oPBar1Extend AND NOT oPBar1Retract THEN
 		passthrough.AckRequest();
 	END_IF
 ELSIF passthrough.extendPressureBarRequest THEN
     pressureBar.ExtendCylinderLowPressure();
+	IBDCylinders.Extend();
 	IF oPBar1Extend AND oPBar1Retract THEN
 		passthrough.AckRequest();
 	END_IF
@@ -930,12 +932,12 @@ CASE state OF
 													END_IF	 
 													
 													IF HMIData.IBDService.retractCommand THEN
-														IBDRetractToDeflate.ManualOn();
+														IBDCylinders.Retract();
 														HMIData.IBDService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.IBDService.extendCommand THEN
-														IBDRetractToDeflate.ManualOff();
+														IBDCylinders.Extend();
 														HMIData.IBDService.extendCommand := FALSE;
 													END_IF	
 														 
