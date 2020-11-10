@@ -1149,7 +1149,7 @@
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="989" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_REFERENCE_TO_FB_AppliedMotionStepServoEIPPassthrough_REF" size="468" swapsize="0" typeclass="Reference" iecname="REFERENCE TO FB_AppliedMotionStepServoEIPPassthrough_REF" basetype="T_FB_AppliedMotionStepServoEIPPassthrough" />
-    <TypeUserDef name="T_FB_MotorizedIBD" size="588" nativesize="536" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MotorizedIBD" size="588" nativesize="368" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1260,7 +1260,7 @@
       <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="300" vartype="VAR_IN_OUT" />
       <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="308" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="5852" nativesize="103736" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="5852" nativesize="103564" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />

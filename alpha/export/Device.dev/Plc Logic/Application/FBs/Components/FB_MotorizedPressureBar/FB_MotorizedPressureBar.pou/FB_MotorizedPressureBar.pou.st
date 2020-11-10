@@ -36,7 +36,7 @@ VAR
 	_openJaw : BOOL;
 	_closeJaw : BOOL;
 	_closeJawNoLatch : BOOL;
-	jawClampsDelay : TIME := T#75ms;
+	jawClampsDelay : TIME := T#75MS;
 	accel : INT := 40;
 	decel : INT := 60;
 	velo : INT := 1250;
@@ -257,7 +257,8 @@ CASE state OF
 										Globals.jawMovingIn := TRUE;
 										IF delayTimer.Q THEN
 											IF pressureBarOpen THEN
-												state := MotorizedPbarStates.Initialized;
+												pbarMotor.DoneClamping();
+												state := MotorizedPbarStates.Initializing;
 											ELSE
 												jawClamps.Extend();
 												pbarMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
@@ -346,7 +347,7 @@ CASE state OF
 	
 	
 	MotorizedPbarStates.MovedJawIn :			//
-										IF delayTimer.Q THEN
+										//IF delayTimer.Q THEN
 											delayTimer.IN := FALSE;
 											IF _closeJawNoLatch THEN
 												_closeJawNoLatch := FALSE;
@@ -354,7 +355,7 @@ CASE state OF
 											ELSE
 												state := MotorizedPbarStates.StartClamping;
 											END_IF
-										END_IF
+										//END_IF
 										
 	
 	
