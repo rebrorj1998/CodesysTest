@@ -937,11 +937,13 @@ CASE state OF
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR filler.cycleBagRequest 
 													OR footSwitchONS.OSR)
-													AND NOT HMIData.faultActive 
+													AND (NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
 													AND NOT HMIData.sealBarNotAtTemperature.active
-													AND NOT setPassthroughPB THEN
+													AND NOT setPassthroughPB)
+													AND readyToRun 
+													THEN
                                                         state := HEAD_STATES.SealAndSeparateBag;
                                                         startCycle := FALSE;
 														
