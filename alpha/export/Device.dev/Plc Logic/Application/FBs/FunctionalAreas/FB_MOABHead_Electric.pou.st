@@ -709,7 +709,7 @@ IBD(
 	clamped=> , 
 	IBDMotor:= IBDMotor);
 
-obstructionFaultONS(CLK := pressureBar.faults.obstructionDetected.active);
+obstructionFaultONS(CLK := (pressureBar.faults.obstructionDetected.active OR pressureBar.faults.failedToClose.active));
 IF obstructionFaultONS.OSR THEN
 	IBD.RemovePower();
 END_IF
