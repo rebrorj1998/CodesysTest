@@ -6,7 +6,6 @@ VAR_INPUT
 	triggerInput : BOOL;
 END_VAR
 VAR_OUTPUT
-	commFail : FB_Fault(name := 'Communication Fail - Bus Master to Controller');
 	lastReadData : STRING[100];
 	xBusy : BOOL;
 	xDone : BOOL;

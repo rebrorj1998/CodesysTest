@@ -143,7 +143,6 @@ keyenceBCV(
 	ptrEIPInputs:= ADR(keyenceBCVInputs), 
 	ptrEIPOutputs:= ADR(keyenceBCVOutputs), 
 	triggerInput:= , 
-	commFail=> ,
 	lastReadData => HMIData.barcodeLastReadString);	 
 // Barcode Verifier interface to printer
 barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotInstalled AND HMIData.barcodeVerifierInUse),
@@ -406,7 +405,7 @@ CASE HMIData.packageEjectSelection OF
 		 												enableLoadPlate := TRUE;
 														enableLabelSideUp := TRUE;	
 														loadPlateFaultTimer.enable := FALSE;
-														forwardLoadPlateFaultTimer.enable := Globals.machinePowerOK;
+														forwardLoadPlateFaultTimer.enable := (state >= HEAD_STATES.ReleaseAndFeedBag) AND HMIData.inCycle;
 														rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
 														//loadShelfFaultTimer.enable := Globals.machinePowerOK;
 														rearLoadPlateRetract.DelaySetting := 0;
