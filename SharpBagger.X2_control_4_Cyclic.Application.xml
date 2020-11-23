@@ -191,82 +191,82 @@
       </Node>
       <Node name="IoConfig_Globals_Mapping">
         <Node name="iBagEdgePhotoeye" type="T_BIT_X_3" access="Read" directaddress="%IX0.3">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iBarcodeNG" type="T_BIT_X_1" access="Read" directaddress="%IX1.1">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iBarcodeOK" type="T_BIT_X_0" access="Read" directaddress="%IX1.0">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iCycleStart" type="T_BIT_X_4" access="Read" directaddress="%IX0.4">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iFillerTrigger" type="T_BIT_X_3" access="Read" directaddress="%IX1.3">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iJawClosed" type="T_BIT_X_6" access="Read" directaddress="%IX0.6">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iJawNearClosed" type="T_BIT_X_7" access="Read" directaddress="%IX0.7">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iJawNotObstructed" type="T_BIT_X_0" access="Read" directaddress="%IX0.0">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iLHPalmButton" type="T_BIT_X_4" access="Read" directaddress="%IX1.4">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iLightCurtain" type="T_BIT_X_2" access="Read" directaddress="%IX1.2">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iPrinterBusy" type="T_BIT_X_2" access="Read" directaddress="%IX0.2">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iPrinterDataReady" type="T_BIT_X_1" access="Read" directaddress="%IX0.1">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iPrinterRibbonEncoder" type="T_BIT_X_7" access="Read" directaddress="%IX1.7">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iPrinterServiceRequired" type="T_BIT_X_0" access="Read" directaddress="%IX2.0">
-          <Comment>GT_12DF_1 : </Comment>
+          <Comment>GT_12DF_3 : </Comment>
         </Node>
         <Node name="iPrintHeadLowered" type="T_BIT_X_5" access="Read" directaddress="%IX0.5">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iRHPalmButton" type="T_BIT_X_5" access="Read" directaddress="%IX1.5">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="iTopCoverClosed" type="T_BIT_X_6" access="Read" directaddress="%IX1.6">
-          <Comment>GT_12DF : </Comment>
+          <Comment>GT_12DF_2 : </Comment>
         </Node>
         <Node name="oLowerPrintHead" type="T_BIT_X_1" access="Read" directaddress="%QX0.1">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oPalmButton0" type="T_BIT_X_1" access="Read" directaddress="%QX1.1">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oPalmButton1" type="T_BIT_X_2" access="Read" directaddress="%QX1.2">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oPrinterRibbonUnwind" type="T_BIT_X_3" access="Read" directaddress="%QX0.3">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oReadyForFiller" type="T_BIT_X_0" access="Read" directaddress="%QX1.0">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oRequestPrint" type="T_BIT_X_2" access="Read" directaddress="%QX0.2">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oSealWire" type="T_BIT_X_0" access="Read" directaddress="%QX0.0">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oTeachPhotoeye" type="T_BIT_X_5" access="Read" directaddress="%QX0.5">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
         <Node name="oTriggerBCV" type="T_BIT_X_4" access="Read" directaddress="%QX0.4">
-          <Comment>GT_226F : </Comment>
+          <Comment>GT_226F_1 : </Comment>
         </Node>
       </Node>
     </Node>
