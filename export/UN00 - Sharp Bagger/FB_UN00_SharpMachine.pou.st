@@ -2,6 +2,8 @@
 FUNCTION_BLOCK FINAL FB_UN00_SharpMachine EXTENDS FB_PackMLStates
 VAR_INPUT
 	faultActive : BOOL;
+	resetMachine : BOOL;
+	homeMachine : BOOL;
 END_VAR
 VAR_OUTPUT
 	currentState : PACK_ML.State;
@@ -20,7 +22,8 @@ VAR
 	startMachine : BOOL;
 	abortMachine : BOOL;
 	resetONS : FB_ONS;
-	resetMachine : BOOL;
+	homeONS : FB_ONS;
+	
 	clearTimer : Standard.TON := (PT := T#3S);
 	testResetSim : BOOL;
 END_VAR
@@ -61,27 +64,35 @@ IF xNextState THEN
 	xNextState := FALSE;
 END_IF
 baggerManager(
-	modeManager := unitModeManager, 
+	currentState := currentState, 
 	baggerHead := baggerHead, 
 	discharge := discharge);
 	
 clearTimer();
 resetONS(CLK := resetMachine);
-
+homeONS(CLK := homeMachine);
 IF testResetSim THEN
 	UN00_Globals.simFaults.FB_Init(TRUE,TRUE);
 END_IF
 
+IF (faultActive AND currentState <> PACK_ML.State.Clearing) OR abortMachine THEN
+	currentUnitMode.Abort();
+	abortMachine := FALSE;
+END_IF
 
-CASE unitModeManager.ActiveUnitMode.CurrentState OF
+CASE currentState OF
 	
-	PACK_ML.State.Stopped: 		IF resetONS.OSR OR _clearingDone THEN
+	PACK_ML.State.Stopped: 		//IF homeONS.OSR THEN
+								
 									currentUnitMode.Reset();
-								END_IF	
+									_stoppingDone := FALSE;
+								
+									
+								//END_IF	
 								_clearingDone := FALSE;
 								
 	PACK_ML.State.Aborted:		IF resetONS.OSR THEN
-									GlobalObjects.CollectionOfActiveFaults.AckAll();
+									GlobalObjects.CollectionOfFaults.AckAll();
 									currentUnitMode.Clear();
 								END_IF	
 	
@@ -91,6 +102,12 @@ CASE unitModeManager.ActiveUnitMode.CurrentState OF
 	//PACK_ML.State.Complete:			
 	PACK_ML.State.Resetting:	IF BaggerManager.ResettingDone THEN
 									currentUnitMode.ActingStateCompleted();
+								END_IF	
+								IF baggerManager.BaggerAutoMode.resetFailed THEN
+									currentUnitMode.Abort();
+								END_IF
+								IF resetONS.OSR THEN
+									//baggerManager.BaggerAutoMode.resetCMD := TRUE;
 								END_IF	
 	
 	PACK_ML.State.Clearing :	clearTimer.IN := TRUE;
@@ -107,7 +124,10 @@ CASE unitModeManager.ActiveUnitMode.CurrentState OF
 									currentUnitMode.ActingStateCompleted();
 								END_IF
 								
-	//PACK_ML.State.Execute :
+	PACK_ML.State.Execute :		IF resetONS.OSR THEN
+									currentUnitMode.Clear();
+								END_IF	
+	
 	PACK_ML.State.Holding :		IF BaggerManager.HoldingDone THEN
 									currentUnitMode.ActingStateCompleted();
 								END_IF
@@ -124,9 +144,6 @@ CASE unitModeManager.ActiveUnitMode.CurrentState OF
 			
 END_CASE
 
-IF (faultActive AND unitModeManager.ActiveUnitMode.CurrentState <> PACK_ML.State.Clearing) OR abortMachine THEN
-	currentUnitMode.Abort();
-	abortMachine := FALSE;
-END_IF
+
 
 startMachine := FALSE;

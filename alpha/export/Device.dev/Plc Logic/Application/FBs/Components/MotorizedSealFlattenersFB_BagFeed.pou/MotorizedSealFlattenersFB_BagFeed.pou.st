@@ -106,7 +106,7 @@ sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMot
                 faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := TRUE, 
 				defaultCurrentSetpoint := defaultCurrentMSF, 
-				commFail := MSFMotor.udiState <> 4,
+				commFail := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 				isHomable := TRUE);
 				
 sealFlattenersHorizontalAxisMotor.Execute();
@@ -258,10 +258,18 @@ CASE state OF
                                                                     
 																	
 	SEAL_FLATTENER_STATES.MoveFlattenersToBagFeed :      			// Move flatteners to out of the way of the bag for feeding
-																	IF (outSetpoint + clearanceOffset) <= 18.2 THEN
-																		bagFeedPosition := (outSetpoint + clearanceOffset);
+																	IF HMIData.baggerModelSelection = ModelSelection.Pro18 THEN
+																		IF (outSetpoint + clearanceOffset) <= 18.2 THEN
+																			bagFeedPosition := (outSetpoint + clearanceOffset);
+																		ELSE
+																			bagFeedPosition := 18.2;
+																		END_IF
 																	ELSE
-																		bagFeedPosition := 18.2;
+																		IF (outSetpoint + clearanceOffset) <= 23.8 THEN
+																			bagFeedPosition := (outSetpoint + clearanceOffset);
+																		ELSE
+																			bagFeedPosition := 23.8;
+																		END_IF
 																	END_IF
 																		
                                                                     sealFlattenersHorizontalAxisMotor.MoveToPosition(position := bagFeedPosition, 

@@ -9,8 +9,8 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF stKey = "Version" THEN
 	GetVersionProperty.uiMajor := 0;
 	GetVersionProperty.uiMinor := 9;
-	GetVersionProperty.uiServicePack := 13;
-	GetVersionProperty.uiPatch := 4;
+	GetVersionProperty.uiServicePack := 14;
+	GetVersionProperty.uiPatch := 12;
 ELSE
 	GetVersionProperty.uiMajor := 0;
 	GetVersionProperty.uiMinor := 0;

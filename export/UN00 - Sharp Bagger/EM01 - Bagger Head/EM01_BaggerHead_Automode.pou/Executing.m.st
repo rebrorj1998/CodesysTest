@@ -7,7 +7,7 @@ METHOD Executing
 //				 The logic below is generic and coded to interfaces for each component	
 //	Created by: Ben Hess
 //	Created Date: Tuesday, March 26, 2019
-
+currentBaggerState := 'Executing';
 
 IF NOT __ISVALIDREF(bagger) THEN
 	RETURN;
@@ -16,14 +16,24 @@ END_IF
 // Clear starting done status because if we're here starting state is complete.
 _startingDone := FALSE;
 
+IF resetTriggered THEN
+	state := HEAD_STATES.Idle;
+	sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
+	releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
+	bagOpenSubState := BAG_OPEN_ASSIST_STATES.Idle;
+END_IF
+
 // Run Cycle timer for machine cycle
 cycleTimer();
 vacuumDwellTimer(PT := bagger.vacuumDwell);
 // State machine for overall head states
 CASE state OF
     HEAD_STATES.Idle :                              // Start cycle
+													
                                                     IF bagger.StartCycleRequest THEN
+														baggerCycleActive := TRUE;
 														bagger.StartCycleRequest := FALSE;
+														cycleComplete := FALSE;
 														cycleTimer.IN := TRUE;
 														_logger.AddLogItem('Cycle Started');
 														SetHeadState(HEAD_STATES.SealAndSeparateBag);
@@ -94,11 +104,27 @@ CASE state OF
 														SetBagOpenState(BAG_OPEN_ASSIST_STATES.Idle);
                                                     END_IF
                                                     
-    HEAD_STATES.OpenedBag :                         // End cycle              
-                                                    SetHeadState(HEAD_STATES.Idle);
-													cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
-													cycleTimer.IN := FALSE;
-													_logger.AddLogItem(CONCAT('Cycle Complete in ',TO_STRING(cycleTime)));
+    HEAD_STATES.OpenedBag :                         // End cycle           
+													IF bagger.barcodeVerifier.OptionActive THEN
+														IF bagger.barcodeVerifier.VerificationFault THEN
+															bagger.barcodeVerificationFailed.Trigger();
+														ELSIF bagger.barcodeVerifier.GoodRead OR bagger.barcodeVerifier.BadRead OR (NOT bagger.barcodeVerifier.GoodRead AND NOT bagger.barcodeVerifier.BadRead) THEN
+															baggerCycleActive := FALSE;
+															SetHeadState(HEAD_STATES.Idle);
+															cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
+															cycleTimer.IN := FALSE;
+															_logger.AddLogItem(CONCAT('Cycle Complete in ',TO_STRING(cycleTime)));
+														END_IF 
+													ELSE
+														baggerCycleActive := FALSE;
+														SetHeadState(HEAD_STATES.Idle);
+														cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
+														cycleTimer.IN := FALSE;
+														_logger.AddLogItem(CONCAT('Cycle Complete in ',TO_STRING(cycleTime)));
+													END_IF
+													cycleComplete := TRUE;
+													 
+                                                    
                                                   
     //HEAD_STATES.Fault :                                
                                                     
@@ -112,6 +138,9 @@ CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.MoveJawIn :                // Perform actions as enabled - close jaw and move flatteners out. If jaw is disabled then go right to reverse bag
                                                     IF bagger.sealFlatteners.OptionActive THEN
 														bagger.sealFlatteners.ToSeal();
+													END_IF
+													IF bagger.IBD.OptionActive THEN
+														bagger.IBD.MoveInToDeflate();
 													END_IF
                                                     bagger.pressureBar.Close();
 													SetSealSeparateState(SEAL_SEPARATE_STATES.MovingJawIn);
@@ -157,6 +186,7 @@ CASE sealAndSeparateSubState OF
 	SEAL_SEPARATE_STATES.SealingBag:				//
 													IF bagger.sealer.SealComplete THEN
 														SetSealSeparateState(SEAL_SEPARATE_STATES.Done);
+														
 													END_IF
 																												
                                                     
@@ -174,13 +204,18 @@ CASE releaseAndFeedSubState OF
 													bagger.bagOpenFingers.ReleaseBag();
 													bagger.sealFlatteners.ToBagFeed();
 													bagger.pressureBar.Open();
-															
+													IF bagger.IBD.OptionActive THEN
+														bagger.IBD.MoveOut();
+													END_IF
+													bagger.loadPlate.BeginDischarge();	
 													discharge.TakeAwayBag(THIS^);
 													releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	
 													// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
 													IF NOT bagger.printer.OptionActive THEN
-														bagger.bagDelivery.FeedBagOut();
-														SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+														IF NOT bagger.pressureBar.IsFullyClosed THEN
+															bagger.bagDelivery.FeedBagOut();
+															SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+														END_IF
 													ELSE 
 														SetReleaseFeedState(RELEASE_FEED_STATES.WaitForPrinter);
 													END_IF
@@ -189,8 +224,11 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.WaitForOKFromDischarge :   	// Wait for EM02 - Discharge to give OK to feed bag signal
 													IF discharge.OKToFeedBag THEN
 														IF NOT bagger.printer.OptionActive THEN
-															bagger.bagDelivery.FeedBagOut();
-															SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+															IF NOT bagger.pressureBar.IsFullyClosed THEN
+																bagger.bagDelivery.FeedBagOut();
+																SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+															END_IF
+															
 														ELSE 
 															SetReleaseFeedState(RELEASE_FEED_STATES.WaitForPrinter);
 														END_IF   
@@ -198,9 +236,13 @@ CASE releaseAndFeedSubState OF
 													                                         
     
     RELEASE_FEED_STATES.WaitForPrinter :            // Data Ready means the printer has a label and we're all set to print
-                                                    IF bagger.printer.HasLabel THEN
+                                                    IF bagger.printer.HasLabel AND NOT bagger.pressureBar.IsFullyClosed THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.FeedToOffset);
                                                     END_IF
+													IF bagger.cancelPrint THEN
+														bagger.bagDelivery.FeedBagOut();
+														SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+													END_IF
                                                     
     RELEASE_FEED_STATES.FeedToOffset :              // Start feeding to the print offset
                                                     bagger.bagDelivery.FeedToPrintOffset();
@@ -208,12 +250,16 @@ CASE releaseAndFeedSubState OF
                                                         
     RELEASE_FEED_STATES.FeedingToOffset :            // Once offset done start printing
                                                     IF bagger.bagDelivery.ReadyForPrint THEN
+														bagger.printer.BeginPrinting();
+														bagger.bagDelivery.FeedAtPrintSpeed();
+														IF bagger.barcodeVerifier.OptionActive THEN
+															bagger.barcodeVerifier.Trigger();
+														END_IF
 														SetReleaseFeedState(RELEASE_FEED_STATES.StartPrinting);
                                                     END_IF                                            
     
     RELEASE_FEED_STATES.StartPrinting :             // Printer starts print cycle and bag delivery starts moving at print speed
-													bagger.printer.BeginPrinting();
-													bagger.bagDelivery.FeedAtPrintSpeed();
+													
 													SetReleaseFeedState(RELEASE_FEED_STATES.Printing);
 
     //RELEASE_FEED_STATES.SendPrintSignal:            //                                     
@@ -221,10 +267,11 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.Printing :                  // Wait for print to finish
                                                     IF bagger.printer.PrintDone THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.StopPrinting);
+														//bagger.bagDelivery.FeedBagOut();
                                                     END_IF
                                                     
     RELEASE_FEED_STATES.StopPrinting :              // Tell bag delivery it's okay to feed out the rest of the bag and the printer that it can prep itself for the next print
-                                                    bagger.bagDelivery.FeedBagOut();
+                                                   
 													SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
                                                                                 
                                                                                                             

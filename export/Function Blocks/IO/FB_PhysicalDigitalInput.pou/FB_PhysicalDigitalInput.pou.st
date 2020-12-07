@@ -1,5 +1,4 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-{attribute 'io_function_block'}
 FUNCTION_BLOCK FB_PhysicalDigitalInput EXTENDS FB_BaseObject IMPLEMENTS IExecuteAutomatically
 VAR_INPUT
 	in : REFERENCE TO BOOL;

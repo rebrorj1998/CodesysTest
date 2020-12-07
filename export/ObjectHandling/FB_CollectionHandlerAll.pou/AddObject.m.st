@@ -12,6 +12,7 @@ VAR
 	Loggable : ILoggable;
 	Executable : IExecuteAutomatically;
 	Initializable : IInitializable;
+	MachineComponent : IComponent;
 	J   : UINT;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF (__QUERYINTERFACE(Obj, AnyObject)) THEN
@@ -63,4 +64,8 @@ END_IF
 
 IF (__QUERYINTERFACE(Obj, Initializable)) THEN
 	GlobalObjects.CollectionOfInitialzable.AddObject(Initializable);
+END_IF
+
+IF (__QUERYINTERFACE(Obj, MachineComponent)) THEN
+	GlobalObjects.CollectionOfComponents.AddObject(MachineComponent);
 END_IF

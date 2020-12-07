@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_AppliedMotionMotor EXTENDS Sharp_Motion.Axis_REF
+FUNCTION_BLOCK FB_AppliedMotionMotor EXTENDS Axis_REF
 VAR_INPUT
 END_VAR
 VAR_OUTPUT

@@ -54,7 +54,7 @@ CASE configVersion OF
 									
 								
 
-	CONFIG_VERSIONS.V_1_2, CONFIG_VERSIONS.V_1_3 : 		// Added aux IO to 1.2 and BCV trigger to 1.3
+	CONFIG_VERSIONS.V_1_2, CONFIG_VERSIONS.V_1_3,CONFIG_VERSIONS.V_1_4 : 		// Added aux IO to 1.2 and BCV trigger to 1.3
 									ptrMachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
 									ptrMachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
 									ptrMachineOptionsManagementOutputs[0].2 := NOT auxIONodeEnabled;

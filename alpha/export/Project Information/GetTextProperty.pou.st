@@ -10,12 +10,14 @@ IF stKey = "Author" THEN
 	GetTextProperty := "Ben Hess";
 ELSIF stKey = "Company" THEN
 	GetTextProperty := "Sharp Packaging";
+ELSIF stKey = "CompiledLibraryCompatibilityVersion" THEN
+	GetTextProperty := "CODESYS V3.5 SP16";
 ELSIF stKey = "Project" THEN
 	GetTextProperty := "AlphaController";
 ELSIF stKey = "Title" THEN
 	GetTextProperty := "MOAB Prototype";
 ELSIF stKey = "VersionPostfix" THEN
-	GetTextProperty := "-alpha/master";
+	GetTextProperty := "-alpha/feature/PANTHER";
 ELSE
 	GetTextProperty := "";
 END_IF

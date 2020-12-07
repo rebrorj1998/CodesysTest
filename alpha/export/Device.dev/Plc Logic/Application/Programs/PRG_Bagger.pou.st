@@ -7,7 +7,7 @@ VAR_OUTPUT
     
 END_VAR
 VAR
-    moabHead : FB_MOABHead;
+    moabHead : FB_MOABHead_Electric;
     //angledHead : FB_20degHead();
     //pneuHead : FB_PneumaticHead();
     testEIPMotor : FB_AppliedMotionStepServoEIPBase();
@@ -39,7 +39,7 @@ moabHead();
 faultHandler();
 hmiInitiate := HMIData.initiateCycle;
 currentDateAndTime();
-//msfCommFaultONS(CLK := MSFMotor.xDiagnosticAvailable);
+//msfCommFaultONS(CLK := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING);
 HMIData.bagEdgePhotoeyeCovered := NOT iBagNotPresent;
 oSoftStart := TRUE;
 
@@ -47,7 +47,7 @@ HMIData.airFilterClean();
 HMIData.pressureBarGuideShaftGuides();
 HMIData.driveRollerClean();
 HMIData.printHeadClean();
-HMIData.pressureBarLeak(iExtended := iPressureBarExtended, iRetracted := iPressureBarRetracted, maximumStrokeTime := (TO_REAL(HMIData.passthroughSetting / 26.6)) + 0.3);
+//HMIData.pressureBarLeak(iExtended := iPressureBarExtended, iRetracted := iPressureBarRetracted, maximumStrokeTime := (TO_REAL(HMIData.passthroughSetting / 26.6)) + 0.3);
 HMIData.loadPlateLeak(iExtended := iLoadPlateExtended, iRetracted := iLoadPlateRetracted, maximumStrokeTime := 0.4);
 //HMIData.msfHorizontalMotorTemp(iDriveTemp := sealFlattenerHorizontalMotorInputs[4]);
 //HMIData.bagDeliveryMotorTemp(iDriveTemp := bagDeliveryMotorInputs[4]);

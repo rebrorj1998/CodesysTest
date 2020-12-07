@@ -1,0 +1,216 @@
+<ExportFile>
+  <StructuredView Guid="{d9b2b2cc-ea99-4c3b-aa42-1e5c49e65b84}">
+<Single xml:space="preserve" Type="{3daac5e4-660e-42e4-9cea-3711b98bfb63}" Method="IArchivable">
+  <Null Name="Profile" />
+  <List2 Name="EntryList">
+    <Single Type="{6198ad31-4b98-445c-927f-3258a0e82fe3}" Method="IArchivable">
+      <Single Name="IsRoot" Type="bool">True</Single>
+      <Single Name="MetaObject" Type="{81297157-7ec9-45ce-845e-84cab2b88ade}" Method="IArchivable">
+        <Single Name="Guid" Type="System.Guid">fd8b7e1f-3a23-441c-8e5e-8bbeb467fb19</Single>
+        <Single Name="ParentGuid" Type="System.Guid">ebbe1d7c-dc4c-48cc-803f-785ef2dd37d1</Single>
+        <Single Name="Name" Type="string">Library Manager</Single>
+        <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
+        <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
+        <Null Name="EmbeddedTypeGuids" />
+        <Single Name="Timestamp" Type="long">637286271928965032</Single>
+      </Single>
+      <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
+        <List Name="Items" Type="System.Collections.ArrayList">
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">IoStandard, 3.5.10.0 (System)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="PlaceholderName" Type="string">IoStandard</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">4229478655</Single>
+            <Single Name="Namespace" Type="string">IoStandard</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">True</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="PlaceholderName" Type="string">3SLicense</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b</Single>
+            <Single Name="Id" Type="long">1949799870</Single>
+            <Single Name="Namespace" Type="string">_3S_LICENSE</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">Standard, * (System)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="PlaceholderName" Type="string">Standard</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">2035822730</Single>
+            <Single Name="Namespace" Type="string">Standard</Single>
+            <Single Name="SystemLibrary" Type="bool">False</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">Breakpoint Logging Functions, 3.5.5.0 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="PlaceholderName" Type="string">BreakpointLogging</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">3158902239</Single>
+            <Single Name="Namespace" Type="string">BPLog</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">IecVarAccess, 3.3.1.20 (System)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="PlaceholderName" Type="string">IecVarAccess</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">3726551471</Single>
+            <Single Name="Namespace" Type="string">IecVarAccessLibrary</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="Name" Type="string">Serial Communication, 3.5.7.0 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Id" Type="long">735729873</Single>
+            <Single Name="Namespace" Type="string">Serial_Communication</Single>
+            <Single Name="SystemLibrary" Type="bool">False</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="Name" Type="string">SysTypes2 Interfaces, * (System)</Single>
+            <Single Name="Id" Type="long">3339510832</Single>
+            <Single Name="Namespace" Type="string">SysTypes</Single>
+            <Single Name="SystemLibrary" Type="bool">False</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="Name" Type="string">CmpIecTask, 3.5.9.0 (System)</Single>
+            <Single Name="Id" Type="long">3157498192</Single>
+            <Single Name="Namespace" Type="string">CmpIecTask</Single>
+            <Single Name="SystemLibrary" Type="bool">False</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">CAA Device Diagnosis, 3.5.11.0 (CAA Technical Workgroup)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="PlaceholderName" Type="string">CAA Device Diagnosis</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">1841245557</Single>
+            <Single Name="Namespace" Type="string">DED</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">IoDrvModbus, 3.5.11.20 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
+              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
+                <Single Name="Name" Type="string">MAX_MODBUS_CHANNELS</Single>
+                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">8725724278030338</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">100</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </Array>
+            <Single Name="PlaceholderName" Type="string">IoDrvModbus</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">3648783188</Single>
+            <Single Name="Namespace" Type="string">IoDrvModbus</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">IoDrvEthernet, 3.5.11.0 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
+              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
+                <Single Name="Name" Type="string">TASK_PRIORITY</Single>
+                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">7318349394477058</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">15</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </Array>
+            <Single Name="PlaceholderName" Type="string">IoDrvEthernet</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">3243392715</Single>
+            <Single Name="Namespace" Type="string">IoDrvEthernet</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+        </List>
+        <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
+          <Entry>
+            <Key>
+              <Single Type="string">CmpIecVarAccess Implementation</Single>
+            </Key>
+            <Value>
+              <Single Type="string">CmpIecVarAccess Implementation, 3.5.15.0 (System)</Single>
+            </Value>
+          </Entry>
+        </Dictionary>
+      </Single>
+      <Single Name="ParentSVNodeGuid" Type="System.Guid">ebbe1d7c-dc4c-48cc-803f-785ef2dd37d1</Single>
+      <Array Name="Path" Type="string">
+        <Single Type="string">SX</Single>
+        <Single Type="string">PLC Logic</Single>
+        <Single Type="string">Application</Single>
+      </Array>
+      <Single Name="Index" Type="int">-1</Single>
+    </Single>
+  </List2>
+  <Null Name="ProfileName" />
+</Single>  </StructuredView>
+</ExportFile>

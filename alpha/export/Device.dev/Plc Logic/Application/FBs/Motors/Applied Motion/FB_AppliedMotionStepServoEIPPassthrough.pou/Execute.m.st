@@ -12,16 +12,15 @@ IF _reset THEN
 	homingState := JAW_HOMING_STATES.Idle;
 	_homeNow := FALSE;
 	timerHomeDelay.IN := FALSE;
-	_reset := FALSE;
 END_IF
 
 CASE homingState OF
 	JAW_HOMING_STATES.Idle:						IF _homeNow THEN
-													IF NOT driveInputs[10].2 THEN
-														homingState := JAW_HOMING_STATES.MoveForwardFromSensor;
-													ELSE 
+													//IF NOT driveInputs[10].2 THEN
+													//	homingState := JAW_HOMING_STATES.MoveForwardFromSensor;
+													//ELSE 
 														homingState := JAW_HOMING_STATES.StartHoming;
-													END_IF
+													//END_IF
 													_homeNow := FALSE;
 												END_IF
 												
@@ -43,9 +42,9 @@ CASE homingState OF
 												END_IF
 												
 	JAW_HOMING_STATES.StartHoming:				commandSuccessful := FALSE;
-												velocitySetpoint := 2583;
-												pointToPointAccelSetpoint := 1000;
-												pointToPointDecelSetpoint := 1000;
+												velocitySetpoint := 1250;
+												pointToPointAccelSetpoint := 10;
+												pointToPointDecelSetpoint := 10;
 												distanceToMoveInSteps := 1;
 												ExecuteStoredProgram(2);
 												homingState := JAW_HOMING_STATES.Homing;
@@ -59,8 +58,8 @@ CASE homingState OF
                                                        END_IF
 												END_IF 
 												
-	JAW_HOMING_STATES.HomeComplete:				MoveToPosition(2, 1000,1000,2583);
-												homingState := JAW_HOMING_STATES.MovingToTwoInches;
+	JAW_HOMING_STATES.HomeComplete:				//MoveToPosition(2, 1000,1000,2583);
+												homingState := JAW_HOMING_STATES.SetLimits;
 
 	JAW_HOMING_STATES.MovingToTwoInches : 		timerHomeDelay.PT := T#200MS;
 												timerHomeDelay.IN := TRUE;

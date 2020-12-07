@@ -19,10 +19,10 @@ IF currentLimit = 0 THEN
 	currentLimit := defaultCurrentSetpoint;
 END_IF
 //Map raw EIP Registers to parameters
-absolutePositionSteps := driveInputs[6];
+absolutePositionSteps := driveInputs[5];
 velocity := DINT_TO_INT(driveInputs[8]);
 stepServoStatusRaw := DINT_TO_INT(driveInputs[0]);
-
+stepServoAlarmCodeRaw := DINT_TO_INT(driveInputs[1]);
 driveOutputs[4] := velocitySetpoint;
 driveOutputs[5] := pointToPointAccelSetpoint;
 driveOutputs[6] := pointToPointDecelSetpoint;
@@ -32,7 +32,7 @@ driveOutputs[9] := sclCommand;
 driveOutputs[10] := parameter1;
 driveOutputs[11] := parameter2;
 driveOutputs[12] := currentLimit;
-driveOutputs[13] := currentLimit + 1;
+driveOutputs[13] := currentLimit;
 driveOutputs[0] := commands.commandWord;
 
 //Convert Distance setpoint to steps.  Reverse polarity for display purposes if needed. 
@@ -63,10 +63,49 @@ IF commandSuccessfulONS.Q THEN
 END_IF
 
 
-IF _reset AND (status.driveFaulted OR status.alarmPresent) THEN
-	commands.alarmReset := TRUE;
+
+resetTimeout(IN := _reset, PT := T#1S);
+encoderResetTimeout(PT := T#150MS);
+IF resetTimeout.Q THEN
+	resetState := 0;
+	encoderResetTimeout.IN := FALSE;
 	_reset := FALSE;
 END_IF
+CASE resetState OF
+	
+	0 :		// Do Nothing
+			IF _reset THEN
+				resetState := 1;
+			END_IF
+	1 :		// 
+			commandSuccessful := FALSE;
+			commands.alarmReset := TRUE;
+			resetState := 2;
+	
+	2 :		IF commandSuccessful THEN
+				commandSuccessful := FALSE;
+				commands.Enable := TRUE;
+				resetState := 3;		
+			END_IF
+	
+	3 :		//
+			IF commandSuccessful THEN;
+				
+				encoderResetTimeout.IN := TRUE;
+				IF encoderResetTimeout.Q THEN
+					resetState := 4;	
+					ResetEncoderPosition(driveInputs[5]);	
+				END_IF
+			END_IF
+	
+	4 :		//
+			IF commandSuccessful THEN;
+				resetState := 0;
+				
+				_reset := FALSE;
+			END_IF
+	
+END_CASE
 
 IF reversePolarity THEN
     absolutePositonInches := absolutePositonInches * -1; 
@@ -76,8 +115,8 @@ END_IF
 status(statusCode := StepServoStatusRaw);
 
 //Bit-packing for LONG types over Modbus
-
-_faulted := status.driveFaulted OR status.alarmPresent OR commFail;
+//_faulted := status.driveFaulted OR status.alarmPresent OR commFail;
+_faulted := status.driveFaulted OR commFail;
 
 //Manual moves for motor
 IF moveDistanceManualPB THEN
@@ -91,6 +130,6 @@ IF movePositionManualPB THEN
 END_IF
 
 
-faults.commFail.faultTrigger := commFail AND Globals.machinePowerOK;
-faults.notHomed.faultTrigger := homeRequiredIndication AND isHomable;
+faults.commFail.faultTrigger := commFail; //AND Globals.machinePowerOK;
+//faults.notHomed.faultTrigger := homeRequiredIndication AND isHomable;
 

@@ -11,6 +11,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	version : STRING;
 	inCycle : BOOL;
 	batchEnable : BOOL;
+	autoEnable : BOOL;
+	autoDwell : REAL;
 	batchSetting : UDINT := 10;
 	batchCount : UDINT;
 	headCycleCount : UDINT;
@@ -40,6 +42,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
+	fillerEnable : BOOL;
 	loadPlateDelay : REAL;
 	loadPlateDwell : REAL;
 	exitConveyorDwell : REAL;
@@ -73,7 +76,16 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printerInstalled : BOOL;
 	lpaDuringBagFeedEnable : BOOL := TRUE;
 	lpaBagEjectAssistEnable : BOOL := TRUE;
-
+	infeedConveyorRunningMode : BOOL;  			//0 = Indexing, 1 = Continuous
+	infeedConveyorCountingMode : BOOL;			// 0 = Flight, 1 = Parts
+	infeedIndexDwellTimer : REAL := 0.25;
+	infeedFlightCountTarget : DINT := 5;
+	infeedFlightCountActual : DINT;
+	infeedPartsCountTarget : DINT := 10;
+	infeedPartsCountActual : DINT;
+	infeedEmptyPartsSetting : DINT := 10;
+	infeedEmptyPartsActual : DINT;
+	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
 	lpaServiceOff : BOOL;
@@ -92,6 +104,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	loadShelfService : ServiceCommands;
 	IBDService : ServiceCommands;
 	funnelService : ServiceCommands;
+	baggerHeadService : ServiceCommands;
 	jogBagForward : BOOL;
 	jogBagReverse : BOOL;
 	jogPassthroughForward : BOOL;
@@ -119,6 +132,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	externalExitConveyorJog : BOOL;
 	externalExitConveyorStartDwell : BOOL;
 	triggerBarcodeReaderService : BOOL;
+	IBDOffset : REAL := 3.0;
 	
 	(*Factoy Config*)
 	bofSelection : BagOpenFingersSelection := BagOpenFingersSelection.PneumaticWithBagOpenSensors;
@@ -134,7 +148,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	auxIOConfig : AuxIOConfiguration;
 	fillerFactorySelection : FillerSelection;
 	funnelFactorySelection : FunnelSelection;
-	murrIOConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
+	murrIOConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_4;
 	printerConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
@@ -155,6 +169,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	bagLevelLow : Warning;
 	fillerModeCycleStartOnly : Warning;
 	baggerInhibited : Warning;
+	infeedConveyorOutOfParts : Warning;
+	mayCycleUnexpectedly : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
     
@@ -191,7 +207,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
+	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_4;
 	printerConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
