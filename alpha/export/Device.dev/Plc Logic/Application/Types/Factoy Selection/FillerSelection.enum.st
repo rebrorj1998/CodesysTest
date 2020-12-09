@@ -4,6 +4,7 @@
 TYPE FillerSelection :
 (
 	NotInstalled := 0,
-	StandardFiller := 1
+	StandardFiller := 1,
+	EZFeed := 2
 );
 END_TYPE

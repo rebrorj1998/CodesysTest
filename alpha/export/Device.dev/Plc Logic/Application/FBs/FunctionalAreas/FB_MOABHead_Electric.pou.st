@@ -39,6 +39,8 @@ VAR
 	enableIBDEject : BOOL;
 	enableLabelSideUp : BOOL := TRUE;
 	factoryTestModeKeepCycling : BOOL;
+	autoModeKeepCycling : BOOL;
+	autoModeKeepCyclingTimer : Standard.TON;
     bagDelivery : BagDeliveryFB();
     //zebraPrinter : PrinterFB;            //Printer Test Rig
 	zebraPrinter : PrinterFB_Mode2;
@@ -82,6 +84,8 @@ VAR
 	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
 	barcodeVerificationFailed : FB_Fault(name := 'Barcode Verification Failed');
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
+	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
+	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -116,6 +120,13 @@ VAR
 	lightedPalmButton : FB_MurrK50;
 	footSwitchONS : FB_ONS;
 	IBDOutSetting: REAL;
+	ezfeed : EZFeedFB();
+	printAndApply : PrintAndApplyFB();
+	testReset : BOOL;
+	testEnable : BOOL;
+	testEnable2 : BOOL;
+	ITester : DED.INode;
+	reconfing : DED.Reconfigure;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -193,8 +204,8 @@ IF HMIData.resetAverageCycleTime THEN
 END_IF
 HMIData.lastCycleTime := cycleTime;
 
-HMIData.printerNotReady.active := NOT printerReady AND zebraPrinter.enable;
-HMIData.waitingForPrinter.active := zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter;
+HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR printAndApply.printerNotReady;
+HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter) OR printAndApply.waitingForPrinter;
 //HMIData.printerRibbonLow.active := printerRibbonLow;
 	 
 batchSetting := HMIData.batchSetting;
@@ -210,7 +221,7 @@ murrIOBusNode(
 	guardNodeEnabled:= (HMIData.cycleStartButtonSelection = PalmButtonSelection.SinglePalmButton 
 						OR HMIData.cycleStartButtonSelection = PalmButtonSelection.DualPalmButton
 						OR (HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled)), 
-	printerNodeEnabled:= (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled), 
+	printerNodeEnabled:= , 
 	dischargeNodeEnabled:= TRUE, 
 	auxIONodeEnabled:= , 
 	configVersion:= HMIData.murrIOConfigVersion, 
@@ -279,10 +290,36 @@ bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse);
 bagDelivery.Mode := bagDeliveryMode;
 
+	 
+CASE HMIData.printerSelection OF
+		 
+	LabelPrinterSelection.NotInstalled:				//
+													zebraPrinter.enable := FALSE;
+													printAndApply.enable := FALSE;
+													//Panther_PA.Enable := FALSE;
+													murrIOBusNode.printerNodeEnabled := FALSE;
+	
+	LabelPrinterSelection.ZebraPrinter203DPI, 			   
+		LabelPrinterSelection.ZebraPrinter300DPI:	//
+													zebraPrinter.enable := HMIData.printerInUse;
+													printAndApply.enable := FALSE;
+													//Panther_PA.Enable := FALSE;
+													murrIOBusNode.printerNodeEnabled := TRUE;
+														 
+			
+	LabelPrinterSelection.PrintAndApply:			//
+		 											zebraPrinter.enable := FALSE;
+													//Panther_PA.Enable := TRUE;
+													printAndApply.enable := HMIData.printerInUse;
+													murrIOBusNode.printerNodeEnabled := FALSE;
+END_CASE
+
+
+
+	 
 // Run Zebra Printer
 zebraPrinter(ribbonEncoderPulse := iPrinterRibbonEncoder, oLowerPrintHead => oPrintHeadDown);
 zebraPrinter.Mode := printerMode;
-zebraPrinter.enable := (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled) AND HMIData.printerInUse;
 IF HMIData.activateDemoMode THEN
 	HMIData.demoModeIsActive.active := TRUE;
 	zebraPrinter.autoSendLabel := TRUE;
@@ -291,6 +328,25 @@ ELSE
 	zebraPrinter.autoSendLabel := FALSE;
 END_IF
 
+printAndApply(
+	enable:= , 
+	baggerFaulted:= HMIData.faultActive, 
+	baggerInCycle:= HMIData.inCycle, 
+	dataReady:= iPAOnlineDataReady, 
+	LOTAR:= iPALOTAR, 
+	PACycleComplete:= iPACycleComplete, 
+	applicatorHome:= iPAApplicatorHome, 
+	heartbeat:= iPAHeartbeat, 
+	productSensor:= NOT iConveyorClear, 
+	state=> , 
+	commFail=> , 
+	faultedStatus=> , 
+	printerNotReady=> , 
+	printerReadyToApply=> , 
+	waitingForPrinter=> , 
+	triggerOutput=> oPATrigger1, 
+	inhibitCycle=> , 
+	inhibitConveyor=> );
 	 
 // Run funnel
 funnel(
@@ -457,10 +513,10 @@ CASE HMIData.auxIOConfig.factorySelection OF
 															 
  														CASE HMIData.auxIOConfig.cfgInputSelection OF
 															AuxInputSelection.NotConfigured:		// 
-																									HMIData.baggerInhibited.active := FALSE;
+																									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
 																										 
 															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := iAuxConfigInput;
+																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
@@ -557,26 +613,66 @@ configOutput1Pulse(Q => oAuxConfigOut1);
 configOutput2Pulse(Q => oAuxConfigOut2);
 configOutput1Pulse.DwellSetting := 500;
 configOutput2Pulse.DwellSetting := 500;
- 
+
+// Filler and EZFeed conveyor setup
 CASE HMIData.fillerFactorySelection OF
 	FillerSelection.NotInstalled:					// No filler
 		 											filler.enable := FALSE;
 													filler.activateFiller := FALSE;	
+													ezfeed.enable := FALSE;
 													fillerModeCycleStartOnlyPulse.Reset();
 		 
 	FillerSelection.StandardFiller:					// Only enable filler if Aux IO is enabled
 		 											filler.enable := (HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard);
+														 
+	FillerSelection.EZFeed:							filler.enable := TRUE;
+		 											ezfeed.enable := TRUE;
+													
 		 											
-														
-		 
+
 END_CASE 
+	 
+ezfeed(
+	enable:= , 
+	baggerFaulted:= HMIData.faultActive, 
+	enableEZFeed:= HMIData.fillerEnable, 
+	continuousModeEnable:= HMIData.infeedConveyorRunningMode, 
+	partsCountingModeEnable:= HMIData.infeedConveyorCountingMode, 
+	flightPresentSensor:= iInfeedFlightSensor, 
+	partPresentSensor:= , 
+	waitingForFiller:= filler.waitingForFiller, 
+	indexDwellSetting:= HMIData.infeedIndexDwellTimer, 
+	flightTarget:= HMIData.infeedFlightCountTarget, 
+	partsTarget:= HMIData.infeedPartsCountTarget, 
+	emptyPartsWarningSetting:= HMIData.infeedEmptyPartsSetting, 
+	restartFromEmptyParts:= HMIData.initiateCycle, 
+	state=> , 
+	runVFD=> oRunInfeedVFD, 
+	flightCount=> HMIData.infeedFlightCountActual, 
+	partsCount=> HMIData.infeedPartsCountActual, 
+	emptyPartsWarningCount=> HMIData.infeedEmptyPartsActual, 
+	emptyPartsWarning=> HMIData.infeedConveyorOutOfParts.active,
+	EZFeedDone=> );
+
+IF HMIData.fillerFactorySelection = FillerSelection.EZFeed THEN
+	Infeed_Conveyor_IO.Enable := TRUE; 
+
+	IF Infeed_Conveyor_IO.eState <> IoDrvEthernetIP.AdapterState.RUNNING THEN 
+		infeedConveyorIOCommFail.Trigger();
+	END_IF
+ELSE
+	Infeed_Conveyor_IO.Enable := FALSE;
+END_IF
+	 
+infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = FillerSelection.EZFeed) AND NOT iInfeedVFDNotFaulted;
+		 
 fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= , 
-	fillerTrigger:= iAuxFillerTrigger,
+	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone,
 	fillerOK:= iAuxFillerOK, 
-	activateFiller:= , 
+	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state=> , 
 	fillerModeActive=> , 
@@ -651,9 +747,9 @@ loadShelfFaultTimer(
 	failToRetract=> loadShelfFaults.failedToLoad.faultTrigger);
  
 exitConveyorRun();
-exitConveyorRun.DwellSetting := TO_UINT(HMIData.exitConveyorDwell * 1000);
+exitConveyorRun.DwellSetting := TO_UDINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
-oRunExitConveyor := exitConveyorRun.Q AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit;
+oRunExitConveyor := (exitConveyorRun.Q AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit) AND NOT printAndApply.inhibitConveyor;
 	 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
@@ -751,9 +847,12 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	Bag_Delivery_Rear_Motor.xAcknowledge := TRUE;
 	Keyence_BCV.xAcknowledge := TRUE;
 	IBD_MOtor.xAcknowledge := TRUE;
+	Panther_PA.xAcknowledge := TRUE;
 	
 	HMIData.ackAllFaults := TRUE;
 	enable := TRUE;
+	
+	printAndApply.Reset();
 	
 	bagDropTimer.IN := FALSE;
 	
@@ -843,6 +942,14 @@ ELSE
 	Bag_Delivery_Rear_Motor.xAcknowledge := FALSE;
 	Keyence_BCV.xAcknowledge := FALSE;
 	IBD_MOtor.xAcknowledge := FALSE;
+	Panther_PA.xAcknowledge := FALSE;
+END_IF
+
+Keyence_BCV.Enable := testEnable;
+IF (__QUERYINTERFACE(Keyence_BCV, ITester)) THEN
+	IF testReset THEN
+		reconfing(itfNode := ITester);
+	END_IF
 END_IF
 
 
@@ -919,6 +1026,9 @@ IF NOT enable OR faultONS.OSR THEN
 END_IF
 pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
 cycleTimer();
+autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
+
+HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
 footSwitchONS(CLK := iFootSwitch);
 
@@ -931,10 +1041,12 @@ CASE state OF
 													
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (enableBatch AND (batchCount < batchSetting))
-													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND factoryTestModeKeepCycling AND NOT LPA.Q
-													OR startCycleReqFromPalmButtonsONS.OSR AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
+													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
+													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													OR filler.cycleBagRequest 
+													OR (filler.cycleBagRequest AND HMIData.autoEnable)
+													OR (filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR)
+													OR (autoModeKeepCyclingTimer.Q)
 													OR footSwitchONS.OSR)
 													AND (NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
@@ -974,11 +1086,13 @@ CASE state OF
 														startCycle := FALSE;
 														HMIData.initiateCycle := FALSE;
 														factoryTestModeKeepCycling := FALSE;
+														autoModeKeepCycling := FALSE;
 														hmiLight.TurnOff();
 													END_IF
 													
 													IF HMIData.sealBarNotAtTemperature.active THEN
 														factoryTestModeKeepCycling := FALSE;
+														autoModeKeepCycling := FALSE;
 													END_IF
 													
 													IF bagOpened THEN
@@ -1241,6 +1355,11 @@ CASE state OF
 											END_IF
 											HMIData.inCycle := FALSE;
 											//bagFailedToOpen := FALSE;
+											
+											IF HMIData.autoEnable AND NOT HMIData.stopMachine THEN
+												autoModeKeepCycling := TRUE;
+											END_IF
+											
 											IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 												IF (HMIData.bagsMade.count >= 1000) THEN
 													factoryTestModeKeepCycling := FALSE;
@@ -1329,6 +1448,7 @@ CASE state OF
 											startCycle := FALSE;
 											HMIData.initiateCycle := FALSE;
 											factoryTestModeKeepCycling := FALSE;
+											autoModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
 											//bagOpened := FALSE;
                                                     

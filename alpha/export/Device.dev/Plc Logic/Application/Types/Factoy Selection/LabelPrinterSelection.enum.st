@@ -5,6 +5,7 @@ TYPE LabelPrinterSelection :
 (
 	NotInstalled := 0,
 	ZebraPrinter203DPI := 1,
-	ZebraPrinter300DPI := 2
+	ZebraPrinter300DPI := 2,
+	PrintAndApply := 3
 );
 END_TYPE

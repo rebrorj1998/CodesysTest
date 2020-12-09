@@ -11,6 +11,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	version : STRING;
 	inCycle : BOOL;
 	batchEnable : BOOL;
+	autoEnable : BOOL;
+	autoDwell : REAL;
 	batchSetting : UDINT := 10;
 	batchCount : UDINT;
 	headCycleCount : UDINT;
@@ -40,6 +42,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
+	fillerEnable : BOOL;
 	loadPlateDelay : REAL;
 	loadPlateDwell : REAL;
 	exitConveyorDwell : REAL;
@@ -73,7 +76,16 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printerInstalled : BOOL;
 	lpaDuringBagFeedEnable : BOOL := TRUE;
 	lpaBagEjectAssistEnable : BOOL := TRUE;
-
+	infeedConveyorRunningMode : BOOL;  			//0 = Indexing, 1 = Continuous
+	infeedConveyorCountingMode : BOOL;			// 0 = Flight, 1 = Parts
+	infeedIndexDwellTimer : REAL := 0.25;
+	infeedFlightCountTarget : DINT := 5;
+	infeedFlightCountActual : DINT;
+	infeedPartsCountTarget : DINT := 10;
+	infeedPartsCountActual : DINT;
+	infeedEmptyPartsSetting : DINT := 10;
+	infeedEmptyPartsActual : DINT;
+	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
 	lpaServiceOff : BOOL;
@@ -157,6 +169,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	bagLevelLow : Warning;
 	fillerModeCycleStartOnly : Warning;
 	baggerInhibited : Warning;
+	infeedConveyorOutOfParts : Warning;
+	mayCycleUnexpectedly : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
     
