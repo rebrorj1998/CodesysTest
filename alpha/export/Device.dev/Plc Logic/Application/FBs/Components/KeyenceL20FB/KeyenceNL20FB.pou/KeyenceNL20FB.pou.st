@@ -40,6 +40,7 @@ VAR
 	
 	state : eKeyenceLN20FB_States;
 	triggerONS : FB_ONS;
+	readingCompleteTrigger : MonostableMultivibratorFB();
 END_VAR
 	
 VAR_IN_OUT
@@ -57,6 +58,9 @@ IF ptrEIPInputs = 0 OR ptrEIPOutputs = 0 THEN
 	RETURN;
 END_IF
 triggerONS(CLK := triggerInput);
+
+readingCompleteTrigger.DwellSetting := 500;
+readingCompleteTrigger(Q => readingCompleteAck);
 // Map statuses to friendly variables
 error := ptrEIPInputs[0].0;
 readDataUpdateAvailable := ptrEIPInputs[0].1;
@@ -91,7 +95,9 @@ END_IF
 
 CASE state OF
 	eKeyenceLN20FB_States.Idle: 			//
-											
+											IF readingComplete THEN
+													readingCompleteTrigger.Trigger();
+												END_IF
 											IF triggerONS.OSR THEN
 												readingStartRequest := TRUE;
 												xBusy := TRUE;
@@ -106,7 +112,10 @@ CASE state OF
 											IF readingComplete OR NOT triggerInput THEN
 												state := eKeyenceLN20FB_States.SetStatus;
 												readingStartRequest := FALSE;
-												readingCompleteAck := TRUE;
+												IF readingComplete THEN
+													readingCompleteTrigger.Trigger();
+												END_IF
+												
 											END_IF
 	
 	eKeyenceLN20FB_States.SetStatus:		// Set the current read status and string
@@ -129,8 +138,10 @@ CASE state OF
 											END_IF
 											
 	eKeyenceLN20FB_States.WaitForReadClear:	//
+											IF readingComplete THEN
+												readingCompleteTrigger.Trigger();
+											END_IF
 											IF NOT readingComplete THEN
-												readingCompleteAck := FALSE;
 												xBusy := FALSE;
 												xDone := TRUE;
 												state := eKeyenceLN20FB_States.Idle;
@@ -138,17 +149,16 @@ CASE state OF
 
 	eKeyenceLN20FB_States.Reset: 			//
 											IF readingComplete THEN
-												readingCompleteAck := TRUE;
-												state := eKeyenceLN20FB_States.WaitForReadClear;
-											ELSE
+												readingCompleteTrigger.Trigger();
+											END_IF
+											
 												readingStartRequest := FALSE;
-												readingCompleteAck := FALSE;
 												xBusy := FALSE;
 												xDone := FALSE;
 												badRead := FALSE;
 												goodRead := FALSE;
 												state := eKeyenceLN20FB_States.Idle;
-											END_IF
+											
 END_CASE	
 
 // Outputs to barcode verifier

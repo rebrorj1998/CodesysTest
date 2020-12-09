@@ -40,7 +40,7 @@ SUPER^();
 
 printerNotReady := baggerFaulted OR commFail.active;
 waitingForPrinter := (state = PRINT_AND_APPLY_STATES.WaitForLOTAR) OR (state = PRINT_AND_APPLY_STATES.WaitForLabel);
-inhibitCycle := (state <> PRINT_AND_APPLY_STATES.Idle);
+inhibitCycle := (state <> PRINT_AND_APPLY_STATES.Idle) AND enable;
 
 resetOutputTimer.DwellSetting := 500;
 resetOutputTimer();
@@ -68,7 +68,7 @@ CASE state OF
 	
 	
 	PRINT_AND_APPLY_STATES.WaitForLabel:	//  
-											IF dataReady THEN
+											IF dataReady OR LOTAR THEN
 												state := PRINT_AND_APPLY_STATES.WaitForLOTAR;
 											END_IF
 											inhibitConveyor := productSensor;
@@ -93,7 +93,7 @@ CASE state OF
 	
 	PRINT_AND_APPLY_STATES.Applying:		//
 											inhibitCycle := FALSE;
-											IF NOT applicatorHome THEN
+											IF NOT productSensor THEN
 												triggerOutput := FALSE;
 												state := PRINT_AND_APPLY_STATES.Idle;
 											END_IF

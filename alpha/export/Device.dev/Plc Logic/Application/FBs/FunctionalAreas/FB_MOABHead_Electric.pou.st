@@ -122,6 +122,11 @@ VAR
 	IBDOutSetting: REAL;
 	ezfeed : EZFeedFB();
 	printAndApply : PrintAndApplyFB();
+	testReset : BOOL;
+	testEnable : BOOL;
+	testEnable2 : BOOL;
+	ITester : DED.INode;
+	reconfing : DED.Reconfigure;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -199,8 +204,8 @@ IF HMIData.resetAverageCycleTime THEN
 END_IF
 HMIData.lastCycleTime := cycleTime;
 
-HMIData.printerNotReady.active := NOT printerReady AND zebraPrinter.enable;
-HMIData.waitingForPrinter.active := zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter;
+HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR printAndApply.printerNotReady;
+HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter) OR printAndApply.waitingForPrinter;
 //HMIData.printerRibbonLow.active := printerRibbonLow;
 	 
 batchSetting := HMIData.batchSetting;
@@ -216,7 +221,7 @@ murrIOBusNode(
 	guardNodeEnabled:= (HMIData.cycleStartButtonSelection = PalmButtonSelection.SinglePalmButton 
 						OR HMIData.cycleStartButtonSelection = PalmButtonSelection.DualPalmButton
 						OR (HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled)), 
-	printerNodeEnabled:= (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled), 
+	printerNodeEnabled:= , 
 	dischargeNodeEnabled:= TRUE, 
 	auxIONodeEnabled:= , 
 	configVersion:= HMIData.murrIOConfigVersion, 
@@ -291,19 +296,22 @@ CASE HMIData.printerSelection OF
 	LabelPrinterSelection.NotInstalled:				//
 													zebraPrinter.enable := FALSE;
 													printAndApply.enable := FALSE;
-													Panther_PA.Enable := FALSE;
+													//Panther_PA.Enable := FALSE;
+													murrIOBusNode.printerNodeEnabled := FALSE;
 	
 	LabelPrinterSelection.ZebraPrinter203DPI, 			   
 		LabelPrinterSelection.ZebraPrinter300DPI:	//
 													zebraPrinter.enable := HMIData.printerInUse;
 													printAndApply.enable := FALSE;
-													Panther_PA.Enable := FALSE;
+													//Panther_PA.Enable := FALSE;
+													murrIOBusNode.printerNodeEnabled := TRUE;
 														 
 			
 	LabelPrinterSelection.PrintAndApply:			//
 		 											zebraPrinter.enable := FALSE;
-													Panther_PA.Enable := TRUE;
+													//Panther_PA.Enable := TRUE;
 													printAndApply.enable := HMIData.printerInUse;
+													murrIOBusNode.printerNodeEnabled := FALSE;
 END_CASE
 
 
@@ -320,7 +328,25 @@ ELSE
 	zebraPrinter.autoSendLabel := FALSE;
 END_IF
 
-printAndApply();
+printAndApply(
+	enable:= , 
+	baggerFaulted:= HMIData.faultActive, 
+	baggerInCycle:= HMIData.inCycle, 
+	dataReady:= iPAOnlineDataReady, 
+	LOTAR:= iPALOTAR, 
+	PACycleComplete:= iPACycleComplete, 
+	applicatorHome:= iPAApplicatorHome, 
+	heartbeat:= iPAHeartbeat, 
+	productSensor:= NOT iConveyorClear, 
+	state=> , 
+	commFail=> , 
+	faultedStatus=> , 
+	printerNotReady=> , 
+	printerReadyToApply=> , 
+	waitingForPrinter=> , 
+	triggerOutput=> oPATrigger1, 
+	inhibitCycle=> , 
+	inhibitConveyor=> );
 	 
 // Run funnel
 funnel(
@@ -487,10 +513,10 @@ CASE HMIData.auxIOConfig.factorySelection OF
 															 
  														CASE HMIData.auxIOConfig.cfgInputSelection OF
 															AuxInputSelection.NotConfigured:		// 
-																									HMIData.baggerInhibited.active := FALSE;
+																									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
 																										 
 															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := iAuxConfigInput;
+																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
@@ -721,9 +747,9 @@ loadShelfFaultTimer(
 	failToRetract=> loadShelfFaults.failedToLoad.faultTrigger);
  
 exitConveyorRun();
-exitConveyorRun.DwellSetting := TO_UINT(HMIData.exitConveyorDwell * 1000);
+exitConveyorRun.DwellSetting := TO_UDINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
-oRunExitConveyor := exitConveyorRun.Q AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit;
+oRunExitConveyor := (exitConveyorRun.Q AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit) AND NOT printAndApply.inhibitConveyor;
 	 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
@@ -821,9 +847,12 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	Bag_Delivery_Rear_Motor.xAcknowledge := TRUE;
 	Keyence_BCV.xAcknowledge := TRUE;
 	IBD_MOtor.xAcknowledge := TRUE;
+	Panther_PA.xAcknowledge := TRUE;
 	
 	HMIData.ackAllFaults := TRUE;
 	enable := TRUE;
+	
+	printAndApply.Reset();
 	
 	bagDropTimer.IN := FALSE;
 	
@@ -913,6 +942,14 @@ ELSE
 	Bag_Delivery_Rear_Motor.xAcknowledge := FALSE;
 	Keyence_BCV.xAcknowledge := FALSE;
 	IBD_MOtor.xAcknowledge := FALSE;
+	Panther_PA.xAcknowledge := FALSE;
+END_IF
+
+Keyence_BCV.Enable := testEnable;
+IF (__QUERYINTERFACE(Keyence_BCV, ITester)) THEN
+	IF testReset THEN
+		reconfing(itfNode := ITester);
+	END_IF
 END_IF
 
 
