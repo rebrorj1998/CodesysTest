@@ -53,6 +53,7 @@ VAR
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
+	
 	//IBDCylinders : FB_ThreePositionCylinder();
 	IBDExtendONS : FB_ONS();
 	IBDRetractONS : FB_ONS();
@@ -330,10 +331,12 @@ END_IF
 
 printAndApply(
 	enable:= , 
+	bypass := NOT bagOpened,
 	baggerFaulted:= HMIData.faultActive, 
 	baggerInCycle:= HMIData.inCycle, 
 	dataReady:= iPAOnlineDataReady, 
 	LOTAR:= iPALOTAR, 
+	faultInput:= NOT iPAFaulted,
 	PACycleComplete:= iPACycleComplete, 
 	applicatorHome:= iPAApplicatorHome, 
 	heartbeat:= iPAHeartbeat, 
@@ -344,7 +347,8 @@ printAndApply(
 	printerNotReady=> , 
 	printerReadyToApply=> , 
 	waitingForPrinter=> , 
-	triggerOutput=> oPATrigger1, 
+	triggerOutput=> oPATrigger1,
+	resetOutput=> oPAReset, 
 	inhibitCycle=> , 
 	inhibitConveyor=> );
 	 
@@ -747,9 +751,16 @@ loadShelfFaultTimer(
 	failToRetract=> loadShelfFaults.failedToLoad.faultTrigger);
  
 exitConveyorRun();
-exitConveyorRun.DwellSetting := TO_UDINT(HMIData.exitConveyorDwell * 1000);
+exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
-oRunExitConveyor := (exitConveyorRun.Q AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit) AND NOT printAndApply.inhibitConveyor;
+
+IF printAndApply.inhibitConveyor THEN
+	exitConveyorRun.Reset();
+END_IF
+
+
+	 
+oRunExitConveyor := ((exitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
 	 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
@@ -860,7 +871,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	motorizedSealFlatteners.Reset();
 	motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
 	
-	
 	HMIData.bagOpenFeedNewBagCount := 0;
 	bagOpenRetryCount := 0;
 	
@@ -881,7 +891,11 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 	END_IF
-	bagOpened := FALSE;
+	
+	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
+		bagOpened := FALSE;
+	END_IF
+	//bagOpened := FALSE;
 	
 	enableBatch := FALSE;
 	batchCount := 0;
@@ -1265,6 +1279,9 @@ CASE state OF
 														sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
 													ELSE
 														sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+													END_IF
+													IF printAndApply.enable AND bagOpened THEN
+														printAndApply.BeginCycle();
 													END_IF
 													filler.BaggerCycleInitiated();
                                                     HMIData.inCycle := TRUE;
