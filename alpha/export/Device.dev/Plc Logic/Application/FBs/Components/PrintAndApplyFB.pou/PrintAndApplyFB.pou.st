@@ -3,27 +3,37 @@ FUNCTION_BLOCK PrintAndApplyFB EXTENDS BaseComponentFB IMPLEMENTS IComponentStat
 VAR_INPUT
 	baggerFaulted : BOOL;
 	baggerInCycle : BOOL;
+	bypass : BOOL;
 	dataReady : BOOL;
 	LOTAR : BOOL;
+	faultInput : BOOL;
 	PACycleComplete : BOOL;
 	applicatorHome : BOOL;
 	heartbeat : BOOL;
 	productSensor : BOOL;
+	exitConveyorRunAfterPASetting : REAL;
 END_VAR
 VAR_OUTPUT
 	state : PRINT_AND_APPLY_STATES;
-	commFail : FB_Fault(name := 'Comm Fail');
-	faultedStatus : FB_Fault(name := 'Print and Apply Faulted');
+	commFail : BOOL;
+	faultedStatus : BOOL;
 	printerNotReady : BOOL;
 	printerReadyToApply : BOOL;
 	waitingForPrinter : BOOL;
 	triggerOutput : BOOL;
+	resetOutput : BOOL;
 	inhibitCycle : BOOL;
 	inhibitConveyor : BOOL;
+	runConveyorAfterApply : BOOL;
 END_VAR
 VAR
 	resetOutputTimer : MonostableMultivibratorFB();
-	
+	exitConveyorRunAfterPA : DelayDwellFB() := (Dwellsetting := 3000);
+	inCycleONS : FB_ONS;
+	baggerFaultedONS : FB_ONS;
+	_beginCycle : BOOL;
+	commFailTimer1 : Standard.TON := (PT := T#2S);
+	commFailTimer2 : Standard.TON := (PT := T#2S);
 END_VAR
 	
 VAR_IN_OUT
@@ -34,21 +44,31 @@ END_VAR
 //    Created by: Ben Hess
 //    Created Date: December 7th, 2020
 
-
 // Run parent FB
 SUPER^();
 
-printerNotReady := baggerFaulted OR commFail.active;
+printerNotReady := baggerFaulted OR commFail;
 waitingForPrinter := (state = PRINT_AND_APPLY_STATES.WaitForLOTAR) OR (state = PRINT_AND_APPLY_STATES.WaitForLabel);
-inhibitCycle := (state <> PRINT_AND_APPLY_STATES.Idle) AND enable;
+//inhibitCycle := (state <> PRINT_AND_APPLY_STATES.Idle) AND enable;
+inCycleONS(CLK := baggerInCycle);
+baggerFaultedONS(CLK := baggerFaulted);
 
+// Send reset output pulse
 resetOutputTimer.DwellSetting := 500;
-resetOutputTimer();
+resetOutputTimer(Q => resetOutput);
+
+exitConveyorRunAfterPA.DwellSetting := TO_DINT(exitConveyorRunAfterPASetting * 1000.0);
+exitConveyorRunAfterPA(Q => runConveyorAfterApply);
+
 IF resetONS.Q THEN
-	resetOutputTimer.Trigger();
+	IF faultInput THEN
+		resetOutputTimer.Trigger();
+	END_IF
+	_beginCycle := FALSE;
+	exitConveyorRunAfterPA.Reset();
 	state := PRINT_AND_APPLY_STATES.Idle;
 END_IF
-IF NOT enable OR baggerFaulted OR commFail.active OR faultedStatus.active THEN
+IF NOT enable OR commFail OR faultedStatus OR baggerFaultedONS.OSR THEN
 	state := PRINT_AND_APPLY_STATES.Fault;
 END_IF
 
@@ -58,9 +78,12 @@ CASE state OF
 											triggerOutput := FALSE;
 											inhibitConveyor := FALSE;
 											inhibitCycle := FALSE;
-											IF baggerInCycle THEN
+											IF _beginCycle THEN
+												_beginCycle := FALSE;
 												IF dataReady THEN
 													state := PRINT_AND_APPLY_STATES.WaitForLOTAR;
+												ELSIF LOTAR THEN
+													state := PRINT_AND_APPLY_STATES.ReadyToApply;
 												ELSE
 													state := PRINT_AND_APPLY_STATES.WaitForLabel;
 												END_IF
@@ -71,20 +94,26 @@ CASE state OF
 											IF dataReady OR LOTAR THEN
 												state := PRINT_AND_APPLY_STATES.WaitForLOTAR;
 											END_IF
-											inhibitConveyor := productSensor;
+											IF productSensor THEN
+												inhibitConveyor := TRUE;
+											END_IF
+											
 											inhibitCycle := TRUE;
 											
 	PRINT_AND_APPLY_STATES.WaitForLOTAR:	//
 											IF LOTAR THEN
 												state := PRINT_AND_APPLY_STATES.ReadyToApply;
 											END_IF
-											inhibitConveyor := productSensor;
+											IF productSensor THEN
+												inhibitConveyor := TRUE;
+											END_IF
 											inhibitCycle := TRUE;
 	
 	PRINT_AND_APPLY_STATES.ReadyToApply:	//
 											inhibitConveyor := FALSE;
 											inhibitCycle := FALSE;
 											IF productSensor THEN
+												exitConveyorRunAfterPA.Trigger();
 												triggerOutput := TRUE;
 												state := PRINT_AND_APPLY_STATES.Applying;
 											END_IF
@@ -99,9 +128,20 @@ CASE state OF
 											END_IF
 										
 	PRINT_AND_APPLY_STATES.Fault:			//
-											
+											triggerOutput := FALSE;
+											inhibitConveyor := FALSE;
+											inhibitCycle := FALSE;
+											exitConveyorRunAfterPA.Reset();
 	
 
 END_CASE
 
 printerReadyToApply := state = PRINT_AND_APPLY_STATES.ReadyToApply;
+
+// Comms heartbeat for comm fail fault
+commFailTimer1(IN := enable AND heartbeat);
+commFailTimer2(IN := enable AND NOT heartbeat);
+commFail := commFailTimer1.Q OR commFailTimer2.Q;
+
+// Faulted status from Print and Apply
+faultedStatus := NOT commFail AND NOT iPAFaulted AND enable;

@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="3.5.16.20" runtimeid="3.5.16.10" libversion="3.5.15.20" compiler="3.5.15.30" lmm="3.5.16.0" profile="CODESYS V3.5 SP16 Patch 2+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="3.5.16.20" runtimeid="3.5.16.10" libversion="3.5.16.0" compiler="3.5.16.10" lmm="3.5.16.0" profile="CODESYS V3.5 SP16 Patch 2+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="Device" appname="Application" />
   </Header>
   <TypeList>
@@ -408,7 +408,8 @@
       <UserDefElement type="T_LabelPrinterSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_LabelPrinterSelection" iecname="ZebraPrinter203DPI" enumvalue="1" />
       <UserDefElement type="T_LabelPrinterSelection" iecname="ZebraPrinter300DPI" enumvalue="2" />
-      <UserDefElement type="T_LabelPrinterSelection" iecname="PrintAndApply" enumvalue="3" />
+      <UserDefElement type="T_LabelPrinterSelection" iecname="PrintAndApply203DPI" enumvalue="3" />
+      <UserDefElement type="T_LabelPrinterSelection" iecname="PrintAndApply300DPI" enumvalue="4" />
     </TypeUserDef>
     <TypeUserDef name="T_ModelSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ModelSelection" basetype="T_INT">
       <UserDefElement type="T_ModelSelection" iecname="Pro18" enumvalue="0" />
@@ -1023,7 +1024,7 @@
       <UserDefElement iecname="triggerONS" type="T_FB_ONS" byteoffset="164" vartype="VAR" />
       <UserDefElement iecname="readingCompleteTrigger" type="T_MonostableMultivibratorFB" byteoffset="172" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_PrintAndApplyFB" size="92" nativesize="496" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PrintAndApplyFB" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_PrintAndApplyFB" size="208" nativesize="388" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PrintAndApplyFB" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1035,22 +1036,33 @@
       <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="13" vartype="VAR_INPUT" />
       <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="14" vartype="VAR_INPUT" />
-      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="15" vartype="VAR_INPUT" />
-      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="16" vartype="VAR_INPUT" />
-      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="17" vartype="VAR_INPUT" />
-      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="18" vartype="VAR_INPUT" />
-      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="19" vartype="VAR_INPUT" />
-      <UserDefElement iecname="productSensor" type="T_BOOL" byteoffset="20" vartype="VAR_INPUT" />
-      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="22" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFail" type="T_FB_Fault" byteoffset="24" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="faultedStatus" type="T_FB_Fault" byteoffset="27" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="30" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="31" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="32" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="33" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="34" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="35" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="resetOutputTimer" type="T_MonostableMultivibratorFB" byteoffset="36" vartype="VAR" />
+      <UserDefElement iecname="bypass" type="T_BOOL" byteoffset="15" vartype="VAR_INPUT" />
+      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="16" vartype="VAR_INPUT" />
+      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="17" vartype="VAR_INPUT" />
+      <UserDefElement iecname="faultInput" type="T_BOOL" byteoffset="18" vartype="VAR_INPUT" />
+      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="19" vartype="VAR_INPUT" />
+      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="20" vartype="VAR_INPUT" />
+      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="21" vartype="VAR_INPUT" />
+      <UserDefElement iecname="productSensor" type="T_BOOL" byteoffset="22" vartype="VAR_INPUT" />
+      <UserDefElement iecname="exitConveyorRunAfterPASetting" type="T_REAL" byteoffset="24" vartype="VAR_INPUT" />
+      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="28" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="30" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="faultedStatus" type="T_BOOL" byteoffset="31" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="32" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="33" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="34" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="35" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="resetOutput" type="T_BOOL" byteoffset="36" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="37" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="38" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="runConveyorAfterApply" type="T_BOOL" byteoffset="39" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="resetOutputTimer" type="T_MonostableMultivibratorFB" byteoffset="40" vartype="VAR" />
+      <UserDefElement iecname="exitConveyorRunAfterPA" type="T_DelayDwellFB" byteoffset="96" vartype="VAR" />
+      <UserDefElement iecname="inCycleONS" type="T_FB_ONS" byteoffset="158" vartype="VAR" />
+      <UserDefElement iecname="baggerFaultedONS" type="T_FB_ONS" byteoffset="165" vartype="VAR" />
+      <UserDefElement iecname="_beginCycle" type="T_BOOL" byteoffset="172" vartype="VAR" />
+      <UserDefElement iecname="commFailTimer1" type="T_TON" byteoffset="176" vartype="VAR" />
+      <UserDefElement iecname="commFailTimer2" type="T_TON" byteoffset="192" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_REFERENCE_TO_FB_ThreePositionCylinder_REF" size="6" swapsize="0" typeclass="Reference" iecname="REFERENCE TO FB_ThreePositionCylinder_REF" basetype="T_FB_ThreePositionCylinder" />
     <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor_1" size="474" nativesize="2880" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor_1" basetype="T_FB_AppliedMotionStepServoEIPBase">
@@ -1412,7 +1424,7 @@
       <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="300" vartype="VAR_IN_OUT" />
       <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="308" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="6130" nativesize="104556" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="6258" nativesize="105120" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1498,47 +1510,51 @@
       <UserDefElement iecname="barcodeVerifierCommFail" type="T_FB_Fault" byteoffset="4914" vartype="VAR" />
       <UserDefElement iecname="infeedConveyorIOCommFail" type="T_FB_Fault" byteoffset="4917" vartype="VAR" />
       <UserDefElement iecname="infeedConveyorVFDFaulted" type="T_FB_Fault" byteoffset="4920" vartype="VAR" />
-      <UserDefElement iecname="iPowerOffButtonONS" type="T_FB_ONS" byteoffset="4923" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4932" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="4980" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4992" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="5040" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="5052" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="5100" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaultTimer" type="T_FB_CylinderFaults" byteoffset="5112" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="5160" vartype="VAR" />
-      <UserDefElement iecname="LPA" type="T_DelayDwellFB" byteoffset="5172" vartype="VAR" />
-      <UserDefElement iecname="hpaServiceOnONS" type="T_FB_ONS" byteoffset="5234" vartype="VAR" />
-      <UserDefElement iecname="exitConveyorJogONS" type="T_FB_ONS" byteoffset="5241" vartype="VAR" />
-      <UserDefElement iecname="externalExitConveyorJogONS" type="T_FB_ONS" byteoffset="5248" vartype="VAR" />
-      <UserDefElement iecname="obstructionFaultONS" type="T_FB_ONS" byteoffset="5255" vartype="VAR" />
-      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="5264" vartype="VAR" />
-      <UserDefElement iecname="faultONS" type="T_FB_ONS" byteoffset="5336" vartype="VAR" />
-      <UserDefElement iecname="powerSettlingTimer" type="T_TON" byteoffset="5344" vartype="VAR" />
-      <UserDefElement iecname="pressureBarCloseDelay" type="T_TON" byteoffset="5360" vartype="VAR" />
-      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="5376" vartype="VAR" />
-      <UserDefElement iecname="configOutput1Pulse" type="T_MonostableMultivibratorFB" byteoffset="5384" vartype="VAR" />
-      <UserDefElement iecname="configOutput2Pulse" type="T_MonostableMultivibratorFB" byteoffset="5440" vartype="VAR" />
-      <UserDefElement iecname="fillerModeCycleStartOnlyPulse" type="T_MonostableMultivibratorFB" byteoffset="5496" vartype="VAR" />
-      <UserDefElement iecname="murrIOBusNode" type="T_MurrIOFB" byteoffset="5552" vartype="VAR" />
-      <UserDefElement iecname="funnel" type="T_FunnelFB" byteoffset="5559" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerifier" type="T_BarcodeReaderFB" byteoffset="5568" vartype="VAR" />
-      <UserDefElement iecname="keyenceBCV" type="T_KeyenceNL20FB" byteoffset="5656" vartype="VAR" />
-      <UserDefElement iecname="rearMotorCommsReturned" type="T_F_TRIG" byteoffset="5884" vartype="VAR" />
-      <UserDefElement iecname="baggerHeadMovement" type="T_FB_BaggerHeadRaise" byteoffset="5886" vartype="VAR" />
-      <UserDefElement iecname="resettingActive" type="T_BOOL" byteoffset="5893" vartype="VAR" />
-      <UserDefElement iecname="resetTimer" type="T_TOF" byteoffset="5896" vartype="VAR" />
-      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="5912" vartype="VAR" />
-      <UserDefElement iecname="lightedPalmButton" type="T_FB_MurrK50" byteoffset="5913" vartype="VAR" />
-      <UserDefElement iecname="footSwitchONS" type="T_FB_ONS" byteoffset="5917" vartype="VAR" />
-      <UserDefElement iecname="IBDOutSetting" type="T_REAL" byteoffset="5924" vartype="VAR" />
-      <UserDefElement iecname="ezfeed" type="T_EZFeedFB" byteoffset="5928" vartype="VAR" />
-      <UserDefElement iecname="printAndApply" type="T_PrintAndApplyFB" byteoffset="6020" vartype="VAR" />
-      <UserDefElement iecname="testReset" type="T_BOOL" byteoffset="6112" vartype="VAR" />
-      <UserDefElement iecname="testEnable" type="T_BOOL" byteoffset="6113" vartype="VAR" />
-      <UserDefElement iecname="testEnable2" type="T_BOOL" byteoffset="6114" vartype="VAR" />
-      <UserDefElement iecname="ITester" type="T_TYPE_REFERENCE_2" byteoffset="6116" vartype="VAR" />
-      <UserDefElement iecname="reconfing" type="T_Reconfigure" byteoffset="6120" vartype="VAR" />
+      <UserDefElement iecname="printAndApplyFaulted" type="T_FB_Fault" byteoffset="4923" vartype="VAR" />
+      <UserDefElement iecname="productJammed" type="T_FB_Fault" byteoffset="4926" vartype="VAR" />
+      <UserDefElement iecname="printAndApplyCommFailure" type="T_FB_Fault" byteoffset="4929" vartype="VAR" />
+      <UserDefElement iecname="printAndApplyWaitForLabelTimedOut" type="T_FB_Fault" byteoffset="4932" vartype="VAR" />
+      <UserDefElement iecname="iPowerOffButtonONS" type="T_FB_ONS" byteoffset="4935" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="4944" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="4992" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="5004" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="5052" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaultTimer" type="T_FB_CylinderFaults" byteoffset="5064" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="5112" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaultTimer" type="T_FB_CylinderFaults" byteoffset="5124" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="5172" vartype="VAR" />
+      <UserDefElement iecname="LPA" type="T_DelayDwellFB" byteoffset="5184" vartype="VAR" />
+      <UserDefElement iecname="hpaServiceOnONS" type="T_FB_ONS" byteoffset="5246" vartype="VAR" />
+      <UserDefElement iecname="exitConveyorJogONS" type="T_FB_ONS" byteoffset="5253" vartype="VAR" />
+      <UserDefElement iecname="externalExitConveyorJogONS" type="T_FB_ONS" byteoffset="5260" vartype="VAR" />
+      <UserDefElement iecname="obstructionFaultONS" type="T_FB_ONS" byteoffset="5267" vartype="VAR" />
+      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="5276" vartype="VAR" />
+      <UserDefElement iecname="faultONS" type="T_FB_ONS" byteoffset="5348" vartype="VAR" />
+      <UserDefElement iecname="powerSettlingTimer" type="T_TON" byteoffset="5356" vartype="VAR" />
+      <UserDefElement iecname="pressureBarCloseDelay" type="T_TON" byteoffset="5372" vartype="VAR" />
+      <UserDefElement iecname="filler" type="T_FillerFB" byteoffset="5388" vartype="VAR" />
+      <UserDefElement iecname="configOutput1Pulse" type="T_MonostableMultivibratorFB" byteoffset="5396" vartype="VAR" />
+      <UserDefElement iecname="configOutput2Pulse" type="T_MonostableMultivibratorFB" byteoffset="5452" vartype="VAR" />
+      <UserDefElement iecname="fillerModeCycleStartOnlyPulse" type="T_MonostableMultivibratorFB" byteoffset="5508" vartype="VAR" />
+      <UserDefElement iecname="murrIOBusNode" type="T_MurrIOFB" byteoffset="5564" vartype="VAR" />
+      <UserDefElement iecname="funnel" type="T_FunnelFB" byteoffset="5571" vartype="VAR" />
+      <UserDefElement iecname="barcodeVerifier" type="T_BarcodeReaderFB" byteoffset="5580" vartype="VAR" />
+      <UserDefElement iecname="keyenceBCV" type="T_KeyenceNL20FB" byteoffset="5668" vartype="VAR" />
+      <UserDefElement iecname="rearMotorCommsReturned" type="T_F_TRIG" byteoffset="5896" vartype="VAR" />
+      <UserDefElement iecname="baggerHeadMovement" type="T_FB_BaggerHeadRaise" byteoffset="5898" vartype="VAR" />
+      <UserDefElement iecname="resettingActive" type="T_BOOL" byteoffset="5905" vartype="VAR" />
+      <UserDefElement iecname="resetTimer" type="T_TOF" byteoffset="5908" vartype="VAR" />
+      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="5924" vartype="VAR" />
+      <UserDefElement iecname="lightedPalmButton" type="T_FB_MurrK50" byteoffset="5925" vartype="VAR" />
+      <UserDefElement iecname="footSwitchONS" type="T_FB_ONS" byteoffset="5929" vartype="VAR" />
+      <UserDefElement iecname="IBDOutSetting" type="T_REAL" byteoffset="5936" vartype="VAR" />
+      <UserDefElement iecname="ezfeed" type="T_EZFeedFB" byteoffset="5940" vartype="VAR" />
+      <UserDefElement iecname="printAndApply" type="T_PrintAndApplyFB" byteoffset="6032" vartype="VAR" />
+      <UserDefElement iecname="testReset" type="T_BOOL" byteoffset="6240" vartype="VAR" />
+      <UserDefElement iecname="testEnable" type="T_BOOL" byteoffset="6241" vartype="VAR" />
+      <UserDefElement iecname="testEnable2" type="T_BOOL" byteoffset="6242" vartype="VAR" />
+      <UserDefElement iecname="ITester" type="T_TYPE_REFERENCE_2" byteoffset="6244" vartype="VAR" />
+      <UserDefElement iecname="reconfing" type="T_Reconfigure" byteoffset="6248" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
@@ -1626,6 +1642,8 @@
         <Node name="airFilterClean" type="T_FB_PredictiveMaint" access="ReadWrite">
           <Comment>Predictive Maint.</Comment>
         </Node>
+        <Node name="autoDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="autoEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="auxIOConfig" type="T_AuxIOConfiguration" access="ReadWrite" />
         <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="bagDeliveryMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
@@ -1696,6 +1714,7 @@
         <Node name="fillerCountSetting" type="T_UDINT" access="ReadWrite" />
         <Node name="fillerCurrentCount" type="T_UDINT" access="ReadWrite" />
         <Node name="fillerDropTime" type="T_REAL" access="ReadWrite" />
+        <Node name="fillerEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="fillerFactorySelection" type="T_FillerSelection" access="ReadWrite" />
         <Node name="fillerModeCycleStartOnly" type="T_Warning" access="ReadWrite" />
         <Node name="forwardLoadPlateService" type="T_ServiceCommands" access="ReadWrite" />
@@ -1726,6 +1745,20 @@
         <Node name="IBDService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="inCycle" type="T_BOOL" access="ReadWrite" />
         <Node name="independentBagDeflatorSelection" type="T_BagDeflatorSelection" access="ReadWrite" />
+        <Node name="infeedConveyorCountingMode" type="T_BOOL" access="ReadWrite">
+          <Comment> 0 = Flight, 1 = Parts</Comment>
+        </Node>
+        <Node name="infeedConveyorOutOfParts" type="T_Warning" access="ReadWrite" />
+        <Node name="infeedConveyorRunningMode" type="T_BOOL" access="ReadWrite">
+          <Comment>0 = Indexing, 1 = Continuous</Comment>
+        </Node>
+        <Node name="infeedEmptyPartsActual" type="T_DINT" access="ReadWrite" />
+        <Node name="infeedEmptyPartsSetting" type="T_DINT" access="ReadWrite" />
+        <Node name="infeedFlightCountActual" type="T_DINT" access="ReadWrite" />
+        <Node name="infeedFlightCountTarget" type="T_DINT" access="ReadWrite" />
+        <Node name="infeedIndexDwellTimer" type="T_REAL" access="ReadWrite" />
+        <Node name="infeedPartsCountActual" type="T_DINT" access="ReadWrite" />
+        <Node name="infeedPartsCountTarget" type="T_DINT" access="ReadWrite" />
         <Node name="initiateCycle" type="T_BOOL" access="ReadWrite">
           <Comment> Initiate Cycle Pushbutton</Comment>
         </Node>
@@ -1753,6 +1786,7 @@
         <Node name="lpaServicePulse" type="T_BOOL" access="ReadWrite" />
         <Node name="machineNotTested" type="T_Warning" access="ReadWrite" />
         <Node name="makeReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="mayCycleUnexpectedly" type="T_Warning" access="ReadWrite" />
         <Node name="motorizedSealFlattenerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="msfHorizontalMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
         <Node name="murrIOConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
@@ -1775,6 +1809,13 @@
         <Node name="pressureBarState" type="T_STRING" access="ReadWrite">
           <Comment>Misc</Comment>
         </Node>
+        <Node name="printAndApplyBypassed" type="T_Warning" access="ReadWrite" />
+        <Node name="printAndApplyConveyorDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="printAndApplyProductToPhotoeyeTime" type="T_REAL" access="ReadWrite" />
+        <Node name="printAndApplyRibbonLow" type="T_Warning" access="ReadWrite" />
+        <Node name="printAndApplyWaitForLabelTimeout" type="T_REAL" access="ReadWrite" />
+        <Node name="printAndApplyWaitingForApply" type="T_Warning" access="ReadWrite" />
+        <Node name="printAndApplyWaitingForLabel" type="T_Warning" access="ReadWrite" />
         <Node name="printerConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="printerConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="printerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -1849,8 +1890,14 @@
         <Node name="iBarcodeReadGood" type="T_BIT_X_4" access="Read" directaddress="%IX67.4">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
+        <Node name="iConveyorClear" type="T_BIT_X_5" access="Read" directaddress="%IX64.5">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="iEStopOK" type="T_BIT_X_2" access="Read" directaddress="%IX64.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iFootSwitch" type="T_BIT_X_6" access="Read" directaddress="%IX69.6">
+          <Comment>Cube67_BN_E_V2 : Port 6</Comment>
         </Node>
         <Node name="iFrontLoadPlateExtended" type="T_BIT_X_3" access="Read" directaddress="%IX65.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
@@ -1863,6 +1910,21 @@
         </Node>
         <Node name="iFunnelOpened" type="T_BIT_X_0" access="Read" directaddress="%IX62.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iHeadLowered" type="T_BIT_X_6" access="Read" directaddress="%IX64.6">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iHeadRaised" type="T_BIT_X_6" access="Read" directaddress="%IX65.6">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iInfeedFlightSensor" type="T_BIT_X_4" access="Read" directaddress="%IX768.4">
+          <Comment>Infeed_Conveyor_IO : </Comment>
+        </Node>
+        <Node name="iInfeedVFDNotFaulted" type="T_BIT_X_1" access="Read" directaddress="%IX768.1">
+          <Comment>Infeed_Conveyor_IO : </Comment>
+        </Node>
+        <Node name="iInfeedVFDRunning" type="T_BIT_X_0" access="Read" directaddress="%IX768.0">
+          <Comment>Infeed_Conveyor_IO : </Comment>
         </Node>
         <Node name="iJawClamped" type="T_BIT_X_4" access="Read" directaddress="%IX68.4">
           <Comment>Cube67_BN_E_V2 : Port 4</Comment>
@@ -1896,6 +1958,45 @@
         </Node>
         <Node name="iLoadShelfRetracted" type="T_BIT_X_1" access="Read" directaddress="%IX64.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iPAApplicatorHome" type="T_BIT_X_1" access="Read" directaddress="%IX771.1">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPABypassOn" type="T_BIT_X_6" access="Read" directaddress="%IX771.6">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPACycleComplete" type="T_BIT_X_0" access="Read" directaddress="%IX771.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAFaulted" type="T_BIT_X_7" access="Read" directaddress="%IX770.7">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAHeartbeat" type="T_BIT_X_7" access="Read" directaddress="%IX771.7">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALabelOut" type="T_BIT_X_3" access="Read" directaddress="%IX770.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALOTAR" type="T_BIT_X_3" access="Read" directaddress="%IX771.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALowLabels" type="T_BIT_X_2" access="Read" directaddress="%IX771.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAOnlineDataReady" type="T_BIT_X_4" access="Read" directaddress="%IX770.4">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAPrintEngineError" type="T_BIT_X_1" access="Read" directaddress="%IX770.1">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAPrintEnginePower" type="T_BIT_X_0" access="Read" directaddress="%IX770.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPARibbonLow" type="T_BIT_X_2" access="Read" directaddress="%IX770.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPARibbonOut" type="T_BIT_X_5" access="Read" directaddress="%IX770.5">
+          <Comment>Panther_PA : </Comment>
         </Node>
         <Node name="iPowerOffButton" type="T_BIT_X_3" access="Read" directaddress="%IX69.3">
           <Comment>Cube67_BN_E_V2 : Port 3</Comment>
@@ -1978,6 +2079,15 @@
         <Node name="oMOMConfig" type="T_BYTE" access="ReadWrite" directaddress="%QB1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
+        <Node name="oPABypassEnable" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX594.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="oPAReset" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX594.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="oPATrigger1" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX594.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
         <Node name="oPrinterStartPrint" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX35.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1987,11 +2097,20 @@
         <Node name="oPrintHeadUp" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX188.3">
           <Comment>FestoManifold : </Comment>
         </Node>
+        <Node name="oResetInfeedVFD" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX592.1">
+          <Comment>Infeed_Conveyor_IO : </Comment>
+        </Node>
+        <Node name="oRunBaggerHeadMotor" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX34.7">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="oRunExitConveyor" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX34.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oRunExternalExitConveyor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX37.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oRunInfeedVFD" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX592.0">
+          <Comment>Infeed_Conveyor_IO : </Comment>
         </Node>
         <Node name="oRunPrinterRibbonUnwindMotor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX35.1">
           <Comment>Cube67_BN_E_V2 : </Comment>

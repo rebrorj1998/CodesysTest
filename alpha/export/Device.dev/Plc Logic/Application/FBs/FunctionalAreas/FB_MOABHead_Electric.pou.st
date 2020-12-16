@@ -53,6 +53,7 @@ VAR
 	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
 	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
+	
 	//IBDCylinders : FB_ThreePositionCylinder();
 	IBDExtendONS : FB_ONS();
 	IBDRetractONS : FB_ONS();
@@ -86,6 +87,10 @@ VAR
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
 	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
+	printAndApplyFaulted : FB_Fault(name := 'Print and Apply Faulted');
+	productJammed : FB_Fault(name := 'Product Jammed on Exit Conveyor');
+	printAndApplyCommFailure : FB_Fault(name := 'Print and Apply Comm Failure');
+	printAndApplyWaitForLabelTimedOut : FB_Fault(name := 'Print and Apply Timed Out');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -204,8 +209,8 @@ IF HMIData.resetAverageCycleTime THEN
 END_IF
 HMIData.lastCycleTime := cycleTime;
 
-HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR printAndApply.printerNotReady;
-HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter) OR printAndApply.waitingForPrinter;
+HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR (printAndApply.printerNotReady AND printAndApply.enable);
+HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter) OR (printAndApply.waitingForPrinter AND printAndApply.enable);
 //HMIData.printerRibbonLow.active := printerRibbonLow;
 	 
 batchSetting := HMIData.batchSetting;
@@ -307,7 +312,8 @@ CASE HMIData.printerSelection OF
 													murrIOBusNode.printerNodeEnabled := TRUE;
 														 
 			
-	LabelPrinterSelection.PrintAndApply:			//
+	LabelPrinterSelection.PrintAndApply203DPI,
+		LabelPrinterSelection.PrintAndApply300DPI:			//
 		 											zebraPrinter.enable := FALSE;
 													//Panther_PA.Enable := TRUE;
 													printAndApply.enable := HMIData.printerInUse;
@@ -330,21 +336,25 @@ END_IF
 
 printAndApply(
 	enable:= , 
+	bypass := NOT bagOpened,
 	baggerFaulted:= HMIData.faultActive, 
 	baggerInCycle:= HMIData.inCycle, 
 	dataReady:= iPAOnlineDataReady, 
 	LOTAR:= iPALOTAR, 
+	faultInput:= NOT iPAFaulted,
 	PACycleComplete:= iPACycleComplete, 
 	applicatorHome:= iPAApplicatorHome, 
 	heartbeat:= iPAHeartbeat, 
 	productSensor:= NOT iConveyorClear, 
+	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	state=> , 
-	commFail=> , 
-	faultedStatus=> , 
+	commFail=> printAndApplyCommFailure.faultTrigger, 
+	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	printerNotReady=> , 
 	printerReadyToApply=> , 
 	waitingForPrinter=> , 
-	triggerOutput=> oPATrigger1, 
+	triggerOutput=> oPATrigger1,
+	resetOutput=> oPAReset, 
 	inhibitCycle=> , 
 	inhibitConveyor=> );
 	 
@@ -747,14 +757,22 @@ loadShelfFaultTimer(
 	failToRetract=> loadShelfFaults.failedToLoad.faultTrigger);
  
 exitConveyorRun();
-exitConveyorRun.DwellSetting := TO_UDINT(HMIData.exitConveyorDwell * 1000);
+exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
-oRunExitConveyor := (exitConveyorRun.Q AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit) AND NOT printAndApply.inhibitConveyor;
+
+IF printAndApply.inhibitConveyor THEN
+	exitConveyorRun.Reset();
+	externalExitConveyorRun.Reset();
+END_IF
+
+
+	 
+oRunExitConveyor := ((exitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
 	 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
 externalExitConveyorJogONS(CLK := HMIData.externalExitConveyorJog);
-oRunExternalExitConveyor := externalExitConveyorRun.Q AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled;
+oRunExternalExitConveyor := ((externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled);
 
 bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInstalled,
 				releaseOutput => oBOFUp,
@@ -860,7 +878,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	motorizedSealFlatteners.Reset();
 	motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
 	
-	
 	HMIData.bagOpenFeedNewBagCount := 0;
 	bagOpenRetryCount := 0;
 	
@@ -881,7 +898,11 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 	END_IF
-	bagOpened := FALSE;
+	
+	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
+		bagOpened := FALSE;
+	END_IF
+	//bagOpened := FALSE;
 	
 	enableBatch := FALSE;
 	batchCount := 0;
@@ -1265,6 +1286,9 @@ CASE state OF
 														sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
 													ELSE
 														sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+													END_IF
+													IF printAndApply.enable AND bagOpened THEN
+														printAndApply.BeginCycle();
 													END_IF
 													filler.BaggerCycleInitiated();
                                                     HMIData.inCycle := TRUE;

@@ -12,10 +12,10 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">6b3dfb6a-1865-4356-a39b-1fe0ef89651c</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">637430294861955459</Single>
+        <Single Name="Timestamp" Type="long">637437138666598762</Single>
       </Single>
       <Single Name="Object" Type="{6b3dfb6a-1865-4356-a39b-1fe0ef89651c}" Method="IArchivable">
-        <Single Name="UniqueIdGenerator" Type="string">889</Single>
+        <Single Name="UniqueIdGenerator" Type="string">903</Single>
         <Single Name="Recipes" Type="{361612e3-b6f9-4397-98a8-756875b9e479}" Method="IArchivable">
           <List Name="Recipes" Type="System.Collections.ArrayList" />
         </Single>
@@ -1102,6 +1102,36 @@
               <Single Name="Name" Type="string"></Single>
               <Null Name="Boundaries" />
               <Single Name="Id" Type="int">885</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.printAndApplyConveyorDwell</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Real</Single>
+              <Single Name="VarTypeAsString" Type="string">REAL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">891</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.printAndApplyProductToPhotoeyeTime</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Real</Single>
+              <Single Name="VarTypeAsString" Type="string">REAL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">893</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.printAndApplyWaitForLabelTimeout</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Real</Single>
+              <Single Name="VarTypeAsString" Type="string">REAL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">895</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
@@ -2668,6 +2698,46 @@
               <Single Name="Name" Type="string"></Single>
               <Null Name="Boundaries" />
               <Single Name="Id" Type="int">889</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.printAndApplyRibbonLow.active</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">897</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.printAndApplyWaitingForApply.active</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">899</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.printAndApplyWaitingForLabel.active</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">901</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.printAndApplyBypassed.active</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">903</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
