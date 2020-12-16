@@ -87,6 +87,10 @@ VAR
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
 	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
+	printAndApplyFaulted : FB_Fault(name := 'Print and Apply Faulted');
+	productJammed : FB_Fault(name := 'Product Jammed on Exit Conveyor');
+	printAndApplyCommFailure : FB_Fault(name := 'Print and Apply Comm Failure');
+	printAndApplyWaitForLabelTimedOut : FB_Fault(name := 'Print and Apply Timed Out');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -308,7 +312,8 @@ CASE HMIData.printerSelection OF
 													murrIOBusNode.printerNodeEnabled := TRUE;
 														 
 			
-	LabelPrinterSelection.PrintAndApply:			//
+	LabelPrinterSelection.PrintAndApply203DPI,
+		LabelPrinterSelection.PrintAndApply300DPI:			//
 		 											zebraPrinter.enable := FALSE;
 													//Panther_PA.Enable := TRUE;
 													printAndApply.enable := HMIData.printerInUse;
@@ -341,9 +346,10 @@ printAndApply(
 	applicatorHome:= iPAApplicatorHome, 
 	heartbeat:= iPAHeartbeat, 
 	productSensor:= NOT iConveyorClear, 
+	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	state=> , 
-	commFail=> , 
-	faultedStatus=> , 
+	commFail=> printAndApplyCommFailure.faultTrigger, 
+	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	printerNotReady=> , 
 	printerReadyToApply=> , 
 	waitingForPrinter=> , 
@@ -756,6 +762,7 @@ exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 
 IF printAndApply.inhibitConveyor THEN
 	exitConveyorRun.Reset();
+	externalExitConveyorRun.Reset();
 END_IF
 
 
@@ -765,7 +772,7 @@ oRunExitConveyor := ((exitConveyorRun.Q OR printAndApply.runConveyorAfterApply) 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
 externalExitConveyorJogONS(CLK := HMIData.externalExitConveyorJog);
-oRunExternalExitConveyor := externalExitConveyorRun.Q AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled;
+oRunExternalExitConveyor := ((externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled);
 
 bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInstalled,
 				releaseOutput => oBOFUp,

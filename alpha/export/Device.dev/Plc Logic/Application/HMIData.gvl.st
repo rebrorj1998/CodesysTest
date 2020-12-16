@@ -85,6 +85,9 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	infeedPartsCountActual : DINT;
 	infeedEmptyPartsSetting : DINT := 10;
 	infeedEmptyPartsActual : DINT;
+	printAndApplyConveyorDwell : REAL := 5.0;
+	printAndApplyProductToPhotoeyeTime : REAL := 4.0;
+	printAndApplyWaitForLabelTimeout : REAL := 15.0;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -171,6 +174,10 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerInhibited : Warning;
 	infeedConveyorOutOfParts : Warning;
 	mayCycleUnexpectedly : Warning;
+	printAndApplyRibbonLow : Warning;
+	printAndApplyWaitingForApply : Warning;
+	printAndApplyWaitingForLabel : Warning;
+	printAndApplyBypassed : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
     
