@@ -31,6 +31,7 @@ VAR
 	exitConveyorRunAfterPA : DelayDwellFB() := (Dwellsetting := 3000);
 	inCycleONS : FB_ONS;
 	baggerFaultedONS : FB_ONS;
+	faultedStatusONS : FB_ONS;
 	_beginCycle : BOOL;
 	commFailTimer1 : Standard.TON := (PT := T#2S);
 	commFailTimer2 : Standard.TON := (PT := T#2S);
@@ -52,7 +53,7 @@ waitingForPrinter := (state = PRINT_AND_APPLY_STATES.WaitForLOTAR) OR (state = P
 //inhibitCycle := (state <> PRINT_AND_APPLY_STATES.Idle) AND enable;
 inCycleONS(CLK := baggerInCycle);
 baggerFaultedONS(CLK := baggerFaulted);
-
+faultedStatusONS(CLK := faultedStatus);
 // Send reset output pulse
 resetOutputTimer.DwellSetting := 500;
 resetOutputTimer(Q => resetOutput);
@@ -68,7 +69,7 @@ IF resetONS.Q THEN
 	exitConveyorRunAfterPA.Reset();
 	state := PRINT_AND_APPLY_STATES.Idle;
 END_IF
-IF NOT enable OR commFail OR faultedStatus OR baggerFaultedONS.OSR THEN
+IF NOT enable OR commFail OR faultedStatusONS.OSR OR baggerFaultedONS.OSR THEN
 	state := PRINT_AND_APPLY_STATES.Fault;
 END_IF
 

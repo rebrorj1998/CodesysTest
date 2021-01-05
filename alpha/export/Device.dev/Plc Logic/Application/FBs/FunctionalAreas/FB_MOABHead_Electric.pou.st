@@ -209,8 +209,8 @@ IF HMIData.resetAverageCycleTime THEN
 END_IF
 HMIData.lastCycleTime := cycleTime;
 
-HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR printAndApply.printerNotReady;
-HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter) OR printAndApply.waitingForPrinter;
+HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR (printAndApply.printerNotReady AND printAndApply.enable);
+HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter) OR (printAndApply.waitingForPrinter AND printAndApply.enable);
 //HMIData.printerRibbonLow.active := printerRibbonLow;
 	 
 batchSetting := HMIData.batchSetting;
@@ -295,6 +295,13 @@ bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse);
 bagDelivery.Mode := bagDeliveryMode;
 
+CASE HMIData.baggerModelSelection OF
+	ModelSelection.Pro18:
+	
+	ModelSelection.Pro18_02:
+		 
+	ModelSelection.Pro24:
+END_CASE
 	 
 CASE HMIData.printerSelection OF
 		 
