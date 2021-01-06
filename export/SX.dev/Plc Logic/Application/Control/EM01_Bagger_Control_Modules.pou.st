@@ -32,7 +32,7 @@ VAR_OUTPUT
 	barcodeVerifier : FB_BaseBCV(name := 'Barcode Verifier');
 	
 	bagDelivery : FB_SXBagDelivery(name := 'Bag Delivery') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
-	bagDeliveryFrontMotor : FB_AppliedMotionMotorModbus;
+	bagDeliveryFrontMotor : FB_AppliedMotionMotorASCII;
 	
 END_VAR
 VAR

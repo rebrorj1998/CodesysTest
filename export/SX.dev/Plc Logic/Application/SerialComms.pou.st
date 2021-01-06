@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 PROGRAM SerialComms
 VAR
-	serial : FB_FilmDriveSerial();
+	serial : FB_CrevisSerial();
 	hIecTask : RTS_IEC_HANDLE;
 	firstScanDone  : BOOL;
 END_VAR
