@@ -127,11 +127,7 @@ VAR
 	IBDOutSetting: REAL;
 	ezfeed : EZFeedFB();
 	printAndApply : PrintAndApplyFB();
-	testReset : BOOL;
-	testEnable : BOOL;
-	testEnable2 : BOOL;
-	ITester : DED.INode;
-	reconfing : DED.Reconfigure;
+	EIPReconfig : FB_EIPCommsConfigure();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -144,6 +140,7 @@ END_VAR
 // Run BaseComponentFB
 SUPER^();
 
+EIPReconfig();
 		  
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
@@ -354,9 +351,11 @@ printAndApply(
 	heartbeat:= iPAHeartbeat, 
 	productSensor:= NOT iConveyorClear, 
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
+	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
 	state=> , 
 	commFail=> printAndApplyCommFailure.faultTrigger, 
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
+	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
 	printerNotReady=> , 
 	printerReadyToApply=> , 
 	waitingForPrinter=> , 
@@ -973,14 +972,6 @@ ELSE
 	Panther_PA.xAcknowledge := FALSE;
 END_IF
 
-Keyence_BCV.Enable := testEnable;
-IF (__QUERYINTERFACE(Keyence_BCV, ITester)) THEN
-	IF testReset THEN
-		reconfing(itfNode := ITester);
-	END_IF
-END_IF
-
-
 IF enableONS.Q OR resetONS.Q THEN
     state := HEAD_STATES.Idle;
 	sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
@@ -993,6 +984,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
 	homeJawPB := FALSE;
+	EIPReconfig.ManualReconfig();
 	IF IBD.homeRequired THEN
 		homeJawPB := TRUE;
 	ELSE
