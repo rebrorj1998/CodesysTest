@@ -12,6 +12,7 @@ VAR_INPUT
 	heartbeat : BOOL;
 	productSensor : BOOL;
 	exitConveyorRunAfterPASetting : REAL;
+	waitForPrinterFaultSetting : REAL;
 END_VAR
 VAR_OUTPUT
 	state : PRINT_AND_APPLY_STATES;
@@ -25,15 +26,19 @@ VAR_OUTPUT
 	inhibitCycle : BOOL;
 	inhibitConveyor : BOOL;
 	runConveyorAfterApply : BOOL;
+	waitForPrintFault : BOOL;
+	jammedFault : BOOL;
 END_VAR
 VAR
 	resetOutputTimer : MonostableMultivibratorFB();
 	exitConveyorRunAfterPA : DelayDwellFB() := (Dwellsetting := 3000);
 	inCycleONS : FB_ONS;
 	baggerFaultedONS : FB_ONS;
+	faultedStatusONS : FB_ONS;
 	_beginCycle : BOOL;
 	commFailTimer1 : Standard.TON := (PT := T#2S);
 	commFailTimer2 : Standard.TON := (PT := T#2S);
+	waitForPrinterFaultTimer : Standard.TON;
 END_VAR
 	
 VAR_IN_OUT
@@ -49,10 +54,17 @@ SUPER^();
 
 printerNotReady := baggerFaulted OR commFail;
 waitingForPrinter := (state = PRINT_AND_APPLY_STATES.WaitForLOTAR) OR (state = PRINT_AND_APPLY_STATES.WaitForLabel);
+
+
+// Timeout on waiting for printer too long
+waitForPrinterFaultTimer(IN := waitingForPrinter AND (waitForPrinterFaultSetting > 0) AND enable, 
+							PT :=  TO_TIME(waitForPrinterFaultSetting * 1000.0),
+							Q=> waitForPrintFault);
+
 //inhibitCycle := (state <> PRINT_AND_APPLY_STATES.Idle) AND enable;
 inCycleONS(CLK := baggerInCycle);
 baggerFaultedONS(CLK := baggerFaulted);
-
+faultedStatusONS(CLK := faultedStatus);
 // Send reset output pulse
 resetOutputTimer.DwellSetting := 500;
 resetOutputTimer(Q => resetOutput);
@@ -68,7 +80,7 @@ IF resetONS.Q THEN
 	exitConveyorRunAfterPA.Reset();
 	state := PRINT_AND_APPLY_STATES.Idle;
 END_IF
-IF NOT enable OR commFail OR faultedStatus OR baggerFaultedONS.OSR THEN
+IF NOT enable OR commFail OR faultedStatusONS.OSR OR baggerFaultedONS.OSR THEN
 	state := PRINT_AND_APPLY_STATES.Fault;
 END_IF
 

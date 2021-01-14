@@ -8,7 +8,7 @@ VAR_INPUT
 	iJawClampExtended : BOOL;
 	iJawCLampRetracted : BOOL;
 	pbarOutSetting : REAL := 12.0;
-	pbarInSetting : REAL := 0.03;
+	pbarInSetting : REAL := 0.0;
 	closeDelay : REAL;
 	disableFaults : BOOL;
 	extendJawClamp : BOOL;
@@ -62,6 +62,7 @@ VAR
 	faultingONS : FB_ONS;
 	faultTimeMultiplier : REAL := 150;
 	distanceToMove : REAL;
+	disableMotorONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
@@ -77,7 +78,10 @@ delayTimer();
 failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClamped AND iPressureBarClosed)));
 clamped := state = MotorizedPbarStates.Clamping;
 
-
+disableMotorONS(CLK := clamped AND iPressureBarClamped AND iJawClampsRetracted);
+IF disableMotorONS.OSR THEN
+	pbarMotor.AllowClamping();
+END_IF
 
 
 
@@ -336,7 +340,7 @@ CASE state OF
 										//IF iPressureBarClosed AND pbarMotor.absolutePositonInches = 0 THEN
 										IF iPressureBarClosed THEN
 											IF NOT  _closeJawNoLatch THEN
-												pbarMotor.AllowClamping();
+												//pbarMotor.AllowClamping();
 											END_IF
 											
 											delayTimer.PT := jawClampsDelay;
@@ -366,9 +370,12 @@ CASE state OF
 	
 	MotorizedPbarStates.StartedClamping :		//
 										IF iPressureBarClamped AND iJawClampsRetracted THEN
+											
+											//pbarMotor.AllowClamping();
 											delayTimer.PT := T#250MS;
 											delayTimer.IN := TRUE;
 											IF delayTimer.Q THEN
+												//pbarMotor.AllowClamping();
 												pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
 												state := MotorizedPbarStates.Clamping;	
 											END_IF

@@ -258,7 +258,7 @@ CASE state OF
                                                                     
 																	
 	SEAL_FLATTENER_STATES.MoveFlattenersToBagFeed :      			// Move flatteners to out of the way of the bag for feeding
-																	IF HMIData.baggerModelSelection = ModelSelection.Pro18 THEN
+																	IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
 																		IF (outSetpoint + clearanceOffset) <= 17.8 THEN
 																			bagFeedPosition := (outSetpoint + clearanceOffset);
 																		ELSE

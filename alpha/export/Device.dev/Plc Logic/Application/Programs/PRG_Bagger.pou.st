@@ -26,6 +26,8 @@ VAR
 	i : INT;
 	reverseFault : FB_HMIFault := (refFault := PRG_Bagger.moabHead.bagDelivery.reverseFault);
 	faultActiveONS : FB_ONS;
+	
+
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Program: PRG_Bagger 
@@ -65,6 +67,7 @@ IF resetCommFaults THEN
 	msfFaultListFull := FALSE;
 	resetCommFaults := FALSE;
 END_IF
+
 
 //HMIData.version := SVN_VERSION_INFO.VERSION;
 

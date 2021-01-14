@@ -39,7 +39,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Created Date: January 16th, 2018
 
 printDeltaTimer(IN := oPrinterStartPrint);
-saveParametersTimer(IN := NOT saveParametersTimer.Q);
+saveParametersTimer(IN := NOT saveParametersTimer.Q AND HMIData.bagsMade.count <> 0);
 IF saveParametersTimer.Q THEN
 	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
 	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);

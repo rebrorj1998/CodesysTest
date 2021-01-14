@@ -77,7 +77,7 @@ sealBarToPrintHeadLength := ABS(reverseToPrintHeadSetpoint) + 2.25;
 printLengthSetpoint := HMIData.printLength;
 reverseVelocitySetpoint := TO_INT(HMIData.bagReverseSpeed);
 feedVelocitySetpoint := TO_INT(HMIData.bagForwardSpeed);
-IF HMIData.baggerModelSelection = ModelSelection.Pro18 THEN
+IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
 	reverseToPrintHeadSetpoint := -1.25;
 ELSE
 	reverseToPrintHeadSetpoint := -1.0;

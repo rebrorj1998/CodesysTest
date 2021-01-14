@@ -127,11 +127,7 @@ VAR
 	IBDOutSetting: REAL;
 	ezfeed : EZFeedFB();
 	printAndApply : PrintAndApplyFB();
-	testReset : BOOL;
-	testEnable : BOOL;
-	testEnable2 : BOOL;
-	ITester : DED.INode;
-	reconfing : DED.Reconfigure;
+	EIPReconfig : FB_EIPCommsConfigure();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -144,7 +140,8 @@ END_VAR
 // Run BaseComponentFB
 SUPER^();
 
-		  
+EIPReconfig();
+
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
 Globals.machinePowerOK := powerSettlingTimer.Q;
@@ -295,27 +292,34 @@ bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse);
 bagDelivery.Mode := bagDeliveryMode;
 
+CASE HMIData.baggerModelSelection OF
+	ModelSelection.Pro18:
+	
+	ModelSelection.Pro18_02:
+		 
+	ModelSelection.Pro24:
+END_CASE
 	 
 CASE HMIData.printerSelection OF
 		 
 	LabelPrinterSelection.NotInstalled:				//
 													zebraPrinter.enable := FALSE;
 													printAndApply.enable := FALSE;
-													//Panther_PA.Enable := FALSE;
+													Panther_PA.Enable := FALSE;
 													murrIOBusNode.printerNodeEnabled := FALSE;
 	
 	LabelPrinterSelection.ZebraPrinter203DPI, 			   
 		LabelPrinterSelection.ZebraPrinter300DPI:	//
 													zebraPrinter.enable := HMIData.printerInUse;
 													printAndApply.enable := FALSE;
-													//Panther_PA.Enable := FALSE;
+													Panther_PA.Enable := FALSE;
 													murrIOBusNode.printerNodeEnabled := TRUE;
 														 
 			
 	LabelPrinterSelection.PrintAndApply203DPI,
 		LabelPrinterSelection.PrintAndApply300DPI:			//
 		 											zebraPrinter.enable := FALSE;
-													//Panther_PA.Enable := TRUE;
+													Panther_PA.Enable := TRUE;
 													printAndApply.enable := HMIData.printerInUse;
 													murrIOBusNode.printerNodeEnabled := FALSE;
 END_CASE
@@ -347,9 +351,11 @@ printAndApply(
 	heartbeat:= iPAHeartbeat, 
 	productSensor:= NOT iConveyorClear, 
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
+	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
 	state=> , 
 	commFail=> printAndApplyCommFailure.faultTrigger, 
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
+	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
 	printerNotReady=> , 
 	printerReadyToApply=> , 
 	waitingForPrinter=> , 
@@ -801,6 +807,7 @@ IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
 				isHomable := TRUE);
 IBDMotor.Execute();
 
+
 IF HMIData.passthroughSetting + HMIData.IBDOffset > 12.0 THEN
 	 IBDOutSetting := 12.0;
 ELSE
@@ -850,7 +857,9 @@ resetTimer(IN := iPowerOffButtonONS.OSR);
 
 allMotorCommsGood := NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.commFail.active
 					AND NOT IBDMotor.faults.commFail.active
-					AND NOT pressureBarMotor.faults.commFail.active;
+					AND NOT pressureBarMotor.faults.commFail.active
+					AND NOT bagDelivery.bagfeedMasterMotor.faults.commFail.active
+					AND NOT bagDelivery.bagFeedRearMotor.faults.commFail.active;
 
 IF iPowerOffButtonONS.OSR THEN
 	reset();
@@ -966,14 +975,6 @@ ELSE
 	Panther_PA.xAcknowledge := FALSE;
 END_IF
 
-Keyence_BCV.Enable := testEnable;
-IF (__QUERYINTERFACE(Keyence_BCV, ITester)) THEN
-	IF testReset THEN
-		reconfing(itfNode := ITester);
-	END_IF
-END_IF
-
-
 IF enableONS.Q OR resetONS.Q THEN
     state := HEAD_STATES.Idle;
 	sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
@@ -986,6 +987,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
 	homeJawPB := FALSE;
+	//EIPReconfig.ManualReconfig();
 	IF IBD.homeRequired THEN
 		homeJawPB := TRUE;
 	ELSE
