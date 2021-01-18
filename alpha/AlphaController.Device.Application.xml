@@ -232,6 +232,36 @@
         <Comment> Independent control (like as a test fixture)</Comment>
       </UserDefElement>
     </TypeUserDef>
+    <TypeUserDef name="T_DEVICE_STATE" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="DEVICE_STATE" basetype="T_INT">
+      <UserDefElement type="T_DEVICE_STATE" iecname="UNKNOWN" enumvalue="0">
+        <Comment> | The device state is unknown.
+ | Example: No supervision mechanism active.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="STOPPED" enumvalue="1">
+        <Comment>The device is stopped.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="RUNNING" enumvalue="2">
+        <Comment>The device is running.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="ERROR" enumvalue="3">
+        <Comment> | The device is in error state. 
+ | |GetDeviceError| may supply a specific error code.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="DISABLED" enumvalue="4">
+        <Comment>The device is disabled in device tree.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="NOT_CONFIGURED" enumvalue="5">
+        <Comment> | The device has not yet been configured by the stack. 
+ | Example: Configuration phase not started yet.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="CONFIGURED" enumvalue="6">
+        <Comment> | The device has been configured by the stack.
+ | Example: Configuration phase finished but device is not in running state.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="NOT_FOUND" enumvalue="7">
+        <Comment>The device was not found on bus.</Comment>
+      </UserDefElement>
+    </TypeUserDef>
     <TypeUserDef name="T_ERROR" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ERROR" basetype="T_INT">
       <UserDefElement type="T_ERROR" iecname="NO_ERROR" enumvalue="0">
         <Comment> no error </Comment>
@@ -875,13 +905,15 @@
       <UserDefElement iecname="maxTemp" type="T_REAL" byteoffset="180" vartype="VAR_INPUT" />
       <UserDefElement iecname="DriveTemp" type="T_REAL" byteoffset="184" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_EIPCommsConfigure" size="24" nativesize="52" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_EIPCommsConfigure">
+    <TypeUserDef name="T_FB_EIPCommsConfigure" size="108" nativesize="136" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_EIPCommsConfigure">
       <UserDefElement iecname="reconfig" type="T_Reconfigure" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="testEnable" type="T_BOOL" byteoffset="10" vartype="VAR" />
       <UserDefElement iecname="enableWord" type="T_DWORD" byteoffset="12" vartype="VAR" />
       <UserDefElement iecname="tempComapareWord" type="T_DWORD" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_recongfigCommand" type="T_BOOL" byteoffset="20" vartype="VAR" />
       <UserDefElement iecname="state" type="T_INT" byteoffset="22" vartype="VAR" />
+      <UserDefElement iecname="tempSting" type="T_STRING" byteoffset="24" vartype="VAR" />
+      <UserDefElement iecname="states" type="T_DEVICE_STATE" byteoffset="106" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_HMILight" size="72" nativesize="88" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMILight">
       <UserDefElement iecname="lightOutput" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
@@ -1439,7 +1471,7 @@
       <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="308" vartype="VAR_IN_OUT" />
       <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="316" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="6300" nativesize="105216" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="6384" nativesize="105300" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />

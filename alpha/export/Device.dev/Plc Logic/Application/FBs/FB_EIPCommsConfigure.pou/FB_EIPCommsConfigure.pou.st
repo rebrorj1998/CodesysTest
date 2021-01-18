@@ -10,6 +10,7 @@ VAR
 	tempComapareWord : DWORD;
 	_recongfigCommand : BOOL;
 	state : INT;
+	states : DED.DEVICE_STATE;
 END_VAR
 
 VAR_OUTPUT
@@ -31,10 +32,16 @@ enableWord.6 := IBD_Motor.Enable;
 enableWord.7 := Infeed_Conveyor_IO.Enable;
 enableWord.8 := Panther_PA.Enable;
 
+states := Panther_PA.GetDeviceState();
+
+
 CASE state OF
 	
 	0:  reconfig.xExecute := FALSE;
-		IF enableWord <> tempComapareWord OR _recongfigCommand THEN
+		IF enableWord <> tempComapareWord 
+			OR _recongfigCommand 
+			OR (states = DED.DEVICE_STATE.DISABLED AND Panther_PA.Enable)
+			THEN
 			_recongfigCommand := FALSE;
 			tempComapareWord := enableWord;
 			state := 10;

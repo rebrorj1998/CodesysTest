@@ -1605,8 +1605,10 @@ CASE releaseAndFeedSubState OF
                                                                 motorizedSealFlatteners.AutoMoveToClearance();
                                                             END_IF
                                                             
-                                                            IF pressureBar.enable THEN
-                                                                pressureBar.OpenJaw();
+                                                            IF enableBagOpen THEN
+                                                                pressureBar.OpenJawForBagFeed();
+															ELSE
+																pressureBar.OpenJaw();
                                                             END_IF
                                                             //IBD.OpenFull();
 // 															IF enableBagOpen THEN
