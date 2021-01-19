@@ -55,17 +55,12 @@ MC_HaltBagDelivery(Axis := bagDeliveryMotor);
 MC_ResetBagDelivery(Axis := bagDeliveryMotor);
 {endregion}
 	 
-IF MC_ResetBagDelivery.Execute THEN
-	MC_ResetBagDelivery.Execute := FALSE;
-END_IF
-	 
-IF resetONS.Q THEN
+IF _reset THEN
 	state := 100;
 	nextState := 0;
 	ClearStatus();
-	IF bagDeliveryMotor.Error OR NOT bagDeliveryMotor.CommStatus THEN
-		MC_ResetBagDelivery.Execute := TRUE;
-	END_IF
+	MC_ResetBagDelivery.Execute := TRUE;
+	_reset := FALSE;
 END_IF
 
 _ready := state = 0 AND bagDeliveryMotor.CommStatus AND NOT bagDeliveryMotor.Error;
@@ -86,7 +81,9 @@ IF trapezoidalPercent <= 0 THEN
 END_IF
 
 CASE state OF
-	0:		// Idle
+	0:		
+			MC_ResetBagDelivery.Execute := FALSE;
+			// Idle
 			IF _feedBagOut THEN
 				state := 10;
 				_feedBagOut := FALSE;

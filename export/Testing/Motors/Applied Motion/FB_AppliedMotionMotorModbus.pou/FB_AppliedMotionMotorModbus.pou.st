@@ -229,7 +229,6 @@ CASE state OF
 				
 				AxisState := AXIS_STATE.AS_ErrorStop;
 				freeMotor := TRUE;
-				
 				modbusOPCodeToDrive := TO_WORD(eAppliedMotionOpcodes.STOP_MOVE_KILL_BUFFER);
 				modbusOPCodeTrigger := TRUE;
 				IF NOT status.moving THEN
