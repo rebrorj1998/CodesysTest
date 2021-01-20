@@ -41,7 +41,7 @@ absolutePositonInches := (DINT_TO_REAL(absolutePositionSteps) / INT_TO_REAL(step
 
 //Homing required from motor - for now just if there was an initialization seen.
 homeRequiredIndication S= status.initializing OR Globals.firstScan OR _faulted OR driveInputs[11].0;
-
+//homeRequiredIndication S= status.initializing OR Globals.firstScan OR driveInputs[11].0;
 homingOSF(CLK := status.homing);
 IF NOT driveInputs[11].0 THEN
 	homeRequiredIndication := FALSE;

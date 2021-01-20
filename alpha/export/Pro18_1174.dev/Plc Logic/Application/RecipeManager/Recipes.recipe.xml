@@ -12,10 +12,10 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">6b3dfb6a-1865-4356-a39b-1fe0ef89651c</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">637467287021762907</Single>
+        <Single Name="Timestamp" Type="long">637467560520419140</Single>
       </Single>
       <Single Name="Object" Type="{6b3dfb6a-1865-4356-a39b-1fe0ef89651c}" Method="IArchivable">
-        <Single Name="UniqueIdGenerator" Type="string">849</Single>
+        <Single Name="UniqueIdGenerator" Type="string">877</Single>
         <Single Name="Recipes" Type="{361612e3-b6f9-4397-98a8-756875b9e479}" Method="IArchivable">
           <List Name="Recipes" Type="System.Collections.ArrayList" />
         </Single>
@@ -116,6 +116,26 @@
                 <Single Name="UpperBound" Type="string"></Single>
               </Single>
               <Single Name="Id" Type="int">287</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.autoEnable</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">851</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.autoModeDwell</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Real</Single>
+              <Single Name="VarTypeAsString" Type="string">REAL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">853</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
@@ -528,6 +548,16 @@
                 <Single Name="UpperBound" Type="string"></Single>
               </Single>
               <Single Name="Id" Type="int">343</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.fillerEnable</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">855</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
@@ -982,6 +1012,96 @@
                 <Single Name="UpperBound" Type="string"></Single>
               </Single>
               <Single Name="Id" Type="int">391</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedConveyorRunningMode</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">857</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedConveyorCountingMode</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">859</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedIndexDwellTimer</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Real</Single>
+              <Single Name="VarTypeAsString" Type="string">REAL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">861</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedFlightCountTarget</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">DInt</Single>
+              <Single Name="VarTypeAsString" Type="string">DINT</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">863</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedFlightCountActual</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">DInt</Single>
+              <Single Name="VarTypeAsString" Type="string">DINT</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">865</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedPartsCountTarget</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">DInt</Single>
+              <Single Name="VarTypeAsString" Type="string">DINT</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">867</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedPartsCountActual</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">DInt</Single>
+              <Single Name="VarTypeAsString" Type="string">DINT</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">869</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedEmptyPartsSetting</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">DInt</Single>
+              <Single Name="VarTypeAsString" Type="string">DINT</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">871</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedEmptyPartsActual</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">DInt</Single>
+              <Single Name="VarTypeAsString" Type="string">DINT</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">873</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
@@ -2468,6 +2588,26 @@
                 <Single Name="UpperBound" Type="string"></Single>
               </Single>
               <Single Name="Id" Type="int">599</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.infeedConveyorOutOfParts.active</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">875</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.mayCycleUnexpectedly.active</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">877</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>

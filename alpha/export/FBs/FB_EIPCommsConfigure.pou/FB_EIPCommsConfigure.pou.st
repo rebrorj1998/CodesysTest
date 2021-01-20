@@ -2,11 +2,12 @@
 FUNCTION_BLOCK FB_EIPCommsConfigure
 VAR_INPUT
 	rootEIPNode : DED.INode;
+	enableWord : DWORD;
 END_VAR
 VAR
 	reconfig : DED.Reconfigure;
 	testEnable : BOOL;
-	enableWord : DWORD;
+	
 	tempComapareWord : DWORD;
 	_recongfigCommand : BOOL;
 	state : INT;
@@ -28,6 +29,8 @@ enableWord.3 := Bag_Delivery_EIP_Motor.Enable;
 enableWord.4 := Bag_Delivery_Rear_Motor.Enable;
 enableWord.5 := Keyence_BCV.Enable;
 enableWord.6 := Infeed_Conveyor_IO.Enable;
+enableWord.7 := Panther_PA.Enable;
+enableWord.8 := IBD_Motor.Enable;
 
 CASE state OF
 	

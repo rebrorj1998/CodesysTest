@@ -12,7 +12,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	inCycle : BOOL;
 	batchEnable : BOOL;
 	autoEnable : BOOL;
-	autoDwell : REAL;
+	autoModeDwell : REAL;
 	batchSetting : UDINT := 10;
 	batchCount : UDINT;
 	headCycleCount : UDINT;

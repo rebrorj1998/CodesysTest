@@ -10,6 +10,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
     stopMachine : BOOL;
 	version : STRING;
 	inCycle : BOOL;
+	autoEnable : BOOL;
+	autoModeDwell : REAL;
 	batchEnable : BOOL;
 	batchSetting : UDINT := 10;
 	batchCount : UDINT;

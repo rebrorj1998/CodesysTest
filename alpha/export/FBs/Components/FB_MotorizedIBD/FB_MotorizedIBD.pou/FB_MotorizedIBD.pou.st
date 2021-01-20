@@ -23,9 +23,9 @@ VAR
 	_openIBD : BOOL;
 	_closeIBD : BOOL;
 	_openFull : BOOL;
-	accel : INT := 100;
+	accel : INT := 150;
 	decel : INT := 100;
-	velo : INT := 500;
+	velo : INT := 1250;
 	testCurrent : DINT := 500;
 	testZeroCurrent : BOOL;
 	testSomeCurrent : BOOL;
@@ -77,7 +77,7 @@ IF resetONS.Q THEN
 	//IF IBDMotor.Faulted THEN
 		IBDMotor.Reset();
 	//END_IF
-	
+	IBDMotor.ResetEncoderPosition(IBDMotor.driveInputs[5]);
 	_reset := FALSE;
 	_openIBD := FALSE;
 	_closeIBD := FALSE;

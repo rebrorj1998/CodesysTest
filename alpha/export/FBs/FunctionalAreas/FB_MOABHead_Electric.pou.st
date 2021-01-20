@@ -140,7 +140,8 @@ END_VAR
 // Run BaseComponentFB
 SUPER^();
 
-EIPReconfig();
+EIPReconfig(rootEIPNode := EtherNet_IP_Scanner);
+//EIPReconfig(rootEIPNode := Dual_LAN_Card);
 
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
@@ -641,17 +642,20 @@ CASE HMIData.fillerFactorySelection OF
 													filler.activateFiller := FALSE;	
 													ezfeed.enable := FALSE;
 													fillerModeCycleStartOnlyPulse.Reset();
+													Infeed_Conveyor_IO.Enable := FALSE;
 		 
 	FillerSelection.StandardFiller:					// Only enable filler if Aux IO is enabled
 		 											filler.enable := (HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard);
+													Infeed_Conveyor_IO.Enable := FALSE;
 														 
 	FillerSelection.EZFeed:							filler.enable := TRUE;
 		 											ezfeed.enable := TRUE;
+													Infeed_Conveyor_IO.Enable := TRUE;
 													
 		 											
 
-END_CASE 
-	 
+END_CASE 	 
+
 ezfeed(
 	enable:= , 
 	baggerFaulted:= HMIData.faultActive, 
@@ -1053,7 +1057,7 @@ IF NOT enable OR faultONS.OSR THEN
 END_IF
 pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
 cycleTimer();
-autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
+autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
 
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
@@ -1132,6 +1136,10 @@ CASE state OF
 													{region:'Service'}
 													IF setPassthroughPB AND NOT homeJawPB THEN
 														hmiLight.BlinkSlow();
+														IF HMIData.passthroughPosition < HMIData.passthroughSetting THEN
+															motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(2,1000,1000,2000,125);
+														END_IF
+														
 														state := HEAD_STATES.MovePassthrough;
 													END_IF
 													IF homeJawPB THEN
@@ -1447,10 +1455,12 @@ CASE state OF
     HEAD_STATES.MovePassthrough :        // 
                                             pressureBar.OpenJaw();
 											IBD.OpenIBD();
+											
                                             state := HEAD_STATES.MovingPassthrough;
     
     HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND IBD.IBDOpen THEN
                                                 state := HEAD_STATES.MovedPassthrough;     
+												motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(HMIData.bagWidth,1000,1000,1000,125);
                                             END_IF
                                             
     HEAD_STATES.MovedPassthrough :        // 
@@ -1683,18 +1693,27 @@ CASE releaseAndFeedSubState OF
                                                     IF zebraPrinter.state = PRINTER_STATES.DataReady THEN
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.FeedToOffset;
                                                     END_IF
+													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+ 														bagOpenFingers.Release();
+ 													END_IF	
                                                     
     RELEASE_FEED_STATES.FeedToOffset :              // This starts feeding to the print offset
 													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) THEN
 														bagDelivery.AutoPrinterReady();
                                                     	releaseAndFeedSubState := RELEASE_FEED_STATES.FeedingToOffset;
 													END_IF
+													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+ 														bagOpenFingers.Release();
+ 													END_IF	
                                                     
                                                         
     RELEASE_FEED_STATES.FeedingToOffset :            // Once offset done start printing
                                                     IF bagDelivery.state = BAG_DELIVERY_STATES.FedToPrintOffset THEN
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.StartPrinting;
-                                                    END_IF                                            
+                                                    END_IF       
+													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+ 														bagOpenFingers.Release();
+ 													END_IF	                                     
     
     RELEASE_FEED_STATES.StartPrinting :                // Printer starts print cycle and bag delivery starts moving at print speed
                                                     
@@ -1706,6 +1725,9 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.SendPrintSignal:            // 
                                                     //IF bagDelivery.state =     BAG_DELIVERY_STATES.FeedingAtPrintSpeed THEN
 													//zebraPrinter.AutoSendPrintSignal();
+													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+ 														bagOpenFingers.Release();
+ 													END_IF	
 													IF zebraPrinter.printHeadDebounced THEN
 														bagDelivery.AutoStartPrintFeed();
 														zebraPrinter.AutoSendPrintSignal();
@@ -1718,7 +1740,9 @@ CASE releaseAndFeedSubState OF
                                                     END_IF                                        
 
     RELEASE_FEED_STATES.Printing :                // 
-													
+													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+ 														bagOpenFingers.Release();
+ 													END_IF	
                                                     IF zebraPrinter.state = PRINTER_STATES.DonePrinting THEN
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.StopPrinting;
                                                     END_IF
@@ -1735,7 +1759,9 @@ CASE releaseAndFeedSubState OF
                                                                                                             
     RELEASE_FEED_STATES.MovingJawOutAndFeedingBag :    // 
     
-													
+													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+ 														bagOpenFingers.Release();
+ 													END_IF
 													IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable)
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.pressureBarOpen OR NOT pressureBar.enable)

@@ -17,7 +17,7 @@ ELSIF stKey = "Project" THEN
 ELSIF stKey = "Title" THEN
 	GetTextProperty := "MOAB Prototype";
 ELSIF stKey = "VersionPostfix" THEN
-	GetTextProperty := "-alpha/feature/pro24";
+	GetTextProperty := "-alpha/feature/ezfeed";
 ELSE
 	GetTextProperty := "";
 END_IF

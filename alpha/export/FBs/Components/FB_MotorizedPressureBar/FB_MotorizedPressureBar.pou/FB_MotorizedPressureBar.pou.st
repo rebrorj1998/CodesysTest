@@ -8,7 +8,7 @@ VAR_INPUT
 	iJawClampExtended : BOOL;
 	iJawCLampRetracted : BOOL;
 	pbarOutSetting : REAL := 12.0;
-	pbarBagFeedSetting : REAL := 3.0;
+	pbarBagFeedSetting : REAL := 2.0;
 	pbarInSetting : REAL := 0.0;
 	closeDelay : REAL;
 	disableFaults : BOOL;
@@ -39,8 +39,8 @@ VAR
 	_closeJawNoLatch : BOOL;
 	_openForBagFeed : BOOL;
 	jawClampsDelay : TIME := T#75MS;
-	accel : INT := 40;
-	decel : INT := 60;
+	accel : INT := 150;
+	decel : INT := 100;
 	velo : INT := 1250;
 	testCurrent : DINT := 500;
 	testZeroCurrent : BOOL;
@@ -66,6 +66,9 @@ VAR
 	distanceToMove : REAL;
 	disableMotorONS : FB_ONS;
 	pbarOutCommandedSetting : REAL;
+	strokeTimer : Standard.TON;
+	strokeTime : TIME;
+	movingONS : FB_ONS;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
@@ -80,6 +83,18 @@ pressureBarClosed := iPressureBarClosed;
 delayTimer();
 failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClamped AND iPressureBarClosed)));
 clamped := state = MotorizedPbarStates.Clamping;
+
+strokeTimer();
+movingONS(CLK := state = MotorizedPbarStates.MovingJawIn);
+
+IF movingONS.OSR THEN
+	strokeTimer.IN := TRUE;
+END_IF
+IF movingONS.OSF THEN
+	strokeTime := strokeTimer.ET;
+	strokeTimer.IN := FALSE;
+END_IF
+	
 
 disableMotorONS(CLK := clamped AND iPressureBarClamped AND iJawClampsRetracted);
 IF disableMotorONS.OSR THEN
@@ -173,7 +188,7 @@ END_IF
 IF resetONS.Q THEN
 	pbarMotor.Reset();
 	//pbarMotor.Enable();
-	
+	pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
 	//IBDMotor.Reset();
 	Globals.jawMovingIn := FALSE;
 	_reset := FALSE;
@@ -297,6 +312,7 @@ CASE state OF
 										ELSE
 											state := MotorizedPbarStates.Idle;
 										END_IF
+										pbarMotor.SetPositionLimit(posLimit);
 										
 	
 	
@@ -462,7 +478,7 @@ END_CASE
 
 IF pbarMotor.alarms.positionLimit OR failTimer.Q THEN
 	faults.obstructionDetected.faultTrigger := TRUE;
-	homeRequired := TRUE;
+	//homeRequired := TRUE;
 	//state := MotorizedPbarStates.Faulting;
 ELSE
 	faults.obstructionDetected.faultTrigger := FALSE;
