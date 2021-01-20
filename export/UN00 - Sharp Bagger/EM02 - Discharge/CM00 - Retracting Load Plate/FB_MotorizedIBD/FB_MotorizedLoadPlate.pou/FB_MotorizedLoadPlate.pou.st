@@ -71,6 +71,12 @@ resetTimer(IN := state = eMotorizedLoadPlateStates.Resetting);
 // Dwell timer for load shelf
 dwellTimer(PT := TO_TIME(dwellSetting * 1000.0));
 {endregion}
+	 
+IF homeTimeout.Q THEN
+ 	loadPlateMotor.AxisState := AXIS_STATE.AS_ErrorStop;
+	MC_HomeMotor.Execute := FALSE;
+	failedToHome.Trigger();
+END_IF
 
 // Trigger motor faults from drive					
 IF loadPlateMotor.Error AND THIS^.OptionActive THEN
@@ -84,7 +90,6 @@ IF NOT loadPlateMotor.CommStatus AND THIS^.OptionActive THEN
 ELSE
 	motorCommFault.faultTrigger := FALSE;
 END_IF
-
 {endregion}
 
 IF _reset THEN
@@ -92,14 +97,11 @@ IF _reset THEN
 	_reset := FALSE;
 END_IF
 
-
-
 CASE state OF
 	
 	eMotorizedLoadPlateStates.Idle:
 	 		// Idle State.
-	   		
-				   
+	   		  
 				IF _homeNow THEN
 					_homeNow := FALSE;
 			   		IF THIS^.OptionActive THEN
@@ -107,7 +109,6 @@ CASE state OF
 				  	END_IF
 					
 				END_IF
-				
 				
 				IF raiseShelfPB OR _makeReady THEN
 			   		_makeReady := FALSE;
@@ -120,8 +121,6 @@ CASE state OF
 				  	END_IF
 					
 				END_IF
-							
-		  
 	   
 			MC_ResetMotor.Execute := FALSE;
 			IF loadPlateMotor.HomingDone

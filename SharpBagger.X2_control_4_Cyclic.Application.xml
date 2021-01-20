@@ -241,6 +241,9 @@
         <Node name="iTopCoverClosed" type="T_BIT_X_6" access="Read" directaddress="%IX1.6">
           <Comment>GT_12DF_2 : </Comment>
         </Node>
+        <Node name="oFansEnable" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX0.6">
+          <Comment>GT_226F_1 : </Comment>
+        </Node>
         <Node name="oLowerPrintHead" type="T_BIT_X_1" access="Read" directaddress="%QX0.1">
           <Comment>GT_226F_1 : </Comment>
         </Node>
