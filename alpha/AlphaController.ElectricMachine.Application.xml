@@ -1661,8 +1661,8 @@
         <Node name="airFilterClean" type="T_FB_PredictiveMaint" access="ReadWrite">
           <Comment>Predictive Maint.</Comment>
         </Node>
-        <Node name="autoDwell" type="T_REAL" access="ReadWrite" />
         <Node name="autoEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="autoModeDwell" type="T_REAL" access="ReadWrite" />
         <Node name="auxIOConfig" type="T_AuxIOConfiguration" access="ReadWrite" />
         <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="bagDeliveryMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
