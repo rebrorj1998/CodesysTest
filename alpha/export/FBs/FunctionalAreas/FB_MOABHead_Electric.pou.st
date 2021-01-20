@@ -525,7 +525,9 @@ CASE HMIData.auxIOConfig.factorySelection OF
 														configOutput2Pulse.ManualOff();	
 														configOutput2Pulse.Reset();
 														murrIOBusNode.auxIONodeEnabled := FALSE;
-														HMIData.fillerFactorySelection := FillerSelection.NotInstalled;
+														IF HMIData.fillerFactorySelection = FillerSelection.StandardFiller THEN
+															HMIData.fillerFactorySelection := FillerSelection.NotInstalled;
+														END_IF
 		 
 	AuxiliaryIOSelection.AuxIOStandard:					// Use aux IO
 		 												murrIOBusNode.auxIONodeEnabled := TRUE;
