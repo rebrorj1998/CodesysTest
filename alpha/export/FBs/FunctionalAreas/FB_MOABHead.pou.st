@@ -38,8 +38,9 @@ VAR
 	enableIBDEject : BOOL;
 	enableLabelSideUp : BOOL := TRUE;
 	factoryTestModeKeepCycling : BOOL;
+	autoModeKeepCycling : BOOL;
+	autoModeKeepCyclingTimer : Standard.TON;
     bagDelivery : BagDeliveryFB();
-    //zebraPrinter : PrinterFB;            //Printer Test Rig
 	zebraPrinter : PrinterFB_Mode2;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
@@ -107,6 +108,8 @@ VAR
 	barcodeVerifier : BarcodeReaderFB();
 	keyenceBCV : KeyenceNL20FB();
 	rearMotorCommsReturned : Standard.F_TRIG();
+	allMotorCommsGood : BOOL;
+	footSwitchONS : FB_ONS;
 	ezfeed : EZFeedFB();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -127,6 +130,9 @@ safePowerFailure.faultTrigger := NOT iEStopOK AND murrIOBusNode.ok;
 
 // Bags Low warning
 HMIData.bagLevelLow.active := iBagsLow;
+
+// Dry Cycle Warning
+HMIData.dryCycleActive.active := HMIData.enableDryCycle;	
 
 // Ethernet/IP barcode verifier from Keyence
 keyenceBCV(
@@ -641,7 +647,7 @@ loadShelfFaultTimer(
 	failToRetract=> loadShelfFaults.failedToLoad.faultTrigger);
  
 exitConveyorRun();
-exitConveyorRun.DwellSetting := TO_UINT(HMIData.exitConveyorDwell * 1000);
+exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 oRunExitConveyor := exitConveyorRun.Q AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit;
 	 
@@ -852,7 +858,7 @@ ELSE
 END_IF
 
 // Disable the printer on dry cycle because we dont't want to print on the platen roller               
-IF Globals.enableDryCycle THEN
+IF HMIData.enableDryCycle THEN
     zebraPrinter.enable := FALSE;
 END_IF
 
@@ -876,6 +882,14 @@ IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
 END_IF
 pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
 cycleTimer();
+
+autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
+
+HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
+
+//footSwitchONS(CLK := iFootSwitch);
+
+
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
 END_IF
@@ -885,15 +899,20 @@ CASE state OF
 													
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (enableBatch AND (batchCount < batchSetting))
-													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND factoryTestModeKeepCycling AND NOT LPA.Q
-													OR startCycleReqFromPalmButtonsONS.OSR AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
+													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
+													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													OR filler.cycleBagRequest) 
-													AND NOT HMIData.faultActive 
+													OR (filler.cycleBagRequest AND HMIData.autoEnable)
+													OR (filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR)
+													OR (autoModeKeepCyclingTimer.Q)
+													OR footSwitchONS.OSR)
+													AND (NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
 													AND NOT HMIData.sealBarNotAtTemperature.active
-													AND NOT setPassthroughPB THEN
+													AND NOT setPassthroughPB)
+													AND readyToRun 
+													THEN
                                                         state := HEAD_STATES.SealAndSeparateBag;
                                                         startCycle := FALSE;
 														
@@ -925,11 +944,13 @@ CASE state OF
 														startCycle := FALSE;
 														HMIData.initiateCycle := FALSE;
 														factoryTestModeKeepCycling := FALSE;
+														autoModeKeepCycling := FALSE;
 														hmiLight.TurnOff();
 													END_IF
 													
 													IF HMIData.sealBarNotAtTemperature.active THEN
 														factoryTestModeKeepCycling := FALSE;
+														autoModeKeepCycling := FALSE;
 													END_IF
 													
 													IF bagOpened THEN
@@ -1125,7 +1146,7 @@ CASE state OF
                                                         batchCount := batchCount + 1;
                                                     END_IF
   
-                                                    IF Globals.enableDryCycle THEN
+                                                    IF HMIData.enableDryCycle THEN
                                                         Globals.dryCycleCount := Globals.dryCycleCount + 1;     
                                                     ELSE
                                                         Globals.bagsMadeCount := Globals.bagsMadeCount + 1; 
@@ -1180,6 +1201,9 @@ CASE state OF
 											END_IF
 											HMIData.inCycle := FALSE;
 											//bagFailedToOpen := FALSE;
+											IF HMIData.autoEnable AND NOT HMIData.stopMachine THEN
+												autoModeKeepCycling := TRUE;
+											END_IF
 											IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 												IF (HMIData.bagsMade.count >= 1000) THEN
 													factoryTestModeKeepCycling := FALSE;
@@ -1239,6 +1263,7 @@ CASE state OF
 											startCycle := FALSE;
 											HMIData.initiateCycle := FALSE;
 											factoryTestModeKeepCycling := FALSE;
+											autoModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
 											//bagOpened := FALSE;
                                                     
@@ -1361,7 +1386,7 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawClosed OR NOT pressureBar.enable)
-                                                        AND ((bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone) OR Globals.enableDryCycle)
+                                                        AND ((bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone) OR HMIData.enableDryCycle)
                                                         OR (bagDelivery.state =  BAG_DELIVERY_STATES.WaitingForPrinter AND zebraPrinter.enable)
                                                         OR NOT bagDelivery.enable
                                                         THEN

@@ -56,6 +56,7 @@ VAR
 	testTorque : BOOL;
 	testTorqueValue : DINT := 60;
 	reverseSpeedDistanceOffset : REAL;
+	checkMotorStatusDelay : TIME := T#25ms;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
@@ -131,7 +132,7 @@ END_IF
 delay();
 _ready := (_mode = DEVICE_MODES.Auto) AND (NOT (state = BAG_DELIVERY_STATES.Fault) OR NOT (state = BAG_DELIVERY_STATES.Idle));
 
-IF tensionFailONS.OSR AND NOT Globals.enableDryCycle THEN
+IF tensionFailONS.OSR AND NOT HMIData.enableDryCycle THEN
 	bagTensionFault.Trigger();
 END_IF
 
@@ -139,7 +140,7 @@ CASE state OF
     BAG_DELIVERY_STATES.Idle :                     
 													IF _mode = DEVICE_MODES.Manual THEN 
 														state := BAG_DELIVERY_STATES.Manual;
-													ELSIF NOT iBagNotPresent OR Globals.enableDryCycle THEN
+													ELSIF NOT iBagNotPresent OR HMIData.enableDryCycle THEN
 														state := BAG_DELIVERY_STATES.Ready;
 													//ELSIF iBagNotPresent AND (_amFeedToEye OR _amReverseBag) THEN
 													ELSIF (_amFeedToEye OR _amReverseBag) THEN
@@ -205,7 +206,7 @@ CASE state OF
                                                     
                                                     
     BAG_DELIVERY_STATES.Reversing :                    // Back up until we see the trailing edge of the bag
-														 IF iBagNotPresent OR Globals.enableDryCycle THEN
+														 IF iBagNotPresent OR HMIData.enableDryCycle THEN
 															delay.PT := T#10MS;
 															delay.IN := TRUE;
 															IF delay.Q THEN
@@ -288,7 +289,7 @@ CASE state OF
                                                         state := BAG_DELIVERY_STATES.FeedingToPrintOffset;
                                                     
     BAG_DELIVERY_STATES.FeedingToPrintOffset :        // 
-													delay.PT := T#50MS;
+													delay.PT := checkMotorStatusDelay;
 													delay.IN := TRUE;
 													
 													IF delay.Q THEN
@@ -319,7 +320,7 @@ CASE state OF
 													END_IF
                                                     
     BAG_DELIVERY_STATES.FeedingAtPrintSpeed :        // 
-													delay.PT := T#50MS;
+													delay.PT := checkMotorStatusDelay;
 													delay.IN := TRUE;
 													IF delay.Q THEN
 														IF bagFeedMasterMotor.CommandAcknowledged AND bagFeedMasterMotor.InPosition THEN
@@ -344,7 +345,7 @@ CASE state OF
                                                     state := BAG_DELIVERY_STATES.FeedingBagOut;    
     
     BAG_DELIVERY_STATES.FeedingBagOut :                // Wait until move is done
-													delay.PT := T#50MS;
+													delay.PT := checkMotorStatusDelay;
 													delay.IN := TRUE;
 													IF delay.Q THEN
 														IF bagFeedMasterMotor.CommandAcknowledged AND bagFeedMasterMotor.InPosition THEN
@@ -372,7 +373,7 @@ CASE state OF
 														state := BAG_DELIVERY_STATES.SetTorqueMode;
 													END_IF
 													_amFeedToEye := FALSE;
-													IF iBagNotPresent AND NOT Globals.enableDryCycle THEN 
+													IF iBagNotPresent AND NOT HMIData.enableDryCycle THEN 
 														state := BAG_DELIVERY_STATES.Idle;
 													END_IF
 													IF jogForwardONS.OSR THEN

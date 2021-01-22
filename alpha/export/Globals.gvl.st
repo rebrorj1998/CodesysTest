@@ -4,7 +4,7 @@ VAR_GLOBAL
     firstScan : BOOL; //First Scan Bit
     pressureBarServoCommsType : MODBUS_COMM_TYPE;  //Comm path to Pressure Bar Servo - 0 = TCP, 1 = RTU
     STEPS_PER_INCH : INT;  //Steps Per Inch for Pressure Bar Servos
-    enableDryCycle : BOOL;          // Enable dry cycle
+    
 	SystemLog : FB_InternalLogger;
 	jawMovingIn : BOOL;
 	passthroughChangedFromJog : BOOL;

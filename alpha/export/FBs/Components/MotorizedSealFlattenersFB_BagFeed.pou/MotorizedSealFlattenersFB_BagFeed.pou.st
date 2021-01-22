@@ -24,7 +24,7 @@ VAR_INPUT
     stopPB : BOOL;
     startPB : BOOL;
     nextSeqPB : BOOL;
-    delay : TON := (PT:= T#75MS);
+    delay : TON := (PT:= T#25MS);
 	fingersDownDelay : Standard.TON := (PT := T#50MS);
 	sealFlattenerMotorCommFailInput : BOOL;
 	manualPosSetpoint : REAL;
@@ -75,11 +75,7 @@ bagDropDelay(PT := TO_TIME(HMIData.bagDropTime * 1000));
 delay();
 jogInONS(CLK := jogIn);
 jogOutONS(CLK := jogOut);
-IF autoModeSelected THEN
-    //delay.PT := T#300MS;
-ELSE
-    delay.PT := T#750MS;
-END_IF
+
 
 outSetpoint := HMIData.bagWidth + 0.2;
 bagHoldingSetpoint := HMIData.bagWidth;

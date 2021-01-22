@@ -85,6 +85,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	infeedPartsCountActual : DINT;
 	infeedEmptyPartsSetting : DINT := 10;
 	infeedEmptyPartsActual : DINT;
+	enableDryCycle : BOOL;
 
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -169,6 +170,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerInhibited : Warning;
 	infeedConveyorOutOfParts : Warning;
 	mayCycleUnexpectedly : Warning;
+	dryCycleActive : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
     
