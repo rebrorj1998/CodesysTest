@@ -151,6 +151,9 @@ safePowerFailure.faultTrigger := NOT iEStopOK AND murrIOBusNode.ok;
 // Bags Low warning
 HMIData.bagLevelLow.active := iBagsLow;
 
+// Dry Cycle Warning
+HMIData.dryCycleActive.active := HMIData.enableDryCycle;	 
+
 // Ethernet/IP barcode verifier from Keyence
 keyenceBCV(
 	enable:= , 
@@ -901,7 +904,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	bagOpenRetryCount := 0;
 	
 	HMIData.stopMachine := FALSE;
-	
+	HMIData.inCycle := FALSE;
 	electricPressureBarMode := DEVICE_MODES.Auto;
 	
 	pressureBar.enable := TRUE;
@@ -1034,7 +1037,7 @@ ELSE
 END_IF
 
 // Disable the printer on dry cycle because we dont't want to print on the platen roller               
-IF Globals.enableDryCycle THEN
+IF HMIData.enableDryCycle THEN
     zebraPrinter.enable := FALSE;
 END_IF
 
@@ -1096,7 +1099,7 @@ CASE state OF
 													IF NOT Globals.passthroughChangedFromJog AND HMIData.jobLoaded THEN
 														HMIData.jobLoaded := FALSE;
 													END_IF
-                                                    IF (HMIData.passthroughSetting <> passthroughSettingLast) OR (Globals.passthroughChangedFromJog AND HMIData.jobLoaded) AND NOT pressureBarMotor.Faulted AND NOT pressureBarMotor.HomeRequired THEN
+                                                    IF (TO_DINT(HMIData.passthroughSetting*1000) <> TO_DINT(passthroughSettingLast*1000)) OR (Globals.passthroughChangedFromJog AND HMIData.jobLoaded) AND NOT pressureBarMotor.Faulted AND NOT pressureBarMotor.HomeRequired THEN
 															setPassthroughPB := TRUE;
 															Globals.passthroughChangedFromJog := FALSE;
 															HMIData.jobLoaded := FALSE;
@@ -1340,7 +1343,7 @@ CASE state OF
                                                         batchCount := batchCount + 1;
                                                     END_IF
   
-                                                    IF Globals.enableDryCycle THEN
+                                                    IF HMIData.enableDryCycle THEN
                                                         Globals.dryCycleCount := Globals.dryCycleCount + 1;     
                                                     ELSE
                                                         Globals.bagsMadeCount := Globals.bagsMadeCount + 1; 
@@ -1448,27 +1451,30 @@ CASE state OF
     HEAD_STATES.HomingComplete :        // 
 											IF NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired THEN
 												 homeJawPB := FALSE;
-												state := HEAD_STATES.Idle;
+												//state := HEAD_STATES.Idle;
+												motorizedSealFlatteners.sealFlattenersVerticalAxis.Extend();
+												state := HEAD_STATES.MovePassthrough;
 												//HMIData.passthroughSetting := 6.0;
-												setPassthroughPB := TRUE;
+												//setPassthroughPB := TRUE;
 											END_IF
                                            
     
     HEAD_STATES.MovePassthrough :        // 
                                             pressureBar.OpenJaw();
 											IBD.OpenIBD();
-											
                                             state := HEAD_STATES.MovingPassthrough;
     
     HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND IBD.IBDOpen THEN
                                                 state := HEAD_STATES.MovedPassthrough;     
-												motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(HMIData.bagWidth,1000,1000,1000,125);
+												
                                             END_IF
                                             
     HEAD_STATES.MovedPassthrough :        // 
                                             //pressureBar.AutoDoneMovingPassthrough();
                                             state := HEAD_STATES.Idle;
 											setPassthroughPB := FALSE;
+											
+											motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(HMIData.bagWidth,1000,1000,1000,125);
                                                     
     HEAD_STATES.Fault :                     hmiLight.TurnOff();
 											HMIData.inCycle := FALSE;
@@ -1613,7 +1619,7 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
-                                                        AND ((bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone) OR Globals.enableDryCycle)
+                                                        AND ((bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone) OR HMIData.enableDryCycle)
                                                         OR (bagDelivery.state =  BAG_DELIVERY_STATES.WaitingForPrinter AND zebraPrinter.enable)
                                                         OR NOT bagDelivery.enable
                                                         THEN

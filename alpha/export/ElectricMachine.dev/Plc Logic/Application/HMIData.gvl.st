@@ -88,6 +88,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printAndApplyConveyorDwell : REAL := 5.0;
 	printAndApplyProductToPhotoeyeTime : REAL := 4.0;
 	printAndApplyWaitForLabelTimeout : REAL := 15.0;
+	enableDryCycle : BOOL;          // Enable dry cycle
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -178,6 +179,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printAndApplyWaitingForApply : Warning;
 	printAndApplyWaitingForLabel : Warning;
 	printAndApplyBypassed : Warning;
+	dryCycleActive : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
     

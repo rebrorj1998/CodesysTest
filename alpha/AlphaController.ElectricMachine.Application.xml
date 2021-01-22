@@ -232,6 +232,36 @@
         <Comment> Independent control (like as a test fixture)</Comment>
       </UserDefElement>
     </TypeUserDef>
+    <TypeUserDef name="T_DEVICE_STATE" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="DEVICE_STATE" basetype="T_INT">
+      <UserDefElement type="T_DEVICE_STATE" iecname="UNKNOWN" enumvalue="0">
+        <Comment> | The device state is unknown.
+ | Example: No supervision mechanism active.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="STOPPED" enumvalue="1">
+        <Comment>The device is stopped.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="RUNNING" enumvalue="2">
+        <Comment>The device is running.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="ERROR" enumvalue="3">
+        <Comment> | The device is in error state. 
+ | |GetDeviceError| may supply a specific error code.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="DISABLED" enumvalue="4">
+        <Comment>The device is disabled in device tree.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="NOT_CONFIGURED" enumvalue="5">
+        <Comment> | The device has not yet been configured by the stack. 
+ | Example: Configuration phase not started yet.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="CONFIGURED" enumvalue="6">
+        <Comment> | The device has been configured by the stack.
+ | Example: Configuration phase finished but device is not in running state.</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_DEVICE_STATE" iecname="NOT_FOUND" enumvalue="7">
+        <Comment>The device was not found on bus.</Comment>
+      </UserDefElement>
+    </TypeUserDef>
     <TypeUserDef name="T_ERROR" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ERROR" basetype="T_INT">
       <UserDefElement type="T_ERROR" iecname="NO_ERROR" enumvalue="0">
         <Comment> no error </Comment>
@@ -875,14 +905,15 @@
       <UserDefElement iecname="maxTemp" type="T_REAL" byteoffset="180" vartype="VAR_INPUT" />
       <UserDefElement iecname="DriveTemp" type="T_REAL" byteoffset="184" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_EIPCommsConfigure" size="28" nativesize="56" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_EIPCommsConfigure">
+    <TypeUserDef name="T_FB_EIPCommsConfigure" size="32" nativesize="60" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_EIPCommsConfigure">
       <UserDefElement iecname="rootEIPNode" type="T_TYPE_REFERENCE_2" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="enableWord" type="T_DWORD" byteoffset="4" vartype="VAR_INPUT" />
-      <UserDefElement iecname="reconfig" type="T_Reconfigure" byteoffset="8" vartype="VAR" />
-      <UserDefElement iecname="testEnable" type="T_BOOL" byteoffset="18" vartype="VAR" />
-      <UserDefElement iecname="tempComapareWord" type="T_DWORD" byteoffset="20" vartype="VAR" />
-      <UserDefElement iecname="_recongfigCommand" type="T_BOOL" byteoffset="24" vartype="VAR" />
-      <UserDefElement iecname="state" type="T_INT" byteoffset="26" vartype="VAR" />
+      <UserDefElement iecname="reconfig" type="T_Reconfigure" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="deviceState" type="T_DEVICE_STATE" byteoffset="14" vartype="VAR" />
+      <UserDefElement iecname="tempComapareWord" type="T_DWORD" byteoffset="16" vartype="VAR" />
+      <UserDefElement iecname="_recongfigCommand" type="T_BOOL" byteoffset="20" vartype="VAR" />
+      <UserDefElement iecname="state" type="T_INT" byteoffset="22" vartype="VAR" />
+      <UserDefElement iecname="disabledSettingWord" type="T_DWORD" byteoffset="24" vartype="VAR" />
+      <UserDefElement iecname="disabledStatusWord" type="T_DWORD" byteoffset="28" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_HMILight" size="72" nativesize="88" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMILight">
       <UserDefElement iecname="lightOutput" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
@@ -1262,7 +1293,7 @@
       <UserDefElement iecname="homeRequiredONS" type="T_R_TRIG" byteoffset="448" vartype="VAR" />
       <UserDefElement iecname="timerHomeDelay" type="T_TON" byteoffset="452" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_BagDeliveryFB" size="966" nativesize="6560" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BagDeliveryFB" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_BagDeliveryFB" size="966" nativesize="6564" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="BagDeliveryFB" basetype="T_BaseComponentFB">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -1447,7 +1478,7 @@
       <UserDefElement iecname="jawClamps" type="T_FB_ThreePositionCylinder" byteoffset="348" vartype="VAR_IN_OUT" />
       <UserDefElement iecname="pbarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="356" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="6348" nativesize="105296" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="6352" nativesize="105304" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1713,6 +1744,10 @@
         <Node name="cycleStartButtonSelection" type="T_PalmButtonSelection" access="ReadWrite" />
         <Node name="demoModeIsActive" type="T_Warning" access="ReadWrite" />
         <Node name="driveRollerClean" type="T_FB_PredictiveMaint" access="ReadWrite" />
+        <Node name="dryCycleActive" type="T_Warning" access="ReadWrite" />
+        <Node name="enableDryCycle" type="T_BOOL" access="ReadWrite">
+          <Comment> Enable dry cycle</Comment>
+        </Node>
         <Node name="exitConveyorDwell" type="T_REAL" access="ReadWrite" />
         <Node name="exitConveyorJog" type="T_BOOL" access="ReadWrite" />
         <Node name="exitConveyorJogTime" type="T_TIME" access="ReadWrite" />
@@ -1916,7 +1951,7 @@
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iFootSwitch" type="T_BIT_X_6" access="Read" directaddress="%IX69.6">
-          <Comment>Cube67_BN_E_V2 : Port 6</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iFrontLoadPlateExtended" type="T_BIT_X_3" access="Read" directaddress="%IX65.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
@@ -1946,22 +1981,22 @@
           <Comment>Infeed_Conveyor_IO : </Comment>
         </Node>
         <Node name="iJawClamped" type="T_BIT_X_4" access="Read" directaddress="%IX68.4">
-          <Comment>Cube67_BN_E_V2 : Port 4</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iJawClampsExtended" type="T_BIT_X_0" access="Read" directaddress="%IX68.0">
-          <Comment>Cube67_BN_E_V2 : Port 0</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iJawClampsRetracted" type="T_BIT_X_0" access="Read" directaddress="%IX69.0">
-          <Comment>Cube67_BN_E_V2 : Port 0</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iJawClearToClamp" type="T_BIT_X_5" access="Read" directaddress="%IX69.5">
-          <Comment>Cube67_BN_E_V2 : Port 5</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iLeftPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX63.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iLefttFingerBagPresent" type="T_BIT_X_2" access="Read" directaddress="%IX68.2">
-          <Comment>Cube67_BN_E_V2 : Port 2</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iLightedTouchButton" type="T_BIT_X_0" access="Read" directaddress="%IX73.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
@@ -2018,16 +2053,16 @@
           <Comment>Panther_PA : </Comment>
         </Node>
         <Node name="iPowerOffButton" type="T_BIT_X_3" access="Read" directaddress="%IX69.3">
-          <Comment>Cube67_BN_E_V2 : Port 3</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iPressureBarNotObstructed" type="T_BIT_X_1" access="Read" directaddress="%IX69.1">
-          <Comment>Cube67_BN_E_V2 : Port 1</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iPrinterRibbonEncoder" type="T_BIT_X_3" access="Read" directaddress="%IX67.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iRightFingerBagPresent" type="T_BIT_X_2" access="Read" directaddress="%IX69.2">
-          <Comment>Cube67_BN_E_V2 : Port 2</Comment>
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iRightPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX62.3">
           <Comment>Cube67_BN_E_V2 : </Comment>

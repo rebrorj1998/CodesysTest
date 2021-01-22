@@ -51,7 +51,7 @@ VAR
 	testDisable : BOOL;
 	testEnable : BOOL;
 	testResetPosition : BOOL;
-	posLimit : DINT := 3000;
+	posLimit : DINT := 600;
 	pbarFeedbackHandler : FB_CylinderFeedback;
 	jawClampsLeftFeedbackHandler : FB_CylinderFeedback;
 	jawClampsRightFeedbackHandler : FB_CylinderFeedback;
