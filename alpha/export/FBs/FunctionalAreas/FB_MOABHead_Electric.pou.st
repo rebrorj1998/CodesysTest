@@ -784,7 +784,9 @@ IF printAndApply.inhibitConveyor THEN
 	externalExitConveyorRun.Reset();
 END_IF
 
-
+IF safePowerFailure.active THEN
+	bagOpened := FALSE;
+END_IF
 	 
 oRunExitConveyor := ((exitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
 	 

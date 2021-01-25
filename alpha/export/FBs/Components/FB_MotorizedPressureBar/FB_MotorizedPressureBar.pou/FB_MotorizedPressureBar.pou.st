@@ -41,7 +41,7 @@ VAR
 	jawClampsDelay : TIME := T#75MS;
 	accel : INT := 150;
 	decel : INT := 100;
-	velo : INT := 1250;
+	velo : INT := 800;
 	testCurrent : DINT := 500;
 	testZeroCurrent : BOOL;
 	testSomeCurrent : BOOL;
