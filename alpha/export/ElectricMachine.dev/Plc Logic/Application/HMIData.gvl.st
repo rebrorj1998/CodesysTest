@@ -182,7 +182,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	dryCycleActive : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
-    
+    heartbeat : UDINT;
     (*Counters*)
     baggerCycles : FB_CycleCounter;
 	bagOpenFingerCycles : FB_CycleCounter;
