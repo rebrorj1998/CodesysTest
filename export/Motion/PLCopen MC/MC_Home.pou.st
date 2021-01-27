@@ -36,6 +36,7 @@ CASE MC_State OF
 					Error := TRUE;
 					ErrorID := MC_ERROR.AXIS_NOT_READY;
 				END_IF
+				
 			END_IF
 	
 	1:		// Stopping.  Once stopped go back to idle
@@ -43,10 +44,6 @@ CASE MC_State OF
 				Axis.StartHoming := FALSE;
 				Axis.AxisState := AXIS_STATE.AS_Standstill;
 				SetDone();
-				MC_State := 0;
-			ELSIF Axis.AxisState <> AXIS_STATE.AS_Homing THEN
-				SetError();
-				Axis.StartHoming := FALSE;
 				MC_State := 0;
 			END_IF
 END_CASE

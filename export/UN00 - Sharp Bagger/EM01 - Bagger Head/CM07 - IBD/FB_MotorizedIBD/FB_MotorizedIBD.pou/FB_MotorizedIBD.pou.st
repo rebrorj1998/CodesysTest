@@ -86,9 +86,10 @@ ELSE
 	IBDMotorCommFault.faultTrigger := FALSE;
 END_IF
 
-IF homeTimeout.Q OR UN00_Globals.simFaults.pressureBarfailedToHome THEN
- 	IBDMotor.AxisState := AXIS_STATE.AS_ErrorStop;
-	MC_HomeIBDMotor.Execute := FALSE;
+IF homeTimeout.Q 
+	//OR MC_HomeIBDMotor.Error 
+	OR UN00_Globals.simFaults.pressureBarfailedToHome
+THEN
 	failedToHome.Trigger();
 END_IF
 {endregion}
@@ -124,6 +125,7 @@ CASE state OF
 		   		_isHomed := FALSE;
 				state := eMotorizedIBDStates.Home;
 			END_IF
+			
 			
 			IF _MoveOut OR openIBDPB OR _makeReady THEN
 				_MoveOut := FALSE;
