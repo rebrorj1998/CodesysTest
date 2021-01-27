@@ -148,6 +148,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
 	cycleStartButtonSelection : PalmButtonSelection := PalmButtonSelection.DualPalmButton;
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;
+	lightCurtainSelection : LightCurtainsSelection := LightCurtainsSelection.NotInstalled;
 	baggerModelSelection : ModelSelection;
 	auxIOConfig : AuxIOConfiguration;
 	fillerFactorySelection : FillerSelection;
@@ -180,6 +181,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printAndApplyWaitingForLabel : Warning;
 	printAndApplyBypassed : Warning;
 	dryCycleActive : Warning;
+	lightCurtainsBlocked : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
     heartbeat : UDINT;
@@ -216,7 +218,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_4;
+	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_5;
 	printerConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;

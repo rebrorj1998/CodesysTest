@@ -82,6 +82,7 @@ VAR
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
 	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
+	
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -212,6 +213,8 @@ motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 pressureBar(iPressureBarExtended := iPressureBarExtended, 
 			iPressureBarRetracted := iPressureBarRetracted, 
 			iPressureBarNotObstructed := iPressureBarNotObstructed, 
+			iLightCurtainsClear := iLightCurtainsClear,
+			lightCurtainsInstalled := HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains,
 			oExtendCylinder => oPBar1Extend, oRetractCylinder => oPBar1Retract,
 			cumulativeHeadCycleCount := Globals.headCycleCount2);
 pressureBar.Mode := electricPressureBarMode;
@@ -760,7 +763,11 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	IF passthrough.homeRequired THEN
 		homeJawPB := TRUE;
 	ELSE
-		pressureBar.ExtendCylinderLowPressure();
+		IF NOT iPressureBarExtended THEN
+			pressureBar.ExtendCylinderLowPressure();
+		ELSE
+			pressureBar.ExhaustCylinder();
+		END_IF
 	END_IF
 	oVacOn := FALSE;
 	rearLoadPlateRetract.Reset();
@@ -787,6 +794,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	fillerModeCycleStartOnlyPulse.Reset();
 	barcodeVerifier.Reset();
 	keyenceBCV.Reset();
+	ezFeed.Reset();
 	//HMIData.airFilterClean.SetCount(27336);
 	//HMIData.driveRollerClean.SetCount(12041);
 	//HMIData.printHeadClean.SetCount(3224);
@@ -1201,7 +1209,7 @@ CASE state OF
 											END_IF
 											HMIData.inCycle := FALSE;
 											//bagFailedToOpen := FALSE;
-											IF HMIData.autoEnable AND NOT HMIData.stopMachine THEN
+											IF HMIData.autoEnable AND NOT HMIData.stopMachine AND NOT HMIData.fillerEnable THEN
 												autoModeKeepCycling := TRUE;
 											END_IF
 											IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
@@ -1265,6 +1273,8 @@ CASE state OF
 											factoryTestModeKeepCycling := FALSE;
 											autoModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
+											oSealBarExtend := FALSE;
+											oSealBarRetract := TRUE;
 											//bagOpened := FALSE;
                                                     
 END_CASE

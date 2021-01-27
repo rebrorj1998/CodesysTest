@@ -4,9 +4,11 @@
 TYPE PRESSURE_BAR_STATES :
 (
 	Idle := 0,
+	FillCylindersWithAirThenOpen := 9,
 	OpenJaw := 10,
 	OpeningJaw := 11,
 	JawOpened := 12,
+	FillCylindersWithAirThenClose := 13,
 	CloseJaw := 20,
 	ClosingJaw := 21,
 	JawClosed := 22,

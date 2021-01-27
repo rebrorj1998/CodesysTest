@@ -42,9 +42,10 @@ IF resetONS.Q OR HMIData.faultActive OR NOT enable OR NOT activateFiller THEN
 	dropTimer.IN := FALSE;
 END_IF
 
-IF NOT fillerOK AND enable AND activateFiller THEN
-	notReady.Trigger();
-END_IF
+//Disable filler not ready for now
+// IF NOT fillerOK AND enable AND activateFiller THEN
+// 	notReady.Trigger();
+// END_IF
 
 fillerTrigONS(CLK := fillerTrigger);
 IF fillerTrigONS.OSR THEN

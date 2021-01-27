@@ -125,10 +125,10 @@ CASE state OF
     PASSTHROUGH_SERVO_STATES.HomeComplete :             //Move on to Ready State once supervisor acks the cylinder request
                                                         _homeEndStop := FALSE;
 														Globals.jawMovingIn := FALSE;
-                                                        extendPressureBarRequest := TRUE;
+                                                        exhaustPressureBarRequest := TRUE;
 														homeRequired := FALSE;
                                                         IF _ackRequest THEN
-                                                            extendPressureBarRequest := FALSE;
+                                                            exhaustPressureBarRequest := FALSE;
                                                             _ackRequest := FALSE;
                                                             state := PASSTHROUGH_SERVO_STATES.Ready;    
                                                         END_IF
@@ -166,9 +166,9 @@ CASE state OF
 															END_IF
 														END_IF
     PASSTHROUGH_SERVO_STATES.PassthroughMovedOut :       
-														extendPressureBarRequest := TRUE; 
+														exhaustPressureBarRequest := TRUE; 
                                                          IF _ackRequest THEN
-                                                            extendPressureBarRequest := FALSE;
+                                                            exhaustPressureBarRequest := FALSE;
                                                             _movePassthrough := FALSE;
                                                             _ackRequest := FALSE;
 															HMIData.passthroughChanges.Increment();
@@ -209,10 +209,10 @@ CASE state OF
 															END_IF
                                                         END_IF
     PASSTHROUGH_SERVO_STATES.PassthroughMovedIn :        
-                                                        extendPressureBarRequest := TRUE;
+                                                        exhaustPressureBarRequest := TRUE;
 														Globals.jawMovingIn := FALSE;
                                                         IF _ackRequest THEN
-                                                            extendPressureBarRequest := FALSE;
+                                                            exhaustPressureBarRequest := FALSE;
                                                             _movePassthrough := FALSE;
                                                             _ackRequest := FALSE;
 															HMIData.passthroughChanges.Increment();

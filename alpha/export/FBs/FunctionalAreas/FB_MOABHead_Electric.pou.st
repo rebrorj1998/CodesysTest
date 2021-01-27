@@ -1500,6 +1500,8 @@ CASE state OF
 											factoryTestModeKeepCycling := FALSE;
 											autoModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
+											oSealBarExtend := FALSE;
+											oSealBarRetract := TRUE;
 											//bagOpened := FALSE;
                                                     
 END_CASE

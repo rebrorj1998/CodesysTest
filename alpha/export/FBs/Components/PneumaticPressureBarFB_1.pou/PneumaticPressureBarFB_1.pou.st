@@ -4,6 +4,8 @@ VAR_INPUT
 	iPressureBarRetracted : BOOL;
 	iPressureBarExtended : BOOL;
 	iPressureBarNotObstructed : BOOL;
+	iLightCurtainsClear : BOOL;
+	lightCurtainsInstalled : BOOL;
 END_VAR
 VAR_OUTPUT
     state : PRESSURE_BAR_STATES;     //Jaw State
@@ -34,6 +36,7 @@ VAR
     incrementSealBarCountONS : Standard.R_TRIG;
     incrementBagOpenFinersONS : Standard.R_TRIG;
 	faultTimer : Standard.TON;
+	fillTimer : Standard.TON := (PT := T#150MS);
 END_VAR
 VAR_IN_OUT
 	cumulativeHeadCycleCount : DINT;
@@ -76,24 +79,41 @@ END_IF
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PRESSURE_BAR_STATES.Fault);
 
 faultTimer();
+fillTimer(IN := (state = PRESSURE_BAR_STATES.FillCylindersWithAirThenClose OR state = PRESSURE_BAR_STATES.FillCylindersWithAirThenOpen));
 
 CASE state OF
     
                                     
     PRESSURE_BAR_STATES.Idle :                //Initial state
                                     IF (semiAutoModeSelected AND startCyclePB) OR (autoModeSelected AND _amOpenJaw) OR HMIData.pressureBarService.extendCommand THEN
-                                        state := PRESSURE_BAR_STATES.OpenJaw;
+										//IF lightCurtainsInstalled THEN
+											state := PRESSURE_BAR_STATES.FillCylindersWithAirThenOpen;
+										//ELSE
+											//state := PRESSURE_BAR_STATES.OpenJaw;
+										//END_IF
+                                        
                                         _amOpenJaw := FALSE;
 										HMIData.pressureBarService.extendCommand := FALSE;
                                     ELSIF (autoModeSelected AND _amCloseJaw) OR HMIData.pressureBarService.retractCommand THEN
-                                        state := PRESSURE_BAR_STATES.CloseJaw;
+                                        //IF lightCurtainsInstalled THEN
+											state := PRESSURE_BAR_STATES.FillCylindersWithAirThenClose;
+										//ELSE
+											//state := PRESSURE_BAR_STATES.CloseJaw;
+										//END_IF
 										_amCloseJaw := FALSE;
 										HMIData.pressureBarService.retractCommand := FALSE;
                                     ELSIF manualModeSelected THEN
                                         state := PRESSURE_BAR_STATES.Manual;
                                     END_IF
                                     timerObsSwitchFault.IN := FALSE;
-    
+									
+    PRESSURE_BAR_STATES.FillCylindersWithAirThenOpen :		// Fill the cylinders on both sides with air to prevent slamming
+	 								
+									ExtendCylinderLowPressure();
+									IF fillTimer.Q THEN
+										state := PRESSURE_BAR_STATES.OpenJaw;
+									END_IF
+									
     PRESSURE_BAR_STATES.OpenJaw :                //Open jaw by extending cylinder
                                     ExtendCylinderHighPressure();
                                     state := PRESSURE_BAR_STATES.OpeningJaw;
@@ -105,12 +125,16 @@ CASE state OF
 									IF iPressureBarExtended THEN
                                         timerExtendedDebounce.IN := TRUE;
                                         IF timerExtendedDebounce.Q THEN
+											IF lightCurtainsInstalled THEN
+												ExhaustCylinder();
+											END_IF
                                             state := PRESSURE_BAR_STATES.JawOpened;
                                             timerExtendedDebounce.IN := FALSE;
 											faultTimer.IN := FALSE;
                                         END_IF
-									ELSIF faultTimer.Q THEN
+									ELSIF faultTimer.Q OR (NOT iLightCurtainsClear AND lightCurtainsInstalled) THEN
 										faultTimer.IN := FALSE;
+										ExhaustCylinder();
 										faults.failedToOpen.Trigger();
 										state := PRESSURE_BAR_STATES.Fault;
                                     END_IF
@@ -124,12 +148,24 @@ CASE state OF
                                     END_IF
                                     
                                     IF timerExtendDwell.Q OR (autoModeSelected AND _amCloseJaw) OR HMIData.pressureBarService.retractCommand THEN
-                                        state := PRESSURE_BAR_STATES.CloseJaw;
+                                        //IF lightCurtainsInstalled THEN
+											state := PRESSURE_BAR_STATES.FillCylindersWithAirThenClose;
+										//ELSE
+										//	state := PRESSURE_BAR_STATES.CloseJaw;
+										//END_IF
                                         _amCloseJaw := FALSE;
 										HMIData.pressureBarService.retractCommand := FALSE;
                                         timerExtendDwell.IN := FALSE;
                                     END_IF
     
+	PRESSURE_BAR_STATES.FillCylindersWithAirThenClose :		// Fill the cylinders on both sides with air to prevent slamming
+	 								
+									ExtendCylinderLowPressure();
+									IF fillTimer.Q THEN
+										state := PRESSURE_BAR_STATES.CloseJaw;
+									END_IF
+									
+									
     PRESSURE_BAR_STATES.CloseJaw :            //Close jaw by retracting cylinder
                                     RetractCylinder();
                                     state := PRESSURE_BAR_STATES.ClosingJaw;
@@ -145,7 +181,7 @@ CASE state OF
                                             timerRetractedDebounce.IN := FALSE;
 											faultTimer.IN := FALSE;
                                         END_IF
-									ELSIF faultTimer.Q THEN
+									ELSIF faultTimer.Q OR (NOT iLightCurtainsClear AND lightCurtainsInstalled) THEN
 										faultTimer.IN := FALSE;
 										faults.failedToClose.Trigger();
 										ExtendCylinderLowPressure();
@@ -200,7 +236,8 @@ CASE state OF
                                         manualExtendLowPressurePB := FALSE;
                                     END_IF
                                 
-    PRESSURE_BAR_STATES.Fault : 
+    PRESSURE_BAR_STATES.Fault : 		
+									ExhaustCylinder();
     
 END_CASE
 
@@ -213,6 +250,7 @@ IF NOT iPressureBarNotObstructed AND Globals.jawMovingIn THEN
 END_IF
 IF iPressureBarExtended AND iPressureBarRetracted THEN
 	faults.sensorFault.Trigger();
+	state := PRESSURE_BAR_STATES.Fault;
 END_IF
 
 //Count cycles

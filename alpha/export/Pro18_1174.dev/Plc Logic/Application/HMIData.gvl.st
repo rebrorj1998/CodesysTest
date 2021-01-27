@@ -143,11 +143,12 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
 	cycleStartButtonSelection : PalmButtonSelection := PalmButtonSelection.DualPalmButton;
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;
+	lightCurtainSelection : LightCurtainsSelection := LightCurtainsSelection.NotInstalled;
 	baggerModelSelection : ModelSelection;
 	auxIOConfig : AuxIOConfiguration;
 	fillerFactorySelection : FillerSelection;
 	funnelFactorySelection : FunnelSelection;
-	murrIOConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
+	murrIOConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_4;
 	printerConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
@@ -171,6 +172,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	infeedConveyorOutOfParts : Warning;
 	mayCycleUnexpectedly : Warning;
 	dryCycleActive : Warning;
+	lightCurtainsBlocked : Warning;
 	(*Misc*)
 	pressureBarState : STRING;
     heartbeat : UDINT;
@@ -207,7 +209,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
+	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_4;
 	printerConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
