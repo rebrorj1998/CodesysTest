@@ -26,7 +26,6 @@ VAR_OUTPUT
 	IBD : FB_MotorizedIBD(name := 'Motorized IBD');
 	
 	loadPlateMotor : FB_OrientalAZMotorTriggerPositionTest() := (DefaultCurrent := 100);
-
 	loadPlate : FB_MotorizedLoadPlate(name := 'Motorized Load Plate');
 	
 	barcodeVerifier : FB_BaseBCV(name := 'Barcode Verifier');
