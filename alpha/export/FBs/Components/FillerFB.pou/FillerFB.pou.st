@@ -29,7 +29,7 @@ END_VAR
 //    Description: Filler state machine
 //    Created by: Ben Hess
 //    Created Date: October 16th, 2019
-SUPER^();
+
 dropTimer(PT := TO_TIME(dropTime * 1000));
 IF resetONS.Q OR HMIData.faultActive OR NOT enable OR NOT activateFiller THEN
 	state := FILLER_STATES.Idle;
@@ -101,3 +101,4 @@ CASE state OF
 	FILLER_STATES.Fault :
 	
 END_CASE
+SUPER^();

@@ -132,12 +132,19 @@ CASE state OF
                                             timerExtendedDebounce.IN := FALSE;
 											faultTimer.IN := FALSE;
                                         END_IF
-									ELSIF faultTimer.Q OR (NOT iLightCurtainsClear AND lightCurtainsInstalled) THEN
+									ELSIF faultTimer.Q THEN
 										faultTimer.IN := FALSE;
 										ExhaustCylinder();
 										faults.failedToOpen.Trigger();
 										state := PRESSURE_BAR_STATES.Fault;
                                     END_IF
+									
+									IF (NOT iLightCurtainsClear AND lightCurtainsInstalled) THEN
+										faultTimer.IN := FALSE;
+										faults.lightCurtainViolation.Trigger();
+										ExhaustCylinder();
+										state := PRESSURE_BAR_STATES.Fault;
+									END_IF
 
                                     
                                     
@@ -181,12 +188,20 @@ CASE state OF
                                             timerRetractedDebounce.IN := FALSE;
 											faultTimer.IN := FALSE;
                                         END_IF
-									ELSIF faultTimer.Q OR (NOT iLightCurtainsClear AND lightCurtainsInstalled) THEN
+									ELSIF faultTimer.Q THEN
 										faultTimer.IN := FALSE;
 										faults.failedToClose.Trigger();
 										ExtendCylinderLowPressure();
 										state := PRESSURE_BAR_STATES.Fault;
                                     END_IF
+									
+									IF (NOT iLightCurtainsClear AND lightCurtainsInstalled) THEN
+										faultTimer.IN := FALSE;
+										faults.lightCurtainViolation.Trigger();
+										ExhaustCylinder();
+										state := PRESSURE_BAR_STATES.Fault;
+									END_IF
+									
 									IF NOT iPressureBarNotObstructed AND NOT iPressureBarRetracted THEN
 										faults.obstructionDetected.Trigger();
 										ExtendCylinderLowPressure();

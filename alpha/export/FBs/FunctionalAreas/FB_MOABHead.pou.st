@@ -112,6 +112,7 @@ VAR
 	allMotorCommsGood : BOOL;
 	footSwitchONS : FB_ONS;
 	ezfeed : EZFeedFB();
+	stopONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -264,7 +265,7 @@ funnel.DelaySetting := HMIData.funnelOpenDelay;
 
 sealBarTempSensor(ptrTemperatureBytes := ADR(iHeaterBarTempInputs));
 sealBarTempSensor.Execute();
-sealBarHeater(enable := NOT HMIData.faultActive,
+sealBarHeater(enable := NOT safePowerFailure.active,
 				temperatureSensor := sealBarTempSensor,
 				temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
 				heaterPulse => 	oHeaterPulse);	  
@@ -395,6 +396,9 @@ CASE HMIData.cycleStartButtonSelection OF
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
 
+HMIData.lightCurtainsBlocked.active := NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains;	 
+	 
+		  
 CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off
 		 												oAuxBaggerOK := FALSE;
@@ -544,8 +548,8 @@ ezfeed(
 	continuousModeEnable:= HMIData.infeedConveyorRunningMode, 
 	partsCountingModeEnable:= HMIData.infeedConveyorCountingMode, 
 	flightPresentSensor:= iInfeedFlightSensor, 
-	partPresentSensor:= , 
-	waitingForFiller:= filler.waitingForFiller, 
+	partPresentSensor:= NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains, 
+	waitingForFiller:= filler.waitingForFiller AND NOT HMIData.stopMachine, 
 	indexDwellSetting:= HMIData.infeedIndexDwellTimer, 
 	flightTarget:= HMIData.infeedFlightCountTarget, 
 	partsTarget:= HMIData.infeedPartsCountTarget, 
@@ -574,7 +578,7 @@ fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= , 
-	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone,
+	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine),
 	fillerOK:= iAuxFillerOK, 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
@@ -896,7 +900,7 @@ autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := auto
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
 //footSwitchONS(CLK := iFootSwitch);
-
+stopONS(CLK := HMIDAta.stopMachine);
 
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
@@ -911,7 +915,7 @@ CASE state OF
 													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (filler.cycleBagRequest AND HMIData.autoEnable)
-													OR (filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR)
+													OR ((filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR))
 													OR (autoModeKeepCyclingTimer.Q)
 													OR footSwitchONS.OSR)
 													AND (NOT HMIData.faultActive 
@@ -954,6 +958,15 @@ CASE state OF
 														factoryTestModeKeepCycling := FALSE;
 														autoModeKeepCycling := FALSE;
 														hmiLight.TurnOff();
+														filler.Reset();
+														ezFeed.Reset();
+														//state := HEAD_STATES.Fault;
+														//HMIData.stopMachine := FALSE;
+													END_IF
+													
+													
+													IF iPressureBarExtended THEN
+														pressureBar.ExhaustCylinder();
 													END_IF
 													
 													IF HMIData.sealBarNotAtTemperature.active THEN
@@ -1199,7 +1212,9 @@ CASE state OF
 											HMIData.bagsMade.Increment();
 											HMIData.resettableBagsMade.Increment();
                                             state := HEAD_STATES.Idle;
-											filler.BaggerCycledAndReady();
+											IF NOT HMIData.stopMachine THEN
+												filler.BaggerCycledAndReady();
+											END_IF
 											cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
 											cycleTimer.IN := FALSE;
 											IF HMIData.averageCycleTime = 0 THEN
@@ -1260,6 +1275,7 @@ CASE state OF
 											finishCycleSubState := FINISH_CYCLE_STATES.Idle;
 											oVacOn := FALSE;
 											filler.Reset();
+											ezFeed.Reset();
 											LPA.ManualOff();
 											IBDRetractToDeflate.Reset();
 											IBDRetractToEject.Reset();

@@ -24,6 +24,7 @@ TYPE HEAD_STATES :
 	MovePassthrough := 60,
 	MovingPassthrough := 61,
 	MovedPassthrough := 62,
+	Stopping := 70,
 	Fault := 99
 );
 END_TYPE

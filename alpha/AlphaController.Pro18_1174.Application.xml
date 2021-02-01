@@ -312,6 +312,7 @@
       <UserDefElement type="T_HEAD_STATES" iecname="MovePassthrough" enumvalue="60" />
       <UserDefElement type="T_HEAD_STATES" iecname="MovingPassthrough" enumvalue="61" />
       <UserDefElement type="T_HEAD_STATES" iecname="MovedPassthrough" enumvalue="62" />
+      <UserDefElement type="T_HEAD_STATES" iecname="Stopping" enumvalue="70" />
       <UserDefElement type="T_HEAD_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
     <TypeUserDef name="T_IntegratedConveyorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="IntegratedConveyorSelection" basetype="T_INT">
@@ -1123,7 +1124,7 @@
       <UserDefElement iecname="_amMoveHandLoad" type="T_BOOL" byteoffset="992" vartype="VAR" />
       <UserDefElement iecname="handLoadRequested" type="T_BOOL" byteoffset="993" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="5394" nativesize="100336" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
+    <TypeUserDef name="T_FB_MOABHead" size="5401" nativesize="100360" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_BaseComponentFB">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_BaseComponentFB" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_BaseComponentFB" />
@@ -1239,6 +1240,7 @@
       <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="5294" vartype="VAR" />
       <UserDefElement iecname="footSwitchONS" type="T_FB_ONS" byteoffset="5295" vartype="VAR" />
       <UserDefElement iecname="ezfeed" type="T_EZFeedFB" byteoffset="5304" vartype="VAR" />
+      <UserDefElement iecname="stopONS" type="T_FB_ONS" byteoffset="5394" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />

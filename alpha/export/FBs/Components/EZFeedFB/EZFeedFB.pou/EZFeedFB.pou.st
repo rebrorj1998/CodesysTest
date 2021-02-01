@@ -38,8 +38,7 @@ END_VAR
 //    Created Date: December 3rd, 2020
 
 
-// Run parent FB
-SUPER^();
+
 
 // Resetting 
 IF resetONS.Q OR baggerFaulted OR NOT enable OR NOT enableEZFeed THEN
@@ -84,6 +83,7 @@ CASE state OF
 												END_IF
 	
 	EZFEED_STATES.IndexingPartsMode :			// Check parts count and start bagger if count reached
+												runVFD := TRUE;
 												IF partsCount >= partsTarget THEN
 													partsCount := 0;
 													runVFD := FALSE;
@@ -123,7 +123,7 @@ CASE state OF
 													IF partsCountingModeEnable THEN
 														IF partsCount >= partsTarget THEN
 															partsCount := 0;
-															EZFeedDone := TRUE;
+															
 															state := EZFEED_STATES.WaitForBaggerCycleComplete;
 														ELSE
 															state := EZFEED_STATES.IndexingPartsMode;
@@ -135,6 +135,7 @@ CASE state OF
 												
 	EZFEED_STATES.WaitForBaggerCycleComplete :	// Once bagger cycle is complete then resume indexing
 												IF waitingForFiller THEN
+													EZFeedDone := FALSE;
 													IF partsCountingModeEnable THEN
 														state := EZFEED_STATES.IndexingPartsMode;
 													ELSE
@@ -149,3 +150,6 @@ CASE state OF
 												
 
 END_CASE
+
+// Run parent FB
+SUPER^();
