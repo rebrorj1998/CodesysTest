@@ -913,7 +913,7 @@ CASE state OF
 													OR (enableBatch AND (batchCount < batchSetting))
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
 													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
+													OR (HMIData.initiateCycle AND readyToRun) //AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (filler.cycleBagRequest AND HMIData.autoEnable)
 													OR ((filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR))
 													OR (autoModeKeepCyclingTimer.Q)
