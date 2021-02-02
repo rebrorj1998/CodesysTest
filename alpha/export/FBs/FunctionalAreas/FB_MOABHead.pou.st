@@ -396,7 +396,7 @@ CASE HMIData.cycleStartButtonSelection OF
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
 
-HMIData.lightCurtainsBlocked.active := NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains;	 
+HMIData.lightCurtainsBlocked.active := (NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains);	 
 	 
 		  
 CASE HMIData.auxIOConfig.factorySelection OF
@@ -589,7 +589,7 @@ filler(
 	cycleBaggerToActivateFiller=> , 
 	notReady=> );	 
 IF filler.activateFiller AND NOT filler.cycleBaggerToActivateFiller.active THEN
-	IF HMIData.initiateCycle OR startCycleReqFromPalmButtons THEN
+	IF (HMIData.initiateCycle OR startCycleReqFromPalmButtons) AND NOT HMIData.infeedConveyorOutOfParts.active THEN
 		fillerModeCycleStartOnlyPulse.Trigger();
 	END_IF
 END_IF

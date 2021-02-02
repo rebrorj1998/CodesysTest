@@ -89,6 +89,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printAndApplyProductToPhotoeyeTime : REAL := 4.0;
 	printAndApplyWaitForLabelTimeout : REAL := 15.0;
 	enableDryCycle : BOOL;          // Enable dry cycle
+	baggerNeedsClearing : BOOL;
+	baggerClearedAck : BOOL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -214,6 +216,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	
 	(*Info*)
 	faultActive : BOOL;
+	
 
 END_VAR
 

@@ -41,7 +41,8 @@ END_VAR
 
 
 // Resetting 
-IF resetONS.Q OR baggerFaulted OR NOT enable OR NOT enableEZFeed THEN
+//IF resetONS.Q OR baggerFaulted OR NOT enable OR NOT enableEZFeed THEN
+IF _reset OR baggerFaulted OR NOT enable OR NOT enableEZFeed THEN
 	state := EZFEED_STATES.Idle;
 	runVFD := FALSE;
 	EZFeedDone := FALSE;
@@ -57,7 +58,7 @@ flightPresentONS(CLK := flightPresentSensor);
 partPresentONS(CLK := partPresentSensor);
 
 // Parts Counting logic
-IF partsCountingModeEnable AND (state = EZFEED_STATES.IndexingFlightMode OR state = EZFEED_STATES.IndexDwell) THEN
+IF partsCountingModeEnable AND (state = EZFEED_STATES.IndexingPartsMode OR state = EZFEED_STATES.IndexDwell) THEN
 	// Count flights for empty parts watchdog timer
 	IF flightPresentONS.OSR THEN
 		emptyPartsWarningCount := emptyPartsWarningCount + 1;
@@ -69,6 +70,8 @@ IF partsCountingModeEnable AND (state = EZFEED_STATES.IndexingFlightMode OR stat
 	END_IF
 	
 END_IF
+
+emptyPartsWarning := state = EZFEED_STATES.PartsStarved;
 
 CASE state OF
 	
@@ -84,19 +87,24 @@ CASE state OF
 	
 	EZFEED_STATES.IndexingPartsMode :			// Check parts count and start bagger if count reached
 												runVFD := TRUE;
-												IF partsCount >= partsTarget THEN
-													partsCount := 0;
-													runVFD := FALSE;
-													EZFeedDone := TRUE;
-													state := EZFEED_STATES.WaitForBaggerCycleComplete;
-												ELSE
-													// Dwell at each flight for indexing mode
-													IF NOT continuousModeEnable THEN
+												IF flightPresentONS.OSR THEN
+													IF (emptyPartsWarningCount >= emptyPartsWarningSetting) AND emptyPartsWarningSetting<> 0 THEN
+															runVFD := FALSE;
+															state := EZFEED_STATES.PartsStarved;
+													
+													ELSIF partsCount >= partsTarget THEN
+														partsCount := 0;
 														runVFD := FALSE;
-														state := EZFEED_STATES.IndexDwell;
+														EZFeedDone := TRUE;
+														state := EZFEED_STATES.WaitForBaggerCycleComplete;
+													ELSE
+														// Dwell at each flight for indexing mode
+														IF NOT continuousModeEnable THEN
+															runVFD := FALSE;
+															state := EZFEED_STATES.IndexDwell;
+														END_IF
 													END_IF
 												END_IF
-
 												
 		
 	EZFEED_STATES.IndexingFlightMode :			// Run the VFD until flight seen. Keep going until target reached in Continuous mode or stop for dwell time in indexing mode
@@ -121,9 +129,14 @@ CASE state OF
 	EZFEED_STATES.IndexDwell :					// Dwell at each flight for indexing mode
 												IF indexDwellTimer.Q THEN
 													IF partsCountingModeEnable THEN
+														IF (emptyPartsWarningCount >= emptyPartsWarningSetting) AND emptyPartsWarningSetting<> 0 THEN
+															runVFD := FALSE;
+															state := EZFEED_STATES.PartsStarved;
+														END_IF
 														IF partsCount >= partsTarget THEN
 															partsCount := 0;
-															
+															runVFD := FALSE;
+															EZFeedDone := TRUE;
 															state := EZFEED_STATES.WaitForBaggerCycleComplete;
 														ELSE
 															state := EZFEED_STATES.IndexingPartsMode;
@@ -144,6 +157,14 @@ CASE state OF
 												END_IF
 								
 	EZFEED_STATES.PartsStarved:					//
+												IF restartFromEmptyParts THEN
+													emptyPartsWarningCount := 0;
+													IF partsCountingModeEnable THEN
+														state := EZFEED_STATES.IndexingPartsMode;
+													ELSE
+														state := EZFEED_STATES.IndexingFlightMode;
+													END_IF
+												END_IF
 												
 									
 	EZFEED_STATES.Fault :						//

@@ -86,7 +86,9 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	infeedEmptyPartsSetting : DINT := 10;
 	infeedEmptyPartsActual : DINT;
 	enableDryCycle : BOOL;
-
+	baggerNeedsClearing : BOOL;
+	baggerClearedAck : BOOL;
+	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
 	lpaServiceOff : BOOL;
