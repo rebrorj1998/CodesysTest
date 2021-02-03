@@ -167,7 +167,8 @@ CASE state OF
     
 	PRESSURE_BAR_STATES.FillCylindersWithAirThenClose :		// Fill the cylinders on both sides with air to prevent slamming
 	 								
-									ExtendCylinderLowPressure();
+									//ExtendCylinderLowPressure();
+									ExtendCylinderHighPressure();
 									IF fillTimer.Q THEN
 										state := PRESSURE_BAR_STATES.CloseJaw;
 									END_IF
