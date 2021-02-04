@@ -346,6 +346,12 @@ ELSE
 	zebraPrinter.autoSendLabel := FALSE;
 END_IF
 
+	 
+IF HMIData.baggerClearedAck THEN
+	HMIData.baggerClearedAck := FALSE;
+	printAndApply.ClearedBagAck();
+END_IF
+	 
 printAndApply(
 	enable:= , 
 	bypass := NOT bagOpened,
@@ -693,7 +699,7 @@ ELSE
 	Infeed_Conveyor_IO.Enable := FALSE;
 END_IF
 	 
-infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = FillerSelection.EZFeed) AND NOT iInfeedVFDNotFaulted;
+infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = FillerSelection.EZFeed) AND ezfeed.enableEZFeed AND NOT iInfeedVFDNotFaulted;
 		 
 fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
@@ -1090,7 +1096,8 @@ CASE state OF
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
 													AND NOT HMIData.sealBarNotAtTemperature.active
-													AND NOT setPassthroughPB)
+													AND NOT setPassthroughPB
+													AND NOT printAndApply.clearOutBaggerIndicaiton)
 													AND readyToRun 
 													THEN
                                                         state := HEAD_STATES.SealAndSeparateBag;

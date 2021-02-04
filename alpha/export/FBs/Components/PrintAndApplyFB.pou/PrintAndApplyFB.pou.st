@@ -28,6 +28,7 @@ VAR_OUTPUT
 	runConveyorAfterApply : BOOL;
 	waitForPrintFault : BOOL;
 	jammedFault : BOOL;
+	clearOutBaggerIndicaiton : BOOL;
 END_VAR
 VAR
 	resetOutputTimer : MonostableMultivibratorFB();
@@ -36,6 +37,8 @@ VAR
 	baggerFaultedONS : FB_ONS;
 	faultedStatusONS : FB_ONS;
 	_beginCycle : BOOL;
+	_ackBaggerClear : BOOL;
+	labelMightBePresent : BOOL;
 	commFailTimer1 : Standard.TON := (PT := T#2S);
 	commFailTimer2 : Standard.TON := (PT := T#2S);
 	waitForPrinterFaultTimer : Standard.TON;
@@ -157,3 +160,19 @@ commFail := commFailTimer1.Q OR commFailTimer2.Q;
 
 // Faulted status from Print and Apply
 faultedStatus := NOT commFail AND NOT iPAFaulted AND enable;
+
+// Set a flag is machine faults while a label might be present
+labelMightBePresent := (state = PRINT_AND_APPLY_STATES.ReadyToApply) 
+						OR (state = PRINT_AND_APPLY_STATES.WaitForLOTAR) 
+						OR (state = PRINT_AND_APPLY_STATES.Applying);
+IF baggerFaulted AND labelMightBePresent THEN
+	clearOutBaggerIndicaiton := TRUE;
+END_IF
+// Ack from operator screen that bagger has been cleared out
+IF _ackBaggerClear THEN
+	// Only clear flag if product sensor on conveyor is clear
+	IF NOT productSensor THEN
+		clearOutBaggerIndicaiton := FALSE;
+	END_IF 
+	_ackBaggerClear := FALSE;
+END_IF
