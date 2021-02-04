@@ -572,7 +572,7 @@ ELSE
 	Infeed_Conveyor_IO.Enable := FALSE;
 END_IF
 	 
-infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = FillerSelection.EZFeed) AND NOT iInfeedVFDNotFaulted;
+infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = FillerSelection.EZFeed) AND ezfeed.enableEZFeed AND NOT iInfeedVFDNotFaulted;
 	
 fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
