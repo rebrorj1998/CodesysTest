@@ -22,6 +22,7 @@ VAR_INPUT
 	bagFeedMasterMotorCommFailInput : BOOL;
 	bagFeedRearMotorCommFailInput : BOOL;
 	stepsPerInchSetting : INT;
+	velocityMultiplier : REAL;
 END_VAR
 VAR_OUTPUT
     state : BAG_DELIVERY_STATES;    // Current state of bag delivery component
@@ -151,12 +152,12 @@ CASE state OF
 														bagFeedMasterMotor.MoveDistance(distance := 30, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((1 * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                    velocity := REAL_TO_INT((1 * velocityMultiplier)));
 													ELSIF jogReverseONS.OSR THEN
 														bagFeedMasterMotor.MoveDistance(distance := -30, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((1 * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                    velocity := REAL_TO_INT((1 * velocityMultiplier)));
 													ELSIF jogForwardONS.OSF OR jogReverseONS.OSF THEN
 														bagFeedMasterMotor.Stop();
 													END_IF
@@ -166,7 +167,7 @@ CASE state OF
 														bagFeedMasterMotor.MoveDistance(distance := feedToPhotoeyeSetpoint, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((feedToPhotoeyeSetpoint * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                    velocity := REAL_TO_INT((feedToPhotoeyeSetpoint * velocityMultiplier)));
 														state := BAG_DELIVERY_STATES.FeedingToEye;
 													ELSE
 														state := BAG_DELIVERY_STATES.SetTorqueMode;
@@ -201,7 +202,7 @@ CASE state OF
                                                     bagFeedMasterMotor.MoveDistance(distance := reverseDistanceSetpoint, 
                                                                                     acceleration := TO_INT((ABS(reverseDistanceSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  accelPercent),
                                                                                     deceleration := TO_INT((ABS(reverseDistanceSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  decelPercent), 
-                                                                                    velocity := REAL_TO_INT((reverseVelocitySetpoint * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));    
+                                                                                    velocity := REAL_TO_INT((reverseVelocitySetpoint * velocityMultiplier)));    
                                                         state := BAG_DELIVERY_STATES.Reversing;
                                                     
                                                     
@@ -236,7 +237,7 @@ CASE state OF
 														bagFeedMasterMotor.MoveDistanceFinal(distance := reverseToPrintHeadSetpoint, 
                                                                                     acceleration := TO_INT((ABS(reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  accelPercent),
                                                                                     deceleration := TO_INT((ABS(reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  decelPercent), 
-                                                                                    velocity := REAL_TO_INT((reverseVelocitySetpoint * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));    
+                                                                                    velocity := REAL_TO_INT((reverseVelocitySetpoint * velocityMultiplier)));    
                                                     	state := BAG_DELIVERY_STATES.ReversingToPrintHead;
 														delay.IN := FALSE;
 													END_IF
@@ -285,7 +286,7 @@ CASE state OF
                                                     bagFeedMasterMotor.MoveDistance(distance := printOffsetSetpoint, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((feedVelocitySetpoint * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));    
+                                                                                    velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier)));    
                                                         state := BAG_DELIVERY_STATES.FeedingToPrintOffset;
                                                     
     BAG_DELIVERY_STATES.FeedingToPrintOffset :        // 
@@ -314,7 +315,7 @@ CASE state OF
 														bagFeedMasterMotor.MoveDistance(distance := printLengthSetpoint + printerExtraFeedLength, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((printVelocitySetpoint * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));    
+                                                                                    velocity := REAL_TO_INT((printVelocitySetpoint * velocityMultiplier)));    
                                                         state := BAG_DELIVERY_STATES.FeedingAtPrintSpeed;
 														delay.IN := FALSE;
 													END_IF
@@ -341,7 +342,7 @@ CASE state OF
 													bagFeedMasterMotor.MoveDistanceFinal(distance := (remainingLength + sealBarToPrintHeadLength) - sealOffsetSetpoint, 
                                                                                         acceleration := accelSetpoint, 
                                                                                         deceleration := decelSetpoint, 
-                                                                                        velocity := REAL_TO_INT((feedVelocitySetpoint * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                        velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier)));
                                                     state := BAG_DELIVERY_STATES.FeedingBagOut;    
     
     BAG_DELIVERY_STATES.FeedingBagOut :                // Wait until move is done
@@ -380,12 +381,12 @@ CASE state OF
 														bagFeedMasterMotor.MoveDistance(distance := 30, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((1 * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                    velocity := REAL_TO_INT((1 * velocityMultiplier)));
 													ELSIF jogReverseONS.OSR THEN
 														bagFeedMasterMotor.MoveDistance(distance := -30, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((1 * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                    velocity := REAL_TO_INT((1 * velocityMultiplier)));
 													ELSIF jogForwardONS.OSF OR jogReverseONS.OSF THEN
 														bagFeedMasterMotor.Stop();
 													END_IF
@@ -395,12 +396,12 @@ CASE state OF
 														bagFeedMasterMotor.MoveDistance(distance := 30, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((1 * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                    velocity := REAL_TO_INT((1 * velocityMultiplier)));
 													ELSIF jogReverseONS.OSR THEN
 														bagFeedMasterMotor.MoveDistance(distance := -30, 
                                                                                     acceleration := accelSetpoint, 
                                                                                     deceleration := decelSetpoint, 
-                                                                                    velocity := REAL_TO_INT((1 * Globals.VELOCITY_IPS_MULTIPLIER_20_DEGREE_BAG_DELIVERY)));
+                                                                                    velocity := REAL_TO_INT((1 * velocityMultiplier)));
 													ELSIF jogForwardONS.OSF OR jogReverseONS.OSF THEN
 														bagFeedMasterMotor.Stop();
 													END_IF

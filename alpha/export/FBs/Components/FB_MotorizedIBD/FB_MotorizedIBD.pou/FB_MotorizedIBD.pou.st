@@ -36,6 +36,7 @@ VAR
 	failToOpenTimer : Standard.TON := (PT := T#2s);
 	homeRequiredONS : FB_ONS;
 	faultingONS : FB_ONS;
+	feedbackHandler : FB_CylinderFeedback;
 END_VAR
 VAR_IN_OUT
 	IBDMotor : FB_AppliedMotionStepServoEIPPassthrough;
@@ -264,6 +265,19 @@ CASE state OF
 	
 	MotorizedIBDStates.Faulted :				//
 	
-END_CASE
+	
 
+
+END_CASE
+	
+feedbackHandler(
+	extendedFeedbackInput:= IBDOpen OR IBDFullyOpen, 
+	retractedFeedbackInput:= , 
+	extendOutput:= state = MotorizedIBDStates.MovingJawOut, 
+	retractOutput:= state = MotorizedIBDStates.MovingJawIn, 
+	extendFaultDelay:= 3000 , 
+	retractFaultDelay:= 3000 , 
+	faultMonitoring:= (state = MotorizedIBDStates.MovingJawOut) OR (state = MotorizedIBDStates.MovingOutFull), 
+	failedToExtend=> failToOpen.faultTrigger, 
+	failedToRetract=> );
 SUPER^();

@@ -297,7 +297,8 @@ bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse,
 			bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 			bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-			stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY);
+			stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
+			velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC);
 bagDelivery.Mode := bagDeliveryMode;
 
 CASE HMIData.baggerModelSelection OF
@@ -363,20 +364,26 @@ printAndApply(
 	PACycleComplete:= iPACycleComplete, 
 	applicatorHome:= iPAApplicatorHome, 
 	heartbeat:= iPAHeartbeat, 
-	productSensor:= NOT iConveyorClear, 
+	productAtApplicatorSensor:= NOT iConveyorClear, 
+	productAtExitSensor := iPackageAtExit,
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
+	packageExitTimeSetting := HMIData.printAndApplyProductToPhotoeyeTime,
+	packageToTampTimeSetting := HMIData.exitConveyorDwell,
 	state=> , 
 	commFail=> printAndApplyCommFailure.faultTrigger, 
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
+	jammedFault=> productJammed.faultTrigger,
 	printerNotReady=> , 
 	printerReadyToApply=> , 
 	waitingForPrinter=> , 
 	triggerOutput=> oPATrigger1,
 	resetOutput=> oPAReset, 
 	inhibitCycle=> , 
-	inhibitConveyor=> );
+	inhibitConveyor=> ,
+	clearOutBaggerIndicaiton => HMIDAta.baggerNeedsClearing,
+	packageFailedToExitFault => );
 	 
 // Run funnel
 funnel(
@@ -791,7 +798,7 @@ IF printAndApply.inhibitConveyor THEN
 END_IF
 
 IF safePowerFailure.active THEN
-	bagOpened := FALSE;
+	//bagOpened := FALSE;
 END_IF
 	 
 oRunExitConveyor := ((exitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
@@ -1462,6 +1469,7 @@ CASE state OF
 												 homeJawPB := FALSE;
 												//state := HEAD_STATES.Idle;
 												motorizedSealFlatteners.sealFlattenersVerticalAxis.Extend();
+												//motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(3,1000,1000,1000,125);
 												state := HEAD_STATES.MovePassthrough;
 												//HMIData.passthroughSetting := 6.0;
 												//setPassthroughPB := TRUE;
@@ -1807,7 +1815,7 @@ END_CASE
 
 CASE openBagSubState OF
     BAG_OPEN_ASSIST_STATES.Idle :                    // 
-                                                    
+                                                    bagOpenCheckDelay.IN := FALSE;
                                                     
                                                     
     BAG_OPEN_ASSIST_STATES.MoveJawIn :                // Close jaw against bag. In the future we may also start vacuum here

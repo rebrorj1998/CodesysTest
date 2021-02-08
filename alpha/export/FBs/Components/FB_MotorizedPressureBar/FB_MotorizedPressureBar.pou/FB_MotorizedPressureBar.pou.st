@@ -42,7 +42,7 @@ VAR
 	accel : INT := 150;
 	decel : INT := 100;
 	velo : INT := 800;
-	testCurrent : DINT := 500;
+	testCurrent : DINT := 650;
 	testZeroCurrent : BOOL;
 	testSomeCurrent : BOOL;
 	testClamp : BOOL;
@@ -51,7 +51,7 @@ VAR
 	testDisable : BOOL;
 	testEnable : BOOL;
 	testResetPosition : BOOL;
-	posLimit : DINT := 600;
+	posLimit : DINT := 800;
 	pbarFeedbackHandler : FB_CylinderFeedback;
 	jawClampsLeftFeedbackHandler : FB_CylinderFeedback;
 	jawClampsRightFeedbackHandler : FB_CylinderFeedback;

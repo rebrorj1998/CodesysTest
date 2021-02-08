@@ -229,7 +229,8 @@ bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse,
 			bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.udiState <> 4,
 			bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.udiState <> 4,
-			stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY);
+			stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
+			velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_PNEUMATIC);
 bagDelivery.Mode := bagDeliveryMode;
 
 // Run Zebra Printer
@@ -922,7 +923,8 @@ CASE state OF
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
 													AND NOT HMIData.sealBarNotAtTemperature.active
-													AND NOT setPassthroughPB)
+													AND NOT setPassthroughPB
+													AND NOT EZFeed.emptyPartsWarning)
 													AND readyToRun 
 													THEN
                                                         state := HEAD_STATES.SealAndSeparateBag;
