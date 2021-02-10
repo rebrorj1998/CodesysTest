@@ -65,7 +65,7 @@ VAR
 	faultTimeMultiplier : REAL := 150;
 	distanceToMove : REAL;
 	disableMotorONS : FB_ONS;
-	pbarOutCommandedSetting : REAL;
+	pbarOutCommandedSetting : REAL := 2;
 	strokeTimer : Standard.TON;
 	strokeTime : TIME;
 	movingONS : FB_ONS;
@@ -186,12 +186,14 @@ IF testPosLimit THEN
 END_IF
 
 IF resetONS.Q THEN
+	pbarOutCommandedSetting := pbarOutSetting;
 	pbarMotor.Reset();
 	//pbarMotor.Enable();
 	pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
 	//IBDMotor.Reset();
 	Globals.jawMovingIn := FALSE;
 	_reset := FALSE;
+	_openJaw := FALSE;
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
