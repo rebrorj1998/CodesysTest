@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_MotorizedPressureBar EXTENDS BaseComponentFB
+FUNCTION_BLOCK FB_MotorizedPressureBar EXTENDS FB_BaseComponent
 VAR_INPUT
 	iPressureBarClamped: BOOL;
 	iPressureBarClosed : BOOL;
@@ -245,11 +245,14 @@ CASE state OF
 											state := MotorizedPbarStates.Homing;
 										END_IF
 										
-										IF _openJaw AND NOT _reset THEN
+										IF _openJaw THEN
+											IF NOT pressureBarOpen THEN
+												pbarOutCommandedSetting := pbarOutSetting;
+												state := MotorizedPbarStates.MoveJawOut;
+											END_IF
 											//pbarMotor.DoneClamping();
 											_openJaw := FALSE;
-											pbarOutCommandedSetting := pbarOutSetting;
-											state := MotorizedPbarStates.MoveJawOut;
+											
 										END_IF
 										
 										IF _openForBagFeed AND NOT _reset THEN

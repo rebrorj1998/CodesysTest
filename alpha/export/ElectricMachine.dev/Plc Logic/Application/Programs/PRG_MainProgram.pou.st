@@ -12,7 +12,6 @@ VAR
     profileThis :BOOL;
     solenoidState1 : SOLENOID_TEST_STATES;
     solenoidState2 : SOLENOID_TEST_STATES;
-    getTimeTilPMMI : TimeLeftFB();
 	displayPassthroughChangeDistance : REAL;
 	displayPassthroughChangeDistance2 : REAL;
 	checkSolenoid2ExtendTimer : TON := (PT := T#100MS);
@@ -109,8 +108,6 @@ IF HMIData.ackAllFaults THEN
 	GlobalObjects.CollectionOfActiveFaults.AckAll();
 	HMIData.ackAllFaults := FALSE;
 END_IF
-
-getTimeTilPMMI(targetDate := DT#2018-10-14-8:0:0);
 
 
 //First scan flag is set by task handler and reset in main routine here

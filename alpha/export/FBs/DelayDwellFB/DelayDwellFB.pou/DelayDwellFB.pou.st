@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK DelayDwellFB EXTENDS BaseComponentFB
+FUNCTION_BLOCK DelayDwellFB EXTENDS FB_BaseComponent
 VAR_INPUT
 END_VAR
 VAR_OUTPUT

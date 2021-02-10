@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_MOABHead EXTENDS BaseComponentFB
+FUNCTION_BLOCK FB_MOABHead EXTENDS FB_BaseComponent
 VAR_INPUT
     motorizedSealFlattenersMode : DEVICE_MODES := DEVICE_MODES.Auto;
     electricPressureBarMode : DEVICE_MODES := DEVICE_MODES.Auto;
@@ -25,7 +25,7 @@ VAR_OUTPUT
 	finishCycleSubState : FINISH_CYCLE_STATES;
 END_VAR
 VAR
-    motorizedSealFlatteners : MotorizedSealFlattenersFB_BagFeed();
+    motorizedSealFlatteners : FB_MotorizedSealFlatteners();
 	msfVerticalAxis : FB_ThreePositionCylinder();
     pressureBar : FB_PneumaticPressureBar();
 	sealBarTempSensor : FB_IFMTempSensor();
@@ -40,23 +40,23 @@ VAR
 	factoryTestModeKeepCycling : BOOL;
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
-    bagDelivery : BagDeliveryFB();
-	zebraPrinter : PrinterFB_Mode2;
+    bagDelivery : FB_BagDelivery();
+	zebraPrinter : FB_ZebraPrinter;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
 	bagDropTimer : Standard.TON;
-	HPA : MonostableMultivibratorFB();
-    rearLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
-	forwardLoadPlateRetract : MonostableMultivibratorFB() := (Dwellsetting := 1500);
-	loadShelfExtend : MonostableMultivibratorFB() := (Dwellsetting := 1500);
+	HPA : FB_MonostableMultivibrator();
+    rearLoadPlateRetract : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
+	forwardLoadPlateRetract : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
+	loadShelfExtend : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
 	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	IBDCylinders : FB_ThreePositionCylinder();
 	IBDExtendONS : FB_ONS();
 	IBDRetractONS : FB_ONS();
-	IBDRetractToDeflate : MonostableMultivibratorFB();
-	IBDRetractToEject : MonostableMultivibratorFB();
-	bagOpenFingers : BagOpenFingersWithSensorsFB();
+	IBDRetractToDeflate : FB_MonostableMultivibrator();
+	IBDRetractToEject : FB_MonostableMultivibrator();
+	bagOpenFingers : FB_BagOpenFingersWithSensors();
 	bagOpenCheckDelay : Standard.TON := (PT:= T#400MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
 	bagOpenRetryCount : UINT;		// Count of current retry attempts
@@ -67,7 +67,7 @@ VAR
 	startCycleReqFromPalmButtons : BOOL;
 	startCycleReqFromPalmButtonsONS : FB_ONS();
 	pressureBarEndStopMotor : FB_AppliedMotionStepServoEIPPassthrough();
-	passthrough : AdjustablePassthroughFB();
+	passthrough : FB_AdjustablePneumaticPassthrough();
 	homeJawPB : BOOL;
     setPassthroughPB : BOOL;
 	vacuumHoldTimer : Standard.TON() := (PT := T#250MS);
@@ -100,13 +100,13 @@ VAR
 	faultONS : FB_ONS;
 	powerSettlingTimer : Standard.TON := (PT := T#6S);
 	pressureBarCloseDelay : Standard.TON;
-	filler : FillerFB();
-	configOutput1Pulse : MonostableMultivibratorFB();
-	configOutput2Pulse : MonostableMultivibratorFB();
-	fillerModeCycleStartOnlyPulse : MonostableMultivibratorFB();
-	murrIOBusNode : MurrIOFB();
-	funnel : FunnelFB();
-	barcodeVerifier : BarcodeReaderFB();
+	filler : FB_Filler();
+	configOutput1Pulse : FB_MonostableMultivibrator();
+	configOutput2Pulse : FB_MonostableMultivibrator();
+	fillerModeCycleStartOnlyPulse : FB_MonostableMultivibrator();
+	murrIOBusNode : FB_MurrIO();
+	funnel : FB_Funnel();
+	barcodeVerifier : FB_BarcodeReader();
 	keyenceBCV : FB_KeyenceNL20();
 	rearMotorCommsReturned : Standard.F_TRIG();
 	allMotorCommsGood : BOOL;

@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_MotorizedIBD EXTENDS BaseComponentFB
+FUNCTION_BLOCK FB_MotorizedIBD EXTENDS FB_BaseComponent
 VAR_INPUT
 	pbarOutSetting : REAL := 12.0;
 	IBDOutCalculated : REAL := 12.0;
@@ -119,9 +119,11 @@ CASE state OF
 											
 										
 										IF IBDMotor.status.motorEnabled THEN
-											IF _openIBD AND NOT _reset THEN
+											IF _openIBD THEN
+												IF NOT IBDOpen THEN
+													state := MotorizedIBDStates.MoveJawOut;
+												END_IF	
 											_openIBD := FALSE;
-											state := MotorizedIBDStates.MoveJawOut;
 										END_IF
 										
 										IF _closeIBD THEN
