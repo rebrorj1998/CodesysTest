@@ -883,10 +883,7 @@ readyToRun := (motorizedSealFlatteners.Ready OR NOT motorizedSealFlatteners.enab
 				AND (IBD.Ready OR NOT enableIBDDeflate)
                 AND (bagDelivery.Ready OR NOT bagDelivery.enable)
                 AND (zebraPrinter.Ready OR NOT zebraPrinter.enable)
-				AND murrIOBusNode.ok;
-IF NOT readyToRun THEN
-	startCycle := FALSE;
-END_IF				
+				AND murrIOBusNode.ok;	
 
 iPowerOffButtonONS(CLK := iPowerOffButton);
 resetTimer(IN := iPowerOffButtonONS.OSR);
@@ -1148,6 +1145,9 @@ CASE state OF
 														factoryTestModeKeepCycling := FALSE;
 														autoModeKeepCycling := FALSE;
 														hmiLight.TurnOff();
+														filler.Reset();
+														ezFeed.Reset();
+														LPA.Reset();
 													END_IF
 													
 													IF HMIData.sealBarNotAtTemperature.active THEN

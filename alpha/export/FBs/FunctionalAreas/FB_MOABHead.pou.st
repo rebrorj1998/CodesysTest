@@ -962,6 +962,7 @@ CASE state OF
 														hmiLight.TurnOff();
 														filler.Reset();
 														ezFeed.Reset();
+														LPA.Reset();
 														//state := HEAD_STATES.Fault;
 														//HMIData.stopMachine := FALSE;
 													END_IF
