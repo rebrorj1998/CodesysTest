@@ -91,6 +91,9 @@ VAR
 	productJammed : FB_Fault(name := 'Product Jammed on Exit Conveyor');
 	printAndApplyCommFailure : FB_Fault(name := 'Print and Apply Comm Failure');
 	printAndApplyWaitForLabelTimedOut : FB_Fault(name := 'Print and Apply Timed Out');
+	printAndApplyPackageFailedToExit : FB_Fault(name := 'Product Failed to Exit Conveyor');
+	printAndApplyPackageFailedToReachTamp : FB_Fault(name := 'Product Failed to Reach Print and Apply Tamp');
+	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -116,7 +119,7 @@ VAR
 	murrIOBusNode : MurrIOFB();
 	funnel : FunnelFB();
 	barcodeVerifier : BarcodeReaderFB();
-	keyenceBCV : KeyenceNL20FB();
+	keyenceBCV : FB_KeyenceNL20();
 	rearMotorCommsReturned : Standard.F_TRIG();
 	baggerHeadMovement : FB_BaggerHeadRaise();
 	resettingActive : BOOL;
@@ -125,8 +128,8 @@ VAR
 	lightedPalmButton : FB_MurrK50;
 	footSwitchONS : FB_ONS;
 	IBDOutSetting: REAL;
-	ezfeed : EZFeedFB();
-	printAndApply : PrintAndApplyFB();
+	ezfeed : FB_EZFeed();
+	printAndApply : FB_PrintAndApply();
 	EIPReconfig : FB_EIPCommsConfigure();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -365,6 +368,7 @@ printAndApply(
 	applicatorHome:= iPAApplicatorHome, 
 	heartbeat:= iPAHeartbeat, 
 	productAtApplicatorSensor:= NOT iConveyorClear, 
+	//productAtApplicatorSensor:= iConveyorClear, 
 	productAtExitSensor := iPackageAtExit,
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
@@ -845,7 +849,7 @@ END_IF
 IBD(
 	enable:= , 
 	pbarOutSetting:= IBDOutSetting, 
-	pbarInSetting:= , 
+	inPositionSetting:= HMIData.IBDClosePosition, 
 	disableFaults:= , 
 	extendCommand:= HMIData.IBDService.extendCommand, 
 	retractCommand:= HMIData.IBDService.retractCommand ,  

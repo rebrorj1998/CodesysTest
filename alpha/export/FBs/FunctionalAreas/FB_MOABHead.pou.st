@@ -27,7 +27,7 @@ END_VAR
 VAR
     motorizedSealFlatteners : MotorizedSealFlattenersFB_BagFeed();
 	msfVerticalAxis : FB_ThreePositionCylinder();
-    pressureBar : PneumaticPressureBarFB_1();
+    pressureBar : FB_PneumaticPressureBar();
 	sealBarTempSensor : FB_IFMTempSensor();
 	sealBarHeater : FB_TempController();
     startCycleONS : R_TRIG;
@@ -107,11 +107,11 @@ VAR
 	murrIOBusNode : MurrIOFB();
 	funnel : FunnelFB();
 	barcodeVerifier : BarcodeReaderFB();
-	keyenceBCV : KeyenceNL20FB();
+	keyenceBCV : FB_KeyenceNL20();
 	rearMotorCommsReturned : Standard.F_TRIG();
 	allMotorCommsGood : BOOL;
 	footSwitchONS : FB_ONS;
-	ezfeed : EZFeedFB();
+	ezfeed : FB_EZFeed();
 	stopONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

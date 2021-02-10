@@ -47,6 +47,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	loadPlateDwell : REAL;
 	exitConveyorDwell : REAL;
 	vacuumDwell : REAL := 0.25;
+	IBDClosePosition : REAL := 0;
 	IBDDeflateDwellTime  : REAL := 0.75;
 	IBDPackageEjectAssistDelayTime : REAL;
 	IBDPackageEjectAssistDwellTime : REAL := 0.8;

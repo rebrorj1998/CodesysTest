@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK PneumaticPressureBarFB_1 EXTENDS BaseComponentFB
+FUNCTION_BLOCK FB_PneumaticPressureBar EXTENDS BaseComponentFB
 VAR_INPUT
 	iPressureBarRetracted : BOOL;
 	iPressureBarExtended : BOOL;

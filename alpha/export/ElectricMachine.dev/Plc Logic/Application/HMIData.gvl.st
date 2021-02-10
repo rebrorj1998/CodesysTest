@@ -48,6 +48,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	exitConveyorDwell : REAL;
 	vacuumDwell : REAL := 0.25;
 	IBDDeflateDwellTime  : REAL := 0.75;
+	IBDClosePosition : REAL := 0;
 	IBDPackageEjectAssistDelayTime : REAL;
 	IBDPackageEjectAssistDwellTime : REAL := 0.8;
 	funnelInUse : BOOL;								// Funnel Enable/Disable

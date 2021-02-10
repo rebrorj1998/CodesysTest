@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK EZFeedFB EXTENDS BaseComponentFB IMPLEMENTS IComponentStatus
+FUNCTION_BLOCK FB_EZFeed EXTENDS BaseComponentFB IMPLEMENTS IComponentStatus
 VAR_INPUT
 	baggerFaulted : BOOL;
 	enableEZFeed : BOOL;					// Enable EZFeed conveyor (In Use)

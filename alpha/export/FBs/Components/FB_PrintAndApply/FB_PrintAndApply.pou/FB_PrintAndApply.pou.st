@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK PrintAndApplyFB EXTENDS BaseComponentFB IMPLEMENTS IComponentStatus
+FUNCTION_BLOCK FB_PrintAndApply EXTENDS BaseComponentFB IMPLEMENTS IComponentStatus
 VAR_INPUT
 	baggerFaulted : BOOL;
 	baggerInCycle : BOOL;
@@ -109,7 +109,7 @@ labelMightBePresent := (state = PRINT_AND_APPLY_STATES.ReadyToApply)
 						OR (state = PRINT_AND_APPLY_STATES.Applying);
 
 // Displays as a pop-up on HMI
-IF (baggerFaulted AND labelMightBePresent) OR faultedStatusONS.OSR THEN
+IF ((baggerFaulted AND labelMightBePresent) OR faultedStatusONS.OSR) AND enable THEN
 	clearOutBaggerIndicaiton := TRUE;
 END_IF
 

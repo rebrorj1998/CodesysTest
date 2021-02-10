@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK KeyenceNL20FB EXTENDS BaseComponentFB IMPLEMENTS IComponentStatus
+FUNCTION_BLOCK FB_KeyenceNL20 EXTENDS BaseComponentFB IMPLEMENTS IComponentStatus
 VAR_INPUT
 	ptrEIPInputs : POINTER TO WORD;
 	ptrEIPOutputs : POINTER TO WORD;
@@ -38,7 +38,7 @@ VAR
 	readingCompleteAck : BOOL;
 	bankNumber : UINT;
 	
-	state : eKeyenceLN20FB_States;
+	state : eKeyenceLN20_States;
 	triggerONS : FB_ONS;
 	readingCompleteTrigger : MonostableMultivibratorFB();
 END_VAR
@@ -88,13 +88,13 @@ readData := ADR(ptrEIPInputs[22]);
 
 
 IF resetONS.Q THEN
-	state := eKeyenceLN20FB_States.Reset;
+	state := eKeyenceLN20_States.Reset;
 END_IF
 
 
 
 CASE state OF
-	eKeyenceLN20FB_States.Idle: 			//
+	eKeyenceLN20_States.Idle: 			//
 											IF readingComplete THEN
 													readingCompleteTrigger.Trigger();
 												END_IF
@@ -105,12 +105,12 @@ CASE state OF
 												badRead := FALSE;
 												goodRead := FALSE;
 												lastReadData := '---Read in Progress---';
-												state := eKeyenceLN20FB_States.WaitForStatus;
+												state := eKeyenceLN20_States.WaitForStatus;
 											END_IF
 
-	eKeyenceLN20FB_States.WaitForStatus:	//
+	eKeyenceLN20_States.WaitForStatus:	//
 											IF readingComplete OR NOT triggerInput THEN
-												state := eKeyenceLN20FB_States.SetStatus;
+												state := eKeyenceLN20_States.SetStatus;
 												readingStartRequest := FALSE;
 												IF readingComplete THEN
 													readingCompleteTrigger.Trigger();
@@ -118,12 +118,12 @@ CASE state OF
 												
 											END_IF
 	
-	eKeyenceLN20FB_States.SetStatus:		// Set the current read status and string
+	eKeyenceLN20_States.SetStatus:		// Set the current read status and string
 											// If trigger input goes away or barcode error seen set bad read
 											IF NOT triggerInput OR out2Status THEN
 												badRead := TRUE;
 												goodRead := FALSE;
-												state := eKeyenceLN20FB_States.WaitForReadClear;
+												state := eKeyenceLN20_States.WaitForReadClear;
 												IF out2Status THEN
 													lastReadData := '---BAD READ---';
 												ELSE
@@ -134,20 +134,20 @@ CASE state OF
 												badRead := FALSE;
 												// Strip terminating char (0x0D) from string to get clean read barcode
 												lastReadData := LEFT(readData^, readDataLength - 1);
-												state := eKeyenceLN20FB_States.WaitForReadClear;
+												state := eKeyenceLN20_States.WaitForReadClear;
 											END_IF
 											
-	eKeyenceLN20FB_States.WaitForReadClear:	//
+	eKeyenceLN20_States.WaitForReadClear:	//
 											IF readingComplete THEN
 												readingCompleteTrigger.Trigger();
 											END_IF
 											IF NOT readingComplete THEN
 												xBusy := FALSE;
 												xDone := TRUE;
-												state := eKeyenceLN20FB_States.Idle;
+												state := eKeyenceLN20_States.Idle;
 											END_IF 									
 
-	eKeyenceLN20FB_States.Reset: 			//
+	eKeyenceLN20_States.Reset: 			//
 											IF readingComplete THEN
 												readingCompleteTrigger.Trigger();
 											END_IF
@@ -157,7 +157,7 @@ CASE state OF
 												xDone := FALSE;
 												badRead := FALSE;
 												goodRead := FALSE;
-												state := eKeyenceLN20FB_States.Idle;
+												state := eKeyenceLN20_States.Idle;
 											
 END_CASE	
 

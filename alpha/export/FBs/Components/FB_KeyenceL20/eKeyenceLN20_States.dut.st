@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {attribute 'qualified_only'}
 {attribute 'strict'}
-TYPE eKeyenceLN20FB_States :
+TYPE eKeyenceLN20_States :
 (
 	Idle := 0,
 	WaitForStatus := 2,

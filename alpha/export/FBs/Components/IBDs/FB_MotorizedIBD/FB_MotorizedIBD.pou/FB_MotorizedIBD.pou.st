@@ -3,8 +3,8 @@ FUNCTION_BLOCK FB_MotorizedIBD EXTENDS BaseComponentFB
 VAR_INPUT
 	pbarOutSetting : REAL := 12.0;
 	IBDOutCalculated : REAL := 12.0;
-	pbarInSetting : REAL;
-	IBDOffset : REAL := 2.0;
+	inPositionSetting : REAL;
+	IBDOffsetToJaw : REAL := 2.0;
 	disableFaults : BOOL;
 	extendCommand : BOOL;
 	retractCommand : BOOL;
@@ -58,7 +58,7 @@ IF NOT IBDMotor.HomeRequired THEN
 		IBDMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
 	ELSIF retractCommand THEN
 		retractCommand := FALSE;
-		IBDMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
+		IBDMotor.MoveToPositionTorque(inPositionSetting,accel,decel,velo,testCurrent);
 	END_IF
 END_IF
 
@@ -210,7 +210,7 @@ CASE state OF
 	
 	MotorizedIBDStates.MoveJawIn :				//
 									
-										IBDMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
+										IBDMotor.MoveToPositionTorque(inPositionSetting,accel,decel,velo,testCurrent);
 										//IBDMotor.MoveToPosition(0,accel,decel,velo+(TO_INT(TO_REAL(velo)*0.25)));
 										state := MotorizedIBDStates.MovingJawIn;
 	
