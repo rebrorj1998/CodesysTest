@@ -202,6 +202,7 @@ CASE state OF
 	PRINT_AND_APPLY_STATES.Applying:		//  Allow for a debounce on package leaving the photoeye
 											IF productLeavingDebounce.Q THEN
 												watchForBagExit := TRUE;
+												
 												state := PRINT_AND_APPLY_STATES.Idle;
 											END_IF
 										

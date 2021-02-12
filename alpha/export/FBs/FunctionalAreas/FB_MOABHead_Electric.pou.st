@@ -372,7 +372,7 @@ printAndApply(
 	productAtExitSensor := iPackageAtExit,
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
-	packageExitTimeSetting := HMIData.printAndApplyProductToPhotoeyeTime,
+	packageExitTimeSetting := HMIData.printAndApplyConveyorDwell,
 	packageToTampTimeSetting := HMIData.exitConveyorDwell,
 	state=> , 
 	commFail=> printAndApplyCommFailure.faultTrigger, 
@@ -797,15 +797,15 @@ exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 
 IF printAndApply.inhibitConveyor THEN
-	exitConveyorRun.Reset();
-	externalExitConveyorRun.Reset();
+	exitConveyorRun.ManualOFf();
+	externalExitConveyorRun.ManualOFf();
 END_IF
 
 IF safePowerFailure.active THEN
 	//bagOpened := FALSE;
 END_IF
 	 
-oRunExitConveyor := ((exitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
+oRunExitConveyor := ((exitConveyorRun.Q OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
 	 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
@@ -1114,7 +1114,9 @@ CASE state OF
 													THEN
                                                         state := HEAD_STATES.SealAndSeparateBag;
                                                         startCycle := FALSE;
-														
+														IF bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
+															bagOpened := TRUE;
+														END_IF
 														cycleTimer.IN := TRUE;
                                                     END_IF
 													IF NOT Globals.passthroughChangedFromJog AND HMIData.jobLoaded THEN
@@ -1676,7 +1678,7 @@ CASE releaseAndFeedSubState OF
 																exitConveyorRun.Trigger();
 															END_IF
 															
-															IF TO_DINT(HMIData.externalExitConveyorDwell) <> 0 THEN
+															IF TO_DINT(HMIData.externalExitConveyorDwell) <> 0 AND NOT printAndApply.enable THEN
 																externalExitConveyorRun.Trigger();
 															END_IF
 															

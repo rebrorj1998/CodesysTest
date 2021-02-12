@@ -746,6 +746,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 	END_IF
+	
 	bagOpened := FALSE;
 	
 	enableBatch := FALSE;
@@ -1142,6 +1143,10 @@ CASE state OF
 													HMIData.baggerCycles.Increment();
 													IF funnel.enable THEN
 														funnel.CloseNow();
+													END_IF
+													
+													IF bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
+														bagOpened := TRUE;
 													END_IF
 													
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
