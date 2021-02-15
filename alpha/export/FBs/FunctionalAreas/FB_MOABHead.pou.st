@@ -113,6 +113,7 @@ VAR
 	footSwitchONS : FB_ONS;
 	ezfeed : FB_EZFeed();
 	stopONS : FB_ONS;
+	pbarExtendedONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -821,7 +822,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	HMIData.makeReady := FALSE;
 	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
-	
+	autoModeKeepCycling := FALSE;
 END_IF
 IF enableONS.Q OR resetONS.Q THEN
     state := HEAD_STATES.Idle;
@@ -968,8 +969,8 @@ CASE state OF
 														//HMIData.stopMachine := FALSE;
 													END_IF
 													
-													
-													IF iPressureBarExtended THEN
+													pbarExtendedONS(CLK := iPressureBarExtended);
+													IF pbarExtendedONS.OSR THEN
 														pressureBar.ExhaustCylinder();
 													END_IF
 													

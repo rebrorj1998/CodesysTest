@@ -807,6 +807,7 @@
         <Node name="bofSelection" type="T_BagOpenFingersSelection" access="ReadWrite">
           <Comment>Factoy Config</Comment>
         </Node>
+        <Node name="calculatedCyclesPerMinute" type="T_REAL" access="ReadWrite" />
         <Node name="currentJobID" type="T_INT" access="ReadWrite" />
         <Node name="cycleStartButtonSelection" type="T_PalmButtonSelection" access="ReadWrite" />
         <Node name="demoModeIsActive" type="T_Warning" access="ReadWrite" />

@@ -89,6 +89,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	enableDryCycle : BOOL;
 	baggerNeedsClearing : BOOL;
 	baggerClearedAck : BOOL;
+	calculatedCyclesPerMinute : REAL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;

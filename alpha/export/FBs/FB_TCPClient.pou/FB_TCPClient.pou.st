@@ -52,11 +52,24 @@ END_VAR
 
 // Here's an example label
 
-IF HMIData.printerSelection = LabelPrinterSelection.ZebraPrinter203DPI THEN 
-	_sTCPSendData := label203;
-ELSE
-	_sTCPSendData := label300;
-END_IF
+CASE HMIData.printerSelection OF
+	LabelPrinterSelection.PrintAndApply203DPI:
+		_sTCPSendData := label203;
+		_sClientIP := '192.168.10.165';
+	
+	LabelPrinterSelection.PrintAndApply300DPI:
+		_sTCPSendData := label300;
+		_sClientIP := '192.168.10.165';
+	
+	LabelPrinterSelection.ZebraPrinter203DPI:
+		_sTCPSendData := label203;
+		_sClientIP :='192.168.10.160';
+	
+	LabelPrinterSelection.ZebraPrinter300DPI:
+		_sTCPSendData := label300;
+		_sClientIP :='192.168.10.160';
+END_CASE
+
 
 _TCPClient_ipAddr.sAddr := _sClientIP; //set IP address
 _TCPClient(

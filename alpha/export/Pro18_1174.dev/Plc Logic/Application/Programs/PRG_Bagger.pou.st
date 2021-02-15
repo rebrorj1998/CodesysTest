@@ -26,7 +26,7 @@ VAR
 	i : INT;
 	reverseFault : FB_HMIFault := (refFault := PRG_Bagger.moabHead.bagDelivery.reverseFault);
 	faultActiveONS : FB_ONS;
-
+	throughputCalculator : FB_Throughput();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Program: PRG_Bagger 
@@ -69,6 +69,15 @@ IF resetCommFaults THEN
 	resetCommFaults := FALSE;
 END_IF
 
+throughputCalculator(
+	inCycle:= HMIData.inCycle, 
+	runtimeTimeout:= , 
+	reset:= HMIData.resetAverageCycleTime, 
+	BPM=> HMIData.calculatedCyclesPerMinute, 
+	BPMCycles=> , 
+	BPMSeconds=> , 
+	BPMIndication=> );
+	
 //HMIData.version := SVN_VERSION_INFO.VERSION;
 
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
