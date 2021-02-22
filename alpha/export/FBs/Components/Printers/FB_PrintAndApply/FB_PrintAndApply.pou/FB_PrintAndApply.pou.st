@@ -48,6 +48,7 @@ VAR
 	labelMightBePresent : BOOL;
 	watchForBagExit : BOOL;
 	watchForBagToTamp : BOOL;
+	packageWasSeen : BOOL;
 	commFailTimer1 : Standard.TON := (PT := T#2S);
 	commFailTimer2 : Standard.TON := (PT := T#2S);
 	waitForPrinterFaultTimer : Standard.TON;
@@ -151,6 +152,7 @@ IF resetONS.Q THEN
 	packageFailedToExitFault := FALSE;
 	jammedFault := FALSE;
 	_beginCycle := FALSE;
+	packageWasSeen := FALSE;
 	triggerToPanther.Reset();
 	exitConveyorRunAfterPA.Reset();
 	state := PRINT_AND_APPLY_STATES.Idle;
@@ -165,6 +167,7 @@ CASE state OF
 	PRINT_AND_APPLY_STATES.Idle:			//  Wait for bagger cycle to begin
 											inhibitConveyor := FALSE;
 											inhibitCycle := FALSE;
+											packageWasSeen := FALSE;
 											IF _beginCycle THEN
 												_beginCycle := FALSE;
 												watchForBagToTamp := TRUE;
@@ -174,7 +177,7 @@ CASE state OF
 											
 	PRINT_AND_APPLY_STATES.WaitForLOTAR:	// Wait for LOTAR from Panther. Add delay to allow for accel on conveyor if stopped, otherwise package can sail right through
 											IF LOTAR THEN
-												IF NOT productAtApplicatorSensor THEN
+												IF NOT productAtApplicatorSensor AND NOT packageWasSeen THEN
 													triggerToPanther.DelaySetting := 0;
 												END_IF
 												state := PRINT_AND_APPLY_STATES.ReadyToApply;
@@ -184,13 +187,15 @@ CASE state OF
 												triggerToPanther.DelaySetting := 250;
 												watchForBagToTamp := FALSE;
 												inhibitConveyor := TRUE;
+												packageWasSeen := TRUE;
 											END_IF
 											inhibitCycle := TRUE;
 	
 	PRINT_AND_APPLY_STATES.ReadyToApply:	// If package is seen, trigger Print and Apply
 											inhibitConveyor := FALSE;
-											IF productAtApplicatorSensor THEN
+											IF productAtApplicatorSensor OR packageWasSeen THEN
 												inhibitCycle := FALSE;
+												packageWasSeen := FALSE;
 												exitConveyorRunAfterPA.Trigger();
 												triggerToPanther.Trigger();
 												watchForBagToTamp := FALSE;
@@ -214,6 +219,7 @@ CASE state OF
 											packageFailedToExitFault := FALSE;
 											packageFailedToReachTamp := FALSE;
 											packageRemovedBeforeTamp := FALSE;
+											packageWasSeen := FALSE;
 											exitConveyorRunAfterPA.Reset();
 											triggerToPanther.Reset();
 											

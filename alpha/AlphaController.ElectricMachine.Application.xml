@@ -589,7 +589,7 @@
     <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="3060" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_PrintAndApply" size="384" nativesize="688" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_PrintAndApply" size="388" nativesize="688" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
@@ -643,13 +643,14 @@
       <UserDefElement iecname="labelMightBePresent" type="T_BOOL" byteoffset="269" vartype="VAR" />
       <UserDefElement iecname="watchForBagExit" type="T_BOOL" byteoffset="270" vartype="VAR" />
       <UserDefElement iecname="watchForBagToTamp" type="T_BOOL" byteoffset="271" vartype="VAR" />
-      <UserDefElement iecname="commFailTimer1" type="T_TON" byteoffset="272" vartype="VAR" />
-      <UserDefElement iecname="commFailTimer2" type="T_TON" byteoffset="288" vartype="VAR" />
-      <UserDefElement iecname="waitForPrinterFaultTimer" type="T_TON" byteoffset="304" vartype="VAR" />
-      <UserDefElement iecname="packageFailedToExitTimer" type="T_TON" byteoffset="320" vartype="VAR" />
-      <UserDefElement iecname="packageJammedAtExitTimer" type="T_TON" byteoffset="336" vartype="VAR" />
-      <UserDefElement iecname="packageFailedToReachTampTimer" type="T_TON" byteoffset="352" vartype="VAR" />
-      <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="368" vartype="VAR" />
+      <UserDefElement iecname="packageWasSeen" type="T_BOOL" byteoffset="272" vartype="VAR" />
+      <UserDefElement iecname="commFailTimer1" type="T_TON" byteoffset="276" vartype="VAR" />
+      <UserDefElement iecname="commFailTimer2" type="T_TON" byteoffset="292" vartype="VAR" />
+      <UserDefElement iecname="waitForPrinterFaultTimer" type="T_TON" byteoffset="308" vartype="VAR" />
+      <UserDefElement iecname="packageFailedToExitTimer" type="T_TON" byteoffset="324" vartype="VAR" />
+      <UserDefElement iecname="packageJammedAtExitTimer" type="T_TON" byteoffset="340" vartype="VAR" />
+      <UserDefElement iecname="packageFailedToReachTampTimer" type="T_TON" byteoffset="356" vartype="VAR" />
+      <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="372" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="6568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
@@ -659,7 +660,7 @@
       <UserDefElement iecname="bagFeedMasterMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="852" nativesize="106292" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="856" nativesize="106292" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
