@@ -589,7 +589,7 @@
     <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="3060" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_PrintAndApply" size="388" nativesize="688" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_PrintAndApply" size="404" nativesize="716" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
@@ -632,6 +632,7 @@
       <UserDefElement iecname="packageFailedToExitFault" type="T_BOOL" byteoffset="59" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="packageFailedToReachTamp" type="T_BOOL" byteoffset="60" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="packageRemovedBeforeTamp" type="T_BOOL" byteoffset="61" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="labelsInQueue" type="T_BOOL" byteoffset="62" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="resetOutputTimer" type="T_FB_MonostableMultivibrator" byteoffset="64" vartype="VAR" />
       <UserDefElement iecname="triggerToPanther" type="T_DelayDwellFB" byteoffset="120" vartype="VAR" />
       <UserDefElement iecname="exitConveyorRunAfterPA" type="T_DelayDwellFB" byteoffset="184" vartype="VAR" />
@@ -651,6 +652,7 @@
       <UserDefElement iecname="packageJammedAtExitTimer" type="T_TON" byteoffset="340" vartype="VAR" />
       <UserDefElement iecname="packageFailedToReachTampTimer" type="T_TON" byteoffset="356" vartype="VAR" />
       <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="372" vartype="VAR" />
+      <UserDefElement iecname="labelsInQueueFaultTimer" type="T_TON" byteoffset="388" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="6568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
@@ -660,7 +662,7 @@
       <UserDefElement iecname="bagFeedMasterMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="856" nativesize="106292" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="876" nativesize="106488" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -694,16 +696,17 @@
       <UserDefElement iecname="printAndApplyPackageFailedToExit" type="T_FB_Fault" byteoffset="326" vartype="VAR" />
       <UserDefElement iecname="printAndApplyPackageFailedToReachTamp" type="T_FB_Fault" byteoffset="329" vartype="VAR" />
       <UserDefElement iecname="printAndApplyPackageRemovedBeforeTamp" type="T_FB_Fault" byteoffset="332" vartype="VAR" />
-      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="335" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="344" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="353" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="362" vartype="VAR" />
-      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="372" vartype="VAR" />
-      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="444" vartype="VAR" />
-      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="451" vartype="VAR" />
-      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="458" vartype="VAR" />
-      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="466" vartype="VAR" />
-      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="468" vartype="VAR" />
+      <UserDefElement iecname="labelsQueuedUpFault" type="T_FB_Fault" byteoffset="335" vartype="VAR" />
+      <UserDefElement iecname="loadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="338" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="347" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="356" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="365" vartype="VAR" />
+      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="376" vartype="VAR" />
+      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="448" vartype="VAR" />
+      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="455" vartype="VAR" />
+      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="462" vartype="VAR" />
+      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="470" vartype="VAR" />
+      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="472" vartype="VAR" />
     </TypeUserDef>
   </TypeList>
   <NodeList>
@@ -934,7 +937,8 @@
         <Node name="pressureBarOpenDelay" type="T_REAL" access="ReadWrite" />
         <Node name="pressureBarService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="pressureBarState" type="T_STRING" access="ReadWrite">
-          <Comment>Misc</Comment>
+          <Comment>Faults
+Misc</Comment>
         </Node>
         <Node name="printAndApplyBypassed" type="T_Warning" access="ReadWrite" />
         <Node name="printAndApplyConveyorDwell" type="T_REAL" access="ReadWrite" />

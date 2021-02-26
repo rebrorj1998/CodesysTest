@@ -40,21 +40,16 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 printDeltaTimer(IN := oPrinterStartPrint);
 saveParametersTimer(IN := NOT saveParametersTimer.Q AND HMIData.bagsMade.count <> 0);
 IF saveParametersTimer.Q THEN
-	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
-	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
 	saveParametersTimer.IN := FALSE;
+	SaveValuesPeriodic();
 END_IF
 
 IF testCreate THEN
-// 	recResult := recipieManager.CreateRecipe(RecipeDefinitionName := 'Recipes', RecipeName := 'Automatic');
-// 	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
  	testCreate := FALSE;
 	SaveValues();
 END_IF
 
 IF testRead THEN
-// 	recResult := recipieManager.GetRecipeNames('Recipes', ADR(recipeName),1,0);
-// 	recResult := recipieManager.LoadAndWriteRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
  	testRead := FALSE;
 	RecallValues();
 END_IF

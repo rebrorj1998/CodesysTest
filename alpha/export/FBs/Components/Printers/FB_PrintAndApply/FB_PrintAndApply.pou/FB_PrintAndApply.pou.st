@@ -35,6 +35,7 @@ VAR_OUTPUT
 	packageFailedToExitFault : BOOL;
 	packageFailedToReachTamp : BOOL;
 	packageRemovedBeforeTamp : BOOL;
+	labelsInQueue : BOOL;
 END_VAR
 VAR
 	resetOutputTimer : FB_MonostableMultivibrator();
@@ -56,7 +57,7 @@ VAR
 	packageJammedAtExitTimer : TON;
 	packageFailedToReachTampTimer : TON;
 	productLeavingDebounce : TON := (PT := T#500MS);
-	
+	labelsInQueueFaultTimer : TON := (PT := T#5S);
 END_VAR
 	
 VAR_IN_OUT
@@ -92,6 +93,11 @@ packageFailedToReachTampTimer(IN := watchForBagToTamp AND (packageToTampTimeSett
 							PT :=  TO_TIME(packageToTampTimeSetting * 1000.0),
 							Q=> );	
 
+// Fault if label is in queue for too long
+labelsInQueueFaultTimer(IN := dataReady AND enable, 
+							//PT :=  TO_TIME((packageToTampTimeSetting + 2) * 1000.0),
+							Q=> labelsInQueue);	
+				
 // When to watch for certain faults
 IF watchForBagExit AND productAtExitSensor THEN
 	watchForBagExit := FALSE;
@@ -107,7 +113,8 @@ END_IF
 // Set a flag is machine faults while a label might be present
 labelMightBePresent := (state = PRINT_AND_APPLY_STATES.ReadyToApply) 
 						OR (state = PRINT_AND_APPLY_STATES.WaitForLOTAR) 
-						OR (state = PRINT_AND_APPLY_STATES.Applying);
+						OR (state = PRINT_AND_APPLY_STATES.Applying)
+						OR dataReady;
 
 // Displays as a pop-up on HMI
 IF ((baggerFaulted AND labelMightBePresent) OR faultedStatusONS.OSR) AND enable THEN

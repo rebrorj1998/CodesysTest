@@ -58,6 +58,7 @@ VAR
     _amMoveInToBagHolding : BOOL;    // Auto mode move in then bag holding command
 	_amMoveHandLoad : BOOL;			// Auto move to hand load positon command
 	handLoadRequested : BOOL;
+	testTorque : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block:  MotorizedSealFlattenersFB
@@ -68,7 +69,10 @@ END_VAR
 //    Created Date: Friday, April 6, 2018
 SUPER^();
 // Setup and execute 2 motor axis'
-
+IF testTorque THEN
+	sealFlattenersHorizontalAxisMotor.MoveDistanceTorque(-0.5, 100,100,100,20);
+	testTorque := FALSE;
+END_IF
 // Temporary delay between states for testing
 fingersDownDelay();
 bagDropDelay(PT := TO_TIME(HMIData.bagDropTime * 1000));
@@ -99,7 +103,6 @@ sealFlattenersHorizontalAxisMotor.Execute();
 sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMotorInputs),
                 ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
-                faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := TRUE, 
 				defaultCurrentSetpoint := defaultCurrentMSF, 
 				commFail := sealFlattenerMotorCommFailInput,

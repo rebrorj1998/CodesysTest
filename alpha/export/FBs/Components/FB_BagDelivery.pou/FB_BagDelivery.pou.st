@@ -4,6 +4,7 @@ VAR_INPUT
     feedBagPB : BOOL;                // Manually Feed bag out
 	jogForwardPB : BOOL;
 	jogReversePB : BOOL;
+	reverseToPrintheadRequired : BOOL;
     bagsToFeedSetpoint : INT;        // Bags to feed setpoint for testing
     reverseDistanceSetpoint : REAL := -3;  // Distance to reverse
     bagLengthSetpoint : REAL := 23.5;  // Bag length to feed
@@ -214,7 +215,12 @@ CASE state OF
 																bagFeedMasterMotor.Stop();
 																delay.IN := FALSE;
 																delayForReverseFault.IN := FALSE;
-																state := BAG_DELIVERY_STATES.ReverseToPrinthead;
+																IF reverseToPrintheadRequired THEN
+																	state := BAG_DELIVERY_STATES.ReverseToPrinthead;
+																ELSE
+																	state := BAG_DELIVERY_STATES.ReverseDone;
+																END_IF
+																
 															END_IF
 														ELSIF bagFeedMasterMotor.CommandAcknowledged AND NOT iBagNotPresent THEN
 															delayForReverseFault.PT := T#3000MS;
@@ -265,7 +271,12 @@ CASE state OF
                                                     ELSIF (_mode  = DEVICE_MODES.Auto AND _amWaitForPrinter) THEN
                                                         IF bagFeedMasterMotor.CommandAcknowledged THEN
 															state := BAG_DELIVERY_STATES.WaitingForPrinter;
-															remainingLength := bagLengthSetpoint - (printLengthSetpoint + printOffsetSetpoint + printerExtraFeedLength);
+															IF reverseToPrintheadRequired THEN
+																remainingLength := bagLengthSetpoint - (printLengthSetpoint + printOffsetSetpoint + printerExtraFeedLength);
+															ELSE
+																remainingLength := bagLengthSetpoint - (printLengthSetpoint + printOffsetSetpoint + printerExtraFeedLength);
+															END_IF
+															
 															_amWaitForPrinter := FALSE;  
 														END_IF  
                                                     END_IF
@@ -339,7 +350,12 @@ CASE state OF
                                                     
     BAG_DELIVERY_STATES.FeedBagOut :                // Feed bag length out
                                                     //bagFeedMasterMotor.MoveDistanceFinal(distance := (remainingLength + sealOffsetSetpoint + (reverseToPrintHeadSetpoint*-1)), 
-													bagFeedMasterMotor.MoveDistanceFinal(distance := (remainingLength + sealBarToPrintHeadLength) - sealOffsetSetpoint, 
+													IF reverseToPrintheadRequired THEN
+														remainingLength := (remainingLength + sealBarToPrintHeadLength) - sealOffsetSetpoint;
+													ELSE
+														remainingLength := (remainingLength + sealBarToPrintHeadLength) - sealOffsetSetpoint + reverseToPrintHeadSetpoint;
+													END_IF
+													bagFeedMasterMotor.MoveDistanceFinal(distance := remainingLength, 
                                                                                         acceleration := accelSetpoint, 
                                                                                         deceleration := decelSetpoint, 
                                                                                         velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier)));

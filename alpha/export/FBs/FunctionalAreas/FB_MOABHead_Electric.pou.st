@@ -94,6 +94,7 @@ VAR
 	printAndApplyPackageFailedToExit : FB_Fault(name := 'Product Failed to Exit Conveyor');
 	printAndApplyPackageFailedToReachTamp : FB_Fault(name := 'Product Failed to Reach Print and Apply Tamp');
 	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
+	labelsQueuedUpFault : FB_Fault(name := 'Labels Queued Up in Printer');
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -298,6 +299,7 @@ pressureBar.Mode := electricPressureBarMode;
 // Run bag delivery 
 bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse,
+			reverseToPrintheadRequired := zebraPrinter.enable,
 			bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 			bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 			stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
@@ -387,7 +389,8 @@ printAndApply(
 	inhibitCycle=> , 
 	inhibitConveyor=> ,
 	clearOutBaggerIndicaiton => HMIDAta.baggerNeedsClearing,
-	packageFailedToExitFault => );
+	packageFailedToExitFault =>  ,
+	labelsInQueue=> labelsQueuedUpFault.faultTrigger);
 	 
 // Run funnel
 funnel(
@@ -1175,6 +1178,7 @@ CASE state OF
 													END_IF
 													IF homeJawPB THEN
 														hmiLight.BlinkSlow();
+														//motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveDistanceTorque(-0.5,100,100,100,20);
 														state := HEAD_STATES.StartHoming;
 													END_IF    
 													
@@ -1444,6 +1448,7 @@ CASE state OF
 										
     HEAD_STATES.StartHoming :            // 
 											IF allMotorCommsGood THEN
+												
 												motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.notHomed.Ack();
 												IF pressureBar.homeRequired THEN
 													pressureBar.HomeNow();
@@ -1487,6 +1492,7 @@ CASE state OF
                                            
     
     HEAD_STATES.MovePassthrough :        // 
+											
                                             pressureBar.OpenJaw();
 											IBD.OpenIBD();
                                             state := HEAD_STATES.MovingPassthrough;
