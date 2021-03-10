@@ -106,7 +106,7 @@ sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMot
 				reversePolarity := TRUE, 
 				defaultCurrentSetpoint := defaultCurrentMSF, 
 				commFail := sealFlattenerMotorCommFailInput,
-				isHomable := TRUE);
+				isHomable := enable);
 				
 sealFlattenersHorizontalAxisMotor.Execute();
 

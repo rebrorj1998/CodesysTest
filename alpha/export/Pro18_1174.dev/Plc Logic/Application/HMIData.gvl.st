@@ -177,6 +177,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	mayCycleUnexpectedly : Warning;
 	dryCycleActive : Warning;
 	lightCurtainsBlocked : Warning;
+	batchCountDone : Warning;
+	
 	(*Misc*)
 	pressureBarState : STRING;
     heartbeat : UDINT;

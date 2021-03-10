@@ -186,6 +186,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printAndApplyBypassed : Warning;
 	dryCycleActive : Warning;
 	lightCurtainsBlocked : Warning;
+	batchCountDone : Warning;
 	
 	(*Faults*)
 	(*Misc*)

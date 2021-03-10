@@ -8,10 +8,6 @@ VAR_INPUT
     bagDeliveryMode : DEVICE_MODES;        // Mode of bag delivery system
     printerMode : DEVICE_MODES;        // Mode of printer
 	passthroughMode : DEVICE_MODES;
-    batchSetting : DINT;            // Batch setpoint
-    batchCount : DINT;                // Actual batch cycles
-    enableBatch : BOOL;                // Enable Batch Mode
-    enableBatchONS : F_TRIG;
 	passthroughSetting : REAL;
     passthroughSettingLast : REAL;
 	bagDropDelay : UINT := 1000;
@@ -114,6 +110,8 @@ VAR
 	ezfeed : FB_EZFeed();
 	stopONS : FB_ONS;
 	pbarExtendedONS : FB_ONS;
+	batchModeKeepCycling : BOOL;
+	batchEnableONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -180,9 +178,6 @@ HMIData.printerNotReady.active := NOT printerReady AND zebraPrinter.enable;
 HMIData.waitingForPrinter.active := zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter;
 //HMIData.printerRibbonLow.active := printerRibbonLow;
 	 
-batchSetting := HMIData.batchSetting;
-HMIData.batchCount := batchCount;
-
 bagOpenRetrySetting := HMIData.bagOpenRetrySetting;
 HMIData.bagOpenRetryCount := bagOpenRetryCount;
 	 
@@ -210,6 +205,7 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
 						sealFlattenerMotorCommFailInput := MSFMotor.udiState <> 4);
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
+motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
 
 // Setup of MOAB Machine Pressure bar ("#2") on actual machine, not test rig
 pressureBar(iPressureBarExtended := iPressureBarExtended, 
@@ -721,7 +717,6 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	
 	motorizedSealFlattenersMode := DEVICE_MODES.Auto;
 	motorizedSealFlatteners.Reset();
-	motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
 	IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN
 		motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 		motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
@@ -750,8 +745,8 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	
 	bagOpened := FALSE;
 	
-	enableBatch := FALSE;
-	batchCount := 0;
+	//HMIData.batchEnable := FALSE;
+	HMIData.batchCount := 0;
 	
 	//zebraPrinter.autoSendLabel := TRUE;
 	printerMode := DEVICE_MODES.Auto;
@@ -823,6 +818,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
+	batchModeKeepCycling := FALSE;
 END_IF
 IF enableONS.Q OR resetONS.Q THEN
     state := HEAD_STATES.Idle;
@@ -884,14 +880,17 @@ IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
 END_IF
 
 // Clear batch count on batch enable
-enableBatchONS(CLK := enableBatch);
-IF enableBatchONS.Q THEN
-    batchCount := 0;
+batchEnableONS(CLK := HMIData.batchEnable);
+IF batchEnableONS.OSR OR NOT HMIData.batchEnable THEN
+    HMIData.batchCount := 0;
+END_IF
+HMIData.batchCountDone.active := (HMIData.batchCount >= HMIData.batchSetting) AND HMIData.batchEnable;
+IF HMIData.batchCountDone.active THEN
+	batchModeKeepCycling := FALSE;
 END_IF
 
 IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
     state := HEAD_STATES.Fault;
-	enableBatch := FALSE;
 	pressureBarEndStopMotor.Stop();
 	cycleTimer.IN := FALSE;
 END_IF
@@ -900,7 +899,7 @@ cycleTimer();
 
 autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
 
-HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
+HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller OR HMIData.batchEnable;
 
 //footSwitchONS(CLK := iFootSwitch);
 stopONS(CLK := HMIDAta.stopMachine);
@@ -913,7 +912,7 @@ CASE state OF
 													
 													
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													OR (enableBatch AND (batchCount < batchSetting))
+													OR (HMIData.batchEnable AND batchModeKeepCycling AND (HMIData.batchCount < HMIData.batchSetting))
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
 													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) //AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
@@ -925,6 +924,7 @@ CASE state OF
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
 													AND NOT HMIData.sealBarNotAtTemperature.active
+													AND NOT HMIData.batchCountDone.active
 													AND NOT setPassthroughPB
 													AND NOT EZFeed.emptyPartsWarning)
 													AND readyToRun 
@@ -961,6 +961,7 @@ CASE state OF
 														HMIData.initiateCycle := FALSE;
 														factoryTestModeKeepCycling := FALSE;
 														autoModeKeepCycling := FALSE;
+														batchModeKeepCycling := FALSE;
 														hmiLight.TurnOff();
 														filler.Reset();
 														ezFeed.Reset();
@@ -977,10 +978,11 @@ CASE state OF
 													IF HMIData.sealBarNotAtTemperature.active THEN
 														factoryTestModeKeepCycling := FALSE;
 														autoModeKeepCycling := FALSE;
+														batchModeKeepCycling := FALSE;
 													END_IF
 													
 													IF bagOpened THEN
-														IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
+														IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) AND NOT HMIData.enableDryCycle THEN
 															openedBagWasRemoved.Trigger();
 															bagOpened := FALSE;
 														END_IF
@@ -1171,9 +1173,8 @@ CASE state OF
                                                     END_IF
                                                     
     HEAD_STATES.ReleasedAndFedBag :                    // 
-                                                    {warning 'TODO: change this counting logic to account for MSF'}
-                                                    IF enableBatch THEN
-                                                        batchCount := batchCount + 1;
+                                                    IF HMIData.batchEnable THEN
+                                                        HMIData.batchCount := HMIData.batchCount + 1;
                                                     END_IF
   
                                                     IF HMIData.enableDryCycle THEN
@@ -1236,6 +1237,9 @@ CASE state OF
 											IF HMIData.autoEnable AND NOT HMIData.stopMachine AND NOT HMIData.fillerEnable THEN
 												autoModeKeepCycling := TRUE;
 											END_IF
+											IF HMIDAta.batchEnable AND NOT HMIData.stopMachine THEN
+												batchModeKeepCycling := TRUE;
+											END_IF
 											IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 												IF (HMIData.bagsMade.count >= 1000) THEN
 													factoryTestModeKeepCycling := FALSE;
@@ -1297,6 +1301,7 @@ CASE state OF
 											HMIData.initiateCycle := FALSE;
 											factoryTestModeKeepCycling := FALSE;
 											autoModeKeepCycling := FALSE;
+											batchModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
 											oSealBarExtend := FALSE;
 											oSealBarRetract := TRUE;
@@ -1623,7 +1628,7 @@ CASE openBagSubState OF
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
 															bagOpenCheckDelay.IN := TRUE;
 															IF bagOpenCheckDelay.Q THEN
-																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) THEN // This method checks to see if the bag is grabbed and returns true if so.
+																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) OR HMIData.enableDryCycle THEN // This method checks to see if the bag is grabbed and returns true if so.
 																	openBagSubState := BAG_OPEN_ASSIST_STATES.BagOpened;
 																	motorizedSealFlatteners.AutoMoveIn();
 																ELSE 
