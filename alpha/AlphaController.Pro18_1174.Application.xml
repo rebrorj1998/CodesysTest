@@ -789,6 +789,7 @@
         <Node name="batchCount" type="T_UDINT" access="ReadWrite" />
         <Node name="batchCountDone" type="T_Warning" access="ReadWrite" />
         <Node name="batchEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="batchReset" type="T_BOOL" access="ReadWrite" />
         <Node name="batchSetting" type="T_UDINT" access="ReadWrite" />
         <Node name="bofSelection" type="T_BagOpenFingersSelection" access="ReadWrite">
           <Comment>Factoy Config</Comment>

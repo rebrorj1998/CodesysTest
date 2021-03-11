@@ -1074,6 +1074,9 @@ THEN
 	HMIData.batchReset := FALSE;
 END_IF
 HMIData.batchCountDone.active := (HMIData.batchCount >= HMIData.batchSetting) AND HMIData.batchEnable;
+IF HMIData.batchCountDone.active THEN
+	autoModeKeepCycling := FALSE;
+END_IF
 
 //IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
 IF NOT enable OR faultONS.OSR THEN

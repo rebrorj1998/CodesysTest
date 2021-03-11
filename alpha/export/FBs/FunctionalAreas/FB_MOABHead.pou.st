@@ -537,8 +537,7 @@ CASE HMIData.fillerFactorySelection OF
 		 											
 
 END_CASE 
-	 
-ezfeed(
+	 ezfeed(
 	enable:= , 
 	baggerFaulted:= HMIData.faultActive, 
 	enableEZFeed:= HMIData.fillerEnable, 
@@ -559,6 +558,7 @@ ezfeed(
 	emptyPartsWarningCount=> HMIData.infeedEmptyPartsActual, 
 	emptyPartsWarning=> HMIData.infeedConveyorOutOfParts.active,
 	EZFeedDone=> );
+
 
 IF HMIData.fillerFactorySelection = FillerSelection.EZFeed THEN
 	Infeed_Conveyor_IO.Enable := TRUE; 
@@ -884,6 +884,9 @@ THEN
 	HMIData.batchReset := FALSE;
 END_IF
 HMIData.batchCountDone.active := (HMIData.batchCount >= HMIData.batchSetting) AND HMIData.batchEnable;
+IF HMIData.batchCountDone.active THEN
+	autoModeKeepCycling := FALSE;
+END_IF
 
 IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
     state := HEAD_STATES.Fault;
