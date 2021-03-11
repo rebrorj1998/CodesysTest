@@ -128,7 +128,6 @@ VAR
 	ezfeed : FB_EZFeed();
 	printAndApply : FB_PrintAndApply();
 	EIPReconfig : FB_EIPCommsConfigure();
-	batchModeKeepCycling : BOOL;
 	batchEnableONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -944,8 +943,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	END_IF
 	//bagOpened := FALSE;
 	
-	HMIData.batchCount := 0;
-	
 	//zebraPrinter.autoSendLabel := TRUE;
 	printerMode := DEVICE_MODES.Auto;
 	zebraPrinter.Reset();
@@ -994,7 +991,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
-	batchModeKeepCycling := FALSE;
 	
 ELSE
 	Cube67_BN_E_V2.xAcknowledge := FALSE;
@@ -1069,13 +1065,15 @@ END_IF
 
 // Clear batch count on batch enable
 batchEnableONS(CLK := HMIData.batchEnable);
-IF batchEnableONS.OSR OR NOT HMIData.batchEnable THEN
+IF (batchEnableONS.OSR)
+	OR (NOT HMIData.batchEnable) 
+	OR (HMIData.batchReset)
+	OR (resetONS.Q AND HMIData.batchCountDone.active)
+THEN
     HMIData.batchCount := 0;
+	HMIData.batchReset := FALSE;
 END_IF
 HMIData.batchCountDone.active := (HMIData.batchCount >= HMIData.batchSetting) AND HMIData.batchEnable;
-IF HMIData.batchCountDone.active THEN
-    batchModeKeepCycling := FALSE;
-END_IF
 
 //IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
 IF NOT enable OR faultONS.OSR THEN
@@ -1099,7 +1097,7 @@ CASE state OF
 													
 													
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													OR (HMIData.batchEnable AND batchModeKeepCycling AND (HMIData.batchCount < HMIData.batchSetting))
+													//OR (startCycle AND (HMIData.batchEnable AND (HMIData.batchCount < HMIData.batchSetting)))
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
 													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
@@ -1134,8 +1132,8 @@ CASE state OF
 															passthroughSettingLast := HMIData.passthroughSetting;
 													END_IF
 													
-													IF (NOT pressureBarMotor.HomeRequired OR pressureBarMotor.Faulted)
-														AND (NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.homeRequiredIndication OR motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.Faulted)
+													IF (NOT (pressureBarMotor.HomeRequired OR pressureBarMotor.Faulted))
+														AND ((NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.homeRequiredIndication OR motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.Faulted) OR NOT motorizedSealFlatteners.enable)
 														AND readyToRun 
 														AND NOT HMIData.faultActive
 													THEN
@@ -1150,7 +1148,6 @@ CASE state OF
 														HMIData.initiateCycle := FALSE;
 														factoryTestModeKeepCycling := FALSE;
 														autoModeKeepCycling := FALSE;
-                                                        batchModeKeepCycling := FALSE;
 														hmiLight.TurnOff();
 														filler.Reset();
 														ezFeed.Reset();
@@ -1160,7 +1157,6 @@ CASE state OF
 													IF HMIData.sealBarNotAtTemperature.active THEN
 														factoryTestModeKeepCycling := FALSE;
 														autoModeKeepCycling := FALSE;
-														batchModeKeepCycling := FALSE;
 													END_IF
 													
 													IF bagOpened THEN
@@ -1434,11 +1430,7 @@ CASE state OF
 											
 											IF HMIData.autoEnable AND NOT HMIData.stopMachine THEN
 												autoModeKeepCycling := TRUE;
-											END_IF
-											
-                                            IF HMIDAta.batchEnable AND NOT HMIData.stopMachine THEN
-                                                batchModeKeepCycling := TRUE;
-                                            END_IF											
+											END_IF									
 											
 											IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 												IF (HMIData.bagsMade.count >= 1000) THEN
@@ -1487,7 +1479,7 @@ CASE state OF
                                             END_IF
                                             
     HEAD_STATES.HomingComplete :        // 
-											IF NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired THEN
+											IF (NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired) OR NOT motorizedSealFlatteners.enable THEN
 												 homeJawPB := FALSE;
 												//state := HEAD_STATES.Idle;
 												motorizedSealFlatteners.sealFlattenersVerticalAxis.Extend();
@@ -1537,7 +1529,6 @@ CASE state OF
 											HMIData.initiateCycle := FALSE;
 											factoryTestModeKeepCycling := FALSE;
 											autoModeKeepCycling := FALSE;
-                                            batchModeKeepCycling := FALSE;											
 											pressureBarCloseDelay.IN := FALSE;
 											oSealBarExtend := FALSE;
 											oSealBarRetract := TRUE;

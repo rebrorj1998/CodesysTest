@@ -145,6 +145,7 @@ END_IF
 
 IF NOT enable THEN
     state := SEAL_FLATTENER_STATES.Fault;
+	sealFlattenersVerticalAxis.Retract();
 END_IF
 
 // State amchine for motorized seal flatteners
