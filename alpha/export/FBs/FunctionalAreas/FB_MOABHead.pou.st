@@ -546,7 +546,7 @@ ezfeed(
 	partsCountingModeEnable:= HMIData.infeedConveyorCountingMode, 
 	flightPresentSensor:= iInfeedFlightSensor, 
 	partPresentSensor:= NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains, 
-	waitingForFiller:= filler.waitingForFiller AND NOT HMIData.stopMachine, 
+	waitingForFiller:= filler.waitingForFiller AND (NOT HMIData.stopMachine) AND NOT HMIdata.batchCountDone.active, 
 	indexDwellSetting:= HMIData.infeedIndexDwellTimer, 
 	flightTarget:= HMIData.infeedFlightCountTarget, 
 	partsTarget:= HMIData.infeedPartsCountTarget, 
@@ -895,7 +895,7 @@ cycleTimer();
 
 autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
 
-HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller OR HMIData.batchEnable;
+HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
 //footSwitchONS(CLK := iFootSwitch);
 stopONS(CLK := HMIDAta.stopMachine);
