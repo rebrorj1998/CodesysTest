@@ -50,7 +50,7 @@ VAR
 	defaultCurrentMSF : DINT := 150;
 	outCurrentMSF : DINT := 150;
 	bagHoldingCurrentMSF : DINT := 85;
-    enableMotorizedSealFlattenersONS : R_TRIG();
+    enableMotorizedSealFlattenersONS : FB_ONS();
 	bagDropDelay : Standard.TON := (PT := T#1S);    
     _amMoveOut : BOOL;                // Auto mode move out command
 	_amMoveIn : BOOL;
@@ -145,7 +145,22 @@ END_IF
 
 IF NOT enable THEN
     state := SEAL_FLATTENER_STATES.Fault;
+END_IF
+
+// Move seal flatteners out of the way when disabled
+IF enableMotorizedSealFlattenersONS.OSF THEN
 	sealFlattenersVerticalAxis.Retract();
+	IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
+		sealFlattenersHorizontalAxisMotor.MoveToPosition(position := 17.8, 
+														acceleration := horizontalAxisAccel,
+														deceleration := horizontalAxisDecel,
+														velocity := moveOutSpeed);   
+	ELSE
+		sealFlattenersHorizontalAxisMotor.MoveToPosition(position := 23.8, 
+														acceleration := horizontalAxisAccel,
+														deceleration := horizontalAxisDecel,
+														velocity := moveOutSpeed);    
+	END_IF
 END_IF
 
 // State amchine for motorized seal flatteners

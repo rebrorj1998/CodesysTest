@@ -91,6 +91,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerNeedsClearing : BOOL;
 	baggerClearedAck : BOOL;
 	calculatedCyclesPerMinute : REAL;
+	sealFlattenersInUse : BOOL := TRUE;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;

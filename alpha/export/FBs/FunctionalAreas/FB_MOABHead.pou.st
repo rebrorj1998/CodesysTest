@@ -204,7 +204,7 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
 						sealFlattenerMotorCommFailInput := MSFMotor.udiState <> 4);
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
-motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
+motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 
 // Setup of MOAB Machine Pressure bar ("#2") on actual machine, not test rig
 pressureBar(iPressureBarExtended := iPressureBarExtended, 
@@ -716,7 +716,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	
 	motorizedSealFlattenersMode := DEVICE_MODES.Auto;
 	motorizedSealFlatteners.Reset();
-	IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN
+	IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND motorizedSealFlatteners.enable THEN
 		motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 		motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
 	END_IF

@@ -243,7 +243,7 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
 						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING);
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
-motorizedSealFlatteners.enable := HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners;
+motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 	 
 pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
                 ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
@@ -1475,7 +1475,7 @@ CASE state OF
 											IF pressureBar.pressureBarOpen AND (NOT IBD.Ready OR NOT IBD.enable) THEN
                                                 state := HEAD_STATES.HomingComplete;
 												rearLoadPlateRetract.ManualOff();   
-												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners THEN
+												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND motorizedSealFlatteners.enable THEN
 													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 													motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
 												END_IF    
