@@ -839,9 +839,9 @@ IF passthrough.exhaustPressureBarRequest THEN
 		passthrough.AckRequest();
 	END_IF
 ELSIF passthrough.extendPressureBarRequest THEN
-    pressureBar.ExtendCylinderLowPressure();
+    pressureBar.ExtendCylinderHighPressure();
 	IBDCylinders.Extend();
-	IF oPBar1Extend AND oPBar1Retract THEN
+	IF oPBar1Extend AND NOT oPBar1Retract THEN
 		passthrough.AckRequest();
 	END_IF
 END_IF
@@ -970,7 +970,7 @@ CASE state OF
 													
 													pbarExtendedONS(CLK := iPressureBarExtended);
 													IF pbarExtendedONS.OSR THEN
-														pressureBar.ExhaustCylinder();
+														//pressureBar.ExhaustCylinder();
 													END_IF
 													
 													IF HMIData.sealBarNotAtTemperature.active THEN
