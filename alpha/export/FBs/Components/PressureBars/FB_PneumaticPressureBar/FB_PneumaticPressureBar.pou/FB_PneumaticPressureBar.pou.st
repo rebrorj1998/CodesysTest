@@ -203,14 +203,16 @@ CASE state OF
 										state := PRESSURE_BAR_STATES.Fault;
 									END_IF
 									
-// 									IF NOT iPressureBarNotObstructed AND NOT iPressureBarRetracted THEN
-// 										faults.obstructionDetected.Trigger();
-// 										ExtendCylinderLowPressure();
-// 										faultTimer.IN := FALSE;
-// 										state := PRESSURE_BAR_STATES.Fault;
-// 									END_IF
+									IF NOT iPressureBarNotObstructed AND NOT iPressureBarRetracted THEN
+										faults.obstructionDetected.Trigger();
+										ExtendCylinderLowPressure();
+										faultTimer.IN := FALSE;
+										state := PRESSURE_BAR_STATES.Fault;
+									END_IF
                                     
-                                   
+                                    
+                                    
+    
     PRESSURE_BAR_STATES.JawClosed :            //Go to sealing if seal bar enabled, otherwise if in auto mode go to open jaw after retract dwell. Else go back to idle
 
                                     
@@ -255,17 +257,17 @@ CASE state OF
     
 END_CASE
 
-// IF NOT iPressureBarNotObstructed AND Globals.jawMovingIn THEN
-// 										faults.obstructionDetected.Trigger();
-// ExtendCylinderLowPressure();
-// 										ExhaustCylinder();
-// 										faultTimer.IN := FALSE;
-// 										state := PRESSURE_BAR_STATES.Fault;
-// END_IF
-// IF iPressureBarExtended AND iPressureBarRetracted THEN
-// 	faults.sensorFault.Trigger();
-// 	state := PRESSURE_BAR_STATES.Fault;
-// END_IF
+IF NOT iPressureBarNotObstructed AND Globals.jawMovingIn THEN
+										faults.obstructionDetected.Trigger();
+										//ExtendCylinderLowPressure();
+										ExhaustCylinder();
+										faultTimer.IN := FALSE;
+										state := PRESSURE_BAR_STATES.Fault;
+END_IF
+IF iPressureBarExtended AND iPressureBarRetracted THEN
+	faults.sensorFault.Trigger();
+	state := PRESSURE_BAR_STATES.Fault;
+END_IF
 
 //Count cycles
 incrementCount(CLK :=timerExtendDwell.Q); 

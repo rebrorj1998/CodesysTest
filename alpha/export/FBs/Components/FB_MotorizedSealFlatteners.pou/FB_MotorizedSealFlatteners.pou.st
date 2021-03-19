@@ -28,8 +28,7 @@ VAR_INPUT
 	fingersDownDelay : Standard.TON := (PT := T#50MS);
 	sealFlattenerMotorCommFailInput : BOOL;
 	manualPosSetpoint : REAL;
-	outCurrentMSF : DINT := 150;
-	bagHoldingCurrentMSF : DINT := 85;
+	
 END_VAR
 VAR_IN_OUT
 	jogIn : BOOL;
@@ -49,6 +48,8 @@ VAR
 	jogSpeed : INT := 100;
     sealFlattenersHorizontalAxisMotor : FB_AppliedMotionStepServoEIPBaseQX();
 	defaultCurrentMSF : DINT := 150;
+	outCurrentMSF : DINT := 150;
+	bagHoldingCurrentMSF : DINT := 85;
     enableMotorizedSealFlattenersONS : FB_ONS();
 	bagDropDelay : Standard.TON := (PT := T#1S);    
     _amMoveOut : BOOL;                // Auto mode move out command
