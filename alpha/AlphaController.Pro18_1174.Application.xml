@@ -659,7 +659,7 @@
       <UserDefElement iecname="bagFeedMasterMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="860" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="1994" nativesize="100408" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead" size="1994" nativesize="100436" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />

@@ -205,7 +205,7 @@ CASE state OF
 									
 									IF NOT iPressureBarNotObstructed AND NOT iPressureBarRetracted THEN
 										faults.obstructionDetected.Trigger();
-										ExtendCylinderLowPressure();
+										ExhaustCylinder();
 										faultTimer.IN := FALSE;
 										state := PRESSURE_BAR_STATES.Fault;
 									END_IF
@@ -231,7 +231,7 @@ CASE state OF
 									END_IF
                                     
                                     IF timerRetractDwell.Q OR (autoModeSelected AND _amOpenJaw) OR HMIData.pressureBarService.extendCommand THEN
-                                        state := PRESSURE_BAR_STATES.OpenJaw;
+                                        state := PRESSURE_BAR_STATES.FillCylindersWithAirThenOpen;
 										HMIData.pressureBarService.extendCommand := FALSE;
                                         _amOpenJaw := FALSE;
                                         timerRetractDwell.IN := FALSE;

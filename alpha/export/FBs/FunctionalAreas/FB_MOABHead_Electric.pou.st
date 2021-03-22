@@ -5,7 +5,7 @@ VAR_INPUT
     electricPressureBarMode : DEVICE_MODES := DEVICE_MODES.Auto;
 	vacuumPickerMode : DEVICE_MODES;
     startCycle : BOOL;
-    bagDeliveryMode : DEVICE_MODES;        // Mode of bag delivery system
+    bagDeliveryMode : DEVICE_MODES;    // Mode of bag delivery system
     printerMode : DEVICE_MODES;        // Mode of printer
 	passthroughMode : DEVICE_MODES;
 	passthroughSetting : REAL;

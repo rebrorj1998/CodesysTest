@@ -111,6 +111,7 @@ VAR
 	stopONS : FB_ONS;
 	pbarExtendedONS : FB_ONS;
 	batchEnableONS : FB_ONS;
+	exhaustTimer : TON := (PT := T#300MS);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -839,9 +840,9 @@ IF passthrough.exhaustPressureBarRequest THEN
 		passthrough.AckRequest();
 	END_IF
 ELSIF passthrough.extendPressureBarRequest THEN
-    pressureBar.ExtendCylinderLowPressure();
+    pressureBar.ExtendCylinderHighPressure();
 	IBDCylinders.Extend();
-	IF oPBar1Extend AND oPBar1Retract THEN
+	IF oPBar1Extend AND NOT oPBar1Retract THEN
 		passthrough.AckRequest();
 	END_IF
 END_IF
@@ -899,6 +900,8 @@ cycleTimer();
 autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
 
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
+
+exhaustTimer(IN := iPressureBarExtended AND state = HEAD_STATES.Idle);
 
 //footSwitchONS(CLK := iFootSwitch);
 stopONS(CLK := HMIDAta.stopMachine);
@@ -968,7 +971,7 @@ CASE state OF
 														//HMIData.stopMachine := FALSE;
 													END_IF
 													
-													pbarExtendedONS(CLK := iPressureBarExtended);
+													pbarExtendedONS(CLK := exhaustTimer.Q);
 													IF pbarExtendedONS.OSR THEN
 														pressureBar.ExhaustCylinder();
 													END_IF
