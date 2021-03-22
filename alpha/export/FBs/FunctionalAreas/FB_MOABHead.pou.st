@@ -111,6 +111,7 @@ VAR
 	stopONS : FB_ONS;
 	pbarExtendedONS : FB_ONS;
 	batchEnableONS : FB_ONS;
+	exhaustTimer : TON := (PT := T#300MS);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -900,6 +901,8 @@ autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := auto
 
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
+exhaustTimer(IN := iPressureBarExtended AND state = HEAD_STATES.Idle);
+
 //footSwitchONS(CLK := iFootSwitch);
 stopONS(CLK := HMIDAta.stopMachine);
 
@@ -968,9 +971,9 @@ CASE state OF
 														//HMIData.stopMachine := FALSE;
 													END_IF
 													
-													pbarExtendedONS(CLK := iPressureBarExtended);
+													pbarExtendedONS(CLK := exhaustTimer.Q);
 													IF pbarExtendedONS.OSR THEN
-														//pressureBar.ExhaustCylinder();
+														pressureBar.ExhaustCylinder();
 													END_IF
 													
 													IF HMIData.sealBarNotAtTemperature.active THEN

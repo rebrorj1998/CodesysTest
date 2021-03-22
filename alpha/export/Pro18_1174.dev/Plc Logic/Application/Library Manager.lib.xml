@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">637467311331909220</Single>
+        <Single Name="Timestamp" Type="long">637517625565603841</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
@@ -443,33 +443,6 @@
             <Single Name="LinkAllContent" Type="bool">False</Single>
           </Single>
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">IoDrvEthernet, 3.5.15.0 (3S - Smart Software Solutions GmbH)</Single>
-            <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">TASK_PRIORITY</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">7318349394477058</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">15</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-            </Array>
-            <Single Name="PlaceholderName" Type="string">IoDrvEthernet</Single>
-            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">800421064</Single>
-            <Single Name="Namespace" Type="string">IoDrvEthernet</Single>
-            <Single Name="SystemLibrary" Type="bool">True</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
-          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">Breakpoint Logging Functions, 3.5.5.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
             <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
@@ -523,6 +496,33 @@
             <Single Name="QualifiedOnly" Type="bool">False</Single>
             <Single Name="LinkAllContent" Type="bool">False</Single>
           </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">IoDrvEthernet, 3.5.13.0 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
+              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
+                <Single Name="Name" Type="string">TASK_PRIORITY</Single>
+                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">7318349394477058</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">15</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </Array>
+            <Single Name="PlaceholderName" Type="string">IoDrvEthernet</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">2338059461</Single>
+            <Single Name="Namespace" Type="string">IoDrvEthernet</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
         </List>
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
@@ -530,7 +530,7 @@
               <Single Type="string">System_VisuElemCamDisplayer</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemCamDisplayer, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuElemCamDisplayer, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -546,7 +546,7 @@
               <Single Type="string">VisuUtils</Single>
             </Key>
             <Value>
-              <Single Type="string">Visu Utils, 3.5.12.0 (System)</Single>
+              <Single Type="string">Visu Utils, 3.5.16.40 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -554,7 +554,7 @@
               <Single Type="string">System_VisuElemsSpecialControls</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsSpecialControls, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuElemsSpecialControls, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -570,7 +570,7 @@
               <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTextEditor, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuElemTextEditor, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -578,7 +578,7 @@
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTrace, 3.5.16.20 (System)</Single>
+              <Single Type="string">VisuElemTrace, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -594,7 +594,7 @@
               <Single Type="string">System_VisuElem3DPath</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElem3DPath, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuElem3DPath, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -602,7 +602,7 @@
               <Single Type="string">System_VisuElemMeter</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemMeter, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuElemMeter, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -610,7 +610,7 @@
               <Single Type="string">System_VisuElems</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElems, 3.5.16.20 (System)</Single>
+              <Single Type="string">VisuElems, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -626,7 +626,7 @@
               <Single Type="string">System_VisuElemsDateTime</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsDateTime, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuElemsDateTime, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -634,7 +634,7 @@
               <Single Type="string">System_VisuElemsAlarm</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsAlarm, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuElemsAlarm, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -650,7 +650,7 @@
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsWinControls, 3.5.16.20 (System)</Single>
+              <Single Type="string">VisuElemsWinControls, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -658,7 +658,7 @@
               <Single Type="string">System_VisuElemBase</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemBase, 3.5.16.20 (System)</Single>
+              <Single Type="string">VisuElemBase, 3.5.16.30 (System)</Single>
             </Value>
           </Entry>
           <Entry>
