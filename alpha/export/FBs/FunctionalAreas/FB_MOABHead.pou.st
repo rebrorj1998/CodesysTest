@@ -224,6 +224,7 @@ opbar2Retract := oPBar1Retract;
 // Run bag delivery 
 bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse,
+			reverseToPrintheadRequired := zebraPrinter.enable,
 			bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.udiState <> 4,
 			bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.udiState <> 4,
 			stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
@@ -1497,6 +1498,9 @@ CASE releaseAndFeedSubState OF
 														
     RELEASE_FEED_STATES.WaitForPrinter :            // Data Ready means the printer has a label and we're all set to print
                                                     IF zebraPrinter.state = PRINTER_STATES.DataReady THEN
+														IF HMIData.lpaDuringBagFeedEnable THEN
+															LPA.ManualOn();
+														END_IF
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.FeedToOffset;
                                                     END_IF
                                                     
@@ -1542,23 +1546,19 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.StopPrinting :                // Tell bag delivery it's okay to feed out the rest of the bag and the printer that it can prep itself for the next print
                                                     bagDelivery.AutoPrinterDone();
                                                     zebraPrinter.AutoAckPrintDone();
-													IF HMIData.lpaDuringBagFeedEnable THEN
-														LPA.ManualOn();
-													END_IF
 													
                                                     releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
                                                                                 
                                                                                                             
     RELEASE_FEED_STATES.MovingJawOutAndFeedingBag :    // 
-    
+    												IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable) THEN
+														LPA.ManualOff();
+													END_IF
 													
 													IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable)
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawOpened OR NOT pressureBar.enable)
                                                         THEN
-															IF LPA.DwellSetting = 0 THEN
-																LPA.ManualOff();
-															END_IF
 															IBDRetractToEject.Reset();
                                                             releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF

@@ -231,7 +231,6 @@ CASE state OF
 															delayForReverseFault.IN := FALSE;
 															state := BAG_DELIVERY_STATES.Fault; 
 															END_IF
-															
 														END_IF
 											
                                                   

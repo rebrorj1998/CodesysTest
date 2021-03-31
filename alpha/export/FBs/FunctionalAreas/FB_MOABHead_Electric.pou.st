@@ -1736,6 +1736,9 @@ CASE releaseAndFeedSubState OF
 														
     RELEASE_FEED_STATES.WaitForPrinter :            // Data Ready means the printer has a label and we're all set to print
                                                     IF zebraPrinter.state = PRINTER_STATES.DataReady THEN
+                                                        IF HMIData.lpaDuringBagFeedEnable THEN
+                                                            LPA.ManualOn();
+                                                        END_IF														
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.FeedToOffset;
                                                     END_IF
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
@@ -1795,15 +1798,14 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.StopPrinting :                // Tell bag delivery it's okay to feed out the rest of the bag and the printer that it can prep itself for the next print
                                                     bagDelivery.AutoPrinterDone();
                                                     zebraPrinter.AutoAckPrintDone();
-													IF HMIData.lpaDuringBagFeedEnable THEN
-														LPA.ManualOn();
-													END_IF
-													
                                                     releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
                                                                                 
                                                                                                             
     RELEASE_FEED_STATES.MovingJawOutAndFeedingBag :    // 
-    
+                                                    IF HMIData.lpaDuringBagFeedEnable THEN
+                                                        LPA.ManualOn();
+                                                    END_IF
+													
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
  													END_IF
@@ -1811,10 +1813,6 @@ CASE releaseAndFeedSubState OF
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.pressureBarOpen OR NOT pressureBar.enable)
                                                         THEN
-															IF LPA.DwellSetting = 0 THEN
-																LPA.ManualOff();
-															END_IF
-															//IBD.OpenIBD();
                                                             releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
                                                     
