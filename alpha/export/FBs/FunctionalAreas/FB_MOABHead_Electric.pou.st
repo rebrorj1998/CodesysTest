@@ -129,6 +129,7 @@ VAR
 	printAndApply : FB_PrintAndApply();
 	EIPReconfig : FB_EIPCommsConfigure();
 	batchEnableONS : FB_ONS;
+	estopONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -140,9 +141,21 @@ END_VAR
 {region "Setup"}
 // Run BaseComponentFB
 SUPER^();
+(* BLocking out these changes before commiting - needs more testing
+// Comms motor node enable only when powered up
+estopONS(CLK := iEstopOK AND (Cube67_BN_E_V2.eState = IoDrvEthernetIP.AdapterState.RUNNING));
 
+IF estopONS.OSR OR estopONS.OSF THEN
+//IF estopONS.OSF THEN
+	IBD_Motor.Enable := (HMIData.independentBagDeflatorSelection = BagDeflatorSelection.MotorizedIBD) AND iEStopOK;
+	MSFMotor.Enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND iEStopOK;
+	Pbar_ServoEIP.Enable := (NOT (HMIData.baggerModelSelection = ModelSelection.Pro18)) AND iEStopOK;
+	Bag_Delivery_EIP_Motor.Enable := iEstopOK;
+	Bag_Delivery_Rear_Motor.Enable := iEstopOK;
+END_IF
+*)
+// Enable/Disable nodes on comms tree dynamically
 EIPReconfig(rootEIPNode := EtherNet_IP_Scanner);
-//EIPReconfig(rootEIPNode := Dual_LAN_Card);
 
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
@@ -466,6 +479,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 	
 END_CASE
 
+		  
 CASE HMIData.bofSelection OF
 	BagOpenFingersSelection.NotInstalled:					// Disable Bag Open
 		 													enableBagOpen := FALSE;

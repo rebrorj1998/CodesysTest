@@ -53,7 +53,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	Globals.jawMovingIn := FALSE;
 	 _homeEndStop := FALSE;
 	 timerHomeDelay.IN := FALSE;
-	passthroughSetpoint := HMIData.passthroughSetting + HMIData.passthroughOffset ;
+	//passthroughSetpoint := HMIData.passthroughSetting + HMIData.passthroughOffset ;
 END_IF
 
 IF NOT enable THEN
@@ -153,7 +153,7 @@ CASE state OF
 														timerHomeDelay.PT := T#200MS;
 														timerHomeDelay.IN := TRUE;
 														IF timerHomeDelay.Q THEN
-															IF (REAL_TO_INT((passthroughSetpoint + HMIData.passthroughOffset)*100) = REAL_TO_INT(passthroughPosition*100)) THEN
+															IF (REAL_TO_INT((passthroughSetpoint)*100) = REAL_TO_INT(passthroughPosition*100)) THEN
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedOut;
 																timerHomeDelay.IN := FALSE;
 															END_IF
@@ -196,7 +196,7 @@ CASE state OF
 														timerHomeDelay.PT := T#200MS;
 														timerHomeDelay.IN := TRUE;
 														IF timerHomeDelay.Q THEN
-															IF (REAL_TO_INT((passthroughSetpoint + HMIData.passthroughOffset)*100) = REAL_TO_INT(passthroughPosition*100)) THEN
+															IF (REAL_TO_INT((passthroughSetpoint)*100) = REAL_TO_INT(passthroughPosition*100)) THEN
 																state := PASSTHROUGH_SERVO_STATES.PassthroughMovedIn;
 																timerHomeDelay.IN := FALSE;
 															END_IF
