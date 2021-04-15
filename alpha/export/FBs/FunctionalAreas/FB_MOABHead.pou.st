@@ -1605,18 +1605,17 @@ CASE openBagSubState OF
                                                                    
                                                     
                                                     
-    BAG_OPEN_ASSIST_STATES.MoveJawOut :                // Open the jaw and move seal flatteners in and to bag holding
+    BAG_OPEN_ASSIST_STATES.MoveJawOut :                // Open the jaw 
                                                     pressureBar.AutoOpenJaw();
-													motorizedSealFlatteners.AutoMoveIn();
                                                     openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
                                                     
                                                     
-    BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab :    // Once everything that is enabled is homed finish cycle 
+    BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab :    // WAit for delay, and move in seal flatteners at the same time as bag grab
 													bagOpenFingerDelay.IN := TRUE;
 													IF bagOpenFingerDelay.Q THEN
 														bagOpenFingers.Grab();
 														bagOpenFingerDelay.IN := FALSE;
-
+														motorizedSealFlatteners.AutoMoveIn();
 														openBagSubState := BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab;
 													END_IF
 													  
