@@ -5,6 +5,6 @@ VAR_INPUT
 	
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 GetLibVersion.uiMajor := 1;
-GetLibVersion.uiMinor := 0;
+GetLibVersion.uiMinor := 1;
 GetLibVersion.uiServicePack := 0;
-GetLibVersion.uiPatch := 0;
+GetLibVersion.uiPatch := 1;

@@ -374,10 +374,10 @@
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
             <Key>
-              <Single Type="string">ElementCollections</Single>
+              <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
-              <Single Type="string">Element Collections, 3.5.16.0 (3S - Smart Software Solutions GmbH)</Single>
+              <Single Type="string">VisuElemTextEditor, 3.5.16.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -394,14 +394,6 @@
             </Key>
             <Value>
               <Single Type="string">VisuElemsSpecialControls, 3.5.16.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">System_VisuElemTextEditor</Single>
-            </Key>
-            <Value>
-              <Single Type="string">VisuElemTextEditor, 3.5.16.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -442,6 +434,14 @@
             </Key>
             <Value>
               <Single Type="string">CmpEventMgr Implementation, 3.5.16.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">ElementCollections</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Element Collections, 3.5.16.0 (3S - Smart Software Solutions GmbH)</Single>
             </Value>
           </Entry>
           <Entry>

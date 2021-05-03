@@ -9,7 +9,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF stKey = "Company" THEN
 	GetTextProperty2 := ADR("Sharp Packaging");
 ELSIF stKey = "Project" THEN
-	GetTextProperty2 := ADR("SharpBaggerSerialTest");
+	GetTextProperty2 := ADR("SharpBagger");
 ELSIF stKey = "Title" THEN
 	GetTextProperty2 := ADR("Sharp Bagger");
 ELSE
