@@ -248,17 +248,12 @@ CASE state OF
 										END_IF
 										
 										IF _openJaw THEN
-											IF NOT pressureBarOpen THEN
-												pbarOutCommandedSetting := pbarOutSetting;
-												state := MotorizedPbarStates.MoveJawOut;
-											END_IF
-											//pbarMotor.DoneClamping();
+											pbarOutCommandedSetting := pbarOutSetting;
+											state := MotorizedPbarStates.MoveJawOut;
 											_openJaw := FALSE;
-											
 										END_IF
 										
 										IF _openForBagFeed AND NOT _reset THEN
-											//pbarMotor.DoneClamping();
 											_openForBagFeed := FALSE;
 											pbarOutCommandedSetting := pbarBagFeedSetting;
 											state := MotorizedPbarStates.MoveJawOut;
@@ -278,10 +273,7 @@ CASE state OF
 										Globals.jawMovingIn := TRUE;
 										IF NOT (pbarMotor.homeRequired) AND delayTimer.Q THEN
 												delayTimer.IN := FALSE;
-												//pbarMotor.DoneClamping();
-												
 												homeRequired := FALSE;
-												
 												state := MotorizedPbarStates.Initialize;
 										END_IF
 	
@@ -297,7 +289,6 @@ CASE state OF
 											ELSE
 												jawClamps.Extend();
 												pbarMotor.MoveToPositionTorque(pbarOutSetting,accel,decel,velo,testCurrent);
-												//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
 												state := MotorizedPbarStates.Initializing;
 											END_IF
 											delayTimer.IN := FALSE;
@@ -325,10 +316,8 @@ CASE state OF
 										
 										Globals.jawMovingIn := FALSE;
 										pbarMotor.MoveToPositionTorque(pbarOutCommandedSetting,accel,decel,velo,testCurrent);
-										//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
 										distanceToMove := ABS(actualPosition - pbarOutCommandedSetting);
 										state := MotorizedPbarStates.MovingJawOut;
-										//pbarMotor.SetPositionLimit(150);
 	
 	MotorizedPbarStates.MovingJawOut :			//
 										IF pressureBarOpen THEN
@@ -344,7 +333,6 @@ CASE state OF
 												delayTimer.PT := T#100MS;
 												delayTimer.IN := TRUE;
 												IF delayTimer.Q  THEN
-													//pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
 													delayTimer.IN := FALSE;
 													state := MotorizedPbarStates.Idle;
 												END_IF
@@ -362,14 +350,12 @@ CASE state OF
 	MotorizedPbarStates.MoveJawIn :				//
 										Globals.jawMovingIn := TRUE;
 										pbarMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
-										//pbarMotor.MoveToPositionTorque(pbarInSetting,accel,decel,velo,testCurrent);
-										//IBDMotor.MoveToPosition(0,accel,decel,velo+(TO_INT(TO_REAL(velo)*0.25)));
 										distanceToMove := ABS(actualPosition - pbarInSetting);
 										state := MotorizedPbarStates.MovingJawIn;
 	
 	
 	MotorizedPbarStates.MovingJawIn : 			//
-										//IF iPressureBarClosed AND pbarMotor.absolutePositonInches = 0 THEN
+										
 										IF iPressureBarClosed THEN
 											IF NOT  _closeJawNoLatch THEN
 												//pbarMotor.AllowClamping();
@@ -377,7 +363,6 @@ CASE state OF
 											
 											delayTimer.PT := jawClampsDelay;
 											delayTimer.IN := TRUE;
-											//pbarMotor.Disable();
 											state := MotorizedPbarStates.MovedJawIn;
 										END_IF
 	
