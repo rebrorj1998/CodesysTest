@@ -95,6 +95,9 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerClearedAck : BOOL;
 	calculatedCyclesPerMinute : REAL;
 	sealFlattenersInUse : BOOL := TRUE;
+	IBDOffset : REAL := 3.0;
+	pressureBarBagFeedPosition : REAL := 2.0;
+	pressureBarInPosition : REAL := 0;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -142,7 +145,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	externalExitConveyorJog : BOOL;
 	externalExitConveyorStartDwell : BOOL;
 	triggerBarcodeReaderService : BOOL;
-	IBDOffset : REAL := 3.0;
+	
 	
 	(*Factoy Config*)
 	bofSelection : BagOpenFingersSelection := BagOpenFingersSelection.PneumaticWithBagOpenSensors;
