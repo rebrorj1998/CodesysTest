@@ -46,6 +46,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerEnable : BOOL;
 	loadPlateDelay : REAL;
 	loadPlateDwell : REAL;
+	loadShelfDelay : REAL;
+	loadShelfDwell : REAL;
 	exitConveyorDwell : REAL;
 	vacuumDwell : REAL := 0.25;
 	IBDClosePosition : REAL := 0;

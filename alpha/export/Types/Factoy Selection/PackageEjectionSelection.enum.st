@@ -5,6 +5,7 @@ TYPE PackageEjectionSelection :
 (
 	NotInstalled := 0,
 	RearRetractingLoadPlate := 1,
-	LabelSideUp := 2
+	LabelSideUp := 2,
+	RearRetractWithRetractShelf := 3
 );
 END_TYPE
