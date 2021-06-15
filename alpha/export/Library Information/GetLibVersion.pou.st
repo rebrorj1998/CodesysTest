@@ -7,4 +7,4 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 GetLibVersion.uiMajor := 0;
 GetLibVersion.uiMinor := 9;
 GetLibVersion.uiServicePack := 15;
-GetLibVersion.uiPatch := 24;
+GetLibVersion.uiPatch := 25;

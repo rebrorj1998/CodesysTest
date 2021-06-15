@@ -46,8 +46,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerEnable : BOOL;
 	loadPlateDelay : REAL;
 	loadPlateDwell : REAL;
-	loadShelfDelay : REAL;
-	loadShelfDwell : REAL;
+	loadShelfDelay : REAL := 0.1;
+	loadShelfDwell : REAL := 1.5;
 	exitConveyorDwell : REAL;
 	vacuumDwell : REAL := 0.25;
 	IBDDeflateDwellTime  : REAL := 0.75;
@@ -97,6 +97,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerClearedAck : BOOL;
 	calculatedCyclesPerMinute : REAL;
 	sealFlattenersInUse : BOOL := TRUE;
+	collisonDetectionDwell : REAL := 3;
+	packageAtExitRunoffDwell : REAL := 0.5;
 	IBDOffset : REAL := 3.0;
 	pressureBarBagFeedPosition : REAL := 2.0;
 	pressureBarInPosition : REAL := 0;
@@ -148,7 +150,6 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	externalExitConveyorStartDwell : BOOL;
 	triggerBarcodeReaderService : BOOL;
 	
-	
 	(*Factoy Config*)
 	bofSelection : BagOpenFingersSelection := BagOpenFingersSelection.PneumaticWithBagOpenSensors;
 	sealFlattenersSelection : SealFlattenerSelection := SealFlattenerSelection.MotorizedSealFlatteners;
@@ -185,6 +186,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	bagLevelLow : Warning;
 	fillerModeCycleStartOnly : Warning;
 	baggerInhibited : Warning;
+	packageBlockingTrunkline : Warning;
 	infeedConveyorOutOfParts : Warning;
 	mayCycleUnexpectedly : Warning;
 	printAndApplyRibbonLow : Warning;

@@ -749,8 +749,17 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	//bagDelivery.bagFeedMasterMotor.SetRearMotorToTorqueMode();
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
+		IF NOT passthrough.homeRequired THEN
+			IF NOT iPressureBarExtended THEN
+				pressureBar.AutoOpenJaw();
+			ELSE
+				pressureBar.ExhaustCylinder();
+			END_IF
+		END_IF
 	END_IF
-	
+	IF passthrough.homeRequired THEN
+		homeJawPB := TRUE;
+	END_IF
 	bagOpened := FALSE;
 	
 	printerMode := DEVICE_MODES.Auto;
@@ -766,15 +775,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	pressureBarEndStopMotor.Reset();
 	passthroughMode := DEVICE_MODES.Auto;
 	passthrough.enable := TRUE;
-	IF passthrough.homeRequired THEN
-		homeJawPB := TRUE;
-	ELSE
-		IF NOT iPressureBarExtended THEN
-			pressureBar.ExtendCylinderLowPressure();
-		ELSE
-			pressureBar.ExhaustCylinder();
-		END_IF
-	END_IF
+	
 	oVacOn := FALSE;
 	rearLoadPlateRetract.Reset();
 	forwardLoadPlateRetract.Reset();

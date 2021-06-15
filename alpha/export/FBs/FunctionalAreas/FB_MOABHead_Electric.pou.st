@@ -21,6 +21,14 @@ VAR_OUTPUT
 	finishCycleSubState : FINISH_CYCLE_STATES;
 END_VAR
 VAR
+		externalConveyorEndedOnAShelf : BOOL;
+	packageAtExitONS : FB_ONS;
+	packageAtExit : BOOL;
+	packageAtExitTimer : Standard.TON := (PT := T#20MS);
+	packageAtExitBufferTimer : Standard.TON := (PT := T#100MS);
+	collisionDetectionTimer : Standard.TON;
+	collisionDetectionONS : FB_ONS;
+	collisionDetected : BOOL;
     motorizedSealFlatteners : FB_MotorizedSealFlatteners();
 	msfVerticalAxis : FB_ThreePositionCylinder();
     pressureBar : FB_MotorizedPressureBar();
@@ -123,7 +131,7 @@ VAR
 	resettingActive : BOOL;
 	resetTimer : Standard.TOF := (PT := T#1S);
 	allMotorCommsGood : BOOL;
-	lightedPalmButton : FB_MurrK50;
+	lightedPalmButton : FB_MurrK50_BasicMode;
 	footSwitchONS : FB_ONS;
 	IBDOutSetting: REAL;
 	ezfeed : FB_EZFeed();
@@ -367,7 +375,12 @@ IF HMIData.baggerClearedAck THEN
 	HMIData.baggerClearedAck := FALSE;
 	printAndApply.ClearedBagAck();
 END_IF
-	 
+
+
+//	 
+packageAtExitTimer(IN := iPackageAtExit);
+
+//	  
 printAndApply(
 	enable:= , 
 	bypass := NOT bagOpened,
@@ -380,26 +393,27 @@ printAndApply(
 	applicatorHome:= iPAApplicatorHome, 
 	heartbeat:= iPAHeartbeat, 
 	productAtApplicatorSensor:= NOT iConveyorClear, 
+	collisionDetected := collisionDetected,
 	//productAtApplicatorSensor:= iConveyorClear, 
-	productAtExitSensor := iPackageAtExit,
+	packageAtExitSensor := packageAtExitTimer.Q,
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
 	packageExitTimeSetting := HMIData.printAndApplyConveyorDwell,
-	packageToTampTimeSetting := HMIData.exitConveyorDwell,
-	state=> , 
+	packageToTampTimeSetting := HMIData.exitConveyorDwell, 
+
 	commFail=> printAndApplyCommFailure.faultTrigger, 
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
 	jammedFault=> productJammed.faultTrigger,
-	printerNotReady=> , 
-	printerReadyToApply=> , 
-	waitingForPrinter=> , 
+
+
+
 	triggerOutput=> oPATrigger1,
 	resetOutput=> oPAReset, 
-	inhibitCycle=> , 
-	inhibitConveyor=> ,
+
+
 	clearOutBaggerIndicaiton => HMIDAta.baggerNeedsClearing,
-	packageFailedToExitFault =>  ,
+
 	labelsInQueue=> labelsQueuedUpFault.faultTrigger);
 	 
 // Run funnel
@@ -815,11 +829,6 @@ exitConveyorRun();
 exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 
-IF printAndApply.inhibitConveyor THEN
-	exitConveyorRun.ManualOFf();
-	externalExitConveyorRun.ManualOFf();
-END_IF
-
 IF safePowerFailure.active THEN
 	//bagOpened := FALSE;
 END_IF
@@ -829,8 +838,26 @@ oRunExitConveyor := ((exitConveyorRun.Q OR (printAndApply.runConveyorAfterApply 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
 externalExitConveyorJogONS(CLK := HMIData.externalExitConveyorJog);
-oRunExternalExitConveyor := ((externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled);
 
+oRunExternalExitConveyor := ((externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply) AND NOT printAndApply.inhibitExternalExitConveyor AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled) OR printAndApply.movePackageToTrunkline;
+
+// packageAtExitONS(CLK := externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply OR printAndApply.movePackageToTrunkline AND NOT printAndApply.inhibitConveyor);
+// packageAtExitBufferTimer(IN := packageAtExitONS.OSF OR packageAtExitBufferTimer.IN AND NOT packageAtExitBufferTimer.Q);
+// IF packageAtExitBufferTimer.Q THEN
+// 	IF iPackageAtExit THEN
+// 		externalConveyorEndedOnAShelf := TRUE;
+// 	END_IF		 
+// END_IF
+// IF oRunExternalExitConveyor THEN
+// 	externalConveyorEndedOnAShelf := FALSE;
+// END_IF
+	 
+IF printAndApply.inhibitConveyor THEN
+	exitConveyorRun.ManualOFf();
+	externalExitConveyorRun.ManualOFf();
+END_IF	 
+		  
+	 
 bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInstalled,
 				releaseOutput => oBOFUp,
 		 		grabOutput => oBOFDown,
@@ -1112,6 +1139,17 @@ autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := auto
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
 footSwitchONS(CLK := iFootSwitch);
+
+// Sets collisionDetected high while collisionDetectionTimer is timing or the sensor is held on(package jam)
+collisionDetectionTimer(PT := TO_TIME(HMIData.collisonDetectionDwell * 1000));
+collisionDetectionONS(CLK := NOT iAuxConfigInput);
+IF collisionDetectionONS.OSR THEN
+	collisionDetectionTimer.IN := TRUE;
+END_IF
+collisionDetected := HMIData.auxIOConfig.cfgInputSelection = AuxInputSelection.BaggerInhibit AND (collisionDetectionTimer.IN OR NOT IAuxConfigInput);
+IF collisionDetectionTimer.Q THEN
+	collisionDetectionTimer.IN := FALSE;
+END_IF
 
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;

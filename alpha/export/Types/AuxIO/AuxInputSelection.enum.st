@@ -4,6 +4,7 @@
 TYPE AuxInputSelection :
 (
 	NotConfigured := 0,
-	BaggerInhibit := 1
+	BaggerInhibit := 1,
+	CollisionDetection := 2
 );
 END_TYPE
