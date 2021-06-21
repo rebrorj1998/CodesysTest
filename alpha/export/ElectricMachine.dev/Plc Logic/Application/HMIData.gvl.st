@@ -66,6 +66,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	barcodeScanDistance : REAL := 1.0;
 	barcodeVerifierInUse : BOOL;
 	barcodeLastReadString : STRING[100];
+	barcodeScanDuration : REAL;                     // Used when 2D barcode is selected
 	lastCycleTime : REAL;
 	averageCycleTime : REAL;
 	resetAverageCycleTime : BOOL;
