@@ -62,6 +62,7 @@ VAR
 	//IBDCylinders : FB_ThreePositionCylinder();
 	IBDExtendONS : FB_ONS();
 	IBDRetractONS : FB_ONS();
+	startBCVONS : FB_ONS();
 	//IBDRetractToDeflate : MonostableMultivibratorFB();
 	//IBDRetractToEject : MonostableMultivibratorFB();
 	bagOpenFingers : FB_BagOpenFingersWithSensors();
@@ -178,20 +179,22 @@ HMIData.bagLevelLow.active := iBagsLow;
 // Dry Cycle Warning
 HMIData.dryCycleActive.active := HMIData.enableDryCycle;
 
-// Ethernet/IP barcode verifier from Cognex
+// Ethernet/IP barcode verifier from Cognex	 
+startBCVONS(CLK := iPALOTAR);
 cognexDM374BCV(
-	start := ,
-	result := iBCVResults,
-	resultAvailable := iBCVResultsAvailable,
+	start := startBCVONS.OSF,
+	result := iBCVResult,
+	resultID := ADR(iBCVResultID),
+	triggerID := ADR(iBCVTriggerID),
 	triggerReady := iBCVTriggerReady,
 	triggerDwell := HMIData.barcodeScanDuration,
 	triggerAck := iBCVTriggerAck,
 	trigger => oBCVTrigger,
-	triggerEnable => oBCVTriggerEnable,
+	triggerEnable => oBCVTriggerEnable
 );	 
 
 // Wait until bag is fed out before triggering barcode fail.
-IF barcodeVerifier.barcodeFault THEN
+IF cognexDM374BCV.barcodeFault THEN
 	barcodeVerificationFailed.Trigger();
 END_IF 
 													
@@ -205,7 +208,7 @@ keyenceBCV(
 		 
 // Barcode Verifier interface to printer
 barcodeVerifier(
-	enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotInstalled AND HMIData.barcodeVerifierInUse),
+	enable := (HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner AND HMIData.barcodeVerifierInUse),
 	readGoodInput := keyenceBCV.goodRead,
 	distanceToScan := HMIData.barcodeScanDistance,
 	feedSpeed := TO_REAL(HMIData.printSpeed),
@@ -218,20 +221,21 @@ barcodeVerifier(
 	 
 CASE HMIData.barcodeVerifierSelection OF
 	BCVSelection.NotInstalled:
-		keyenceBCV.enable := FALSE;
-		cognexDM374BCV.enable := FALSE;
+		keyence_BCV.Enable := FALSE;
+		DM374_BCV.Enable := FALSE;
 	BCVSelection.LaserScanner:
 		Keyence_BCV.Enable := TRUE;
-		cognexDM374BCV.enable := FALSE; 
+		DM374_BCV.Enable := FALSE; 
 		IF Keyence_BCV.eState <> IoDrvEthernetIP.AdapterState.RUNNING THEN 
 			barcodeVerifierCommFail.Trigger();
 		END_IF
 	BCVSelection.TwoDimensional:
 		Keyence_BCV.Enable := FALSE;
-		cognexDM374BCV.enable := HMIData.barcodeVerifierInUse AND HMIData.baggerModelSelection = ModelSelection.Pro18_02;
-		IF cognexDM374BCV.enable AND DataMan_300_series_reader.eState <> IoDrvEtherNetIP.AdapterState.RUNNING THEN
+		DM374_BCV.Enable := TRUE;
+		IF DM374_BCV.enable AND DM374_BCV.eState <> IoDrvEtherNetIP.AdapterState.RUNNING THEN
 			barcodeVerifierCommFail.Trigger();		 
 		END_IF
+		cognexDM374BCV.enable := HMIData.barcodeVerifierInUse AND HMIData.baggerModelSelection = ModelSelection.Pro18_02;
 END_CASE
 	 
 // Raise/Lower bagger head logic

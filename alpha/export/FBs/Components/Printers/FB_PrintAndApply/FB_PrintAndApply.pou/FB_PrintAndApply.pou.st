@@ -96,7 +96,7 @@ packageFailedToReachTampTimer(IN := watchForBagToTamp AND (packageToTampTimeSett
 							Q=> );	
 
 // Fault if label is in queue for too long
-labelsInQueueFaultTimer(IN := dataReady AND enable AND NOT packageHeldAtExitSensor, 
+labelsInQueueFaultTimer(IN := dataReady AND enable, 
 							//PT :=  TO_TIME((packageToTampTimeSetting + 2) * 1000.0),
 							Q=> labelsInQueue);	
 				

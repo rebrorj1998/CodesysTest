@@ -32,6 +32,7 @@ disabledSettingWord.5 := NOT Keyence_BCV.Enable;
 disabledSettingWord.6 := NOT Infeed_Conveyor_IO.Enable;
 disabledSettingWord.7 := NOT Panther_PA.Enable;
 disabledSettingWord.8 := NOT IBD_Motor.Enable;
+disabledSettingWord.9 := NOT DM374_BCV.Enable;
 
 deviceState := Cube67_BN_E_V2.GetDeviceState();
 disabledStatusWord.0 := deviceState = DED.DEVICE_STATE.DISABLED;
@@ -51,10 +52,10 @@ deviceState := Panther_PA.GetDeviceState();
 disabledStatusWord.7 := deviceState = DED.DEVICE_STATE.DISABLED;
 deviceState := IBD_Motor.GetDeviceState();
 disabledStatusWord.8 := deviceState = DED.DEVICE_STATE.DISABLED;
-
+deviceState := DM374_BCV.GetDeviceState();
+disabledStatusWord.9 := deviceState = DED.DEVICE_STATE.DISABLED;
 
 CASE state OF
-	
 	0:  reconfig.xExecute := FALSE;
 		IF disabledSettingWord <> disabledStatusWord OR _recongfigCommand THEN
 			_recongfigCommand := FALSE;
