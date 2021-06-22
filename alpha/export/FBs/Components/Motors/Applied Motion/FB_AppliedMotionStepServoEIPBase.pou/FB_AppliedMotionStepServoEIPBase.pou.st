@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_AppliedMotionStepServoEIPBase IMPLEMENTS IPositionableMotor
 VAR_INPUT
-    ptrEIPInputs : POINTER TO ARRAY[0..13] OF  DINT;
+    ptrEIPInputs : POINTER TO ARRAY[0..13] OF DINT;
     ptrEIPOutputs : POINTER TO ARRAY[0..15] OF DINT;
 	commFail : BOOL;
     stepsPerInchSetpoint : INT;             //Steps per inch setpoint

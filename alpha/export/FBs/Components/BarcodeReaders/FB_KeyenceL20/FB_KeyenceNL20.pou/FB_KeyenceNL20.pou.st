@@ -42,10 +42,7 @@ VAR
 	triggerONS : FB_ONS;
 	readingCompleteTrigger : FB_MonostableMultivibrator();
 END_VAR
-	
-VAR_IN_OUT
 
-END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: KeyenceL20FB
 //    Description: Alarms, faults, configuration of the Keyence L-N20 barcode scanner base

@@ -182,18 +182,12 @@ HMIData.dryCycleActive.active := HMIData.enableDryCycle;
 // Ethernet/IP barcode verifier from Cognex	 
 startBCVONS(CLK := iPALOTAR);
 cognexDM374BCV(
-	start := startBCVONS.OSF AND NOT printAndApply.packageHeldAtExitSensor,
-	result := iBCVResult,
-	resultID := ADR(iBCVResultID),
-	triggerID := ADR(iBCVTriggerID),
-	triggerReady := iBCVTriggerReady,
+	inputsEIP := ADR(iBCVInputs),
+	outputsEIP := ADR(oBCVOutputs),
 	triggerDwell := HMIData.barcodeScanDuration,
-	triggerAck := iBCVTriggerAck,
-	badReads := HMIData.barcodeBadReadFaultSetting,
-	trigger => oBCVTrigger,
-	triggerEnable => oBCVTriggerEnable,
+	badReadFaultSetting := HMIData.barcodeBadReadFaultSetting, 
+	triggerInput := startBCVONS.OSF AND NOT printAndApply.packageHeldAtExitSensor,
 );	 
-
 // Wait until bag is fed out before triggering barcode fail.
 IF cognexDM374BCV.barcodeFault THEN
 	barcodeVerificationFailed.Trigger();
@@ -203,8 +197,6 @@ END_IF
 keyenceBCV(
 	ptrEIPInputs:= ADR(keyenceBCVInputs), 
 	ptrEIPOutputs:= ADR(keyenceBCVOutputs), 
-	triggerInput:= , 
-	lastReadData => HMIData.barcodeLastReadString
 );	 
 		 
 // Barcode Verifier interface to printer
@@ -227,6 +219,7 @@ CASE HMIData.barcodeVerifierSelection OF
 	BCVSelection.LaserScanner:
 		Keyence_BCV.Enable := TRUE;
 		DM374_BCV.Enable := FALSE;
+		HMIData.barcodeLastReadString := keyenceBCV.lastReadData;
 		HMIData.barcodeBadReadCount := barcodeVerifier.currentBadReadCount;
 		HMIData.barcodeGoodReadCount := barcodeVerifier.currentGoodReadCount;
 		IF Keyence_BCV.eState <> IoDrvEthernetIP.AdapterState.RUNNING THEN 
@@ -236,6 +229,7 @@ CASE HMIData.barcodeVerifierSelection OF
 		Keyence_BCV.Enable := FALSE;
 		DM374_BCV.Enable := TRUE;
 		IF cognexDM374BCV.enable THEN
+			HMIData.barcodeLastReadString := cognexDM374BCV.lastReadData;
 			HMIData.barcodeBadReadCount := cognexDM374BCV.badReadCount;
 			HMIData.barcodeGoodReadCount := cognexDM374BCV.goodReadCount;
 		END_IF
@@ -265,7 +259,6 @@ baggerHeadMovement(
 	motorDirectionOutput=> oBaggerHeadMotorDir);
 	 
 // Option setup and factory config  
-	 
 IF HMIData.resetAverageCycleTime THEN
 	HMIData.averageCycleTime := 0;
 	HMIData.resetAverageCycleTime := FALSE;
@@ -352,7 +345,6 @@ pressureBar(
 	pbarMotor:= pressureBarMotor);
 pressureBar.Mode := electricPressureBarMode;
 
-
 // Run bag delivery 
 bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse,
@@ -395,9 +387,6 @@ CASE HMIData.printerSelection OF
 													murrIOBusNode.printerNodeEnabled := FALSE;
 END_CASE
 
-
-
-	 
 // Run Zebra Printer
 zebraPrinter(ribbonEncoderPulse := iPrinterRibbonEncoder, oLowerPrintHead => oPrintHeadDown);
 zebraPrinter.Mode := printerMode;
@@ -409,12 +398,10 @@ ELSE
 	zebraPrinter.autoSendLabel := FALSE;
 END_IF
 
-	 
 IF HMIData.baggerClearedAck THEN
 	HMIData.baggerClearedAck := FALSE;
 	printAndApply.ClearedBagAck();
 END_IF
-
 
 //	 
 packageAtExitTimer(IN := iPackageAtExit);
@@ -439,17 +426,13 @@ printAndApply(
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
 	packageExitTimeSetting := HMIData.printAndApplyConveyorDwell,
 	packageToTampTimeSetting := HMIData.exitConveyorDwell, 
-
 	commFail=> printAndApplyCommFailure.faultTrigger, 
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
 	jammedFault=> productJammed.faultTrigger,
 	triggerOutput=> oPATrigger1,
 	resetOutput=> oPAReset, 
-
-
 	clearOutBaggerIndicaiton => HMIDAta.baggerNeedsClearing,
-
 	labelsInQueue=> labelsQueuedUpFault.faultTrigger);
 	 
 // Run funnel
