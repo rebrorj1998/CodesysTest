@@ -41,7 +41,7 @@ VAR_OUTPUT
 	movePackageToTrunkline : BOOL;
 	packageHeldAtExitSensor : BOOL;
 END_VAR
-VAR
+VAR 
 	resetOutputTimer : FB_MonostableMultivibrator();
 	triggerToPanther : DelayDwellFB() := (Dwellsetting := 750);
 	exitConveyorRunAfterPA : DelayDwellFB() := (Dwellsetting := 3000);
@@ -63,6 +63,7 @@ VAR
 	productLeavingDebounce : Standard.TON := (PT := T#500MS);
 	labelsInQueueFaultTimer : Standard.TON := (PT := T#5S);
 	packageAtExitRunoffDwell : Standard.TON;
+	tampedWhileInhibitedRunoffDwell : Standard.TON := (PT := T#2S);
 	testTimer : Standard.TON := (PT := T#1S);
 END_VAR	
 VAR_IN_OUT
@@ -81,19 +82,23 @@ printerNotReady := faultedStatus OR commFail;
 waitingForPrinter := ((state = PRINT_AND_APPLY_STATES.WaitForLOTAR) OR (state = PRINT_AND_APPLY_STATES.WaitForLabel)) AND NOT packageHeldAtExitSensor;
 
 // Timeout on waiting for printer too long
-waitForPrinterFaultTimer(IN := waitingForPrinter AND (waitForPrinterFaultSetting > 0) AND enable, 
-							PT :=  TO_TIME(waitForPrinterFaultSetting * 1000.0),
-							Q=> waitForPrintFault);
+waitForPrinterFaultTimer(
+	IN := waitingForPrinter AND (waitForPrinterFaultSetting > 0) AND enable, 
+	PT :=  TO_TIME(waitForPrinterFaultSetting * 1000.0),
+	 Q => waitForPrintFault
+);
 
 // Fault if package does not exit incline conveyor
-packageFailedToExitTimer(IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable, 
-							PT :=  TO_TIME(packageExitTimeSetting * 1000.0),
-							Q=> );
+packageFailedToExitTimer(
+	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable, 
+	PT :=  TO_TIME(packageExitTimeSetting * 1000.0)
+);
 												
 // Fault if not reached tamp head by the time conveyor stops
-packageFailedToReachTampTimer(IN := watchForBagToTamp AND (packageToTampTimeSetting > 0) AND enable, 
-							PT :=  TO_TIME(packageToTampTimeSetting * 1000.0),
-							Q=> );	
+packageFailedToReachTampTimer(
+	IN := watchForBagToTamp AND (packageToTampTimeSetting > 0) AND enable, 
+	PT :=  TO_TIME(packageToTampTimeSetting * 1000.0)
+);
 
 // Fault if label is in queue for too long
 labelsInQueueFaultTimer(IN := dataReady AND enable, 
@@ -117,15 +122,16 @@ IF packageHeldAtExitSensor THEN
 	END_IF
 END_IF        
 
-// Once the package has reached the trunk line, run for an additional runoff dwell
+// Once the package has reached the trunk line, run for the additional runoff dwell
 packageAtExitRunoffDwell(PT := TO_TIME(HMIData.packageAtExitRunoffDwell * 1000));
-IF packageHeldAtExitSensor AND movePackageToTrunkline AND NOT packageAtExitSensor THEN
+IF movePackageToTrunkline AND NOT packageAtExitSensor THEN
 	packageHeldAtExitSensor := FALSE;
 	packageAtExitRunoffDwell.IN := TRUE;
-END_IF
-IF packageAtExitRunoffDwell.Q THEN
-	movePackageToTrunkline := FALSE;
-	packageAtExitRunoffDwell.IN := FALSE;
+	IF packageAtExitRunoffDwell.Q THEN
+		packageAtExitRunoffDwell.IN := FALSE;
+		movePackageToTrunkline := FALSE;
+		state := PRINT_AND_APPLY_STATES.Idle;
+	END_IF
 END_IF
 					
 IF watchForBagToTamp AND productAtApplicatorSensor THEN
@@ -196,7 +202,7 @@ IF NOT enable OR commFail OR faultedStatusONS.OSR OR baggerFaultedONS.OSR THEN
 END_IF
 
 CASE state OF
-	PRINT_AND_APPLY_STATES.Idle:			//  Wait for bagger cycle to begin
+	PRINT_AND_APPLY_STATES.Idle:			// Wait for bagger cycle to begin
 											inhibitConveyor := FALSE;
 											inhibitCycle := FALSE;
 											packageWasSeen := FALSE;
@@ -207,7 +213,7 @@ CASE state OF
 											END_IF
 											
 	PRINT_AND_APPLY_STATES.WaitForLOTAR:	// Wait for LOTAR from Panther. Add delay to allow for accel on conveyor if stopped, otherwise package can sail right through
-											IF LOTAR AND NOT packageHeldAtExitSensor THEN
+											IF LOTAR THEN
 												IF NOT productAtApplicatorSensor AND NOT packageWasSeen THEN
 													triggerToPanther.DelaySetting := 0;
 												END_IF
@@ -235,8 +241,16 @@ CASE state OF
 											
 	PRINT_AND_APPLY_STATES.Applying:		// Allow for a debounce on package leaving the photoeye
 											IF productLeavingDebounce.Q THEN
-												watchForBagExit := TRUE;
-												state := PRINT_AND_APPLY_STATES.Idle;
+												IF NOT packageHeldAtExitSensor THEN
+													watchForBagExit := TRUE;
+													state := PRINT_AND_APPLY_STATES.Idle;
+												ELSE
+													tampedWhileInhibitedRunoffDwell.IN := TRUE;
+													IF tampedWhileInhibitedRunoffDwell.Q THEN
+														tampedWhileInhibitedRunoffDwell.IN := FALSE;
+														inhibitCycle := TRUE;
+													END_IF
+												END_IF
 											END_IF
 										
 	PRINT_AND_APPLY_STATES.Fault:			//
@@ -249,8 +263,7 @@ CASE state OF
 											packageRemovedBeforeTamp := FALSE;
 											packageWasSeen := FALSE;
 											exitConveyorRunAfterPA.Reset();
-											triggerToPanther.Reset();
-											
+											triggerToPanther.Reset();								
 END_CASE
 
 // Product leaving rear exit conveyor debounce

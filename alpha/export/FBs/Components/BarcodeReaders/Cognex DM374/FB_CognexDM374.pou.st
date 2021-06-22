@@ -8,12 +8,15 @@ VAR_INPUT
 	triggerDwell : REAL;
 	triggerAck : BOOL;
 	triggerID : POINTER TO ARRAY[0..1] OF BYTE;
+	badReads : UDINT;
 END_VAR
 VAR_OUTPUT
 	trigger : BOOL;
 	triggerEnable : BOOL;
 	barcodeFault : BOOL;
 	triggerFeedbackFault : FB_Fault(name := '');
+	goodReadCount : UDINT;
+	badReadCount : UDINT;
 END_VAR
 VAR
 	_resultID : CombineBytes;
@@ -71,6 +74,13 @@ CASE state OF
 				triggerTimer.IN := FALSE;
 				state := eCognexDM374States.Idle;
 				IF NOT result THEN
+					badReadCount := badReadCount + 1;
+					goodReadCount := 0;
+				ELSE
+					badReadCount := 0;
+					goodReadCount := goodReadCount +1;
+				END_IF
+				IF badReadCount >= badReads THEN
 					barcodeFault := TRUE;
 				END_IF
 			END_IF

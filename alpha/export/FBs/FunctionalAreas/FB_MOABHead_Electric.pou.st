@@ -21,7 +21,7 @@ VAR_OUTPUT
 	finishCycleSubState : FINISH_CYCLE_STATES;
 END_VAR
 VAR
-		externalConveyorEndedOnAShelf : BOOL;
+	externalConveyorEndedOnAShelf : BOOL;
 	packageAtExitONS : FB_ONS;
 	packageAtExit : BOOL;
 	packageAtExitTimer : Standard.TON := (PT := T#20MS);
@@ -182,15 +182,16 @@ HMIData.dryCycleActive.active := HMIData.enableDryCycle;
 // Ethernet/IP barcode verifier from Cognex	 
 startBCVONS(CLK := iPALOTAR);
 cognexDM374BCV(
-	start := startBCVONS.OSF,
+	start := startBCVONS.OSF AND NOT printAndApply.packageHeldAtExitSensor,
 	result := iBCVResult,
 	resultID := ADR(iBCVResultID),
 	triggerID := ADR(iBCVTriggerID),
 	triggerReady := iBCVTriggerReady,
 	triggerDwell := HMIData.barcodeScanDuration,
 	triggerAck := iBCVTriggerAck,
+	badReads := HMIData.barcodeBadReadFaultSetting,
 	trigger => oBCVTrigger,
-	triggerEnable => oBCVTriggerEnable
+	triggerEnable => oBCVTriggerEnable,
 );	 
 
 // Wait until bag is fed out before triggering barcode fail.
@@ -214,8 +215,6 @@ barcodeVerifier(
 	feedSpeed := TO_REAL(HMIData.printSpeed),
 	positionOffset := HMIData.barcodeStartPosition,
 	badReadFaultCountSetting := HMIData.barcodeBadReadFaultSetting,
-	currentBadReadCount => HMIData.barcodeBadReadCount,
-	currentGoodReadCount => HMIData.barcodeGoodReadCount,
 	triggerScannerOutput => keyenceBCV.triggerInput
 );
 	 
@@ -223,16 +222,24 @@ CASE HMIData.barcodeVerifierSelection OF
 	BCVSelection.NotInstalled:
 		keyence_BCV.Enable := FALSE;
 		DM374_BCV.Enable := FALSE;
+		HMIData.barcodeBadReadCount := 0;
+		HMIData.barcodeGoodReadCount := 0;
 	BCVSelection.LaserScanner:
 		Keyence_BCV.Enable := TRUE;
-		DM374_BCV.Enable := FALSE; 
+		DM374_BCV.Enable := FALSE;
+		HMIData.barcodeBadReadCount := barcodeVerifier.currentBadReadCount;
+		HMIData.barcodeGoodReadCount := barcodeVerifier.currentGoodReadCount;
 		IF Keyence_BCV.eState <> IoDrvEthernetIP.AdapterState.RUNNING THEN 
 			barcodeVerifierCommFail.Trigger();
 		END_IF
 	BCVSelection.TwoDimensional:
 		Keyence_BCV.Enable := FALSE;
 		DM374_BCV.Enable := TRUE;
-		IF DM374_BCV.enable AND DM374_BCV.eState <> IoDrvEtherNetIP.AdapterState.RUNNING THEN
+		IF cognexDM374BCV.enable THEN
+			HMIData.barcodeBadReadCount := cognexDM374BCV.badReadCount;
+			HMIData.barcodeGoodReadCount := cognexDM374BCV.goodReadCount;
+		END_IF
+		IF DM374_BCV.eState <> IoDrvEtherNetIP.AdapterState.RUNNING THEN
 			barcodeVerifierCommFail.Trigger();		 
 		END_IF
 		cognexDM374BCV.enable := HMIData.barcodeVerifierInUse AND HMIData.baggerModelSelection = ModelSelection.Pro18_02;
@@ -628,11 +635,21 @@ CASE HMIData.auxIOConfig.factorySelection OF
 														oAuxReadyForFiller := filler.waitingForFiller;
 															 
  														CASE HMIData.auxIOConfig.cfgInputSelection OF
+																					 
+// 															AuxInputSelection.BaggerInhibit:		// move this into "BaggerInhibit", and "BaggerInihibit" into "CollisionDetection" once HMI is released
+// 																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+//	 																								HMIData.packageBlockingTrunkline.active := FALSE;
+																										 
 															AuxInputSelection.NotConfigured:		// 
 																									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																									HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
 															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+																 									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																									HMIData.packageBlockingTrunkline.active := printAndApply.inhibitExternalExitConveyor;
+																										 
+															AuxInputSelection.CollisionDetection:   //
+																 
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF

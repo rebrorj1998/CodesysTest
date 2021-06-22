@@ -45,8 +45,8 @@ ELSE
 	waitForReadTimer(PT := T#0S);
 END_IF
 
+//
 IF _reset OR NOT enable THEN
-	//
 	state := BCR_STATES.Idle;
 	barcodeFault := FALSE;
 END_IF
@@ -65,7 +65,6 @@ CASE state OF
 										xBusy := TRUE;
 										xDone := FALSE;
 									END_IF
-									
 									_trigger := FALSE;
 									
 	BCR_STATES.WaitForOffset: 		// Wait for offset to trigger read
