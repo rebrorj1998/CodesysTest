@@ -93,7 +93,7 @@ sealFlattenersVerticalAxis.Execute();
 
 //
 timeoutTimer();
-IF timeoutTimer.Q THEN
+IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
 	timeoutFault := TRUE;
 END_IF
 
@@ -242,8 +242,8 @@ CASE state OF
                                                                     END_IF
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersOut :                      // Move flatteners to clearance position state
+																	timeoutTimer.IN := FALSE;
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND _amMoveClearance) THEN
-																		timeoutTimer.IN := FALSE;
                                                                         state := SEAL_FLATTENER_STATES.MoveFlattenersUpAndToClearance;
 																		sealFlattenersVerticalAxis.Retract();  
                                                                         ClearCommands();
@@ -310,8 +310,8 @@ CASE state OF
                                                                     END_IF
 																
 	SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed:					       // Move flatteners to up state
+																	timeoutTimer.IN := FALSE;
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveIn OR _amMoveHandLoad)) THEN
-                                                                        timeoutTimer.IN := FALSE;
 																		state := SEAL_FLATTENER_STATES.MoveFlattenersIn;
                                                                     END_IF
                                            
