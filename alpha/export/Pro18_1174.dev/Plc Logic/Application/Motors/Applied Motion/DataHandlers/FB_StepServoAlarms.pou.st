@@ -38,7 +38,7 @@ faults.overTemp.faultTrigger := overTemp := alarmCode.3;
 faults.internalVoltage.faultTrigger := internalVoltage := alarmCode.4;
 faults.overVoltage.faultTrigger := overVoltage := alarmCode.5;
 faults.underVoltage.faultTrigger := underVoltage := alarmCode.6;
-faults.overCurrent.faultTrigger := overCurrent    := alarmCode.7;
+faults.overCurrent.faultTrigger := overCurrent := alarmCode.7;
 faults.openMotorWinding.faultTrigger := openMotorWinding := alarmCode.8;
 faults.badEncoder.faultTrigger := badEncoder := alarmCode.9;
 commError := alarmCode.10;

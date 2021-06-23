@@ -9,10 +9,10 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	lastReadData : STRING[100];
-	barcodeFault : BOOL;
 	goodReadCount : UDINT;
 	badReadCount : UDINT;
-	triggerFeedbackFault : FB_Fault(name := '');
+	barcodeFault : BOOL;
+	triggerFeedbackFault : BOOL;
 END_VAR
 VAR
 	_result : BOOL;
@@ -30,23 +30,24 @@ VAR
 	state : eCognexDM374States;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-//
-_triggerReady       := inputsEIP[0].0;
-_triggerAck         := inputsEIP[0].1;
-_triggerID.bytes[0] := inputsEIP[6]; // Flip Flop the LSB and MSB so the triggerID integer is correct
+
+// Read data from barcode scanner
+_triggerReady := inputsEIP[0].0;
+_triggerAck := inputsEIP[0].1;
+_triggerID.bytes[0] := inputsEIP[6];
 _triggerID.bytes[1] := inputsEIP[7];
-_resultID.bytes[0]  := inputsEIP[8]; // Flip Flop the LSB and MSB so the resultID integer is correct
-_resultID.bytes[1]  := inputsEIP[9];
-_result             := inputsEIP[10].0;
+_resultID.bytes[0] := inputsEIP[8];
+_resultID.bytes[1] := inputsEIP[9];
+_result := inputsEIP[10].0;
 _resultDataLength.bytes[0] := inputsEIP[13];
 _resultDataLength.bytes[1] := inputsEIP[14];
-_resultData         := ADR(inputsEIP[16]);
+_resultData := ADR(inputsEIP[16]);
 
-//
+// Write data to barcode scanner
 outputsEIP[0].0 := _triggerEnable;
 outputsEIP[0].1 := _trigger;
 
-//
+// The resulting string of the last read barcode. Can possibly be two results in one string
 lastReadData := LEFT(_resultData^, _resultDataLength.i - 1);
 
 // If reset or not enabled move to the idle state to clear all variables
@@ -56,7 +57,7 @@ END_IF
 
 // If trigger is high and we dont see an ack bit, fault after debounce
 triggerAckTimer(IN := _trigger AND NOT _triggerAck);
-triggerFeedbackFault.faultTrigger := triggerAckTimer.Q;
+triggerFeedbackFault := triggerAckTimer.Q;
 
 // Controls the trigger duration
 triggerTimer(PT := TO_TIME(triggerDwell * 1000));
@@ -86,9 +87,11 @@ CASE state OF
 				triggerTimer.IN := FALSE;
 				state := eCognexDM374States.Idle;
 				IF NOT _result THEN
+					// Incremenet bad read count
 					badReadCount := badReadCount + 1;
 					goodReadCount := 0;
 				ELSE
+					// Increment good read count
 					badReadCount := 0;
 					goodReadCount := goodReadCount +1;
 				END_IF

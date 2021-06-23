@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_AppliedMotionStepServoEIPBaseQX IMPLEMENTS IPositionableMotor, IStoredProgramMotor
 VAR_INPUT
-    ptrEIPInputs : POINTER TO ARRAY[0..13] OF  DINT;
+    ptrEIPInputs : POINTER TO ARRAY[0..13] OF DINT;
     ptrEIPOutputs : POINTER TO ARRAY[0..15] OF DINT;
     faultHandler : REFERENCE TO FB_FaultHandler;
 	commFail : BOOL;
@@ -44,7 +44,6 @@ VAR
 	_reset : BOOL;			//Reset Motor
 	_homeNow : BOOL;
 	homingOSF : F_TRIG;
-	
 	IECReferenceGood : BOOL;
 END_VAR
 VAR_OUTPUT

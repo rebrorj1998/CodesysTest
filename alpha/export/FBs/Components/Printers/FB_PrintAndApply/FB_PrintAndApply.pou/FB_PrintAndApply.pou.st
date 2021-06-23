@@ -195,6 +195,7 @@ IF resetONS.Q THEN
 	inhibitExternalExitConveyor := FALSE;
 	packageHeldAtExitSensor := FALSE;
 	movePackageToTrunkline := FALSE;
+	tampedWhileInhibitedRunoffDwell.IN := FALSE;
 END_IF
 
 IF NOT enable OR commFail OR faultedStatusONS.OSR OR baggerFaultedONS.OSR THEN
@@ -245,14 +246,14 @@ CASE state OF
 													watchForBagExit := TRUE;
 													state := PRINT_AND_APPLY_STATES.Idle;
 												ELSE
-													tampedWhileInhibitedRunoffDwell.IN := TRUE;
-													IF tampedWhileInhibitedRunoffDwell.Q THEN
-														tampedWhileInhibitedRunoffDwell.IN := FALSE;
-														inhibitCycle := TRUE;
-													END_IF
+													state := PRINT_AND_APPLY_STATES.Inhibited;
 												END_IF
 											END_IF
-										
+											
+	PRINT_AND_APPLY_STATES.Inhibited:       
+											inhibitCycle := TRUE;
+											inhibitConveyor := TRUE;
+											
 	PRINT_AND_APPLY_STATES.Fault:			//
 											inhibitConveyor := FALSE;
 											inhibitCycle := FALSE;
@@ -265,6 +266,9 @@ CASE state OF
 											exitConveyorRunAfterPA.Reset();
 											triggerToPanther.Reset();								
 END_CASE
+
+//
+tampedWhileInhibitedRunoffDwell();
 
 // Product leaving rear exit conveyor debounce
 productLeavingDebounce(IN := (NOT productAtApplicatorSensor) AND state = PRINT_AND_APPLY_STATES.Applying);

@@ -99,7 +99,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	calculatedCyclesPerMinute : REAL;
 	sealFlattenersInUse : BOOL := TRUE;
 	collisonDetectionDwell : REAL := 3;
-	packageAtExitRunoffDwell : REAL := 0.5;
+	packageAtExitRunoffDwell : REAL := 1.0;
 	IBDOffset : REAL := 3.0;
 	pressureBarBagFeedPosition : REAL := 2.0;
 	pressureBarInPosition : REAL := 0;

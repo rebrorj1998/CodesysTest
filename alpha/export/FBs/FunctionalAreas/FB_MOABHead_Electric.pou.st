@@ -101,6 +101,8 @@ VAR
 	printAndApplyPackageFailedToReachTamp : FB_Fault(name := 'Product Failed to Reach Print and Apply Tamp');
 	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
 	labelsQueuedUpFault : FB_Fault(name := 'Labels Queued Up in Printer');
+	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
+	
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
 	loadPlateFaults : LoadPlateFaultsType;
@@ -211,11 +213,13 @@ barcodeVerifier(
 );
 	 
 CASE HMIData.barcodeVerifierSelection OF
+		 
 	BCVSelection.NotInstalled:
 		keyence_BCV.Enable := FALSE;
 		DM374_BCV.Enable := FALSE;
 		HMIData.barcodeBadReadCount := 0;
 		HMIData.barcodeGoodReadCount := 0;
+			 
 	BCVSelection.LaserScanner:
 		Keyence_BCV.Enable := TRUE;
 		DM374_BCV.Enable := FALSE;
@@ -225,6 +229,7 @@ CASE HMIData.barcodeVerifierSelection OF
 		IF Keyence_BCV.eState <> IoDrvEthernetIP.AdapterState.RUNNING THEN 
 			barcodeVerifierCommFail.Trigger();
 		END_IF
+			 
 	BCVSelection.TwoDimensional:
 		Keyence_BCV.Enable := FALSE;
 		DM374_BCV.Enable := TRUE;
@@ -233,7 +238,7 @@ CASE HMIData.barcodeVerifierSelection OF
 			HMIData.barcodeBadReadCount := cognexDM374BCV.badReadCount;
 			HMIData.barcodeGoodReadCount := cognexDM374BCV.goodReadCount;
 		END_IF
-		IF DM374_BCV.eState <> IoDrvEtherNetIP.AdapterState.RUNNING THEN
+		IF DM374_BCV.eState <> IoDrvEtherNetIP.AdapterState.RUNNING OR cognexDM374BCV.triggerFeedbackFault THEN
 			barcodeVerifierCommFail.Trigger();		 
 		END_IF
 		cognexDM374BCV.enable := HMIData.barcodeVerifierInUse AND HMIData.baggerModelSelection = ModelSelection.Pro18_02;
@@ -295,7 +300,9 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						lowerService := HMIData.sealFlattenersServiceLower,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
-						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING);
+						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+						timeoutFault => sealFlattenerTimedOut.faultTrigger
+);
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 	 
@@ -1629,7 +1636,6 @@ END_CASE
 
 CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.Idle : 
-	
 	SEAL_SEPARATE_STATES.BringInIBD : 				// Bring in IBD if enabled
 													IF enableIBDDeflate THEN
 														IBD.CloseIBD();
@@ -1655,13 +1661,9 @@ CASE sealAndSeparateSubState OF
                                                     IF motorizedSealFlatteners.enable THEN
                                                         motorizedSealFlatteners.AutoMoveOut();
                                                     END_IF
-                                                    
+                                                
 													pressureBar.CloseJaw();
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.MovingJawIn;
-                                                    
-                                                    
-                                                    
-                                                    
                                                     
     SEAL_SEPARATE_STATES.MovingJawIn :                // If Jaw is in and flatteners out then move on
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
@@ -1689,10 +1691,8 @@ CASE sealAndSeparateSubState OF
 															oSealBarExtend := TRUE;
 															oSealBarRetract := FALSE;
 														ELSE 
-															
 															oSealBarExtend := FALSE;
 															oSealBarRetract := TRUE;
-															
 														END_IF
 													END_IF
 
