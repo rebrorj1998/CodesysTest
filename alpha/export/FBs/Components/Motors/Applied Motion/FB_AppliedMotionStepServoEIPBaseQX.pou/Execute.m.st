@@ -48,7 +48,6 @@ IF NOT driveInputs[11].0 THEN
 END_IF
 
 commandSentONS(CLK := commands.commandSent);
-
 IF commandSentONS.Q THEN
 	commandSuccessful := TRUE;
 END_IF

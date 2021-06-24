@@ -893,7 +893,6 @@ IF printAndApply.inhibitConveyor THEN
 	externalExitConveyorRun.ManualOFf();
 END_IF	 
 		  
-	 
 bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInstalled,
 				releaseOutput => oBOFUp,
 		 		grabOutput => oBOFDown,
@@ -903,12 +902,9 @@ bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInst
 				bagFailedToGrabLeftFingerCount := Globals.bagFailedToGrabLeftFingerCount,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
-					 
-
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
-
 	 
 IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
                 ptrEIPOutputs := ADR(oIBDMotorEIP),
@@ -1480,10 +1476,7 @@ CASE state OF
                                                     ELSE
                                                         state := HEAD_STATES.FinishCycle;
                                                     END_IF
-                                                    
-                                                            
-                                                    
-                                
+                                                                   
     HEAD_STATES.OpenBag :                            // Close jaw to grab the bag
                                                     openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawIn;
                                                     state := HEAD_STATES.OpeningBag;
@@ -1539,13 +1532,9 @@ CASE state OF
 												END_IF
 											END_IF	
 	HEAD_STATES.StartReset 	:			// Reset all 
-	
-	HEAD_STATES.Resetting : 
-
-										
+	HEAD_STATES.Resetting :				
     HEAD_STATES.StartHoming :            // 
 											IF allMotorCommsGood THEN
-												
 												motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.notHomed.Ack();
 												IF pressureBar.homeRequired THEN
 													pressureBar.HomeNow();
@@ -1560,10 +1549,8 @@ CASE state OF
 												ELSE
 													IBD.OpenIBD();
 												END_IF
-												
                                             	state := HEAD_STATES.Homing; 
-											END_IF
-                                                                                   
+											END_IF                             
     
     HEAD_STATES.Homing :                // 
                                             //IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
@@ -1576,7 +1563,7 @@ CASE state OF
 												END_IF    
                                             END_IF
                                             
-    HEAD_STATES.HomingComplete :        // 
+    HEAD_STATES.HomingComplete :            // 
 											IF (NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired) OR NOT motorizedSealFlatteners.enable THEN
 												 homeJawPB := FALSE;
 												//state := HEAD_STATES.Idle;
@@ -1587,23 +1574,18 @@ CASE state OF
 												//setPassthroughPB := TRUE;
 											END_IF
                                            
-    
-    HEAD_STATES.MovePassthrough :        // 
-											
+    HEAD_STATES.MovePassthrough :           // 
                                             pressureBar.OpenJaw();
 											IBD.OpenIBD();
                                             state := HEAD_STATES.MovingPassthrough;
     
     HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND IBD.IBDOpen THEN
                                                 state := HEAD_STATES.MovedPassthrough;     
-												
                                             END_IF
                                             
-    HEAD_STATES.MovedPassthrough :        // 
-                                            //pressureBar.AutoDoneMovingPassthrough();
+    HEAD_STATES.MovedPassthrough :          // 
                                             state := HEAD_STATES.Idle;
 											setPassthroughPB := FALSE;
-											
 											motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(HMIData.bagWidth,1000,1000,1000,125);
                                                     
     HEAD_STATES.Fault :                     hmiLight.TurnOff();
