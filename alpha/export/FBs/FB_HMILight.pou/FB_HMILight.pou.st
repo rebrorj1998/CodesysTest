@@ -23,5 +23,3 @@ END_IF
 blinker(F:= , DC:= , Q=> );
 
 lightOutput := _turnOn OR (blinker.Q AND (_blinkFast OR _blinkSlow));
-
-

@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">637592548563200992</Single>
+        <Single Name="Timestamp" Type="long">637624638632379515</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
@@ -627,6 +627,31 @@
             <Single Name="Id" Type="long">504039205</Single>
             <Single Name="Namespace" Type="string">IecVarAccessLibrary</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
+              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
+                <Single Name="Name" Type="string">IBLOCKSIZE</Single>
+                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">5910974510923778</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">22800</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </Array>
+            <Single Name="Name" Type="string">Util, 3.5.11.0 (System)</Single>
+            <Single Name="Id" Type="long">2266325970</Single>
+            <Single Name="Namespace" Type="string">Util</Single>
+            <Single Name="SystemLibrary" Type="bool">False</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
             <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
             <Single Name="QualifiedOnly" Type="bool">False</Single>

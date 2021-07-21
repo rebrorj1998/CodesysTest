@@ -16,11 +16,13 @@ VAR
 	delayTimer : Standard.TON;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+SUPER^();
 
 // HPA is on for only as long as its setpoint.
-
-delayTimer(IN := _trigger AND NOT dwellTimer.Q, PT := UINT_TO_TIME(_delayTimeInMS));
-dwellTimer(IN := delayTimer.Q AND NOT dwellTimer.Q, PT := UINT_TO_TIME(_dwellTimeInMS));
+delayTimer(IN := _trigger AND NOT dwellTimer.Q, 
+		   PT := UINT_TO_TIME(_delayTimeInMS));
+dwellTimer(IN := delayTimer.Q AND NOT dwellTimer.Q, 
+		   PT := UINT_TO_TIME(_dwellTimeInMS));
 
 Q:= delayTimer.Q OR _manualOn;
 
@@ -30,5 +32,3 @@ IF dwellTimer.Q OR _reset THEN
 	_manualOn := FALSE;
 	_manualOff := FALSE;
 END_IF
-
-SUPER^();

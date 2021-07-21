@@ -44,6 +44,25 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
 	fillerEnable : BOOL;
+	
+	rearLoadPlateShakerDelay : REAL;
+	rearLoadPlateShakerDwell : REAL;
+	rearLoadPlateShakerOnDuration : REAL;
+	rearLoadPlateShakerOffDuration : REAL;
+	rearloadPlateShakerStart : SHAKER_START_SELECTION;
+	
+	frontLoadPlateShakerDelay : REAL;
+	frontLoadPlateShakerDwell : REAL;
+	frontLoadPlateShakerOnDuration : REAL;
+	frontLoadPlateShakerOffDuration : REAL;
+	frontloadPlateShakerStart : SHAKER_START_SELECTION;
+	
+	loadShelfShakerDelay : REAL;
+	loadShelfShakerDwell : REAL;
+	loadShelfShakerOnDuration : REAL;
+	loadShelfShakerOffDuration : REAL;
+	loadShelfShakerStart : SHAKER_START_SELECTION;
+	
 	loadPlateDelay : REAL;
 	loadPlateDwell : REAL;
 	loadShelfDelay : REAL := 0.1;
@@ -117,7 +136,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	exitConveyorStartDwell : BOOL;
 	pressureBarService : ServiceCommands;
 	loadPlateService : ServiceCommands;
-	forwardLoadPlateService : ServiceCommands;
+	frontLoadPlateService : ServiceCommands;
 	rearLoadPlateService : ServiceCommands;
 	loadShelfService : ServiceCommands;
 	IBDService : ServiceCommands;

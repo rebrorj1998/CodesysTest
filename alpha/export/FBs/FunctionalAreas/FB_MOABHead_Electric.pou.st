@@ -37,12 +37,9 @@ VAR
 	sealBarHeater : FB_TempController();
     startCycleONS : R_TRIG;
 	enableBagOpen : BOOL;
-	enableRearLoadPlate : BOOL;
-	enableFrontLoadPlate : BOOL;
 	enableHeater : BOOL;
 	enableIBDDeflate : BOOL;
 	enableIBDEject : BOOL;
-	enableLoadShelf : BOOL := TRUE;
 	factoryTestModeKeepCycling : BOOL;
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
@@ -53,18 +50,16 @@ VAR
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
 	bagDropTimer : Standard.TON;
 	HPA : FB_MonostableMultivibrator();
-    rearLoadPlateRetract : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
-	forwardLoadPlateRetract : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
-	loadShelfExtend : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
+	
+	
+	loadShelf : FB_BaseLoadPlate;
+	rearLoadPlate : FB_BaseLoadPlate;
+	frontLoadPlate : FB_BaseLoadPlate;
 	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
-	
-	//IBDCylinders : FB_ThreePositionCylinder();
 	IBDExtendONS : FB_ONS();
 	IBDRetractONS : FB_ONS();
 	startBCVONS : FB_ONS();
-	//IBDRetractToDeflate : MonostableMultivibratorFB();
-	//IBDRetractToEject : MonostableMultivibratorFB();
 	bagOpenFingers : FB_BagOpenFingersWithSensors();
 	bagOpenCheckDelay : Standard.TON := (PT:= T#400MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
@@ -78,7 +73,6 @@ VAR
 	pressureBarMotor : FB_AppliedMotionStepServoEIPPassthrough();
 	IBDMotor : FB_AppliedMotionStepServoEIPPassthrough();
 	jawClamps : FB_ThreePositionCylinder();
-	//passthrough : AdjustablePassthroughFB();
 	homeJawPB : BOOL;
     setPassthroughPB : BOOL;
 	vacuumHoldTimer : Standard.TON() := (PT := T#250MS);
@@ -104,14 +98,10 @@ VAR
 	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
 	
 	iPowerOffButtonONS : FB_ONS();
-	loadPlateFaultTimer : FB_CylinderFaults();
-	loadPlateFaults : LoadPlateFaultsType;
-	forwardLoadPlateFaultTimer : FB_CylinderFaults();
-	forwardLoadPlateFaults : LoadPlateFaultsType;
-	rearLoadPlateFaultTimer : FB_CylinderFaults();
+	frontLoadPlateFaults : LoadPlateFaultsType;
 	rearLoadPlateFaults : LoadPlateFaultsType;
-	loadShelfFaultTimer : FB_CylinderFaults();
 	loadShelfFaults : LoadPlateFaultsType;
+	
 	LPA : DelayDwellFB();
 	hpaServiceOnONS : FB_ONS;
 	exitConveyorJogONS : FB_ONS;
@@ -534,49 +524,44 @@ END_CASE
 
 
 CASE HMIData.packageEjectSelection OF
-	PackageEjectionSelection.NotInstalled:				// Disable all
-														enableRearLoadPlate := FALSE;
-														enableFrontLoadPlate := FALSE;
-														enableLoadShelf := FALSE;	
-														loadPlateFaultTimer.enable := FALSE;	
-														forwardLoadPlateFaultTimer.enable := FALSE;
-														rearLoadPlateFaultTimer.enable := FALSE;
-														loadShelfFaultTimer.enable := FALSE;
+	PackageEjectionSelection.NotInstalled:				// Disable All
+		 												loadShelf.enable := FALSE;	
+														rearLoadPlate.enable := FALSE;
+														frontLoadPlate.enable := FALSE;
+														rearLoadPlate.faultsEnabled := FALSE;
+														frontLoadPlate.faultsEnabled := FALSE;	
 		 
-	PackageEjectionSelection.RearRetractingLoadPlate:	// Enable rear retracting load plate
-		 												enableRearLoadPlate := TRUE;
-														enableFrontLoadPlate := FALSE;
-														enableLoadShelf := FALSE;
-														loadPlateFaultTimer.enable := Globals.machinePowerOK;	
-														forwardLoadPlateFaultTimer.enable := FALSE;
-														rearLoadPlateFaultTimer.enable := FALSE;
-														loadShelfFaultTimer.enable := FALSE;
-														rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
-														rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
+	PackageEjectionSelection.RearRetractingLoadPlate:	// Enable Rear Retracting Load Plate
+		 												loadShelf.enable := TRUE;	
+														rearLoadPlate.enable := FALSE;
+														frontLoadPlate.enable := FALSE;
+														rearLoadPlate.faultsEnabled := ;
+														frontLoadPlate.faultsEnabled := ;			
+														rearLoadPlate.triggerDelay := HMIData.loadPlateDelay;
+														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell;
 	
-	PackageEjectionSelection.LabelSideUp:				// Enable all
-		 												enableRearLoadPlate := TRUE;
-														enableFrontLoadPlate := TRUE;	
-														enableLoadShelf := TRUE;
-														loadPlateFaultTimer.enable := FALSE;
-														forwardLoadPlateFaultTimer.enable := (state >= HEAD_STATES.ReleaseAndFeedBag) AND HMIData.inCycle;
-														rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
-														rearLoadPlateRetract.DelaySetting := 0;
-														rearLoadPlateRetract.DwellSetting := TO_UINT((HMIData.loadPlateDwell + HMIData.loadPlateDelay) * 1000);
-														loadShelfExtend.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-														loadShelfExtend.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
+	PackageEjectionSelection.LabelSideUp:				// Enable All
+		 												loadShelf.enable := TRUE;	
+														rearLoadPlate.enable := TRUE;
+														frontLoadPlate.enable := TRUE;
+														rearLoadPlate.faultsEnabled := ;
+														frontLoadPlate.faultsEnabled := ;
+														rearLoadPlate.triggerDelay := 0;
+														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
+														loadShelf.triggerDelay := HMIData.loadPlateDwell;
+														loadShelf.triggerDwell := HMIData.loadPlateDelay;
 															 
-	PackageEjectionSelection.RearRetractWithRetractShelf:   // Enable Rear Retracting Load Plate and Shelf
-		 												enableRearLoadPlate := TRUE;
-														enableFrontLoadPlate := FALSE;
-		 												enableLoadShelf := TRUE;
-														loadPlateFaultTimer.enable := FALSE;
-														forwardLoadPlateFaultTimer.enable := FALSE;
-		 												rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
-														rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
-														rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-														loadShelfExtend.DelaySetting := TO_UINT(HMIData.loadShelfDelay * 1000);
-														loadShelfExtend.DwellSetting := TO_UINT(HMIData.loadShelfDwell * 1000);
+	PackageEjectionSelection.RearRetractWithRetractShelf:   
+														// Enable Rear Retracting Load Plate and Shelf
+		 												loadShelf.enable := TRUE;	
+														rearLoadPlate.enable := TRUE;
+														frontLoadPlate.enable := FALSE;
+														rearLoadPlate.faultsEnabled := ;
+														frontLoadPlate.faultsEnabled := ;
+														rearLoadPlate.triggerDelay := HMIData.loadPlateDelay;
+														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell;
+														loadShelf.triggerDelay := HMIData.loadPlateDwell;
+														loadShelf.triggerDwell := HMIData.loadPlateDelay;
 END_CASE
 
 CASE HMIData.cycleStartButtonSelection OF
@@ -754,8 +739,6 @@ CASE HMIData.fillerFactorySelection OF
 		 											ezfeed.enable := TRUE;
 													Infeed_Conveyor_IO.Enable := TRUE;
 													
-		 											
-
 END_CASE 	 
 
 ezfeed(
@@ -811,56 +794,58 @@ IF filler.activateFiller AND NOT filler.cycleBaggerToActivateFiller.active THEN
 		fillerModeCycleStartOnlyPulse.Trigger();
 	END_IF
 END_IF
-	 
-HMIData.loadPlateService.extendedFeedback := HMIData.rearLoadPlateService.extendedFeedback := iLoadPlateExtended;
-HMIData.loadPlateService.retractedFeedback := HMIData.rearLoadPlateService.retractedFeedback := iLoadPlateRetracted;
 
-rearLoadPlateRetract();
-oLoadPlateRetract := rearLoadPlateRetract.Q;
-oLoadPlateExtend := NOT oLoadPlateRetract;
-loadPlateFaultTimer( 
-	extendCommand:= oLoadPlateExtend, 
-	extendedInput:= iLoadPlateExtended, 
-	retractCommand:= oLoadPlateRetract, 
-	retractedInput:= iLoadPlateRetracted, 
-	failToExtend=> loadPlateFaults.failedToLoad.faultTrigger, 
-	failToRetract=> loadPlateFaults.failedToDischarge.faultTrigger);
-rearLoadPlateFaultTimer(
-	extendCommand:= oLoadPlateExtend, 
-	extendedInput:= iLoadPlateExtended, 
-	retractCommand:= oLoadPlateRetract, 
-	retractedInput:= iLoadPlateRetracted, 
-	failToExtend=> rearLoadPlateFaults.failedToLoad.faultTrigger, 
-	failToRetract=> rearLoadPlateFaults.failedToDischarge.faultTrigger);
+//
+loadShelf(
+	faultsEnabled := FALSE,
+	shakeStart := HMIData.loadShelfShakerStart,
+	shakerDwell := HMIData.loadShelfShakerDwell,
+	shakerDelay := HMIData.loadShelfShakerDelay,
+	shakerOnDuration := HMIData.loadShelfShakerOnDuration,
+	shakerOffDuration := HMIData.loadShelfShakerOffDuration,
+	extend => oLoadShelfDown,
+	retract => oLoadShelfUp
+);		 
+HMIData.rearLoadPlateService.extendedFeedback := rearLoadPlate.extended;
+HMIData.rearLoadPlateService.retractedFeedback := rearLoadPlate.retracted;
 
-HMIData.forwardLoadPlateService.extendedFeedback := iFrontLoadPlateExtended;
-HMIData.forwardLoadPlateService.retractedFeedback := iFrontLoadPlateRetracted;
-forwardLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-forwardLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
-forwardLoadPlateRetract();
-oFrontLoadPlateToLoad := NOT forwardLoadPlateRetract.Q;
-oFrontLoadPlateToDischarge := NOT oFrontLoadPlateToLoad;
-forwardLoadPlateFaultTimer(
-	extendCommand:= NOT oFrontLoadPlateToLoad, 
-	extendedInput:=iFrontLoadPlateExtended, 
-	retractCommand:= oFrontLoadPlateToLoad, 
-	retractedInput:= iFrontLoadPlateRetracted,  
-	failToExtend=> forwardLoadPlateFaults.failedToLoad.faultTrigger, 
-	failToRetract=> forwardLoadPlateFaults.failedToDischarge.faultTrigger);
-	
-HMIData.loadShelfService.extendedFeedback := iLoadShelfExtended;
-HMIData.loadShelfService.retractedFeedback := iLoadShelfRetracted;
-loadShelfExtend();
-oLoadShelfUp := NOT loadShelfExtend.Q;
-oLoadShelfDown := NOT oLoadShelfUp;
-loadShelfFaultTimer(
-	extendCommand:= NOT oLoadShelfUp, 
-	extendedInput:=iLoadShelfExtended, 
-	retractCommand:= oLoadShelfUp, 
-	retractedInput:= iLoadShelfRetracted, 
-	failToExtend=> loadShelfFaults.failedToDischarge.faultTrigger, 
-	failToRetract=> loadShelfFaults.failedToLoad.faultTrigger);
- 
+//	 
+rearLoadPlate(
+	extended := iLoadPlateExtended,
+	retracted := iLoadPlateRetracted,
+	shakeStart := HMIData.rearloadPlateShakerStart,
+	shakerDwell := HMIData.rearLoadPlateShakerDwell,
+	shakerDelay := HMIData.rearLoadPlateShakerDelay,
+	shakerOnDuration := HMIData.rearLoadPlateShakerOnDuration,
+	shakerOffDuration := HMIData.rearLoadPlateShakerOffDuration,
+	extend => oloadPlateExtend,
+	retract => oLoadPlateRetract,
+	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
+	failedToRetract => rearLoadPlateFaults.failedToDischarge.faultTrigger
+);		 
+HMIData.rearLoadPlateService.extendedFeedback := rearLoadPlate.extended;
+HMIData.rearLoadPlateService.retractedFeedback := rearLoadPlate.retracted;
+
+//	 
+frontLoadPlate(
+	extended := iFrontLoadPlateExtended,
+	retracted := iFrontLoadPlateRetracted,
+	triggerDwell := HMIData.loadPlateDwell,
+	triggerDelay := HMIData.loadPlateDelay,
+	shakeStart := HMIData.frontloadPlateShakerStart,
+	shakerDwell := HMIData.frontLoadPlateShakerDwell,
+	shakerDelay := HMIData.frontLoadPlateShakerDelay,
+	shakerOnDuration := HMIData.frontLoadPlateShakerOnDuration,
+	shakerOffDuration := HMIData.frontLoadPlateShakerOffDuration,
+	extend => oFrontLoadPlateToLoad,
+	retract => oFrontLoadPlateToDischarge,
+	failedToExtend => frontLoadPlateFaults.failedToLoad.faultTrigger,
+	failedToRetract => frontLoadPlateFaults.failedToDischarge.faultTrigger
+);		 
+HMIData.frontLoadPlateService.extendedFeedback := frontLoadPlate.extended;
+HMIData.frontLoadPlateService.retractedFeedback := frontLoadPlate.retracted;	 
+
+//  
 exitConveyorRun();
 exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
@@ -1040,9 +1025,9 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	//passthrough.enable := TRUE;
 	
 	oVacOn := FALSE;
-	rearLoadPlateRetract.Reset();
-	forwardLoadPlateRetract.Reset();
-	loadShelfExtend.Reset();
+	rearLoadPlate.Reset();
+	frontLoadPlate.Reset();
+	loadShelf.Reset();
 	
 	LPA.Reset();
 	LPA.ManualOff();
@@ -1276,39 +1261,35 @@ CASE state OF
 													END_IF    
 													
 													IF HMIData.loadPlateService.retractCommand OR HMIData.rearLoadPlateService.retractCommand THEN
-														rearLoadPlateRetract.ManualOn();
-														HMIData.loadPlateService.retractCommand := FALSE;
+														rearLoadPlate.ManualOn();
 														HMIData.rearLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadPlateService.extendCommand OR HMIData.rearLoadPlateService.extendCommand THEN
-														rearLoadPlateRetract.ManualOff();
-														HMIData.loadPlateService.extendCommand := FALSE;
+														rearLoadPlate.ManualOff();
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
 													
 													IF HMIData.loadShelfService.retractCommand THEN
-														loadShelfExtend.ManualOn();
+														loadShelf.ManualOn();
 														HMIData.loadShelfService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadShelfService.extendCommand THEN
-														loadShelfExtend.ManualOff();
+														loadShelf.ManualOff();
 														HMIData.loadShelfService.extendCommand := FALSE;
 													END_IF	
 
-													IF HMIData.forwardLoadPlateService.retractCommand THEN
-														forwardLoadPlateRetract.ManualOn();
-														HMIData.forwardLoadPlateService.retractCommand := FALSE;
+													IF HMIData.frontLoadPlateService.retractCommand THEN
+														frontLoadPlate.ManualOn();
+														HMIData.frontLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
-													IF HMIData.forwardLoadPlateService.extendCommand THEN
-														forwardLoadPlateRetract.ManualOff();
-														HMIData.forwardLoadPlateService.extendCommand := FALSE;
+													IF HMIData.frontLoadPlateService.extendCommand THEN
+														frontLoadPlate.ManualOff();
+														HMIData.frontLoadPlateService.extendCommand := FALSE;
 													END_IF	 
 													
-													
-														
 													IF HMIData.IBDService.retractCommand THEN
 														IBD.CloseIBD();
 														HMIData.IBDService.retractCommand := FALSE;
@@ -1542,8 +1523,8 @@ CASE state OF
 													pressureBar.OpenJaw();
 												END_IF
 												IF IBD.homeRequired THEN
-													IF NOT enableFrontLoadPlate THEN
-														rearLoadPlateRetract.ManualOn();
+													IF NOT frontLoadPlate.enable THEN
+														rearLoadPlate.ManualOn();
 													END_IF
 													IBD.HomeNow();
 												ELSE
@@ -1556,7 +1537,7 @@ CASE state OF
                                             //IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
 											IF pressureBar.pressureBarOpen AND (NOT IBD.Ready OR NOT IBD.enable) THEN
                                                 state := HEAD_STATES.HomingComplete;
-												rearLoadPlateRetract.ManualOff();   
+												rearLoadPlate.ManualOff();   
 												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND motorizedSealFlatteners.enable THEN
 													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 													motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
@@ -1749,16 +1730,16 @@ CASE releaseAndFeedSubState OF
 																IBD.CloseIBD();
 															END_IF
 															
-																IF enableRearLoadPlate THEN
-																rearLoadPlateRetract.Trigger();
+															IF rearLoadPlate.enable THEN
+																rearLoadPlate.Trigger();
 															END_IF
 															
-															IF enableFrontLoadPlate THEN
-																forwardLoadPlateRetract.Trigger();
+															IF frontLoadPlate.enable THEN
+																frontLoadPlate.Trigger();
 															END_IF
 															
-															IF enableLoadShelf THEN
-																loadShelfExtend.Trigger();
+															IF loadShelf.enable THEN
+																loadShelf.Trigger();
 															END_IF
 														
 															IF TO_DINT(HMIData.exitConveyorDwell) <> 0 THEN
