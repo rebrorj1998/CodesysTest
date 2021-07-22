@@ -3,6 +3,7 @@ FUNCTION_BLOCK FB_BaseLoadPlate EXTENDS FB_BaseComponent
 VAR_INPUT
 	extended : BOOL;
 	retracted : BOOL;
+	faultsEnabled : BOOL;
 	triggerDwell : REAL;
 	triggerDelay : REAL;
 	shakerDwell : REAL;
@@ -10,7 +11,6 @@ VAR_INPUT
 	shakerOnDuration : REAL;
 	shakerOffDuration : REAL;
 	shakeStart : SHAKER_START_SELECTION;
-	faultsEnabled : BOOL;
 END_VAR
 VAR_OUTPUT
 	retract : BOOL;

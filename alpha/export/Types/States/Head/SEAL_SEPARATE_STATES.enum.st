@@ -4,6 +4,8 @@
 TYPE SEAL_SEPARATE_STATES :
 (
 	Idle := 0,
+	Shake := 6,
+	Shaking := 7, 
 	BringInIBD := 8,
 	WaitForJawCloseDelay := 9,
 	MoveJawIn := 10,

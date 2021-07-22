@@ -2,4 +2,4 @@
 VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-Shaking := _shake;
+Shaking := _shake OR _shaking;

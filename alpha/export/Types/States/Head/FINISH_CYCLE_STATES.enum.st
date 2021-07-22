@@ -16,6 +16,8 @@ TYPE FINISH_CYCLE_STATES :
 	BringSealFlattenersToBagHolding := 30,
 	BringingSealFlattenersToBagHolding := 31,
 	SealFlattenersAtBagHolding := 32,
+	Shake := 33,
+	Shaking := 34,
 	Done := 100,
 	Fault := 99
 );
