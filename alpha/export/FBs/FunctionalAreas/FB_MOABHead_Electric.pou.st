@@ -779,8 +779,8 @@ rearLoadPlate(
 	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
 	failedToRetract => rearLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
-HMIData.rearLoadPlateService.extendedFeedback := rearLoadPlate.extended;
-HMIData.rearLoadPlateService.retractedFeedback := rearLoadPlate.retracted;
+HMIData.rearLoadPlateService.extendedFeedback := HMIData.loadPlateService.extendedFeedback := rearLoadPlate.extended;
+HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retractedFeedback :=  rearLoadPlate.retracted;
 
 //	 
 frontLoadPlate(
@@ -1240,11 +1240,13 @@ CASE state OF
 													
 													IF HMIData.loadPlateService.retractCommand OR HMIData.rearLoadPlateService.retractCommand THEN
 														rearLoadPlate.ManualOn();
+														HMIData.loadPlateService.retractCommand := FALSE;
 														HMIData.rearLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadPlateService.extendCommand OR HMIData.rearLoadPlateService.extendCommand THEN
 														rearLoadPlate.ManualOff();
+														HMIData.loadPlateService.extendCommand := FALSE;
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
 													
