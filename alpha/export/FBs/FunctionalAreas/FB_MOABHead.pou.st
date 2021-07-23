@@ -584,8 +584,8 @@ rearLoadPlate(
 	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
 	failedToRetract => rearLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
-HMIData.rearLoadPlateService.extendedFeedback := rearLoadPlate.extended;
-HMIData.rearLoadPlateService.retractedFeedback := rearLoadPlate.retracted;
+HMIData.rearLoadPlateService.extendedFeedback := HMIData.loadPlateService.extendedFeedback := rearLoadPlate.extended;
+HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retractedFeedback :=  rearLoadPlate.retracted;
 
 //	 
 frontLoadPlate(
