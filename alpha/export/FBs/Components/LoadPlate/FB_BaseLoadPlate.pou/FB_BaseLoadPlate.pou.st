@@ -33,6 +33,7 @@ VAR
 	_extendFaultTimer : Standard.TON;
 	_retractFaultTimer : Standard.TON;
 	_triggerActiveONS : FB_ONS;
+	_shakeActiveONS : FB_ONS;
 	_state : LOAD_PLATE_STATE;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -50,13 +51,14 @@ IF _triggerDwellTimer.Q OR resetONS.Q THEN
 	_state := LOAD_PLATE_STATE.Idle;
 END_IF
 
-//			
+//
+_shakeActiveONS(CLK := _shaker.OUT);			
 _triggerActiveONS(CLK := _triggerDelayTimer.Q);
-IF _triggerActiveONS.OSR OR _manualOn THEN
+IF _triggerActiveONS.OSR OR _shakeActiveONS.OSF OR _manualOn THEN
 	extend := FALSE;
 	retract := TRUE;
 	_manualOn := FALSE;
-ELSIF _triggerActiveONS.OSF OR _manualOff THEN
+ELSIF _triggerActiveONS.OSF OR _shakeActiveONS.OSR OR _manualOff THEN
 	extend := TRUE;
 	retract := FALSE;
 	_manualOff := FALSE;
@@ -97,10 +99,8 @@ CASE _state OF
 			_shake := FALSE;
 			_state := LOAD_PLATE_STATE.Shake;
 		END_IF
-		_shaking := FALSE;
 	
 	LOAD_PLATE_STATE.Shake:
-		_shaking := TRUE;
 		_shakerDelayTimer.IN := TRUE;
 		IF _shakerDelayTimer.Q THEN
 			_shakerDelayTimer.IN := FALSE;
@@ -113,13 +113,14 @@ CASE _state OF
 		IF _shakerDwellTimer.Q THEN
 			_shaker.ENABLE := FALSE;
 			_shakerDwellTimer.IN := FALSE;
+			_state := LOAD_PLATE_STATE.Shaked;
 		END_IF
 	
 	LOAD_PLATE_STATE.Shaked:
-		IF retracted THEN
+		IF extended THEN
 			_state := LOAD_PLATE_STATE.Idle;
 		ELSE
-			IF NOT retract THEN
+			IF NOT extended THEN
 				_manualOff := TRUE;
 			END_IF
 		END_IF

@@ -50,7 +50,6 @@ VAR
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
 	bagDropTimer : Standard.TON;
 	HPA : FB_MonostableMultivibrator();
-	
 	loadShelf : FB_BaseLoadPlate;
 	rearLoadPlate : FB_BaseLoadPlate;
 	frontLoadPlate : FB_BaseLoadPlate;
@@ -763,8 +762,8 @@ loadShelf(
 	extend => oLoadShelfDown,
 	retract => oLoadShelfUp
 );		 
-HMIData.rearLoadPlateService.extendedFeedback := rearLoadPlate.extended;
-HMIData.rearLoadPlateService.retractedFeedback := rearLoadPlate.retracted;
+HMIData.loadShelfService.extendedFeedback := rearLoadPlate.extended;
+HMIData.loadShelfService.retractedFeedback := rearLoadPlate.retracted;
 
 //	 
 rearLoadPlate(
@@ -799,8 +798,8 @@ frontLoadPlate(
 	failedToExtend => frontLoadPlateFaults.failedToLoad.faultTrigger,
 	failedToRetract => frontLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
-HMIData.frontLoadPlateService.extendedFeedback := frontLoadPlate.extended;
-HMIData.frontLoadPlateService.retractedFeedback := frontLoadPlate.retracted;
+HMIData.forwardLoadPlateService.extendedFeedback := frontLoadPlate.extended;
+HMIData.forwardLoadPlateService.retractedFeedback := frontLoadPlate.retracted;
 
 CASE HMIData.packageEjectSelection OF
 	PackageEjectionSelection.NotInstalled:				// Disable All
@@ -811,8 +810,8 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.faultsEnabled := FALSE;	
 		 
 	PackageEjectionSelection.RearRetractingLoadPlate:	// Enable Rear Retracting Load Plate
-		 												loadShelf.enable := TRUE;	
-														rearLoadPlate.enable := FALSE;
+		 												loadShelf.enable := FALSE;	
+														rearLoadPlate.enable := TRUE;
 														frontLoadPlate.enable := FALSE;
 														rearLoadPlate.faultsEnabled := powerSettlingTimer.Q;
 														frontLoadPlate.faultsEnabled := FALSE;			
@@ -1259,14 +1258,14 @@ CASE state OF
 														HMIData.loadShelfService.extendCommand := FALSE;
 													END_IF	
 
-													IF HMIData.frontLoadPlateService.retractCommand THEN
+													IF HMIData.forwardLoadPlateService.retractCommand THEN
 														frontLoadPlate.ManualOn();
-														HMIData.frontLoadPlateService.retractCommand := FALSE;
+														HMIData.forwardLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
-													IF HMIData.frontLoadPlateService.extendCommand THEN
+													IF HMIData.forwardLoadPlateService.extendCommand THEN
 														frontLoadPlate.ManualOff();
-														HMIData.frontLoadPlateService.extendCommand := FALSE;
+														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
 													
 													IF HMIData.IBDService.retractCommand THEN
@@ -1383,9 +1382,6 @@ CASE state OF
 													{endregion:'Service'}
                                                     
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
-													IF enableIBDDeflate THEN
-														sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shake;
-													END_IF
 													IF printAndApply.enable AND bagOpened THEN
 														printAndApply.BeginCycle();
 													END_IF
@@ -1398,6 +1394,7 @@ CASE state OF
 													END_IF
 													
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
+													sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shake;
                                                     
                 
     HEAD_STATES.SealingAndSeparatingBag :            IF sealAndSeparateSubState = SEAL_SEPARATE_STATES.Done THEN
@@ -1577,26 +1574,23 @@ CASE sealAndSeparateSubState OF
     SEAL_SEPARATE_STATES.Idle:
 	SEAL_SEPARATE_STATES.Shake:						
 		//
-		IF rearLoadPlate.enable AND 
-		   rearLoadPlate.ShakerEnabled AND
-		   rearLoadPlate.shakeStart = SHAKER_START_SELECTION.CycleStart THEN
-			rearLoadPlate.Shake();
-		END_IF
-        
-		//
-		IF frontLoadPlate.enable AND
-		   frontLoadPlate.ShakerEnabled AND
-		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.CycleStart THEN
-			frontLoadPlate.Shake();
-		END_IF	
-		
-		//
-		IF loadShelf.enable AND
-		   loadShelf.ShakerEnabled AND
-		   loadShelf.shakeStart = SHAKER_START_SELECTION.CycleStart THEN
-			loadShelf.Shake();
+		IF loadShelf.shakeStart = SHAKER_START_SELECTION.CycleStart OR
+   		   loadShelf.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   loadShelf.Shake();
 		END_IF
 		
+		//
+		IF rearLoadPlate.shakeStart = SHAKER_START_SELECTION.CycleStart OR
+   		   rearLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   rearLoadPlate.Shake();
+		END_IF
+		
+		//
+		IF frontLoadPlate.shakeStart = SHAKER_START_SELECTION.CycleStart OR
+   		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   frontLoadPlate.Shake();
+		END_IF
+
 		//
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
 			sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shaking;
@@ -2014,12 +2008,12 @@ CASE finishCycleSubState OF
 															IF funnel.enable THEN
 																finishCycleSubState := FINISH_CYCLE_STATES.OpenFunnel;
 															ELSIF enableBagOpen THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 															ELSE
 																IF motorizedSealFlatteners.enable THEN
 																	finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersInAndDown;
 																ELSE
-																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 																END_IF
 															END_IF
 															IF LPA.DwellSetting <> 0 THEN
@@ -2094,26 +2088,23 @@ CASE finishCycleSubState OF
 															
 	FINISH_CYCLE_STATES.Shake:
 		//
-		IF rearLoadPlate.enable AND 
-		   rearLoadPlate.ShakerEnabled AND
-		   rearLoadPlate.shakeStart = SHAKER_START_SELECTION.BagOpen THEN
-			rearLoadPlate.Shake();
-		END_IF
-        
-		//
-		IF frontLoadPlate.enable AND
-		   frontLoadPlate.ShakerEnabled AND
-		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.BagOpen THEN
-			frontLoadPlate.Shake();
-		END_IF	
-		
-		//
-		IF loadShelf.enable AND
-		   loadShelf.ShakerEnabled AND
-		   loadShelf.shakeStart = SHAKER_START_SELECTION.BagOpen THEN
-			loadShelf.Shake();
+		IF loadShelf.shakeStart = SHAKER_START_SELECTION.BagOpen OR
+   		   loadShelf.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   loadShelf.Shake();
 		END_IF
 		
+		//
+		IF rearLoadPlate.shakeStart = SHAKER_START_SELECTION.BagOpen OR
+   		   rearLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   rearLoadPlate.Shake();
+		END_IF
+		
+		//
+		IF frontLoadPlate.shakeStart = SHAKER_START_SELECTION.BagOpen OR
+   		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   frontLoadPlate.Shake();
+		END_IF
+
 		//
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
 			finishCycleSubState := FINISH_CYCLE_STATES.Shaking;

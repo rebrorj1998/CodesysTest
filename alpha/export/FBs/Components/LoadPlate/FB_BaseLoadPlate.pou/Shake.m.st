@@ -3,4 +3,6 @@ METHOD Shake
 VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_shake := TRUE;
+IF enable AND (shakerDwell > 0) THEN
+	_shake := TRUE;
+END_IF

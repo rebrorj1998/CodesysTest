@@ -6,7 +6,7 @@ VAR_INPUT
 	vacuumPickerMode : DEVICE_MODES;
     startCycle : BOOL;
     bagDeliveryMode : DEVICE_MODES;        // Mode of bag delivery system
-    printerMode : DEVICE_MODES;        // Mode of printer
+    printerMode : DEVICE_MODES;            // Mode of printer
 	passthroughMode : DEVICE_MODES;
 	passthroughSetting : REAL;
     passthroughSettingLast : REAL;
@@ -28,12 +28,9 @@ VAR
 	sealBarHeater : FB_TempController();
     startCycleONS : R_TRIG;
 	enableBagOpen : BOOL;
-	enableRearLoadPlate : BOOL;
-	enableFrontLoadPlate : BOOL;
 	enableHeater : BOOL;
 	enableIBDDeflate : BOOL;
 	enableIBDEject : BOOL;
-	enableLoadShelf : BOOL := TRUE;
 	factoryTestModeKeepCycling : BOOL;
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
@@ -43,9 +40,6 @@ VAR
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
 	bagDropTimer : Standard.TON;
 	HPA : FB_MonostableMultivibrator();
-    rearLoadPlateRetract : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
-	forwardLoadPlateRetract : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
-	loadShelfExtend : FB_MonostableMultivibrator() := (Dwellsetting := 1500);
 	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	IBDCylinders : FB_ThreePositionCylinder();
@@ -79,15 +73,13 @@ VAR
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
 	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
-	
+	loadShelf : FB_BaseLoadPlate;
+	rearLoadPlate : FB_BaseLoadPlate;
+	frontLoadPlate : FB_BaseLoadPlate;
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
-	loadPlateFaults : LoadPlateFaultsType;
-	forwardLoadPlateFaultTimer : FB_CylinderFaults();
-	forwardLoadPlateFaults : LoadPlateFaultsType;
-	rearLoadPlateFaultTimer : FB_CylinderFaults();
+	frontLoadPlateFaults : LoadPlateFaultsType;
 	rearLoadPlateFaults : LoadPlateFaultsType;
-	loadShelfFaultTimer : FB_CylinderFaults();
 	loadShelfFaults : LoadPlateFaultsType;
 	LPA : DelayDwellFB();
 	hpaServiceOnONS : FB_ONS;
@@ -345,53 +337,6 @@ CASE HMIData.bofSelection OF
 	
 	BagOpenFingersSelection.PneumaticWithBagOpenSensors:	// Enable Bag Open
 															enableBagOpen := TRUE;
-	
-END_CASE
-
-CASE HMIData.packageEjectSelection OF
-	PackageEjectionSelection.NotInstalled:				// Disable all
-														enableRearLoadPlate := FALSE;
-														enableFrontLoadPlate := FALSE;
-														enableLoadShelf := FALSE;	
-														loadPlateFaultTimer.enable := FALSE;	
-														forwardLoadPlateFaultTimer.enable := FALSE;
-														rearLoadPlateFaultTimer.enable := FALSE;
-														loadShelfFaultTimer.enable := FALSE;
-		 
-	PackageEjectionSelection.RearRetractingLoadPlate:	// Enable rear retracting load plate
-		 												enableRearLoadPlate := TRUE;
-														enableFrontLoadPlate := FALSE;
-														enableLoadShelf := FALSE;
-														loadPlateFaultTimer.enable := Globals.machinePowerOK;	
-														forwardLoadPlateFaultTimer.enable := FALSE;
-														rearLoadPlateFaultTimer.enable := FALSE;
-														loadShelfFaultTimer.enable := FALSE;
-														rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
-														rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-	
-	PackageEjectionSelection.LabelSideUp:				// Enable all
-		 												enableRearLoadPlate := TRUE;
-														enableFrontLoadPlate := TRUE;	
-														enableLoadShelf := TRUE;
-														loadPlateFaultTimer.enable := FALSE;
-														forwardLoadPlateFaultTimer.enable := (state >= HEAD_STATES.ReleaseAndFeedBag) AND HMIData.inCycle;
-														rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
-														rearLoadPlateRetract.DelaySetting := 0;
-														rearLoadPlateRetract.DwellSetting := TO_UINT((HMIData.loadPlateDwell + HMIData.loadPlateDelay) * 1000);
-														loadShelfExtend.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-														loadShelfExtend.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
-															 
-	PackageEjectionSelection.RearRetractWithRetractShelf:   // Enable Rear Retracting Load Plate and Shelf
-		 												enableRearLoadPlate := TRUE;
-														enableFrontLoadPlate := FALSE;
-		 												enableLoadShelf := TRUE;
-														loadPlateFaultTimer.enable := FALSE;
-														forwardLoadPlateFaultTimer.enable := FALSE;
-		 												rearLoadPlateFaultTimer.enable := Globals.machinePowerOK;
-														rearLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
-														rearLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-														loadShelfExtend.DelaySetting := TO_UINT(HMIData.loadShelfDelay * 1000);
-														loadShelfExtend.DwellSetting := TO_UINT(HMIData.loadShelfDwell * 1000);
 END_CASE
 
 CASE HMIData.cycleStartButtonSelection OF
@@ -577,7 +522,6 @@ END_CASE
 	emptyPartsWarning=> HMIData.infeedConveyorOutOfParts.active,
 	EZFeedDone=> );
 
-
 IF HMIData.fillerFactorySelection = FillerSelection.EZFeed THEN
 	Infeed_Conveyor_IO.Enable := TRUE; 
 	IF Infeed_Conveyor_IO.udiState <> 4  THEN 
@@ -597,68 +541,112 @@ filler(
 	fillerOK:= iAuxFillerOK, 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
-	state=> , 
-	fillerModeActive=> , 
-	waitingForFiller=> ,
-	cycleBagRequest=> , 
-	cycleBaggerToActivateFiller=> , 
-	notReady=> );	 
+	state => , 
+	fillerModeActive => , 
+	waitingForFiller => ,
+	cycleBagRequest => , 
+	cycleBaggerToActivateFiller => , 
+	notReady => );	 
 IF filler.activateFiller AND NOT filler.cycleBaggerToActivateFiller.active THEN
 	IF (HMIData.initiateCycle OR startCycleReqFromPalmButtons) AND NOT HMIData.infeedConveyorOutOfParts.active THEN
 		fillerModeCycleStartOnlyPulse.Trigger();
 	END_IF
 END_IF
-	 
-HMIData.packageEjectGuardRemoved.active :=  HMIData.packageEjectSelection = PackageEjectionSelection.LabelSideUp AND NOT iPackageEjectGuardClosed;
-HMIData.loadPlateService.extendedFeedback := HMIData.rearLoadPlateService.extendedFeedback := iLoadPlateExtended;
-HMIData.loadPlateService.retractedFeedback := HMIData.rearLoadPlateService.retractedFeedback := iLoadPlateRetracted;
 
-rearLoadPlateRetract();
-oLoadPlateRetract := rearLoadPlateRetract.Q;
-oLoadPlateExtend := NOT oLoadPlateRetract;
-loadPlateFaultTimer( 
-	extendCommand:= oLoadPlateExtend, 
-	extendedInput:= iLoadPlateExtended, 
-	retractCommand:= oLoadPlateRetract, 
-	retractedInput:= iLoadPlateRetracted, 
-	failToExtend=> loadPlateFaults.failedToLoad.faultTrigger, 
-	failToRetract=> loadPlateFaults.failedToDischarge.faultTrigger);
-rearLoadPlateFaultTimer(
-	extendCommand:= oLoadPlateExtend, 
-	extendedInput:= iLoadPlateExtended, 
-	retractCommand:= oLoadPlateRetract, 
-	retractedInput:= iLoadPlateRetracted, 
-	failToExtend=> rearLoadPlateFaults.failedToLoad.faultTrigger, 
-	failToRetract=> rearLoadPlateFaults.failedToDischarge.faultTrigger);
+//	 
+HMIData.packageEjectGuardRemoved.active := HMIData.packageEjectSelection = PackageEjectionSelection.LabelSideUp AND NOT iPackageEjectGuardClosed;
 
-HMIData.forwardLoadPlateService.extendedFeedback := iFrontLoadPlateExtended;
-HMIData.forwardLoadPlateService.retractedFeedback := iFrontLoadPlateRetracted;
-forwardLoadPlateRetract.DwellSetting := TO_UINT(HMIData.loadPlateDwell * 1000);
-forwardLoadPlateRetract.DelaySetting := TO_UINT(HMIData.loadPlateDelay * 1000);
-forwardLoadPlateRetract();
-oFrontLoadPlateToLoad := NOT forwardLoadPlateRetract.Q;
-oFrontLoadPlateToDischarge := NOT oFrontLoadPlateToLoad;
-forwardLoadPlateFaultTimer(
-	extendCommand:= NOT oFrontLoadPlateToLoad, 
-	extendedInput:=iFrontLoadPlateExtended, 
-	retractCommand:= oFrontLoadPlateToLoad, 
-	retractedInput:= iFrontLoadPlateRetracted,  
-	failToExtend=> forwardLoadPlateFaults.failedToLoad.faultTrigger, 
-	failToRetract=> forwardLoadPlateFaults.failedToDischarge.faultTrigger);
-	
-HMIData.loadShelfService.extendedFeedback := iLoadShelfExtended;
-HMIData.loadShelfService.retractedFeedback := iLoadShelfRetracted;
-loadShelfExtend();
-oLoadShelfUp := NOT loadShelfExtend.Q;
-oLoadShelfDown := NOT oLoadShelfUp;
-loadShelfFaultTimer(
-	extendCommand:= NOT oLoadShelfUp, 
-	extendedInput:=iLoadShelfExtended, 
-	retractCommand:= oLoadShelfUp, 
-	retractedInput:= iLoadShelfRetracted, 
-	failToExtend=> loadShelfFaults.failedToDischarge.faultTrigger, 
-	failToRetract=> loadShelfFaults.failedToLoad.faultTrigger);
+//
+loadShelf(
+	faultsEnabled := FALSE,
+	shakeStart := HMIData.loadShelfShakerStart,
+	shakerDwell := HMIData.loadShelfShakerDwell,
+	shakerDelay := HMIData.loadShelfShakerDelay,
+	shakerOnDuration := HMIData.loadShelfShakerOnDuration,
+	shakerOffDuration := HMIData.loadShelfShakerOffDuration,
+	extend => oLoadShelfDown,
+	retract => oLoadShelfUp
+);		 
+HMIData.loadShelfService.extendedFeedback := loadShelf.extended;
+HMIData.loadShelfService.retractedFeedback := loadShelf.retracted;
+
+//	 
+rearLoadPlate(
+	extended := iLoadPlateExtended,
+	retracted := iLoadPlateRetracted,
+	shakeStart := HMIData.rearloadPlateShakerStart,
+	shakerDwell := HMIData.rearLoadPlateShakerDwell,
+	shakerDelay := HMIData.rearLoadPlateShakerDelay,
+	shakerOnDuration := HMIData.rearLoadPlateShakerOnDuration,
+	shakerOffDuration := HMIData.rearLoadPlateShakerOffDuration,
+	extend => oloadPlateExtend,
+	retract => oLoadPlateRetract,
+	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
+	failedToRetract => rearLoadPlateFaults.failedToDischarge.faultTrigger
+);		 
+HMIData.rearLoadPlateService.extendedFeedback := rearLoadPlate.extended;
+HMIData.rearLoadPlateService.retractedFeedback := rearLoadPlate.retracted;
+
+//	 
+frontLoadPlate(
+	extended := iFrontLoadPlateExtended,
+	retracted := iFrontLoadPlateRetracted,
+	triggerDwell := HMIData.loadPlateDwell,
+	triggerDelay := HMIData.loadPlateDelay,
+	shakeStart := HMIData.frontloadPlateShakerStart,
+	shakerDwell := HMIData.frontLoadPlateShakerDwell,
+	shakerDelay := HMIData.frontLoadPlateShakerDelay,
+	shakerOnDuration := HMIData.frontLoadPlateShakerOnDuration,
+	shakerOffDuration := HMIData.frontLoadPlateShakerOffDuration,
+	extend => oFrontLoadPlateToLoad,
+	retract => oFrontLoadPlateToDischarge,
+	failedToExtend => frontLoadPlateFaults.failedToLoad.faultTrigger,
+	failedToRetract => frontLoadPlateFaults.failedToDischarge.faultTrigger
+);		 
+HMIData.forwardLoadPlateService.extendedFeedback := frontLoadPlate.extended;
+HMIData.forwardLoadPlateService.retractedFeedback := frontLoadPlate.retracted;
+
+CASE HMIData.packageEjectSelection OF
+	PackageEjectionSelection.NotInstalled:				// Disable All
+		 												loadShelf.enable := FALSE;	
+														rearLoadPlate.enable := FALSE;
+														frontLoadPlate.enable := FALSE;
+														rearLoadPlate.faultsEnabled := FALSE;
+														frontLoadPlate.faultsEnabled := FALSE;	
 		 
+	PackageEjectionSelection.RearRetractingLoadPlate:	// Enable Rear Retracting Load Plate
+		 												loadShelf.enable := FALSE;	
+														rearLoadPlate.enable := TRUE;
+														frontLoadPlate.enable := FALSE;
+														rearLoadPlate.faultsEnabled := powerSettlingTimer.Q;
+														frontLoadPlate.faultsEnabled := FALSE;			
+														rearLoadPlate.triggerDelay := HMIData.loadPlateDelay;
+														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell;
+	
+	PackageEjectionSelection.LabelSideUp:				// Enable All
+		 												loadShelf.enable := TRUE;	
+														rearLoadPlate.enable := TRUE;
+														frontLoadPlate.enable := TRUE;
+														rearLoadPlate.faultsEnabled := powerSettlingTimer.Q;
+														frontLoadPlate.faultsEnabled := state >= HEAD_STATES.ReleaseAndFeedBag;
+														rearLoadPlate.triggerDelay := 0;
+														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
+														loadShelf.triggerDelay := HMIData.loadPlateDwell;
+														loadShelf.triggerDwell := HMIData.loadPlateDelay;
+															 
+	PackageEjectionSelection.RearRetractWithRetractShelf:   
+														// Enable Rear Retracting Load Plate and Shelf
+		 												loadShelf.enable := TRUE;	
+														rearLoadPlate.enable := TRUE;
+														frontLoadPlate.enable := FALSE;
+														rearLoadPlate.faultsEnabled := powerSettlingTimer.Q;
+														frontLoadPlate.faultsEnabled := FALSE;
+														rearLoadPlate.triggerDelay := HMIData.loadPlateDelay;
+														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell;
+														loadShelf.triggerDelay := HMIData.loadPlateDwell;
+														loadShelf.triggerDwell := HMIData.loadPlateDelay;
+END_CASE	
+
 exitConveyorRun();
 exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
@@ -678,10 +666,6 @@ bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInst
 				bagFailedToGrabLeftFingerCount := Globals.bagFailedToGrabLeftFingerCount,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
 				successfulBagOpenCount := Globals.successfulBagOpenCount);
-					 
-			
-
-
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
@@ -777,9 +761,9 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	passthrough.enable := TRUE;
 	
 	oVacOn := FALSE;
-	rearLoadPlateRetract.Reset();
-	forwardLoadPlateRetract.Reset();
-	loadShelfExtend.Reset();
+	rearLoadPlate.Reset();
+	frontLoadPlate.Reset();
+	loadShelf.Reset();
 	IBDRetractToDeflate.Reset();
 	IBDRetractToEject.Reset();
 	IBDCylinders.Extend();
@@ -919,9 +903,7 @@ IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
 END_IF
 CASE state OF
-    HEAD_STATES.Idle :                                // Start cycle if enabled
-													
-													
+    HEAD_STATES.Idle :                              // Start cycle if enabled
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													//OR (HMIData.batchEnable AND batchModeKeepCycling AND (HMIData.batchCount < HMIData.batchSetting))
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
@@ -1008,34 +990,34 @@ CASE state OF
 													END_IF    
 													
 													IF HMIData.loadPlateService.retractCommand OR HMIData.rearLoadPlateService.retractCommand THEN
-														rearLoadPlateRetract.ManualOn();
+														rearLoadPlate.ManualOn();
 														HMIData.loadPlateService.retractCommand := FALSE;
 														HMIData.rearLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadPlateService.extendCommand OR HMIData.rearLoadPlateService.extendCommand THEN
-														rearLoadPlateRetract.ManualOff();
+														rearLoadPlate.ManualOff();
 														HMIData.loadPlateService.extendCommand := FALSE;
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
 													
 													IF HMIData.loadShelfService.retractCommand THEN
-														loadShelfExtend.ManualOn();
+														loadShelf.ManualOn();
 														HMIData.loadShelfService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadShelfService.extendCommand THEN
-														loadShelfExtend.ManualOff();
+														loadShelf.ManualOff();
 														HMIData.loadShelfService.extendCommand := FALSE;
 													END_IF	
 
 													IF HMIData.forwardLoadPlateService.retractCommand THEN
-														forwardLoadPlateRetract.ManualOn();
+														frontLoadPlate.ManualOn();
 														HMIData.forwardLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.forwardLoadPlateService.extendCommand THEN
-														forwardLoadPlateRetract.ManualOff();
+														frontLoadPlate.ManualOff();
 														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
 													
@@ -1077,8 +1059,7 @@ CASE state OF
 														oVacOn := FALSE;
 														HMIData.vacuumServiceOff := FALSE;
 													END_IF
-														 
-															  
+														 	  
 													IF HMIData.hpaServicePulse THEN
 														hpa.Trigger();
 														HMIData.hpaServicePulse := FALSE;
@@ -1144,11 +1125,6 @@ CASE state OF
 													{endregion:'Service'}
                                                     
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
-													IF enableIBDDeflate THEN
-														sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
-													ELSE
-														sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
-													END_IF
 													filler.BaggerCycleInitiated();
                                                     HMIData.inCycle := TRUE;
 													HMIData.airFilterClean.Increment();
@@ -1162,7 +1138,7 @@ CASE state OF
 													END_IF
 													
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
-                                                    
+                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shake;
                 
     HEAD_STATES.SealingAndSeparatingBag :            IF sealAndSeparateSubState = SEAL_SEPARATE_STATES.Done THEN
                                                         state := HEAD_STATES.SealedAndSeparatedBag;
@@ -1196,10 +1172,7 @@ CASE state OF
                                                     ELSE
                                                         state := HEAD_STATES.FinishCycle;
                                                     END_IF
-                                                    
-                                                            
-                                                    
-                                
+                                                                    
     HEAD_STATES.OpenBag :                            // Close jaw to grab the bag
                                                     openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawIn;
                                                     state := HEAD_STATES.OpeningBag;
@@ -1316,7 +1289,42 @@ CASE state OF
 END_CASE
 
 CASE sealAndSeparateSubState OF
-    SEAL_SEPARATE_STATES.Idle : 
+	SEAL_SEPARATE_STATES.Shake:						
+				//
+		IF loadShelf.shakeStart = SHAKER_START_SELECTION.CycleStart OR
+   		   loadShelf.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   loadShelf.Shake();
+		END_IF
+		
+		//
+		IF rearLoadPlate.shakeStart = SHAKER_START_SELECTION.CycleStart OR
+   		   rearLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   rearLoadPlate.Shake();
+		END_IF
+		
+		//
+		IF frontLoadPlate.shakeStart = SHAKER_START_SELECTION.CycleStart OR
+   		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   frontLoadPlate.Shake();
+		END_IF
+		
+		//
+		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shaking;
+		ELSIF enableIBDDeflate THEN
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+		ELSE
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+		END_IF
+													
+	SEAL_SEPARATE_STATES.Shaking:				    //
+		IF NOT frontLoadPlate.Shaking AND NOT rearLoadPlate.Shaking AND NOT loadShelf.Shaking THEN
+			IF enableIBDDeflate THEN
+				sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+			ELSE
+				sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+			END_IF
+		END_IF	 
 	
 	SEAL_SEPARATE_STATES.BringInIBD : 				// Bring in IBD if enabled
 													IF enableIBDDeflate THEN
@@ -1373,11 +1381,9 @@ CASE sealAndSeparateSubState OF
 														IF NOT sealTimer.Q THEN
 															oSealBarExtend := TRUE;
 															oSealBarRetract := FALSE;
-														ELSE 
-															
+														ELSE
 															oSealBarExtend := FALSE;
-															oSealBarRetract := TRUE;
-															
+															oSealBarRetract := TRUE;	
 														END_IF
 													END_IF
 
@@ -1393,7 +1399,8 @@ CASE sealAndSeparateSubState OF
 															sealTimer.IN := FALSE;
                                                             sealAndSeparateSubState := SEAL_SEPARATE_STATES.Reversedbag;
                                                     END_IF
-    SEAL_SEPARATE_STATES.Reversedbag :                // 
+    SEAL_SEPARATE_STATES.Reversedbag :                
+													// 
                                                     sealAndSeparateSubState := SEAL_SEPARATE_STATES.SealBag;
 													
 	SEAL_SEPARATE_STATES.SealBag:					
@@ -1414,18 +1421,10 @@ CASE sealAndSeparateSubState OF
 														sealAndSeparateSubState := SEAL_SEPARATE_STATES.Done;
 													END_IF
 													
-																				
-                                                    
-    SEAL_SEPARATE_STATES.Done :                        // 
-                                                    
-                                    
-    SEAL_SEPARATE_STATES.Fault :
 END_CASE
 
 
 CASE releaseAndFeedSubState OF
-    RELEASE_FEED_STATES.Idle :                        //
-                                                        
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawClosed OR NOT pressureBar.enable)
@@ -1449,16 +1448,16 @@ CASE releaseAndFeedSubState OF
 																IBDRetractToEject.Trigger();
 															END_IF
 															
-															IF enableRearLoadPlate THEN
-																rearLoadPlateRetract.Trigger();
+															IF rearLoadPlate.enable THEN
+																rearLoadPlate.Trigger();
 															END_IF
 															
-															IF enableFrontLoadPlate THEN
-																forwardLoadPlateRetract.Trigger();
+															IF frontLoadPlate.enable THEN
+																frontLoadPlate.Trigger();
 															END_IF
 															
-															IF enableLoadShelf THEN
-																loadShelfExtend.Trigger();
+															IF loadShelf.enable THEN
+																loadShelf.Trigger();
 															END_IF
 															
 															IF TO_DINT(HMIData.exitConveyorDwell) <> 0 THEN
@@ -1576,6 +1575,7 @@ CASE releaseAndFeedSubState OF
 														barcodeVerificationFailed.Trigger();
 													END_IF 
 													releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
+													
     RELEASE_FEED_STATES.Done :
     RELEASE_FEED_STATES.Fault :
 END_CASE
@@ -1717,12 +1717,12 @@ CASE finishCycleSubState OF
 															IF funnel.enable THEN
 																finishCycleSubState := FINISH_CYCLE_STATES.OpenFunnel;
 															ELSIF enableBagOpen THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 															ELSE
 																IF motorizedSealFlatteners.enable THEN
 																	finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersInAndDown;
 																ELSE
-																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 																END_IF
 															END_IF
 															IF LPA.DwellSetting <> 0 THEN
@@ -1744,7 +1744,7 @@ CASE finishCycleSubState OF
 	FINISH_CYCLE_STATES.OpenedFunnel :						//
 															//IF enableBagOpen THEN
 																IF iLefttFingerBagPresent AND iRightFingerBagPresent THEN
-																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 																ELSE
 																	IF bagOpenRetryCount < bagOpenRetrySetting THEN
 																		bagOpenRetryCount := bagOpenRetryCount + 1;
@@ -1755,14 +1755,14 @@ CASE finishCycleSubState OF
 																		funnel.CloseNow();
 																		bagOpenRetryCount := 0; 
 																		HMIData.bagsRejectedTotal.Increment();
-																		finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																		finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 																	END_IF
 																END_IF
 															ELSE
 																IF motorizedSealFlatteners.enable THEN
 																	finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
 																ELSE
-																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 																END_IF
 															//END_IF
 	
@@ -1781,7 +1781,7 @@ CASE finishCycleSubState OF
 															END_IF
 	
 	FINISH_CYCLE_STATES.SealFlattenersInAndDown :			//
-															finishCycleSubState := FINISH_CYCLE_STATES.Done;
+															finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 	
 	FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding:	//
 															motorizedSealFlatteners.AutoMoveToBagHolding();
@@ -1793,14 +1793,44 @@ CASE finishCycleSubState OF
 															END_IF
 																
 	FINISH_CYCLE_STATES.SealFlattenersAtBagHolding : 		//
-															finishCycleSubState := FINISH_CYCLE_STATES.Done;
+															finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+															
+	FINISH_CYCLE_STATES.Shake:
+		//
+loadShelf.Shake();
+				//
+		IF loadShelf.shakeStart = SHAKER_START_SELECTION.BagOpen OR
+   		   loadShelf.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   loadShelf.Shake();
+		END_IF
+		
+		//
+		IF rearLoadPlate.shakeStart = SHAKER_START_SELECTION.BagOpen OR
+   		   rearLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   rearLoadPlate.Shake();
+		END_IF
+		
+		//
+		IF frontLoadPlate.shakeStart = SHAKER_START_SELECTION.BagOpen OR
+   		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
+		   frontLoadPlate.Shake();
+		END_IF
+		
+		//
+		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
+			finishCycleSubState := FINISH_CYCLE_STATES.Shaking;
+		ELSE
+			finishCycleSubState := FINISH_CYCLE_STATES.Done;
+		END_IF
 	
-	FINISH_CYCLE_STATES.Done :								//
-															bagOpenRetryCount := 0;
-														
+	FINISH_CYCLE_STATES.Shaking:
+		//
+		IF NOT frontLoadPlate.Shaking AND NOT rearLoadPlate.Shaking AND NOT loadShelf.Shaking THEN
+			finishCycleSubState := FINISH_CYCLE_STATES.Done;
+		END_IF	
 	
-	FINISH_CYCLE_STATES.Fault :
-	
-	
+	FINISH_CYCLE_STATES.Done :								
+		//
+		bagOpenRetryCount := 0;
 END_CASE
 HMIData.initiateCycle := FALSE;
