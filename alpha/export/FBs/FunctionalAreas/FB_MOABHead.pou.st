@@ -105,6 +105,7 @@ VAR
 	pbarExtendedONS : FB_ONS;
 	batchEnableONS : FB_ONS;
 	exhaustTimer : TON := (PT := T#300MS);
+	triggerLPAWhileFeedingONS : FB_ONS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -276,7 +277,11 @@ HPA.DwellSetting := TO_UINT(HMIData.hpaDwell * 1000);
 HPA(Q => oHPAOn);
 hpaServiceOnONS(CLK := HMIData.hpaserviceOn);
 
-LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
+triggerLPAWhileFeedingONS(CLK := releaseAndFeedSubState = RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+IF HMIData.lpaDuringBagFeedEnable AND triggerLPAWhileFeedingONS.OSR THEN
+    LPA.DwellSetting := TO_DINT(((bagDelivery.remainingLength - HMIData.bagSkirtLength) / TO_REAL(HMIData.bagForwardSpeed)) * 1000.0);
+    LPA.Trigger();
+END_IF
 LPA(Q => oLPAOn);
 	 
 CASE HMIData.independentBagDeflatorSelection OF
@@ -1042,6 +1047,7 @@ CASE state OF
 													END_IF	
 	 
 													IF HMIData.lpaServicePulse THEN
+														LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 														LPA.Trigger();
 														HMIData.lpaServicePulse := FALSE;
 													ELSIF HMIData.lpaServiceOn THEN
@@ -1486,10 +1492,10 @@ CASE releaseAndFeedSubState OF
 															IBDRetractToDeflate.Reset();
 															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
                                                                 bagDelivery.AutoFeedBagOut();
-																LPA.ManualOff();
-																IF HMIData.lpaDuringBagFeedEnable THEN
-																	LPA.ManualOn();
-																END_IF
+// 																LPA.ManualOff();
+// 																IF HMIData.lpaDuringBagFeedEnable THEN
+// 																	LPA.ManualOn();
+// 																END_IF
                                                                 releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
                                                             ELSIF bagDelivery.enable AND zebraPrinter.enable THEN
                                                                 bagDelivery.AutoWaitForPrinter();
@@ -1558,9 +1564,9 @@ CASE releaseAndFeedSubState OF
                                                                                 
                                                                                                             
     RELEASE_FEED_STATES.MovingJawOutAndFeedingBag :    // 
-    												IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable) THEN
-														LPA.ManualOff();
-													END_IF
+//     												IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable) THEN
+// 														LPA.ManualOff();
+// 													END_IF
 													
 													IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable)
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
@@ -1726,11 +1732,13 @@ CASE finishCycleSubState OF
 																END_IF
 															END_IF
 															IF LPA.DwellSetting <> 0 THEN
+																LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 																LPA.Trigger();
 															END_IF
 	
 	FINISH_CYCLE_STATES.OpenFunnel :						//
 															IF LPA.DwellSetting <> 0 THEN
+																LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 																LPA.Trigger();
 															END_IF
 															funnel.OpenNow();

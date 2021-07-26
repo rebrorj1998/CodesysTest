@@ -30,6 +30,7 @@ VAR_OUTPUT
 	reverseFault : FB_Fault(name := 'Reverse Fault');
 	noBagOverEye : FB_Fault(name := 'No bag over Photoeye');
 	bagTensionFault : FB_Fault(name := 'Bag Tension Fault');
+	remainingLength : REAL;            // Remaining bag length after print
 END_VAR
 VAR
     delay : TON := (PT := T#100MS);    // Delay for testing
@@ -39,7 +40,6 @@ VAR
 	autoFeedDelay : TON := (PT := T#200MS);
 	sealBarToPrintHeadLength : REAL;
     bagsCurrentlyFed  :INT;            // Bags currently fed for testing
-    remainingLength : REAL;            // Remaining bag length after print
 	delayForPrintFeed : TIME := T#20MS;
 	printerExtraFeedLength : REAL := 0.25;
     //bagFeedMasterMotor : FB_AppliedMotionStepServoTCP();
