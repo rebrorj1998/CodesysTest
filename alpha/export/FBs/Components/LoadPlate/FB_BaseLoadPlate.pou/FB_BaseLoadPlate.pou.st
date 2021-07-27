@@ -6,6 +6,7 @@ VAR_INPUT
 	faultsEnabled : BOOL;
 	triggerDwell : REAL;
 	triggerDelay : REAL;
+    shakerEnable : BOOL;
 	shakerDwell : REAL;
 	shakerDelay : REAL;
 	shakerOnDuration : REAL;
