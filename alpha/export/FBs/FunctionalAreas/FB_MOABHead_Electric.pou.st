@@ -754,6 +754,7 @@ END_IF
 //
 loadShelf(
 	faultsEnabled := FALSE,
+	shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.loadShelfShakerStart,
 	shakerDwell := HMIData.loadShelfShakerDwell,
 	shakerDelay := HMIData.loadShelfShakerDelay,
@@ -769,6 +770,7 @@ HMIData.loadShelfService.retractedFeedback := rearLoadPlate.retracted;
 rearLoadPlate(
 	extended := iLoadPlateExtended,
 	retracted := iLoadPlateRetracted,
+	shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.rearloadPlateShakerStart,
 	shakerDwell := HMIData.rearLoadPlateShakerDwell,
 	shakerDelay := HMIData.rearLoadPlateShakerDelay,
@@ -788,6 +790,7 @@ frontLoadPlate(
 	retracted := iFrontLoadPlateRetracted,
 	triggerDwell := HMIData.loadPlateDwell,
 	triggerDelay := HMIData.loadPlateDelay,
+	shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.frontloadPlateShakerStart,
 	shakerDwell := HMIData.frontLoadPlateShakerDwell,
 	shakerDelay := HMIData.frontLoadPlateShakerDelay,

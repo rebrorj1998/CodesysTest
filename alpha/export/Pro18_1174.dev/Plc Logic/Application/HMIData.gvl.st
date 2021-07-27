@@ -176,6 +176,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	frontFilmFeedMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
 	sealFlattenerMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
+	shakerInstalled : BOOL;
 	
 	(*Warnings*)
 	printerRibbonLow : Warning;
