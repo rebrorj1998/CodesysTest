@@ -1495,7 +1495,7 @@ CASE releaseAndFeedSubState OF
 															IBDRetractToDeflate.Reset();
 															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
                                                                 bagDelivery.AutoFeedBagOut();
-// 																LPA.ManualOff();
+ 																LPA.ManualOff();
 // 																IF HMIData.lpaDuringBagFeedEnable THEN
 // 																	LPA.ManualOn();
 // 																END_IF
