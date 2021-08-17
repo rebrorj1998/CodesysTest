@@ -11,6 +11,12 @@ VAR_INPUT
 	passthroughSetting : REAL;
     passthroughSettingLast : REAL;
 	bagDropDelay : UINT := 1000;
+	bagFeedMasterCommFail : BOOL;
+	bagFeedSlaveCommFail : BOOL;
+	pressureBarCommFail : BOOL;
+	sealFlattenerCommFail : BOOL;
+	infeedConveyorCommFail : BOOL;
+	laserBarcodeScannerCommFail : BOOL;
 END_VAR
 VAR_OUTPUT
     readyToRun : BOOL;
@@ -19,6 +25,7 @@ VAR_OUTPUT
     releaseAndFeedSubState : RELEASE_FEED_STATES;
     openBagSubState : BAG_OPEN_ASSIST_STATES;
 	finishCycleSubState : FINISH_CYCLE_STATES;
+	pressureBarEndStopMotor : FB_AppliedMotionStepServoEIPPassthrough();
 END_VAR
 VAR
     motorizedSealFlatteners : FB_MotorizedSealFlatteners();
@@ -57,7 +64,6 @@ VAR
 	recoveryModeActive : BOOL; 		// Recovery Mode Active
 	startCycleReqFromPalmButtons : BOOL;
 	startCycleReqFromPalmButtonsONS : FB_ONS();
-	pressureBarEndStopMotor : FB_AppliedMotionStepServoEIPPassthrough();
 	passthrough : FB_AdjustablePneumaticPassthrough();
 	homeJawPB : BOOL;
     setPassthroughPB : BOOL;
@@ -70,9 +76,9 @@ VAR
 	palmButtonConfigError : FB_Fault(name := 'Palm Button Configuration Error');
 	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
 	barcodeVerificationFailed : FB_Fault(name := 'Barcode Verification Failed');
-	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
 	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
+	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	loadShelf : FB_BaseLoadPlate;
 	rearLoadPlate : FB_BaseLoadPlate;
 	frontLoadPlate : FB_BaseLoadPlate;
@@ -151,7 +157,7 @@ barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotI
 IF HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner THEN
 	Keyence_BCV.Enable := TRUE; 
 
-	IF Keyence_BCV.udiState <> 4 THEN 
+	IF laserBarcodeScannerCommFail THEN 
 		barcodeVerifierCommFail.Trigger();
 	END_IF
 
@@ -159,9 +165,7 @@ ELSE
 	Keyence_BCV.Enable := FALSE;
 END_IF
 
-
 // Option setup and factory config  
-	 
 IF HMIData.resetAverageCycleTime THEN
 	HMIData.averageCycleTime := 0;
 	HMIData.resetAverageCycleTime := FALSE;
@@ -197,7 +201,7 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						lowerService := HMIData.sealFlattenersServiceLower,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
-						sealFlattenerMotorCommFailInput := MSFMotor.udiState <> 4);
+						sealFlattenerMotorCommFailInput := sealFlattenerCommFail);
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 
@@ -219,8 +223,8 @@ opbar2Retract := oPBar1Retract;
 bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse,
 			reverseToPrintheadRequired := zebraPrinter.enable,
-			bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.udiState <> 4,
-			bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.udiState <> 4,
+			bagFeedMasterMotorCommFailInput := bagFeedMasterCommFail,
+			bagFeedRearMotorCommFailInput := bagFeedSlaveCommFail,
 			stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
 			velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_PNEUMATIC);
 bagDelivery.Mode := bagDeliveryMode;
@@ -526,16 +530,16 @@ END_CASE
 	emptyPartsWarningCount=> HMIData.infeedEmptyPartsActual, 
 	emptyPartsWarning=> HMIData.infeedConveyorOutOfParts.active,
 	EZFeedDone=> );
-
+		 
 IF HMIData.fillerFactorySelection = FillerSelection.EZFeed THEN
 	Infeed_Conveyor_IO.Enable := TRUE; 
-	IF Infeed_Conveyor_IO.udiState <> 4  THEN 
+	IF infeedConveyorCommFail THEN 
 		infeedConveyorIOCommFail.Trigger();
 	END_IF
 ELSE
 	Infeed_Conveyor_IO.Enable := FALSE;
 END_IF
-	 
+
 infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = FillerSelection.EZFeed) AND ezfeed.enableEZFeed AND NOT iInfeedVFDNotFaulted;
 	
 fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
@@ -682,7 +686,7 @@ pressureBarEndStopMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SHOW_MOTOR,
 				reversePolarity := TRUE,
 				defaultCurrentSetpoint := 650,
-				commFail := Pbar_ServoEIP.udiState <> 4,
+				commFail := pressureBarCommFail,
 				isHomable := TRUE);			
 pressureBarEndStopMotor.Execute();
 
@@ -693,7 +697,6 @@ passthrough(pressureBarEndStopMotor := pressureBarEndStopMotor,
 			jogOutPB := HMIData.jogPassthroughReverse,
 			passthroughPosition => HMIData.passthroughPosition);
 passthrough.Mode := passthroughMode;
-
 
 {endregion}
 	 
@@ -904,7 +907,8 @@ HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller
 
 exhaustTimer(IN := iPressureBarExtended AND state = HEAD_STATES.Idle);
 
-//footSwitchONS(CLK := iFootSwitch);
+footSwitchONS(CLK := iFootSwitch);
+
 stopONS(CLK := HMIDAta.stopMachine);
 
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
