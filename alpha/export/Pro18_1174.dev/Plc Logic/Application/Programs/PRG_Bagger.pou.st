@@ -35,7 +35,14 @@ END_VAR
 //    Created by: Ben Hess
 //    Created Date: Tuesday, April 17, 2018
 
-moabHead();
+moabHead(
+	bagFeedMasterCommFail := Bag_Delivery_EIP_Motor.udiState <> 4,
+	bagFeedSlaveCommFail := Bag_Delivery_Rear_Motor.udiState <> 4,
+	pressureBarCommFail := Pbar_ServoEIP.udiState <> 4,
+	sealFlattenerCommFail := MSFMotor.udiState <> 4,
+	infeedConveyorCommFail := Infeed_Conveyor_IO.udiState <> 4 ,
+	laserBarcodeScannerCommFail := Keyence_BCV.udiState <> 4,
+);
 //pneuHead();
 faultHandler();
 hmiInitiate := HMIData.initiateCycle;
