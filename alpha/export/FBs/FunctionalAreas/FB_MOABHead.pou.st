@@ -79,6 +79,7 @@ VAR
 	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
 	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
+	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
 	loadShelf : FB_BaseLoadPlate;
 	rearLoadPlate : FB_BaseLoadPlate;
 	frontLoadPlate : FB_BaseLoadPlate;
@@ -201,7 +202,9 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						lowerService := HMIData.sealFlattenersServiceLower,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
-						sealFlattenerMotorCommFailInput := sealFlattenerCommFail);
+						sealFlattenerMotorCommFailInput := sealFlattenerCommFail,
+						timeoutFault => sealFlattenerTimedOut.faultTrigger
+);
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 

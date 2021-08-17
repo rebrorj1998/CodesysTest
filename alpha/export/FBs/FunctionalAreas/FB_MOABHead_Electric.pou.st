@@ -571,21 +571,18 @@ CASE HMIData.auxIOConfig.factorySelection OF
 														oAuxReadyForFiller := filler.waitingForFiller;
 															 
  														CASE HMIData.auxIOConfig.cfgInputSelection OF
-																					 
-// 															AuxInputSelection.BaggerInhibit:		// move this into "BaggerInhibit", and "BaggerInihibit" into "CollisionDetection" once HMI is released
-// 																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
-//	 																								HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
 															AuxInputSelection.NotConfigured:		// 
 																									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
 																									HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
 															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																									HMIData.packageBlockingTrunkline.active := printAndApply.inhibitExternalExitConveyor;
+																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+    																								HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
 															AuxInputSelection.CollisionDetection:   //
-																 
+																 	                                HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																									HMIData.packageBlockingTrunkline.active := printAndApply.inhibitExternalExitConveyor;
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
