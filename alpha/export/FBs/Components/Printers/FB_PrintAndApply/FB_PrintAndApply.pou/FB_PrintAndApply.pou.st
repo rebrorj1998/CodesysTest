@@ -1,7 +1,8 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_PrintAndApply EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
-	collisionDetected : BOOL;
+	packageHeldAtExitSensor : BOOL;
+	conveyorClearAfterCollision : BOOL;
 	baggerFaulted : BOOL;
 	baggerInCycle : BOOL;
 	bypass : BOOL;
@@ -12,7 +13,6 @@ VAR_INPUT
 	applicatorHome : BOOL;
 	heartbeat : BOOL;
 	productAtApplicatorSensor : BOOL;
-	packageAtExitSensor : BOOL;
 	exitConveyorRunAfterPASetting : REAL;
 	waitForPrinterFaultSetting : REAL;
 	packageExitTimeSetting : REAL;
@@ -29,7 +29,6 @@ VAR_OUTPUT
 	resetOutput : BOOL;
 	inhibitCycle : BOOL;
 	inhibitConveyor : BOOL;
-	inhibitExternalExitConveyor : BOOL;
 	runConveyorAfterApply : BOOL;
 	waitForPrintFault : BOOL;
 	jammedFault : BOOL;
@@ -38,8 +37,6 @@ VAR_OUTPUT
 	packageFailedToReachTamp : BOOL;
 	packageRemovedBeforeTamp : BOOL;
 	labelsInQueue : BOOL;
-	movePackageToTrunkline : BOOL;
-	packageHeldAtExitSensor : BOOL;
 END_VAR
 VAR 
 	resetOutputTimer : FB_MonostableMultivibrator();
@@ -62,9 +59,7 @@ VAR
 	packageFailedToReachTampTimer : Standard.TON;
 	productLeavingDebounce : Standard.TON := (PT := T#500MS);
 	labelsInQueueFaultTimer : Standard.TON := (PT := T#5S);
-	packageAtExitRunoffDwell : Standard.TON;
-	tampedWhileInhibitedRunoffDwell : Standard.TON := (PT := T#2S);
-	testTimer : Standard.TON := (PT := T#1S);
+	_conveyorClearedAfterCollisionONS : FB_ONS;
 END_VAR	
 VAR_IN_OUT
 END_VAR
@@ -79,7 +74,7 @@ SUPER^();
 
 // Warnings to display on HMI
 printerNotReady := faultedStatus OR commFail;
-waitingForPrinter := ((state = PRINT_AND_APPLY_STATES.WaitForLOTAR) OR (state = PRINT_AND_APPLY_STATES.WaitForLabel)) AND NOT packageHeldAtExitSensor;
+waitingForPrinter := ((state = PRINT_AND_APPLY_STATES.WaitForLOTAR) OR (state = PRINT_AND_APPLY_STATES.WaitForLabel));
 
 // Timeout on waiting for printer too long
 waitForPrinterFaultTimer(
@@ -88,11 +83,11 @@ waitForPrinterFaultTimer(
 	 Q => waitForPrintFault
 );
 
-// Fault if package does not exit incline conveyor
-packageFailedToExitTimer(
-	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable, 
-	PT :=  TO_TIME(packageExitTimeSetting * 1000.0)
-);
+// // Fault if package does not exit incline conveyor
+// packageFailedToExitTimer(
+// 	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable, 
+// 	PT :=  TO_TIME(packageExitTimeSetting * 1000.0)
+// );
 												
 // Fault if not reached tamp head by the time conveyor stops
 packageFailedToReachTampTimer(
@@ -104,35 +99,6 @@ packageFailedToReachTampTimer(
 labelsInQueueFaultTimer(IN := dataReady AND enable, 
 							//PT :=  TO_TIME((packageToTampTimeSetting + 2) * 1000.0),
 							Q=> labelsInQueue);	
-				
-// If the bag reaches the exit sensor while a collision is detected inhibit the external exit conveyor
-IF watchForBagExit AND packageAtExitSensor THEN
-	watchForBagExit := FALSE;
-	IF collisionDetected THEN
-		packageHeldAtExitSensor := TRUE;
-		inhibitExternalExitConveyor := TRUE;
-	END_IF
-END_IF
-
-// When collision ends move package from external exit conveyor to the trunk line  
-IF packageHeldAtExitSensor THEN
-	IF NOT collisionDetected THEN
-		inhibitExternalExitConveyor := FALSE;
-		movePackageToTrunkline := TRUE;
-	END_IF
-END_IF        
-
-// Once the package has reached the trunk line, run for the additional runoff dwell
-packageAtExitRunoffDwell(PT := TO_TIME(HMIData.packageAtExitRunoffDwell * 1000));
-IF movePackageToTrunkline AND NOT packageAtExitSensor THEN
-	packageHeldAtExitSensor := FALSE;
-	packageAtExitRunoffDwell.IN := TRUE;
-	IF packageAtExitRunoffDwell.Q THEN
-		packageAtExitRunoffDwell.IN := FALSE;
-		movePackageToTrunkline := FALSE;
-		state := PRINT_AND_APPLY_STATES.Idle;
-	END_IF
-END_IF
 					
 IF watchForBagToTamp AND productAtApplicatorSensor THEN
 	watchForBagToTamp := FALSE;
@@ -172,6 +138,12 @@ resetOutputTimer(Q => resetOutput);
 // Run trigger delay/dwell
 triggerToPanther(Q => triggerOutput);
 
+// 
+_conveyorClearedAfterCollisionONS(CLK := conveyorClearAfterCollision);
+IF _conveyorClearedAfterCollisionONS.OSR AND state = PRINT_AND_APPLY_STATES.Inhibited THEN
+	state := PRINT_AND_APPLY_STATES.Idle;
+END_IF
+
 // Run Exit conveyor after tamping
 exitConveyorRunAfterPA.DwellSetting := TO_DINT(exitConveyorRunAfterPASetting * 1000.0);
 exitConveyorRunAfterPA(Q => runConveyorAfterApply);
@@ -192,10 +164,6 @@ IF resetONS.Q THEN
 	triggerToPanther.Reset();
 	exitConveyorRunAfterPA.Reset();
 	state := PRINT_AND_APPLY_STATES.Idle;
-	inhibitExternalExitConveyor := FALSE;
-	packageHeldAtExitSensor := FALSE;
-	movePackageToTrunkline := FALSE;
-	tampedWhileInhibitedRunoffDwell.IN := FALSE;
 END_IF
 
 IF NOT enable OR commFail OR faultedStatusONS.OSR OR baggerFaultedONS.OSR THEN
@@ -241,9 +209,9 @@ CASE state OF
 											END_IF
 											
 	PRINT_AND_APPLY_STATES.Applying:		// Allow for a debounce on package leaving the photoeye
+											// Add watch for bag exit back into the project
 											IF productLeavingDebounce.Q THEN
 												IF NOT packageHeldAtExitSensor THEN
-													watchForBagExit := TRUE;
 													state := PRINT_AND_APPLY_STATES.Idle;
 												ELSE
 													state := PRINT_AND_APPLY_STATES.Inhibited;
@@ -267,8 +235,6 @@ CASE state OF
 											triggerToPanther.Reset();								
 END_CASE
 
-//
-tampedWhileInhibitedRunoffDwell();
 
 // Product leaving rear exit conveyor debounce
 productLeavingDebounce(IN := (NOT productAtApplicatorSensor) AND state = PRINT_AND_APPLY_STATES.Applying);
