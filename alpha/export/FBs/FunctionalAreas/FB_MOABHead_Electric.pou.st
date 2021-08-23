@@ -175,7 +175,7 @@ cognexDM374BCV(
 	outputsEIP := ADR(oBCVOutputs),
 	triggerDwell := HMIData.barcodeScanDuration,
 	badReadFaultSetting := HMIData.barcodeBadReadFaultSetting, 
-	triggerInput := startBCVONS.OSF AND NOT printAndApply.packageHeldAtExitSensor AND NOT HMIData.faultActive
+	triggerInput := startBCVONS.OSF AND NOT collisionDetection.packageHeldByCollisionDetection AND NOT HMIData.faultActive
 );
 	 
 // Wait until bag is fed out before triggering barcode fail.
@@ -432,9 +432,10 @@ printAndApply(
 	 
 collisionDetection(
 	enable := HMIData.auxIOConfig.cfgInputSelection = AuxInputSelection.CollisionDetection,
+	collisionDetected := iAuxConfigInput,
 	collisionDetectedDwell := HMIData.collisonDetectionDwell,
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
-	packageAtExit := iAuxConfigInput,
+	packageAtExit := iPackageAtExit,
 	multiplePackagesHeld := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
 );
 	 
@@ -769,8 +770,8 @@ loadShelf(
 	shakerDelay := HMIData.loadShelfShakerDelay,
 	shakerOnDuration := HMIData.loadShelfShakerOnDuration,
 	shakerOffDuration := HMIData.loadShelfShakerOffDuration,
-	extend => oLoadShelfDown,
-	retract => oLoadShelfUp
+	extend => oLoadShelfUp,
+	retract => oLoadShelfDown
 );		 
 HMIData.loadShelfService.extendedFeedback := rearLoadPlate.extended;
 HMIData.loadShelfService.retractedFeedback := rearLoadPlate.retracted;
@@ -1021,6 +1022,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	rearLoadPlate.Reset();
 	frontLoadPlate.Reset();
 	loadShelf.Reset();
+	collisionDetection.Reset();
 	
 	LPA.Reset();
 	LPA.ManualOff();

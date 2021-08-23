@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FINAL FB_CollisionDetection EXTENDS FB_BaseComponent
+FUNCTION_BLOCK FB_CollisionDetection EXTENDS FB_BaseComponent
 VAR_INPUT
 	collisionDetected : BOOL;
 	collisionDetectedDwell : REAL;
@@ -23,20 +23,32 @@ VAR
 	_collisionDetected : BOOL;
 	_collisionDetectionONS : FB_ONS;
 	_collisionDetectionTimer : Standard.TON;
+	_packageAtExitTimer : Standard.TON := (PT := T#20MS);
+	_debounceTimer : Standard.TON := (PT := T#250MS);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
 //  FB_CollisionDetection
 //  FBs/Components/Collisiton Detection/FB_CollisionDetection
 //
-//  Created by Evan Ische on 8/20/2021.
+//  Created by Evan Ische on 8/20/2021. 
 //  Copyright (C) 2021 Sharp Packaging Systems By Pregis. All rights reserved.
 //
 
 //
+SUPER^();
+
+// Initalize timer.
+_debounceTimer();
+
+// Initalize timer. Used to mute the fins on the rear exit conveyor 
+_packageAtExitTimer( IN := packageAtExit);
+
+// Initalize timer. How long rearExitConveyor runs after bags on trunkline
 _collisionEngineRunoffTimer(PT := SECONDS_TO_TIME(collisionEngineRunoffDwell));
 
-// Initalize timer, if complete, turn off timer. 
+// Initalize timer, if complete, turn off timer.
+// Times how long collision detected stays high when triggered 
 _collisionDetectionTimer(PT := SECONDS_TO_TIME(collisionDetectedDwell));
 IF _collisionDetectionTimer.Q THEN
 	_collisionDetectionTimer.IN := FALSE;
@@ -44,7 +56,7 @@ END_IF
 
 // If reset or not enabled clear paramaters
 _enabledONS(CLK := enable);
-IF resetONS.Q OR NOT _enabledONS.OSF THEN
+IF resetONS.Q OR _enabledONS.OSF THEN
 	_conveyorState := CONVEY_PACKAGES_STATE.Idle;
 	_collisionDetectionState := COLLISION_DETECTION_STATE.Idle;
 	_collisionEngineState := COLLISION_ENGINE_STATE.Idle;
@@ -70,7 +82,7 @@ CASE _collisionDetectionState OF
 		_collisionDetectionState := COLLISION_DETECTION_STATE.CollisionActive;
 	
 	COLLISION_DETECTION_STATE.CollisionActive:
-		IF NOT _collisionDetected AND NOT _collisionDetectionTimer.IN THEN
+		IF NOT collisionDetected AND NOT _collisionDetectionTimer.IN THEN
 			_collisionDetectionState := COLLISION_DETECTION_STATE.CollisionEnded;
 		END_IF
 	
@@ -92,9 +104,10 @@ CASE _collisionEngineState OF
 		inhibitExternalExitConveyor := FALSE;
 		_collisionEngineRunoffTimer.IN := FALSE;
 		_conveyorState := CONVEY_PACKAGES_STATE.Idle;
+		packageHeldByCollisionDetection := FALSE;
 		
 		// If package has reached the end of the conveyor, check for collision
-		IF packageAtExit THEN
+		IF _packageAtExitTimer.Q THEN
 			_collisionEngineState := COLLISION_ENGINE_STATE.PackageAtExit;
 		END_IF
 	
@@ -127,12 +140,17 @@ CASE _collisionEngineState OF
 			CONVEY_PACKAGES_STATE.StartConveyor:
 				runExternalExitConveyor := TRUE;
 				IF multiplePackagesHeld THEN
+					// Used to push sencond package to the rear exit conveyor
 					runExitConveyor := TRUE;
 				END_IF
 				_conveyorState := CONVEY_PACKAGES_STATE.ConveyFirstPackage;
 				
 			CONVEY_PACKAGES_STATE.ConveyFirstPackage:
-				IF NOT packageAtExit THEN
+				// Make sure the package is fully removed from conveyor before moving on
+				_debounceTimer.IN := NOT _packageAtExitTimer.Q;
+				IF _debounceTimer.Q THEN
+					_debounceTimer.IN := FALSE;
+					// Continue to package 2 logic if in queue, otherwise finish up
 					IF NOT multiplePackagesHeld THEN
 						_conveyorState := CONVEY_PACKAGES_STATE.Runoff;
 					ELSE
@@ -142,12 +160,22 @@ CASE _collisionEngineState OF
 				
 			CONVEY_PACKAGES_STATE.WaitForSecondPackage:
 				runExitConveyor := FALSE;
-				IF packageAtExit THEN
-					_conveyorState := CONVEY_PACKAGES_STATE.ConveySecondPackage;
+				IF _packageAtExitTimer.Q THEN
+					// If a collision is detected when the 2nd package reachs the exit sensor
+					// kill the conveyors and return back to package at exit
+					IF _collisionDetected THEN
+						conveyorCleared := TRUE;
+						runExitConveyor := FALSE;
+						runExternalExitConveyor := FALSE;
+						_conveyorState := CONVEY_PACKAGES_STATE.Idle;
+						_collisionEngineState := COLLISION_ENGINE_STATE.PackageAtExit;
+					ELSE
+						_conveyorState := CONVEY_PACKAGES_STATE.ConveySecondPackage;
+					END_IF
 				END_IF
 			
 			CONVEY_PACKAGES_STATE.ConveySecondPackage:
-				IF NOT packageAtExit THEN
+				IF NOT _packageAtExitTimer.Q THEN
 					_conveyorState := CONVEY_PACKAGES_STATE.Runoff;
 				END_IF
 			
@@ -160,29 +188,5 @@ CASE _collisionEngineState OF
 			CONVEY_PACKAGES_STATE.ConveyorCleared:
 				_collisionEngineState := COLLISION_ENGINE_STATE.Idle;
 		END_CASE
-		
-		//
-		IF _collisionDetected THEN
-			
-			// Null Parameters
-			_collisionEngineRunoffTimer.IN := FALSE;
-		
-			//
-			IF multiplePackagesHeld THEN 
-				IF packageAtExit THEN
-					conveyorCleared := TRUE;
-					runExitConveyor := FALSE;
-					runExternalExitConveyor := FALSE;
-					_conveyorState := CONVEY_PACKAGES_STATE.Idle;
-					_collisionEngineState := COLLISION_ENGINE_STATE.PackageAtExit;
-				END_IF
-			ELSE 
-				runExitConveyor := FALSE;
-				runExternalExitConveyor := FALSE;
-				_conveyorState := CONVEY_PACKAGES_STATE.Idle;
-				_collisionEngineState := COLLISION_ENGINE_STATE.Idle;
-			END_IF
-			
-		END_IF
 	
 END_CASE      

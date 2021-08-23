@@ -56,14 +56,13 @@ END_IF
 _shakeActiveONS(CLK := _shaker.OUT);			
 _triggerActiveONS(CLK := _triggerDelayTimer.Q);
 IF _triggerActiveONS.OSR OR _shakeActiveONS.OSF OR _manualOn THEN
-	extend := FALSE;
 	retract := TRUE;
 	_manualOn := FALSE;
 ELSIF _triggerActiveONS.OSF OR _shakeActiveONS.OSR OR _manualOff THEN
-	extend := TRUE;
 	retract := FALSE;
 	_manualOff := FALSE;
 END_IF
+extend := NOT retract;
 
 // Counts the time between telling an actuator to move positions, and when it gets to the new position. If Timer finished, fault.
 _extendFaultTimer(
