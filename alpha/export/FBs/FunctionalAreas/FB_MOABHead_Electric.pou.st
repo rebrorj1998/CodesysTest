@@ -121,7 +121,9 @@ VAR
 	resettingActive : BOOL;
 	resetTimer : Standard.TOF := (PT := T#1S);
 	allMotorCommsGood : BOOL;
-	lightedPalmButton : FB_MurrK50_BasicMode;
+	basicLightedPalmButton : FB_MurrK50_BasicMode;
+	advancedLightedPalmButtonOne : FB_MurrK50_AdvancedMode;
+	advancedLightedPalmButtonTwo : FB_MurrK50_AdvancedMode;
 	footSwitchONS : FB_ONS;
 	IBDOutSetting: REAL;
 	ezfeed : FB_EZFeed();
@@ -437,6 +439,7 @@ collisionDetection(
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
 	packageAtExit := iPackageAtExit,
 	multiplePackagesHeld := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
+	conveyorsActive := printAndApply.runConveyorAfterApply
 );
 	 
 // Run funnel
@@ -548,17 +551,36 @@ CASE HMIData.cycleStartButtonSelection OF
 	PalmButtonSelection.DualPalmButton:					// Both buttons must be pressed
 		 												startCycleReqFromPalmButtons := iRightPalmButton AND iLeftPalmButton;
 															 
-	PalmButtonSelection.LightedPalmButton:				// Lighted Murr palm button input comes from IO Link
-		 												startCycleReqFromPalmButtons := iMurrTouchButtonStatus.0;
-															 
+	PalmButtonSelection.LightedPalmButton:				
+		// Lighted Murr palm button input comes from IO Link
+		startCycleReqFromPalmButtons := iMurrTouchButtonOneStatus.0 OR iMurrTouchButtonTwoStatus.0;
+		basicLightedPalmButton(
+			baggerReady:= readyToRun AND NOT HMIData.sealBarNotAtTemperature.active, 
+			baggerFaulted:= HMIData.faultActive, 
+			baggerInCycle:= HMIData.inCycle, 
+		);
+		oMurrTouchbuttonOneState := oMurrTouchButtonTwoState := basicLightedPalmButton.IOLinkStateOutput;													 
+														
+	PalmButtonSelection.LightedPalmButtonAdvanced:
+		// Lighted Murr palm button input comes from IO Link
+		startCycleReqFromPalmButtons := iMurrTouchButtonOneStatus.0 OR iMurrTouchButtonTwoStatus.0;														 
+		advancedLightedPalmButtonOne(
+			IOLinkData := ADR(oMurrTouchButtonOneIOLinkOutputs),
+			baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+			baggerFaulted := HMIData.faultActive,
+			baggerInCycle := HMIData.inCycle,
+			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
+		);	
+		advancedLightedPalmButtonTwo(
+			IOLinkData := ADR(oMurrTouchButtonTwoIOLinkOutputs),
+			baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+			baggerFaulted := HMIData.faultActive,
+			baggerInCycle := HMIData.inCycle,
+			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
+		);	
+							  									 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
-
-lightedPalmButton(	baggerReady:= readyToRun AND NOT HMIData.sealBarNotAtTemperature.active, 
-					baggerFaulted:= HMIData.faultActive, 
-					baggerInCycle:= HMIData.inCycle, 
-					IOLinkStateOutput=> oMurrTouchbuttonState);
-
 		  
 CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off

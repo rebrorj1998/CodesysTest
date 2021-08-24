@@ -85,7 +85,7 @@ waitForPrinterFaultTimer(
 
 // // Fault if package does not exit incline conveyor
 // packageFailedToExitTimer(
-// 	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable, 
+// 	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable AND NOT packageHeldAtExitSensor, 
 // 	PT :=  TO_TIME(packageExitTimeSetting * 1000.0)
 // );
 												
@@ -212,6 +212,7 @@ CASE state OF
 											// Add watch for bag exit back into the project
 											IF productLeavingDebounce.Q THEN
 												IF NOT packageHeldAtExitSensor THEN
+													watchForBagExit := TRUE;
 													state := PRINT_AND_APPLY_STATES.Idle;
 												ELSE
 													state := PRINT_AND_APPLY_STATES.Inhibited;

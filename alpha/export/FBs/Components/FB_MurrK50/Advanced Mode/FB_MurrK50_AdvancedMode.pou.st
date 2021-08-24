@@ -30,9 +30,9 @@ VAR
   dynamicSequenceValue := 0);
   
     	_baggerInhibitedProfile : K50OutputProfile := 
-			 (colorOne := K50Colors.White,
-              colorTwo := K50Colors.Orange,
-         animationType := K50AnimationTypes.Chase,
+			 (colorOne := K50Colors.Yellow,
+              colorTwo := K50Colors.White,
+         animationType := K50AnimationTypes.fiftyfiftyRotate,
         animationSpeed := K50AnimationSpeeds.Medium,
     animationDirection := K50AnimationDirection.CCW,
      animationPatterns := K50AnimationPatterns.Flash,

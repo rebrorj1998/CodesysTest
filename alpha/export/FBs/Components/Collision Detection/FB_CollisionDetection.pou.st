@@ -6,6 +6,7 @@ VAR_INPUT
 	collisionEngineRunoffDwell : REAL;
 	packageAtExit : BOOL;
 	multiplePackagesHeld : BOOL;
+	conveyorsActive : BOOL;
 END_VAR
 VAR_OUTPUT
 	conveyorCleared : BOOL;
@@ -107,7 +108,8 @@ CASE _collisionEngineState OF
 		packageHeldByCollisionDetection := FALSE;
 		
 		// If package has reached the end of the conveyor, check for collision
-		IF _packageAtExitTimer.Q THEN
+		
+		IF _packageAtExitTimer.Q AND conveyorsActive THEN
 			_collisionEngineState := COLLISION_ENGINE_STATE.PackageAtExit;
 		END_IF
 	
