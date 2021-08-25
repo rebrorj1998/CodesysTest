@@ -646,8 +646,8 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.faultsEnabled := state >= HEAD_STATES.ReleaseAndFeedBag;
 														rearLoadPlate.triggerDelay := 0;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
-														loadShelf.triggerDelay := HMIData.loadPlateDwell;
-														loadShelf.triggerDwell := HMIData.loadPlateDelay;
+														loadShelf.triggerDelay := HMIData.loadShelfDwell;
+														loadShelf.triggerDwell := HMIData.loadShelfDelay;
 															 
 	PackageEjectionSelection.RearRetractWithRetractShelf:   
 														// Enable Rear Retracting Load Plate and Shelf
@@ -658,8 +658,8 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.faultsEnabled := FALSE;
 														rearLoadPlate.triggerDelay := HMIData.loadPlateDelay;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell;
-														loadShelf.triggerDelay := HMIData.loadPlateDwell;
-														loadShelf.triggerDwell := HMIData.loadPlateDelay;
+														loadShelf.triggerDelay := HMIData.loadShelfDwell;
+														loadShelf.triggerDwell := HMIData.loadShelfDelay;
 END_CASE	
 
 exitConveyorRun();

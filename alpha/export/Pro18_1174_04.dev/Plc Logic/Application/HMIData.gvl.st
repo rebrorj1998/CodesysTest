@@ -44,6 +44,9 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
 	fillerEnable : BOOL;
+	loadPlateInUse : BOOL;
+	loadPlateDelay : REAL;
+	loadPlateDwell : REAL;
 	rearLoadPlateShakerDelay : REAL;
 	rearLoadPlateShakerDwell : REAL;
 	rearLoadPlateShakerOnDuration : REAL;
@@ -54,15 +57,13 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	frontLoadPlateShakerOnDuration : REAL;
 	frontLoadPlateShakerOffDuration : REAL;
 	frontloadPlateShakerStart : SHAKER_START_SELECTION;
+	loadShelfDelay : REAL;
+	loadShelfDwell : REAL;
 	loadShelfShakerDelay : REAL;
 	loadShelfShakerDwell : REAL;
 	loadShelfShakerOnDuration : REAL;
 	loadShelfShakerOffDuration : REAL;
 	loadShelfShakerStart : SHAKER_START_SELECTION;
-	loadPlateDelay : REAL;
-	loadPlateDwell : REAL;
-	loadShelfDelay : REAL;
-	loadShelfDwell : REAL;
 	exitConveyorDwell : REAL;
 	vacuumDwell : REAL := 0.25;
 	IBDClosePosition : REAL := 0;
@@ -163,6 +164,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
+	packageEjectDisabledPosition : PackageEjectionDisabledPosition := PackageEjectionDisabledPosition.LoadingPosition;
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
 	cycleStartButtonSelection : PalmButtonSelection := PalmButtonSelection.DualPalmButton;
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;

@@ -43,7 +43,10 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
-	fillerEnable : BOOL;
+	fillerEnable : BOOL; 
+	loadPlateInUse : BOOL;
+	loadPlateDelay : REAL;
+	loadPlateDwell : REAL;
 	rearLoadPlateShakerDelay : REAL;
 	rearLoadPlateShakerDwell : REAL;
 	rearLoadPlateShakerOnDuration : REAL;
@@ -54,15 +57,13 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	frontLoadPlateShakerOnDuration : REAL;
 	frontLoadPlateShakerOffDuration : REAL;
 	frontloadPlateShakerStart : SHAKER_START_SELECTION;
+	loadShelfDelay : REAL := 0.1;
+	loadShelfDwell : REAL := 1.5;
 	loadShelfShakerDelay : REAL;
 	loadShelfShakerDwell : REAL;
 	loadShelfShakerOnDuration : REAL;
 	loadShelfShakerOffDuration : REAL;
 	loadShelfShakerStart : SHAKER_START_SELECTION;
-	loadPlateDelay : REAL;
-	loadPlateDwell : REAL;
-	loadShelfDelay : REAL := 0.1;
-	loadShelfDwell : REAL := 1.5;
 	exitConveyorDwell : REAL;
 	vacuumDwell : REAL := 0.25;
 	IBDDeflateDwellTime  : REAL := 0.75;
@@ -113,7 +114,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerClearedAck : BOOL;
 	calculatedCyclesPerMinute : REAL;
 	sealFlattenersInUse : BOOL := TRUE;
-	collisonDetectionDwell : REAL := 3;
+	
+	collisonDetectionDwell : REAL := 3.0;
 	packageAtExitRunoffDwell : REAL := 1.0;
 	IBDOffset : REAL := 3.0;
 	pressureBarBagFeedPosition : REAL := 2.0;
@@ -173,6 +175,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
+	packageEjectDisabledPosition : PackageEjectionDisabledPosition := PackageEjectionDisabledPosition.LoadingPosition;
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
 	cycleStartButtonSelection : PalmButtonSelection := PalmButtonSelection.DualPalmButton;
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;

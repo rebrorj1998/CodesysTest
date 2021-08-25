@@ -41,7 +41,6 @@ VAR
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
     bagDelivery : FB_BagDelivery();
-    //zebraPrinter : PrinterFB;            //Printer Test Rig
 	zebraPrinter : FB_ZebraPrinter;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
@@ -438,9 +437,9 @@ collisionDetection(
 	collisionDetected := iAuxConfigInput,
 	collisionDetectedDwell := HMIData.collisonDetectionDwell,
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
-	packageAtExit := iPackageAtExit,
 	multiplePackagesHeld := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
-	conveyorsActive := printAndApply.runConveyorAfterApply
+	conveyorsActive := printAndApply.runConveyorAfterApply,
+	packageAtExit := iPackageAtExit
 );
 	 
 // Run funnel
@@ -454,7 +453,8 @@ funnel(
 	closeOutput=> oIBDRetract, 
 	openOutput=> oIBDExtend, 
 	failToOpen=> , 
-	failToClose=> );
+	failToClose=> 
+);
 funnel.OpeningTime := HMIData.funnelOpeningTime;
 funnel.ClosingTime := HMIData.funnelClosingTime;
 funnel.DelaySetting := HMIData.funnelOpenDelay;
@@ -786,6 +786,7 @@ END_IF
 
 //
 loadShelf(
+	inUse := HMIData.loadPlateInUse,
 	faultsEnabled := FALSE,
     shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.loadShelfShakerStart,
@@ -793,6 +794,7 @@ loadShelf(
 	shakerDelay := HMIData.loadShelfShakerDelay,
 	shakerOnDuration := HMIData.loadShelfShakerOnDuration,
 	shakerOffDuration := HMIData.loadShelfShakerOffDuration,
+	disabledPosition := HMIData.packageEjectDisabledPosition,
 	extend => oLoadShelfUp,
 	retract => oLoadShelfDown
 );		 
@@ -801,6 +803,7 @@ HMIData.loadShelfService.retractedFeedback := rearLoadPlate.retracted;
 
 //	 
 rearLoadPlate(
+	inUse := HMIData.loadPlateInUse,
 	extended := iLoadPlateExtended,
 	retracted := iLoadPlateRetracted,
     shakerEnable := HMIData.shakerInstalled,
@@ -809,6 +812,7 @@ rearLoadPlate(
 	shakerDelay := HMIData.rearLoadPlateShakerDelay,
 	shakerOnDuration := HMIData.rearLoadPlateShakerOnDuration,
 	shakerOffDuration := HMIData.rearLoadPlateShakerOffDuration,
+	disabledPosition := HMIData.packageEjectDisabledPosition,
 	extend => oloadPlateExtend,
 	retract => oLoadPlateRetract,
 	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
@@ -819,6 +823,7 @@ HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retra
 
 //	 
 frontLoadPlate(
+	inUse := HMIData.loadPlateInUse,
 	extended := iFrontLoadPlateExtended,
 	retracted := iFrontLoadPlateRetracted,
 	triggerDwell := HMIData.loadPlateDwell,
@@ -829,6 +834,7 @@ frontLoadPlate(
 	shakerDelay := HMIData.frontLoadPlateShakerDelay,
 	shakerOnDuration := HMIData.frontLoadPlateShakerOnDuration,
 	shakerOffDuration := HMIData.frontLoadPlateShakerOffDuration,
+	disabledPosition := HMIData.packageEjectDisabledPosition,
 	extend => oFrontLoadPlateToLoad,
 	retract => oFrontLoadPlateToDischarge,
 	failedToExtend => frontLoadPlateFaults.failedToLoad.faultTrigger,
@@ -862,8 +868,8 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.faultsEnabled := state >= HEAD_STATES.ReleaseAndFeedBag;
 														rearLoadPlate.triggerDelay := 0;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
-														loadShelf.triggerDelay := HMIData.loadPlateDwell;
-														loadShelf.triggerDwell := HMIData.loadPlateDelay;
+														loadShelf.triggerDelay := HMIData.loadShelfDwell;
+														loadShelf.triggerDwell := HMIData.loadShelfDelay;
 															 
 	PackageEjectionSelection.RearRetractWithRetractShelf:   
 														// Enable Rear Retracting Load Plate and Shelf
