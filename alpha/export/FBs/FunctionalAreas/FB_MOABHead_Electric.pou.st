@@ -173,11 +173,11 @@ HMIData.dryCycleActive.active := HMIData.enableDryCycle;
 // Ethernet/IP barcode verifier from Cognex	 
 startBCVONS(CLK := iPALOTAR);
 cognexDM374BCV(
-	inputsEIP := ADR(iBCVInputs),
-	outputsEIP := ADR(oBCVOutputs),
+	inputScannerData := ADR(iBCVInputs),
+	outputScannerData := ADR(oBCVOutputs),
 	triggerDwell := HMIData.barcodeScanDuration,
-	badReadFaultSetting := HMIData.barcodeBadReadFaultSetting, 
-	triggerInput := startBCVONS.OSF AND printAndApply.runConveyorAfterApply AND NOT collisionDetection.packageHeldByCollisionDetection
+	badScanFaultsAllowed := HMIData.barcodeBadReadFaultSetting, 
+	trigger := startBCVONS.OSF AND printAndApply.runConveyorAfterApply AND NOT collisionDetection.packageHeldByCollisionDetection OR collisionDetection.triggerBarcodeScanner
 );
 	 
 // Wait until bag is fed out before triggering barcode fail.

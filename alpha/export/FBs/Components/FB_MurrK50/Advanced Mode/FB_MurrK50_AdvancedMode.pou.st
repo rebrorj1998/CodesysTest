@@ -54,6 +54,13 @@ VAR
 													_baggerFaultedProfile];
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+//
+//  FB_MurrK50_AdvancedMode
+//  FBs/FB_MurrK50/Advanced Mode/FB_MurrK50_AdvancedMode
+//
+//  Created by Evan Ische on 6/17/2021. 
+//  Copyright (C) 2021 Sharp Packaging Systems By Pregis. All rights reserved.
+//
 
 //
 _IOLinkStateOutput := 0;

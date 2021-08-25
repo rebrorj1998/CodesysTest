@@ -14,6 +14,7 @@ VAR_OUTPUT
 	runExternalExitConveyor : BOOL;
 	runExitConveyor : BOOL;
 	packageHeldByCollisionDetection : BOOL;
+	triggerBarcodeScanner : BOOL;
 END_VAR
 VAR
 	_enabledONS : FB_ONS;
@@ -101,6 +102,7 @@ CASE _collisionEngineState OF
 		// Null Parameters
 		conveyorCleared := TRUE;
 		runExitConveyor := FALSE;
+		triggerBarcodeScanner := FALSE;
 		runExternalExitConveyor := FALSE;
 		inhibitExternalExitConveyor := FALSE;
 		_collisionEngineRunoffTimer.IN := FALSE;
@@ -108,7 +110,6 @@ CASE _collisionEngineState OF
 		packageHeldByCollisionDetection := FALSE;
 		
 		// If package has reached the end of the conveyor, check for collision
-		
 		IF _packageAtExitTimer.Q AND conveyorsActive THEN
 			_collisionEngineState := COLLISION_ENGINE_STATE.PackageAtExit;
 		END_IF
@@ -144,6 +145,7 @@ CASE _collisionEngineState OF
 				IF multiplePackagesHeld THEN
 					// Used to push sencond package to the rear exit conveyor
 					runExitConveyor := TRUE;
+					triggerBarcodeScanner := TRUE;
 				END_IF
 				_conveyorState := CONVEY_PACKAGES_STATE.ConveyFirstPackage;
 				
@@ -165,6 +167,7 @@ CASE _collisionEngineState OF
 				IF _packageAtExitTimer.Q THEN
 					// If a collision is detected when the 2nd package reachs the exit sensor
 					// kill the conveyors and return back to package at exit
+					triggerBarcodeScanner := FALSE;
 					IF _collisionDetected THEN
 						conveyorCleared := TRUE;
 						runExitConveyor := FALSE;
