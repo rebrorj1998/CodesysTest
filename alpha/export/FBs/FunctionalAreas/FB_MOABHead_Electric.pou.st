@@ -177,7 +177,7 @@ cognexDM374BCV(
 	outputsEIP := ADR(oBCVOutputs),
 	triggerDwell := HMIData.barcodeScanDuration,
 	badReadFaultSetting := HMIData.barcodeBadReadFaultSetting, 
-	triggerInput := startBCVONS.OSF AND NOT collisionDetection.packageHeldByCollisionDetection AND NOT HMIData.faultActive
+	triggerInput := startBCVONS.OSF AND printAndApply.runConveyorAfterApply AND NOT collisionDetection.packageHeldByCollisionDetection
 );
 	 
 // Wait until bag is fed out before triggering barcode fail.
@@ -417,6 +417,7 @@ printAndApply(
 	heartbeat:= iPAHeartbeat, 
 	productAtApplicatorSensor:= NOT iConveyorClear, 
 	conveyorClearAfterCollision := collisionDetection.conveyorCleared,
+	packageAtExitSensor := iPackageAtExit,
 	packageHeldAtExitSensor := collisionDetection.packageHeldByCollisionDetection,
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,

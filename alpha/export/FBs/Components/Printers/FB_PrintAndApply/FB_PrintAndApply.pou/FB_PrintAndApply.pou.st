@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_PrintAndApply EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
+	packageAtExitSensor : BOOL;
 	packageHeldAtExitSensor : BOOL;
 	conveyorClearAfterCollision : BOOL;
 	baggerFaulted : BOOL;
@@ -83,11 +84,11 @@ waitForPrinterFaultTimer(
 	 Q => waitForPrintFault
 );
 
-// // Fault if package does not exit incline conveyor
-// packageFailedToExitTimer(
-// 	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable AND NOT packageHeldAtExitSensor, 
-// 	PT :=  TO_TIME(packageExitTimeSetting * 1000.0)
-// );
+// Fault if package does not exit incline conveyor
+packageFailedToExitTimer(
+	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable, 
+	PT :=  TO_TIME(packageExitTimeSetting * 1000.0)
+);
 												
 // Fault if not reached tamp head by the time conveyor stops
 packageFailedToReachTampTimer(
@@ -99,6 +100,10 @@ packageFailedToReachTampTimer(
 labelsInQueueFaultTimer(IN := dataReady AND enable, 
 							//PT :=  TO_TIME((packageToTampTimeSetting + 2) * 1000.0),
 							Q=> labelsInQueue);	
+							
+IF watchForBagExit AND packageAtExitSensor THEN
+	watchForBagExit := FALSE;
+END_IF
 					
 IF watchForBagToTamp AND productAtApplicatorSensor THEN
 	watchForBagToTamp := FALSE;
