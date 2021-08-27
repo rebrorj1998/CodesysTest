@@ -314,6 +314,10 @@
       <UserDefElement type="T_PRINT_AND_APPLY_STATES" iecname="Inhibited" enumvalue="14" />
       <UserDefElement type="T_PRINT_AND_APPLY_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
+    <TypeUserDef name="T_PackageEjectionDisabledPosition" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PackageEjectionDisabledPosition" basetype="T_INT">
+      <UserDefElement type="T_PackageEjectionDisabledPosition" iecname="LoadingPosition" enumvalue="0" />
+      <UserDefElement type="T_PackageEjectionDisabledPosition" iecname="DischargePosition" enumvalue="1" />
+    </TypeUserDef>
     <TypeUserDef name="T_PackageEjectionSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PackageEjectionSelection" basetype="T_INT">
       <UserDefElement type="T_PackageEjectionSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_PackageEjectionSelection" iecname="RearRetractingLoadPlate" enumvalue="1" />
@@ -589,7 +593,7 @@
       <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_ZebraPrinter" size="4" nativesize="77476" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinter" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_ZebraPrinter" size="4" nativesize="77672" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinter" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="enableRibbonDetection" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -678,7 +682,7 @@
       <UserDefElement iecname="bagFeedMasterMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="875" nativesize="107656" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="875" nativesize="108020" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -930,6 +934,7 @@
         <Node name="loadPlateCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="loadPlateDelay" type="T_REAL" access="ReadWrite" />
         <Node name="loadPlateDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateInUse" type="T_BOOL" access="ReadWrite" />
         <Node name="loadPlateLeak" type="T_FB_CylinderLeak" access="ReadWrite" />
         <Node name="loadPlateService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="loadShelfDelay" type="T_REAL" access="ReadWrite" />
@@ -957,6 +962,7 @@
         <Node name="murrIOConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="packageAtExitRunoffDwell" type="T_REAL" access="ReadWrite" />
         <Node name="packageBlockingTrunkline" type="T_Warning" access="ReadWrite" />
+        <Node name="packageEjectDisabledPosition" type="T_PackageEjectionDisabledPosition" access="ReadWrite" />
         <Node name="packageEjectGuardRemoved" type="T_Warning" access="ReadWrite" />
         <Node name="packageEjectSelection" type="T_PackageEjectionSelection" access="ReadWrite" />
         <Node name="passthroughChanges" type="T_FB_CycleCounter" access="ReadWrite" />

@@ -786,8 +786,9 @@ END_IF
 
 //
 loadShelf(
-	inUse := HMIData.loadPlateInUse,
+	estopOK := iEStopOK,
 	faultsEnabled := FALSE,
+	inUse := HMIData.loadPlateInUse,
     shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.loadShelfShakerStart,
 	shakerDwell := HMIData.loadShelfShakerDwell,
@@ -803,6 +804,7 @@ HMIData.loadShelfService.retractedFeedback := rearLoadPlate.retracted;
 
 //	 
 rearLoadPlate(
+	estopOK := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	extended := iLoadPlateExtended,
 	retracted := iLoadPlateRetracted,
@@ -823,6 +825,7 @@ HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retra
 
 //	 
 frontLoadPlate(
+	estopOK := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	extended := iFrontLoadPlateExtended,
 	retracted := iFrontLoadPlateRetracted,
@@ -1519,9 +1522,8 @@ CASE state OF
 												ELSE
 													factoryTestModeKeepCycling := TRUE;
 												END_IF
-											END_IF	
-	HEAD_STATES.StartReset 	:			// Reset all 
-	HEAD_STATES.Resetting :				
+											END_IF		
+		
     HEAD_STATES.StartHoming :            // 
 											IF allMotorCommsGood THEN
 												motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.notHomed.Ack();
@@ -1542,10 +1544,11 @@ CASE state OF
 											END_IF                             
     
     HEAD_STATES.Homing :                // 
-                                            //IF NOT pressureBar.homeRequired AND (NOT IBD.homeRequired OR NOT IBD.enable) THEN
 											IF pressureBar.pressureBarOpen AND (NOT IBD.Ready OR NOT IBD.enable) THEN
                                                 state := HEAD_STATES.HomingComplete;
-												rearLoadPlate.ManualOff();   
+												IF NOT (NOT rearLoadPlate.inUse AND HMIData.packageEjectDisabledPosition = PackageEjectionDisabledPosition.DischargePosition) THEN
+													rearLoadPlate.ManualOff();
+												END_IF
 												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND motorizedSealFlatteners.enable THEN
 													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 													motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
@@ -1554,13 +1557,9 @@ CASE state OF
                                             
     HEAD_STATES.HomingComplete :            // 
 											IF (NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired) OR NOT motorizedSealFlatteners.enable THEN
-												 homeJawPB := FALSE;
-												//state := HEAD_STATES.Idle;
+												homeJawPB := FALSE;
 												motorizedSealFlatteners.sealFlattenersVerticalAxis.Extend();
-												//motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(3,1000,1000,1000,125);
 												state := HEAD_STATES.MovePassthrough;
-												//HMIData.passthroughSetting := 6.0;
-												//setPassthroughPB := TRUE;
 											END_IF
                                            
     HEAD_STATES.MovePassthrough :           // 

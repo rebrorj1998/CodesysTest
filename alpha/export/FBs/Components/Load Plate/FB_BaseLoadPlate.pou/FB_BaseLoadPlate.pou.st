@@ -14,6 +14,7 @@ VAR_INPUT
 	shakerOffDuration : REAL;
 	shakeStart : SHAKER_START_SELECTION;
 	disabledPosition : PackageEjectionDisabledPosition;
+	estopOK : BOOL;
 END_VAR
 VAR_OUTPUT
 	retract : BOOL;
@@ -38,6 +39,10 @@ VAR
 	_triggerActiveONS : FB_ONS;
 	_shakeActiveONS : FB_ONS;
 	_state : LOAD_PLATE_STATE;
+	_loadPlateInUseONS : FB_ONS;
+	_estopOK : FB_ONS;
+	_disabledPositionHasUpdated : BOOL;
+	_previousDisabledPosition : PackageEjectionDisabledPosition;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
@@ -61,7 +66,19 @@ IF _triggerDwellTimer.Q OR resetONS.Q THEN
 	_state := LOAD_PLATE_STATE.Idle;
 END_IF
 
-// 			
+//
+_triggerActiveONS(CLK := _trigger);
+
+//
+_disabledPositionHasUpdated := FALSE;
+IF disabledPosition <> _previousDisabledPosition THEN
+	_disabledPositionHasUpdated := TRUE;
+	_previousDisabledPosition := disabledPosition;
+END_IF 
+_estopOK(CLK := estopOK);
+
+//
+_loadPlateInUseONS(CLK := inUse); 			
 IF RetractLoadPlate THEN
 	retract := TRUE;
 	_manualOn := FALSE;

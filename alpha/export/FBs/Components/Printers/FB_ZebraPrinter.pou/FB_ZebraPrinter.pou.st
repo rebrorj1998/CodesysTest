@@ -20,6 +20,8 @@ VAR
     printHeadDebouneSetpoint : TIME := T#50MS;
     tcpServer : FB_TCPClient();
 	endOfPrintONS : Standard.F_TRIG();
+	printerNotPrintingFault : FB_Fault(name := 'Printer didnt respond to print request');
+	printerNotPrintingTimer : Standard.TON := (PT := T#250MS);
 	printerRibbonMovingTimer1 : Standard.TON;
 	printerRibbonMovingTimer2 : Standard.TON;
 	printerRibbonMovingSettleTime : TIME := T#450MS;
@@ -32,18 +34,26 @@ END_VAR
 //    Description: This program manages the aspects of a (Zebra) printer
 //    Created by: Ben Hess
 //    Created Date: April 2nd, 2018
+
 SUPER^();
+
 // Enable TCP Server for label sending
 tcpServer();
 endOfPrintONS(CLK := printerEndOfPrint);
-//Report as ready if mode is auto and we're not faulted
+
+// Report as ready if mode is auto and we're not faulted
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PRINTER_STATES.Fault);
+
+// // Turned off until fault is added to the HMI
+// printerNotPrintingTimer(IN := oPrinterStartPrint AND NOT printerEndOfPrint);
+// IF printerNotPrintingTimer.Q THEN
+// 	printerNotPrintingFault.Trigger();
+// END_IF
 
 printerRibbonMovingTimer1(PT := printerRibbonMovingSettleTime);
 printerRibbonMovingTimer2(PT := printerRibbonMovingSettleTime);
 
 printHeadDebounce(PT:= printHeadDebouneSetpoint, Q=> printHeadDebounced);
-printStarted := printerEndOfPrint;
 
 IF enableONS.Q OR resetONS.Q THEN
     state := PRINTER_STATES.Idle;
@@ -91,10 +101,7 @@ CASE state OF
                                                         state := PRINTER_STATES.DataReady;
                                                     END_IF
                                                     
-                                        
-    
-    PRINTER_STATES.WaitingForData :                    //If printerDataReady drops out the label data was received
-                                                    
+    PRINTER_STATES.WaitingForData :                 // If printerDataReady drops out the label data was received
                                                     IF printerDataReady THEN
                                                         state := PRINTER_STATES.DataReady;    
                                                     END_IF
@@ -112,23 +119,12 @@ CASE state OF
 														//oPrinterStartPrint := TRUE;
                                                     END_IF                                    
             
-    
     PRINTER_STATES.BeginPrintCycle :                // Start printing
-                                                    
-                                                    
                                                     IF _amSendPrintSignal THEN
                                                         oPrinterStartPrint := TRUE;
-														
-                                                        state := PRINTER_STATES.Printing;
                                                         printHeadDebounce.IN := FALSE;
                                                         _amSendPrintSignal := FALSE;
                                                     END_IF                                                    
-                                        
-    
-    PRINTER_STATES.FeedAtPrintSpeed :                //
-
-                                                    
-                                                                                                
                                         
     PRINTER_STATES.Printing :                        //While printing, wait for End of Print signal
 													printerRibbonMovingTimer1.IN := ribbonEncoderPulse;
@@ -154,12 +150,6 @@ CASE state OF
 														HMIData.printerCycles.Increment();
 														HMIData.printHeadClean.Increment();
                                                         Globals.printerCycleCounts := Globals.printerCycleCounts + 1;
-                                                    END_IF
-        
-    PRINTER_STATES.FeedThrough :                        
-                                        
-    PRINTER_STATES.Ready :                        
-                                        
-    PRINTER_STATES.Fault :                        
+                                                    END_IF                       
                                         
 END_CASE

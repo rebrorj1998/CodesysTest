@@ -3,4 +3,6 @@ METHOD ManualON
 VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_manualOn := TRUE;
+IF enable THEN
+	_manualOn := TRUE;	
+END_IF
