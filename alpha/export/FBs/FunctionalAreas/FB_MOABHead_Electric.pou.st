@@ -871,8 +871,8 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.faultsEnabled := state >= HEAD_STATES.ReleaseAndFeedBag;
 														rearLoadPlate.triggerDelay := 0;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
-														loadShelf.triggerDelay := HMIData.loadShelfDwell;
-														loadShelf.triggerDwell := HMIData.loadShelfDelay;
+														loadShelf.triggerDelay := HMIData.loadShelfDelay;
+														loadShelf.triggerDwell := HMIData.loadShelfDwell;
 															 
 	PackageEjectionSelection.RearRetractWithRetractShelf:   
 														// Enable Rear Retracting Load Plate and Shelf

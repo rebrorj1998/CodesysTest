@@ -67,7 +67,8 @@ IF _triggerDwellTimer.Q OR resetONS.Q THEN
 END_IF
 
 //
-_triggerActiveONS(CLK := _trigger);
+_shakeActiveONS();
+_triggerActiveONS();
 
 //
 _disabledPositionHasUpdated := FALSE;

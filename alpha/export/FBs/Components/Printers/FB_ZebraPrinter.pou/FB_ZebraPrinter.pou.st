@@ -6,7 +6,7 @@ VAR_INPUT
 	enableRibbonDetection : BOOL := TRUE;                
 END_VAR
 VAR_OUTPUT
-    state : PRINTER_STATES;         // Printer State Machine
+    state : PRINTER_STATES; // Printer State Machine
 	oLowerPrintHead : BOOL;
 	printHeadDebounced : BOOL;
 	ribbonFault : FB_Fault(name := 'Printer Ribbon Fault');
@@ -122,8 +122,9 @@ CASE state OF
     PRINTER_STATES.BeginPrintCycle :                // Start printing
                                                     IF _amSendPrintSignal THEN
                                                         oPrinterStartPrint := TRUE;
+														_amSendPrintSignal := FALSE;
                                                         printHeadDebounce.IN := FALSE;
-                                                        _amSendPrintSignal := FALSE;
+														state := PRINTER_STATES.Printing;
                                                     END_IF                                                    
                                         
     PRINTER_STATES.Printing :                        //While printing, wait for End of Print signal
