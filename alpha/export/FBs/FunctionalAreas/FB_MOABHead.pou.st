@@ -85,7 +85,7 @@ VAR
 	frontLoadPlate : FB_BaseLoadPlate;
 	iPowerOffButtonONS : FB_ONS();
 	loadPlateFaultTimer : FB_CylinderFaults();
-	frontLoadPlateFaults : LoadPlateFaultsType;
+	forwardLoadPlateFaults : LoadPlateFaultsType;
 	rearLoadPlateFaults : LoadPlateFaultsType;
 	loadShelfFaults : LoadPlateFaultsType;
 	LPA : DelayDwellFB();
@@ -624,8 +624,8 @@ frontLoadPlate(
 	disabledPosition := HMIData.packageEjectDisabledPosition,
 	extend => oFrontLoadPlateToLoad,
 	retract => oFrontLoadPlateToDischarge,
-	failedToExtend => frontLoadPlateFaults.failedToLoad.faultTrigger,
-	failedToRetract => frontLoadPlateFaults.failedToDischarge.faultTrigger
+	failedToExtend => forwardLoadPlateFaults.failedToLoad.faultTrigger,
+	failedToRetract => forwardLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
 HMIData.forwardLoadPlateService.extendedFeedback := frontLoadPlate.extended;
 HMIData.forwardLoadPlateService.retractedFeedback := frontLoadPlate.retracted;
@@ -655,8 +655,8 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.faultsEnabled := state >= HEAD_STATES.ReleaseAndFeedBag;
 														rearLoadPlate.triggerDelay := 0;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
-														loadShelf.triggerDelay := HMIData.loadShelfDwell;
-														loadShelf.triggerDwell := HMIData.loadShelfDelay;
+														loadShelf.triggerDelay := HMIData.loadShelfDelay;
+														loadShelf.triggerDwell := HMIData.loadShelfDwell;
 															 
 	PackageEjectionSelection.RearRetractWithRetractShelf:   
 														// Enable Rear Retracting Load Plate and Shelf
@@ -667,8 +667,8 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.faultsEnabled := FALSE;
 														rearLoadPlate.triggerDelay := HMIData.loadPlateDelay;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell;
-														loadShelf.triggerDelay := HMIData.loadShelfDwell;
-														loadShelf.triggerDwell := HMIData.loadShelfDelay;
+														loadShelf.triggerDelay := HMIData.loadShelfDelay;
+														loadShelf.triggerDwell := HMIData.loadShelfDwell;
 END_CASE	
 
 exitConveyorRun();
