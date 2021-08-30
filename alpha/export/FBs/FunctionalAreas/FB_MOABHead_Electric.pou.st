@@ -827,8 +827,8 @@ HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retra
 frontLoadPlate(
 	estopOK := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
-	extended := iFrontLoadPlateExtended,
-	retracted := iFrontLoadPlateRetracted,
+	extended := iFrontLoadPlateRetracted,
+	retracted := iFrontLoadPlateExtended,
 	triggerDwell := HMIData.loadPlateDwell,
 	triggerDelay := HMIData.loadPlateDelay,
     shakerEnable := HMIData.shakerInstalled,
@@ -838,8 +838,8 @@ frontLoadPlate(
 	shakerOnDuration := HMIData.frontLoadPlateShakerOnDuration,
 	shakerOffDuration := HMIData.frontLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
-	extend => oFrontLoadPlateToLoad,
-	retract => oFrontLoadPlateToDischarge,
+	extend => oFrontLoadPlateToDischarge,
+	retract => oFrontLoadPlateToLoad,
 	failedToExtend => forwardLoadPlateFaults.failedToLoad.faultTrigger,
 	failedToRetract => forwardLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
