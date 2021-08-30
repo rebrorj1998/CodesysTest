@@ -92,7 +92,7 @@ VAR
 	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
 	
 	iPowerOffButtonONS : FB_ONS();
-	frontLoadPlateFaults : LoadPlateFaultsType;
+	forwardLoadPlateFaults : LoadPlateFaultsType;
 	rearLoadPlateFaults : LoadPlateFaultsType;
 	loadShelfFaults : LoadPlateFaultsType;
 	
@@ -840,8 +840,8 @@ frontLoadPlate(
 	disabledPosition := HMIData.packageEjectDisabledPosition,
 	extend => oFrontLoadPlateToLoad,
 	retract => oFrontLoadPlateToDischarge,
-	failedToExtend => frontLoadPlateFaults.failedToLoad.faultTrigger,
-	failedToRetract => frontLoadPlateFaults.failedToDischarge.faultTrigger
+	failedToExtend => forwardLoadPlateFaults.failedToLoad.faultTrigger,
+	failedToRetract => forwardLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
 HMIData.forwardLoadPlateService.extendedFeedback := frontLoadPlate.extended;
 HMIData.forwardLoadPlateService.retractedFeedback := frontLoadPlate.retracted;
