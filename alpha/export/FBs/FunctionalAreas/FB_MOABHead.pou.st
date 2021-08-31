@@ -580,18 +580,18 @@ loadShelf(
 	shakerOnDuration := HMIData.loadShelfShakerOnDuration,
 	shakerOffDuration := HMIData.loadShelfShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
-	extend => oLoadShelfUp,
-	retract => oLoadShelfDown
+	moveToLoadingPositon => oLoadShelfUp,
+	moveToDischargePosition => oLoadShelfDown
 );		 
-HMIData.loadShelfService.extendedFeedback := rearLoadPlate.extended;
-HMIData.loadShelfService.retractedFeedback := rearLoadPlate.retracted;
+HMIData.loadShelfService.extendedFeedback := rearLoadPlate.inLoadingPosition;
+HMIData.loadShelfService.retractedFeedback := rearLoadPlate.inDischargePosition;
 
 //	 
 rearLoadPlate(
 	estopOK := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
-	extended := iLoadPlateExtended,
-	retracted := iLoadPlateRetracted,
+	inLoadingPosition := iLoadPlateExtended,
+	inDischargePosition := iLoadPlateRetracted,
     shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.rearloadPlateShakerStart,
 	shakerDwell := HMIData.rearLoadPlateShakerDwell,
@@ -599,20 +599,20 @@ rearLoadPlate(
 	shakerOnDuration := HMIData.rearLoadPlateShakerOnDuration,
 	shakerOffDuration := HMIData.rearLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
-	extend => oloadPlateExtend,
-	retract => oLoadPlateRetract,
+	moveToLoadingPositon => oloadPlateExtend,
+	moveToDischargePosition => oLoadPlateRetract,
 	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
 	failedToRetract => rearLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
-HMIData.rearLoadPlateService.extendedFeedback := HMIData.loadPlateService.extendedFeedback := rearLoadPlate.extended;
-HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retractedFeedback :=  rearLoadPlate.retracted;
+HMIData.rearLoadPlateService.extendedFeedback := HMIData.loadPlateService.extendedFeedback := rearLoadPlate.inLoadingPosition;
+HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retractedFeedback :=  rearLoadPlate.inDischargePosition;
 
 //	 
 frontLoadPlate(
 	estopOK := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
-	extended := iFrontLoadPlateExtended,
-	retracted := iFrontLoadPlateRetracted,
+	inLoadingPosition := iFrontLoadPlateExtended,
+	inDischargePosition := iFrontLoadPlateRetracted,
 	triggerDwell := HMIData.loadPlateDwell,
 	triggerDelay := HMIData.loadPlateDelay,
     shakerEnable := HMIData.shakerInstalled,
@@ -622,13 +622,13 @@ frontLoadPlate(
 	shakerOnDuration := HMIData.frontLoadPlateShakerOnDuration,
 	shakerOffDuration := HMIData.frontLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
-	extend => oFrontLoadPlateToLoad,
-	retract => oFrontLoadPlateToDischarge,
+	moveToLoadingPositon => oFrontLoadPlateToLoad,
+	moveToDischargePosition => oFrontLoadPlateToDischarge,
 	failedToExtend => forwardLoadPlateFaults.failedToLoad.faultTrigger,
 	failedToRetract => forwardLoadPlateFaults.failedToDischarge.faultTrigger
 );		 
-HMIData.forwardLoadPlateService.extendedFeedback := frontLoadPlate.extended;
-HMIData.forwardLoadPlateService.retractedFeedback := frontLoadPlate.retracted;
+HMIData.forwardLoadPlateService.extendedFeedback := frontLoadPlate.inLoadingPosition;
+HMIData.forwardLoadPlateService.retractedFeedback := frontLoadPlate.inDischargePosition;
 
 CASE HMIData.packageEjectSelection OF
 	PackageEjectionSelection.NotInstalled:				// Disable All
