@@ -92,10 +92,10 @@ bagHoldingSetpoint := HMIData.bagWidth;
 sealFlattenersVerticalAxis.Execute();
 
 //
-timeoutTimer();
-IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
-	timeoutFault := TRUE;
-END_IF
+// timeoutTimer();
+// IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
+// 	timeoutFault := TRUE;
+// END_IF
 
 // Setup the horizontal axis motor 
 (*

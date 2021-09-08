@@ -82,6 +82,7 @@ pressureBarOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutCommandedSe
 pressureBarClosed := iPressureBarClosed;
 delayTimer();
 failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClamped AND iPressureBarClosed)));
+
 clamped := state = MotorizedPbarStates.Clamping;
 
 strokeTimer();

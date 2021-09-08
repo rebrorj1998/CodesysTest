@@ -7,6 +7,7 @@ TYPE COLLISION_ENGINE_STATE :
 	PackageAtExit := 1,
 	PackageHeldAtExit := 2,
 	ConveyPackagesPastExitSensor := 3,
-	ConveySecondPackagePastExitSensor := 4
+	ConveySecondPackagePastExitSensor := 4,
+	WaitForPackageToReachTrunkline := 5
 );
 END_TYPE

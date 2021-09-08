@@ -2,8 +2,8 @@
 FUNCTION_BLOCK FB_BaseLoadPlate EXTENDS FB_BaseComponent
 VAR_INPUT
 	inUse : BOOL;
-	extended : BOOL;
-	retracted : BOOL;
+	inLoadingPosition : BOOL;
+	inDischargePosition : BOOL;
 	faultsEnabled : BOOL;
 	triggerDwell : REAL;
 	triggerDelay : REAL;
@@ -17,8 +17,8 @@ VAR_INPUT
 	estopOK : BOOL;
 END_VAR
 VAR_OUTPUT
-	retract : BOOL;
-	extend : BOOL;
+	moveToDischargePosition : BOOL;
+	moveToLoadingPositon : BOOL;
 	failedToExtend : BOOL;
 	failedToRetract : BOOL;
 END_VAR
@@ -67,7 +67,8 @@ IF _triggerDwellTimer.Q OR resetONS.Q THEN
 END_IF
 
 //
-_triggerActiveONS(CLK := _trigger);
+_shakeActiveONS();
+_triggerActiveONS();
 
 //
 _disabledPositionHasUpdated := FALSE;
@@ -79,23 +80,23 @@ _estopOK(CLK := estopOK);
 
 //
 _loadPlateInUseONS(CLK := inUse); 			
-IF RetractLoadPlate THEN
-	retract := TRUE;
+IF LoadPlateToDischarge THEN
+	moveToDischargePosition := TRUE;
 	_manualOn := FALSE;
-ELSIF ExtendLoadPlate THEN
-	retract := FALSE;
+ELSIF LoadPlateToLoad THEN
+	moveToDischargePosition := FALSE;
 	_manualOff := FALSE;
 END_IF
-extend := NOT retract;
+moveToLoadingPositon := NOT moveToDischargePosition;
 
 // Counts the time between telling an actuator to move positions, and when it gets to the new position. If Timer finished, fault.
 _extendFaultTimer(
-	IN := extend AND NOT extended AND faultsEnabled,
+	IN := moveToLoadingPositon AND NOT inLoadingPosition AND faultsEnabled,
 	PT := _faultTime,
 	 Q => failedToExtend);
 	 
 _retractFaultTimer(
-	IN := retract AND NOT retracted AND faultsEnabled,
+	IN := moveToDischargePosition AND NOT inDischargePosition AND faultsEnabled,
 	PT := _faultTime,
 	 Q => failedToRetract);
 
@@ -146,10 +147,10 @@ CASE _state OF
 		END_IF
 	
 	LOAD_PLATE_STATE.Shaked:
-		IF extended THEN
+		IF inLoadingPosition THEN
 			_state := LOAD_PLATE_STATE.Idle;
 		ELSE
-			IF NOT extended THEN
+			IF NOT inLoadingPosition THEN
 				_manualOff := TRUE;
 			END_IF
 		END_IF

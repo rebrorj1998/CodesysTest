@@ -205,28 +205,27 @@ CASE state OF
 	PRINT_AND_APPLY_STATES.ReadyToApply:	// If package is seen, trigger Print and Apply
 											inhibitConveyor := FALSE;
 											IF productAtApplicatorSensor OR packageWasSeen THEN
-												inhibitCycle := FALSE;
+												IF NOT packageHeldAtExitSensor THEN
+													inhibitCycle := FALSE;
+												END_IF
 												packageWasSeen := FALSE;
-												exitConveyorRunAfterPA.Trigger();
-												triggerToPanther.Trigger();
 												watchForBagToTamp := FALSE;
+												triggerToPanther.Trigger();
+												exitConveyorRunAfterPA.Trigger();
 												state := PRINT_AND_APPLY_STATES.Applying;
 											END_IF
 											
 	PRINT_AND_APPLY_STATES.Applying:		// Allow for a debounce on package leaving the photoeye
-											// Add watch for bag exit back into the project
 											IF productLeavingDebounce.Q THEN
 												IF NOT packageHeldAtExitSensor THEN
 													watchForBagExit := TRUE;
 													state := PRINT_AND_APPLY_STATES.Idle;
 												ELSE
+													inhibitConveyor := TRUE;
+													exitConveyorRunAfterPA.ManualOff();
 													state := PRINT_AND_APPLY_STATES.Inhibited;
 												END_IF
 											END_IF
-											
-	PRINT_AND_APPLY_STATES.Inhibited:       
-											inhibitCycle := TRUE;
-											inhibitConveyor := TRUE;
 											
 	PRINT_AND_APPLY_STATES.Fault:			//
 											inhibitConveyor := FALSE;
