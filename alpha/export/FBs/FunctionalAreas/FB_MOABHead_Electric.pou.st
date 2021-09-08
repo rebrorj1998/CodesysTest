@@ -1511,9 +1511,9 @@ CASE state OF
 											HMIData.inCycle := FALSE;
 											//bagFailedToOpen := FALSE;
 											
-											IF HMIData.autoEnable AND NOT HMIData.stopMachine THEN
+											IF HMIData.autoEnable AND NOT HMIData.stopMachine AND NOT HMIData.fillerEnable THEN
 												autoModeKeepCycling := TRUE;
-											END_IF									
+											END_IF								
 											
 											IF HMIData.factoryTestMode AND NOT HMIData.stopMachine THEN
 												IF (HMIData.bagsMade.count >= 1000) THEN
