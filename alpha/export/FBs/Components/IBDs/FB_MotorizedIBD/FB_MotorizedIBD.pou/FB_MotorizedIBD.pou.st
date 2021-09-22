@@ -23,8 +23,8 @@ VAR
 	_openIBD : BOOL;
 	_closeIBD : BOOL;
 	_openFull : BOOL;
-	accel : INT := 150;
-	decel : INT := 100;
+	accel : INT := 75;
+	decel : INT := 75;
 	velo : INT := 1250;
 	testCurrent : DINT := 500;
 	testZeroCurrent : BOOL;

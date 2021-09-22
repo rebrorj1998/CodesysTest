@@ -244,7 +244,6 @@ IF HMIData.baggerHeadService.extendedFeedback THEN
 	HMIData.baggerHeadService.extendCommand := FALSE;
 END_IF
 baggerHeadMovement(
-	faultIndication:= HMIData.faultActive, 
 	raiseCommand:= HMIData.baggerHeadService.extendCommand, 
 	lowerCommand:= HMIData.baggerHeadService.retractCommand, 
 	raiseLimitSwitch:= HMIData.baggerHeadService.extendedFeedback, 
@@ -416,7 +415,7 @@ printAndApply(
 	heartbeat:= iPAHeartbeat, 
 	productAtApplicatorSensor:= NOT iConveyorClear, 
 	conveyorClearAfterCollision := collisionDetection.conveyorCleared,
-	packageAtExitSensor := iPackageAtExit,
+	packageAtExitSensor := NOT iPackageAtExit,
 	packageHeldAtExitSensor := collisionDetection.packageHeldByCollisionDetection,
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
@@ -439,7 +438,7 @@ collisionDetection(
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
 	multiplePackagesHeld := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
 	conveyorsActive := printAndApply.runConveyorAfterApply,
-	packageAtExit := iPackageAtExit
+	packageAtExit := NOT iPackageAtExit
 );
 	 
 // Run funnel

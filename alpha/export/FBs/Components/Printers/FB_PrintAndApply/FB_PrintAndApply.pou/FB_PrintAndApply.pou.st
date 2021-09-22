@@ -40,6 +40,7 @@ VAR_OUTPUT
 	labelsInQueue : BOOL;
 END_VAR
 VAR 
+	_pantherTriggerDelay : INT := 0;
 	resetOutputTimer : FB_MonostableMultivibrator();
 	triggerToPanther : DelayDwellFB() := (Dwellsetting := 750);
 	exitConveyorRunAfterPA : DelayDwellFB() := (Dwellsetting := 3000);
@@ -195,7 +196,7 @@ CASE state OF
 											END_IF
 											
 											IF productAtApplicatorSensor THEN
-												triggerToPanther.DelaySetting := 250;
+												triggerToPanther.DelaySetting := _pantherTriggerDelay;
 												watchForBagToTamp := FALSE;
 												inhibitConveyor := TRUE;
 												packageWasSeen := TRUE;

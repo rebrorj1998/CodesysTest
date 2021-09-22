@@ -39,8 +39,8 @@ VAR
 	_closeJawNoLatch : BOOL;
 	_openForBagFeed : BOOL;
 	jawClampsDelay : TIME := T#75MS;
-	accel : INT := 150;
-	decel : INT := 100;
+	accel : INT := 75;
+	decel : INT := 75;
 	velo : INT := 800;
 	testCurrent : DINT := 650;
 	testZeroCurrent : BOOL;
