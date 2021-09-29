@@ -1586,8 +1586,6 @@ CASE state OF
 											oVacOn := FALSE;
 											filler.Reset();
 											LPA.ManualOff();
-											//IBD.Reset();
-											exitConveyorRun.Reset();
 											externalExitConveyorRun.Reset();
 											oRunPrinterRibbonUnwindMotor := FALSE;
 											setPassthroughPB := FALSE;
@@ -1599,8 +1597,12 @@ CASE state OF
 											pressureBarCloseDelay.IN := FALSE;
 											oSealBarExtend := FALSE;
 											oSealBarRetract := TRUE;
-											//bagOpened := FALSE;
-                                                    
+											
+											// Run the conveyor out on a fault on TSSL so it doesnt get jammed in load plate. Find better solution later
+											IF NOT (HMIData.printerSelection = LabelPrinterSelection.PrintAndApply300DPI AND HMIData.packageEjectSelection = PackageEjectionSelection.RearRetractWithRetractShelf) THEN
+												exitConveyorRun.Reset();
+											END_IF
+                                            {warning 'TODO: Find a better solution'}        
 END_CASE
 
 CASE sealAndSeparateSubState OF

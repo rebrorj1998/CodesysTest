@@ -25,6 +25,7 @@ VAR
 	_collisionDetected : BOOL;
 	_collisionDetectionONS : FB_ONS;
 	_collisionDetectionTimer : Standard.TON;
+	_collisionDetectionOffTimer : Standard.TON := (PT :=T#50MS);
 	_muteColisionDetection : BOOL;
 	_packageAtExitTimer : Standard.TON := (PT := T#20MS);
 	_debounceTimer : Standard.TON := (PT := T#250MS);
@@ -57,6 +58,9 @@ _collisionDetectionTimer(PT := SECONDS_TO_TIME(collisionDetectedDwell));
 IF _collisionDetectionTimer.Q THEN
 	_collisionDetectionTimer.IN := FALSE;
 END_IF
+
+// Initalize timer. debounce the falling edge of collisiondetected 
+_collisionDetectionOffTimer(IN := NOT _collisionDetected);
 
 // If reset or not enabled clear paramaters
 _enabledONS(CLK := enable);
@@ -138,7 +142,7 @@ CASE _collisionEngineState OF
 	COLLISION_ENGINE_STATE.PackageHeldAtExit:
 		// Wait for the collision to clear and then move on
 		packageHeldByCollisionDetection := TRUE;
-		IF NOT _collisionDetected THEN
+		IF _collisionDetectionOffTimer.Q THEN
 			_muteColisionDetection := TRUE;
 			packageHeldByCollisionDetection := FALSE;
 			inhibitExternalExitConveyor := FALSE;
