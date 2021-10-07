@@ -420,7 +420,8 @@ printAndApply(
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
 	packageExitTimeSetting := HMIData.printAndApplyConveyorDwell,
-	packageToTampTimeSetting := HMIData.exitConveyorDwell, 
+	packageToTampTimeSetting := HMIData.exitConveyorDwell,
+	tampTriggerDelay := HMIData.printAndApplyTriggerDelay, 
 	commFail=> printAndApplyCommFailure.faultTrigger, 
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
@@ -1586,6 +1587,7 @@ CASE state OF
 											oVacOn := FALSE;
 											filler.Reset();
 											LPA.ManualOff();
+											exitConveyorRun.Reset();
 											externalExitConveyorRun.Reset();
 											oRunPrinterRibbonUnwindMotor := FALSE;
 											setPassthroughPB := FALSE;
@@ -1596,13 +1598,7 @@ CASE state OF
 											autoModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
 											oSealBarExtend := FALSE;
-											oSealBarRetract := TRUE;
-											
-											// Run the conveyor out on a fault on TSSL so it doesnt get jammed in load plate. Find better solution later
-											IF NOT (HMIData.printerSelection = LabelPrinterSelection.PrintAndApply300DPI AND HMIData.packageEjectSelection = PackageEjectionSelection.RearRetractWithRetractShelf) THEN
-												exitConveyorRun.Reset();
-											END_IF
-                                            {warning 'TODO: Find a better solution'}        
+											oSealBarRetract := TRUE;       
 END_CASE
 
 CASE sealAndSeparateSubState OF

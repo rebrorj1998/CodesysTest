@@ -106,6 +106,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	infeedPartsCountActual : DINT;
 	infeedEmptyPartsSetting : DINT := 10;
 	infeedEmptyPartsActual : DINT;
+	printAndApplyTriggerDelay : REAL := 0.0;
 	printAndApplyConveyorDwell : REAL := 5.0;
 	printAndApplyProductToPhotoeyeTime : REAL := 4.0;
 	printAndApplyWaitForLabelTimeout : REAL := 15.0;
@@ -120,6 +121,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	IBDOffset : REAL := 3.0;
 	pressureBarBagFeedPosition : REAL := 2.0;
 	pressureBarInPosition : REAL := 0;
+	
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;

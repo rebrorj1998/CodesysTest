@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_PrintAndApply EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
+	tampTriggerDelay : REAL := 0;
 	packageAtExitSensor : BOOL;
 	packageHeldAtExitSensor : BOOL;
 	conveyorClearAfterCollision : BOOL;
@@ -42,7 +43,7 @@ END_VAR
 VAR 
 	_pantherTriggerDelay : INT := 0;
 	resetOutputTimer : FB_MonostableMultivibrator();
-	triggerToPanther : DelayDwellFB() := (Dwellsetting := 750);
+	triggerToPanther : DelayDwellFB() := (Dwellsetting := 1000);
 	exitConveyorRunAfterPA : DelayDwellFB() := (Dwellsetting := 3000);
 	inCycleONS : FB_ONS;
 	baggerFaultedONS : FB_ONS;
@@ -196,7 +197,7 @@ CASE state OF
 											END_IF
 											
 											IF productAtApplicatorSensor THEN
-												triggerToPanther.DelaySetting := _pantherTriggerDelay;
+												triggerToPanther.DelaySetting := TO_DINT(tampTriggerDelay * 1000);
 												watchForBagToTamp := FALSE;
 												inhibitConveyor := TRUE;
 												packageWasSeen := TRUE;
