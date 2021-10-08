@@ -606,7 +606,7 @@
     <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="3104" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_PrintAndApply" size="415" nativesize="748" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_PrintAndApply" size="427" nativesize="756" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
@@ -617,63 +617,65 @@
       <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" />
-      <UserDefElement iecname="packageAtExitSensor" type="T_BOOL" byteoffset="14" vartype="VAR_INPUT" />
-      <UserDefElement iecname="packageHeldAtExitSensor" type="T_BOOL" byteoffset="15" vartype="VAR_INPUT" />
-      <UserDefElement iecname="conveyorClearAfterCollision" type="T_BOOL" byteoffset="16" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="17" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="18" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bypass" type="T_BOOL" byteoffset="19" vartype="VAR_INPUT" />
-      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="20" vartype="VAR_INPUT" />
-      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="21" vartype="VAR_INPUT" />
-      <UserDefElement iecname="faultInput" type="T_BOOL" byteoffset="22" vartype="VAR_INPUT" />
-      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="23" vartype="VAR_INPUT" />
-      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="24" vartype="VAR_INPUT" />
-      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="25" vartype="VAR_INPUT" />
-      <UserDefElement iecname="productAtApplicatorSensor" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" />
-      <UserDefElement iecname="exitConveyorRunAfterPASetting" type="T_REAL" byteoffset="28" vartype="VAR_INPUT" />
-      <UserDefElement iecname="waitForPrinterFaultSetting" type="T_REAL" byteoffset="32" vartype="VAR_INPUT" />
-      <UserDefElement iecname="packageExitTimeSetting" type="T_REAL" byteoffset="36" vartype="VAR_INPUT" />
-      <UserDefElement iecname="packageToTampTimeSetting" type="T_REAL" byteoffset="40" vartype="VAR_INPUT" />
-      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="44" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="46" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="faultedStatus" type="T_BOOL" byteoffset="47" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="48" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="49" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="50" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="51" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="resetOutput" type="T_BOOL" byteoffset="52" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="53" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="54" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="runConveyorAfterApply" type="T_BOOL" byteoffset="55" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitForPrintFault" type="T_BOOL" byteoffset="56" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="jammedFault" type="T_BOOL" byteoffset="57" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="clearOutBaggerIndicaiton" type="T_BOOL" byteoffset="58" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageFailedToExitFault" type="T_BOOL" byteoffset="59" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageFailedToReachTamp" type="T_BOOL" byteoffset="60" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageRemovedBeforeTamp" type="T_BOOL" byteoffset="61" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="labelsInQueue" type="T_BOOL" byteoffset="62" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_pantherTriggerDelay" type="T_INT" byteoffset="64" vartype="VAR" />
-      <UserDefElement iecname="resetOutputTimer" type="T_FB_MonostableMultivibrator" byteoffset="68" vartype="VAR" />
-      <UserDefElement iecname="triggerToPanther" type="T_DelayDwellFB" byteoffset="124" vartype="VAR" />
-      <UserDefElement iecname="exitConveyorRunAfterPA" type="T_DelayDwellFB" byteoffset="188" vartype="VAR" />
-      <UserDefElement iecname="inCycleONS" type="T_FB_ONS" byteoffset="250" vartype="VAR" />
-      <UserDefElement iecname="baggerFaultedONS" type="T_FB_ONS" byteoffset="257" vartype="VAR" />
-      <UserDefElement iecname="faultedStatusONS" type="T_FB_ONS" byteoffset="264" vartype="VAR" />
-      <UserDefElement iecname="_beginCycle" type="T_BOOL" byteoffset="271" vartype="VAR" />
-      <UserDefElement iecname="_ackBaggerClear" type="T_BOOL" byteoffset="272" vartype="VAR" />
-      <UserDefElement iecname="labelMightBePresent" type="T_BOOL" byteoffset="273" vartype="VAR" />
-      <UserDefElement iecname="watchForBagExit" type="T_BOOL" byteoffset="274" vartype="VAR" />
-      <UserDefElement iecname="watchForBagToTamp" type="T_BOOL" byteoffset="275" vartype="VAR" />
-      <UserDefElement iecname="packageWasSeen" type="T_BOOL" byteoffset="276" vartype="VAR" />
-      <UserDefElement iecname="commFailTimer1" type="T_TON" byteoffset="280" vartype="VAR" />
-      <UserDefElement iecname="commFailTimer2" type="T_TON" byteoffset="296" vartype="VAR" />
-      <UserDefElement iecname="waitForPrinterFaultTimer" type="T_TON" byteoffset="312" vartype="VAR" />
-      <UserDefElement iecname="packageFailedToExitTimer" type="T_TON" byteoffset="328" vartype="VAR" />
-      <UserDefElement iecname="packageJammedAtExitTimer" type="T_TON" byteoffset="344" vartype="VAR" />
-      <UserDefElement iecname="packageFailedToReachTampTimer" type="T_TON" byteoffset="360" vartype="VAR" />
-      <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="376" vartype="VAR" />
-      <UserDefElement iecname="labelsInQueueFaultTimer" type="T_TON" byteoffset="392" vartype="VAR" />
-      <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="408" vartype="VAR" />
+      <UserDefElement iecname="tampDelayWithLOTAR" type="T_REAL" byteoffset="16" vartype="VAR_INPUT" />
+      <UserDefElement iecname="tampDelayWithoutLOTAR" type="T_REAL" byteoffset="20" vartype="VAR_INPUT" />
+      <UserDefElement iecname="packageAtExitSensor" type="T_BOOL" byteoffset="24" vartype="VAR_INPUT" />
+      <UserDefElement iecname="packageHeldAtExitSensor" type="T_BOOL" byteoffset="25" vartype="VAR_INPUT" />
+      <UserDefElement iecname="conveyorClearAfterCollision" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" />
+      <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="27" vartype="VAR_INPUT" />
+      <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="28" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bypass" type="T_BOOL" byteoffset="29" vartype="VAR_INPUT" />
+      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="30" vartype="VAR_INPUT" />
+      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="31" vartype="VAR_INPUT" />
+      <UserDefElement iecname="faultInput" type="T_BOOL" byteoffset="32" vartype="VAR_INPUT" />
+      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="33" vartype="VAR_INPUT" />
+      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="34" vartype="VAR_INPUT" />
+      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="35" vartype="VAR_INPUT" />
+      <UserDefElement iecname="productAtApplicatorSensor" type="T_BOOL" byteoffset="36" vartype="VAR_INPUT" />
+      <UserDefElement iecname="exitConveyorRunAfterPASetting" type="T_REAL" byteoffset="40" vartype="VAR_INPUT" />
+      <UserDefElement iecname="waitForPrinterFaultSetting" type="T_REAL" byteoffset="44" vartype="VAR_INPUT" />
+      <UserDefElement iecname="packageExitTimeSetting" type="T_REAL" byteoffset="48" vartype="VAR_INPUT" />
+      <UserDefElement iecname="packageToTampTimeSetting" type="T_REAL" byteoffset="52" vartype="VAR_INPUT" />
+      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="56" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="58" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="faultedStatus" type="T_BOOL" byteoffset="59" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="60" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="61" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="62" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="63" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="resetOutput" type="T_BOOL" byteoffset="64" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="65" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="66" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="runConveyorAfterApply" type="T_BOOL" byteoffset="67" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="waitForPrintFault" type="T_BOOL" byteoffset="68" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="jammedFault" type="T_BOOL" byteoffset="69" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="clearOutBaggerIndicaiton" type="T_BOOL" byteoffset="70" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="packageFailedToExitFault" type="T_BOOL" byteoffset="71" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="packageFailedToReachTamp" type="T_BOOL" byteoffset="72" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="packageRemovedBeforeTamp" type="T_BOOL" byteoffset="73" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="labelsInQueue" type="T_BOOL" byteoffset="74" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="_pantherTriggerDelay" type="T_INT" byteoffset="76" vartype="VAR" />
+      <UserDefElement iecname="resetOutputTimer" type="T_FB_MonostableMultivibrator" byteoffset="80" vartype="VAR" />
+      <UserDefElement iecname="triggerToPanther" type="T_DelayDwellFB" byteoffset="136" vartype="VAR" />
+      <UserDefElement iecname="exitConveyorRunAfterPA" type="T_DelayDwellFB" byteoffset="200" vartype="VAR" />
+      <UserDefElement iecname="inCycleONS" type="T_FB_ONS" byteoffset="262" vartype="VAR" />
+      <UserDefElement iecname="baggerFaultedONS" type="T_FB_ONS" byteoffset="269" vartype="VAR" />
+      <UserDefElement iecname="faultedStatusONS" type="T_FB_ONS" byteoffset="276" vartype="VAR" />
+      <UserDefElement iecname="_beginCycle" type="T_BOOL" byteoffset="283" vartype="VAR" />
+      <UserDefElement iecname="_ackBaggerClear" type="T_BOOL" byteoffset="284" vartype="VAR" />
+      <UserDefElement iecname="labelMightBePresent" type="T_BOOL" byteoffset="285" vartype="VAR" />
+      <UserDefElement iecname="watchForBagExit" type="T_BOOL" byteoffset="286" vartype="VAR" />
+      <UserDefElement iecname="watchForBagToTamp" type="T_BOOL" byteoffset="287" vartype="VAR" />
+      <UserDefElement iecname="packageWasSeen" type="T_BOOL" byteoffset="288" vartype="VAR" />
+      <UserDefElement iecname="commFailTimer1" type="T_TON" byteoffset="292" vartype="VAR" />
+      <UserDefElement iecname="commFailTimer2" type="T_TON" byteoffset="308" vartype="VAR" />
+      <UserDefElement iecname="waitForPrinterFaultTimer" type="T_TON" byteoffset="324" vartype="VAR" />
+      <UserDefElement iecname="packageFailedToExitTimer" type="T_TON" byteoffset="340" vartype="VAR" />
+      <UserDefElement iecname="packageJammedAtExitTimer" type="T_TON" byteoffset="356" vartype="VAR" />
+      <UserDefElement iecname="packageFailedToReachTampTimer" type="T_TON" byteoffset="372" vartype="VAR" />
+      <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="388" vartype="VAR" />
+      <UserDefElement iecname="labelsInQueueFaultTimer" type="T_TON" byteoffset="404" vartype="VAR" />
+      <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="6568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
@@ -683,7 +685,7 @@
       <UserDefElement iecname="bagFeedMasterMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="879" nativesize="108032" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="891" nativesize="108068" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />

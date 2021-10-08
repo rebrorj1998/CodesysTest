@@ -297,7 +297,6 @@ motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlatten
 pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
                 ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
-                //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE,
 				defaultCurrentSetpoint := 500,
 				commFail := Pbar_ServoEIP.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
@@ -421,7 +420,8 @@ printAndApply(
 	waitForPrinterFaultSetting := HMIData.printAndApplyWaitForLabelTimeout,
 	packageExitTimeSetting := HMIData.printAndApplyConveyorDwell,
 	packageToTampTimeSetting := HMIData.exitConveyorDwell,
-	tampTriggerDelay := HMIData.printAndApplyTriggerDelay, 
+	tampDelayWithLOTAR :=  HMIData.printAndApplyTriggerDelayWithLOTAR,
+	tampDelayWithoutLOTAR := HMIData.printAndApplyTriggerDelayWithoutLOTAR,
 	commFail=> printAndApplyCommFailure.faultTrigger, 
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
@@ -523,9 +523,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 															ELSE
 																enableIBDEject := FALSE;
 															END_IF
-	
 END_CASE
-
 		  
 CASE HMIData.bofSelection OF
 	BagOpenFingersSelection.NotInstalled:					// Disable Bag Open
@@ -786,16 +784,18 @@ END_IF
 
 //
 loadShelf(
-	estopOK := iEStopOK,
-	faultsEnabled := FALSE,
+	faultActive := faultONS.OSR,
+	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
     shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.loadShelfShakerStart,
 	shakerDwell := HMIData.loadShelfShakerDwell,
 	shakerDelay := HMIData.loadShelfShakerDelay,
-	shakerOnDuration := HMIData.loadShelfShakerOnDuration,
-	shakerOffDuration := HMIData.loadShelfShakerOffDuration,
+	shakerOnDwell := HMIData.loadShelfShakerOnDuration,
+	shakerOffDwell := HMIData.loadShelfShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
+	dischargeOnFault := printAndApply.enable,
+	faultsEnabled := FALSE,
 	moveToLoadingPositon => oLoadShelfUp,
 	moveToDischargePosition => oLoadShelfDown
 );		 
@@ -804,7 +804,8 @@ HMIData.loadShelfService.retractedFeedback := rearLoadPlate.inDischargePosition;
 
 //	 
 rearLoadPlate(
-	estopOK := iEStopOK,
+	faultActive := faultONS.OSR,
+	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	inLoadingPosition := iLoadPlateExtended,
 	inDischargePosition := iLoadPlateRetracted,
@@ -812,9 +813,10 @@ rearLoadPlate(
 	shakeStart := HMIData.rearloadPlateShakerStart,
 	shakerDwell := HMIData.rearLoadPlateShakerDwell,
 	shakerDelay := HMIData.rearLoadPlateShakerDelay,
-	shakerOnDuration := HMIData.rearLoadPlateShakerOnDuration,
-	shakerOffDuration := HMIData.rearLoadPlateShakerOffDuration,
+	shakerOnDwell := HMIData.rearLoadPlateShakerOnDuration,
+	shakerOffDwell := HMIData.rearLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
+	dischargeOnFault := printAndApply.enable,
 	moveToLoadingPositon => oloadPlateExtend,
 	moveToDischargePosition => oLoadPlateRetract,
 	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
@@ -825,7 +827,8 @@ HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retra
 
 //	 
 frontLoadPlate(
-	estopOK := iEStopOK,
+	faultActive := faultONS.OSR,
+	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	inLoadingPosition := iFrontLoadPlateRetracted,
 	inDischargePosition := iFrontLoadPlateExtended,
@@ -835,9 +838,10 @@ frontLoadPlate(
 	shakeStart := HMIData.frontloadPlateShakerStart,
 	shakerDwell := HMIData.frontLoadPlateShakerDwell,
 	shakerDelay := HMIData.frontLoadPlateShakerDelay,
-	shakerOnDuration := HMIData.frontLoadPlateShakerOnDuration,
-	shakerOffDuration := HMIData.frontLoadPlateShakerOffDuration,
+	shakerOnDwell := HMIData.frontLoadPlateShakerOnDuration,
+	shakerOffDwell := HMIData.frontLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
+	dischargeOnFault := printAndApply.enable,
 	moveToLoadingPositon => oFrontLoadPlateToLoad,
 	moveToDischargePosition => oFrontLoadPlateToDischarge,
 	failedToExtend => forwardLoadPlateFaults.failedToLoad.faultTrigger,
@@ -885,7 +889,8 @@ CASE HMIData.packageEjectSelection OF
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell;
 														loadShelf.triggerDelay := HMIData.loadShelfDelay;
 														loadShelf.triggerDwell := HMIData.loadShelfDwell;
-END_CASE	 
+END_CASE	
+	 
 
 //  
 exitConveyorRun();
@@ -1190,7 +1195,6 @@ END_IF
 CASE state OF
     HEAD_STATES.Idle :                              // Start cycle if enabled
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													//OR (startCycle AND (HMIData.batchEnable AND (HMIData.batchCount < HMIData.batchSetting)))
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
 													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
@@ -1598,7 +1602,9 @@ CASE state OF
 											autoModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
 											oSealBarExtend := FALSE;
-											oSealBarRetract := TRUE;       
+											oSealBarRetract := TRUE;
+											
+									
 END_CASE
 
 CASE sealAndSeparateSubState OF
@@ -2031,7 +2037,6 @@ CASE openBagSubState OF
 END_CASE
 
 CASE finishCycleSubState OF
-	FINISH_CYCLE_STATES.Idle:								//
 	FINISH_CYCLE_STATES.Start :								//
 															IF funnel.enable THEN
 																finishCycleSubState := FINISH_CYCLE_STATES.OpenFunnel;

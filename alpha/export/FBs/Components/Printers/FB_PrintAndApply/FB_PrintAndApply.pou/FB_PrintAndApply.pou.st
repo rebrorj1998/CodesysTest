@@ -1,7 +1,8 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_PrintAndApply EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
-	tampTriggerDelay : REAL := 0;
+	tampDelayWithLOTAR : REAL;
+	tampDelayWithoutLOTAR : REAL;
 	packageAtExitSensor : BOOL;
 	packageHeldAtExitSensor : BOOL;
 	conveyorClearAfterCollision : BOOL;
@@ -191,13 +192,13 @@ CASE state OF
 	PRINT_AND_APPLY_STATES.WaitForLOTAR:	// Wait for LOTAR from Panther. Add delay to allow for accel on conveyor if stopped, otherwise package can sail right through
 											IF LOTAR THEN
 												IF NOT productAtApplicatorSensor AND NOT packageWasSeen THEN
-													triggerToPanther.DelaySetting := 0;
+													triggerToPanther.DelaySetting := TO_DINT(tampDelayWithLOTAR * 1000);
 												END_IF
 												state := PRINT_AND_APPLY_STATES.ReadyToApply;
 											END_IF
 											
 											IF productAtApplicatorSensor THEN
-												triggerToPanther.DelaySetting := TO_DINT(tampTriggerDelay * 1000);
+												triggerToPanther.DelaySetting := TO_DINT(tampDelayWithoutLOTAR * 1000);
 												watchForBagToTamp := FALSE;
 												inhibitConveyor := TRUE;
 												packageWasSeen := TRUE;

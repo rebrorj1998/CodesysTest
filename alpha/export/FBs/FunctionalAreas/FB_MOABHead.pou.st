@@ -570,15 +570,15 @@ HMIData.packageEjectGuardRemoved.active := HMIData.packageEjectSelection = Packa
 
 //
 loadShelf(
-	estopOK := iEStopOK,
+	switchedPowerON := iEStopOK,
 	faultsEnabled := FALSE,
 	inUse := HMIData.loadPlateInUse,
     shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.loadShelfShakerStart,
 	shakerDwell := HMIData.loadShelfShakerDwell,
 	shakerDelay := HMIData.loadShelfShakerDelay,
-	shakerOnDuration := HMIData.loadShelfShakerOnDuration,
-	shakerOffDuration := HMIData.loadShelfShakerOffDuration,
+	shakerOnDwell := HMIData.loadShelfShakerOnDuration,
+	shakerOffDwell := HMIData.loadShelfShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
 	moveToLoadingPositon => oLoadShelfUp,
 	moveToDischargePosition => oLoadShelfDown
@@ -588,7 +588,7 @@ HMIData.loadShelfService.retractedFeedback := rearLoadPlate.inDischargePosition;
 
 //	 
 rearLoadPlate(
-	estopOK := iEStopOK,
+	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	inLoadingPosition := iLoadPlateExtended,
 	inDischargePosition := iLoadPlateRetracted,
@@ -596,8 +596,8 @@ rearLoadPlate(
 	shakeStart := HMIData.rearloadPlateShakerStart,
 	shakerDwell := HMIData.rearLoadPlateShakerDwell,
 	shakerDelay := HMIData.rearLoadPlateShakerDelay,
-	shakerOnDuration := HMIData.rearLoadPlateShakerOnDuration,
-	shakerOffDuration := HMIData.rearLoadPlateShakerOffDuration,
+	shakerOnDwell := HMIData.rearLoadPlateShakerOnDuration,
+	shakerOffDwell := HMIData.rearLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
 	moveToLoadingPositon => oloadPlateExtend,
 	moveToDischargePosition => oLoadPlateRetract,
@@ -609,7 +609,7 @@ HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retra
 
 //	 
 frontLoadPlate(
-	estopOK := iEStopOK,
+	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	inLoadingPosition := iFrontLoadPlateExtended,
 	inDischargePosition := iFrontLoadPlateRetracted,
@@ -619,8 +619,8 @@ frontLoadPlate(
 	shakeStart := HMIData.frontloadPlateShakerStart,
 	shakerDwell := HMIData.frontLoadPlateShakerDwell,
 	shakerDelay := HMIData.frontLoadPlateShakerDelay,
-	shakerOnDuration := HMIData.frontLoadPlateShakerOnDuration,
-	shakerOffDuration := HMIData.frontLoadPlateShakerOffDuration,
+	shakerOnDwell := HMIData.frontLoadPlateShakerOnDuration,
+	shakerOffDwell := HMIData.frontLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
 	moveToLoadingPositon => oFrontLoadPlateToLoad,
 	moveToDischargePosition => oFrontLoadPlateToDischarge,

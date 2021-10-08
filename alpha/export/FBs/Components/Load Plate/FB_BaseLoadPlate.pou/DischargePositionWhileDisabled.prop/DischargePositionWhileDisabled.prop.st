@@ -1,0 +1,2 @@
+(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+PROPERTY DischargePositionWhileDisabled : BOOL

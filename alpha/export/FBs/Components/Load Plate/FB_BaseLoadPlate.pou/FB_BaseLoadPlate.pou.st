@@ -2,19 +2,21 @@
 FUNCTION_BLOCK FB_BaseLoadPlate EXTENDS FB_BaseComponent
 VAR_INPUT
 	inUse : BOOL;
+	faultActive : BOOL;
+	dischargeOnFault : BOOL;
 	inLoadingPosition : BOOL;
 	inDischargePosition : BOOL;
+	switchedPowerON : BOOL;
 	faultsEnabled : BOOL;
 	triggerDwell : REAL;
 	triggerDelay : REAL;
     shakerEnable : BOOL;
 	shakerDwell : REAL;
 	shakerDelay : REAL;
-	shakerOnDuration : REAL;
-	shakerOffDuration : REAL;
+	shakerOnDwell : REAL;
+	shakerOffDwell : REAL;
 	shakeStart : SHAKER_START_SELECTION;
 	disabledPosition : PackageEjectionDisabledPosition;
-	estopOK : BOOL;
 END_VAR
 VAR_OUTPUT
 	moveToDischargePosition : BOOL;
@@ -36,13 +38,14 @@ VAR
 	_triggerDwellTimer : Standard.TON;
 	_extendFaultTimer : Standard.TON;
 	_retractFaultTimer : Standard.TON;
-	_triggerActiveONS : FB_ONS;
-	_shakeActiveONS : FB_ONS;
+	_triggerONS : FB_ONS;
+	_shakeONS : FB_ONS;
 	_state : LOAD_PLATE_STATE;
-	_loadPlateInUseONS : FB_ONS;
-	_estopOK : FB_ONS;
+	_inUseONS : FB_ONS;
+	_switchedPowerOnONS : FB_ONS;
 	_disabledPositionHasUpdated : BOOL;
 	_previousDisabledPosition : PackageEjectionDisabledPosition;
+	_updateDisabledPosition : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
@@ -67,8 +70,13 @@ IF _triggerDwellTimer.Q OR resetONS.Q THEN
 END_IF
 
 //
-_shakeActiveONS();
-_triggerActiveONS();
+_inUseONS(CLK := inUse); 
+
+//
+_shakeONS(CLK := _shaker.OUT);
+
+//
+_triggerONS(CLK := _triggerDelayTimer.Q);
 
 //
 _disabledPositionHasUpdated := FALSE;
@@ -76,14 +84,14 @@ IF disabledPosition <> _previousDisabledPosition THEN
 	_disabledPositionHasUpdated := TRUE;
 	_previousDisabledPosition := disabledPosition;
 END_IF 
-_estopOK(CLK := estopOK);
+_switchedPowerOnONS(CLK := switchedPowerON);
 
 //
-_loadPlateInUseONS(CLK := inUse); 			
-IF LoadPlateToDischarge THEN
+_updateDisabledPosition := (_switchedPowerOnONS.OSR OR _disabledPositionHasUpdated OR _inUseONS.OSF);		
+IF _manualOn OR ((_triggerONS.OSR OR _shakeONS.OSF OR (faultActive AND dischargeOnFault)) AND inUse) OR (_updateDisabledPosition AND DischargePositionWhileDisabled AND NOT inUse) THEN
 	moveToDischargePosition := TRUE;
 	_manualOn := FALSE;
-ELSIF LoadPlateToLoad THEN
+ELSIF _manualOff OR ((_triggerONS.OSF OR _shakeONS.OSR OR _inUseONS.OSR) AND inUse) OR (_updateDisabledPosition AND LoadingPositionWhileDisabled AND NOT inUse) THEN
 	moveToDischargePosition := FALSE;
 	_manualOff := FALSE;
 END_IF
@@ -103,8 +111,7 @@ _retractFaultTimer(
 // How Long To Wait Before Going Active
 _triggerDelayTimer(
 	IN := _trigger,
-	PT := TO_TIME(triggerDelay * 1000),
-	Q => _triggerActiveONS.CLK);
+	PT := TO_TIME(triggerDelay * 1000));
 	
 // Retract Duration
 _triggerDwellTimer(
@@ -113,14 +120,12 @@ _triggerDwellTimer(
 	
 // 
 _shaker(
-	TIMEHIGH := TO_TIME(shakerOnDuration * 1000),
-	TIMELOW := TO_TIME(shakerOffDuration * 1000),
-	OUT => _shakeActiveONS.CLK
-);
-
-//
+	TIMEHIGH := TO_TIME(shakerOnDwell * 1000),
+	TIMELOW := TO_TIME(shakerOffDwell * 1000));
 _shakerDelayTimer(PT := TO_TIME(shakerDelay * 1000));
 _shakerDwellTimer(PT := TO_TIME(shakerDwell * 1000));	
+
+//
 CASE _state OF
 	LOAD_PLATE_STATE.Idle:
 		IF _shake THEN
