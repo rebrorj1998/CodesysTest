@@ -784,7 +784,7 @@ END_IF
 
 //
 loadShelf(
-	faultActive := faultONS.OSR,
+	faultActive := HMIData.faultActive,
 	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
     shakerEnable := HMIData.shakerInstalled,
@@ -794,7 +794,7 @@ loadShelf(
 	shakerOnDwell := HMIData.loadShelfShakerOnDuration,
 	shakerOffDwell := HMIData.loadShelfShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
-	dischargeOnFault := printAndApply.enable,
+	dischargeOnFault := TRUE, //printAndApply.enable,
 	faultsEnabled := FALSE,
 	moveToLoadingPositon => oLoadShelfUp,
 	moveToDischargePosition => oLoadShelfDown
@@ -804,7 +804,7 @@ HMIData.loadShelfService.retractedFeedback := rearLoadPlate.inDischargePosition;
 
 //	 
 rearLoadPlate(
-	faultActive := faultONS.OSR,
+	faultActive := HMIData.faultActive,
 	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	inLoadingPosition := iLoadPlateExtended,
@@ -816,7 +816,7 @@ rearLoadPlate(
 	shakerOnDwell := HMIData.rearLoadPlateShakerOnDuration,
 	shakerOffDwell := HMIData.rearLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
-	dischargeOnFault := printAndApply.enable,
+	dischargeOnFault := TRUE, //printAndApply.enable,
 	moveToLoadingPositon => oloadPlateExtend,
 	moveToDischargePosition => oLoadPlateRetract,
 	failedToExtend => rearLoadPlateFaults.failedToLoad.faultTrigger,
@@ -827,7 +827,7 @@ HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retra
 
 //	 
 frontLoadPlate(
-	faultActive := faultONS.OSR,
+	faultActive := HMIData.faultActive,
 	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
 	inLoadingPosition := iFrontLoadPlateRetracted,
@@ -841,7 +841,7 @@ frontLoadPlate(
 	shakerOnDwell := HMIData.frontLoadPlateShakerOnDuration,
 	shakerOffDwell := HMIData.frontLoadPlateShakerOffDuration,
 	disabledPosition := HMIData.packageEjectDisabledPosition,
-	dischargeOnFault := printAndApply.enable,
+	dischargeOnFault := TRUE, //printAndApply.enable,
 	moveToLoadingPositon => oFrontLoadPlateToLoad,
 	moveToDischargePosition => oFrontLoadPlateToDischarge,
 	failedToExtend => forwardLoadPlateFaults.failedToLoad.faultTrigger,
@@ -1513,7 +1513,6 @@ CASE state OF
 												HMIData.averageCycleTime := (cycleTime + HMIData.averageCycleTime) / 2;
 											END_IF
 											HMIData.inCycle := FALSE;
-											//bagFailedToOpen := FALSE;
 											
 											IF HMIData.autoEnable AND NOT HMIData.stopMachine AND NOT HMIData.fillerEnable THEN
 												autoModeKeepCycling := TRUE;
@@ -1550,9 +1549,28 @@ CASE state OF
     HEAD_STATES.Homing :                // 
 											IF pressureBar.pressureBarOpen AND (NOT IBD.Ready OR NOT IBD.enable) THEN
                                                 state := HEAD_STATES.HomingComplete;
-												IF NOT (NOT rearLoadPlate.inUse AND HMIData.packageEjectDisabledPosition = PackageEjectionDisabledPosition.DischargePosition) THEN
-													rearLoadPlate.ManualOff();
+												
+												//
+												IF loadShelf.inUse OR loadShelf.LoadingPositionWhileDisabled THEN
+													IF loadShelf.inDischargePosition THEN
+														loadShelf.ManualOff();
+													END_IF
 												END_IF
+												
+												//
+												IF rearLoadPlate.inUse OR rearLoadPlate.LoadingPositionWhileDisabled THEN
+													IF rearLoadPlate.inDischargePosition THEN
+														rearLoadPlate.ManualOff();
+													END_IF
+												END_IF
+												
+												//
+												IF loadShelf.inUse OR loadShelf.LoadingPositionWhileDisabled THEN
+													IF loadShelf.inDischargePosition THEN
+														loadShelf.ManualOff();
+													END_IF
+												END_IF
+												
 												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND motorizedSealFlatteners.enable THEN
 													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 													motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();

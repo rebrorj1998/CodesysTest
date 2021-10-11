@@ -91,11 +91,11 @@ bagHoldingSetpoint := HMIData.bagWidth;
 // Setup the vertical axis motor
 sealFlattenersVerticalAxis.Execute();
 
-//
-// timeoutTimer();
-// IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
-// 	timeoutFault := TRUE;
-// END_IF
+
+timeoutTimer();
+IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
+	timeoutFault := TRUE;
+END_IF
 
 // Setup the horizontal axis motor 
 (*
@@ -335,6 +335,7 @@ CASE state OF
                                                                         END_IF 
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersIn :                        // Now that we're up and in move to down and 4 corners/bag holding
+																	timeoutTimer.IN := FALSE;
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveHandLoad)) THEN
                                                                         state := SEAL_FLATTENER_STATES.MovingFlattenersDown;
 																		 sealFlattenersVerticalAxis.Extend();

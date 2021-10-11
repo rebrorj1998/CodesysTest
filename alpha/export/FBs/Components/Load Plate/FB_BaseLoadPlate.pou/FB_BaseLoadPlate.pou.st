@@ -25,6 +25,7 @@ VAR_OUTPUT
 	failedToRetract : BOOL;
 END_VAR
 VAR
+	_faultActiveONS : FB_ONS;
 	_faultTime : TIME := T#2500MS;
 	_shake : BOOL;
 	_shaking : BOOL;
@@ -45,7 +46,7 @@ VAR
 	_switchedPowerOnONS : FB_ONS;
 	_disabledPositionHasUpdated : BOOL;
 	_previousDisabledPosition : PackageEjectionDisabledPosition;
-	_updateDisabledPosition : BOOL;
+	_updateNotInUsePosition : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
@@ -79,6 +80,9 @@ _shakeONS(CLK := _shaker.OUT);
 _triggerONS(CLK := _triggerDelayTimer.Q);
 
 //
+_faultActiveONS(CLK := faultActive);
+
+//
 _disabledPositionHasUpdated := FALSE;
 IF disabledPosition <> _previousDisabledPosition THEN
 	_disabledPositionHasUpdated := TRUE;
@@ -87,11 +91,11 @@ END_IF
 _switchedPowerOnONS(CLK := switchedPowerON);
 
 //
-_updateDisabledPosition := (_switchedPowerOnONS.OSR OR _disabledPositionHasUpdated OR _inUseONS.OSF);		
-IF _manualOn OR ((_triggerONS.OSR OR _shakeONS.OSF OR (faultActive AND dischargeOnFault)) AND inUse) OR (_updateDisabledPosition AND DischargePositionWhileDisabled AND NOT inUse) THEN
+_updateNotInUsePosition := (_switchedPowerOnONS.OSR OR _disabledPositionHasUpdated OR _inUseONS.OSF);		
+IF _manualOn OR ((_triggerONS.OSR OR _shakeONS.OSF OR (_faultActiveONS.OSR AND switchedPowerON AND dischargeOnFault)) AND inUse) OR (_updateNotInUsePosition AND DischargePositionWhileDisabled AND NOT inUse) THEN
 	moveToDischargePosition := TRUE;
 	_manualOn := FALSE;
-ELSIF _manualOff OR ((_triggerONS.OSF OR _shakeONS.OSR OR _inUseONS.OSR) AND inUse) OR (_updateDisabledPosition AND LoadingPositionWhileDisabled AND NOT inUse) THEN
+ELSIF _manualOff OR (((_triggerONS.OSF AND NOT faultActive) OR _shakeONS.OSR OR _inUseONS.OSR) AND inUse) OR (_updateNotInUsePosition AND LoadingPositionWhileDisabled AND NOT inUse) THEN
 	moveToDischargePosition := FALSE;
 	_manualOff := FALSE;
 END_IF
