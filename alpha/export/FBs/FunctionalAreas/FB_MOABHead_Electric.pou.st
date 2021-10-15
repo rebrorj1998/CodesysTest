@@ -1552,9 +1552,7 @@ CASE state OF
 												
 												//
 												IF loadShelf.inUse OR loadShelf.LoadingPositionWhileDisabled THEN
-													IF loadShelf.inDischargePosition THEN
-														loadShelf.ManualOff();
-													END_IF
+													loadShelf.ManualOff();
 												END_IF
 												
 												//
