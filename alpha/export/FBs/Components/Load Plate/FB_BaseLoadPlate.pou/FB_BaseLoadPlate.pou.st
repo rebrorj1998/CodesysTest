@@ -103,12 +103,12 @@ moveToLoadingPositon := NOT moveToDischargePosition;
 
 // Counts the time between telling an actuator to move positions, and when it gets to the new position. If Timer finished, fault.
 _extendFaultTimer(
-	IN := moveToLoadingPositon AND NOT inLoadingPosition AND faultsEnabled,
+	IN := moveToLoadingPositon AND NOT inLoadingPosition AND faultsEnabled AND NOT resetONS.Q,
 	PT := _faultTime,
 	 Q => failedToExtend);
 	 
 _retractFaultTimer(
-	IN := moveToDischargePosition AND NOT inDischargePosition AND faultsEnabled,
+	IN := moveToDischargePosition AND NOT inDischargePosition AND faultsEnabled AND NOT resetONS.Q,
 	PT := _faultTime,
 	 Q => failedToRetract);
 
