@@ -154,7 +154,8 @@ IF estopONS.OSR OR estopONS.OSF THEN
 	Bag_Delivery_EIP_Motor.Enable := iEstopOK;
 	Bag_Delivery_Rear_Motor.Enable := iEstopOK;
 END_IF
-*)
+*)		  
+		  
 // Enable/Disable nodes on comms tree dynamically
 EIPReconfig(rootEIPNode := EtherNet_IP_Scanner);
 

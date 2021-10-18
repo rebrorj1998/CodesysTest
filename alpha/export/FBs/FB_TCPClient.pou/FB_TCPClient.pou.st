@@ -17,13 +17,16 @@ VAR
     _uiPort : UINT:= 9100;
     _TCPConnection : NBS.TCP_Connection; // TCP connection instances
     _TCPConnection_hConnection: CAA.HANDLE;    // handle of client connections    
-    _TCPWrite : NBS.TCP_Write; // TCP write
+    _TCPWriteSendLabel : NBS.TCP_Write; // TCP write
+	_TCPWriteClearLabel : NBS.TCP_Write; // TCP write
     _TCPRead : NBS.TCP_Read; // TCP read
-    _sTCPSendData: STRING(25000); // This is the label
+    _sTCPSendLabel: STRING(25000); // This is the label
+	_sTCPClearLabel : STRING(3) := '~JA';
     _sTCPReadData: STRING(1000); //receive up to 1000 chars if needed
     _TCPWriteEn: BOOL;
     _sServerIP: STRING(80);
     _sendLabel : BOOL;
+	_clearLabel : BOOL;
 	label203 : STRING(25000) := '^XA~TA000~JSN^LT0^MNW^MTT^PON^PMN^LH0,0^JMA^PR8,8~SD15^JUS^LRN^CI0^XZ
 ^XA
 ^MMT
@@ -51,64 +54,62 @@ END_VAR
 //    Created Date: Tuesday, May 1, 2018
 
 // Here's an example label
-
 CASE HMIData.printerSelection OF
 	LabelPrinterSelection.PrintAndApply203DPI:
-		_sTCPSendData := label203;
+		_sTCPSendLabel := label203;
 		_sClientIP := '192.168.10.165';
 	
 	LabelPrinterSelection.PrintAndApply300DPI:
-		_sTCPSendData := label300;
+		_sTCPSendLabel := label300;
 		_sClientIP := '192.168.10.165';
 	
 	LabelPrinterSelection.ZebraPrinter203DPI:
-		_sTCPSendData := label203;
+		_sTCPSendLabel := label203;
 		_sClientIP :='192.168.10.160';
 	
 	LabelPrinterSelection.ZebraPrinter300DPI:
-		_sTCPSendData := label300;
+		_sTCPSendLabel := label300;
 		_sClientIP :='192.168.10.160';
 END_CASE
 
-
-_TCPClient_ipAddr.sAddr := _sClientIP; //set IP address
+_TCPClient_ipAddr.sAddr := _sClientIP; // Set IP address
 _TCPClient(
-xEnable:= _sendLabel AND NOT _TCPWrite.xDone, // manually toggle for testing
-xDone=> ,
-xBusy=> ,
-xError=> ,
-ipAddr:= _TCPClient_ipAddr, 
-uiPort:= _uiPort,
-eError=> ,
-hConnection=> _TCPConnection_hConnection);
+	xEnable:= _sendLabel OR _clearLabel, // Manually toggle for testing
+	ipAddr:= _TCPClient_ipAddr, 
+	uiPort:= _uiPort,
+	hConnection=> _TCPConnection_hConnection
+);
 
 // set TCP connection
 _TCPConnection(
-xEnable:= _TCPClient.xBusy AND NOT(_TCPConnection.xDone), //when server is ready
-xDone=> , // client manually disconnected
-xBusy=> ,
-xError=> ,
-hServer:=, // point all connections back to the same server
-eError=> ,
-xActive=> , 
-hConnection=> );
+	xEnable:= _TCPClient.xBusy AND NOT(_TCPConnection.xDone), //when server is ready
+);
 
-// only execute on active connections
-
-// write when connection is ready
-_TCPWrite(
-xExecute:= _sendLabel AND _TCPClient.xActive, //manually enable for testing
-udiTimeOut:= 600000, //in microseconds => 600ms
-xDone=> ,
-xBusy=> , 
-xError=> ,
-hConnection := _TCPConnection_hConnection,
-szSize := 25000, // write length only
-pData := ADR(_sTCPSendData), 
-eError=> );
-//reset write enable
-IF(_TCPWrite.xDone) THEN
+// Write when connection is ready
+_TCPWriteSendLabel(
+	xExecute:= _sendLabel AND _TCPClient.xActive, // Manually enable for testing
+	udiTimeOut:= 600000, // In microseconds => 600ms
+	hConnection := _TCPConnection_hConnection,
+	szSize := 25000, // Write length only
+	pData := ADR(_sTCPSendLabel)
+);
+// Reset write enable
+IF(_TCPWriteSendLabel.xDone) THEN
 	_TCPWriteEn:= FALSE;
 	_sendLabel := FALSE;
+END_IF
+
+// Write when connection is ready
+_TCPWriteClearLabel(
+	xExecute:= _clearLabel AND _TCPClient.xActive, // Manually enable for testing
+	udiTimeOut:= 600000, //in microseconds => 600ms
+	hConnection := _TCPConnection_hConnection,
+	szSize := 3, // write length only
+	pData := ADR(_sTCPClearLabel)
+);
+// Reset write enable
+IF(_TCPWriteClearLabel.xDone) THEN
+	_TCPWriteEn:= FALSE;
+	_clearLabel := FALSE;
 END_IF
 

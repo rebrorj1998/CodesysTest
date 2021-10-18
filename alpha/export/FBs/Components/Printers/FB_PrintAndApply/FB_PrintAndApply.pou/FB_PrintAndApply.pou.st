@@ -64,6 +64,7 @@ VAR
 	productLeavingDebounce : Standard.TON := (PT := T#500MS);
 	labelsInQueueFaultTimer : Standard.TON := (PT := T#5S);
 	_conveyorClearedAfterCollisionONS : FB_ONS;
+	_tcpServer : FB_TCPClient();
 END_VAR	
 VAR_IN_OUT
 END_VAR
@@ -75,6 +76,9 @@ END_VAR
 
 // Run parent FB
 SUPER^();
+
+// TCP/IP server used to clear labels on reset	 
+_tcpServer();
 
 // Warnings to display on HMI
 printerNotReady := faultedStatus OR commFail;
@@ -158,9 +162,8 @@ exitConveyorRunAfterPA(Q => runConveyorAfterApply);
 
 // Resetting logic
 IF resetONS.Q THEN
-	IF faultInput THEN
-		resetOutputTimer.Trigger();
-	END_IF
+	_tcpServer.ClearLabel();
+	resetOutputTimer.Trigger();
 	IF NOT productAtApplicatorSensor THEN
 		clearOutBaggerIndicaiton := FALSE;
 	END_IF 
