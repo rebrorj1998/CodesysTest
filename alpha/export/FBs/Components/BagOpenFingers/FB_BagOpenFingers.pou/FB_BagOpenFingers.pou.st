@@ -1,10 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_BagOpenFingers EXTENDS FB_BaseComponent
 VAR_INPUT
-
-END_VAR
-VAR_IN_OUT
-
 END_VAR
 VAR_OUTPUT
     releaseOutput : BOOL;

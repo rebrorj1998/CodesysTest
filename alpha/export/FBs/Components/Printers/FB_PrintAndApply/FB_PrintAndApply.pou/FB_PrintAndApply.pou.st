@@ -105,8 +105,7 @@ packageFailedToReachTampTimer(
 
 // Fault if label is in queue for too long
 labelsInQueueFaultTimer(IN := dataReady AND enable, 
-							//PT :=  TO_TIME((packageToTampTimeSetting + 2) * 1000.0),
-							Q=> labelsInQueue);	
+						Q=> labelsInQueue);	
 							
 IF watchForBagExit AND packageAtExitSensor THEN
 	watchForBagExit := FALSE;
@@ -123,7 +122,7 @@ labelMightBePresent := (state = PRINT_AND_APPLY_STATES.ReadyToApply)
 						OR (state = PRINT_AND_APPLY_STATES.WaitForLOTAR) 
 						OR (state = PRINT_AND_APPLY_STATES.Applying)
 						OR dataReady;
-
+						
 // Displays as a pop-up on HMI
 IF ((baggerFaulted AND labelMightBePresent) OR faultedStatusONS.OSR) AND enable THEN
 	clearOutBaggerIndicaiton := TRUE;
@@ -162,8 +161,10 @@ exitConveyorRunAfterPA(Q => runConveyorAfterApply);
 
 // Resetting logic
 IF resetONS.Q THEN
-	_tcpServer.ClearLabel();
-	resetOutputTimer.Trigger();
+	IF faultInput or baggerFaulted THEN
+		_tcpServer.ClearLabel();
+		resetOutputTimer.Trigger();
+	END_IF
 	IF NOT productAtApplicatorSensor THEN
 		clearOutBaggerIndicaiton := FALSE;
 	END_IF 
