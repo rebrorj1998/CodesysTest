@@ -905,8 +905,9 @@ externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
 externalExitConveyorJogONS(CLK := HMIData.externalExitConveyorJog);
 
-oRunExternalExitConveyor := collisionDetection.runExternalExitConveyor OR externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply AND NOT collisionDetection.inhibitExternalExitConveyor AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled;
- 
+oRunExternalExitConveyor := collisionDetection.runExternalExitConveyor OR externalExitConveyorRun.Q OR (printAndApply.runConveyorAfterApply AND NOT collisionDetection.inhibitExternalExitConveyor AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled) AND NOT barcodeVerificationFailed.active;
+//oRunExternalExitConveyor := collisionDetection.runExternalExitConveyor OR externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply AND NOT collisionDetection.inhibitExternalExitConveyor AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled;	  
+	  
 IF printAndApply.inhibitConveyor THEN
 	exitConveyorRun.ManualOFf();
 	externalExitConveyorRun.ManualOFf();
@@ -1204,6 +1205,7 @@ CASE state OF
 													OR (filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR)
 													OR (autoModeKeepCyclingTimer.Q)
 													OR footSwitchONS.OSR)
+													AND NOT barcodeVerificationFailed.active
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active

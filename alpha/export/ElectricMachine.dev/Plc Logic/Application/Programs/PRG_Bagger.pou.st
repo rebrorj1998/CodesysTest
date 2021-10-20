@@ -7,6 +7,10 @@ VAR_OUTPUT
     
 END_VAR
 VAR
+	_LOTARCompleteONS : FB_ONS;
+	_faulActive : BOOL;
+	_faultSequenceCompleted : BOOL;
+	_barcodeVerificationFailed : BOOL;
     moabHead : FB_MOABHead_Electric;
     //angledHead : FB_20degHead();
     //pneuHead : FB_PneumaticHead();
@@ -76,10 +80,31 @@ throughputCalculator(
 	BPMSeconds=> , 
 	BPMIndication=> );
 	
-//HMIData.version := SVN_VERSION_INFO.VERSION;
+// HMIData.version := SVN_VERSION_INFO.VERSION;
 
-HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
-faultActiveONS(CLK := GlobalObjects.CollectionOfActiveFaults.faultActive);
+
+_LOTARCompleteONS(CLK := iPALOTAR);
+IF _LOTARCompleteONS.OSF THEN
+	_faultSequenceCompleted := TRUE;
+END_IF
+
+// Test code to run bagger even with a barcode fault
+IF ((HMIData.barcodeVerifierSelection = BCVSelection.TwoDimensional) AND (HMIData.printerSelection = LabelPrinterSelection.PrintAndApply300DPI)) THEN
+	HMIData.faultActive := (_faulActive AND GlobalObjects.CollectionOfActiveFaults.faultActive AND NOT moabHead.barcodeVerificationFailed.active) OR (_faulActive AND moabHead.barcodeVerificationFailed.active AND _faultSequenceCompleted);
+ELSE
+	HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
+END_IF
+
+IF GlobalObjects.CollectionOfActiveFaults.faultActive THEN
+	_faulActive := TRUE;
+ELSE
+	_faulActive := FALSE;
+	_faultSequenceCompleted := FALSE;
+END_IF
+
+//HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
+//faultActiveONS(CLK := GlobalObjects.CollectionOfActiveFaults.faultActive);
+faultActiveONS(CLK := HMIData.faultActive);
 IF faultActiveONS.OSR THEN
 	moabHead.hmiLight.TurnOff();
 END_IF
