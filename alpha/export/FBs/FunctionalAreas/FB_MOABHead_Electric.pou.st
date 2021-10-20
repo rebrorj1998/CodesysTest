@@ -415,6 +415,7 @@ printAndApply(
 	heartbeat:= iPAHeartbeat, 
 	productAtApplicatorSensor:= NOT iConveyorClear, 
 	conveyorClearAfterCollision := collisionDetection.conveyorCleared,
+	exemptFaultsActive :=  pressureBar.faults.obstructionDetected.active OR barcodeVerificationFailed.active,
 	packageAtExitSensor := NOT iPackageAtExit,
 	packageHeldAtExitSensor := collisionDetection.packageHeldByCollisionDetection,
 	exitConveyorRunAfterPASetting := HMIData.printAndApplyConveyorDwell,

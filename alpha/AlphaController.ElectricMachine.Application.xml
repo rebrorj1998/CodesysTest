@@ -720,7 +720,7 @@
     <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="440" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="2220" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="2248" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToClampLeft" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToReleaseLeft" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToClampRight" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -771,7 +771,7 @@
     <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="3104" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_PrintAndApply" size="76828" nativesize="78124" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_PrintAndApply" size="76828" nativesize="78100" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
@@ -787,16 +787,19 @@
       <UserDefElement iecname="packageAtExitSensor" type="T_BOOL" byteoffset="24" vartype="VAR_INPUT" />
       <UserDefElement iecname="packageHeldAtExitSensor" type="T_BOOL" byteoffset="25" vartype="VAR_INPUT" />
       <UserDefElement iecname="conveyorClearAfterCollision" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="27" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="28" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bypass" type="T_BOOL" byteoffset="29" vartype="VAR_INPUT" />
-      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="30" vartype="VAR_INPUT" />
-      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="31" vartype="VAR_INPUT" />
-      <UserDefElement iecname="faultInput" type="T_BOOL" byteoffset="32" vartype="VAR_INPUT" />
-      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="33" vartype="VAR_INPUT" />
-      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="34" vartype="VAR_INPUT" />
-      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="35" vartype="VAR_INPUT" />
-      <UserDefElement iecname="productAtApplicatorSensor" type="T_BOOL" byteoffset="36" vartype="VAR_INPUT" />
+      <UserDefElement iecname="exemptFaultsActive" type="T_BOOL" byteoffset="27" vartype="VAR_INPUT" />
+      <UserDefElement iecname="barcodeVerificationFailure" type="T_BOOL" byteoffset="28" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pressureBarObstruction" type="T_BOOL" byteoffset="29" vartype="VAR_INPUT" />
+      <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="30" vartype="VAR_INPUT" />
+      <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="31" vartype="VAR_INPUT" />
+      <UserDefElement iecname="bypass" type="T_BOOL" byteoffset="32" vartype="VAR_INPUT" />
+      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="33" vartype="VAR_INPUT" />
+      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="34" vartype="VAR_INPUT" />
+      <UserDefElement iecname="faultInput" type="T_BOOL" byteoffset="35" vartype="VAR_INPUT" />
+      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="36" vartype="VAR_INPUT" />
+      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="37" vartype="VAR_INPUT" />
+      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="38" vartype="VAR_INPUT" />
+      <UserDefElement iecname="productAtApplicatorSensor" type="T_BOOL" byteoffset="39" vartype="VAR_INPUT" />
       <UserDefElement iecname="exitConveyorRunAfterPASetting" type="T_REAL" byteoffset="40" vartype="VAR_INPUT" />
       <UserDefElement iecname="waitForPrinterFaultSetting" type="T_REAL" byteoffset="44" vartype="VAR_INPUT" />
       <UserDefElement iecname="packageExitTimeSetting" type="T_REAL" byteoffset="48" vartype="VAR_INPUT" />
@@ -851,7 +854,7 @@
       <UserDefElement iecname="bagFeedMasterMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77292" nativesize="185708" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77292" nativesize="185712" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />

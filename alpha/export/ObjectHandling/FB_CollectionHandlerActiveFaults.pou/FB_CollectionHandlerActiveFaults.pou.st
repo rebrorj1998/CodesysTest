@@ -9,10 +9,9 @@ VAR
 	_BadObj      : INT;
 	_DupeObj   : INT;
 	_OverObj   : INT;
-	_TotalObj   : UINT;
 END_VAR
-
 VAR_OUTPUT
+	totalObj   : UINT;
 	faultActive : BOOL;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_CollectionHandlerActiveFaults

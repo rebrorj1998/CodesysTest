@@ -69,6 +69,7 @@ VAR
 	strokeTimer : Standard.TON;
 	strokeTime : TIME;
 	movingONS : FB_ONS;
+	doneClampingDelay : Standard.TON := (PT := T#50MS);
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
@@ -186,6 +187,8 @@ IF testPosLimit THEN
 	testPosLimit := FALSE;
 END_IF
 
+doneClampingDelay();
+
 IF resetONS.Q THEN
 	pbarOutCommandedSetting := pbarOutSetting;
 	pbarMotor.Reset();
@@ -198,12 +201,18 @@ IF resetONS.Q THEN
 	startTest := FALSE;
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
-	pbarMotor.DoneClamping();
 	jawClamps.Extend();
 	pbarFeedbackHandler.extendOutput := FALSE;
 	pbarFeedbackHandler.retractOutput := FALSE;
+	doneClampingDelay.IN := TRUE;
 	state := MotorizedPbarStates.Idle; 
 END_IF
+
+IF doneClampingDelay.Q THEN
+	pbarMotor.DoneClamping();
+	doneClampingDelay.IN := FALSE;
+END_IF
+
 faultingONS(CLK := (	pbarMotor.Faulted AND NOT disableFaults)
 	OR (pbarFeedbackHandler.faultIndication
 	OR jawClampsLeftFeedbackHandler.faultIndication
@@ -220,7 +229,6 @@ homeRequiredONS(CLK := pbarMotor.homeRequired);
 IF homeRequiredONS.OSR THEN
 	homeRequired := TRUE;
 END_IF
-
 
 _ready := state = MotorizedPbarStates.Idle AND NOT homeRequired AND pressureBarOpen;
 

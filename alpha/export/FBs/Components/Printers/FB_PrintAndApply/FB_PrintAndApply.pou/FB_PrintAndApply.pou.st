@@ -6,6 +6,9 @@ VAR_INPUT
 	packageAtExitSensor : BOOL;
 	packageHeldAtExitSensor : BOOL;
 	conveyorClearAfterCollision : BOOL;
+	exemptFaultsActive : BOOL;
+	barcodeVerificationFailure : BOOL;
+	pressureBarObstruction : BOOL;
 	baggerFaulted : BOOL;
 	baggerInCycle : BOOL;
 	bypass : BOOL;
@@ -161,7 +164,7 @@ exitConveyorRunAfterPA(Q => runConveyorAfterApply);
 
 // Resetting logic
 IF resetONS.Q THEN
-	IF faultInput or baggerFaulted THEN
+	IF faultInput OR baggerFaulted AND NOT (exemptFaultsActive AND GlobalObjects.CollectionOfActiveFaults.totalObj = 1) THEN
 		_tcpServer.ClearLabel();
 		resetOutputTimer.Trigger();
 	END_IF
