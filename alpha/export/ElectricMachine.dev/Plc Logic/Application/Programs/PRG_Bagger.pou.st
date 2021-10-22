@@ -31,6 +31,7 @@ VAR
 	reverseFault : FB_HMIFault := (refFault := PRG_Bagger.moabHead.bagDelivery.reverseFault);
 	faultActiveONS : FB_ONS;
 	throughputCalculator : FB_Throughput();
+	faultOutTimer : TON();
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Program: PRG_Bagger 
@@ -81,7 +82,7 @@ throughputCalculator(
 	BPMIndication=> );
 	
 // HMIData.version := SVN_VERSION_INFO.VERSION;
-
+faultOutTimer(PT := T#2S);
 _LOTARCompleteONS(CLK := iPALOTAR);
 IF _LOTARCompleteONS.OSF OR (moabHead.state = HEAD_STATES.Idle AND NOT iPALOTAR) THEN
 	_faultSequenceCompleted := TRUE;
@@ -89,7 +90,7 @@ END_IF
 
 // Test code to run bagger even with a barcode fault
 IF ((HMIData.barcodeVerifierSelection = BCVSelection.TwoDimensional) AND (HMIData.printerSelection = LabelPrinterSelection.PrintAndApply300DPI)) THEN
-	HMIData.faultActive := (_faulActive AND GlobalObjects.CollectionOfActiveFaults.faultActive AND NOT moabHead.barcodeVerificationFailed.active) OR (_faulActive AND moabHead.barcodeVerificationFailed.active AND _faultSequenceCompleted);
+	HMIData.faultActive := (_faulActive AND GlobalObjects.CollectionOfActiveFaults.faultActive AND NOT moabHead.barcodeVerificationFailed.active) OR (_faulActive AND moabHead.barcodeVerificationFailed.active AND _faultSequenceCompleted) OR (_faulActive AND GlobalObjects.CollectionOfActiveFaults.totalObj > 1);
 ELSE
 	HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
 END_IF
