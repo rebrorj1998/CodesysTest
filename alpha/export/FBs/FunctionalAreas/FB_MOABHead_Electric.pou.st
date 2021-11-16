@@ -289,11 +289,12 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						lowerService := HMIData.sealFlattenersServiceLower,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
-						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING AND MSFMotor.Enable,
 						timeoutFault => sealFlattenerTimedOut.faultTrigger
 );
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
+MSFMotor.Enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners);
 	 
 pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
                 ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
