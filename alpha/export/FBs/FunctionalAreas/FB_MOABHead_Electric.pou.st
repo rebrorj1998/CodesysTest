@@ -926,18 +926,17 @@ bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInst
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
-	 
+
+IBD_Motor.Enable := HMIData.independentBagDeflatorSelection = BagDeflatorSelection.MotorizedIBD;	 
 IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
                 ptrEIPOutputs := ADR(oIBDMotorEIP),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
-                //faultHandler := PRG_Bagger.faultHandler,
 				reversePolarity := FALSE,
 				defaultCurrentSetpoint := 650,
-				//commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-				commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+				commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING AND IBD_Motor.Enable,
 				isHomable := TRUE);
 IBDMotor.Execute();
-
+	 
 IF HMIData.passthroughSetting + HMIData.IBDOffset > 12.0 THEN
 	 IBDOutSetting := 12.0;
 ELSE
@@ -1592,7 +1591,7 @@ CASE state OF
 											IBD.OpenIBD();
                                             state := HEAD_STATES.MovingPassthrough;
     
-    HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND IBD.IBDOpen THEN
+    HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND (IBD.IBDOpen OR HMIData.independentBagDeflatorSelection = BagDeflatorSelection.NotInstalled) THEN
                                                 state := HEAD_STATES.MovedPassthrough;     
                                             END_IF
                                             
