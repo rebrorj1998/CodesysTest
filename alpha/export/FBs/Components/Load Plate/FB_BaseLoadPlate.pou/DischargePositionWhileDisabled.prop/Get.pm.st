@@ -2,4 +2,4 @@
 VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-DischargePositionWhileDisabled := disabledPosition = PackageEjectionDisabledPosition.LoadingPosition;
+DischargePositionWhileDisabled := disabledPosition = PackageEjectionDisabledPosition.DischargePosition;
