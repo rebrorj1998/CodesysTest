@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_MotorizedPressureBar EXTENDS FB_BaseComponent
 VAR_INPUT
-	openedPositionBuffer : INT;
+	openedPositionBuffer : DINT;
 	iPressureBarClamped: BOOL;
 	iPressureBarClosed : BOOL;
 	iPressureBarNotObstructed : BOOL;
@@ -71,6 +71,7 @@ VAR
 	strokeTime : TIME;
 	movingONS : FB_ONS;
 	doneClampingDelay : Standard.TON := (PT := T#50MS);
+	pressureBarPositionError : DINT;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
@@ -81,8 +82,11 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
 actualPosition := pbarMotor.absolutePositonInches;
 
-//
-pressureBarOpen := ABS(TO_DINT((actualPosition - pbarOutCommandedSetting) * 1000)) < openedPositionBuffer;
+// Absolutle difference of actual vs commanded pressure bar position
+pressureBarPositionError := ABS(TO_DINT((actualPosition - pbarOutCommandedSetting) * 1000));
+
+// Check is pressure bar open position is within buffer threshold  
+pressureBarOpen := pressureBarPositionError < openedPositionBuffer;
 
 delayTimer();
 pressureBarClosed := iPressureBarClosed;

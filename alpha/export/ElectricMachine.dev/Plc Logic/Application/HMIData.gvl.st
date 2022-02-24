@@ -19,7 +19,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	headCycleCount : UDINT;
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;
-	pressureBarPositionBuffer: INT := 50;
+	pressureBarPositionBuffer: DINT := 50;
 	passthroughSetting : REAL := 5.0;
 	passthroughOffset : REAL;
 	passthroughPosition : REAL;
