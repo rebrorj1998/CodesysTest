@@ -2,7 +2,7 @@
 // All HMI data is presented through this GVL
 {attribute 'qualified_only'}
 {attribute 'global_init_slot' := '50001'}
-VAR_GLOBAL //PERSISTENT RETAIN
+VAR_GLOBAL // PERSISTENT RETAIN
 	initiateCycle : BOOL;  // Initiate Cycle Pushbutton
 	ackAllFaults : BOOL; // Acknowledge All Faults from HMI
 	makeReady : BOOL;
@@ -19,6 +19,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	headCycleCount : UDINT;
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;
+	pressureBarPositionBuffer: INT := 50;
 	passthroughSetting : REAL := 5.0;
 	passthroughOffset : REAL;
 	passthroughPosition : REAL;

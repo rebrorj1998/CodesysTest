@@ -209,13 +209,16 @@ motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 
 // Setup of MOAB Machine Pressure bar ("#2") on actual machine, not test rig
-pressureBar(iPressureBarExtended := iPressureBarExtended, 
-			iPressureBarRetracted := iPressureBarRetracted, 
-			iPressureBarNotObstructed := iPressureBarNotObstructed, 
-			iLightCurtainsClear := iLightCurtainsClear,
-			lightCurtainsInstalled := HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains,
-			oExtendCylinder => oPBar1Extend, oRetractCylinder => oPBar1Retract,
-			cumulativeHeadCycleCount := Globals.headCycleCount2);
+pressureBar(
+
+	iPressureBarExtended := iPressureBarExtended, 
+	iPressureBarRetracted := iPressureBarRetracted, 
+	iPressureBarNotObstructed := iPressureBarNotObstructed, 
+	iLightCurtainsClear := iLightCurtainsClear,
+	lightCurtainsInstalled := HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains,
+	oExtendCylinder => oPBar1Extend, oRetractCylinder => oPBar1Retract,
+	cumulativeHeadCycleCount := Globals.headCycleCount2
+);
 pressureBar.Mode := electricPressureBarMode;
 //Adding extra pressure bar valve for test
 opBar2Extend := oPBar1Extend;

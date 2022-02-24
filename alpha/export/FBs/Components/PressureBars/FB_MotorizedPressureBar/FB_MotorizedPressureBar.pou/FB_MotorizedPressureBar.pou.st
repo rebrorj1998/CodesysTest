@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_MotorizedPressureBar EXTENDS FB_BaseComponent
 VAR_INPUT
+	openedPositionBuffer : INT;
 	iPressureBarClamped: BOOL;
 	iPressureBarClosed : BOOL;
 	iPressureBarNotObstructed : BOOL;
@@ -77,11 +78,14 @@ VAR_IN_OUT
 	//IBDMotor : FB_AppliedMotionStepServoEIPPassthrough;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
+//
 actualPosition := pbarMotor.absolutePositonInches;
-pressureBarOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(pbarOutCommandedSetting * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(pbarOutCommandedSetting * 1000) + 10);
-//pressureBarClosed := pbarMotor.absolutePositionSteps >= (pbarMotor.distanceToMoveInSteps - 4) AND pbarMotor.absolutePositionSteps <= (pbarMotor.distanceToMoveInSteps + 4);
-pressureBarClosed := iPressureBarClosed;
+
+//
+pressureBarOpen := ABS(TO_DINT((actualPosition - pbarOutCommandedSetting) * 1000)) < openedPositionBuffer;
+
 delayTimer();
+pressureBarClosed := iPressureBarClosed;
 failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClamped AND iPressureBarClosed)));
 
 clamped := state = MotorizedPbarStates.Clamping;
@@ -97,13 +101,10 @@ IF movingONS.OSF THEN
 	strokeTimer.IN := FALSE;
 END_IF
 	
-
 disableMotorONS(CLK := clamped AND iPressureBarClamped AND iJawClampsRetracted);
 IF disableMotorONS.OSR THEN
 	pbarMotor.AllowClamping();
 END_IF
-
-
 
 // jawClampsLeftFeedbackHandler(
 // 	extendedFeedbackInput:= iJawClampLeftExtended, 

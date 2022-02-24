@@ -7,6 +7,7 @@ VAR_OUTPUT
 	rtdFailure : FB_Fault(name := 'RTD Failure');
 END_VAR
 VAR
+	_dataInitalizingDelayTimer : TON := (PT := T#3S);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_IFMTempSensor

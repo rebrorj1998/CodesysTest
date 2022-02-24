@@ -314,6 +314,7 @@ jawClamps(
 	 
 pressureBar(
 	enable:= , 
+	openedPositionBuffer:= HMIData.pressureBarPositionBuffer,
 	iPressureBarClamped:= iJawClamped, 
 	iPressureBarClosed:= iJawClearToClamp, 
 	iPressureBarNotObstructed:= TRUE, 
