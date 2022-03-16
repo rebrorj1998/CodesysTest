@@ -7,6 +7,6 @@ VAR_INPUT
 	
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 GetVersion.uiMajor := 0;
-GetVersion.uiMinor := 9;
-GetVersion.uiServicePack := 15;
-GetVersion.uiPatch := 44;
+GetVersion.uiMinor := 0;
+GetVersion.uiServicePack := 0;
+GetVersion.uiPatch := 0;

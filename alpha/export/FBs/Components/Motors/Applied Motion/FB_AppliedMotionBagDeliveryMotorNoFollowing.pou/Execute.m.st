@@ -57,7 +57,7 @@ CASE moveDistanceFinalState OF
 																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 															END_IF
 														
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff :					sclCommand := 16#534F; // Output on
+	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:				sclCommand := 16#534F; // Output on
 															parameter1 := 16#4CB2;
 															
 															commandSuccessful := FALSE;
@@ -66,7 +66,7 @@ CASE moveDistanceFinalState OF
 															moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff;
 															
 															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff :		
+	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff:		
 															IF commandSuccessful THEN
 																_moveDone := TRUE;
 																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;

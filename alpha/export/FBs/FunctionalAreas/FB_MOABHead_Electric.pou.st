@@ -345,6 +345,13 @@ pressureBar.Mode := electricPressureBarMode;
 // Run bag delivery 
 bagDelivery(jogForwardPB := HMIData.jogBagForward,
 			jogReversePB := HMIData.jogBagReverse,
+			bagLengthSetpoint := HMIData.bagLength,	 
+			printVelocitySetpoint := HMIData.printSpeed,
+			printLengthSetpoint := HMIData.printLength,
+			sealOffsetSetpoint := HMIData.bagSkirtLength,
+			reverseVelocitySetpoint := TO_INT(HMIData.bagReverseSpeed),
+			feedVelocitySetpoint := TO_INT(HMIData.bagForwardSpeed),
+			printOffsetSetpoint := HMIData.printOffset,	 									   
 			reverseToPrintheadRequired := zebraPrinter.enable,
 			bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 			bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
