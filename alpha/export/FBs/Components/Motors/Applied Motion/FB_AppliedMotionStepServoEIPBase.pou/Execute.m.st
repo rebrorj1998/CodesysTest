@@ -62,8 +62,6 @@ IF commandSuccessfulONS.Q THEN
 	//distanceToMoveInSteps := 0;
 END_IF
 
-
-
 resetTimeout(IN := _reset, PT := T#1S);
 encoderResetTimeout(PT := T#150MS);
 IF resetTimeout.Q THEN

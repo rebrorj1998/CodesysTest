@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_AppliedMotionBagDeliveryMotor_1 EXTENDS FB_AppliedMotionStepServoEIPBase
 VAR_INPUT
+	rearMotor : BOOL;
 END_VAR
 VAR_OUTPUT
 END_VAR
