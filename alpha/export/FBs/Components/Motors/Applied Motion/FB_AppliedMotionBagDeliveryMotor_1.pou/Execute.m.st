@@ -14,7 +14,7 @@ CASE moveDistanceState OF
 																moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 															END_IF
 															
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff :				sclCommand := 16#534F; //Output off
+	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff :					sclCommand := 16#534F; //Output off
 															parameter1 := 16#48B2;
 															commands.SendHostCommand := TRUE;
 															IF commandSuccessful THEN
@@ -70,22 +70,42 @@ CASE moveDistanceFinalState OF
 																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn;
 															END_IF
 														
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn :				sclCommand := 16#534F; // Output on
+	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn :					sclCommand := 16#534F; // Output on
 															parameter1 := 16#4CB2;
 															
 															commandSuccessful := FALSE;
 															commands.SendHostCommand := TRUE;
 															_moveFinal := FALSE;
 															moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn;
-																													
+															
+															
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn :		
 															IF commandSuccessful THEN
 																_moveDone := TRUE;
 																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
-															END_IF															
+															END_IF
+																
+
 END_CASE
-
-
+(*
+IF _moveFinal THEN	
+	IF NOT movedFinal AND commandSuccessful THEN
+		commandSuccessful := FALSE;
+		commands.FeedToLength := TRUE;
+		waitForMove.IN := TRUE;
+		movedFinal := TRUE;
+	END_IF
+	
+	IF commandSuccessful AND waitForMove.Q AND InPosition THEN
+		sclCommand := 16#534F;
+		parameter1 := 16#4CB2;
+		commands.SendHostCommand := TRUE;
+		_moveFinal := FALSE;
+		waitForMove.IN := FALSE;
+		movedFinal := FALSE;
+	END_IF
+END_IF
+*)
 IF manualFinalMovePB THEN
     MoveDistanceFinal(distance := distanceSetpointInches, acceleration := pointToPointAccelSetpoint, deceleration := pointToPointDecelSetpoint, velocity := velocitySetpoint);
     manualFinalMovePB := FALSE;
