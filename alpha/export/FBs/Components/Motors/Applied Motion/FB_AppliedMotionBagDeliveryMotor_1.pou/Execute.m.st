@@ -21,18 +21,16 @@ CASE moveDistanceState OF
 		END_IF
 															
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:
-		IF rearMotor THEN
-			ExecuteStoredProgram(3);
-		END_IF						
-		IF commandSuccessful OR NOT rearMotor THEN
-			commandSuccessful := FALSE;
-			moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff;
-		END_IF
-															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff:		
-		IF commandSuccessful THEN
-			moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
-		END_IF
+// 		IF rearMotor THEN
+// 			ExecuteStoredProgram(3);
+// 		ELSE
+// 			// Does nothing except sync time betweem front and rear
+// 			ExecuteStoredProgram(1);
+// 		END_IF						
+// 		IF commandSuccessful THEN
+// 			commandSuccessful := FALSE;
+  			moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
+// 		END_IF
 																
 	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					
 		_moveDistance := FALSE;
@@ -45,6 +43,7 @@ CASE moveDistanceState OF
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		
 		IF commandSuccessful THEN
 			_moveDone := TRUE;
+			commandSuccessful := FALSE;
 			moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 		END_IF														
 END_CASE
@@ -55,44 +54,44 @@ CASE moveDistanceFinalState OF
 			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 		END_IF
 															
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:				sclCommand := 16#534F; //Output off
-															parameter1 := 16#48B2;
-															commands.SendHostCommand := TRUE;
-															IF commandSuccessful THEN
-																commandSuccessful := FALSE;
-																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff;
-															END_IF
+	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:				
+// 		IF rearMotor THEN
+// 			ExecuteStoredProgram(3);
+// 		ELSE // Does nothing except sync time betweem Front and Rear
+// 			ExecuteStoredProgram(1);
+// 		END_IF	
+// 		IF commandSuccessful THEN
+// 			commandSuccessful := FALSE;
+  			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
+// 		END_IF
 															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff:		
-															IF commandSuccessful THEN
-																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
-															END_IF
-															
-	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					sclCommand := 16#0;
-															parameter1 := 16#0;
-															commandSuccessful := FALSE;	
-															commands.FeedToLength := TRUE;
-															moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
-															
-															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		IF commandSuccessful AND InPosition THEN	
-																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn;
-															END_IF
+	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					
+		sclCommand := 16#0;
+		parameter1 := 16#0;
+		commandSuccessful := FALSE;	
+		commands.FeedToLength := TRUE;
+		moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
+																			
+	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		
+		IF commandSuccessful AND InPosition THEN	
+			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn;
+		END_IF
 														
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn :					sclCommand := 16#534F; // Output on
-															parameter1 := 16#4CB2;
+	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn:					
+// 		IF rearMotor THEN
+// 			ExecuteStoredProgram(2);
+// 		ELSE // Does nothing except sync time betweem Front and Rear
+// 			ExecuteStoredProgram(1);
+// 		END_IF	
+		_moveFinal := FALSE;
+		moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn;
 															
-															commandSuccessful := FALSE;
-															commands.SendHostCommand := TRUE;
-															_moveFinal := FALSE;
-															moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn;
 															
-															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn :		
-															IF commandSuccessful THEN
-																_moveDone := TRUE;
-																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
-															END_IF
+	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn:		
+		IF commandSuccessful THEN
+			_moveDone := TRUE;
+			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+		END_IF
 																
 END_CASE
 
