@@ -6,21 +6,22 @@ VAR_INPUT
     deceleration : INT;        //Deceleration in RPM/sec
     velocity : INT;            //Velocity in .25RPM
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-commandSuccessful := FALSE;
-_moveDone := FALSE;
-moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
-distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);
 
+//
+_moveDone := FALSE;
+_moveDistance := TRUE;
+commandSuccessful := FALSE;
+_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+
+//
+distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);
 IF reversePolarity THEN
     distanceToMoveInSteps := distanceToMoveInSteps * -1;
 END_IF
 
+//
 pointToPointAccelSetpoint := acceleration;
 pointToPointDecelSetpoint := deceleration;
+currentLimit := defaultCurrentSetpoint;
 velocitySetpoint := velocity;
 
-currentLimit := defaultCurrentSetpoint;
-_moveDistance := TRUE;
-
-//commands.feedToLength := TRUE;
-//SUPER^.ExecuteStoredProgram(1);

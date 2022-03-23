@@ -8,29 +8,38 @@ END_VAR
 SUPER^.Execute();
 
 //
-waitForMove();
+_waitForMove();
 
 //
 _moveFinalONS(CLK := _moveFinal);
 _moveDistanceONS(CLK := _moveDistance);
 
-CASE moveDistanceState OF
+CASE _moveDistanceState OF
 	AMP_EIP_MOVE_INITIAL_STATES.Idle:						
 		IF _moveDistance THEN
-			moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
+			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 		END_IF
 															
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:
-// 		IF rearMotor THEN
-// 			ExecuteStoredProgram(3);
-// 		ELSE
-// 			// Does nothing except sync time betweem front and rear
-// 			ExecuteStoredProgram(1);
-// 		END_IF						
-// 		IF commandSuccessful THEN
-// 			commandSuccessful := FALSE;
-  			moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
-// 		END_IF
+		IF reversePolarity THEN
+			ExecuteStoredProgram(3);
+		END_IF						
+		IF commandSuccessful OR NOT reversePolarity THEN
+			commandSuccessful := FALSE;
+  			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
+		END_IF
+		
+	AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff:
+		_waitForMove.PT := T#10MS;
+		_waitForMove.IN := TRUE;
+		IF _waitForMove.Q THEN
+			ackRequest := TRUE;
+			IF ack THEN
+				ackRequest := FALSE;
+				_waitForMove.IN := FALSE;
+				_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
+			END_IF
+		END_IF		
 																
 	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					
 		_moveDistance := FALSE;
@@ -38,63 +47,83 @@ CASE moveDistanceState OF
 		parameter1 := 16#0;
 		commandSuccessful := FALSE;
 		commands.FeedToLength := TRUE;
-		moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
+		_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
 																											
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		
 		IF commandSuccessful THEN
 			_moveDone := TRUE;
 			commandSuccessful := FALSE;
-			moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 		END_IF														
 END_CASE
 
-CASE moveDistanceFinalState OF
+CASE _moveDistanceFinalState OF
 	AMP_EIP_MOVE_INITIAL_STATES.Idle:						
 		IF _moveFinal THEN
-			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
+			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 		END_IF
 															
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:				
-// 		IF rearMotor THEN
-// 			ExecuteStoredProgram(3);
-// 		ELSE // Does nothing except sync time betweem Front and Rear
-// 			ExecuteStoredProgram(1);
-// 		END_IF	
-// 		IF commandSuccessful THEN
-// 			commandSuccessful := FALSE;
-  			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
-// 		END_IF
+		IF reversePolarity THEN
+			ExecuteStoredProgram(3);
+		END_IF	
+		IF commandSuccessful OR NOT reversePolarity THEN
+			commandSuccessful := FALSE;
+  			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
+		END_IF
+		
+	AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff:
+		_waitForMove.PT := T#10MS;
+		_waitForMove.IN := TRUE;
+		IF _waitForMove.Q THEN
+			ackRequest := TRUE;
+			IF ack THEN
+				ackRequest := FALSE;
+				_waitForMove.IN := FALSE;
+				_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
+			END_IF
+		END_IF	
 															
 	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					
 		sclCommand := 16#0;
 		parameter1 := 16#0;
 		commandSuccessful := FALSE;	
 		commands.FeedToLength := TRUE;
-		moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
+		_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
 																			
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		
-		IF commandSuccessful AND InPosition THEN	
-			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn;
+		IF commandSuccessful AND InPosition THEN
+			_waitForMove.PT := T#500MS;
+			_waitForMove.IN := TRUE;
+			IF _waitForMove.Q THEN
+				_waitForMove.IN := FALSE;
+				commandSuccessful := FALSE;
+				_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn;
+			END_IF	
 		END_IF
 														
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn:					
-// 		IF rearMotor THEN
-// 			ExecuteStoredProgram(2);
-// 		ELSE // Does nothing except sync time betweem Front and Rear
-// 			ExecuteStoredProgram(1);
-// 		END_IF	
-		_moveFinal := FALSE;
-		moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn;
-															
-															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn:		
-		IF commandSuccessful THEN
+		IF reversePolarity THEN
+			ExecuteStoredProgram(2);
+		END_IF	
+		IF commandSuccessful OR NOT reversePolarity THEN
+			commandSuccessful := FALSE;
+			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn;
+		END_IF
+																									
+	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn:	
+		_waitForMove.PT := T#10MS;
+		_waitForMove.IN := TRUE;
+		IF _waitForMove.Q THEN
 			_moveDone := TRUE;
-			moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+			_moveFinal := FALSE;
+			_waitForMove.IN := FALSE;
+			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 		END_IF
 																
 END_CASE
 
+//
 IF manualFinalMovePB THEN
     MoveDistanceFinal(distance := distanceSetpointInches, acceleration := pointToPointAccelSetpoint, deceleration := pointToPointDecelSetpoint, velocity := velocitySetpoint);
     manualFinalMovePB := FALSE;
