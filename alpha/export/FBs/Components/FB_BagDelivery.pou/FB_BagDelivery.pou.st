@@ -58,6 +58,8 @@ VAR
 	reverseSpeedDistanceOffset : REAL;
 	checkMotorStatusDelay : TIME := T#25ms;
 	END_I: INT;
+	_rotationTestBit : BOOL;
+	_rotationTestBitAck : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
@@ -198,9 +200,7 @@ CASE state OF
 	
 	BAG_DELIVERY_STATES.SetTorqueMode :				
 		bagFeedRearMotor.SetRearMotorToTorqueMode();
-		IF bagFeedRearMotor.CommandAcknowledged THEN
-			state := BAG_DELIVERY_STATES.Idle;
-		END_IF
+		state := BAG_DELIVERY_STATES.Idle;
 													
     BAG_DELIVERY_STATES.Reverse :                   
 		// Reverse to break perf

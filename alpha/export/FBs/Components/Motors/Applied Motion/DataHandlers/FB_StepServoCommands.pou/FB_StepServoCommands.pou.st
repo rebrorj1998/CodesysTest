@@ -73,7 +73,7 @@ IF clearCommandWordTimer.Q THEN
 END_IF
 
 IF clearCommandWordTimer2.Q THEN
-		commandSent := TRUE;
-		clearCommandWordTimer2.IN := FALSE;
+	commandSent := TRUE;
+	clearCommandWordTimer2.IN := FALSE;
 END_IF
 

@@ -14,6 +14,15 @@ _waitForMove();
 _moveFinalONS(CLK := _moveFinal);
 _moveDistanceONS(CLK := _moveDistance);
 
+
+IF _reset THEN
+	_moveDistance := FALSE;
+	_moveFinal := FALSE;
+	ackRequest := FALSE;
+	_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+	_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+END_IF
+
 CASE _moveDistanceState OF
 	AMP_EIP_MOVE_INITIAL_STATES.Idle:						
 		IF _moveDistance THEN
@@ -21,13 +30,13 @@ CASE _moveDistanceState OF
 		END_IF
 															
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:
-		IF reversePolarity THEN
-			ExecuteStoredProgram(3);
-		END_IF						
-		IF commandSuccessful OR NOT reversePolarity THEN
-			commandSuccessful := FALSE;
+ 		IF reversePolarity THEN
+ 			ExecuteStoredProgram(3);
+ 		END_IF						
+ 		IF commandSuccessful OR NOT reversePolarity THEN
+ 			commandSuccessful := FALSE;
   			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
-		END_IF
+ 		END_IF
 		
 	AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff:
 		_waitForMove.PT := T#10MS;
@@ -93,7 +102,7 @@ CASE _moveDistanceFinalState OF
 																			
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		
 		IF commandSuccessful AND InPosition THEN
-			_waitForMove.PT := T#500MS;
+			_waitForMove.PT := T#10MS;
 			_waitForMove.IN := TRUE;
 			IF _waitForMove.Q THEN
 				_waitForMove.IN := FALSE;
