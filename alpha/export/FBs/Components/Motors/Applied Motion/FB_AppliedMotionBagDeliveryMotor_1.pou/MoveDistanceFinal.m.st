@@ -14,7 +14,6 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
 _moveDone := FALSE;
 _moveFinal := TRUE;
-commandSuccessful := FALSE;
 _moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 
 //
@@ -24,6 +23,7 @@ IF reversePolarity THEN
 END_IF
 
 //
+commandSuccessful := FALSE;
 pointToPointAccelSetpoint := acceleration;
 pointToPointDecelSetpoint := deceleration;
 currentLimit := defaultCurrentSetpoint;

@@ -3,7 +3,7 @@ METHOD Execute
 VAR_INPUT
 END_VAR
 VAR CONSTANT
-	MAX_VELOCITY_FOR_TENSION_FAULT : INT := 1700;
+	VELOCITY_THRESHOLD_FOR_TENSION_FAULT : INT := 1700;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
@@ -11,144 +11,124 @@ END_VAR
 SUPER^.Execute();
 
 //
-_waitForMove();
-
-//
-_moveFinalONS(CLK := _moveFinal);
-_moveDistanceONS(CLK := _moveDistance);
-
-//
 IF _reset THEN
+	ackRequest := FALSE;
+	tensionFault := FALSE;
 	_moveDistance := FALSE;
 	_moveFinal := FALSE;
-	ackRequest := FALSE;
 	_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 	_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 END_IF
 
-//
-IF reversePolarity THEN
-	_tensionFaultDwellTimer(IN :=  velocity > MAX_VELOCITY_FOR_TENSION_FAULT);
+// 
+IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
+	_tensionFaultDwellTimer(IN :=  velocity > VELOCITY_THRESHOLD_FOR_TENSION_FAULT);
 	IF _tensionFaultDwellTimer.Q THEN
 		commandSuccessful := FALSE;
-		IF reversePolarity THEN
-			ExecuteStoredProgram(3);
-		END_IF	
-	END_IF
+		tensionFault := TRUE;
+	END_IF		
 END_IF
 
 //
+_delayTimer();
+
+//
 CASE _moveDistanceState OF
+	
 	AMP_EIP_MOVE_INITIAL_STATES.Idle:						
 		IF _moveDistance THEN
 			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 		END_IF
 															
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:
- 		IF reversePolarity THEN
- 			ExecuteStoredProgram(3);
+ 		IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
+ 			TriggerPointToPointMode();
  		END_IF						
- 		IF commandSuccessful OR NOT reversePolarity THEN
+ 		IF commandSuccessful OR position = BAG_DELIVERY_MOTOR_POSITION.Front  THEN
  			commandSuccessful := FALSE;
   			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
  		END_IF
 		
 	AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff:
-		_waitForMove.PT := T#10MS;
-		_waitForMove.IN := TRUE;
-		IF _waitForMove.Q THEN
+		_delayTimer.IN := TRUE;
+		IF _delayTimer.Q THEN
 			ackRequest := TRUE;
 			IF ack THEN
 				ackRequest := FALSE;
-				_waitForMove.IN := FALSE;
+				_delayTimer.IN := FALSE;
 				_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
 			END_IF
 		END_IF		
 																
 	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					
-		_moveDistance := FALSE;
-		sclCommand := 16#0;
-		parameter1 := 16#0;
-		commandSuccessful := FALSE;
-		commands.FeedToLength := TRUE;
+		FeedToLength();
 		_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
 																											
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		
 		IF commandSuccessful THEN
-			_moveDone := TRUE;
 			commandSuccessful := FALSE;
+			_moveDone := TRUE;
+			_moveDistance := FALSE;
 			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 		END_IF														
 END_CASE
 
 CASE _moveDistanceFinalState OF
+	
 	AMP_EIP_MOVE_INITIAL_STATES.Idle:						
 		IF _moveFinal THEN
 			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 		END_IF
 															
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:				
-		IF reversePolarity THEN
-			ExecuteStoredProgram(3);
+		IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
+			TriggerPointToPointMode();
 		END_IF	
-		IF commandSuccessful OR NOT reversePolarity THEN
+		IF commandSuccessful OR position = BAG_DELIVERY_MOTOR_POSITION.Front THEN
 			commandSuccessful := FALSE;
   			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
 		END_IF
 		
 	AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff:
-		_waitForMove.PT := T#10MS;
-		_waitForMove.IN := TRUE;
-		IF _waitForMove.Q THEN
+		_delayTimer.IN := TRUE;
+		IF _delayTimer.Q THEN
 			ackRequest := TRUE;
 			IF ack THEN
 				ackRequest := FALSE;
-				_waitForMove.IN := FALSE;
+				_delayTimer.IN := FALSE;
 				_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
 			END_IF
 		END_IF	
 															
 	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					
-		sclCommand := 16#0;
-		parameter1 := 16#0;
-		commandSuccessful := FALSE;	
-		commands.FeedToLength := TRUE;
+		FeedToLength();
 		_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
 																			
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		
 		IF commandSuccessful AND InPosition THEN
-			_waitForMove.PT := T#10MS;
-			_waitForMove.IN := TRUE;
-			IF _waitForMove.Q THEN
-				_waitForMove.IN := FALSE;
+			_delayTimer.IN := TRUE;
+			IF _delayTimer.Q THEN
+				_delayTimer.IN := FALSE;
 				commandSuccessful := FALSE;
 				_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn;
 			END_IF	
 		END_IF
 														
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn:					
-		IF reversePolarity THEN
-			ExecuteStoredProgram(2);
+		IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
+			TriggerTorqueMode();
 		END_IF	
-		IF commandSuccessful OR NOT reversePolarity THEN
+		IF commandSuccessful OR position = BAG_DELIVERY_MOTOR_POSITION.Front THEN
 			commandSuccessful := FALSE;
 			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn;
 		END_IF
 																									
 	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn:	
-		_waitForMove.PT := T#10MS;
-		_waitForMove.IN := TRUE;
-		IF _waitForMove.Q THEN
+		_delayTimer.IN := TRUE;
+		IF _delayTimer.Q THEN
 			_moveDone := TRUE;
 			_moveFinal := FALSE;
-			_waitForMove.IN := FALSE;
+			_delayTimer.IN := FALSE;
 			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
-		END_IF
-																
+		END_IF													
 END_CASE
-
-//
-IF manualFinalMovePB THEN
-    MoveDistanceFinal(distance := distanceSetpointInches, acceleration := pointToPointAccelSetpoint, deceleration := pointToPointDecelSetpoint, velocity := velocitySetpoint);
-    manualFinalMovePB := FALSE;
-END_IF

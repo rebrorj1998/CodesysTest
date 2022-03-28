@@ -2,20 +2,17 @@
 FUNCTION_BLOCK FB_AppliedMotionBagDeliveryMotor_1 EXTENDS FB_AppliedMotionStepServoEIPBase
 VAR_INPUT
 	ack : BOOL;
+	position : BAG_DELIVERY_MOTOR_POSITION;
 END_VAR
 VAR_OUTPUT
 	ackRequest : BOOL;
+	tensionFault : BOOL;
 END_VAR
 VAR
-	_point2pointModeTestBit : BOOL;
-	_tensionModeTestBit : BOOL;
 	_moveDistance : BOOL;
-	_moveDistanceONS : R_TRIG;
 	_moveFinal : BOOL;
-	_moveFinalONS : R_TRIG;
 	_moveDone : BOOL;
-	_waitForMove : TON;
-	manualFinalMovePB : BOOL;
+	_delayTimer : TON := (PT := T#10MS);
 	_moveDistanceState : AMP_EIP_MOVE_INITIAL_STATES;
 	_moveDistanceFinalState : AMP_EIP_MOVE_INITIAL_STATES;
 	_tensionFaultDwellTimer : TON;

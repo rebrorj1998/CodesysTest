@@ -93,6 +93,7 @@ END_IF
 bagFeedMasterMotor(
 	ptrEIPInputs := ADR(bagDeliveryMotorInputs),
     ptrEIPOutputs := ADR(bagDeliveryMotorOutputs),
+	position := BAG_DELIVERY_MOTOR_POSITION.Front,
     stepsPerInchSetpoint := stepsPerInchSetting,
 	reversePolarity := FALSE, 
 	defaultCurrentSetpoint := 1150, 
@@ -104,6 +105,7 @@ bagFeedMasterMotor.Execute();
 bagFeedRearMotor(
 	ptrEIPInputs := ADR(bagRearMotorInputs),
     ptrEIPOutputs := ADR(bagRearMotorOutputs),
+	position := BAG_DELIVERY_MOTOR_POSITION.Rear,
     stepsPerInchSetpoint := stepsPerInchSetting,
 	reversePolarity := TRUE, 
 	defaultCurrentSetpoint := 1150, 
@@ -199,7 +201,7 @@ CASE state OF
 		END_IF
 	
 	BAG_DELIVERY_STATES.SetTorqueMode :				
-		bagFeedRearMotor.SetRearMotorToTorqueMode();
+		bagFeedRearMotor.TriggerTorqueMode();
 		state := BAG_DELIVERY_STATES.Idle;
 													
     BAG_DELIVERY_STATES.Reverse :                   
