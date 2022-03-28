@@ -10,26 +10,28 @@ END_VAR
 //
 SUPER^.Execute();
 
-//
-IF _reset THEN
-	ackRequest := FALSE;
-	tensionFault := FALSE;
-	_moveDistance := FALSE;
-	_moveFinal := FALSE;
-	_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
-	_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+IF intercommunications = BAG_DELIVERY_MOTOR_INTERCOMMUNICATION.EthernetIP THEN
+	// [EIP, Rear] If velocity reaches threshold for set duration, fault
+	IF placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear THEN
+		_tensionFaultDwellTimer(IN :=  velocity > VELOCITY_THRESHOLD_FOR_TENSION_FAULT);
+		IF _tensionFaultDwellTimer.Q THEN
+			commandSuccessful := FALSE;
+			tensionFault := TRUE;
+		END_IF		
+	END_IF
+	
+	// Reset motor state and variables
+	IF _reset THEN
+		ackRequest := FALSE;
+		tensionFault := FALSE;
+		_moveDistance := FALSE;
+		_moveFinal := FALSE;
+		_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+		_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+	END_IF
 END_IF
 
-// 
-IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
-	_tensionFaultDwellTimer(IN :=  velocity > VELOCITY_THRESHOLD_FOR_TENSION_FAULT);
-	IF _tensionFaultDwellTimer.Q THEN
-		commandSuccessful := FALSE;
-		tensionFault := TRUE;
-	END_IF		
-END_IF
-
-//
+// Used in state engine to delay between moves
 _delayTimer();
 
 //
@@ -41,23 +43,38 @@ CASE _moveDistanceState OF
 		END_IF
 															
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:
- 		IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
- 			TriggerPointToPointMode();
- 		END_IF						
- 		IF commandSuccessful OR position = BAG_DELIVERY_MOTOR_POSITION.Front  THEN
- 			commandSuccessful := FALSE;
-  			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
- 		END_IF
+		IF intercommunications = BAG_DELIVERY_MOTOR_INTERCOMMUNICATION.EthernetIP THEN
+			IF placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear THEN
+ 				TriggerPointToPointMode();
+ 			END_IF
+			IF commandSuccessful OR placement = BAG_DELIVERY_MOTOR_PLACEMENT.Front THEN
+				commandSuccessful := FALSE;
+				_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
+			END_IF
+		ELSE
+			sclCommand := 16#534F; // Output off
+			parameter1 := 16#48B2;
+			commands.SendHostCommand := TRUE;
+			IF commandSuccessful THEN
+				commandSuccessful := FALSE;
+				_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff;
+			END_IF
+		END_IF
 		
 	AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff:
 		_delayTimer.IN := TRUE;
 		IF _delayTimer.Q THEN
-			ackRequest := TRUE;
-			IF ack THEN
+			ackRequest := TRUE; // Let parent know youre ready to move motor
+			IF ack THEN // Parent acks that your sibling is ready
 				ackRequest := FALSE;
 				_delayTimer.IN := FALSE;
 				_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
 			END_IF
+		END_IF
+
+	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff:		
+		IF commandSuccessful THEN
+			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
 		END_IF		
 																
 	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					
@@ -80,20 +97,35 @@ CASE _moveDistanceFinalState OF
 			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
 		END_IF
 															
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:				
-		IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
-			TriggerPointToPointMode();
-		END_IF	
-		IF commandSuccessful OR position = BAG_DELIVERY_MOTOR_POSITION.Front THEN
-			commandSuccessful := FALSE;
-  			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
+	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff:
+		IF intercommunications = BAG_DELIVERY_MOTOR_INTERCOMMUNICATION.EthernetIP THEN
+			IF placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear THEN
+ 				TriggerPointToPointMode();
+ 			END_IF
+			IF commandSuccessful OR placement = BAG_DELIVERY_MOTOR_PLACEMENT.Front THEN
+				commandSuccessful := FALSE;
+				_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff;
+			END_IF
+		ELSE
+			sclCommand := 16#534F; // Output off
+			parameter1 := 16#48B2;
+			commands.SendHostCommand := TRUE;
+			IF commandSuccessful THEN
+				commandSuccessful := FALSE;
+				_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff;
+			END_IF
 		END_IF
+		
+	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff:		
+		IF commandSuccessful THEN
+			_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
+		END_IF		
 		
 	AMP_EIP_MOVE_INITIAL_STATES.AckOutputOff:
 		_delayTimer.IN := TRUE;
 		IF _delayTimer.Q THEN
-			ackRequest := TRUE;
-			IF ack THEN
+			ackRequest := TRUE; // Let parent know youre ready to move motor
+			IF ack THEN // Parent acks that your sibling is ready
 				ackRequest := FALSE;
 				_delayTimer.IN := FALSE;
 				_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
@@ -115,10 +147,10 @@ CASE _moveDistanceFinalState OF
 		END_IF
 														
 	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOn:					
-		IF position = BAG_DELIVERY_MOTOR_POSITION.Rear THEN
+		IF placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear THEN
 			TriggerTorqueMode();
 		END_IF	
-		IF commandSuccessful OR position = BAG_DELIVERY_MOTOR_POSITION.Front THEN
+		IF commandSuccessful OR placement = BAG_DELIVERY_MOTOR_PLACEMENT.Front THEN
 			commandSuccessful := FALSE;
 			_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOn;
 		END_IF

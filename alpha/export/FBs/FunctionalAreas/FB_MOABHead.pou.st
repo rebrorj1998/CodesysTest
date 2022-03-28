@@ -41,7 +41,7 @@ VAR
 	factoryTestModeKeepCycling : BOOL;
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
-    bagDelivery : FB_BagDelivery();
+    bagDelivery : FB_BagDeliverySynchronous();
 	zebraPrinter : FB_ZebraPrinter;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
@@ -830,7 +830,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	//homeJawPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
+	bagDelivery.bagFeedRearMotor.SetTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
 END_IF
@@ -890,7 +890,7 @@ END_IF
 // Send torque value to motor                 
 rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery.bagFeedRearMotor.SetTorqueValue((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable
