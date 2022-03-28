@@ -18,5 +18,6 @@ VAR
 	manualFinalMovePB : BOOL;
 	_moveDistanceState : AMP_EIP_MOVE_INITIAL_STATES;
 	_moveDistanceFinalState : AMP_EIP_MOVE_INITIAL_STATES;
+	_tensionFaultDwellTimer : TON;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

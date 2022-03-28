@@ -1289,7 +1289,7 @@ CASE state OF
     HEAD_STATES.Fault :                     hmiLight.TurnOff();
 											HMIData.inCycle := FALSE;
 											cycleTimer.IN := FALSE;
-											bagDelivery.bagFeedMasterMotor.SetRearMotorToEncoderFollowing();
+											bagDelivery.bagFeedMasterMotor.SetRearMotorToPoint2Point();
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;

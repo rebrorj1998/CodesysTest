@@ -2,6 +2,9 @@
 METHOD Execute
 VAR_INPUT
 END_VAR
+VAR CONSTANT
+	MAX_VELOCITY_FOR_TENSION_FAULT : INT := 1700;
+END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 //
@@ -14,7 +17,7 @@ _waitForMove();
 _moveFinalONS(CLK := _moveFinal);
 _moveDistanceONS(CLK := _moveDistance);
 
-
+//
 IF _reset THEN
 	_moveDistance := FALSE;
 	_moveFinal := FALSE;
@@ -23,6 +26,18 @@ IF _reset THEN
 	_moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
 END_IF
 
+//
+IF reversePolarity THEN
+	_tensionFaultDwellTimer(IN :=  velocity > MAX_VELOCITY_FOR_TENSION_FAULT);
+	IF _tensionFaultDwellTimer.Q THEN
+		commandSuccessful := FALSE;
+		IF reversePolarity THEN
+			ExecuteStoredProgram(3);
+		END_IF	
+	END_IF
+END_IF
+
+//
 CASE _moveDistanceState OF
 	AMP_EIP_MOVE_INITIAL_STATES.Idle:						
 		IF _moveDistance THEN
