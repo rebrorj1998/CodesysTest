@@ -10,7 +10,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
 _moveDone := FALSE;
 _moveDistance := TRUE;
-_moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+_state := BAG_DELIVERY_MOVE_STATES.Idle;
 
 //
 distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);

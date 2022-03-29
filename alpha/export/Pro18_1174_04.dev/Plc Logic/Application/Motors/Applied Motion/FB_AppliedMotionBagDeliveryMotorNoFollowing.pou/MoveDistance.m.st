@@ -8,7 +8,7 @@ VAR_INPUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 commandSuccessful := FALSE;
 _moveDone := FALSE;
-moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+moveDistanceState := BAG_DELIVERY_MOVE_STATES.Idle;
 distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);
 
 IF reversePolarity THEN

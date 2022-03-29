@@ -9,67 +9,67 @@ _moveDistanceONS(CLK := _moveDistance);
 _moveFinalONS(CLK := _moveFinal);
 
 CASE moveDistanceState OF
-	AMP_EIP_MOVE_INITIAL_STATES.Idle :						
+	BAG_DELIVERY_MOVE_STATES.Idle :						
 															IF _moveDistance THEN
-																moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
+																moveDistanceState := BAG_DELIVERY_MOVE_STATES.SetToPointToPointMode;
 															END_IF
 															
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff :					sclCommand := 16#534F; //Output off
+	BAG_DELIVERY_MOVE_STATES.SetToPointToPointMode :					sclCommand := 16#534F; //Output off
 															parameter1 := 16#48B2;
 															commands.SendHostCommand := TRUE;
 															IF commandSuccessful THEN
 																commandSuccessful := FALSE;
-																moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff;
+																moveDistanceState := BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff;
 															END_IF
 															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff :		
+	BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff :		
 															IF commandSuccessful THEN
-																moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
+																moveDistanceState := BAG_DELIVERY_MOVE_STATES.MoveMotor;
 															END_IF
 																
-	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					commandSuccessful := FALSE;
+	BAG_DELIVERY_MOVE_STATES.MoveMotor: 					commandSuccessful := FALSE;
 															sclCommand := 16#0;
 															parameter1 := 16#0;
 															commands.FeedToLength := TRUE;
 															_moveDistance := FALSE;
-															moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
+															moveDistanceState := BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor;
 															
 															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		IF commandSuccessful THEN
+	BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor: 		IF commandSuccessful THEN
 																_moveDone := TRUE;
-																moveDistanceState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+																moveDistanceState := BAG_DELIVERY_MOVE_STATES.Idle;
 															END_IF														
 END_CASE
 
 CASE moveDistanceFinalState OF
-	AMP_EIP_MOVE_INITIAL_STATES.Idle :						IF _moveFinal THEN
-																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.MoveMotor;
+	BAG_DELIVERY_MOVE_STATES.Idle :						IF _moveFinal THEN
+																moveDistanceFinalState := BAG_DELIVERY_MOVE_STATES.MoveMotor;
 															END_IF
 	
-	AMP_EIP_MOVE_INITIAL_STATES.MoveMotor: 					sclCommand := 16#0;
+	BAG_DELIVERY_MOVE_STATES.MoveMotor: 					sclCommand := 16#0;
 															parameter1 := 16#0;
 															commandSuccessful := FALSE;	
 															commands.FeedToLength := TRUE;
-															moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor;
+															moveDistanceFinalState := BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor;
 															
 															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterMovingMotor: 		IF commandSuccessful AND InPosition THEN	
-																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff;
+	BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor: 		IF commandSuccessful AND InPosition THEN	
+																moveDistanceFinalState := BAG_DELIVERY_MOVE_STATES.SetToPointToPointMode;
 															END_IF
 														
-	AMP_EIP_MOVE_INITIAL_STATES.SetOutputOff :					sclCommand := 16#534F; // Output on
+	BAG_DELIVERY_MOVE_STATES.SetToPointToPointMode :					sclCommand := 16#534F; // Output on
 															parameter1 := 16#4CB2;
 															
 															commandSuccessful := FALSE;
 															commands.SendHostCommand := TRUE;
 															_moveFinal := FALSE;
-															moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff;
+															moveDistanceFinalState := BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff;
 															
 															
-	AMP_EIP_MOVE_INITIAL_STATES.WaitAfterSettingOutputOff :		
+	BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff :		
 															IF commandSuccessful THEN
 																_moveDone := TRUE;
-																moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+																moveDistanceFinalState := BAG_DELIVERY_MOVE_STATES.Idle;
 															END_IF
 																
 

@@ -93,7 +93,8 @@ END_IF
 bagFeedMasterMotor(
 	ptrEIPInputs := ADR(bagDeliveryMotorInputs),
     ptrEIPOutputs := ADR(bagDeliveryMotorOutputs),
-	placement := BAG_DELIVERY_MOTOR_PLACEMENT.Front,
+	placement := BAG_DELIVERY_PLACEMENT.Front,
+	interconnectivity := BAG_DELIVERY_INTERCONNECTIVITY.EthernetIP,
     stepsPerInchSetpoint := stepsPerInchSetting,
 	reversePolarity := FALSE, 
 	defaultCurrentSetpoint := 1150, 
@@ -105,7 +106,8 @@ bagFeedMasterMotor.Execute();
 bagFeedRearMotor(
 	ptrEIPInputs := ADR(bagRearMotorInputs),
     ptrEIPOutputs := ADR(bagRearMotorOutputs),
-	placement := BAG_DELIVERY_MOTOR_PLACEMENT.Rear,
+	placement := BAG_DELIVERY_PLACEMENT.Rear,
+	interconnectivity := BAG_DELIVERY_INTERCONNECTIVITY.EthernetIP,
     stepsPerInchSetpoint := stepsPerInchSetting,
 	reversePolarity := TRUE, 
 	defaultCurrentSetpoint := 1150, 
@@ -115,13 +117,15 @@ bagFeedRearMotor.Execute();
 
 //
 IF enableONS.Q OR resetONS.Q THEN
+	_reset := FALSE;
     IF _mode = DEVICE_MODES.Manual THEN 
         state := BAG_DELIVERY_STATES.Manual;
     ELSE
         state := BAG_DELIVERY_STATES.Idle;
     END_IF
-	_reset := FALSE;
 	ClearCommands();
+	bagFeedRearMotor.ack := FALSE;
+	bagFeedMasterMotor.ack := FALSE;
 END_IF
 
 //
@@ -200,11 +204,10 @@ CASE state OF
 			delay.IN := FALSE;
 		END_IF
 	
-	BAG_DELIVERY_STATES.SetTorqueMode :				
-		bagFeedRearMotor.TriggerTorqueMode();
+	BAG_DELIVERY_STATES.SetTorqueMode:
 		state := BAG_DELIVERY_STATES.Idle;
 													
-    BAG_DELIVERY_STATES.Reverse :                   
+    BAG_DELIVERY_STATES.Reverse:                   
 		// Reverse to break perf
         bagFeedMasterMotor.MoveDistance(
 			distance := reverseDistanceSetpoint, 
@@ -485,9 +488,9 @@ CASE state OF
             ClearCommands();
         END_IF 
 		IF _amFeedToEye THEN
+			_amFeedToEye := FALSE;			
 			state := BAG_DELIVERY_STATES.SetTorqueMode;
 		END_IF
-		_amFeedToEye := FALSE;
 		IF iBagNotPresent AND NOT HMIData.enableDryCycle THEN 
 			state := BAG_DELIVERY_STATES.Idle;
 		END_IF

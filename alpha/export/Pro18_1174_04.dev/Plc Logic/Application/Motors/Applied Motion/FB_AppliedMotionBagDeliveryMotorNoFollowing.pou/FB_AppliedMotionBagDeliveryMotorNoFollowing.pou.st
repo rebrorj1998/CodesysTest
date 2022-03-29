@@ -13,7 +13,7 @@ VAR
 	waitForMove : TON := (PT := T#30MS);
 	manualFinalMovePB : BOOL;
 	movedFinal : BOOL;
-	moveDistanceState : AMP_EIP_MOVE_INITIAL_STATES;
-	moveDistanceFinalState : AMP_EIP_MOVE_INITIAL_STATES;
+	moveDistanceState : BAG_DELIVERY_MOVE_STATES;
+	moveDistanceFinalState : BAG_DELIVERY_MOVE_STATES;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

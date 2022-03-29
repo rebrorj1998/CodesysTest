@@ -28,7 +28,7 @@ VAR
 	currentDateAndTime : GetTime();
 	resetCommFaults : BOOL;
 	i : INT;
-	reverseFault : FB_HMIFault := (refFault := PRG_Bagger.moabHead.bagDelivery.reverseFault);
+	reverseFault : FB_HMIFault := (refFault := PRG_Bagger.moabHead.bagDeliverySynchronous.reverseFault);
 	faultActiveONS : FB_ONS;
 	throughputCalculator : FB_Throughput();
 	faultOutTimer : TON();

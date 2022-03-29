@@ -830,7 +830,7 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	//homeJawPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-	bagDelivery.bagFeedRearMotor.SetTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
+	bagDelivery.bagFeedRearMotor.Initialize(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
 END_IF
@@ -890,7 +890,7 @@ END_IF
 // Send torque value to motor                 
 rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery.bagFeedRearMotor.SetTorqueValue((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery.bagFeedRearMotor.Initialize((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable
