@@ -2,9 +2,14 @@
 METHOD TriggerTorqueMode
 VAR_INPUT
 END_VAR
-VAR CONSTANT
-	TORQUE_MODE_ID : INT := 2;
-END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-parameter1 := TORQUE_MODE_ID;
-commands.SendQAndExecute := TRUE;													
+IF interconnect = BAG_DELIVERY_IC.EIP THEN
+	parameter1 := TORQUE_MODE_PARAM_ID;
+	commands.SendQAndExecute := TRUE;
+ELSE
+	sclCommand := SCL_SO; 
+	parameter1 := O2_L;
+	commandSuccessful := FALSE;
+	commands.SendHostCommand := TRUE;
+END_IF
+												

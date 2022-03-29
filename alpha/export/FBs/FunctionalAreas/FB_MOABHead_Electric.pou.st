@@ -1037,12 +1037,9 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
 		bagOpened := FALSE;
 	END_IF
-	//bagOpened := FALSE;
-	
-	//zebraPrinter.autoSendLabel := TRUE;
+
 	printerMode := DEVICE_MODES.Auto;
 	zebraPrinter.Reset();
-	//zebraPrinter.enable := TRUE;
 	
 	IF iPowerOffButtonONS.OSR AND NOT bagDeliverySynchronous.bagTensionFault.active THEN
 		IF (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) THEN
@@ -1050,11 +1047,9 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 		END_IF 
 	END_IF  
 	
-	//passthrough.Reset();
 	pressureBarMotor.Reset();
 	passthroughMode := DEVICE_MODES.Auto;
-	//passthrough.enable := TRUE;
-	
+
 	oVacOn := FALSE;
 	rearLoadPlate.Reset();
 	frontLoadPlate.Reset();

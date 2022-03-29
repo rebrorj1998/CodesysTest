@@ -42,8 +42,6 @@ VAR
     bagsCurrentlyFed  :INT;            // Bags currently fed for testing
 	delayForPrintFeed : TIME := T#20MS;
 	printerExtraFeedLength : REAL := 0.25;
-    //bagFeedMasterMotor : FB_AppliedMotionStepServoTCP();
-    //bagFeedMasterMotor : FB_AppliedMotionBagDeliveryMotor();
 	bagFeedMasterMotor : FB_AppliedMotionBagDeliveryMotor_1();
 	bagFeedRearMotor : FB_AppliedMotionBagDeliveryMotor_1();
 	accelPercent : REAL := 0.1;
@@ -106,7 +104,6 @@ bagFeedRearMotor(ptrEIPInputs := ADR(bagRearMotorInputs),
 bagFeedRearMotor.Execute();
 
 IF testTorque THEN
-	//bagFeedRearMotor.SetRearMotorTorqueValue(testTorqueValue);
 	testTorque := FALSE;
 END_IF
 
@@ -186,7 +183,7 @@ CASE state OF
 													delay.PT := T#50MS;
 													delay.IN := TRUE;
 													IF delay.Q THEN
-														bagFeedMasterMotor.SetRearMotorToTorqueMode();
+														bagFeedMasterMotor.TriggerTorqueMode;
 														state := BAG_DELIVERY_STATES.Idle;	
 														delay.IN := FALSE;
 													END_IF

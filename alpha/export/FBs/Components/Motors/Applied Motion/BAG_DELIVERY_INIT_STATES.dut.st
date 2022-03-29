@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {attribute 'qualified_only'}
 {attribute 'strict'}
-TYPE BAG_DELIVERY_INITALIZATION_STATES :
+TYPE BAG_DELIVERY_INIT_STATES :
 (
 	Idle := 0,
 	Reset := 1,

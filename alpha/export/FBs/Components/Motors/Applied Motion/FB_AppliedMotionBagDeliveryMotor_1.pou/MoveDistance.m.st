@@ -8,6 +8,11 @@ VAR_INPUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 //
+IF _initialize THEN
+	RETURN;
+END_IF
+
+//
 _moveDone := FALSE;
 _moveDistance := TRUE;
 _state := BAG_DELIVERY_MOVE_STATES.Idle;

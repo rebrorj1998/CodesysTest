@@ -93,8 +93,8 @@ END_IF
 bagFeedMasterMotor(
 	ptrEIPInputs := ADR(bagDeliveryMotorInputs),
     ptrEIPOutputs := ADR(bagDeliveryMotorOutputs),
-	placement := BAG_DELIVERY_PLACEMENT.Front,
-	interconnectivity := BAG_DELIVERY_INTERCONNECTIVITY.EthernetIP,
+	placement := BAG_DELIVERY_MOTOR_PLACEMENT.Front,
+	interconnect := BAG_DELIVERY_IC.EIP,
     stepsPerInchSetpoint := stepsPerInchSetting,
 	reversePolarity := FALSE, 
 	defaultCurrentSetpoint := 1150, 
@@ -106,8 +106,8 @@ bagFeedMasterMotor.Execute();
 bagFeedRearMotor(
 	ptrEIPInputs := ADR(bagRearMotorInputs),
     ptrEIPOutputs := ADR(bagRearMotorOutputs),
-	placement := BAG_DELIVERY_PLACEMENT.Rear,
-	interconnectivity := BAG_DELIVERY_INTERCONNECTIVITY.EthernetIP,
+	placement := BAG_DELIVERY_MOTOR_PLACEMENT.Rear,
+	interconnect := BAG_DELIVERY_IC.EIP,
     stepsPerInchSetpoint := stepsPerInchSetting,
 	reversePolarity := TRUE, 
 	defaultCurrentSetpoint := 1150, 

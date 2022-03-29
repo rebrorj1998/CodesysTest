@@ -12,6 +12,11 @@ VAR
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 //
+IF _initialize THEN
+	RETURN;
+END_IF
+
+//
 _moveDone := FALSE;
 _moveFinal := TRUE;
 _stateFinal := BAG_DELIVERY_MOVE_STATES.Idle;
