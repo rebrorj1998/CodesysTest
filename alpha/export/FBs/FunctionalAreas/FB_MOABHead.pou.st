@@ -41,7 +41,7 @@ VAR
 	factoryTestModeKeepCycling : BOOL;
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
-    bagDelivery : FB_BagDeliverySynchronous();
+    bagDelivery : FB_BagDelivery();
 	zebraPrinter : FB_ZebraPrinter;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
@@ -756,7 +756,6 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	bagDeliveryMode := DEVICE_MODES.Auto;
 	bagDelivery.Reset();
 	bagDelivery.enable := TRUE;
-	//bagDelivery.bagFeedMasterMotor.SetRearMotorToTorqueMode();
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 		IF NOT passthrough.homeRequired THEN
@@ -812,25 +811,14 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	barcodeVerifier.Reset();
 	keyenceBCV.Reset();
 	ezFeed.Reset();
-	//HMIData.airFilterClean.SetCount(27336);
-	//HMIData.driveRollerClean.SetCount(12041);
-	//HMIData.printHeadClean.SetCount(3224);
-	//HMIData.pressureBarGuideShaftGuides.SetCount(127888);
-	
-	//HMIData.bagLength := 23.5;
-	//HMIData.bagWidth := 17.5;
-	//HMIData.bagReverseSpeed := 3;
-// 	HMIData.printLength := 8;
-// 	HMIData.printOffset := 1;
-// 	HMIData.printSpeed := 6;
-// 	HMIData.bagForwardSpeed := 50;
+
 	state := HEAD_STATES.Idle;
 	reset();
-	setPassthroughPB := FALSE;
-	//homeJawPB := FALSE;
+	setPassthroughPB := FALSE; 
+
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-	bagDelivery.bagFeedRearMotor.Initialize(TO_DINT(HMIDAta.bagTensionSetting * 100));
+	bagDelivery._bagFeedRearMotor.Initialize(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
 END_IF
@@ -844,11 +832,10 @@ IF enableONS.Q OR resetONS.Q THEN
 	pressureBar.Reset();
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
-	//pressureBar.ExtendCylinderLowPressure();
+
 	bagDropTimer.IN := FALSE;
 	_reset := FALSE;
 	cycleTimer.IN := FALSE;
-//	bagFailedToOpen := FALSE;
 END_IF
 
 {warning 'TODO: Put this inside the passtrough FB'}
@@ -888,9 +875,9 @@ IF HMIData.enableDryCycle THEN
 END_IF
 
 // Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
+rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery.bagFeedRearMotor.Initialize((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery._bagFeedRearMotor.Initialize((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable
@@ -1288,7 +1275,7 @@ CASE state OF
     HEAD_STATES.Fault :                     hmiLight.TurnOff();
 											HMIData.inCycle := FALSE;
 											cycleTimer.IN := FALSE;
-											bagDelivery.bagFeedMasterMotor.TriggerPointToPointMode();
+											bagDelivery._bagFeedFrontMotor.TriggerPointToPointMode();
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;

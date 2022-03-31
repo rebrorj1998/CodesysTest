@@ -12,7 +12,7 @@ VAR
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 //
-IF _initialize THEN
+IF _initialize OR placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear AND interconnect = BAG_DELIVERY_IC.CBL THEN
 	RETURN;
 END_IF
 

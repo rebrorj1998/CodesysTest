@@ -2,6 +2,7 @@
 FUNCTION_BLOCK FB_AppliedMotionBagDeliveryMotor_1 EXTENDS FB_AppliedMotionStepServoEIPBase
 VAR_INPUT
 	ack : BOOL;
+	jog : BOOL;
 	placement : BAG_DELIVERY_MOTOR_PLACEMENT;
 	interconnect : BAG_DELIVERY_IC;
 END_VAR

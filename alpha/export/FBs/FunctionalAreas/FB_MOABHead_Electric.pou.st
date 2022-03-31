@@ -40,7 +40,7 @@ VAR
 	factoryTestModeKeepCycling : BOOL;
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
-    bagDeliverySynchronous : FB_BagDeliverySynchronous();
+	bagDelivery : FB_BagDelivery();
 	zebraPrinter : FB_ZebraPrinter;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
@@ -343,7 +343,8 @@ pressureBar(
 pressureBar.Mode := electricPressureBarMode;
 
 // Run bag delivery 
-bagDeliverySynchronous(jogForwardPB := HMIData.jogBagForward,
+bagDelivery(
+	jogForwardPB := HMIData.jogBagForward,
 	jogReversePB := HMIData.jogBagReverse,
 	bagLengthSetpoint := HMIData.bagLength,	 
 	printVelocitySetpoint := HMIData.printSpeed,
@@ -357,7 +358,7 @@ bagDeliverySynchronous(jogForwardPB := HMIData.jogBagForward,
 	bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 	stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
 	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC);
-bagDeliverySynchronous.Mode := bagDeliveryMode;
+bagDelivery.Mode := bagDeliveryMode;
 
 CASE HMIData.printerSelection OF
 		 
@@ -487,7 +488,7 @@ hpaServiceOnONS(CLK := HMIData.hpaserviceOn);
 
 triggerLPAWhileFeedingONS(CLK := releaseAndFeedSubState = RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
 IF HMIData.lpaDuringBagFeedEnable AND triggerLPAWhileFeedingONS.OSR THEN
-	LPA.DwellSetting := TO_DINT(((bagDeliverySynchronous.remainingLength - HMIData.bagSkirtLength) / TO_REAL(HMIData.bagForwardSpeed)) * 1000.0);
+	LPA.DwellSetting := TO_DINT(((bagDelivery.remainingLength - HMIData.bagSkirtLength) / TO_REAL(HMIData.bagForwardSpeed)) * 1000.0);
 	LPA.Trigger();
 END_IF
 LPA(Q => oLPAOn);
@@ -978,7 +979,7 @@ faultONS(CLK := HMIData.faultActive);
 readyToRun := (motorizedSealFlatteners.Ready OR NOT motorizedSealFlatteners.enable) 
                 AND (pressureBar.Ready OR NOT pressureBar.enable)
 				AND (IBD.Ready OR NOT enableIBDDeflate)
-                AND (bagDeliverySynchronous.Ready OR NOT bagDeliverySynchronous.enable)
+                AND (bagDelivery.Ready OR NOT bagDelivery.enable)
                 AND (zebraPrinter.Ready OR NOT zebraPrinter.enable)
 				AND murrIOBusNode.ok;	
 
@@ -988,8 +989,8 @@ resetTimer(IN := iPowerOffButtonONS.OSR);
 allMotorCommsGood := NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.commFail.active
 					AND NOT IBDMotor.faults.commFail.active
 					AND NOT pressureBarMotor.faults.commFail.active
-					AND NOT bagDeliverySynchronous.bagfeedMasterMotor.faults.commFail.active
-					AND NOT bagDeliverySynchronous.bagFeedRearMotor.faults.commFail.active;
+					AND NOT bagDelivery._bagFeedFrontMotor.faults.commFail.active
+					AND NOT bagDelivery._bagFeedRearMotor.faults.commFail.active;
 
 IF iPowerOffButtonONS.OSR THEN
 	reset();
@@ -1027,11 +1028,11 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	enableHeater := TRUE;
 	
 	bagDeliveryMode := DEVICE_MODES.Auto;
-	bagDeliverySynchronous.Reset();
-	bagDeliverySynchronous.enable := TRUE;
+	bagDelivery.Reset();
+	bagDelivery.enable := TRUE;
 
 	IF iPowerOffButtonONS.OSR THEN
-		bagDeliverySynchronous.AutoFeedToEye();
+		bagDelivery.AutoFeedToEye();
 	END_IF
 	
 	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
@@ -1041,7 +1042,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	printerMode := DEVICE_MODES.Auto;
 	zebraPrinter.Reset();
 	
-	IF iPowerOffButtonONS.OSR AND NOT bagDeliverySynchronous.bagTensionFault.active THEN
+	IF iPowerOffButtonONS.OSR AND NOT bagDelivery.bagTensionFault.active THEN
 		IF (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) THEN
 			HMIData.bagsMade.Clear();
 		END_IF 
@@ -1078,7 +1079,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	setPassthroughPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-	bagDeliverySynchronous.bagFeedRearMotor.Initialize();
+//	bagDelivery._bagFeedRearMotor.Initialize();
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
 	
@@ -1103,27 +1104,24 @@ IF enableONS.Q OR resetONS.Q THEN
 	motorizedSealFlatteners.Reset();
 	pressureBar.Reset();
 	IBD.Reset();
-	bagDeliverySynchronous.Reset();
+	bagDelivery.Reset();
 	zebraPrinter.Reset();
 	homeJawPB := FALSE;
-	//EIPReconfig.ManualReconfig();
+
 	IF IBD.homeRequired THEN
 		homeJawPB := TRUE;
 	ELSE
-		//IBD.OpenIBD();
 		homeJawPB := TRUE;
 	END_IF
 	IF pressureBar.homeRequired THEN
 		homeJawPB := TRUE;
 	ELSE
-		//pressureBar.OpenJaw();
 		homeJawPB := TRUE;
 	END_IF
-	//pressureBar.ExtendCylinderLowPressure();
+
 	bagDropTimer.IN := FALSE;
 	_reset := FALSE;
 	cycleTimer.IN := FALSE;
-//	bagFailedToOpen := FALSE;
 END_IF
 
 IF HMIData.bagsMade.count >= 1000 THEN
@@ -1148,10 +1146,9 @@ IF HMIData.enableDryCycle THEN
 END_IF
 
 // Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDeliverySynchronous.bagFeedRearMotor.commFail);
+rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	{warning: 'TODO: only change made after latest testing'}
-	bagDeliverySynchronous.bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable
@@ -1594,7 +1591,7 @@ CASE state OF
     HEAD_STATES.Fault :                     hmiLight.TurnOff();
 											HMIData.inCycle := FALSE;
 											cycleTimer.IN := FALSE;
-											bagDeliverySynchronous.bagFeedMasterMotor.TriggerPointToPointMode();
+											bagDelivery._bagFeedRearMotor.TriggerPointToPointMode();
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
@@ -1697,8 +1694,8 @@ CASE sealAndSeparateSubState OF
                                                     
     SEAL_SEPARATE_STATES.ReverseBag :               // Reverse bag if bag delivery enabled, otherwise open jaw
 													//IBD.OpenFull();
-                                                    IF bagDeliverySynchronous.enable THEN
-                                                        bagDeliverySynchronous.AutoReverseBag();
+                                                    IF bagDelivery.enable THEN
+                                                        bagDelivery.AutoReverseBag();
                                                         sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReversingBag;
                                                     ELSE sealAndSeparateSubState := SEAL_SEPARATE_STATES.Done;    
                                                     END_IF
@@ -1718,7 +1715,7 @@ CASE sealAndSeparateSubState OF
 
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
-                                                        AND (bagDeliverySynchronous.state = BAG_DELIVERY_STATES.ReverseDone OR NOT bagDeliverySynchronous.enable)
+                                                        AND (bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone OR NOT bagDelivery.enable)
 														AND (sealTimer.Q OR HMIData.separateBeforeSeal)
                                                         THEN
 															IF NOT HMIData.separateBeforeSeal THEN
@@ -1760,9 +1757,9 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
-                                                        AND ((bagDeliverySynchronous.state = BAG_DELIVERY_STATES.ReverseDone) OR HMIData.enableDryCycle)
-                                                        OR (bagDeliverySynchronous.state =  BAG_DELIVERY_STATES.WaitingForPrinter AND zebraPrinter.enable)
-                                                        OR NOT bagDeliverySynchronous.enable
+                                                        AND ((bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone) OR HMIData.enableDryCycle)
+                                                        OR (bagDelivery.state =  BAG_DELIVERY_STATES.WaitingForPrinter AND zebraPrinter.enable)
+                                                        OR NOT bagDelivery.enable
                                                         THEN
                                                             IF motorizedSealFlatteners.enable THEN
                                                                 motorizedSealFlatteners.AutoMoveToClearance();
@@ -1823,23 +1820,17 @@ CASE releaseAndFeedSubState OF
 															THEN   
 															bagDropTimer.IN := FALSE;
 															
-															IF bagDeliverySynchronous.enable AND NOT zebraPrinter.enable THEN
-                                                                bagDeliverySynchronous.AutoFeedBagOut();
+															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
+                                                                bagDelivery.AutoFeedBagOut();
  																LPA.ManualOff();
-// 																IF HMIData.lpaDuringBagFeedEnable THEN
-// 																	LPA.ManualOn();
-// 																END_IF
                                                                 releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
-                                                            ELSIF bagDeliverySynchronous.enable AND zebraPrinter.enable THEN
-                                                                bagDeliverySynchronous.AutoWaitForPrinter();
+                                                            ELSIF bagDelivery.enable AND zebraPrinter.enable THEN
+                                                                bagDelivery.AutoWaitForPrinter();
 																LPA.ManualOff();
                                                                 releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForPrinter;
                                                             ELSE 
                                                                 releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
-                                                            END_IF
-                                                            (*{warning 'TODO: This is a hack to use HPA as LPA'}
-														    HPA.DwellSetting := 500;		// Get rid on this - ha
-													        HPA.Trigger();*)												
+                                                            END_IF												
     													END_IF
 														
     RELEASE_FEED_STATES.WaitForPrinter :            // Data Ready means the printer has a label and we're all set to print
@@ -1855,7 +1846,7 @@ CASE releaseAndFeedSubState OF
                                                     
     RELEASE_FEED_STATES.FeedToOffset :              // This starts feeding to the print offset
 													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) THEN
-														bagDeliverySynchronous.AutoPrinterReady();
+														bagDelivery.AutoPrinterReady();
                                                     	releaseAndFeedSubState := RELEASE_FEED_STATES.FeedingToOffset;
 													END_IF
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
@@ -1864,7 +1855,7 @@ CASE releaseAndFeedSubState OF
                                                     
                                                         
     RELEASE_FEED_STATES.FeedingToOffset :            // Once offset done start printing
-                                                    IF bagDeliverySynchronous.state = BAG_DELIVERY_STATES.FedToPrintOffset THEN
+                                                    IF bagDelivery.state = BAG_DELIVERY_STATES.FedToPrintOffset THEN
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.StartPrinting;
                                                     END_IF       
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
@@ -1872,24 +1863,18 @@ CASE releaseAndFeedSubState OF
  													END_IF	                                     
     
     RELEASE_FEED_STATES.StartPrinting :             // Printer starts print cycle and bag delivery starts moving at print speed
-                                                    // bagDelivery.AutoStartPrintFeed();
 													zebraPrinter.AutoPrintNow();
                                                     releaseAndFeedSubState := RELEASE_FEED_STATES.SendPrintSignal;                                            
 
     RELEASE_FEED_STATES.SendPrintSignal:            // 
-                                                    //IF bagDelivery.state =     BAG_DELIVERY_STATES.FeedingAtPrintSpeed THEN
-													//zebraPrinter.AutoSendPrintSignal();
+              
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
  													END_IF	
 													IF zebraPrinter.printHeadDebounced THEN
-														bagDeliverySynchronous.AutoStartPrintFeed();
+														bagDelivery.AutoStartPrintFeed();
 														zebraPrinter.AutoSendPrintSignal();
 														barcodeVerifier.Trigger();
-                                                        //bagDelivery.AutoStartPrintFeed();
-														//bagDelivery.AutoStartPrintFeed();
-                                                        //zebraPrinter.AutoSendPrintSignal();
-														
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.Printing;
                                                     END_IF                                        
 
@@ -1902,7 +1887,7 @@ CASE releaseAndFeedSubState OF
                                                     END_IF
                                                     
     RELEASE_FEED_STATES.StopPrinting :                // Tell bag delivery it's okay to feed out the rest of the bag and the printer that it can prep itself for the next print
-                                                    bagDeliverySynchronous.AutoPrinterDone();
+                                                    bagDelivery.AutoPrinterDone();
                                                     zebraPrinter.AutoAckPrintDone();
                                                     releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
                                                                                 
@@ -1912,7 +1897,7 @@ CASE releaseAndFeedSubState OF
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
  													END_IF
-													IF (bagDeliverySynchronous.state = BAG_DELIVERY_STATES.Ready OR NOT bagDeliverySynchronous.enable)
+													IF (bagDelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagDelivery.enable)
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.pressureBarOpen OR NOT pressureBar.enable)
                                                         THEN
@@ -1953,11 +1938,15 @@ CASE openBagSubState OF
                                                     END_IF
                                                     
     BAG_OPEN_ASSIST_STATES.MovedJawIn :             // Hold onto the bag with vacuum to build suction
-                                                    vacuumHoldTimer.IN := TRUE;
-													oVacOn := TRUE; // Hard coded for now, this is vacuum
-													IF vacuumHoldTimer.Q THEN
-														openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut; 
-														vacuumHoldTimer.IN := FALSE;
+													IF HMIData.enableDryCycle THEN
+														openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut;
+													ELSE
+														vacuumHoldTimer.IN := TRUE;
+														oVacOn := TRUE; // Hard coded for now, this is vacuum
+														IF vacuumHoldTimer.Q THEN
+															vacuumHoldTimer.IN := FALSE;
+															openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut;
+														END_IF            
 													END_IF
                                                                    
     BAG_OPEN_ASSIST_STATES.MoveJawOut :             // Open the jaw and move seal flatteners in and to bag holding

@@ -28,7 +28,7 @@ CASE _stateInitalize OF
 		END_IF				
 	
 	BAG_DELIVERY_INIT_STATES.Reset:
-		tensionFault := TRUE; // Clear tension fault on reset
+		tensionFault := FALSE; // Clear tension fault on reset
 		_stateInitalize := BAG_DELIVERY_INIT_STATES.SetTorque;	
 		
 	BAG_DELIVERY_INIT_STATES.SetTorque:
@@ -66,7 +66,7 @@ CASE _state OF
 		END_IF
 															
 	BAG_DELIVERY_MOVE_STATES.SetToPointToPointMode:
-		IF interconnect = BAG_DELIVERY_IC.EIP THEN
+		IF interconnect = BAG_DELIVERY_IC.EIP AND NOT jog THEN
 			IF placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear THEN
 				TriggerPointToPointMode();
 			END_IF						
