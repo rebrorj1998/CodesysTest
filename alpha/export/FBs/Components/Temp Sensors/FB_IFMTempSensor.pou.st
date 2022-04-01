@@ -11,7 +11,6 @@ END_VAR
 VAR
 	_reconfigured : BOOL;
 	_state : TEMP_SENSOR_STATES;
-	_timeoutTimer : Standard.TON;
 	_reconfigureONS : Standard.R_TRIG;
 	_dataInitalizingDelayTimer : TON := (PT := T#3S);
 END_VAR
@@ -53,6 +52,9 @@ CASE _state OF
 		_reconfigured := TRUE;
 		_dataInitalizingDelayTimer.IN := TRUE;
 		IF _dataInitalizingDelayTimer.Q THEN 
+			IF _rawTemperatureReading = 0 THEN
+				rtdFailure.Trigger();
+			END_IF
 			_state := TEMP_SENSOR_STATES.Idle;
 		END_IF
 END_CASE

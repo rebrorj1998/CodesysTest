@@ -523,7 +523,7 @@
     <TypeUserDef name="T_FB_CollectionHandlerActiveFaults" size="24381" nativesize="25600" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CollectionHandlerActiveFaults">
       <UserDefElement iecname="ObjNames" type="T_ARRAY__0__300__OF_STRING" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_IFMTempSensor" size="3" nativesize="392" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_IFMTempSensor" basetype="T_FB_TemperatureSensor">
+    <TypeUserDef name="T_FB_IFMTempSensor" size="3" nativesize="440" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_IFMTempSensor" basetype="T_FB_TemperatureSensor">
       <UserDefElement iecname="rtdFailure" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_ONS" size="7" nativesize="24" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ONS">
@@ -754,7 +754,7 @@
       <UserDefElement iecname="label203" type="T_STRING_25000_" byteoffset="26398" vartype="VAR" />
       <UserDefElement iecname="label300" type="T_STRING_25000_" byteoffset="51399" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_TempController" size="6" nativesize="828" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_TempController" size="6" nativesize="832" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -843,7 +843,7 @@
       <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" />
       <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="428" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77192" nativesize="185796" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77192" nativesize="185824" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
