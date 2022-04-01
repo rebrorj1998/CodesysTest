@@ -140,21 +140,9 @@ END_VAR
 //    Created Date: Tuesday, April 17, 2018
 
 {region "Setup"}
-// Run BaseComponentFB
-SUPER^();
-(* BLocking out these changes before commiting - needs more testing
-// Comms motor node enable only when powered up
-estopONS(CLK := iEstopOK AND (Cube67_BN_E_V2.eState = IoDrvEthernetIP.AdapterState.RUNNING));
 
-IF estopONS.OSR OR estopONS.OSF THEN
-//IF estopONS.OSF THEN
-	IBD_Motor.Enable := (HMIData.independentBagDeflatorSelection = BagDeflatorSelection.MotorizedIBD) AND iEStopOK;
-	MSFMotor.Enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND iEStopOK;
-	Pbar_ServoEIP.Enable := (NOT (HMIData.baggerModelSelection = ModelSelection.Pro18)) AND iEStopOK;
-	Bag_Delivery_EIP_Motor.Enable := iEstopOK;
-	Bag_Delivery_Rear_Motor.Enable := iEstopOK;
-END_IF
-*)		  
+// Run BaseComponentFB
+SUPER^(); 
 		  
 // Enable/Disable nodes on comms tree dynamically
 EIPReconfig(rootEIPNode := EtherNet_IP_Scanner);
@@ -357,7 +345,9 @@ bagDelivery(
 	bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 	bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 	stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
-	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC);
+	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC,
+	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
+);
 bagDelivery.Mode := bagDeliveryMode;
 
 CASE HMIData.printerSelection OF
@@ -462,16 +452,27 @@ funnel(
 funnel.OpeningTime := HMIData.funnelOpeningTime;
 funnel.ClosingTime := HMIData.funnelClosingTime;
 funnel.DelaySetting := HMIData.funnelOpenDelay;
-// Setup of pick and place motors
 
+//
+sealBarTempSensor(
+	busNodeOK := murrIOBusNode.ok,
+	ptrTemperatureBytes := ADR(iHeaterBarTempInputs)
+);
+	 
+//
+IF sealBarTempSensor.reconfigureIO THEN
+	murrIOBusNode.restartBusnodePulse.Trigger();		 
+END_IF
 
-sealBarTempSensor(ptrTemperatureBytes := ADR(iHeaterBarTempInputs));
-sealBarTempSensor.Execute();
-sealBarHeater(enable := NOT safePowerFailure.active,
-				temperatureSensor := sealBarTempSensor,
-				temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
-				heaterPulse => 	oHeaterPulse);	  
-HMIData.sealBarTemperature := TO_UDINT(sealBarHeater.currentTemp);
+//	 
+sealBarHeater(
+	enable := NOT safePowerFailure.active,
+	temperatureSensor := sealBarTempSensor,
+	temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
+	heaterPulse => 	oHeaterPulse,
+	currentTemp => HMIData.sealBarTemperature
+);	  
+
 {region "timers"}
 // Timers
 sealTimer();

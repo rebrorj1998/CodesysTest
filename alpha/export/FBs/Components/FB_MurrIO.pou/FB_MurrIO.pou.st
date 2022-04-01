@@ -21,16 +21,13 @@ VAR
 	systemStatusState : MURR_SYSTEM_STATES;
 	MOMConfigLast : BYTE;
 	restartBusnodePulse : FB_MonostableMultivibrator;
-END_VAR
-	
-VAR_IN_OUT
-
-END_VAR
-(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: MurrIOFB
 //    Description: Alarms, faults, configuration of the Murr Cube67+ Bus Node
 //    Created by: Ben Hess
 //    Created Date: October 16th, 2019
+
+
 SUPER^();
 
 // Set bit 33 to true for 1 second to reset nodes
@@ -45,23 +42,22 @@ END_IF
 // MOM config - MOM bits are counted from Slot 001 to 4xx and are counted based on the "Maximium" configuration hard coded in the bus master
 // Here we can select which verison of code we have in order to utilize MOM correctly if we add additional modules in the future.
 CASE configVersion OF
-	CONFIG_VERSIONS.V_1_1 :		//
-									ptrMachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].2 := NOT dischargeNodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].3 := NOT printerNodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].4 := FALSE;
+	CONFIG_VERSIONS.V_1_1 :		
+		//
+		ptrMachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].2 := NOT dischargeNodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].3 := NOT printerNodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].4 := FALSE;
 									
-								
-
-	CONFIG_VERSIONS.V_1_2, CONFIG_VERSIONS.V_1_3,CONFIG_VERSIONS.V_1_4 : 		// Added aux IO to 1.2 and BCV trigger to 1.3
-									ptrMachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].2 := NOT auxIONodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].3 := NOT dischargeNodeEnabled;
-									ptrMachineOptionsManagementOutputs[0].4 := NOT printerNodeEnabled;
+	CONFIG_VERSIONS.V_1_2, CONFIG_VERSIONS.V_1_3,CONFIG_VERSIONS.V_1_4 : 		
+		// Added aux IO to 1.2 and BCV trigger to 1.3
+		ptrMachineOptionsManagementOutputs[0].0 := NOT headNodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].1 := NOT guardNodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].2 := NOT auxIONodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].3 := NOT dischargeNodeEnabled;
+		ptrMachineOptionsManagementOutputs[0].4 := NOT printerNodeEnabled;
 END_CASE
-
 
 // Run config if IO bus node is waiting on config
 systemStatusINT := ptrSystemStatusInputs^;
@@ -96,25 +92,18 @@ END_IF
 ok := (systemStatusState = MURR_SYSTEM_STATES.Internal_Comm_OK);
 
 CASE systemStatusState OF
-
-	
-	MURR_SYSTEM_STATES.Waiting_For_MOM: 			// Bit 32 is Configure MOM bit
-													ptrMachineOptionsManagementOutputs[4].0 := TRUE;
-													ptrMachineOptionsManagementOutputs[4].1 := FALSE;
-													
-	
-	MURR_SYSTEM_STATES.Configuring_MOM : 			//
-													ptrMachineOptionsManagementOutputs[4].0 := FALSE;
-													
-											
-
-														
-											
+	MURR_SYSTEM_STATES.Waiting_For_MOM: 			
+		// Bit 32 is Configure MOM bit
+		ptrMachineOptionsManagementOutputs[4].0 := TRUE;
+		ptrMachineOptionsManagementOutputs[4].1 := FALSE;
+	MURR_SYSTEM_STATES.Configuring_MOM : 			
+		//
+		ptrMachineOptionsManagementOutputs[4].0 := FALSE;							
 ELSE
-													ptrMachineOptionsManagementOutputs[4].0 := FALSE;
-													//IF config changes here, send it down after restarting
-													IF ptrMachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
-														restartBusnodePulse.Trigger();
-														MOMConfigLast := ptrMachineOptionsManagementOutputs[0];
-													END_IF
+	ptrMachineOptionsManagementOutputs[4].0 := FALSE;
+	//IF config changes here, send it down after restarting
+	IF ptrMachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
+		restartBusnodePulse.Trigger();
+		MOMConfigLast := ptrMachineOptionsManagementOutputs[0];
+	END_IF
 END_CASE												

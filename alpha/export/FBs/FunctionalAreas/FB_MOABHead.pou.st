@@ -272,7 +272,7 @@ sealBarHeater(enable := NOT safePowerFailure.active,
 				temperatureSensor := sealBarTempSensor,
 				temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
 				heaterPulse => 	oHeaterPulse);	  
-HMIData.sealBarTemperature := TO_UDINT(sealBarHeater.currentTemp);
+HMIData.sealBarTemperature := TO_UDINT(sealBarHeater._currentTemp);
 {region "timers"}
 // Timers
 sealTimer();
