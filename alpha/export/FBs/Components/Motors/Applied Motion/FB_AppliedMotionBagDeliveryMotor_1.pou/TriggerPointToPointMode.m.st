@@ -4,5 +4,7 @@ VAR_INPUT
 END_VAR
 
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-parameter1 := POINT2POINT_MODE_PARAM_ID;
-commands.SendQAndExecute := TRUE;													
+IF interconnect = BAG_DELIVERY_IC.EIP THEN
+	parameter1 := POINT2POINT_MODE_PARAM_ID;
+	commands.SendQAndExecute := TRUE;	
+END_IF

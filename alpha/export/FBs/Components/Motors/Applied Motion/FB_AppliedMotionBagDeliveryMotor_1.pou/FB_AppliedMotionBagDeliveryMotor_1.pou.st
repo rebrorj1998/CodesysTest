@@ -19,7 +19,7 @@ VAR
 	_state : BAG_DELIVERY_MOVE_STATES;
 	_stateFinal : BAG_DELIVERY_MOVE_STATES;
 	_stateInitalize : BAG_DELIVERY_INIT_STATES;
-	_tensionFaultDwellTimer : TON := (PT := T#2S);
+	_tensionFaultDwellTimer : TON := (PT := T#1S);
 END_VAR
 VAR CONSTANT
 	O2_L : INT := 16#4CB2;

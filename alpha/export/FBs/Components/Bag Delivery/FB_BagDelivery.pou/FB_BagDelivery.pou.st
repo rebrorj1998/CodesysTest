@@ -115,11 +115,14 @@ _bagFeedRearMotor.Execute();
 
 CASE rearMotorConfigVersion OF
 	CONFIG_VERSIONS.V_1_0,
-	CONFIG_VERSIONS.V_1_1:
+	CONFIG_VERSIONS.V_1_1,
+	CONFIG_VERSIONS.V_1_2:
 		_interconnect := BAG_DELIVERY_IC.CBL;
 		_tensionFault := iBagTensionFault;
 		_bagFeedRearMotor.reversePolarity := FALSE;
-	CONFIG_VERSIONS.V_2_0:
+	CONFIG_VERSIONS.V_2_0,
+	CONFIG_VERSIONS.V_2_1,
+	CONFIG_VERSIONS.V_2_2:
 		_interconnect := BAG_DELIVERY_IC.EIP;
 		_tensionFault := _bagFeedRearMotor.tensionFault;
 		_bagFeedRearMotor.reversePolarity := TRUE;
