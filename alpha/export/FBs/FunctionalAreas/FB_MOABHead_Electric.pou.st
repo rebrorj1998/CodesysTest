@@ -284,13 +284,14 @@ motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 MSFMotor.Enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners);
 	 
-pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
-                ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
-                stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
-				reversePolarity := FALSE,
-				defaultCurrentSetpoint := 500,
-				commFail := Pbar_ServoEIP.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-				isHomable := TRUE);			
+pressureBarMotor(
+	ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
+    ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
+    stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
+	reversePolarity := FALSE,
+	defaultCurrentSetpoint := 500,
+	commFail := Pbar_ServoEIP.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+	isHomable := TRUE);			
 pressureBarMotor.Execute();
 
 jawClamps(
@@ -1080,7 +1081,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	setPassthroughPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-//	bagDelivery._bagFeedRearMotor.Initialize();
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
 	

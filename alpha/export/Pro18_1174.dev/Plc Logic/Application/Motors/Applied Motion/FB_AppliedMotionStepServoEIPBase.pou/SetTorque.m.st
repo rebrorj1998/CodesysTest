@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD SetRearMotorTorqueValue
+METHOD SetTorque
 VAR_INPUT
 	torque : DINT;
 END_VAR
