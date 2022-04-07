@@ -409,19 +409,38 @@ CASE HMIData.auxIOConfig.factorySelection OF
 														IF HMIData.fillerFactorySelection = FillerSelection.StandardFiller THEN
 															HMIData.fillerFactorySelection := FillerSelection.NotInstalled;
 														END_IF
-														
 		 
 	AuxiliaryIOSelection.AuxIOStandard:					// Use aux IO
 		 												murrIOBusNode.auxIONodeEnabled := TRUE;
 		 												oAuxBaggerOK := NOT HMIData.faultActive;
-														oAuxReadyForFiller := filler.waitingForFiller;
+														oAuxReadyForFiller := filler.waitingForFiller;					
 															 
- 														CASE HMIData.auxIOConfig.cfgInputSelection OF
-															AuxInputSelection.NotConfigured:		// 
-																									HMIData.baggerInhibited.active := FALSE;
+ 														CASE HMIData.auxIOConfig.cfgInput1Selection OF
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := FALSE;
 																										 
-															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := iAuxConfigInput;
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput1;
+																
+															AuxInputSelection.FillerOK:           
+																 //
+																filler.fillerOK := iAuxConfigInput1; 
+														END_CASE
+														
+														CASE HMIData.auxIOConfig.cfgInput2Selection OF
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := FALSE;
+																										 
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput2;
+																
+															AuxInputSelection.FillerOK:           
+																 //
+																filler.fillerOK := iAuxConfigInput2; 
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
@@ -575,8 +594,7 @@ fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= , 
-	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine),
-	fillerOK:= iAuxFillerOK, 
+	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine), 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state => , 

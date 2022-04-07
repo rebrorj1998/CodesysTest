@@ -2,7 +2,8 @@
 TYPE AuxIOConfiguration :
 STRUCT
 	factorySelection : AuxiliaryIOSelection;
-	cfgInputSelection : AuxInputSelection;
+	cfgInput1Selection : AuxInputSelection;
+	cfgInput2Selection : AuxInputSelection;
 	cfgOutput1Selection : AuxOutputSelection;
 	cfgOutput2Selection : AuxOutputSelection;
 END_STRUCT

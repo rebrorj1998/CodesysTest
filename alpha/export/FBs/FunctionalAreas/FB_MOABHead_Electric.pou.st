@@ -428,7 +428,7 @@ printAndApply(
 );
 	 
 collisionDetection(
-	enable := HMIData.auxIOConfig.cfgInputSelection = AuxInputSelection.CollisionDetection,
+	enable := HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.CollisionDetection,
 	collisionDetected := iAuxConfigInput,
 	collisionDetectedDwell := HMIData.collisonDetectionDwell,
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
@@ -605,19 +605,48 @@ CASE HMIData.auxIOConfig.factorySelection OF
 		 												oAuxBaggerOK := NOT HMIData.faultActive;
 														oAuxReadyForFiller := filler.waitingForFiller;
 															 
- 														CASE HMIData.auxIOConfig.cfgInputSelection OF
+ 														CASE HMIData.auxIOConfig.cfgInput1Selection OF
 																										 
-															AuxInputSelection.NotConfigured:		// 
-																									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																									HMIData.packageBlockingTrunkline.active := FALSE;
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
-															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
-    																								HMIData.packageBlockingTrunkline.active := FALSE;
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+    															HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
-															AuxInputSelection.CollisionDetection:   //
-																 	                                HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																									HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
+															AuxInputSelection.CollisionDetection:   
+																//
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
+																										 
+															AuxInputSelection.FillerOK:				
+																//
+																filler.fillerOK := iAuxConfigInput1; 
+														END_CASE
+															 
+														CASE HMIData.auxIOConfig.cfgInput2Selection OF
+																										 
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := FALSE;
+																										 
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+    															HMIData.packageBlockingTrunkline.active := FALSE;
+																										 
+															AuxInputSelection.CollisionDetection:   
+																//
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
+															
+															AuxInputSelection.FillerOK:           
+																 //
+																filler.fillerOK := iAuxConfigInput2; 
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
@@ -772,8 +801,7 @@ fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= , 
-	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone,
-	fillerOK:= iAuxFillerOK, 
+	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone, 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state=> , 
