@@ -6,19 +6,30 @@ VAR_INPUT
     deceleration : INT;        //Deceleration in RPM/sec
     velocity : INT;            //Velocity in .25RPM
 END_VAR
-(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-commandSuccessful := FALSE;
+
+VAR
+	_movefin: BOOL;
+END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+
+//
+IF _initialize OR placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear AND interconnect = BAG_DELIVERY_IC.CBL THEN
+	RETURN;
+END_IF
+
+//
 _moveDone := FALSE;
-moveDistanceFinalState := AMP_EIP_MOVE_INITIAL_STATES.Idle;
+_moveFinal := TRUE;
+_stateFinal := BAG_DELIVERY_MOVE_STATES.Idle;
+
+//
 distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);
 IF reversePolarity THEN
     distanceToMoveInSteps := distanceToMoveInSteps * -1;
 END_IF
 
+//
+commandSuccessful := FALSE;
 pointToPointAccelSetpoint := acceleration;
 pointToPointDecelSetpoint := deceleration;
-velocitySetpoint := velocity;
-
 currentLimit := defaultCurrentSetpoint;
-_moveFinal := TRUE;
-//SUPER^.ExecuteStoredProgram(2);
+velocitySetpoint := velocity;

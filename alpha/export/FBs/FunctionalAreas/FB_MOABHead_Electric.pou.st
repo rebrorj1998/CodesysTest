@@ -40,7 +40,7 @@ VAR
 	factoryTestModeKeepCycling : BOOL;
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
-    bagDelivery : FB_BagDelivery();
+	bagDelivery : FB_BagDelivery();
 	zebraPrinter : FB_ZebraPrinter;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
@@ -140,21 +140,9 @@ END_VAR
 //    Created Date: Tuesday, April 17, 2018
 
 {region "Setup"}
-// Run BaseComponentFB
-SUPER^();
-(* BLocking out these changes before commiting - needs more testing
-// Comms motor node enable only when powered up
-estopONS(CLK := iEstopOK AND (Cube67_BN_E_V2.eState = IoDrvEthernetIP.AdapterState.RUNNING));
 
-IF estopONS.OSR OR estopONS.OSF THEN
-//IF estopONS.OSF THEN
-	IBD_Motor.Enable := (HMIData.independentBagDeflatorSelection = BagDeflatorSelection.MotorizedIBD) AND iEStopOK;
-	MSFMotor.Enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND iEStopOK;
-	Pbar_ServoEIP.Enable := (NOT (HMIData.baggerModelSelection = ModelSelection.Pro18)) AND iEStopOK;
-	Bag_Delivery_EIP_Motor.Enable := iEstopOK;
-	Bag_Delivery_Rear_Motor.Enable := iEstopOK;
-END_IF
-*)		  
+// Run BaseComponentFB
+SUPER^(); 
 		  
 // Enable/Disable nodes on comms tree dynamically
 EIPReconfig(rootEIPNode := EtherNet_IP_Scanner);
@@ -296,13 +284,14 @@ motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 MSFMotor.Enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners);
 	 
-pressureBarMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
-                ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
-                stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
-				reversePolarity := FALSE,
-				defaultCurrentSetpoint := 500,
-				commFail := Pbar_ServoEIP.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-				isHomable := TRUE);			
+pressureBarMotor(
+	ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
+    ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
+    stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
+	reversePolarity := FALSE,
+	defaultCurrentSetpoint := 500,
+	commFail := Pbar_ServoEIP.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+	isHomable := TRUE);			
 pressureBarMotor.Execute();
 
 jawClamps(
@@ -343,23 +332,25 @@ pressureBar(
 pressureBar.Mode := electricPressureBarMode;
 
 // Run bag delivery 
-bagDelivery(jogForwardPB := HMIData.jogBagForward,
-			jogReversePB := HMIData.jogBagReverse,
-			reverseToPrintheadRequired := zebraPrinter.enable,
-			bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-			bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-			stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
-			velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC);
+bagDelivery(
+	jogForwardPB := HMIData.jogBagForward,
+	jogReversePB := HMIData.jogBagReverse,
+	bagLengthSetpoint := HMIData.bagLength,	 
+	printVelocitySetpoint := HMIData.printSpeed,
+	printLengthSetpoint := HMIData.printLength,
+	sealOffsetSetpoint := HMIData.bagSkirtLength,
+	reverseVelocitySetpoint := TO_INT(HMIData.bagReverseSpeed),
+	feedVelocitySetpoint := TO_INT(HMIData.bagForwardSpeed),
+	printOffsetSetpoint := HMIData.printOffset,	
+	reverseToPrintheadRequired := zebraPrinter.enable,
+	bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+	bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
+	stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
+	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC,
+	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
+);
 bagDelivery.Mode := bagDeliveryMode;
 
-CASE HMIData.baggerModelSelection OF
-	ModelSelection.Pro18:
-	
-	ModelSelection.Pro18_02:
-		 
-	ModelSelection.Pro24:
-END_CASE
-	 
 CASE HMIData.printerSelection OF
 		 
 	LabelPrinterSelection.NotInstalled:				//
@@ -437,7 +428,7 @@ printAndApply(
 );
 	 
 collisionDetection(
-	enable := HMIData.auxIOConfig.cfgInputSelection = AuxInputSelection.CollisionDetection,
+	enable := HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.CollisionDetection,
 	collisionDetected := iAuxConfigInput,
 	collisionDetectedDwell := HMIData.collisonDetectionDwell,
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
@@ -462,16 +453,27 @@ funnel(
 funnel.OpeningTime := HMIData.funnelOpeningTime;
 funnel.ClosingTime := HMIData.funnelClosingTime;
 funnel.DelaySetting := HMIData.funnelOpenDelay;
-// Setup of pick and place motors
 
+//
+sealBarTempSensor(
+	busNodeOK := murrIOBusNode.ok,
+	ptrTemperatureBytes := ADR(iHeaterBarTempInputs)
+);
+	 
+//
+IF sealBarTempSensor.reconfigureIO THEN
+	murrIOBusNode.restartBusnodePulse.Trigger();		 
+END_IF
 
-sealBarTempSensor(ptrTemperatureBytes := ADR(iHeaterBarTempInputs));
-sealBarTempSensor.Execute();
-sealBarHeater(enable := NOT safePowerFailure.active,
-				temperatureSensor := sealBarTempSensor,
-				temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
-				heaterPulse => 	oHeaterPulse);	  
-HMIData.sealBarTemperature := TO_UDINT(sealBarHeater.currentTemp);
+//	 
+sealBarHeater(
+	enable := NOT safePowerFailure.active,
+	temperatureSensor := sealBarTempSensor,
+	temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
+	heaterPulse => 	oHeaterPulse,
+	currentTemp => HMIData.sealBarTemperature
+);	  
+
 {region "timers"}
 // Timers
 sealTimer();
@@ -603,19 +605,48 @@ CASE HMIData.auxIOConfig.factorySelection OF
 		 												oAuxBaggerOK := NOT HMIData.faultActive;
 														oAuxReadyForFiller := filler.waitingForFiller;
 															 
- 														CASE HMIData.auxIOConfig.cfgInputSelection OF
+ 														CASE HMIData.auxIOConfig.cfgInput1Selection OF
 																										 
-															AuxInputSelection.NotConfigured:		// 
-																									HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																									HMIData.packageBlockingTrunkline.active := FALSE;
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
-															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
-    																								HMIData.packageBlockingTrunkline.active := FALSE;
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+    															HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
-															AuxInputSelection.CollisionDetection:   //
-																 	                                HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																									HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
+															AuxInputSelection.CollisionDetection:   
+																//
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
+																										 
+															AuxInputSelection.FillerOK:				
+																//
+																filler.fillerOK := iAuxConfigInput1; 
+														END_CASE
+															 
+														CASE HMIData.auxIOConfig.cfgInput2Selection OF
+																										 
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := FALSE;
+																										 
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+    															HMIData.packageBlockingTrunkline.active := FALSE;
+																										 
+															AuxInputSelection.CollisionDetection:   
+																//
+																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
+																HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
+															
+															AuxInputSelection.FillerOK:           
+																 //
+																filler.fillerOK := iAuxConfigInput2; 
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
@@ -770,8 +801,7 @@ fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= , 
-	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone,
-	fillerOK:= iAuxFillerOK, 
+	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone, 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state=> , 
@@ -989,8 +1019,8 @@ resetTimer(IN := iPowerOffButtonONS.OSR);
 allMotorCommsGood := NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.commFail.active
 					AND NOT IBDMotor.faults.commFail.active
 					AND NOT pressureBarMotor.faults.commFail.active
-					AND NOT bagDelivery.bagfeedMasterMotor.faults.commFail.active
-					AND NOT bagDelivery.bagFeedRearMotor.faults.commFail.active;
+					AND NOT bagDelivery._bagFeedFrontMotor.faults.commFail.active
+					AND NOT bagDelivery._bagFeedRearMotor.faults.commFail.active;
 
 IF iPowerOffButtonONS.OSR THEN
 	reset();
@@ -1025,15 +1055,12 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	electricPressureBarMode := DEVICE_MODES.Auto;
 	
 	pressureBar.enable := TRUE;
-	//pressureBar.ExtendCylinderLowPressure();
-	
-	//HMIData.sealBarTemperatureSetting := 300;
 	enableHeater := TRUE;
 	
 	bagDeliveryMode := DEVICE_MODES.Auto;
 	bagDelivery.Reset();
 	bagDelivery.enable := TRUE;
-	//bagDelivery.bagFeedMasterMotor.SetRearMotorToTorqueMode();
+
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 	END_IF
@@ -1041,12 +1068,9 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
 		bagOpened := FALSE;
 	END_IF
-	//bagOpened := FALSE;
-	
-	//zebraPrinter.autoSendLabel := TRUE;
+
 	printerMode := DEVICE_MODES.Auto;
 	zebraPrinter.Reset();
-	//zebraPrinter.enable := TRUE;
 	
 	IF iPowerOffButtonONS.OSR AND NOT bagDelivery.bagTensionFault.active THEN
 		IF (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) THEN
@@ -1054,11 +1078,9 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 		END_IF 
 	END_IF  
 	
-	//passthrough.Reset();
 	pressureBarMotor.Reset();
 	passthroughMode := DEVICE_MODES.Auto;
-	//passthrough.enable := TRUE;
-	
+
 	oVacOn := FALSE;
 	rearLoadPlate.Reset();
 	frontLoadPlate.Reset();
@@ -1084,12 +1106,9 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	barcodeVerifier.Reset();
 	keyenceBCV.Reset();
 	state := HEAD_STATES.Idle;
-	
 	setPassthroughPB := FALSE;
-	//homeJawPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
 	
@@ -1117,24 +1136,21 @@ IF enableONS.Q OR resetONS.Q THEN
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
 	homeJawPB := FALSE;
-	//EIPReconfig.ManualReconfig();
+
 	IF IBD.homeRequired THEN
 		homeJawPB := TRUE;
 	ELSE
-		//IBD.OpenIBD();
 		homeJawPB := TRUE;
 	END_IF
 	IF pressureBar.homeRequired THEN
 		homeJawPB := TRUE;
 	ELSE
-		//pressureBar.OpenJaw();
 		homeJawPB := TRUE;
 	END_IF
-	//pressureBar.ExtendCylinderLowPressure();
+
 	bagDropTimer.IN := FALSE;
 	_reset := FALSE;
 	cycleTimer.IN := FALSE;
-//	bagFailedToOpen := FALSE;
 END_IF
 
 IF HMIData.bagsMade.count >= 1000 THEN
@@ -1159,9 +1175,9 @@ IF HMIData.enableDryCycle THEN
 END_IF
 
 // Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
+rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable
@@ -1604,7 +1620,7 @@ CASE state OF
     HEAD_STATES.Fault :                     hmiLight.TurnOff();
 											HMIData.inCycle := FALSE;
 											cycleTimer.IN := FALSE;
-											bagDelivery.bagFeedMasterMotor.SetRearMotorToEncoderFollowing();
+											bagDelivery._bagFeedRearMotor.TriggerPointToPointMode();
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
@@ -1836,9 +1852,6 @@ CASE releaseAndFeedSubState OF
 															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
                                                                 bagDelivery.AutoFeedBagOut();
  																LPA.ManualOff();
-// 																IF HMIData.lpaDuringBagFeedEnable THEN
-// 																	LPA.ManualOn();
-// 																END_IF
                                                                 releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
                                                             ELSIF bagDelivery.enable AND zebraPrinter.enable THEN
                                                                 bagDelivery.AutoWaitForPrinter();
@@ -1846,10 +1859,7 @@ CASE releaseAndFeedSubState OF
                                                                 releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForPrinter;
                                                             ELSE 
                                                                 releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
-                                                            END_IF
-                                                            (*{warning 'TODO: This is a hack to use HPA as LPA'}
-														    HPA.DwellSetting := 500;		// Get rid on this - ha
-													        HPA.Trigger();*)												
+                                                            END_IF												
     													END_IF
 														
     RELEASE_FEED_STATES.WaitForPrinter :            // Data Ready means the printer has a label and we're all set to print
@@ -1882,13 +1892,11 @@ CASE releaseAndFeedSubState OF
  													END_IF	                                     
     
     RELEASE_FEED_STATES.StartPrinting :             // Printer starts print cycle and bag delivery starts moving at print speed
-                                                    // bagDelivery.AutoStartPrintFeed();
 													zebraPrinter.AutoPrintNow();
                                                     releaseAndFeedSubState := RELEASE_FEED_STATES.SendPrintSignal;                                            
 
     RELEASE_FEED_STATES.SendPrintSignal:            // 
-                                                    //IF bagDelivery.state =     BAG_DELIVERY_STATES.FeedingAtPrintSpeed THEN
-													//zebraPrinter.AutoSendPrintSignal();
+              
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
  													END_IF	
@@ -1896,10 +1904,6 @@ CASE releaseAndFeedSubState OF
 														bagDelivery.AutoStartPrintFeed();
 														zebraPrinter.AutoSendPrintSignal();
 														barcodeVerifier.Trigger();
-                                                        //bagDelivery.AutoStartPrintFeed();
-														//bagDelivery.AutoStartPrintFeed();
-                                                        //zebraPrinter.AutoSendPrintSignal();
-														
                                                         releaseAndFeedSubState := RELEASE_FEED_STATES.Printing;
                                                     END_IF                                        
 
@@ -1922,7 +1926,7 @@ CASE releaseAndFeedSubState OF
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
  													END_IF
-													IF (bagdelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagdelivery.enable)
+													IF (bagDelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagDelivery.enable)
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.pressureBarOpen OR NOT pressureBar.enable)
                                                         THEN
@@ -1963,11 +1967,15 @@ CASE openBagSubState OF
                                                     END_IF
                                                     
     BAG_OPEN_ASSIST_STATES.MovedJawIn :             // Hold onto the bag with vacuum to build suction
-                                                    vacuumHoldTimer.IN := TRUE;
-													oVacOn := TRUE; // Hard coded for now, this is vacuum
-													IF vacuumHoldTimer.Q THEN
-														openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut; 
-														vacuumHoldTimer.IN := FALSE;
+													IF HMIData.enableDryCycle THEN
+														openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut;
+													ELSE
+														vacuumHoldTimer.IN := TRUE;
+														oVacOn := TRUE; // Hard coded for now, this is vacuum
+														IF vacuumHoldTimer.Q THEN
+															vacuumHoldTimer.IN := FALSE;
+															openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut;
+														END_IF            
 													END_IF
                                                                    
     BAG_OPEN_ASSIST_STATES.MoveJawOut :             // Open the jaw and move seal flatteners in and to bag holding

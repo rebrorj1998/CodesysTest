@@ -21,4 +21,5 @@ VAR_GLOBAL
 	CollectionOfLoggable : FB_CollectionHandlerLoggable;
 	CollectionOfExecutable : FB_CollectionHandlerExecutable;
 	CollectionOfInitialzable : FB_CollectionHandlerInitializable;
+	Reversing: INT;
 END_VAR

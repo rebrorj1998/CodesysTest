@@ -62,8 +62,6 @@ IF commandSuccessfulONS.Q THEN
 	//distanceToMoveInSteps := 0;
 END_IF
 
-
-
 resetTimeout(IN := _reset, PT := T#1S);
 encoderResetTimeout(PT := T#150MS);
 IF resetTimeout.Q THEN
@@ -90,7 +88,6 @@ CASE resetState OF
 	
 	3 :		//
 			IF commandSuccessful THEN;
-				
 				encoderResetTimeout.IN := TRUE;
 				IF encoderResetTimeout.Q THEN
 					resetState := 4;	
@@ -101,10 +98,8 @@ CASE resetState OF
 	4 :		//
 			IF commandSuccessful THEN;
 				resetState := 0;
-				
 				_reset := FALSE;
 			END_IF
-	
 END_CASE
 
 IF reversePolarity THEN

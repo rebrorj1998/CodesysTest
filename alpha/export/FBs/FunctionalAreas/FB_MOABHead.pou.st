@@ -113,6 +113,7 @@ VAR
 	batchEnableONS : FB_ONS;
 	exhaustTimer : TON := (PT := T#300MS);
 	triggerLPAWhileFeedingONS : FB_ONS;
+	eState: INT;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -122,6 +123,8 @@ END_VAR
 //    Created Date: Tuesday, April 17, 2018
 
 {region "Setup"}
+
+{endregion}
 // Run BaseComponentFB
 SUPER^();
 
@@ -143,7 +146,9 @@ keyenceBCV(
 	ptrEIPOutputs:= ADR(keyenceBCVOutputs), 
 	triggerInput:= , 
 	//commFail=> ,
-	lastReadData => HMIData.barcodeLastReadString);	 
+	lastReadData => HMIData.barcodeLastReadString
+);
+	 
 // Barcode Verifier interface to printer
 barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotInstalled AND HMIData.barcodeVerifierInUse),
 		 		readGoodInput := keyenceBCV.goodRead,
@@ -153,15 +158,15 @@ barcodeVerifier(enable := (HMIData.barcodeVerifierSelection <> BCVSelection.NotI
 				badReadFaultCountSetting := HMIData.barcodeBadReadFaultSetting,
 				currentBadReadCount => HMIData.barcodeBadReadCount,
 				currentGoodReadCount => HMIData.barcodeGoodReadCount,
-				triggerScannerOutput => keyenceBCV.triggerInput);
+				triggerScannerOutput => keyenceBCV.triggerInput
+);
+					 
 // Enable comms to Keyence N-L20 if selected in factory config
 IF HMIData.barcodeVerifierSelection = BCVSelection.LaserScanner THEN
 	Keyence_BCV.Enable := TRUE; 
-
 	IF laserBarcodeScannerCommFail THEN 
 		barcodeVerifierCommFail.Trigger();
 	END_IF
-
 ELSE
 	Keyence_BCV.Enable := FALSE;
 END_IF
@@ -175,7 +180,6 @@ HMIData.lastCycleTime := cycleTime;
 
 HMIData.printerNotReady.active := NOT printerReady AND zebraPrinter.enable;
 HMIData.waitingForPrinter.active := zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter;
-//HMIData.printerRibbonLow.active := printerRibbonLow;
 	 
 bagOpenRetrySetting := HMIData.bagOpenRetrySetting;
 HMIData.bagOpenRetryCount := bagOpenRetryCount;
@@ -210,7 +214,6 @@ motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlatten
 
 // Setup of MOAB Machine Pressure bar ("#2") on actual machine, not test rig
 pressureBar(
-
 	iPressureBarExtended := iPressureBarExtended, 
 	iPressureBarRetracted := iPressureBarRetracted, 
 	iPressureBarNotObstructed := iPressureBarNotObstructed, 
@@ -220,19 +223,29 @@ pressureBar(
 	cumulativeHeadCycleCount := Globals.headCycleCount2
 );
 pressureBar.Mode := electricPressureBarMode;
-//Adding extra pressure bar valve for test
+	 
+// Adding extra pressure bar valve for test
 opBar2Extend := oPBar1Extend;
 opbar2Retract := oPBar1Retract;
 
-
 // Run bag delivery 
-bagDelivery(jogForwardPB := HMIData.jogBagForward,
-			jogReversePB := HMIData.jogBagReverse,
-			reverseToPrintheadRequired := zebraPrinter.enable,
-			bagFeedMasterMotorCommFailInput := bagFeedMasterCommFail,
-			bagFeedRearMotorCommFailInput := bagFeedSlaveCommFail,
-			stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
-			velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_PNEUMATIC);
+bagDelivery(
+	jogForwardPB := HMIData.jogBagForward,
+	jogReversePB := HMIData.jogBagReverse,
+	bagLengthSetpoint := HMIData.bagLength,	 
+	printVelocitySetpoint := HMIData.printSpeed,
+	printLengthSetpoint := HMIData.printLength,
+	sealOffsetSetpoint := HMIData.bagSkirtLength,
+	reverseVelocitySetpoint := TO_INT(HMIData.bagReverseSpeed),
+	feedVelocitySetpoint := TO_INT(HMIData.bagForwardSpeed),
+	printOffsetSetpoint := HMIData.printOffset,	
+	reverseToPrintheadRequired := zebraPrinter.enable,
+	bagFeedMasterMotorCommFailInput := bagFeedMasterCommFail,
+	bagFeedRearMotorCommFailInput := bagFeedSlaveCommFail,
+	stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
+	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC,
+	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
+);
 bagDelivery.Mode := bagDeliveryMode;
 
 // Run Zebra Printer
@@ -246,7 +259,6 @@ ELSE
 	HMIData.demoModeIsActive.active := FALSE;
 	zebraPrinter.autoSendLabel := FALSE;
 END_IF
-
 	 
 // Run funnel
 funnel(
@@ -263,16 +275,27 @@ funnel(
 funnel.OpeningTime := HMIData.funnelOpeningTime;
 funnel.ClosingTime := HMIData.funnelClosingTime;
 funnel.DelaySetting := HMIData.funnelOpenDelay;
-// Setup of pick and place motors
 
+//
+sealBarTempSensor(
+	busNodeOK := murrIOBusNode.ok,
+	ptrTemperatureBytes := ADR(iHeaterBarTempInputs)
+);
+	 
+//
+IF sealBarTempSensor.reconfigureIO THEN
+	murrIOBusNode.restartBusnodePulse.Trigger();		 
+END_IF
 
-sealBarTempSensor(ptrTemperatureBytes := ADR(iHeaterBarTempInputs));
-sealBarTempSensor.Execute();
-sealBarHeater(enable := NOT safePowerFailure.active,
-				temperatureSensor := sealBarTempSensor,
-				temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
-				heaterPulse => 	oHeaterPulse);	  
-HMIData.sealBarTemperature := TO_UDINT(sealBarHeater.currentTemp);
+//	 
+sealBarHeater(
+	enable := NOT safePowerFailure.active,
+	temperatureSensor := sealBarTempSensor,
+	temperatureSetpoint := TO_REAL(HMIData.sealBarTemperatureSetting),
+	heaterPulse => 	oHeaterPulse,
+	currentTemp => HMIData.sealBarTemperature
+);	 
+	 
 {region "timers"}
 // Timers
 sealTimer();
@@ -386,19 +409,38 @@ CASE HMIData.auxIOConfig.factorySelection OF
 														IF HMIData.fillerFactorySelection = FillerSelection.StandardFiller THEN
 															HMIData.fillerFactorySelection := FillerSelection.NotInstalled;
 														END_IF
-														
 		 
 	AuxiliaryIOSelection.AuxIOStandard:					// Use aux IO
 		 												murrIOBusNode.auxIONodeEnabled := TRUE;
 		 												oAuxBaggerOK := NOT HMIData.faultActive;
-														oAuxReadyForFiller := filler.waitingForFiller;
+														oAuxReadyForFiller := filler.waitingForFiller;					
 															 
- 														CASE HMIData.auxIOConfig.cfgInputSelection OF
-															AuxInputSelection.NotConfigured:		// 
-																									HMIData.baggerInhibited.active := FALSE;
+ 														CASE HMIData.auxIOConfig.cfgInput1Selection OF
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := FALSE;
 																										 
-															AuxInputSelection.BaggerInhibit:		//
-																 									HMIData.baggerInhibited.active := iAuxConfigInput;
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput1;
+																
+															AuxInputSelection.FillerOK:           
+																 //
+																filler.fillerOK := iAuxConfigInput1; 
+														END_CASE
+														
+														CASE HMIData.auxIOConfig.cfgInput2Selection OF
+															AuxInputSelection.NotConfigured:		
+																// 
+																HMIData.baggerInhibited.active := FALSE;
+																										 
+															AuxInputSelection.BaggerInhibit:		
+																//
+																HMIData.baggerInhibited.active := iAuxConfigInput2;
+																
+															AuxInputSelection.FillerOK:           
+																 //
+																filler.fillerOK := iAuxConfigInput2; 
 														END_CASE
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
@@ -552,8 +594,7 @@ fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= , 
-	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine),
-	fillerOK:= iAuxFillerOK, 
+	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine), 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state => , 
@@ -748,15 +789,12 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	electricPressureBarMode := DEVICE_MODES.Auto;
 	pressureBar.Reset();
 	pressureBar.enable := TRUE;
-	//pressureBar.ExtendCylinderLowPressure();
-	
-	//HMIData.sealBarTemperatureSetting := 300;
+
 	enableHeater := TRUE;
 	
 	bagDeliveryMode := DEVICE_MODES.Auto;
 	bagDelivery.Reset();
 	bagDelivery.enable := TRUE;
-	//bagDelivery.bagFeedMasterMotor.SetRearMotorToTorqueMode();
 	IF iPowerOffButtonONS.OSR THEN
 		bagDelivery.AutoFeedToEye();
 		IF NOT passthrough.homeRequired THEN
@@ -774,11 +812,10 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	
 	printerMode := DEVICE_MODES.Auto;
 	zebraPrinter.Reset();
-	//zebraPrinter.enable := TRUE;
-	
+
 	IF iPowerOffButtonONS.OSR AND NOT bagDelivery.bagTensionFault.active THEN
 		IF (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) THEN
-			HMIData.bagsMade.Clear();
+			bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 		END_IF 
 	END_IF  
 	passthrough.Reset();
@@ -812,25 +849,13 @@ IF HMIData.makeReady OR iPowerOffButton THEN
 	barcodeVerifier.Reset();
 	keyenceBCV.Reset();
 	ezFeed.Reset();
-	//HMIData.airFilterClean.SetCount(27336);
-	//HMIData.driveRollerClean.SetCount(12041);
-	//HMIData.printHeadClean.SetCount(3224);
-	//HMIData.pressureBarGuideShaftGuides.SetCount(127888);
-	
-	//HMIData.bagLength := 23.5;
-	//HMIData.bagWidth := 17.5;
-	//HMIData.bagReverseSpeed := 3;
-// 	HMIData.printLength := 8;
-// 	HMIData.printOffset := 1;
-// 	HMIData.printSpeed := 6;
-// 	HMIData.bagForwardSpeed := 50;
+
 	state := HEAD_STATES.Idle;
 	reset();
-	setPassthroughPB := FALSE;
-	//homeJawPB := FALSE;
+	setPassthroughPB := FALSE; 
+
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
-	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue(TO_DINT(HMIDAta.bagTensionSetting * 100));
 	hmiLight.TurnOff();
 	autoModeKeepCycling := FALSE;
 END_IF
@@ -844,11 +869,10 @@ IF enableONS.Q OR resetONS.Q THEN
 	pressureBar.Reset();
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
-	//pressureBar.ExtendCylinderLowPressure();
+
 	bagDropTimer.IN := FALSE;
 	_reset := FALSE;
 	cycleTimer.IN := FALSE;
-//	bagFailedToOpen := FALSE;
 END_IF
 
 {warning 'TODO: Put this inside the passtrough FB'}
@@ -888,9 +912,9 @@ IF HMIData.enableDryCycle THEN
 END_IF
 
 // Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
+rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery.bagFeedRearMotor.SetRearMotorTorqueValue((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable
@@ -1257,39 +1281,38 @@ CASE state OF
 												END_IF
 											END_IF	
 											
-    HEAD_STATES.StartHoming :            // 
+    HEAD_STATES.StartHoming:                // 
                                             passthrough.HomeEndStop();
                                             state := HEAD_STATES.Homing;                                        
     
-    HEAD_STATES.Homing :                // 
+    HEAD_STATES.Homing:                     // 
                                             IF passthrough.state = PASSTHROUGH_SERVO_STATES.HomeComplete THEN
                                                 state := HEAD_STATES.HomingComplete;       
                                             END_IF
                                             
-    HEAD_STATES.HomingComplete :        // 
+    HEAD_STATES.HomingComplete:             // 
                                             homeJawPB := FALSE;
                                             state := HEAD_STATES.Idle;
-											//HMIData.passthroughSetting := 6.0;
 											setPassthroughPB := TRUE;
     
-    HEAD_STATES.MovePassthrough :        // 
+    HEAD_STATES.MovePassthrough:            // 
                                             pressureBar.AutoMovingPassthrough();
                                             passthrough.MovePassthrough(passthroughSetting);
                                             state := HEAD_STATES.MovingPassthrough;
     
-    HEAD_STATES.MovingPassthrough :    IF passthrough.state = PASSTHROUGH_SERVO_STATES.PassthroughMovedIn OR passthrough.state = PASSTHROUGH_SERVO_STATES.PassthroughMovedOut THEN
+    HEAD_STATES.MovingPassthrough:          IF passthrough.state = PASSTHROUGH_SERVO_STATES.PassthroughMovedIn OR passthrough.state = PASSTHROUGH_SERVO_STATES.PassthroughMovedOut THEN
                                                 state := HEAD_STATES.MovedPassthrough;     
                                             END_IF
                                             
-    HEAD_STATES.MovedPassthrough :        // 
+    HEAD_STATES.MovedPassthrough:           // 
                                             pressureBar.AutoDoneMovingPassthrough();
                                             state := HEAD_STATES.Idle;
 											setPassthroughPB := FALSE;
                                                     
-    HEAD_STATES.Fault :                     hmiLight.TurnOff();
+    HEAD_STATES.Fault:                      hmiLight.TurnOff();
 											HMIData.inCycle := FALSE;
 											cycleTimer.IN := FALSE;
-											bagDelivery.bagFeedMasterMotor.SetRearMotorToEncoderFollowing();
+											bagDelivery._bagFeedFrontMotor.TriggerPointToPointMode();
 											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
 											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
 											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
@@ -1312,7 +1335,6 @@ CASE state OF
 											pressureBarCloseDelay.IN := FALSE;
 											oSealBarExtend := FALSE;
 											oSealBarRetract := TRUE;
-											//bagOpened := FALSE;
                                                     
 END_CASE
 
