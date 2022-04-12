@@ -541,7 +541,8 @@ configOutput2Pulse.DwellSetting := 500;
 CASE HMIData.fillerFactorySelection OF
 	FillerSelection.NotInstalled:					// No filler
 		 											filler.enable := FALSE;
-													filler.activateFiller := FALSE;	
+													filler.activateFiller := FALSE;
+													HMIData.fillerEnable := FALSE;	
 													ezfeed.enable := FALSE;
 													fillerModeCycleStartOnlyPulse.Reset();
 													Infeed_Conveyor_IO.Enable := FALSE;
