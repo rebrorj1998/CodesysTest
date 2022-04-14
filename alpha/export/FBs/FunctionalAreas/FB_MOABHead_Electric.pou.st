@@ -429,7 +429,7 @@ printAndApply(
 	 
 collisionDetection(
 	enable := HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.CollisionDetection,
-	collisionDetected := iAuxConfigInput,
+	collisionDetected := iAuxConfigInput1,
 	collisionDetectedDwell := HMIData.collisonDetectionDwell,
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
 	multiplePackagesHeld := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
@@ -614,7 +614,7 @@ CASE HMIData.auxIOConfig.factorySelection OF
 																										 
 															AuxInputSelection.BaggerInhibit:		
 																//
-																HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+																HMIData.baggerInhibited.active := iAuxConfigInput1 OR printAndApply.inhibitCycle;
     															HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
 															AuxInputSelection.CollisionDetection:   
@@ -636,7 +636,7 @@ CASE HMIData.auxIOConfig.factorySelection OF
 																										 
 															AuxInputSelection.BaggerInhibit:		
 																//
-																HMIData.baggerInhibited.active := iAuxConfigInput OR printAndApply.inhibitCycle;
+																HMIData.baggerInhibited.active := iAuxConfigInput1 OR printAndApply.inhibitCycle;
     															HMIData.packageBlockingTrunkline.active := FALSE;
 																										 
 															AuxInputSelection.CollisionDetection:   
