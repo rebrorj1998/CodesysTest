@@ -123,6 +123,7 @@ VAR
 	basicLightedPalmButton : FB_K50_Button_BasicMode;
 	advancedLightedPalmButtonOne : FB_K50_Button_AdvancedMode;
 	advancedLightedPalmButtonTwo : FB_K50_Button_AdvancedMode;
+	stackLight : FB_TL50_AdvancedMode;
 	footSwitchONS : FB_ONS;
 	IBDOutSetting: REAL;
 	ezfeed : FB_EZFeed();
@@ -586,6 +587,16 @@ CASE HMIData.cycleStartButtonSelection OF
 							  									 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
+
+// Stack Light
+stackLight(
+	IOLinkData:= ADR(oMurrStackLightOutputs), 
+	baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+	baggerFaulted := HMIData.faultActive,
+	baggerInCycle := HMIData.inCycle,
+	baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited ,
+	bagsLow:= HMIData.bagLevelLow.active, 
+	bagOpenRetryActive:= bagOpenRetryCount <> 0);
 		  
 CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off

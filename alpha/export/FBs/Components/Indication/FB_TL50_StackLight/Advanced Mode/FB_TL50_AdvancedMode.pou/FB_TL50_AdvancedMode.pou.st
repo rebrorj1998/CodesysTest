@@ -19,36 +19,36 @@ VAR
 	_IOLinkData : ARRAY[0..30] OF BYTE;
 	
 	_segmentOffProfile : TL50SegmentProfile := (
-	colorOne:= , 
+	colorOne:= 0, 			 
 	colorOneIntensity:= TL50Intensity.Off, 
-	animationType:= , 
-	animationSpeed:= , 
-	animationPattern:= , 
-	colorTwo:= , 
+	animationType:= 0, 
+	animationSpeed:= 0, 
+	animationPattern:= 0, 
+	colorTwo:= 0, 
 	colorTwoIntensity:= TL50Intensity.Off, 
-	animationDirection:= ,
+	animationDirection:= 0,
 	audibleState := TL50AudibleStates.Off);
 	
   	_baggerReadyProfile : TL50SegmentProfile := (
 	colorOne:= TL50Colors.Green, 
 	colorOneIntensity:= TL50Intensity.High, 
 	animationType:= TL50AnimationTypes.Flash, 
-	animationSpeed:= , 
-	animationPattern:= , 
-	colorTwo:= , 
+	//animationSpeed:= , 
+	//animationPattern:= , 
+	//colorTwo:= , 
 	colorTwoIntensity:= TL50Intensity.Off, 
-	animationDirection:= ,
+	//animationDirection:= ,
 	audibleState := TL50AudibleStates.Off);
 	
   _baggerInCycleProfile : TL50SegmentProfile := (
 	colorOne:= TL50Colors.Green, 
 	colorOneIntensity:= TL50Intensity.High, 
 	animationType:= TL50AnimationTypes.Steady, 
-	animationSpeed:= , 
-	animationPattern:= , 
-	colorTwo:= , 
+	//animationSpeed:= , 
+	//animationPattern:= , 
+	//colorTwo:= , 
 	colorTwoIntensity:= TL50Intensity.Off, 
-	animationDirection:= ,
+	//animationDirection:= ,
 	audibleState := TL50AudibleStates.Off);
 	
   _baggerInhibitedProfile : TL50SegmentProfile := (
@@ -66,33 +66,33 @@ VAR
 	colorOne:= TL50Colors.Red, 
 	colorOneIntensity:= TL50Intensity.High, 
 	animationType:= TL50AnimationTypes.Flash, 
-	animationSpeed:= , 
-	animationPattern:= , 
-	colorTwo:= , 
+	animationSpeed:= TL50AnimationSpeeds.Medium, 
+	//animationPattern:= , 
+	//colorTwo:= , 
 	colorTwoIntensity:= TL50Intensity.Off, 
-	animationDirection:= ,
+	//animationDirection:= ,
 	audibleState := TL50AudibleStates.Off);
 	
   _bagsLowProfile : TL50SegmentProfile := (
 	colorOne:= TL50Colors.Orange, 
 	colorOneIntensity:= TL50Intensity.High, 
 	animationType:= TL50AnimationTypes.Flash, 
-	animationSpeed:= , 
-	animationPattern:= , 
-	colorTwo:= , 
+	animationSpeed:= TL50AnimationSpeeds.Medium, 
+	//animationPattern:= , 
+	//colorTwo:= , 
 	colorTwoIntensity:= TL50Intensity.Off, 
-	animationDirection:= ,
+	//animationDirection:= ,
 	audibleState := TL50AudibleStates.Off);
 	
 	_bagOpenRetryActiveProfile : TL50SegmentProfile := (
 	colorOne:= TL50Colors.Orange, 
 	colorOneIntensity:= TL50Intensity.High, 
 	animationType:= TL50AnimationTypes.Flash, 
-	animationSpeed:= , 
-	animationPattern:= , 
-	colorTwo:= , 
+	animationSpeed:= TL50AnimationSpeeds.Fast, 
+	//animationPattern:= , 
+	//colorTwo:= , 
 	colorTwoIntensity:= TL50Intensity.Off, 
-	animationDirection:= ,
+	//animationDirection:= ,
 	audibleState := TL50AudibleStates.Off);
 	
   	_segments : ARRAY[1..4] OF TL50SegmentProfile;  //1 = bottom segment, 4 = top. Using "from 1" to match Banner documentation

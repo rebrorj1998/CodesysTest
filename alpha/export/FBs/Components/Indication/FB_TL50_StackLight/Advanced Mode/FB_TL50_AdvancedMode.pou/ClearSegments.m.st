@@ -2,7 +2,7 @@
 METHOD INTERNAL ClearSegments : BOOL
 VAR_INPUT
 END_VAR
-VAR
+VAR_STAT
 	i : INT;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // Set all segments to OFF
