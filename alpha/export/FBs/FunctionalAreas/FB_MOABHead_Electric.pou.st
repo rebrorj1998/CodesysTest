@@ -120,9 +120,9 @@ VAR
 	resettingActive : BOOL;
 	resetTimer : Standard.TOF := (PT := T#1S);
 	allMotorCommsGood : BOOL;
-	basicLightedPalmButton : FB_MurrK50_BasicMode;
-	advancedLightedPalmButtonOne : FB_MurrK50_AdvancedMode;
-	advancedLightedPalmButtonTwo : FB_MurrK50_AdvancedMode;
+	basicLightedPalmButton : FB_K50_Button_BasicMode;
+	advancedLightedPalmButtonOne : FB_K50_Button_AdvancedMode;
+	advancedLightedPalmButtonTwo : FB_K50_Button_AdvancedMode;
 	footSwitchONS : FB_ONS;
 	IBDOutSetting: REAL;
 	ezfeed : FB_EZFeed();

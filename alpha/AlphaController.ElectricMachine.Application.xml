@@ -1214,6 +1214,12 @@ Misc</Comment>
         <Node name="waitingForPrinter" type="T_Warning" access="ReadWrite" />
       </Node>
       <Node name="IoConfig_Globals_Mapping">
+        <Node name="iAuxConfigInput1" type="T_BIT_X_2" access="Read" directaddress="%IX61.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iAuxConfigInput2" type="T_BIT_X_1" access="Read" directaddress="%IX61.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="iAuxFillerTrigger" type="T_BIT_X_0" access="Read" directaddress="%IX61.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
