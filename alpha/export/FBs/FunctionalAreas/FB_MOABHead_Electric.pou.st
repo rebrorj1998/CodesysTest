@@ -587,16 +587,19 @@ CASE HMIData.cycleStartButtonSelection OF
 							  									 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
-
-// Stack Light
-stackLight(
+// Stack Light only if no 2nd palm button selected
+IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.LightedPalmButtonAdvanced THEN
+	stackLight(
 	IOLinkData:= ADR(oMurrStackLightOutputs), 
-	baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+	baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active AND NOT HMIData.faultActive ,
 	baggerFaulted := HMIData.faultActive,
 	baggerInCycle := HMIData.inCycle,
 	baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited ,
 	bagsLow:= HMIData.bagLevelLow.active, 
-	bagOpenRetryActive:= bagOpenRetryCount <> 0);
+	bagOpenRetryActive:= bagOpenRetryCount <> 0);	 
+END_IF
+
+
 		  
 CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off
