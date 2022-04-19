@@ -577,18 +577,18 @@ CASE HMIData.cycleStartButtonSelection OF
 			baggerInCycle := HMIData.inCycle,
 			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
 		);	
-		advancedLightedPalmButtonTwo(
-			IOLinkData := ADR(oMurrTouchButtonTwoIOLinkOutputs),
-			baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
-			baggerFaulted := HMIData.faultActive,
-			baggerInCycle := HMIData.inCycle,
-			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
-		);	
+// 		advancedLightedPalmButtonTwo(
+// 			IOLinkData := ADR(oMurrTouchButtonTwoIOLinkOutputs),
+// 			baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+// 			baggerFaulted := HMIData.faultActive,
+// 			baggerInCycle := HMIData.inCycle,
+// 			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
+//		);	
 							  									 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
 // Stack Light only if no 2nd palm button selected
-IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.LightedPalmButtonAdvanced THEN
+//IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.LightedPalmButtonAdvanced THEN
 	stackLight(
 	IOLinkData:= ADR(oMurrStackLightOutputs), 
 	baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active AND NOT HMIData.faultActive ,
@@ -596,8 +596,9 @@ IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.LightedPalmButtonAdv
 	baggerInCycle := HMIData.inCycle,
 	baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited ,
 	bagsLow:= HMIData.bagLevelLow.active, 
-	bagOpenRetryActive:= bagOpenRetryCount <> 0);	 
-END_IF
+	bagOpenRetryActive:= bagOpenRetryCount <> 0,
+	baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active);	 
+//END_IF
 
 
 		  

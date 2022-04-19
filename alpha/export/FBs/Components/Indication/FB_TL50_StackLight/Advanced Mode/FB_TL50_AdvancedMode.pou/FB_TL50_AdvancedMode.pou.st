@@ -8,6 +8,7 @@ VAR_INPUT
 	baggerExternalInhibited : BOOL;
 	bagsLow : BOOL;
 	bagOpenRetryActive : BOOL;
+	baggerHeatingUp : BOOL;
 	
 	baggerFaultSegment : INT := TL50Segments.Top;
 	baggerStatusSegment : INT := TL50Segments.SecondDown;
@@ -66,7 +67,7 @@ VAR
 	colorOne:= TL50Colors.Red, 
 	colorOneIntensity:= TL50Intensity.High, 
 	animationType:= TL50AnimationTypes.Flash, 
-	animationSpeed:= TL50AnimationSpeeds.Medium, 
+	animationSpeed:= TL50AnimationSpeeds.Slow, 
 	//animationPattern:= , 
 	//colorTwo:= , 
 	colorTwoIntensity:= TL50Intensity.Off, 
@@ -76,8 +77,8 @@ VAR
   _bagsLowProfile : TL50SegmentProfile := (
 	colorOne:= TL50Colors.Orange, 
 	colorOneIntensity:= TL50Intensity.High, 
-	animationType:= TL50AnimationTypes.Flash, 
-	animationSpeed:= TL50AnimationSpeeds.Medium, 
+	animationType:= TL50AnimationTypes.Steady, 
+	//animationSpeed:= TL50AnimationSpeeds.Medium, 
 	//animationPattern:= , 
 	//colorTwo:= , 
 	colorTwoIntensity:= TL50Intensity.Off, 
@@ -95,6 +96,16 @@ VAR
 	//animationDirection:= ,
 	audibleState := TL50AudibleStates.Off);
 	
+	_heatingUpProfile : TL50SegmentProfile := (
+	colorOne:= TL50Colors.Orange, 
+	colorOneIntensity:= TL50Intensity.High, 
+	animationType:= TL50AnimationTypes.fiftyfiftyRotate, 
+	animationSpeed:= TL50AnimationSpeeds.Slow, 
+	//animationPattern:= , 
+	colorTwo:= TL50Colors.Amber, 
+	colorTwoIntensity:= TL50Intensity.High, 
+	//animationDirection:= ,
+	audibleState := TL50AudibleStates.Off);
   	_segments : ARRAY[1..4] OF TL50SegmentProfile;  //1 = bottom segment, 4 = top. Using "from 1" to match Banner documentation
 	i : INT;
 	IOLinkIndexByte : INT;
@@ -135,7 +146,9 @@ END_IF
 IF bagOpenRetryActive THEN
 	_segments[bagOpenRetrySegment] := _bagOpenRetryActiveProfile;
 END_IF
-
+IF baggerHeatingUp THEN
+	_segments[baggerStatusSegment] := _heatingUpProfile;
+END_IF
 
 // Audible State only triggered by fault segment for now
 _IOLinkData[0] := _segments[baggerFaultSegment].audibleState;
