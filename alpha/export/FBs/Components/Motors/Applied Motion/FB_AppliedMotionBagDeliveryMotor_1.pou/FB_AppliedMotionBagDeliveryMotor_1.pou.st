@@ -19,7 +19,7 @@ VAR
 	_state : BAG_DELIVERY_MOVE_STATES;
 	_stateFinal : BAG_DELIVERY_MOVE_STATES;
 	_stateInitalize : BAG_DELIVERY_INIT_STATES;
-	_tensionFaultDwellTimer : TON := (PT := T#1S);
+	_tensionFaultDwellTimer : TON := (PT := T#500MS);
 END_VAR
 VAR CONSTANT
 	O2_L : INT := 16#4CB2;
@@ -27,6 +27,6 @@ VAR CONSTANT
 	SCL_SO : INT := 16#534F;
 	TORQUE_MODE_PARAM_ID : INT := 2;
 	POINT2POINT_MODE_PARAM_ID : INT := 3; 
-	VELOCITY_THRESHOLD_FOR_TENSION_FAULT : INT := 1500;
+	VELOCITY_THRESHOLD_FOR_TENSION_FAULT : INT := 1000;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
