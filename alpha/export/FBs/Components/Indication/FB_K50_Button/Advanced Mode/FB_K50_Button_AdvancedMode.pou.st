@@ -6,6 +6,7 @@ VAR_INPUT
 	baggerFaulted : BOOL;
 	baggerInCycle : BOOL;
 	baggerExternalInhibited : BOOL;
+	baggerHeatingUp : BOOL;
 END_VAR
 VAR
 	_IOLinkStateOutput : BYTE;
@@ -47,11 +48,20 @@ VAR
      animationPatterns := K50AnimationPatterns.Flash,
   dynamicSequenceValue := 0);
   
-  	_profiles : ARRAY[0..4] OF K50OutputProfile := [_baggerNotReadyProfile, 
+	_heatingUpProfile : K50OutputProfile := 
+			 (colorOne := K50Colors.Orange,
+              colorTwo := K50Colors.Amber,
+         animationType := K50AnimationTypes.fiftyfiftyRotate,
+        animationSpeed := K50AnimationSpeeds.Slow,
+    animationDirection := K50AnimationDirection.CCW,
+     animationPatterns := K50AnimationPatterns.Flash,
+  dynamicSequenceValue := 0);  
+  	_profiles : ARRAY[0..5] OF K50OutputProfile := [_baggerNotReadyProfile, 
 													_baggerReadyProfile, 
 													_baggerInCycleProfile, 
 													_baggerInhibitedProfile, 
-													_baggerFaultedProfile];
+													_baggerFaultedProfile,
+													_heatingUpProfile];
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
@@ -76,7 +86,9 @@ END_IF
 IF baggerFaulted THEN
 	_IOLinkStateOutput := 4;
 END_IF
-
+IF baggerHeatingUp THEN
+	_IOLinkStateOutput := 5;
+END_IF
 // Write The Selected Profiles Data To The Correct IO-Link Bytes
 _IOLinkData[0] := _profiles[_IOLinkStateOutput].colorTwo;
 _IOLinkData[1] := _profiles[_IOLinkStateOutput].colorOne;

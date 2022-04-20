@@ -656,8 +656,8 @@ HMIData.rearLoadPlateService.retractedFeedback := HMIData.loadPlateService.retra
 frontLoadPlate(
 	switchedPowerON := iEStopOK,
 	inUse := HMIData.loadPlateInUse,
-	inLoadingPosition := iFrontLoadPlateExtended,
-	inDischargePosition := iFrontLoadPlateRetracted,
+	inLoadingPosition := iFrontLoadPlateRetracted,
+	inDischargePosition := iFrontLoadPlateExtended,
 	triggerDwell := HMIData.loadPlateDwell,
 	triggerDelay := HMIData.loadPlateDelay,
     shakerEnable := HMIData.shakerInstalled,

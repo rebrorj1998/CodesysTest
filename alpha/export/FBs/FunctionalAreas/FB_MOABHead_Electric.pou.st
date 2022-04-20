@@ -575,7 +575,8 @@ CASE HMIData.cycleStartButtonSelection OF
 			baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
 			baggerFaulted := HMIData.faultActive,
 			baggerInCycle := HMIData.inCycle,
-			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
+			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
+			baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating
 		);	
 // 		advancedLightedPalmButtonTwo(
 // 			IOLinkData := ADR(oMurrTouchButtonTwoIOLinkOutputs),
@@ -597,7 +598,7 @@ startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);
 	baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited ,
 	bagsLow:= HMIData.bagLevelLow.active, 
 	bagOpenRetryActive:= bagOpenRetryCount <> 0,
-	baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active);	 
+	baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating);	 
 //END_IF
 
 
