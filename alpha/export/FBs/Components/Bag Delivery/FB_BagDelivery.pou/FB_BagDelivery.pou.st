@@ -16,7 +16,6 @@ VAR_INPUT
     sealOffsetSetpoint : REAL := 1.5;            // Seal Offset
     printOffsetSetpoint : REAL := 3;            // Print Offset
     printLengthSetpoint : REAL := 8;                    // Print length
-	reverseToPrintHeadSetpoint : REAL := -1.25;
 	feedToPhotoeyeSetpoint : REAL := 2.0;
 	useLastPrinterDelta : BOOL := TRUE;
 	tensionFailONS : FB_ONS;
@@ -55,6 +54,7 @@ VAR
     _amPrinterDone : BOOL;             // Auto Mode - Printer is Done
 	_amFeedToEye : BOOL;			  // Auto Mode - Feed Bag to Eye
 	_reverseSpeedDistanceOffset : REAL;
+	_reverseToPrintHeadSetpoint : REAL;
 	_checkMotorStatusDelay : TIME := T#25MS;
 	_tensionFault : BOOL;
 	_interconnect : BAG_DELIVERY_IC;
@@ -78,14 +78,14 @@ _delayForReverseFault();
 _autoFeedDelay(IN := _amFeedBagOut);
 
 //
-_sealBarToPrintHeadLength := ABS(reverseToPrintHeadSetpoint) + 2.25;
+_sealBarToPrintHeadLength := ABS(_reverseToPrintHeadSetpoint) + 2.25;
 
 //
 IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR 
    (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
-	reverseToPrintHeadSetpoint := -1.25;
+	_reverseToPrintHeadSetpoint := -1.25;
 ELSE
-	reverseToPrintHeadSetpoint := -1.0;
+	_reverseToPrintHeadSetpoint := -1.0;
 END_IF
 
 //
@@ -315,15 +315,15 @@ CASE state OF
 		IF _delayTimer.Q THEN
 			_delayTimer.IN := FALSE;
 			_bagFeedFrontMotor.MoveDistanceFinal(
-				distance := reverseToPrintHeadSetpoint, 
-                acceleration := TO_INT((ABS(reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _accelPercent),
-                deceleration := TO_INT((ABS(reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _decelPercent), 
+				distance := _reverseToPrintHeadSetpoint, 
+                acceleration := TO_INT((ABS(_reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _accelPercent),
+                deceleration := TO_INT((ABS(_reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _decelPercent), 
                 velocity := REAL_TO_INT((reverseVelocitySetpoint * velocityMultiplier))
 			);
 			_bagFeedRearMotor.MoveDistanceFinal(
-				distance := reverseToPrintHeadSetpoint, 
-                acceleration := TO_INT((ABS(reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _accelPercent),
-                deceleration := TO_INT((ABS(reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _decelPercent), 
+				distance := _reverseToPrintHeadSetpoint, 
+                acceleration := TO_INT((ABS(_reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _accelPercent),
+                deceleration := TO_INT((ABS(_reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _decelPercent), 
                 velocity := REAL_TO_INT((reverseVelocitySetpoint * velocityMultiplier))
 			);
 			
@@ -511,7 +511,7 @@ CASE state OF
 		// Feed bag length out
 		remainingLength := (remainingLength + _sealBarToPrintHeadLength) - sealOffsetSetpoint;
 		IF NOT reverseToPrintheadRequired THEN
-			remainingLength := remainingLength + reverseToPrintHeadSetpoint;
+			remainingLength := remainingLength + _reverseToPrintHeadSetpoint;
 		END_IF
 		_bagFeedFrontMotor.MoveDistanceFinal(
 			distance := remainingLength, 

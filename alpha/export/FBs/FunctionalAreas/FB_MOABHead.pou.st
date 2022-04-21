@@ -242,7 +242,7 @@ bagDelivery(
 	reverseToPrintheadRequired := zebraPrinter.enable,
 	bagFeedMasterMotorCommFailInput := bagFeedMasterCommFail,
 	bagFeedRearMotorCommFailInput := bagFeedSlaveCommFail,
-	stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
+	stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
 	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC,
 	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
 );
