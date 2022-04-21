@@ -7,6 +7,7 @@ TYPE PalmButtonSelection :
 	SinglePalmButton := 1,
 	DualPalmButton := 2,
 	LightedPalmButton := 3,
-	LightedPalmButtonAdvanced := 4
+	LightedPalmButtonAdvanced := 4,
+	DualLightedPalmButtonAdvanced := 5
 );
 END_TYPE

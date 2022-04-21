@@ -567,7 +567,7 @@ CASE HMIData.cycleStartButtonSelection OF
 		);
 		oMurrTouchbuttonOneState := oMurrTouchButtonTwoState := basicLightedPalmButton.IOLinkStateOutput;													 
 														
-	PalmButtonSelection.LightedPalmButtonAdvanced:
+	PalmButtonSelection.LightedPalmButtonAdvanced, PalmButtonSelection.DualLightedPalmButtonAdvanced:
 		// Lighted Murr palm button input comes from IO Link
 		startCycleReqFromPalmButtons := iMurrTouchButtonOneStatus.0 OR iMurrTouchButtonTwoStatus.0;														 
 		advancedLightedPalmButtonOne(
@@ -577,29 +577,31 @@ CASE HMIData.cycleStartButtonSelection OF
 			baggerInCycle := HMIData.inCycle,
 			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
 			baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating
-		);	
-// 		advancedLightedPalmButtonTwo(
-// 			IOLinkData := ADR(oMurrTouchButtonTwoIOLinkOutputs),
-// 			baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
-// 			baggerFaulted := HMIData.faultActive,
-// 			baggerInCycle := HMIData.inCycle,
-// 			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
-//		);	
-							  									 
+		);
+		IF HMIData.cycleStartButtonSelection = PalmButtonSelection.DualLightedPalmButtonAdvanced THEN
+			advancedLightedPalmButtonTwo(
+				IOLinkData := ADR(oMurrTouchButtonTwoIOLinkOutputs),
+				baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+				baggerFaulted := HMIData.faultActive,
+				baggerInCycle := HMIData.inCycle,
+				baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited
+			);	
+		END_IF					  									 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
 // Stack Light only if no 2nd palm button selected
-//IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.LightedPalmButtonAdvanced THEN
+IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButtonAdvanced THEN
 	stackLight(
-	IOLinkData:= ADR(oMurrStackLightOutputs), 
-	baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active AND NOT HMIData.faultActive ,
-	baggerFaulted := HMIData.faultActive,
-	baggerInCycle := HMIData.inCycle,
-	baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited ,
-	bagsLow:= HMIData.bagLevelLow.active, 
-	bagOpenRetryActive:= bagOpenRetryCount <> 0,
-	baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating);	 
-//END_IF
+		IOLinkData:= ADR(oMurrStackLightOutputs), 
+		baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active AND NOT HMIData.faultActive ,
+		baggerFaulted := HMIData.faultActive,
+		baggerInCycle := HMIData.inCycle,
+		baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited ,
+		bagsLow:= HMIData.bagLevelLow.active, 
+		bagOpenRetryActive:= bagOpenRetryCount <> 0,
+		baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating
+	);	 
+END_IF
 
 
 		  
