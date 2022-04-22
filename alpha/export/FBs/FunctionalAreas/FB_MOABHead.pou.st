@@ -243,7 +243,7 @@ bagDelivery(
 	bagFeedMasterMotorCommFailInput := bagFeedMasterCommFail,
 	bagFeedRearMotorCommFailInput := bagFeedSlaveCommFail,
 	stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
-	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC,
+	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_PNEUMATIC,
 	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
 );
 bagDelivery.Mode := bagDeliveryMode;
