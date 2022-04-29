@@ -352,6 +352,7 @@
       <UserDefElement type="T_PalmButtonSelection" iecname="DualPalmButton" enumvalue="2" />
       <UserDefElement type="T_PalmButtonSelection" iecname="LightedPalmButton" enumvalue="3" />
       <UserDefElement type="T_PalmButtonSelection" iecname="LightedPalmButtonAdvanced" enumvalue="4" />
+      <UserDefElement type="T_PalmButtonSelection" iecname="DualLightedPalmButtonAdvanced" enumvalue="5" />
     </TypeUserDef>
     <TypeUserDef name="T_RELEASE_FEED_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="RELEASE_FEED_STATES" basetype="T_INT">
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Idle" enumvalue="0" />
@@ -701,7 +702,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="884" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="2042" nativesize="101388" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead" size="2042" nativesize="101416" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -1034,6 +1035,12 @@
       <Node name="IoConfig_Globals_Mapping">
         <Node name="bagRearMotorOutputs" type="T_DINT" access="ReadWrite" directaddress="%QD97">
           <Comment>Bag_Delivery_Rear_Motor : </Comment>
+        </Node>
+        <Node name="iAuxConfigInput1" type="T_BIT_X_2" access="Read" directaddress="%IX61.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iAuxConfigInput2" type="T_BIT_X_1" access="Read" directaddress="%IX61.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iAuxFillerTrigger" type="T_BIT_X_0" access="Read" directaddress="%IX61.0">
           <Comment>Cube67_BN_E_V2 : </Comment>

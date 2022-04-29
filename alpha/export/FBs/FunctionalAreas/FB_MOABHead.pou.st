@@ -100,6 +100,7 @@ VAR
 	configOutput1Pulse : FB_MonostableMultivibrator();
 	configOutput2Pulse : FB_MonostableMultivibrator();
 	fillerModeCycleStartOnlyPulse : FB_MonostableMultivibrator();
+	resetTimer : Standard.TOF := (PT := T#2S);
 	murrIOBusNode : FB_MurrIO();
 	funnel : FB_Funnel();
 	barcodeVerifier : FB_BarcodeReader();
@@ -766,10 +767,14 @@ readyToRun := (motorizedSealFlatteners.Ready OR NOT motorizedSealFlatteners.enab
                 AND (zebraPrinter.Ready OR NOT zebraPrinter.enable)
 				AND (passthrough.Ready OR NOT passthrough.enable)
 				AND murrIOBusNode.ok;
+		   
 iPowerOffButtonONS(CLK := iPowerOffButton);
-
+resetTimer(IN := iPowerOffButtonONS.OSR);
+IF iPowerOffButtonONS.OSR THEN
+	reset();
+END_IF
 				
-IF HMIData.makeReady OR iPowerOffButton THEN
+IF HMIData.makeReady OR resetTimer.Q THEN
 	HMIData.ackAllFaults := TRUE;
 	enable := TRUE;
 	
