@@ -912,11 +912,6 @@ ELSE
 	HMIData.factoryTestModeActive.active := FALSE;
 END_IF
 
-// Disable the printer on dry cycle because we dont't want to print on the platen roller               
-IF HMIData.enableDryCycle THEN
-    zebraPrinter.enable := FALSE;
-END_IF
-
 // Send torque value to motor                 
 rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
