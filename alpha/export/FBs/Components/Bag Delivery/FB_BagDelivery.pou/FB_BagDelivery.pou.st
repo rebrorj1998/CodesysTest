@@ -126,10 +126,7 @@ CASE rearMotorConfigVersion OF
 END_CASE
 
 //
-tensionFailONS(CLK := _tensionFault);
-IF tensionFailONS.OSR AND NOT HMIData.enableDryCycle THEN
-	bagTensionFault.Trigger();
-END_IF
+bagTensionFault.faultTrigger := _tensionFault AND NOT HMIData.enableDryCycle;
 
 //
 IF NOT enable THEN
