@@ -50,7 +50,7 @@ VAR
     sealFlattenersHorizontalAxisMotor : FB_AppliedMotionStepServoEIPBaseQX();
 	defaultCurrentMSF : DINT := 150;
 	outCurrentMSF : DINT := 150;
-	bagHoldingCurrentMSF : DINT := 85;
+	bagHoldingCurrentMSF : DINT := 110;
 	timeoutTimer : Standard.TON := (PT := T#2S);
     enableMotorizedSealFlattenersONS : FB_ONS();
 	bagDropDelay : Standard.TON := (PT := T#1S);    

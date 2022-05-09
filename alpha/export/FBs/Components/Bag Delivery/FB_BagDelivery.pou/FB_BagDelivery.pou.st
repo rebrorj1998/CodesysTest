@@ -119,7 +119,7 @@ CASE rearMotorConfigVersion OF
 		_interconnect := BAG_DELIVERY_IC.CBL;
 		_tensionFault := iBagTensionFault;
 		_bagFeedRearMotor.reversePolarity := FALSE;
-	CONFIG_VERSIONS.V_1_2:
+	CONFIG_VERSIONS.V_1_2, CONFIG_VERSIONS.V_1_3:
 		_interconnect := BAG_DELIVERY_IC.EIP;
 		_tensionFault := _bagFeedRearMotor.tensionFault;
 		_bagFeedRearMotor.reversePolarity := TRUE;
@@ -187,7 +187,11 @@ CASE state OF
                 deceleration := decelSetpoint, 
                 velocity := REAL_TO_INT((feedToPhotoeyeSetpoint * velocityMultiplier))
 			);
-			state := BAG_DELIVERY_STATES.FeedToEyeSync;
+			IF _interconnect = BAG_DELIVERY_IC.CBL THEN
+				state := BAG_DELIVERY_STATES.FeedingToEye;
+			ELSE
+				state := BAG_DELIVERY_STATES.FeedToEyeSync;
+			END_IF
 		ELSE
 			state := BAG_DELIVERY_STATES.SetTorqueMode;
 		END_IF	
