@@ -189,7 +189,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	murrIOConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_4;
 	printerConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
-	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_1;
+	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
 	sealFlattenerMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
     shakerInstalled : BOOL;
 	
@@ -260,6 +260,6 @@ VAR_GLOBAL CONSTANT
 	murrIOConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_5;
 	printerConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
 	frontFilmFeedMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
-	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_2;
+	rearUnwindMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
 	sealFlattenerMotorConfigVersionMax : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
 END_VAR
