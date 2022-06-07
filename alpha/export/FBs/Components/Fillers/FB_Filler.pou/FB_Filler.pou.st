@@ -59,7 +59,6 @@ CASE state OF
 	
 	FILLER_STATES.CycleBaggerToActiveFiller :		// Operator must cycle a bag out first to guarentee bag open and ready for filler
 													cycleBaggerToActivateFiller.active := TRUE;
-													
 													IF _baggerCycledAndReady THEN
 														cycleBaggerToActivateFiller.active := FALSE;
 														_baggerCycledAndReady := FALSE;
@@ -70,11 +69,10 @@ CASE state OF
 	FILLER_STATES.WaitingForFiller :				// Waiting for filler trigger to initiate cycle
 													waitingForFiller := TRUE;
 													IF fillerRequestedCycle THEN
-														waitingForFiller := FALSE;	
-														//IF NOT HMIData.baggerInhibited.active THEN
-															fillerRequestedCycle := FALSE;
-															state := FILLER_STATES.Dropping;	
-														//END_IF
+														waitingForFiller := FALSE;
+														fillerRequestedCycle := FALSE;
+														state := FILLER_STATES.Dropping;
+														_baggerCycledAndReady := FALSE;	
 													END_IF
 													
 	FILLER_STATES.Dropping :						// Filler is dropping product

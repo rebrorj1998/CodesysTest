@@ -1237,11 +1237,11 @@ CASE state OF
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
 													OR (startCycleReqFromPalmButtonsONS.OSR) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-													OR (HMIData.initiateCycle AND readyToRun) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
+													OR (HMIData.initiateCycle) AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (filler.cycleBagRequest AND HMIData.autoEnable)
 													OR (filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR)
 													OR (autoModeKeepCyclingTimer.Q)
-													OR footSwitchONS.OSR)
+													OR footSwitchONS.OSR AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller))
 													AND NOT barcodeVerificationFailed.active
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
