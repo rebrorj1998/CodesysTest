@@ -2,7 +2,6 @@
 FUNCTION_BLOCK FB_MotorizedPressureBar EXTENDS FB_BaseComponent
 VAR_INPUT
 	openedPositionBuffer : DINT;
-	iPressureBarClamped: BOOL;
 	iPressureBarClosed : BOOL;
 	iPressureBarNotObstructed : BOOL;
 	iBaggerEnableButton : BOOL;
@@ -90,7 +89,7 @@ pressureBarOpen := pressureBarPositionError < openedPositionBuffer;
 
 delayTimer();
 pressureBarClosed := iPressureBarClosed;
-failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClamped AND iPressureBarClosed)));
+failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClosed)));
 
 clamped := state = MotorizedPbarStates.Clamping;
 
@@ -105,7 +104,7 @@ IF movingONS.OSF THEN
 	strokeTimer.IN := FALSE;
 END_IF
 	
-disableMotorONS(CLK := clamped AND iPressureBarClamped AND iJawClampsRetracted);
+disableMotorONS(CLK := clamped AND iJawClampsRetracted);
 IF disableMotorONS.OSR THEN
 	pbarMotor.AllowClamping();
 END_IF
@@ -400,7 +399,7 @@ CASE state OF
 										state := MotorizedPbarStates.StartedClamping;
 	
 	MotorizedPbarStates.StartedClamping :		//
-										IF iPressureBarClamped AND iJawClampsRetracted THEN
+										IF iPressureBarClosed AND iJawClampsRetracted THEN
 											
 											//pbarMotor.AllowClamping();
 											delayTimer.PT := T#250MS;
