@@ -390,11 +390,9 @@ CASE state OF
 												state := MotorizedPbarStates.StartClamping;
 											END_IF
 										//END_IF
-										
-	
 	
 	MotorizedPbarStates.StartClamping :			//
-										//pbarMotor.SetPositionLimit(20000);
+										// pbarMotor.SetPositionLimit(20000);
 										jawClamps.Retract();
 										state := MotorizedPbarStates.StartedClamping;
 	

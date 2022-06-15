@@ -1,0 +1,2 @@
+(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+PROPERTY RearMotor : BOOL

@@ -6,20 +6,18 @@ VAR_INPUT
     deceleration : INT;        //Deceleration in RPM/sec
     velocity : INT;            //Velocity in .25RPM
 END_VAR
+(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
-VAR
-	_movefin: BOOL;
-END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-
-//
-IF _initialize OR placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear AND interconnect = BAG_DELIVERY_IC.CBL THEN
+// Return if a rear motor using cable or a command is running
+IF RearMotor AND NOT EIP THEN
 	RETURN;
 END_IF
 
 //
 _moveDone := FALSE;
 _moveFinal := TRUE;
-_stateFinal := BAG_DELIVERY_MOVE_STATES.Idle;
+_moveDistance := TRUE;
+_state := BAG_DELIVERY_MOVE_STATES.Idle;
 
 //
 distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);

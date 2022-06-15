@@ -58,6 +58,8 @@ VAR
 	_checkMotorStatusDelay : TIME := T#25MS;
 	_tensionFault : BOOL;
 	_interconnect : BAG_DELIVERY_IC;
+	_jogging: BOOL;
+	_joggingONS: Standard.F_TRIG;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
@@ -119,13 +121,12 @@ CASE rearMotorConfigVersion OF
 		_interconnect := BAG_DELIVERY_IC.CBL;
 		_tensionFault := iBagTensionFault;
 		_bagFeedRearMotor.reversePolarity := FALSE;
-	CONFIG_VERSIONS.V_1_2, CONFIG_VERSIONS.V_1_3:
+	CONFIG_VERSIONS.V_1_2, 
+	CONFIG_VERSIONS.V_1_3:
 		_interconnect := BAG_DELIVERY_IC.EIP;
 		_tensionFault := _bagFeedRearMotor.tensionFault;
 		_bagFeedRearMotor.reversePolarity := TRUE;
 END_CASE
-
-//
 bagTensionFault.faultTrigger := _tensionFault AND NOT HMIData.enableDryCycle;
 
 //
@@ -136,8 +137,8 @@ END_IF
 //
 IF enableONS.Q OR resetONS.Q THEN
     _reset := FALSE;
-	_bagFeedRearMotor.ack := FALSE;
-	_bagFeedFrontMotor.ack := FALSE;
+	_bagFeedRearMotor.Reset();
+	_bagFeedFrontMotor.Reset();
 	IF _mode = DEVICE_MODES.Manual THEN 
         state := BAG_DELIVERY_STATES.Manual;
     ELSE
@@ -149,6 +150,19 @@ END_IF
 //
 _jogForwardONS(CLK := jogForwardPB);
 _jogReverseONS(CLK := jogReversePB);
+IF _jogging THEN
+	IF _bagFeedFrontMotor.ackRequest AND _bagFeedRearMotor.ackRequest THEN
+		_bagFeedFrontMotor.ack := TRUE;
+		_bagFeedRearMotor.ack := TRUE;
+	END_IF
+END_IF
+
+//
+_joggingONS(CLK := _jogging);
+IF _joggingONS.Q THEN
+	_bagFeedFrontMotor.ack := FALSE;
+	_bagFeedRearMotor.ack := FALSE;
+END_IF
 
 //
 _ready := (_mode = DEVICE_MODES.Auto) AND (NOT (state = BAG_DELIVERY_STATES.Fault) OR NOT (state = BAG_DELIVERY_STATES.Idle));
@@ -225,7 +239,7 @@ CASE state OF
 	BAG_DELIVERY_STATES.SetTorqueMode:
 	
 		//
-		IF _interconnect = BAG_DELIVERY_IC.CBL THEN
+		IF NOT _bagFeedRearMotor.EIP THEN
 			// Set torque following mode
 			_delayTimer.PT := T#50MS;
 			_delayTimer.IN := TRUE;
@@ -235,7 +249,15 @@ CASE state OF
 				state := BAG_DELIVERY_STATES.Idle;	
 			END_IF	
 		ELSE
-			_bagFeedRearMotor.Initialize();
+			_bagFeedRearMotor.TriggerTorqueMode();
+			state := BAG_DELIVERY_STATES.SetTorqueValue;
+		END_IF
+		
+	BAG_DELIVERY_STATES.SetTorqueValue:
+		
+		//
+		IF _bagFeedRearMotor.commandSuccessful THEN
+			_bagFeedRearMotor.SetTorque(torque := 60);
 			state := BAG_DELIVERY_STATES.Idle;
 		END_IF
 													
@@ -263,7 +285,7 @@ CASE state OF
 		END_IF
 	
 	BAG_DELIVERY_STATES.ReverseSync:
-		
+		 
 		//
 		IF _bagFeedFrontMotor.ackRequest AND _bagFeedRearMotor.ackRequest THEN
 			_bagFeedFrontMotor.ack := TRUE;
@@ -295,7 +317,7 @@ CASE state OF
 				END_IF
 			END_IF
 		ELSIF CommandAcknowledged AND NOT iBagNotPresent THEN
-			_delayForReverseFault.PT := T#3000MS;
+			_delayForReverseFault.PT := T#3S;
 			_delayForReverseFault.IN := TRUE;
 			IF _delayForReverseFault.Q THEN
 				reverseFault.Trigger();

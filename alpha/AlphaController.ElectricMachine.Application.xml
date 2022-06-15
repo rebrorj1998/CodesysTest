@@ -850,7 +850,7 @@
       <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" />
       <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="428" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="6592" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="6604" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -858,7 +858,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor_1" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77292" nativesize="186080" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77292" nativesize="186092" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -1283,9 +1283,6 @@ Misc</Comment>
         </Node>
         <Node name="iInfeedVFDRunning" type="T_BIT_X_0" access="Read" directaddress="%IX768.0">
           <Comment>Infeed_Conveyor_IO : </Comment>
-        </Node>
-        <Node name="iJawClamped" type="T_BIT_X_4" access="Read" directaddress="%IX68.4">
-          <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iJawClampsExtended" type="T_BIT_X_0" access="Read" directaddress="%IX68.0">
           <Comment>Cube67_BN_E_V2 : </Comment>

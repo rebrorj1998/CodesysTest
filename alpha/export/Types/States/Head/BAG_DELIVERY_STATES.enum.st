@@ -29,6 +29,7 @@ TYPE BAG_DELIVERY_STATES :
 	FeedToEyeSync := 1005,
 	FeedingToEye := 51,
 	SetTorqueMode := 52,
+	SetTorqueValue := 53,
 	Fault := 99,
 	Manual := 100
 );
