@@ -160,11 +160,16 @@ CASE state OF
 	MotorizedIBDStates.Initialize :			//
 										
 										IF IBDOpen THEN
+											delayTimer.IN := FALSE;
 											state := MotorizedIBDStates.Initialized;
 										ELSE
-											IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
-											//IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
-											state := MotorizedIBDStates.Initializing;
+											delayTimer.IN := TRUE;
+											IF delayTimer.Q THEN
+												delayTimer.IN := FALSE;
+												IBDMotor.MoveToPosition(pbarOutSetting,accel,decel,velo);
+												state := MotorizedIBDStates.Initializing;	
+											END_IF
+											
 										END_IF
 	
 	
