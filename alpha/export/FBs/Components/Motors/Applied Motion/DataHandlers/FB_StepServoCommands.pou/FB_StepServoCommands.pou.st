@@ -63,6 +63,9 @@ commandWord.18 := _sendHostCommand;
 commandWord.19 := _sendQAndExecute;
 commandWord.20 := _alarmReset;
 
+IF commandWord <> 0 THEN
+	commandWord := commandWord;
+END_IF
 
 // CLear the command bits after 1.3x motor RPI
 clearCommandWordTimer(IN := commandWord <> 0);

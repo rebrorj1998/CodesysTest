@@ -2,7 +2,6 @@
 FUNCTION_BLOCK FB_AppliedMotionBagDeliveryMotor_1 EXTENDS FB_AppliedMotionStepServoEIPBase
 VAR_INPUT
 	ack : BOOL;
-	jog : BOOL;
 	placement : BAG_DELIVERY_MOTOR_PLACEMENT;
 	interconnect : BAG_DELIVERY_IC;
 END_VAR
@@ -14,11 +13,11 @@ VAR
 	_moveDistance : BOOL;
 	_moveFinal : BOOL;
 	_moveDone : BOOL;
-	_initialize : BOOL;
+	_finalMove : BOOL;
+	_restoreToDefault : BOOL;
 	_delayTimer : TON := (PT := T#10MS);
 	_state : BAG_DELIVERY_MOVE_STATES;
-	_stateFinal : BAG_DELIVERY_MOVE_STATES;
-	_stateInitalize : BAG_DELIVERY_INIT_STATES;
+	_resetState : BAG_DELIVERY_RESET_STATES;
 	_tensionFaultDwellTimer : TON := (PT := T#500MS);
 END_VAR
 VAR CONSTANT

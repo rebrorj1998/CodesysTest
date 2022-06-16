@@ -304,8 +304,7 @@ jawClamps(
 	 
 pressureBar(
 	enable:= , 
-	openedPositionBuffer:= HMIData.pressureBarPositionBuffer,
-	iPressureBarClamped:= iJawClamped, 
+	openedPositionBuffer:= HMIData.pressureBarPositionBuffer, 
 	iPressureBarClosed:= iJawClearToClamp, 
 	iPressureBarNotObstructed:= TRUE, 
 	iBaggerEnableButton:= , 
@@ -604,8 +603,6 @@ IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButto
 	);	 
 END_IF
 
-
-		  
 CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off
 		 												oAuxBaggerOK := FALSE;
@@ -1080,10 +1077,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	bagDeliveryMode := DEVICE_MODES.Auto;
 	bagDelivery.Reset();
 	bagDelivery.enable := TRUE;
-
-	IF iPowerOffButtonONS.OSR THEN
-		bagDelivery.AutoFeedToEye();
-	END_IF
 	
 	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
 		bagOpened := FALSE;
@@ -1153,7 +1146,8 @@ IF enableONS.Q OR resetONS.Q THEN
 	motorizedSealFlatteners.Reset();
 	pressureBar.Reset();
 	IBD.Reset();
-	bagDelivery.Reset();
+	bagDelivery.AutoFeedToEye();
+// 	bagDelivery.Reset();
 	zebraPrinter.Reset();
 	homeJawPB := FALSE;
 

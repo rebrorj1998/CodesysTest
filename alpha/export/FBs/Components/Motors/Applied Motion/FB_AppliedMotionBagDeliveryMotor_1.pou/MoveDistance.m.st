@@ -8,12 +8,13 @@ VAR_INPUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 //
-IF _initialize OR placement = BAG_DELIVERY_MOTOR_PLACEMENT.Rear AND interconnect = BAG_DELIVERY_IC.CBL THEN
+IF RearMotor AND NOT EIP THEN
 	RETURN;
 END_IF
 
 //
 _moveDone := FALSE;
+_moveFinal := FALSE;
 _moveDistance := TRUE;
 _state := BAG_DELIVERY_MOVE_STATES.Idle;
 
