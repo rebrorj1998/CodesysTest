@@ -603,8 +603,6 @@ IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButto
 	);	 
 END_IF
 
-
-		  
 CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off
 		 												oAuxBaggerOK := FALSE;
