@@ -22,12 +22,9 @@ VAR
 	endOfPrintONS : Standard.F_TRIG();
 	printerNotPrintingFault : FB_Fault(name := 'Printer didnt respond to print request');
 	printerNotPrintingTimer : Standard.TON := (PT := T#250MS);
-	printerRibbonMovingTimer1 : Standard.TON;
-	printerRibbonMovingTimer2 : Standard.TON;
-	printerRibbonMovingSettleTime : TIME := T#450MS;
-END_VAR
-
-VAR_IN_OUT
+	_printerRibbonTimeoutTimer : Standard.TON := (PT := T#500MS);
+	_printRibbonStateChanges : SINT;
+	_previousRibbonState : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: Printer
@@ -50,8 +47,7 @@ _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PRINTER_STATES.Fault);
 // 	printerNotPrintingFault.Trigger();
 // END_IF
 
-printerRibbonMovingTimer1(PT := printerRibbonMovingSettleTime);
-printerRibbonMovingTimer2(PT := printerRibbonMovingSettleTime);
+_printerRibbonTimeoutTimer();
 
 printHeadDebounce(PT:= printHeadDebouneSetpoint, Q=> printHeadDebounced);
 
@@ -64,8 +60,6 @@ IF enableONS.Q OR resetONS.Q THEN
 	printHeadDebounced := FALSE;
 	oRunPrinterRibbonUnwindMotor := FALSE;
 	oLowerPrintHead := FALSE;
-	printerRibbonMovingTimer1.IN := FALSE;
-	printerRibbonMovingTimer2.IN := FALSE;
 END_IF
 
 IF NOT enable THEN
@@ -85,13 +79,13 @@ END_IF
 
 //State machine for the printer
 CASE state OF
-    PRINTER_STATES.Idle :                            //Go to waiting for data if printer is ready
+    PRINTER_STATES.Idle :                           // Go to waiting for data if printer is ready
+ 													_printRibbonStateChanges := 0;
+													_printerRibbonTimeoutTimer.IN := FALSE;
                                                     oRunPrinterRibbonUnwindMotor := FALSE;
 													oPrinterStartPrint := FALSE;
 													printHeadDebounce.IN := FALSE;
 													printHeadDebounced := FALSE;
-													printerRibbonMovingTimer1.IN := FALSE;
-													printerRibbonMovingTimer2.IN := FALSE;
 													IF NOT printerDataReady THEN
                                                         IF autoSendLabel THEN
                                                             tcpServer.SendLabel();
@@ -116,7 +110,6 @@ CASE state OF
 														printHeadDebounce.IN := TRUE;
                                                         oLowerPrintHead := TRUE;
                                                         oRunPrinterRibbonUnwindMotor := TRUE;
-														//oPrinterStartPrint := TRUE;
                                                     END_IF                                    
             
     PRINTER_STATES.BeginPrintCycle :                // Start printing
@@ -125,21 +118,26 @@ CASE state OF
 														_amSendPrintSignal := FALSE;
                                                         printHeadDebounce.IN := FALSE;
 														state := PRINTER_STATES.Printing;
+														_previousRibbonState := ribbonEncoderPulse;
                                                     END_IF                                                    
                                         
-    PRINTER_STATES.Printing :                        //While printing, wait for End of Print signal
-													printerRibbonMovingTimer1.IN := ribbonEncoderPulse;
-													printerRibbonMovingTimer2.IN := NOT ribbonEncoderPulse;
-                                                    IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN
+    PRINTER_STATES.Printing :                       
+													//	
+													IF _previousRibbonState <> ribbonEncoderPulse THEN
+														_printRibbonStateChanges := _printRibbonStateChanges + 1;
+														_previousRibbonState := ribbonEncoderPulse;
+													END_IF
+													
+													_printerRibbonTimeoutTimer.IN := _printRibbonStateChanges = 0;
+													IF _printerRibbonTimeoutTimer.Q THEN
+														ribbonFault.Trigger();
+														state := PRINTER_STATES.Idle; 
+													END_IF
+													
+													// While printing, wait for End of Print signal
+                                                    IF endOfPrintONS.Q THEN
                                                         oPrinterStartPrint := FALSE;
                                                         oLowerPrintHead := FALSE;
-														IF printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN
-															ribbonFault.Trigger();
-														END_IF
-														printerRibbonMovingTimer1.IN := FALSE;
-														printerRibbonMovingTimer2.IN := FALSE;
-														 
-                                                        //oRunPrinterRibbonUnwindMotor := FALSE;
                                                         state := PRINTER_STATES.DonePrinting;    
                                                     END_IF
                                         
