@@ -51,7 +51,7 @@ CASE _state OF
 			commands.SendHostCommand := TRUE;
 			IF commandSuccessful THEN
 				commandSuccessful := FALSE;
-				_state := BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor;
+				_state := BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff;
 			END_IF
 		END_IF
 		

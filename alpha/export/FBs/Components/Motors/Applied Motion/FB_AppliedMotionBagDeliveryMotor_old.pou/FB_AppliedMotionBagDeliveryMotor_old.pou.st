@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_AppliedMotionBagDeliveryMotor EXTENDS FB_AppliedMotionStepServoTCP
+FUNCTION_BLOCK FB_AppliedMotionBagDeliveryMotor_old EXTENDS FB_AppliedMotionStepServoTCP
 VAR_INPUT
 END_VAR
 VAR_OUTPUT

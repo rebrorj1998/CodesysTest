@@ -43,8 +43,8 @@ VAR
 	_sealBarToPrintHeadLength : REAL;
 	_delayForPrintFeed : TIME := T#20MS;
 	_printerExtraFeedLength : REAL := 0.25;
-	_bagFeedFrontMotor : FB_AppliedMotionBagDeliveryMotor_1();
-	_bagFeedRearMotor : FB_AppliedMotionBagDeliveryMotor_1();
+	_bagFeedFrontMotor : FB_AppliedMotionBagDeliveryMotor();
+	_bagFeedRearMotor : FB_AppliedMotionBagDeliveryMotor();
 	_accelPercent : REAL := 0.1;
 	_decelPercent : REAL := 0.05;
     _amReverseBag : BOOL;            // Auto Mode - Reverse bag

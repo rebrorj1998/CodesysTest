@@ -7,17 +7,27 @@ VAR_INPUT
     velocity : INT;            //Velocity in .25RPM
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-distanceToMoveInSteps.rawValue := REAL_TO_DINT((distance) * stepsPerInchSetpoint);
-IF reversePolarity THEN
-    distanceToMoveInSteps.rawValue := distanceToMoveInSteps.rawValue * -1;    
+
+// Return if a rear motor using cable or a command is running
+IF RearMotor AND NOT EIP THEN
+	RETURN;
 END_IF
+
+//
+_moveDone := FALSE;
+_moveFinal := TRUE;
+_moveDistance := TRUE;
+_state := BAG_DELIVERY_MOVE_STATES.Idle;
+
+//
+distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);
+IF reversePolarity THEN
+    distanceToMoveInSteps := distanceToMoveInSteps * -1;
+END_IF
+
+//
 commandSuccessful := FALSE;
-ModbusLongHandler.Unpack(distanceToMoveInSteps);
-sendBagMoveCommand.acceleration := acceleration;
-sendBagMoveCommand.deceleration := deceleration;
-sendBagMoveCommand.velocity := velocity;
-sendBagMoveCommand.distanceHighWord := distanceToMoveInSteps.highWord;
-sendBagMoveCommand.distanceLowWord := distanceToMoveInSteps.lowWord;
-sendBagMoveCommand.opcode := STEP_SERVO_OPCODES.QUEUE_LOAD_AND_EXECUTE;
-sendBagMoveCommand.programToRun := 2;
-sendBagMoveCommand.Execute();
+pointToPointAccelSetpoint := acceleration;
+pointToPointDecelSetpoint := deceleration;
+currentLimit := defaultCurrentSetpoint;
+velocitySetpoint := velocity;
