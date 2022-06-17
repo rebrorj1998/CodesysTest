@@ -409,7 +409,7 @@ CASE state OF
 		//
 		IF _bagFeedRearMotor.EIP THEN
 			state := BAG_DELIVERY_STATES.Sync;
-			_nextState := BAG_DELIVERY_STATES.FeedToPrintoffset;
+			_nextState := BAG_DELIVERY_STATES.FeedingToPrintoffset;
 		ELSE
 			state := BAG_DELIVERY_STATES.FeedingToPrintOffset;
 		END_IF
@@ -461,7 +461,7 @@ CASE state OF
 			//
 			IF _bagFeedRearMotor.EIP THEN
 				state := BAG_DELIVERY_STATES.Sync;
-				_nextState := BAG_DELIVERY_STATES.FeedAtPrintSpeed;
+				_nextState := BAG_DELIVERY_STATES.FeedingAtPrintSpeed;
 			ELSE
 				state := BAG_DELIVERY_STATES.FeedingAtPrintSpeed;
 			END_IF
