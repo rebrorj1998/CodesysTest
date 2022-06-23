@@ -202,9 +202,9 @@ CASE state OF
 			);
 			IF _bagFeedRearMotor.EIP THEN
 				state := BAG_DELIVERY_STATES.Sync;
-				_nextState := BAG_DELIVERY_STATES.FeedToEye;
+				_nextState := BAG_DELIVERY_STATES.FeedingToEye;
 			ELSE
-				state := BAG_DELIVERY_STATES.FeedToEye;
+				state := BAG_DELIVERY_STATES.FeedingToEye;
 			END_IF
 		ELSE
 			state := BAG_DELIVERY_STATES.SetTorqueMode;
@@ -409,7 +409,7 @@ CASE state OF
 		//
 		IF _bagFeedRearMotor.EIP THEN
 			state := BAG_DELIVERY_STATES.Sync;
-			_nextState := BAG_DELIVERY_STATES.FeedingToPrintoffset;
+			_nextState := BAG_DELIVERY_STATES.FeedingToPrintOffset;
 		ELSE
 			state := BAG_DELIVERY_STATES.FeedingToPrintOffset;
 		END_IF
