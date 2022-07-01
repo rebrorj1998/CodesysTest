@@ -59,8 +59,9 @@ VAR
 	_checkMotorStatusDelay : TIME := T#25MS;
 	_tensionFault : BOOL;
 	_interconnect : BAG_DELIVERY_IC;
-	_jogging: BOOL;
-	_joggingONS: Standard.F_TRIG;
+	_jogging : BOOL;
+	_joggingONS : Standard.F_TRIG;
+	_syncingONS : Standard.F_TRIG; 
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
@@ -161,7 +162,8 @@ END_IF
 
 //
 _joggingONS(CLK := _jogging);
-IF _joggingONS.Q THEN
+_syncingONS(CLK := state = BAG_DELIVERY_STATES.Sync);
+IF _joggingONS.Q OR _syncingONS.Q THEN
 	_bagFeedFrontMotor.ack := FALSE;
 	_bagFeedRearMotor.ack := FALSE;
 END_IF
@@ -211,10 +213,6 @@ CASE state OF
 		END_IF	
 							
 	BAG_DELIVERY_STATES.FeedingToEye:
-	
-		// 
-		_bagFeedFrontMotor.ack := FALSE;
-		_bagFeedRearMotor.ack := FALSE;
 				
 		// Stop once photoeye seen
 		_delayTimer.PT := T#3S;
@@ -270,21 +268,10 @@ CASE state OF
             deceleration := TO_INT((ABS(reverseDistanceSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _decelPercent), 
             velocity := REAL_TO_INT((reverseVelocitySetpoint * velocityMultiplier))
 		);    
-  		
-		//
-		IF _bagFeedRearMotor.EIP THEN
-			state := BAG_DELIVERY_STATES.Sync;
-			_nextState := BAG_DELIVERY_STATES.Reversing;
-		ELSE
-			state := BAG_DELIVERY_STATES.Reversing;
-		END_IF
+		UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.Reversing);
                                        
     BAG_DELIVERY_STATES.Reversing:
 	
-		//
-		_bagFeedFrontMotor.ack := FALSE;
-		_bagFeedRearMotor.ack := FALSE;
-                   
 		// Back up until we see the trailing edge of the bag
 		IF iBagNotPresent OR HMIData.enableDryCycle THEN
 			_delayTimer.PT := T#10MS;
@@ -335,22 +322,11 @@ CASE state OF
                 deceleration := TO_INT((ABS(_reverseToPrintHeadSetpoint) * Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY) *  _decelPercent), 
                 velocity := REAL_TO_INT((reverseVelocitySetpoint * velocityMultiplier))
 			);
-			
-			//   
-			IF _bagFeedRearMotor.EIP THEN
-				state := BAG_DELIVERY_STATES.Sync;
-				_nextState := BAG_DELIVERY_STATES.ReversingToPrintHead;
-			ELSE
-				state := BAG_DELIVERY_STATES.ReversingToPrintHead;
-			END_IF
+			UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.ReversingToPrintHead);
 		END_IF								
 													
 	BAG_DELIVERY_STATES.ReversingToPrintHead:
 	
-		//
-		_bagFeedFrontMotor.ack := FALSE;
-		_bagFeedRearMotor.ack := FALSE;	                    
-		
 		// Reverse to break perf
         _delayTimer.PT :=  T#50MS;
 		_delayTimer.IN := TRUE;
@@ -405,20 +381,9 @@ CASE state OF
             deceleration := decelSetpoint, 
             velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier))
 		);
-		
-		//
-		IF _bagFeedRearMotor.EIP THEN
-			state := BAG_DELIVERY_STATES.Sync;
-			_nextState := BAG_DELIVERY_STATES.FeedingToPrintOffset;
-		ELSE
-			state := BAG_DELIVERY_STATES.FeedingToPrintOffset;
-		END_IF
+		UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.FeedingToPrintOffset);
                                                     
-    BAG_DELIVERY_STATES.FeedingToPrintOffset: 
-		
-		//
-		_bagFeedFrontMotor.ack := FALSE;
-		_bagFeedRearMotor.ack := FALSE;	      
+    BAG_DELIVERY_STATES.FeedingToPrintOffset:       
 		
 		// 
 		_delayTimer.PT := _checkMotorStatusDelay;
@@ -457,22 +422,11 @@ CASE state OF
                 deceleration := decelSetpoint, 
                 velocity := REAL_TO_INT((printVelocitySetpoint * velocityMultiplier))
 			);      
-			
-			//
-			IF _bagFeedRearMotor.EIP THEN
-				state := BAG_DELIVERY_STATES.Sync;
-				_nextState := BAG_DELIVERY_STATES.FeedingAtPrintSpeed;
-			ELSE
-				state := BAG_DELIVERY_STATES.FeedingAtPrintSpeed;
-			END_IF
+			UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.FeedingAtPrintSpeed);
 		END_IF	
                       
     BAG_DELIVERY_STATES.FeedingAtPrintSpeed:
 
-		//  
-		_bagFeedFrontMotor.ack := FALSE;
-		_bagFeedRearMotor.ack := FALSE;	      
-		
 		// 
 		_delayTimer.PT := _checkMotorStatusDelay;
 		_delayTimer.IN := TRUE;
@@ -510,20 +464,9 @@ CASE state OF
             deceleration := decelSetpoint, 
             velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier))
 		);
-		
-		//
-		IF _bagFeedRearMotor.EIP THEN
-			state := BAG_DELIVERY_STATES.Sync;
-			_nextState := BAG_DELIVERY_STATES.FeedingBagOut;
-		ELSE
-			state := BAG_DELIVERY_STATES.FeedingBagOut;
-		END_IF
+		UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.FeedingBagOut);
     
-    BAG_DELIVERY_STATES.FeedingBagOut: 
-	
-		//
-		_bagFeedFrontMotor.ack := FALSE;
-		_bagFeedRearMotor.ack := FALSE;	  
+    BAG_DELIVERY_STATES.FeedingBagOut:   
           
 		// Wait until move is done
 		_delayTimer.PT := _checkMotorStatusDelay;

@@ -46,9 +46,7 @@ CASE _state OF
 				_state := BAG_DELIVERY_MOVE_STATES.AckPointToPointMode;
 			END_IF
 		ELSIF NOT EIP THEN
-			sclCommand := SCL_SO; 
-			parameter1 := O2_H;
-			commands.SendHostCommand := TRUE;
+			TriggerPointToPointMode();
 			IF commandSuccessful THEN
 				commandSuccessful := FALSE;
 				_state := BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff;
