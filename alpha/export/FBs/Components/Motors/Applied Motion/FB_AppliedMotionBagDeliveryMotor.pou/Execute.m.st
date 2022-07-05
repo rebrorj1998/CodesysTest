@@ -104,7 +104,10 @@ CASE _state OF
 			END_IF
 		ELSE
 			TriggerTorqueMode();
-			_state := BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOn;
+			IF commandSuccessful THEN
+				commandSuccessful := FALSE;
+				_state := BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOn;
+			END_IF
 		END_IF				
 																									
 	BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOn:
@@ -118,10 +121,7 @@ CASE _state OF
 				_state := BAG_DELIVERY_MOVE_STATES.Idle;
 			END_IF
 		ELSE
-			IF commandSuccessful THEN
-				_moveDone := TRUE;
-				_state := BAG_DELIVERY_MOVE_STATES.Idle;
-				commandSuccessful := FALSE;
-			END_IF
+			_moveDone := TRUE;
+			_state := BAG_DELIVERY_MOVE_STATES.Idle;
 		END_IF																	
 END_CASE

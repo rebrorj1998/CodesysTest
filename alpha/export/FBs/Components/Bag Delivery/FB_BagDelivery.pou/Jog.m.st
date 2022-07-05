@@ -34,5 +34,7 @@ END_VAR
 		ELSIF _jogForwardONS.OSF OR _jogReverseONS.OSF THEN
 			_jogging := FALSE;
 			_bagFeedFrontMotor.Stop();
-			_bagFeedRearMotor.Stop();
+			IF _bagFeedRearMotor.EIP THEN
+				_bagFeedRearMotor.Stop();
+			END_IF
 		END_IF

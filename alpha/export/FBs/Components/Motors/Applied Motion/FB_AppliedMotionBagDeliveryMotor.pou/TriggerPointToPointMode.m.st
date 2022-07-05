@@ -5,6 +5,7 @@ END_VAR
 
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF EIP THEN
+	sclCommand := 0; 
 	parameter1 := POINT2POINT_MODE_PARAM_ID;
 	commands.SendQAndExecute := TRUE;	
 ELSE
