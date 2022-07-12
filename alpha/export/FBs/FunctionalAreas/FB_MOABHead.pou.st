@@ -1321,7 +1321,7 @@ CASE state OF
 											filler.Reset();
 											ezFeed.Reset();
 											LPA.ManualOff();
-											IBDRetractToDeflate.Reset();-
+											IBDRetractToDeflate.Reset();
 											IBDRetractToEject.Reset();
 											exitConveyorRun.Reset();
 											externalExitConveyorRun.Reset();
