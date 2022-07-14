@@ -252,7 +252,7 @@ bagDelivery.Mode := bagDeliveryMode;
 // Run Zebra Printer
 zebraPrinter(ribbonEncoderPulse := iPrinterRibbonEncoder, oLowerPrintHead => oPrintHeadDown);
 zebraPrinter.Mode := printerMode;
-zebraPrinter.enable := (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled) AND HMIData.printerInUse;
+zebraPrinter.enable := (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled) AND HMIData.printerInUse AND NOT HMIData.enableDryCycle;
 IF HMIData.activateDemoMode THEN
 	HMIData.demoModeIsActive.active := TRUE;
 	zebraPrinter.autoSendLabel := TRUE;
