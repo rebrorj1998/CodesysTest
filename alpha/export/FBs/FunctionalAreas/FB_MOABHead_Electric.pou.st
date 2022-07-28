@@ -376,7 +376,7 @@ CASE HMIData.printerSelection OF
 END_CASE
 
 // Run Zebra Printer
-zebraPrinter(ribbonEncoderPulse := iPrinterRibbonEncoder, oLowerPrintHead => oPrintHeadDown);
+zebraPrinter(ribbonEncoderState := iPrinterRibbonEncoder, oLowerPrintHead => oPrintHeadDown);
 zebraPrinter.Mode := printerMode;
 IF HMIData.activateDemoMode THEN
 	HMIData.demoModeIsActive.active := TRUE;
@@ -439,20 +439,16 @@ collisionDetection(
 	 
 // Run funnel
 funnel(
-	enable:= HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled AND HMIData.funnelInUse, 
-	sensorsInstalled:= HMIData.funnelFactorySelection = FunnelSelection.FunnelWithSensors, 
-	openSensor:= iFunnelOpened, 
-	closedSensor:= iFunnelClosed, 
-	opened=> , 
-	closed=> , 
-	closeOutput=> oIBDRetract, 
-	openOutput=> oIBDExtend, 
-	failToOpen=> , 
-	failToClose=> 
+	enable := HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled AND HMIData.funnelInUse,
+	openingDelay := HMIData.funnelOpenDelay, 
+	openingDwell := HMIData.funnelOpeningTime,
+	closingDwell := HMIData.funnelClosingTime,
+	funnelType := HMIData.funnelFactorySelection, 
+	iOpen := iFunnelOpened, 
+	iClosed := iFunnelClosed,  
+	oClose => oFunnelClose, 
+	oOpen => oFunnelOpen, 
 );
-funnel.OpeningTime := HMIData.funnelOpeningTime;
-funnel.ClosingTime := HMIData.funnelClosingTime;
-funnel.DelaySetting := HMIData.funnelOpenDelay;
 
 //
 sealBarTempSensor(
@@ -1103,7 +1099,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
-	funnel.CloseNow();
+	funnel.Close();
 	exitConveyorRun.Reset();
 	externalExitConveyorRun.Reset();
 	oSealBarExtend := FALSE;
@@ -1355,12 +1351,12 @@ CASE state OF
 													END_IF	
 														 
 													IF HMIData.funnelService.retractCommand THEN
-														funnel.OpenNow();
+														funnel.Open();
 														HMIData.funnelService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.funnelService.extendCommand THEN
-														funnel.CloseNow();
+														funnel.Close();
 														HMIData.funnelService.extendCommand := FALSE;
 													END_IF	
 	 													
@@ -1467,7 +1463,7 @@ CASE state OF
 													HMIData.airFilterClean.Increment();
 													HMIData.baggerCycles.Increment();
 													IF funnel.enable THEN
-														funnel.CloseNow();
+														funnel.Close();
 													END_IF
 													
                                                     state := HEAD_STATES.SealingAndSeparatingBag;
@@ -2102,7 +2098,7 @@ CASE finishCycleSubState OF
 																LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 																LPA.Trigger();
 															END_IF
-															funnel.OpenNow();
+															funnel.Open();
 															finishCycleSubState := FINISH_CYCLE_STATES.OpeningFunnel;
 	
 	FINISH_CYCLE_STATES.OpeningFunnel :						//
@@ -2117,11 +2113,11 @@ CASE finishCycleSubState OF
 																ELSE
 																	IF bagOpenRetryCount < bagOpenRetrySetting THEN
 																		bagOpenRetryCount := bagOpenRetryCount + 1;
-																		funnel.CloseNow();
+																		funnel.Close();
 																		finishCycleSubState := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
 																	ELSE
 																		bagFailedToOpen.Trigger();
-																		funnel.CloseNow();
+																		funnel.Close();
 																		bagOpenRetryCount := 0; 
 																		HMIData.bagsRejectedTotal.Increment();
 																		finishCycleSubState := FINISH_CYCLE_STATES.Shake;
