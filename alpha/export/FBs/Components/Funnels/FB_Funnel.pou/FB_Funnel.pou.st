@@ -67,30 +67,20 @@ IF _reset OR NOT enable THEN
 	_reset := FALSE;
 END_IF
 
-//
-CASE funnelType OF
-	FunnelSelection.FunnelWithoutSensor:
-		_cylinderFault.enable := FALSE;
-		_openingTimer.IN := oOpen;
-		_closingTimer.IN := oClose;
-		opened := _openingTimer.Q;
-		closed := _closingTimer.Q;
-	
-	FunnelSelection.FunnelWithSensor:
-		_cylinderFault.enable := TRUE;
-		_openingTimer.IN := NOT iClosed;
-		opened := _openingTimer.Q;
-		closed := iClosed;
-	
-	FunnelSelection.FunnelWithSensors:
-		_cylinderFault.enable := TRUE;
-		opened := iOpen;
-		closed := iClosed;
-		
-END_CASE
+//;
+IF _cylinderFault.enable THEN
+	opened := iOpen;
+	closed := iClosed;
+ELSE
+	_openingTimer.IN := oOpen;
+	_closingTimer.IN := oClose;
+	opened := _openingTimer.Q;
+	closed := _closingTimer.Q;
+END_IF
 
 // Fault Timer for Failed TO reach open/closed sensors
 _cylinderFault(
+	enable := funnelType = FunnelSelection.FunnelWithSensors,
 	extendCommand := oOpen, 
 	extendedInput := iOpen, 
 	retractCommand := oClose, 
