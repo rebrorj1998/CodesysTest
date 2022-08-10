@@ -11,23 +11,32 @@ VAR_INPUT
 	ptrSystemStatusInputs : POINTER TO BYTE;
 END_VAR
 VAR_OUTPUT
+	MOMDataConfigFail : FB_Fault(name := 'Communication Fail - MOM configuration data is inaccurate');
 	commFailController : FB_Fault(name := 'Communication Fail - Bus Master to Controller');
 	commFailNode : FB_Fault(name := 'Communication Fail - Bus Master to I/O Node');
 	configActive : Warning;	// I/O Configuration Active, please wait
 	ok : BOOL; 		// I/O Configuration and Communication good
 END_VAR
 VAR
+	i : INT;
+	index : INT;
+	specificErrorCode : INT;
+	MOMFaultPresent : BOOL;
 	systemStatusINT : INT;
 	systemStatusState : MURR_SYSTEM_STATES;
 	MOMConfigLast : BYTE;
 	restartBusnodePulse : FB_MonostableMultivibrator;
-END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+END_VAR
+VAR CONSTANT
+	MOM_SPECIFIC_ERROR_CODE : INT := 101;
+	MAX_DIAGNOSTICS_COUNT : INT := 8;
+	BYTES_PER_DIAGNOSTICS_RESULT : INT := 8;
+END_VAR
+(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: MurrIOFB
 //    Description: Alarms, faults, configuration of the Murr Cube67+ Bus Node
 //    Created by: Ben Hess
 //    Created Date: October 16th, 2019
-
-
 SUPER^();
 
 // Set bit 33 to true for 1 second to reset nodes
@@ -59,6 +68,22 @@ CASE configVersion OF
 		ptrMachineOptionsManagementOutputs[0].4 := NOT printerNodeEnabled;
 END_CASE
 
+// init loop index
+index := 7;
+
+// init MOM fault present
+MOMFaultPresent := FALSE;
+
+// Loop through all 8 possible diagnostics looking for MOM error
+FOR i := 0 TO MAX_DIAGNOSTICS_COUNT-1 DO
+	specificErrorCode := ptrSystemStatusInputs[index];
+	IF specificErrorCode = MOM_SPECIFIC_ERROR_CODE THEN
+		MOMFaultPresent := TRUE;
+	END_IF
+	index := index + BYTES_PER_DIAGNOSTICS_RESULT;
+END_FOR
+MOMDataConfigFail.faultTrigger := MOMFaultPresent;
+
 // Run config if IO bus node is waiting on config
 systemStatusINT := ptrSystemStatusInputs^;
 systemStatusState := systemStatusINT;
@@ -80,9 +105,8 @@ END_IF
 
 // Alert user to MOM config active
 IF systemStatusState = MURR_SYSTEM_STATES.Waiting_For_MOM OR
-	systemStatusState = MURR_SYSTEM_STATES.Configuring_MOM OR
-	systemStatusState = MURR_SYSTEM_STATES.Internal_Comm_Disabled
-THEN
+   systemStatusState = MURR_SYSTEM_STATES.Configuring_MOM OR
+   systemStatusState = MURR_SYSTEM_STATES.Internal_Comm_Disabled THEN
 	configActive.active := TRUE;
 ELSE
 	configActive.active := FALSE;
@@ -96,14 +120,14 @@ CASE systemStatusState OF
 		// Bit 32 is Configure MOM bit
 		ptrMachineOptionsManagementOutputs[4].0 := TRUE;
 		ptrMachineOptionsManagementOutputs[4].1 := FALSE;
+												
 	MURR_SYSTEM_STATES.Configuring_MOM : 			
-		//
-		ptrMachineOptionsManagementOutputs[4].0 := FALSE;							
+		ptrMachineOptionsManagementOutputs[4].0 := FALSE;															
 ELSE
-	ptrMachineOptionsManagementOutputs[4].0 := FALSE;
-	//IF config changes here, send it down after restarting
-	IF ptrMachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
-		restartBusnodePulse.Trigger();
-		MOMConfigLast := ptrMachineOptionsManagementOutputs[0];
-	END_IF
+		ptrMachineOptionsManagementOutputs[4].0 := FALSE;
+		//IF config changes here, send it down after restarting
+		IF ptrMachineOptionsManagementOutputs[0] <> MOMConfigLast THEN
+			restartBusnodePulse.Trigger();
+			MOMConfigLast := ptrMachineOptionsManagementOutputs[0];
+		END_IF
 END_CASE												

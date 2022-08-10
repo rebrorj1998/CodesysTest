@@ -59,9 +59,6 @@ HMIData.loadPlateLeak(iExtended := iLoadPlateExtended, iRetracted := iLoadPlateR
 //HMIData.bagDeliveryMotorTemp(iDriveTemp := bagDeliveryMotorInputs[4]);
 //HMIData.passthroughMotorTemp(iDriveTemp := jawPasstrhoughMotorInputs[4]);
 
-
-
-
 IF resetCommFaults THEN
 	FOR i := 0 TO numberOfMSFFaults BY 1 DO
 		msfMotorFaults[i].message := '';
