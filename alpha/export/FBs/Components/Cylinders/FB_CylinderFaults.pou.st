@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_CylinderFaults
 VAR_INPUT
-	enable : BOOL;
+	feedback : eActuatorFeedbackType;
 	extendCommand : BOOL;
 	extendedInput : BOOL;
 	retractCommand : BOOL;
@@ -18,18 +18,18 @@ VAR
 END_VAR
 VAR_IN_OUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+//
 extendFaultTimer(PT := faultTime, Q => failToExtend);
 retractFaultTimer(PT := faultTime, Q => failToRetract);
-IF enable THEN
-	IF extendCommand THEN
+IF extendCommand THEN
+	IF feedback = eActuatorFeedbackType.Both OR feedback = eActuatorFeedbackType.Extended THEN
 		retractFaultTimer.IN := FALSE;
 		extendFaultTimer.IN := NOT extendedInput;
-	ELSIF retractCommand THEN
+	END_IF
+ELSIF retractCommand THEN
+	IF feedback = eActuatorFeedbackType.Both OR feedback = eActuatorFeedbackType.Retracted THEN
 		extendFaultTimer.IN := FALSE;
 		retractFaultTimer.IN := NOT retractedInput;
-	ELSE
-		retractFaultTimer.IN := FALSE;
-		extendFaultTimer.IN := FALSE;
 	END_IF
 ELSE
 	retractFaultTimer.IN := FALSE;

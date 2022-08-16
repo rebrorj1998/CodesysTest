@@ -105,6 +105,7 @@ VAR
 	faultONS : FB_ONS;
 	powerSettlingTimer : Standard.TON := (PT := T#6S);
 	pressureBarCloseDelay : Standard.TON;
+	_fillerDroppingProductONS : FB_ONS;
 	filler : FB_Filler();
 	configOutput1Pulse : FB_MonostableMultivibrator();
 	configOutput2Pulse : FB_MonostableMultivibrator();
@@ -112,6 +113,7 @@ VAR
 	collisionDetection : FB_CollisionDetection();
 	murrIOBusNode : FB_MurrIO();
 	funnel : FB_Funnel();
+	stagingFunnel : FB_Funnel();
 	barcodeVerifier : FB_BarcodeReader();
 	keyenceBCV : FB_KeyenceNL20();
 	cognexDM374BCV : FB_CognexDM374();
@@ -437,18 +439,62 @@ collisionDetection(
 	packageAtExit := NOT iPackageAtExit
 );
 	 
-// Run funnel
+// 1st Stage Funnel
 funnel(
-	enable := HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled AND HMIData.funnelInUse,
 	openingDelay := HMIData.funnelOpenDelay, 
 	openingDwell := HMIData.funnelOpeningTime,
 	closingDwell := HMIData.funnelClosingTime,
-	funnelType := HMIData.funnelFactorySelection, 
-	iOpen := iFunnelOpened, 
+	iOpened := iFunnelOpened, 
 	iClosed := iFunnelClosed,  
 	oClose => oFunnelClose, 
-	oOpen => oFunnelOpen, 
+	oOpen => oFunnelOpen
 );
+
+// 2nd Stage Funnel
+stagingFunnel(
+	openingDelay := HMIData.stagingFunnelOpenDelay, 
+	openingDwell := HMIData.stagingFunnelOpeningTime,
+	closingDwell := HMIData.stagingFunnelClosingTime,
+	iOpened := iStagingFunnelOpened, 
+	iClosed := iStagingFunnelClosed,  
+	oClose => oStagingFunnelClose, 
+	oOpen => oStagingFunnelOpen
+);
+
+CASE HMIData.funnelFactorySelection OF
+	FunnelSelection.NotInstalled:
+		// Disable both funnels
+		funnel.enable := FALSE;
+		stagingFunnel.enable := FALSE;
+		
+	FunnelSelection.FunnelWithSensors:
+		//
+		funnel.enable := HMIData.funnelInUse;
+		funnel.feedback := eActuatorFeedbackType.Both;
+		stagingFunnel.enable := FALSE;
+	
+	FunnelSelection.FunnelWithoutSensors:
+		//
+		funnel.enable := HMIData.funnelInUse;
+		funnel.feedback := eActuatorFeedbackType.None;
+		stagingFunnel.enable := FALSE;
+		
+	FunnelSelection.TwoStageFunnelWithSensors:
+		//
+		_fillerDroppingProductONS(CLK := filler.droppingProduct);
+		IF _fillerDroppingProductONS.OSR THEN
+			stagingFunnel.Open();
+		ELSIF _fillerDroppingProductONS.OSF THEN
+			stagingFunnel.Close();
+		END_IF
+
+		//
+		funnel.enable := HMIData.funnelInUse;
+		funnel.feedback := eActuatorFeedbackType.Both;
+		stagingFunnel.enable := HMIData.funnelInUse;
+		stagingFunnel.feedback := eActuatorFeedbackType.Both;
+		
+END_CASE
 
 //
 sealBarTempSensor(
@@ -813,16 +859,11 @@ infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = Fille
 fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
-	enable:= , 
+	faultActive := HMIData.faultActive,
+	baggerInhibited := HMIData.baggerInhibited.active,
 	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone, 
 	activateFiller:= HMIData.fillerEnable, 
-	dropTime:= HMIData.fillerDropTime,
-	state=> , 
-	fillerModeActive=> , 
-	waitingForFiller=> ,
-	cycleBagRequest=> , 
-	cycleBaggerToActivateFiller=> , 
-	notReady=> );	 
+	dropTime:= HMIData.fillerDropTime);	 
 IF filler.activateFiller AND NOT filler.cycleBaggerToActivateFiller.active THEN
 	IF HMIData.initiateCycle OR startCycleReqFromPalmButtons THEN
 		fillerModeCycleStartOnlyPulse.Trigger();
@@ -962,7 +1003,7 @@ bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInst
 				releaseOutput => oBOFUp,
 		 		grabOutput => oBOFDown,
 				rightFingerBagPresent := iRightFingerBagPresent,
-				leftFingerBagPreset := iLefttFingerBagPresent,
+				leftFingerBagPreset := iLeftFingerBagPresent,
 				bagFailedToGrabBothFingersCount := Globals.bagFailedToGrabBothFingersCount,
 				bagFailedToGrabLeftFingerCount := Globals.bagFailedToGrabLeftFingerCount,
 				bagFailedToGrabRightFingerCount := Globals.bagFailedToGrabRightFingerCount,
@@ -2108,7 +2149,7 @@ CASE finishCycleSubState OF
 	
 	FINISH_CYCLE_STATES.OpenedFunnel :						//
 															//IF enableBagOpen THEN
-																IF iLefttFingerBagPresent AND iRightFingerBagPresent THEN
+																IF iLeftFingerBagPresent AND iRightFingerBagPresent THEN
 																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
 																ELSE
 																	IF bagOpenRetryCount < bagOpenRetrySetting THEN

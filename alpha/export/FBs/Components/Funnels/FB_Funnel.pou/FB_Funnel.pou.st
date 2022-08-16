@@ -1,9 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_Funnel EXTENDS FB_BaseComponent
 VAR_INPUT
- 	iOpen : BOOL;					// Open sensor input
- 	iClosed : BOOL;					// Closed sensor input
-	funnelType : FunnelSelection;   // Funnel type selected
+ 	iOpened : BOOL;			 		  // Open sensor input
+ 	iClosed : BOOL;	     	 		  // Closed sensor input
+	feedback : eActuatorFeedbackType; // Funnel type selected
 	openingDelay : REAL;
 	openingDwell : REAL;
 	closingDwell : REAL;
@@ -22,7 +22,7 @@ VAR
 	_openingDelayTimer : Standard.TON;					// Open delay timer
 	_openingTimer : Standard.TON;						// Opening timer
 	_closingTimer : Standard.TON;						// Closing timer
-	_cylinderFault : FB_CylinderFaults;
+	_cylinderFault : FB_CylinderFaults;                 // Cylinder Faults
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FunnelFB
@@ -57,6 +57,7 @@ END_IF
 
 //
 IF _reset OR NOT enable THEN
+	_reset := FALSE;
 	_openRequest := FALSE;
 	_closeRequest := FALSE;
 	_openingTimer.IN := FALSE;
@@ -64,12 +65,11 @@ IF _reset OR NOT enable THEN
 	_openingDelayTimer.IN := FALSE;
 	oClose := FALSE;
 	oOpen := FALSE;
-	_reset := FALSE;
 END_IF
 
 //;
-IF _cylinderFault.enable THEN
-	opened := iOpen;
+IF feedback <> eActuatorFeedbackType.None THEN
+	opened := iOpened;
 	closed := iClosed;
 ELSE
 	_openingTimer.IN := oOpen;
@@ -80,9 +80,9 @@ END_IF
 
 // Fault Timer for Failed TO reach open/closed sensors
 _cylinderFault(
-	enable := funnelType = FunnelSelection.FunnelWithSensors,
+	feedback := feedback,
 	extendCommand := oOpen, 
-	extendedInput := iOpen, 
+	extendedInput := iOpened, 
 	retractCommand := oClose, 
 	retractedInput := iClosed, 
 	faultTime:= T#1S, 

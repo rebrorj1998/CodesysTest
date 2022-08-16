@@ -74,6 +74,9 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	funnelOpenDelay : REAL := 0.25;					// Funnel Open Delay after pressure bar open
 	funnelOpeningTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel open after command to open
 	funnelClosingTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel closed after command to close
+	stagingFunnelOpenDelay : REAL := 0.25;					// Funnel Open Delay after pressure bar open
+	stagingFunnelOpeningTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel open after command to open
+	stagingFunnelClosingTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel closed after command to close
 	externalExitConveyorDwell : REAL;
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;

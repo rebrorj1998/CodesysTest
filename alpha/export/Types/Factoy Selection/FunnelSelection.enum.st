@@ -5,6 +5,7 @@ TYPE FunnelSelection :
 (
 	NotInstalled := 0,
 	FunnelWithSensors := 1,
-	FunnelWithoutSensor := 2
+	FunnelWithoutSensors := 2,
+	TwoStageFunnelWithSensors := 3
 );
 END_TYPE

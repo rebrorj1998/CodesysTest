@@ -14,8 +14,6 @@ END_VAR
 VAR_GLOBAL
 	CollectionOfAllObjects : FB_CollectionHandlerAll; 
 	CollectionOfFaults : FB_CollectionHandlerFaults; 
-// 	CollectionOfCylinders : FB_CollectionHandlerCylinders;
-// 	CollectionOfPositionableMotors : FB_CollectionHandlerPositionableMotors;
 	CollectionOfActiveFaults : FB_CollectionHandlerActiveFaults; 
 	CollectionOfLogs : FB_CollectionHandlerLogs; 
 	CollectionOfLoggable : FB_CollectionHandlerLoggable;

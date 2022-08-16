@@ -287,7 +287,8 @@
     <TypeUserDef name="T_FunnelSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="FunnelSelection" basetype="T_INT">
       <UserDefElement type="T_FunnelSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_FunnelSelection" iecname="FunnelWithSensors" enumvalue="1" />
-      <UserDefElement type="T_FunnelSelection" iecname="FunnelWithoutSensor" enumvalue="2" />
+      <UserDefElement type="T_FunnelSelection" iecname="FunnelWithoutSensors" enumvalue="2" />
+      <UserDefElement type="T_FunnelSelection" iecname="TwoStageFunnelWithSensors" enumvalue="3" />
     </TypeUserDef>
     <TypeUserDef name="T_HEAD_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="HEAD_STATES" basetype="T_INT">
       <UserDefElement type="T_HEAD_STATES" iecname="Idle" enumvalue="0" />
@@ -558,7 +559,7 @@
       <UserDefElement iecname="maxTemp" type="T_REAL" byteoffset="180" vartype="VAR_INPUT" />
       <UserDefElement iecname="DriveTemp" type="T_REAL" byteoffset="184" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_Filler" size="7" nativesize="276" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Filler" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_Filler" size="7" nativesize="280" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Filler" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="activateFiller" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="fillerModeActive" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="waitingForFiller" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
@@ -701,7 +702,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="880" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="2034" nativesize="101424" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead" size="2034" nativesize="102008" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -1023,6 +1024,15 @@
         <Node name="sealFlattenersServiceRaise" type="T_BOOL" access="ReadWrite" />
         <Node name="separateBeforeSeal" type="T_BOOL" access="ReadWrite" />
         <Node name="shakerInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="stagingFunnelClosingTime" type="T_REAL" access="ReadWrite">
+          <Comment> For funnel w/o sensors only : Time required to consider funnel closed after command to close</Comment>
+        </Node>
+        <Node name="stagingFunnelOpenDelay" type="T_REAL" access="ReadWrite">
+          <Comment> Funnel Open Delay after pressure bar open</Comment>
+        </Node>
+        <Node name="stagingFunnelOpeningTime" type="T_REAL" access="ReadWrite">
+          <Comment> For funnel w/o sensors only : Time required to consider funnel open after command to open</Comment>
+        </Node>
         <Node name="stopMachine" type="T_BOOL" access="ReadWrite" />
         <Node name="triggerBarcodeReaderService" type="T_BOOL" access="ReadWrite" />
         <Node name="vacuumDwell" type="T_REAL" access="ReadWrite" />
@@ -1080,10 +1090,10 @@
         <Node name="iInfeedVFDRunning" type="T_BIT_X_0" access="Read" directaddress="%IX712.0">
           <Comment>Infeed_Conveyor_IO : </Comment>
         </Node>
-        <Node name="iLeftPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX63.3">
+        <Node name="iLeftFingerBagPresent" type="T_BIT_X_2" access="Read" directaddress="%IX68.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="iLefttFingerBagPresent" type="T_BIT_X_2" access="Read" directaddress="%IX68.2">
+        <Node name="iLeftPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX63.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iLoadPlateExtended" type="T_BIT_X_0" access="Read" directaddress="%IX65.0">
