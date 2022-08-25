@@ -414,35 +414,13 @@ CASE HMIData.auxIOConfig.factorySelection OF
 	AuxiliaryIOSelection.AuxIOStandard:					// Use aux IO
 		 												murrIOBusNode.auxIONodeEnabled := TRUE;
 		 												oAuxBaggerOK := NOT HMIData.faultActive;
-														oAuxReadyForFiller := filler.waitingForFiller;					
-															 
- 														CASE HMIData.auxIOConfig.cfgInput1Selection OF
-															AuxInputSelection.NotConfigured:		
-																// 
-																HMIData.baggerInhibited.active := FALSE;
-																										 
-															AuxInputSelection.BaggerInhibit:		
-																//
-																HMIData.baggerInhibited.active := iAuxConfigInput1;
-																
-															AuxInputSelection.FillerOK:           
-																 //
-																filler.fillerOK := iAuxConfigInput1; 
-														END_CASE
+														oAuxReadyForFiller := filler.waitingForFiller;
 														
-														CASE HMIData.auxIOConfig.cfgInput2Selection OF
-															AuxInputSelection.NotConfigured:		
-																// 
-																HMIData.baggerInhibited.active := FALSE;
-																										 
-															AuxInputSelection.BaggerInhibit:		
-																//
-																HMIData.baggerInhibited.active := iAuxConfigInput2;
-																
-															AuxInputSelection.FillerOK:           
-																 //
-																filler.fillerOK := iAuxConfigInput2; 
-														END_CASE
+														filler.fillerOK := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.FillerOK AND iAuxConfigInput1) OR
+																		   (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.FillerOK AND iAuxConfigInput2);
+
+														HMIData.baggerInhibited.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput1) OR
+																						  (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput2);	
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
 																 
