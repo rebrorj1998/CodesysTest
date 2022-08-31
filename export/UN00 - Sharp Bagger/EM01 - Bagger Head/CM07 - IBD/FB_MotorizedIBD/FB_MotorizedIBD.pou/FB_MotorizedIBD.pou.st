@@ -86,10 +86,7 @@ ELSE
 	IBDMotorCommFault.faultTrigger := FALSE;
 END_IF
 
-IF homeTimeout.Q 
-	//OR MC_HomeIBDMotor.Error 
-	OR UN00_Globals.simFaults.pressureBarfailedToHome
-THEN
+IF homeTimeout.Q THEN
 	failedToHome.Trigger();
 END_IF
 {endregion}
@@ -122,8 +119,9 @@ CASE state OF
 			
 			IF _homeNow THEN
 				_homeNow := FALSE;
-		   		_isHomed := FALSE;
-				state := eMotorizedIBDStates.Home;
+		   		IF THIS^.OptionActive THEN
+			   		state := eMotorizedIBDStates.Home;
+		    	END_IF
 			END_IF
 			
 			
