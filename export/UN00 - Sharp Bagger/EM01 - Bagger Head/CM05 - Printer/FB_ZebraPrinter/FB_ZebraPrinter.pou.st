@@ -55,16 +55,16 @@ printHeadDebounce(PT:= printHeadDebounceSetting, Q=> printHeadDebounced);
 raisePrintHeadDelay();
 
 waitingForPrinter := state = eZebraPrinterStates.WaitingForData;
-printHeadLowerFaultTimer(IN := lowerPrintHeadOutput AND NOT printHeadDownInput);
-printHeadRaiseFaultTimer(IN := NOT lowerPrintHeadOutput AND printHeadDownInput);
-
-IF printHeadLowerFaultTimer.Q AND THIS^.OptionActive THEN
-	printHeadFailToLower.Trigger();
-END_IF
-
-IF printHeadRaiseFaultTimer.Q AND THIS^.OptionActive THEN
-	printHeadFailToRaise.Trigger();
-END_IF
+// printHeadLowerFaultTimer(IN := lowerPrintHeadOutput AND NOT printHeadDownInput);
+// printHeadRaiseFaultTimer(IN := NOT lowerPrintHeadOutput AND printHeadDownInput);
+// 
+// IF printHeadLowerFaultTimer.Q AND THIS^.OptionActive THEN
+// 	printHeadFailToLower.Trigger();
+// END_IF
+// 
+// IF printHeadRaiseFaultTimer.Q AND THIS^.OptionActive THEN
+// 	printHeadFailToRaise.Trigger();
+// END_IF
 
 IF NOT serviceRequiredInput AND eStopOK AND THIS^.OptionActive THEN
 	serviceRequired.Trigger();
@@ -89,109 +89,95 @@ IF NOT THIS^.OptionEnabled THEN
 	lowerPrintHeadOutput := FALSE;
 END_IF
 
-
-
-
 //State machine for the printer
 CASE state OF
-    eZebraPrinterStates.Idle :                            //Go to waiting for data if printer is ready
-                                                    ribbonUnwindRunOutput := FALSE;
-													startPrintOutput := FALSE;
-													printHeadDebounce.IN := FALSE;
-													printHeadDebounced := FALSE;
-													raisePrintHeadDelay.IN := FALSE;
-													printerRibbonMovingTimer1.IN := FALSE;
-													printerRibbonMovingTimer2.IN := FALSE;
-													_printing := FALSE;
-													_stopPrinting := FALSE;
-													IF _beginPrinting AND THIS^.OptionEnabled THEN
-														_printDone := FALSE;
-														IF NOT dataReadyInput THEN
-															state := eZebraPrinterStates.WaitingForData;
-														ELSE
-															state := eZebraPrinterStates.DataReady;
-														END_IF
-													END_IF
-													
-                                                    IF serviceRaisePrintHead THEN
-														lowerPrintHeadOutput := FALSE;
-													ELSIF serviceLowerPrintHead THEN
-														lowerPrintHeadOutput := TRUE;
-													END_IF
+    eZebraPrinterStates.Idle :                            
+		// Go to waiting for data if printer is ready
+        ribbonUnwindRunOutput := FALSE;
+		startPrintOutput := FALSE;
+		printHeadDebounce.IN := FALSE;
+		printHeadDebounced := FALSE;
+		raisePrintHeadDelay.IN := FALSE;
+		printerRibbonMovingTimer1.IN := FALSE;
+		printerRibbonMovingTimer2.IN := FALSE;
+		_printing := FALSE;
+		_stopPrinting := FALSE;
+		IF _beginPrinting AND THIS^.OptionEnabled THEN
+			_printDone := FALSE;
+			IF NOT dataReadyInput THEN
+				state := eZebraPrinterStates.WaitingForData;
+			ELSE
+				state := eZebraPrinterStates.DataReady;
+			END_IF
+		END_IF
+		
+        IF serviceRaisePrintHead THEN
+			lowerPrintHeadOutput := FALSE;
+		ELSIF serviceLowerPrintHead THEN
+			lowerPrintHeadOutput := TRUE;
+		END_IF
                                         
-    
-    eZebraPrinterStates.WaitingForData :                    //If printerDataReady drops out the label data was received
-                                                    
-                                                    IF dataReadyInput OR dryCycleEnable THEN
-                                                        state := eZebraPrinterStates.DataReady;    
-                                                    END_IF
-													IF cancelPrint THEN
-														state := eZebraPrinterStates.Idle;  
-													END_IF
+    eZebraPrinterStates.WaitingForData:            
+		// If printerDataReady drops out the label data was received
+        IF dataReadyInput OR dryCycleEnable THEN
+            state := eZebraPrinterStates.DataReady;    
+        END_IF
+		IF cancelPrint THEN
+			state := eZebraPrinterStates.Idle;  
+		END_IF
                                                 
-    eZebraPrinterStates.DataReady :                        // Wait for command to begin printing
-                                                    IF (NOT dataReadyInput AND NOT dryCycleEnable) OR cancelPrint THEN
-														state := eZebraPrinterStates.Idle;
-													END_IF
-													IF _beginPrinting THEN
-                                                        state := eZebraPrinterStates.BeginPrintCycle;
-                                                        _beginPrinting := FALSE;
-														_printing := TRUE;
-														printHeadDebounce.IN := TRUE;
-                                                        lowerPrintHeadOutput := TRUE AND NOT dryCycleEnable;
-                                                        ribbonUnwindRunOutput := TRUE AND NOT dryCycleEnable;
-														//oPrinterStartPrint := TRUE;
-                                                    END_IF                                    
+    eZebraPrinterStates.DataReady:                        
+		// Wait for command to begin printing
+         IF (NOT dataReadyInput AND NOT dryCycleEnable) OR cancelPrint THEN
+			state := eZebraPrinterStates.Idle;
+		END_IF
+		IF _beginPrinting THEN
+			 _printing := TRUE;
+             _beginPrinting := FALSE;
+			 printHeadDebounce.IN := TRUE;
+             lowerPrintHeadOutput :=  NOT dryCycleEnable;
+             ribbonUnwindRunOutput := NOT dryCycleEnable;
+			 state := eZebraPrinterStates.BeginPrintCycle;
+         END_IF                                    
             
-    
-    eZebraPrinterStates.BeginPrintCycle :                // Start printing
-                                                    
-                                                    
-                                                    IF printHeadDebounced THEN
-                                                        startPrintOutput := TRUE AND NOT dryCycleEnable;
-                                                        state := eZebraPrinterStates.Printing;
-                                                        printHeadDebounce.IN := FALSE;
-                                                    END_IF                                                    
-                                              
-                                                                                                
+    eZebraPrinterStates.BeginPrintCycle:           
+		// Start printing
+        IF printHeadDebounced THEN
+            startPrintOutput := NOT dryCycleEnable;
+            state := eZebraPrinterStates.Printing;
+            printHeadDebounce.IN := FALSE;
+        END_IF                                                    
+                                                              
+    eZebraPrinterStates.Printing:                        
+		// While printing, wait for End of Print signal
+		printerRibbonMovingTimer1.IN := ribbonEncoderPulseInput;
+		printerRibbonMovingTimer2.IN := NOT ribbonEncoderPulseInput;
+        IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable OR _stopPrinting THEN
+            startPrintOutput := FALSE;
+			_stopPrinting := FALSE;
+			ribbonUnwindRunOutput := FALSE;
+			IF printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN
+				ribbonFault.Trigger();
+			END_IF
+			printerRibbonMovingTimer1.IN := FALSE;
+			printerRibbonMovingTimer2.IN := FALSE;
+			raisePrintHeadDelay.IN := TRUE;
+            state := eZebraPrinterStates.DonePrinting;    
+        END_IF
                                         
-    eZebraPrinterStates.Printing :                        //While printing, wait for End of Print signal
-													printerRibbonMovingTimer1.IN := ribbonEncoderPulseInput;
-													printerRibbonMovingTimer2.IN := NOT ribbonEncoderPulseInput;
-                                                    IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable OR _stopPrinting THEN
-                                                        startPrintOutput := FALSE;
-														_stopPrinting := FALSE;
-                                                        //lowerPrintHeadOutput := FALSE;
-														ribbonUnwindRunOutput := FALSE;
-														IF printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN
-															ribbonFault.Trigger();
-														END_IF
-														printerRibbonMovingTimer1.IN := FALSE;
-														printerRibbonMovingTimer2.IN := FALSE;
-														 
-                                                        //oRunPrinterRibbonUnwindMotor := FALSE;
-														raisePrintHeadDelay.IN := TRUE;
-                                                        state := eZebraPrinterStates.DonePrinting;    
-                                                    END_IF
+    eZebraPrinterStates.DonePrinting:              
+		// Done printing, feed a little more through
+		IF raisePrintHeadDelay.Q THEN
+			raisePrintHeadDelay.IN := FALSE;
+			lowerPrintHeadOutput := FALSE;
+			_printing := FALSE;
+			_printDone := TRUE;
+			state := eZebraPrinterStates.Idle;
+		END_IF                       
                                         
-    eZebraPrinterStates.DonePrinting :              //Done printing, feed a little more through
-													IF raisePrintHeadDelay.Q THEN
-														raisePrintHeadDelay.IN := FALSE;
-														lowerPrintHeadOutput := FALSE;
-														_printing := FALSE;
-														_printDone := TRUE;
-														state := eZebraPrinterStates.Idle;
-													END_IF
-                                                    
-													
-                                                    
-        
-    eZebraPrinterStates.FeedThrough :                        
-                                        
-    eZebraPrinterStates.Ready :                        
-                                        
-    eZebraPrinterStates.Fault :              		// Clear status on fault
-													_printing := FALSE;
+    eZebraPrinterStates.Fault:              		
+		// Clear status on fault
+		_printing := FALSE;
 													          
                                         
 END_CASE

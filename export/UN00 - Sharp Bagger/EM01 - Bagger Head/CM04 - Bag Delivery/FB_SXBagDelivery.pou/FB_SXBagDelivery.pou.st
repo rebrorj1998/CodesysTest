@@ -32,6 +32,7 @@ VAR
 	_bagFeedDone : BOOL;
 	_bagSeparated : BOOL;
 	_readyForPrint : BOOL;
+	_printerExtraFeedLength : REAL := 0.25;
 	state : INT;
 	nextState : INT;
 	moveBagDeliveryTimeout : Standard.TON;
@@ -81,6 +82,7 @@ IF trapezoidalPercent <= 0 THEN
 END_IF
 
 CASE state OF
+	
 	0:		
 			MC_ResetBagDelivery.Execute := FALSE;
 			// Idle
@@ -108,18 +110,6 @@ CASE state OF
 				_feedAtPrintSpeed := FALSE;
 				ClearStatus();
 			END_IF
-			
-	1:		// Homing
-			
-	2:		// 
-			
-	4: 		// 
-	
-	5:		// 
-	
-	6:		// 
-	
-	7:		//
 
 	10:		// Feed bag out
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
@@ -152,7 +142,6 @@ CASE state OF
 				moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag to Print Offset'));
-				
 				state := 101;
 				nextState := 21;	
 			END_IF
@@ -171,7 +160,6 @@ CASE state OF
 				moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feed to Photoeye'));
-				//bagEdgePhotoeyeSim.in := TRUE;
 				state := 51;
 			ELSE
 				state := 30;
@@ -265,12 +253,12 @@ CASE state OF
 	40:		// Feed at Print Speed
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := printSpeed;
-			MC_MoveBagDelivery.Distance := printLength;
+			MC_MoveBagDelivery.Distance := printLength + _printerExtraFeedLength;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 1000);
 			moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding At Print Speed'));
-			remainingLength := remainingLength - printLength;
+			remainingLength := remainingLength - printLength - _printerExtraFeedLength;
 			_feedBagOut := FALSE;
 			printingNow := TRUE;
 			state := 101;
