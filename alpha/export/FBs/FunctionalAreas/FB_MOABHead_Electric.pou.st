@@ -1236,11 +1236,11 @@ CASE state OF
 													OR (filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR)
 													OR (autoModeKeepCyclingTimer.Q)
 													OR footSwitchONS.OSR AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller))
+													AND (NOT HMIData.sealBarNotAtTemperature.active OR HMIData.enableDryCycle)
 													AND NOT barcodeVerificationFailed.active
 													AND NOT HMIData.faultActive 
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
-													AND NOT HMIData.sealBarNotAtTemperature.active
 													AND NOT HMIData.batchCountDone.active
 													AND NOT setPassthroughPB
 													AND NOT printAndApply.clearOutBaggerIndicaiton
