@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_Filler EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
+	inCycle : BOOL;
 	fillerTrigger : BOOL;
 	activateFiller : BOOL;
 	fillerOK : BOOL;
@@ -30,6 +31,8 @@ END_VAR
 //    Created by: Ben Hess
 //    Created Date: October 16th, 2019
 
+SUPER^();
+
 dropTimer(PT := TO_TIME(dropTime * 1000));
 IF resetONS.Q OR HMIData.faultActive OR NOT enable OR NOT activateFiller THEN
 	state := FILLER_STATES.Idle;
@@ -42,18 +45,13 @@ IF resetONS.Q OR HMIData.faultActive OR NOT enable OR NOT activateFiller THEN
 	dropTimer.IN := FALSE;
 END_IF
 
-//Disable filler not ready for now
-// IF NOT fillerOK AND enable AND activateFiller THEN
-// 	notReady.Trigger();
-// END_IF
-
 fillerTrigONS(CLK := fillerTrigger);
 IF fillerTrigONS.OSR THEN
 	fillerRequestedCycle := TRUE;
 END_IF
 
 CASE state OF
-	FILLER_STATES.Idle :							IF (activateFiller AND enable) AND NOT HMIData.faultActive THEN
+	FILLER_STATES.Idle :							IF (activateFiller AND enable) AND NOT inCycle AND NOT HMIData.faultActive THEN
 														state := FILLER_STATES.CycleBaggerToActiveFiller;
 													END_IF
 	
@@ -61,6 +59,7 @@ CASE state OF
 													cycleBaggerToActivateFiller.active := TRUE;
 													IF _baggerCycledAndReady THEN
 														cycleBaggerToActivateFiller.active := FALSE;
+														_baggerCycleInitiated := FALSE;
 														_baggerCycledAndReady := FALSE;
 														fillerRequestedCycle := FALSE;
 														state := FILLER_STATES.WaitingForFiller;
@@ -72,7 +71,6 @@ CASE state OF
 														waitingForFiller := FALSE;
 														fillerRequestedCycle := FALSE;
 														state := FILLER_STATES.Dropping;
-														_baggerCycledAndReady := FALSE;	
 													END_IF
 													
 	FILLER_STATES.Dropping :						// Filler is dropping product
@@ -95,8 +93,4 @@ CASE state OF
 														_baggerCycledAndReady := FALSE;
 														state := FILLER_STATES.WaitingForFiller;
 													END_IF
-	
-	FILLER_STATES.Fault :
-	
 END_CASE
-SUPER^();

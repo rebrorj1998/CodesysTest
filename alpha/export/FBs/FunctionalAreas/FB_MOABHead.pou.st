@@ -596,6 +596,7 @@ fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= , 
+	inCycle := HMIData.inCycle,
 	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine), 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
@@ -929,7 +930,7 @@ THEN
 	HMIData.batchReset := FALSE;
 END_IF
 HMIData.batchCountDone.active := (HMIData.batchCount >= HMIData.batchSetting) AND HMIData.batchEnable;
-IF HMIData.batchCountDone.active OR NOT HMIData.autoEnable THEN
+IF HMIData.batchCountDone.active OR NOT HMIData.autoEnable OR HMIData.fillerEnable THEN
 	autoModeKeepCycling := FALSE;
 END_IF
 
