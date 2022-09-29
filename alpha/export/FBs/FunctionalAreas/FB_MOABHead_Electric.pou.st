@@ -1286,7 +1286,7 @@ CASE state OF
 														LPA.Reset();
 													END_IF
 													
-													IF HMIData.sealBarNotAtTemperature.active THEN
+													IF HMIData.sealBarNotAtTemperature.active AND NOT HMIData.enableDryCycle THEN
 														factoryTestModeKeepCycling := FALSE;
 														autoModeKeepCycling := FALSE;
 													END_IF

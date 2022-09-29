@@ -289,8 +289,8 @@ CASE state OF
 					state := BAG_DELIVERY_STATES.ReverseDone;
 				END_IF
 			END_IF
-		ELSIF CommandAcknowledged AND NOT iBagNotPresent THEN
-			_delayForReverseFault.PT := T#3S;
+		ELSIF NOT iBagNotPresent THEN
+			_delayForReverseFault.PT := T#1S;
 			_delayForReverseFault.IN := TRUE;
 			IF _delayForReverseFault.Q THEN
 				reverseFault.Trigger();

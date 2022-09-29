@@ -18,6 +18,7 @@ VAR
 	_delayTimer : TON := (PT := T#10MS);
 	_state : BAG_DELIVERY_MOVE_STATES;
 	_resetState : BAG_DELIVERY_RESET_STATES;
+	_torqueMode : BOOL;
 	_tensionFaultDwellTimer : TON := (PT := T#1S);
 END_VAR
 VAR CONSTANT

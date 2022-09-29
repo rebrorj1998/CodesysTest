@@ -13,7 +13,7 @@ SUPER^.Execute();
 _delayTimer();
 
 // If motor velocity is greater then threshold for 2 seconds, fault
-_tensionFaultDwellTimer(IN := ABS(velocity) > VELOCITY_THRESHOLD_FOR_TENSION_FAULT);
+_tensionFaultDwellTimer(IN := _torqueMode AND (ABS(velocity) > VELOCITY_THRESHOLD_FOR_TENSION_FAULT));
 IF _tensionFaultDwellTimer.Q AND NOT HMIData.enableDryCycle THEN
 	tensionFault := TRUE;
 END_IF

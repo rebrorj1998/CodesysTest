@@ -132,7 +132,7 @@ IF thermRunawayOSFaultTimer.Q THEN
 	thermRunawayOSFaultTimer.IN := FALSE;
 END_IF
 
-IF _currentTemp < (temperatureSetpoint - 10) OR _currentTemp > (temperatureSetpoint + 10) AND NOT HMIData.enableDryCycle THEN
+IF (_currentTemp < (temperatureSetpoint - 10) OR _currentTemp > (temperatureSetpoint + 10)) AND NOT HMIData.enableDryCycle THEN
 	HMIData.sealBarNotAtTemperature.active := TRUE;
 	tempOK := FALSE;
 ELSE
