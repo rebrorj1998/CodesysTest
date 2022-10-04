@@ -61,9 +61,10 @@ VAR
 	_interconnect : BAG_DELIVERY_IC;
 	_jogging : BOOL;
 	_joggingONS : Standard.F_TRIG;
+	_joggingCompleteDebounceONS : Standard.R_TRIG;
+	_joggingCompleteDebounceTimer : Standard.TON := (PT := T#100MS);
 	_syncingONS : Standard.F_TRIG; 
-END_VAR
-(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
 //    Description: This is the state machine for the bag delivery test rig
 //    
@@ -117,6 +118,7 @@ _bagFeedRearMotor(
 );
 _bagFeedRearMotor.Execute();
 
+//
 CASE rearMotorConfigVersion OF
 	CONFIG_VERSIONS.V_1_0,
 	CONFIG_VERSIONS.V_1_1:
@@ -129,6 +131,8 @@ CASE rearMotorConfigVersion OF
 		_tensionFault := _bagFeedRearMotor.tensionFault;
 		_bagFeedRearMotor.reversePolarity := TRUE;
 END_CASE
+
+//
 bagTensionFault.faultTrigger := _tensionFault AND NOT HMIData.enableDryCycle;
 
 //
@@ -167,6 +171,16 @@ IF _joggingONS.Q OR _syncingONS.Q THEN
 	_bagFeedFrontMotor.ack := FALSE;
 	_bagFeedRearMotor.ack := FALSE;
 END_IF
+
+// Debounce stopping in order to not to mitigate synchronous commands
+ _joggingCompleteDebounceTimer(IN := NOT _jogging);
+ _joggingCompleteDebounceONS(CLK := _joggingCompleteDebounceTimer.Q);
+ IF _joggingCompleteDebounceONS.Q THEN
+ 	_bagFeedFrontMotor.Stop();
+ 	IF _bagFeedRearMotor.EIP THEN
+ 		_bagFeedRearMotor.Stop();
+ 	END_IF
+ END_IF
 
 //
 _ready := (_mode = DEVICE_MODES.Auto) AND (NOT (state = BAG_DELIVERY_STATES.Fault) OR NOT (state = BAG_DELIVERY_STATES.Idle));
@@ -289,8 +303,8 @@ CASE state OF
 					state := BAG_DELIVERY_STATES.ReverseDone;
 				END_IF
 			END_IF
-		ELSIF CommandAcknowledged AND NOT iBagNotPresent THEN
-			_delayForReverseFault.PT := T#3S;
+		ELSIF NOT iBagNotPresent THEN
+			_delayForReverseFault.PT := T#1S;
 			_delayForReverseFault.IN := TRUE;
 			IF _delayForReverseFault.Q THEN
 				reverseFault.Trigger();
