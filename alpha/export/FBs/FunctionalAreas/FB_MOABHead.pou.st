@@ -740,8 +740,9 @@ bagOpenFingers(enable := HMIData.bofSelection <> BagOpenFingersSelection.NotInst
 
 // Setup and run adjustable passthrough
 //refIECObject := Pbar_ServoEIP;
-pressureBarEndStopMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
-                ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
+pressureBarEndStopMotor(
+	ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
+    ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SHOW_MOTOR,
 				reversePolarity := TRUE,
 				defaultCurrentSetpoint := 650,
@@ -780,7 +781,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	enable := TRUE;
 	
 	bagDropTimer.IN := FALSE;
-	
+
 	motorizedSealFlattenersMode := DEVICE_MODES.Auto;
 	motorizedSealFlatteners.Reset();
 	IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND motorizedSealFlatteners.enable THEN
@@ -802,8 +803,8 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	bagDeliveryMode := DEVICE_MODES.Auto;
 	bagDelivery.Reset();
 	bagDelivery.enable := TRUE;
+	
 	IF iPowerOffButtonONS.OSR THEN
-		bagDelivery.AutoFeedToEye();
 		IF NOT passthrough.homeRequired THEN
 			IF NOT iPressureBarExtended THEN
 				pressureBar.AutoOpenJaw();
@@ -820,11 +821,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	printerMode := DEVICE_MODES.Auto;
 	zebraPrinter.Reset();
 
-	IF iPowerOffButtonONS.OSR AND NOT bagDelivery.bagTensionFault.active THEN
-		IF (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) THEN
-			bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
-		END_IF 
-	END_IF  
 	passthrough.Reset();
 	pressureBarEndStopMotor.Reset();
 	passthroughMode := DEVICE_MODES.Auto;
@@ -874,7 +870,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	finishCycleSubState := FINISH_CYCLE_STATES.Idle;
 	motorizedSealFlatteners.Reset();
 	pressureBar.Reset();
-	bagDelivery.Reset();
+	bagDelivery.AutoFeedToEye();
 	zebraPrinter.Reset();
 
 	bagDropTimer.IN := FALSE;
@@ -911,12 +907,6 @@ IF HMIData.factoryTestMode THEN
 	HMIData.factoryTestModeActive.active := TRUE;
 ELSE
 	HMIData.factoryTestModeActive.active := FALSE;
-END_IF
-
-// Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
-IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable

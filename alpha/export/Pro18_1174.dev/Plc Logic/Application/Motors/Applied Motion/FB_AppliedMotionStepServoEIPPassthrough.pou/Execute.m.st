@@ -62,13 +62,13 @@ CASE homingState OF
 	JAW_HOMING_STATES.HomeComplete:				MoveToPosition(2, 1000,1000,2583);
 												homingState := JAW_HOMING_STATES.MovingToTwoInches;
 
-	JAW_HOMING_STATES.MovingToTwoInches : 		timerHomeDelay.PT := T#200MS;
+	JAW_HOMING_STATES.MovingToTwoInches: 		timerHomeDelay.PT := T#200MS;
 												timerHomeDelay.IN := TRUE;
 												IF timerHomeDelay.Q THEN
 													IF (NOT Moving AND InPosition) THEN
 														homingState := JAW_HOMING_STATES.SetLimits;
 														timerHomeDelay.IN := FALSE;
-                                                       END_IF
+                                                    END_IF
 												END_IF 
 												
 	JAW_HOMING_STATES.SetLimits :				commandSuccessful := FALSE;

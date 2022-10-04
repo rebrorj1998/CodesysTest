@@ -23,36 +23,33 @@ METHOD Execute
 //
 //	Created by: Ben Hess
 //	Created Date: Tuesday, May 22, 2018
+//
 
-
-{warning 'TODO: Add reference to device faulted indicaiton?'}
-ackCommandOSR(CLK := _ackCommand);
-faultTriggerONS(CLK := faultTrigger);
-activeONS(CLK := _active);
-
-IF faultTriggerONS.OSR THEN
+//
+_faultTriggerONS(CLK := faultTrigger);
+IF _faultTriggerONS.OSR THEN
 	Trigger();
 END_IF
 
-IF ackCommandOSR.Q THEN
-	_acked := TRUE;
-	_ackCommand := FALSE;
+//
+_ackCommandONS(CLK := ackCommand);
+IF _ackCommandONS.OSR THEN
+	Ack();
 END_IF
 
+//
 IF _acked AND NOT faultTrigger THEN
 	_active := FALSE;
 	_acked := FALSE;
 END_IF
 
-IF activeONS.OSF THEN
+// When no longer active, remove collection of active faults
+_activeONS(CLK := _active);
+IF _activeONS.OSF THEN
 	GlobalObjects.CollectionOfActiveFaults.RemoveObject(THIS^);
 	_logger.AddLogItem(CONCAT(InstanceName, ' Cleared'));
 END_IF
 
-// The following is for external communication to HMI etc.
-IF ackCommand THEN
-	Ack();
-	ackCommand := FALSE;
-END_IF
+// Outputs
 active := _active;
 acknowledged := _acked;

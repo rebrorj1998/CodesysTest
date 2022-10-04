@@ -1189,12 +1189,6 @@ IF HMIData.enableDryCycle THEN
     zebraPrinter.enable := FALSE;
 END_IF
 
-// Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
-IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
-END_IF
-
 // Clear batch count on batch enable
 batchEnableONS(CLK := HMIData.batchEnable);
 IF (batchEnableONS.OSR)

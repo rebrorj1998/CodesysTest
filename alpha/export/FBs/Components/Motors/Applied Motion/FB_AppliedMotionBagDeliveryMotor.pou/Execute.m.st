@@ -19,8 +19,8 @@ IF _tensionFaultDwellTimer.Q AND NOT HMIData.enableDryCycle THEN
 END_IF
 
 // Clear Params
-IF _restoreToDefault THEN
-	_restoreToDefault := FALSE;
+IF _bagDeliveryReset THEN
+	_bagDeliveryReset := FALSE;
 	_state := BAG_DELIVERY_MOVE_STATES.Idle;
 	commandSuccessful := FALSE;
 	tensionFault := FALSE;

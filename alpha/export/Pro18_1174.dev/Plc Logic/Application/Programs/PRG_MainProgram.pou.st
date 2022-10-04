@@ -101,14 +101,10 @@ IF firstScanDone THEN
 	Globals.SystemLog();
 END_IF
 
-
-
-
 IF HMIData.ackAllFaults THEN
 	GlobalObjects.CollectionOfActiveFaults.AckAll();
 	HMIData.ackAllFaults := FALSE;
 END_IF
-
 
 //First scan flag is set by task handler and reset in main routine here
 IF Globals.firstScan THEN

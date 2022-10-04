@@ -1,8 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 METHOD Ack(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-IF _ackCommand OR _acked THEN
-	RETURN;
+IF NOT _acked THEN
+	_acked := TRUE;
+	_logger.AddLogItem(CONCAT(InstanceName, ' Acked'));
 END_IF
-_acked := TRUE;
-// Log the ACK.
-_logger.AddLogItem(CONCAT(InstanceName, ' Acked'));
