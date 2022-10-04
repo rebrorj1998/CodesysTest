@@ -621,49 +621,18 @@ CASE HMIData.auxIOConfig.factorySelection OF
 		 												oAuxBaggerOK := NOT HMIData.faultActive;
 														oAuxReadyForFiller := filler.waitingForFiller;
 															 
- 														CASE HMIData.auxIOConfig.cfgInput1Selection OF
-																										 
-															AuxInputSelection.NotConfigured:		
-																// 
-																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																HMIData.packageBlockingTrunkline.active := FALSE;
-																										 
-															AuxInputSelection.BaggerInhibit:		
-																//
-																HMIData.baggerInhibited.active := iAuxConfigInput1 OR printAndApply.inhibitCycle;
-    															HMIData.packageBlockingTrunkline.active := FALSE;
-																										 
-															AuxInputSelection.CollisionDetection:   
-																//
-																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
-																										 
-															AuxInputSelection.FillerOK:				
-																//
-																filler.fillerOK := iAuxConfigInput1; 
-														END_CASE
-															 
-														CASE HMIData.auxIOConfig.cfgInput2Selection OF
-																										 
-															AuxInputSelection.NotConfigured:		
-																// 
-																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																HMIData.packageBlockingTrunkline.active := FALSE;
-																										 
-															AuxInputSelection.BaggerInhibit:		
-																//
-																HMIData.baggerInhibited.active := iAuxConfigInput1 OR printAndApply.inhibitCycle;
-    															HMIData.packageBlockingTrunkline.active := FALSE;
-																										 
-															AuxInputSelection.CollisionDetection:   
-																//
-																HMIData.baggerInhibited.active := printAndApply.inhibitCycle;
-																HMIData.packageBlockingTrunkline.active := collisionDetection.packageHeldByCollisionDetection;
-															
-															AuxInputSelection.FillerOK:           
-																 //
-																filler.fillerOK := iAuxConfigInput2; 
-														END_CASE
+                                                        // Active if either input is set to 'FillerOK' and the corresponding input is active.
+                                                        filler.fillerOK := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.FillerOK AND iAuxConfigInput1) OR
+                                                                           (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.FillerOK AND iAuxConfigInput2);
+                                                        
+                                                        // Active is ether input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
+                                                        HMIData.baggerInhibited.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput1) OR
+                                                                                          (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput2) OR
+                                                                                           printAndApply.inhibitCycle;
+                                                        
+                                                        {warning :'Should not be an AUXIO selection anymore'}        
+                                                        HMIData.packageBlockingTrunkline.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection) OR
+                                                                                                   (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection) OR 														
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
 																 
