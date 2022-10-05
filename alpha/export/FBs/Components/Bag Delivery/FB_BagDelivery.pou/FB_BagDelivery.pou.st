@@ -36,8 +36,8 @@ END_VAR
 VAR
 	 _nextState : BAG_DELIVERY_STATES;
     _delayTimer : TON := (PT := T#100MS);    // Delay for testing
-	_jogForwardONS: FB_ONS;
-	_jogReverseONS: FB_ONS;
+	_jogForwardONS: Standard.R_TRIG;
+	_jogReverseONS: Standard.R_TRIG;
 	_delayForReverseFault : Standard.TON;
 	_autoFeedDelay : TON := (PT := T#200MS);
 	_sealBarToPrintHeadLength : REAL;
@@ -60,9 +60,8 @@ VAR
 	_tensionFault : BOOL;
 	_interconnect : BAG_DELIVERY_IC;
 	_jogging : BOOL;
+	_joggingDebounceTimer : Standard.TOF := (PT := T#250MS);
 	_joggingONS : Standard.F_TRIG;
-	_joggingCompleteDebounceONS : Standard.R_TRIG;
-	_joggingCompleteDebounceTimer : Standard.TON := (PT := T#100MS);
 	_syncingONS : Standard.F_TRIG; 
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -156,65 +155,64 @@ IF NOT enable THEN
 END_IF
 
 //
+_syncingONS(CLK := state = BAG_DELIVERY_STATES.Sync);
+IF _syncingONS.Q THEN
+	_bagFeedFrontMotor.ack := FALSE;
+	_bagFeedRearMotor.ack := FALSE;
+END_IF
+
+//
 _jogForwardONS(CLK := jogForwardPB);
 _jogReverseONS(CLK := jogReversePB);
+ 
+//
+IF state = BAG_DELIVERY_STATES.Idle OR state = BAG_DELIVERY_STATES.Ready THEN
+	IF _jogForwardONS.Q THEN
+		_jogging := TRUE;
+		_bagFeedFrontMotor.MoveDistance(
+			distance := 30, 
+			acceleration := accelSetpoint, 
+			deceleration := decelSetpoint, 
+			velocity := REAL_TO_INT((1 * velocityMultiplier))
+		);
+		_bagFeedRearMotor.MoveDistance(
+			distance := 30, 
+			acceleration := accelSetpoint, 
+			deceleration := decelSetpoint, 
+			velocity := REAL_TO_INT((1 * velocityMultiplier))
+		);										
+	ELSIF _jogReverseONS.Q THEN
+		_jogging := TRUE;
+		_bagFeedFrontMotor.MoveDistance(
+			distance := -30, 
+			acceleration := accelSetpoint, 
+			deceleration := decelSetpoint, 
+			velocity := REAL_TO_INT((1 * velocityMultiplier))
+		);
+		_bagFeedRearMotor.MoveDistance(
+			distance := -30, 
+			acceleration := accelSetpoint, 
+			deceleration := decelSetpoint, 
+			velocity := REAL_TO_INT((1 * velocityMultiplier))
+		);
+	END_IF
+	
+	//
+	IF (_bagFeedFrontMotor.status.moving OR _bagFeedRearMotor.status.moving) AND NOT jogForwardPB AND NOT jogReversePB THEN
+		_jogging := FALSE;
+		_bagFeedFrontMotor.Stop();
+		_bagFeedRearMotor.Stop();
+		_bagFeedFrontMotor.Reset();
+		_bagFeedRearMotor.Reset();
+	END_IF	
+END_IF
+
+//
 IF _jogging THEN
 	IF _bagFeedFrontMotor.ackRequest AND _bagFeedRearMotor.ackRequest THEN
 		_bagFeedFrontMotor.ack := TRUE;
 		_bagFeedRearMotor.ack := TRUE;
 	END_IF
-END_IF
-
-//
-_joggingONS(CLK := _jogging);
-_syncingONS(CLK := state = BAG_DELIVERY_STATES.Sync);
-IF _joggingONS.Q OR _syncingONS.Q THEN
-	_bagFeedFrontMotor.ack := FALSE;
-	_bagFeedRearMotor.ack := FALSE;
-END_IF
-
-// Debounce stopping in order to not to mitigate synchronous commands
- _joggingCompleteDebounceTimer(IN := NOT _jogging);
- _joggingCompleteDebounceONS(CLK := _joggingCompleteDebounceTimer.Q);
- IF _joggingCompleteDebounceONS.Q THEN
- 	_bagFeedFrontMotor.Stop();
- 	IF _bagFeedRearMotor.EIP THEN
- 		_bagFeedRearMotor.Stop();
- 	END_IF
- END_IF
- 
-IF _jogForwardONS.OSR THEN
-	_jogging := TRUE;
-	_bagFeedFrontMotor.MoveDistance(
-		distance := 30, 
-        acceleration := accelSetpoint, 
-        deceleration := decelSetpoint, 
-        velocity := REAL_TO_INT((1 * velocityMultiplier))
-	);
-	_bagFeedRearMotor.MoveDistance(
-		distance := 30, 
-        acceleration := accelSetpoint, 
-        deceleration := decelSetpoint, 
-        velocity := REAL_TO_INT((1 * velocityMultiplier))
-	);										
-ELSIF _jogReverseONS.OSR THEN
-	_jogging := TRUE;
-	_bagFeedFrontMotor.MoveDistance(
-		distance := -30, 
-        acceleration := accelSetpoint, 
-        deceleration := decelSetpoint, 
-        velocity := REAL_TO_INT((1 * velocityMultiplier))
-	);
-	_bagFeedRearMotor.MoveDistance(
-		distance := -30, 
-        acceleration := accelSetpoint, 
-        deceleration := decelSetpoint, 
-        velocity := REAL_TO_INT((1 * velocityMultiplier))
-	);
-END_IF
-
-IF _jogForwardONS.OSF OR _jogReverseONS.OSF THEN
-	_jogging := FALSE;
 END_IF
 
 //
@@ -233,7 +231,6 @@ CASE state OF
 			state := BAG_DELIVERY_STATES.FeedToEye;
 			_amFeedToEye := FALSE;
 		END_IF
-		Jog();
     
 	BAG_DELIVERY_STATES.FeedToEye:					
 		
@@ -560,12 +557,9 @@ CASE state OF
 		END_IF
 		IF iBagNotPresent AND NOT HMIData.enableDryCycle THEN 
 			state := BAG_DELIVERY_STATES.Idle;
-		END_IF
-		Jog();
-    
+    	END_IF
     BAG_DELIVERY_STATES.Fault:                        
 		ClearCommands();
-		Jog();
     
     BAG_DELIVERY_STATES.Manual:                     
 		IF _mode = DEVICE_MODES.Auto THEN
