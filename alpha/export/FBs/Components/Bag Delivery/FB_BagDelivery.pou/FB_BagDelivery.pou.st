@@ -75,6 +75,20 @@ END_VAR
 SUPER^();
 
 //
+IF enableONS.Q OR resetONS.Q THEN
+    _reset := FALSE;
+	_bagFeedRearMotor.Reset();
+	_bagFeedFrontMotor.Reset();
+	_nextState := BAG_DELIVERY_STATES.Idle; 
+	IF _mode = DEVICE_MODES.Manual THEN 
+        state := BAG_DELIVERY_STATES.Manual;
+    ELSE
+        state := BAG_DELIVERY_STATES.Idle;
+    END_IF
+	ClearCommands();
+END_IF
+
+//
 _delayTimer();
 
 //
@@ -142,20 +156,6 @@ IF NOT enable THEN
 END_IF
 
 //
-IF enableONS.Q OR resetONS.Q THEN
-    _reset := FALSE;
-	_bagFeedRearMotor.Reset();
-	_bagFeedFrontMotor.Reset();
-	_nextState := BAG_DELIVERY_STATES.Idle; 
-	IF _mode = DEVICE_MODES.Manual THEN 
-        state := BAG_DELIVERY_STATES.Manual;
-    ELSE
-        state := BAG_DELIVERY_STATES.Idle;
-    END_IF
-	ClearCommands();
-END_IF
-
-//
 _jogForwardONS(CLK := jogForwardPB);
 _jogReverseONS(CLK := jogReversePB);
 IF _jogging THEN
@@ -182,6 +182,40 @@ END_IF
  		_bagFeedRearMotor.Stop();
  	END_IF
  END_IF
+ 
+IF _jogForwardONS.OSR THEN
+	_jogging := TRUE;
+	_bagFeedFrontMotor.MoveDistance(
+		distance := 30, 
+        acceleration := accelSetpoint, 
+        deceleration := decelSetpoint, 
+        velocity := REAL_TO_INT((1 * velocityMultiplier))
+	);
+	_bagFeedRearMotor.MoveDistance(
+		distance := 30, 
+        acceleration := accelSetpoint, 
+        deceleration := decelSetpoint, 
+        velocity := REAL_TO_INT((1 * velocityMultiplier))
+	);										
+ELSIF _jogReverseONS.OSR THEN
+	_jogging := TRUE;
+	_bagFeedFrontMotor.MoveDistance(
+		distance := -30, 
+        acceleration := accelSetpoint, 
+        deceleration := decelSetpoint, 
+        velocity := REAL_TO_INT((1 * velocityMultiplier))
+	);
+	_bagFeedRearMotor.MoveDistance(
+		distance := -30, 
+        acceleration := accelSetpoint, 
+        deceleration := decelSetpoint, 
+        velocity := REAL_TO_INT((1 * velocityMultiplier))
+	);
+END_IF
+
+IF _jogForwardONS.OSF OR _jogReverseONS.OSF THEN
+	_jogging := FALSE;
+END_IF
 
 //
 _ready := (_mode = DEVICE_MODES.Auto) AND (NOT (state = BAG_DELIVERY_STATES.Fault) OR NOT (state = BAG_DELIVERY_STATES.Idle));

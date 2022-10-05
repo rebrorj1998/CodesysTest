@@ -22,6 +22,7 @@ END_IF
 IF _bagDeliveryReset THEN
 	_bagDeliveryReset := FALSE;
 	_state := BAG_DELIVERY_MOVE_STATES.Idle;
+	_delayTimer.IN := FALSE;
 	commandSuccessful := FALSE;
 	tensionFault := FALSE;
 	ackRequest := FALSE;

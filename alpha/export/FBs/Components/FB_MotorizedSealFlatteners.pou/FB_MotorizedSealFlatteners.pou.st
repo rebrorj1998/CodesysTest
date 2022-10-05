@@ -85,22 +85,35 @@ bagHoldingSetpoint := HMIData.bagWidth;
 // Setup the vertical axis motor
 sealFlattenersVerticalAxis.Execute();
 
+//
 timeoutTimer();
-IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
+IF timeoutTimer.Q AND NOT bagDropDelay.IN THEN
 	timeoutFault := TRUE;
 END_IF
 
-sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMotorInputs),
-                ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
-                stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
-				reversePolarity := TRUE, 
-				defaultCurrentSetpoint := defaultCurrentMSF, 
-				commFail := sealFlattenerMotorCommFailInput,
-				isHomable := enable);
+sealFlattenersHorizontalAxisMotor(
+	ptrEIPInputs := ADR(sealFlattenerHorizontalMotorInputs),
+    ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
+    stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
+	reversePolarity := TRUE, 
+	defaultCurrentSetpoint := defaultCurrentMSF, 
+	commFail := sealFlattenerMotorCommFailInput,
+	isHomable := enable);
 sealFlattenersHorizontalAxisMotor.Execute();
 
-//Report as ready if mode is auto and we're not faulted
+// Report as ready if mode is auto and we're not faulted
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = SEAL_FLATTENER_STATES.Fault);
+
+IF enableONS.Q OR resetONS.Q THEN 
+	_reset := FALSE;
+	timeoutFault := FALSE;
+	timeoutTimer.IN := FALSE;
+	bagDropDelay.IN := FALSE;
+	handLoadRequested := FALSE;
+	state := SEAL_FLATTENER_STATES.Idle;
+	sealFlattenersHorizontalAxisMotor.Reset();
+	ClearCommands();
+END_IF
 
 IF NOT enable THEN
     state := SEAL_FLATTENER_STATES.Fault;
