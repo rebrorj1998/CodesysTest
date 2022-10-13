@@ -192,7 +192,7 @@ murrIOBusNode(
 	guardNodeEnabled:= (HMIData.cycleStartButtonSelection <> PalmButtonSelection.NotInstalled) OR (HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled), 
 	printerNodeEnabled:= (HMIData.printerSelection <> LabelPrinterSelection.NotInstalled), 
 	dischargeNodeEnabled:= TRUE, 
-	auxIONodeEnabled:= , 
+	auxIONodeEnabled:= HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard, 
 	configVersion:= HMIData.murrIOConfigVersion, 
 	ptrMachineOptionsManagementOutputs:= ADR(oMOMConfig), 
 	ptrSystemStatusInputs:= ADR(iMurrSystemState));

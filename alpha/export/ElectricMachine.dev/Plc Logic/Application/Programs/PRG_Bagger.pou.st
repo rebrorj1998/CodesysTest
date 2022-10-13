@@ -84,7 +84,7 @@ throughputCalculator(
 // HMIData.version := SVN_VERSION_INFO.VERSION;
 faultOutTimer(PT := T#2S);
 _LOTARCompleteONS(CLK := iPALOTAR);
-IF _LOTARCompleteONS.OSF OR (moabHead.state = HEAD_STATES.Idle AND NOT iPALOTAR) THEN
+IF _LOTARCompleteONS.OSF OR (moabHead.state.head = HEAD_STATES.Idle AND NOT iPALOTAR) THEN
 	_faultSequenceCompleted := TRUE;
 END_IF
 

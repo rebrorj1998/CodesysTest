@@ -234,6 +234,9 @@ CASE state OF
 		IF NOT iBagNotPresent THEN
 			_delayTimer.IN := FALSE;
 			_bagFeedFrontMotor.Stop();
+			IF _bagFeedRearMotor.EIP THEN
+				_bagFeedRearMotor.Stop();
+			END_IF
 			state := BAG_DELIVERY_STATES.SetTorqueMode;
 		END_IF
 		IF _delayTimer.Q THEN

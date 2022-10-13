@@ -14,11 +14,7 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
     readyToRun : BOOL;
-    state : HEAD_STATES;
-    sealAndSeparateSubState : SEAL_SEPARATE_STATES;
-    releaseAndFeedSubState : RELEASE_FEED_STATES;
-    openBagSubState : BAG_OPEN_ASSIST_STATES;
-	finishCycleSubState : FINISH_CYCLE_STATES;
+    state : StateMachine;
 END_VAR
 VAR
 	externalConveyorEndedOnAShelf : BOOL;
@@ -106,8 +102,6 @@ VAR
 	powerSettlingTimer : Standard.TON := (PT := T#6S);
 	pressureBarCloseDelay : Standard.TON;
 	filler : FB_Filler();
-	configOutput1Pulse : FB_MonostableMultivibrator();
-	configOutput2Pulse : FB_MonostableMultivibrator();
 	fillerModeCycleStartOnlyPulse : FB_MonostableMultivibrator();
 	collisionDetection : FB_CollisionDetection();
 	murrIOBusNode : FB_MurrIO();
@@ -132,6 +126,7 @@ VAR
 	batchEnableONS : FB_ONS;
 	estopONS : FB_ONS;
 	triggerLPAWhileFeedingONS : FB_ONS();
+	_auxIOConfig : FB_AuxIO;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -249,7 +244,7 @@ END_IF
 HMIData.lastCycleTime := cycleTime;
 
 HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR (printAndApply.printerNotReady AND printAndApply.enable);
-HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter) OR (printAndApply.waitingForPrinter AND printAndApply.enable);
+HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPrinter) OR (printAndApply.waitingForPrinter AND printAndApply.enable);
 
 bagOpenRetrySetting := HMIData.bagOpenRetrySetting;
 HMIData.bagOpenRetryCount := bagOpenRetryCount;
@@ -434,7 +429,8 @@ collisionDetection(
 	collisionEngineRunoffDwell := HMIData.packageAtExitRunoffDwell,
 	multiplePackagesHeld := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
 	conveyorsActive := printAndApply.runConveyorAfterApply,
-	packageAtExit := NOT iPackageAtExit
+	packageAtExit := NOT iPackageAtExit,
+	packageHeldByCollisionDetection => HMIData.packageBlockingTrunkline.active
 );
 	 
 // Run funnel
@@ -488,7 +484,7 @@ HPA.DwellSetting := TO_UINT(HMIData.hpaDwell * 1000);
 HPA(Q => oHPAOn);
 hpaServiceOnONS(CLK := HMIData.hpaserviceOn);
 
-triggerLPAWhileFeedingONS(CLK := releaseAndFeedSubState = RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
+triggerLPAWhileFeedingONS(CLK := state.sb.releaseFeed = RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
 IF HMIData.lpaDuringBagFeedEnable AND triggerLPAWhileFeedingONS.OSR THEN
 	LPA.DwellSetting := TO_DINT(((bagDelivery.remainingLength - HMIData.bagSkirtLength) / TO_REAL(HMIData.bagForwardSpeed)) * 1000.0);
 	LPA.Trigger();
@@ -589,6 +585,7 @@ CASE HMIData.cycleStartButtonSelection OF
 		END_IF					  									 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
+	 
 // Stack Light active only if no 2nd palm button selected
 IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButtonAdvanced THEN
 	stackLight(
@@ -602,132 +599,159 @@ IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButto
 		baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating
 	);	 
 END_IF
-
-CASE HMIData.auxIOConfig.factorySelection OF
-	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off
-		 												oAuxBaggerOK := FALSE;
-														oAuxReadyForFiller := FALSE;
-														configOutput1Pulse.ManualOff();	
-														configOutput1Pulse.Reset();
-														configOutput2Pulse.ManualOff();	
-														configOutput2Pulse.Reset();
-														murrIOBusNode.auxIONodeEnabled := FALSE;
-														IF HMIData.fillerFactorySelection = FillerSelection.StandardFiller THEN
-															HMIData.fillerFactorySelection := FillerSelection.NotInstalled;
-														END_IF
-		 
-	AuxiliaryIOSelection.AuxIOStandard:					// Use aux IO
-		 												murrIOBusNode.auxIONodeEnabled := TRUE;
-		 												oAuxBaggerOK := NOT HMIData.faultActive;
-														oAuxReadyForFiller := filler.waitingForFiller;
-															 
-                                                        // Active if either input is set to 'FillerOK' and the corresponding input is active.
-                                                        filler.fillerOK := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.FillerOK AND iAuxConfigInput1) OR
-                                                                           (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.FillerOK AND iAuxConfigInput2);
-                                                        
-                                                        // Active is ether input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
-                                                        HMIData.baggerInhibited.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput1) OR
-                                                                                          (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput2) OR
-                                                                                           printAndApply.inhibitCycle;
-                                                        
-                                                        {warning :'Should not be an AUXIO selection anymore'}        
-                                                        HMIData.packageBlockingTrunkline.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection) OR
-                                                                                                   (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection) OR 														
- 
-														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
-																 
-															AuxOutputSelection.BagMade:				//
-																 									IF state = HEAD_STATES.SealedAndSeparatedBag THEN
-																										configOutput1Pulse.Trigger();
-																									END_IF
-																										 
-															AuxOutputSelection.CycleComplete:		//
-																 									IF state = HEAD_STATES.OpenedBag THEN
-																										configOutput1Pulse.Trigger();
-																									END_IF
-																										 
-															AuxOutputSelection.PrinterDataReady:	//
-																 									IF printerDataReady THEN
-																										configOutput1Pulse.ManualOn();
-																									ELSE
-																										configOutput1Pulse.ManualOff();
-																									END_IF
-																										 
-															AuxOutputSelection.WaitingForPrinter:	// 
-																 									IF releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter THEN
-																										configOutput1Pulse.ManualOn();
-																									ELSE
-																										configOutput1Pulse.ManualOff();	
-																								    END_IF
-																										 
-															AuxOutputSelection.BagMadePlusLabelRequired:	//
-																 									IF NOT printerDataReady AND state = HEAD_STATES.SealedAndSeparatedBag THEN
-																										configOutput1Pulse.ManualOn();
-																									END_IF
-																									
-																									IF printerDataReady OR HMIData.faultActive OR (releaseAndFeedSubState = RELEASE_FEED_STATES.FeedToOffset) THEN
-																										configOutput1Pulse.ManualOff();
-																									END_IF 
-															AuxOutputSelection.BagsLow:				//
-																									IF HMIData.bagLevelLow.active THEN
-																										configOutput1Pulse.ManualOn();
-																									ELSE
-																										configOutput1Pulse.ManualOff();
-																									END_IF											 
-															
-														END_CASE
-															 
-														CASE HMIData.auxIOConfig.cfgOutput2Selection OF
-																 
-															AuxOutputSelection.BagMade:				//
-																 									IF state = HEAD_STATES.SealedAndSeparatedBag THEN
-																										configOutput2Pulse.Trigger();
-																									END_IF
-																										 
-															AuxOutputSelection.CycleComplete:		//
-																 									IF state = HEAD_STATES.OpenedBag THEN
-																										configOutput2Pulse.Trigger();
-																									END_IF
-																										 
-															AuxOutputSelection.PrinterDataReady:	//
-																 									IF printerDataReady THEN
-																										configOutput2Pulse.ManualOn();
-																									ELSE
-																										configOutput2Pulse.ManualOff();
-																									END_IF
-																										 
-															AuxOutputSelection.WaitingForPrinter:	// 
-																 									IF releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter THEN
-																										configOutput2Pulse.ManualOn();
-																									ELSE
-																										configOutput2Pulse.ManualOff();	
-																								    END_IF
-																										 
-															AuxOutputSelection.BagMadePlusLabelRequired:	//
-																 									IF NOT printerDataReady AND state = HEAD_STATES.SealedAndSeparatedBag THEN
-																										configOutput2Pulse.ManualOn();
-																									END_IF
-																									
-																									IF printerDataReady OR HMIData.faultActive OR (releaseAndFeedSubState = RELEASE_FEED_STATES.FeedToOffset) THEN
-																										configOutput2Pulse.ManualOff();
-																									END_IF 
-																										 
-															AuxOutputSelection.BagsLow:				//
-																									IF HMIData.bagLevelLow.active THEN
-																										configOutput2Pulse.ManualOn();
-																									ELSE
-																										configOutput2Pulse.ManualOff();
-																									END_IF	
-														END_CASE
-														
-		 
-END_CASE 
 	 
-// Pulse outputs that are temporary statuses (Cycle Complete) vs. held (Waiting for Printer) 
-configOutput1Pulse(Q => oAuxConfigOut1);
-configOutput2Pulse(Q => oAuxConfigOut2);
-configOutput1Pulse.DwellSetting := 500;
-configOutput2Pulse.DwellSetting := 500;
+_auxIOConfig(
+	state := state,
+	configIn1 := iAuxConfigInput1, 
+	configIn2 := iAuxConfigInput2,
+	bagsLow := HMIData.bagLevelLow.active,
+	faultActive := HMIData.faultActive,
+	inhibitCycle := printAndApply.inhibitCycle,
+	printerDataReady := printerDataReady,
+	waitingForFiller := filler.waitingForFiller,
+	fillerType := HMIData.fillerFactorySelection,
+	factorySelection := HMIData.auxIOConfig,
+	baggerOK => oAuxBaggerOk,
+	readyForFiller => oAuxReadyForFiller,
+	inhibitBagger => HMIData.baggerInhibited.active,
+	configOut1 => oAuxConfigOut1,
+	configOut2 => oAuxConfigOut2,
+);
+
+// CASE HMIData.auxIOConfig.factorySelection OF
+// 	AuxiliaryIOSelection.NotInstalled:					// Turn outputs off
+// 		 												oAuxBaggerOK := FALSE;
+// 														oAuxReadyForFiller := FALSE;
+// 														configOutput1Pulse.ManualOff();	
+// 														configOutput1Pulse.Reset();
+// 														configOutput2Pulse.ManualOff();	
+// 														configOutput2Pulse.Reset();
+// 														murrIOBusNode.auxIONodeEnabled := FALSE;
+// 														IF HMIData.fillerFactorySelection = FillerSelection.StandardFiller THEN
+// 															HMIData.fillerFactorySelection := FillerSelection.NotInstalled;
+// 														END_IF
+// 		 
+// 	AuxiliaryIOSelection.AuxIOStandard:					// Use aux IO
+// 		 												murrIOBusNode.auxIONodeEnabled := TRUE;
+// 		 												oAuxBaggerOK := NOT HMIData.faultActive;
+// 														oAuxReadyForFiller := filler.waitingForFiller;
+// 															 
+//                                                         // Active if either input is set to 'FillerOK' and the corresponding input is active.
+//                                                         filler.fillerOK := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.FillerOK AND iAuxConfigInput1) OR
+//                                                                            (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.FillerOK AND iAuxConfigInput2);
+// 																				
+// 														// 
+// 														_bagGrabbed := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.BagGrabbed AND iAuxConfigInput1) OR
+//                                                                        (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.BagGrabbed AND iAuxConfigInput2);
+//                                                         
+//                                                         // Active is ether input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
+//                                                         HMIData.baggerInhibited.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput1) OR
+//                                                                                           (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.BaggerInhibit AND iAuxConfigInput2) OR
+//                                                                                            printAndApply.inhibitCycle;
+//                                                         
+//                                                         {warning :'Should not be an AUXIO selection anymore'}        
+//                                                         HMIData.packageBlockingTrunkline.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection) OR
+//                                                                                                    (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection);
+// 														
+// 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
+// 																 
+// 															AuxOutputSelection.ReadyForGrab:		//
+// 																 									IF filler.waitingForFiller THEN
+// 																										configOutput1Pulse.Trigger(); 
+// 																									END_IF
+// 																	 
+// 															AuxOutputSelection.BagMade:				//
+// 																 									IF state = HEAD_STATES.SealedAndSeparatedBag THEN
+// 																										configOutput1Pulse.Trigger();
+// 																									END_IF
+// 																										 
+// 															AuxOutputSelection.CycleComplete:		//
+// 																 									IF state = HEAD_STATES.OpenedBag THEN
+// 																										configOutput1Pulse.Trigger();
+// 																									END_IF
+// 																										 
+// 															AuxOutputSelection.PrinterDataReady:	//
+// 																 									IF printerDataReady THEN
+// 																										configOutput1Pulse.ManualOn();
+// 																									ELSE
+// 																										configOutput1Pulse.ManualOff();
+// 																									END_IF
+// 																										 
+// 															AuxOutputSelection.WaitingForPrinter:	// 
+// 																 									IF releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter THEN
+// 																										configOutput1Pulse.ManualOn();
+// 																									ELSE
+// 																										configOutput1Pulse.ManualOff();	
+// 																								    END_IF
+// 																										 
+// 															AuxOutputSelection.BagMadePlusLabelRequired:	//
+// 																 									IF NOT printerDataReady AND state = HEAD_STATES.SealedAndSeparatedBag THEN
+// 																										configOutput1Pulse.ManualOn();
+// 																									END_IF
+// 																									
+// 																									IF printerDataReady OR HMIData.faultActive OR (releaseAndFeedSubState = RELEASE_FEED_STATES.FeedToOffset) THEN
+// 																										configOutput1Pulse.ManualOff();
+// 																									END_IF 
+// 															AuxOutputSelection.BagsLow:				//
+// 																									IF HMIData.bagLevelLow.active THEN
+// 																										configOutput1Pulse.ManualOn();
+// 																									ELSE
+// 																										configOutput1Pulse.ManualOff();
+// 																									END_IF											 
+// 															
+// 														END_CASE
+// 															 
+// 														CASE HMIData.auxIOConfig.cfgOutput2Selection OF
+// 																 
+// 															AuxOutputSelection.BagMade:				//
+// 																 									IF state = HEAD_STATES.SealedAndSeparatedBag THEN
+// 																										configOutput2Pulse.Trigger();
+// 																									END_IF
+// 																										 
+// 															AuxOutputSelection.CycleComplete:		//
+// 																 									IF state = HEAD_STATES.OpenedBag THEN
+// 																										configOutput2Pulse.Trigger();
+// 																									END_IF
+// 																										 
+// 															AuxOutputSelection.PrinterDataReady:	//
+// 																 									IF printerDataReady THEN
+// 																										configOutput2Pulse.ManualOn();
+// 																									ELSE
+// 																										configOutput2Pulse.ManualOff();
+// 																									END_IF
+// 																										 
+// 															AuxOutputSelection.WaitingForPrinter:	// 
+// 																 									IF releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter THEN
+// 																										configOutput2Pulse.ManualOn();
+// 																									ELSE
+// 																										configOutput2Pulse.ManualOff();	
+// 																								    END_IF
+// 																										 
+// 															AuxOutputSelection.BagMadePlusLabelRequired:	//
+// 																 									IF NOT printerDataReady AND state = HEAD_STATES.SealedAndSeparatedBag THEN
+// 																										configOutput2Pulse.ManualOn();
+// 																									END_IF
+// 																									
+// 																									IF printerDataReady OR HMIData.faultActive OR (releaseAndFeedSubState = RELEASE_FEED_STATES.FeedToOffset) THEN
+// 																										configOutput2Pulse.ManualOff();
+// 																									END_IF 
+// 																										 
+// 															AuxOutputSelection.BagsLow:				//
+// 																									IF HMIData.bagLevelLow.active THEN
+// 																										configOutput2Pulse.ManualOn();
+// 																									ELSE
+// 																										configOutput2Pulse.ManualOff();
+// 																									END_IF	
+// 														END_CASE
+// 														
+// 		 
+// END_CASE 
+// 	 
+// // Pulse outputs that are temporary statuses (Cycle Complete) vs. held (Waiting for Printer) 
+// configOutput1Pulse(Q => oAuxConfigOut1);
+// configOutput2Pulse(Q => oAuxConfigOut2);
+// configOutput1Pulse.DwellSetting := 500;
+// configOutput2Pulse.DwellSetting := 500;
 
 // Filler and EZFeed conveyor setup
 CASE HMIData.fillerFactorySelection OF
@@ -892,7 +916,7 @@ CASE HMIData.packageEjectSelection OF
 														rearLoadPlate.enable := TRUE;
 														frontLoadPlate.enable := TRUE;
 														rearLoadPlate.faultsEnabled := powerSettlingTimer.Q;
-														frontLoadPlate.faultsEnabled := state >= HEAD_STATES.ReleaseAndFeedBag;
+														frontLoadPlate.faultsEnabled := state.head >= HEAD_STATES.ReleaseAndFeedBag;
 														rearLoadPlate.triggerDelay := 0;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
 														loadShelf.triggerDelay := HMIData.loadShelfDelay;
@@ -1080,14 +1104,11 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	sealTimer.IN := FALSE;
 	pressureBarCloseDelay.IN := FALSE;
 	filler.Reset();
-	configOutput1Pulse.Reset();
-	configOutput2Pulse.Reset();
-	configOutput1Pulse.ManualOff();
-	configOutput2Pulse.ManualOff();
+	_auxIOConfig.Reset();
 	fillerModeCycleStartOnlyPulse.Reset();
 	barcodeVerifier.Reset();
 	keyenceBCV.Reset();
-	state := HEAD_STATES.Idle;
+	state.head := HEAD_STATES.Idle;
 	setPassthroughPB := FALSE;
 	HMIData.jobLoadRequired.active := TRUE;
 	HMIData.makeReady := FALSE;
@@ -1107,11 +1128,11 @@ ELSE
 END_IF
 
 IF enableONS.Q OR resetONS.Q THEN
-    state := HEAD_STATES.Idle;
-	sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
-	releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
-	openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
-	finishCycleSubState := FINISH_CYCLE_STATES.Idle;
+    state.head := HEAD_STATES.Idle;
+	state.sb.sealSeparate := SEAL_SEPARATE_STATES.Idle;
+	state.sb.releaseFeed := RELEASE_FEED_STATES.Idle;
+	state.sb.openBag := BAG_OPEN_ASSIST_STATES.Idle;
+	state.sb.finishCycle := FINISH_CYCLE_STATES.Idle;
 	motorizedSealFlatteners.Reset();
 	pressureBar.Reset();
 	IBD.Reset();
@@ -1180,22 +1201,22 @@ END_IF
 
 //IF NOT enable OR NOT readyToRun OR faultONS.OSR THEN
 IF NOT enable OR faultONS.OSR THEN
-    state := HEAD_STATES.Fault;
+	state.head := HEAD_STATES.Fault;
 	//pressureBarMotor.Stop();
 	cycleTimer.IN := FALSE;
 END_IF
 pressureBarCloseDelay(PT := TO_TIME(HMIData.pressureBarCloseDelay * 1000));
 cycleTimer();
-autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND state = HEAD_STATES.Idle);
+autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND state.head = HEAD_STATES.Idle);
 
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
 footSwitchONS(CLK := iFootSwitch);
 
-IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
+IF state.head <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
 END_IF
-CASE state OF
+CASE state.head OF
     HEAD_STATES.Idle :                              // Start cycle if enabled
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
 													OR (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) AND (factoryTestModeKeepCycling AND NOT LPA.Q)
@@ -1215,7 +1236,7 @@ CASE state OF
 													AND NOT printAndApply.clearOutBaggerIndicaiton
 													AND readyToRun 
 													THEN
-                                                        state := HEAD_STATES.SealAndSeparateBag;
+                                                        state.head := HEAD_STATES.SealAndSeparateBag;
                                                         startCycle := FALSE;
 														IF bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
 															bagOpened := TRUE;
@@ -1273,12 +1294,12 @@ CASE state OF
 															motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(2,1000,1000,2000,125);
 														END_IF
 														
-														state := HEAD_STATES.MovePassthrough;
+														state.head := HEAD_STATES.MovePassthrough;
 													END_IF
 													IF homeJawPB THEN
 														hmiLight.BlinkSlow();
 														//motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveDistanceTorque(-0.5,100,100,100,20);
-														state := HEAD_STATES.StartHoming;
+														state.head := HEAD_STATES.StartHoming;
 													END_IF    
 													
 													IF HMIData.loadPlateService.retractCommand OR HMIData.rearLoadPlateService.retractCommand THEN
@@ -1427,7 +1448,7 @@ CASE state OF
 		  
 													{endregion:'Service'}
                                                     
-    HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
+    HEAD_STATES.SealAndSeparateBag:                // Begin Seal and Separate State machine
 													IF printAndApply.enable AND bagOpened THEN
 														printAndApply.BeginCycle();
 													END_IF
@@ -1439,25 +1460,25 @@ CASE state OF
 														funnel.CloseNow();
 													END_IF
 													
-                                                    state := HEAD_STATES.SealingAndSeparatingBag;
-													sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shake;
+                                                    state.head := HEAD_STATES.SealingAndSeparatingBag;
+													state.sb.sealSeparate := SEAL_SEPARATE_STATES.Shake;
                                                     
                 
-    HEAD_STATES.SealingAndSeparatingBag :            IF sealAndSeparateSubState = SEAL_SEPARATE_STATES.Done THEN
-                                                        state := HEAD_STATES.SealedAndSeparatedBag;
-                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
+    HEAD_STATES.SealingAndSeparatingBag :            IF state.sb.sealSeparate = SEAL_SEPARATE_STATES.Done THEN
+                                                        state.head := HEAD_STATES.SealedAndSeparatedBag;
+                                                        state.sb.sealSeparate := SEAL_SEPARATE_STATES.Idle;
                                                     END_IF    
 
-    HEAD_STATES.SealedAndSeparatedBag :                state := HEAD_STATES.ReleaseAndFeedBag;                                    
+    HEAD_STATES.SealedAndSeparatedBag :             state.head := HEAD_STATES.ReleaseAndFeedBag;                                    
                                                     
-    HEAD_STATES.ReleaseAndFeedBag :                    // Open the jaw and release the bag
-                                                    releaseAndFeedSubState := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
-                                                    state := HEAD_STATES.ReleasingAndFeedingBag;
+    HEAD_STATES.ReleaseAndFeedBag :                 // Open the jaw and release the bag
+                                                    state.sb.releaseFeed := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
+                                                    state.head := HEAD_STATES.ReleasingAndFeedingBag;
                                                     
     HEAD_STATES.ReleasingAndFeedingBag :            // 
-                                                    IF releaseAndFeedSubState = RELEASE_FEED_STATES.Done THEN
-                                                        state := HEAD_STATES.ReleasedAndFedBag;
-                                                        releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
+                                                    IF state.sb.releaseFeed = RELEASE_FEED_STATES.Done THEN
+                                                       state.head := HEAD_STATES.ReleasedAndFedBag;
+                                                       state.sb.releaseFeed := RELEASE_FEED_STATES.Idle;
                                                     END_IF
                                                     
     HEAD_STATES.ReleasedAndFedBag :                    // 
@@ -1472,42 +1493,42 @@ CASE state OF
                                                         Globals.bagsMadeCount := Globals.bagsMadeCount + 1; 
                                                     END_IF
 													IF enableBagOpen THEN
-                                                        state := HEAD_STATES.OpenBag;
+                                                    	state.head := HEAD_STATES.OpenBag;
                                                     ELSE
-                                                        state := HEAD_STATES.FinishCycle;
+                                                        state.head := HEAD_STATES.FinishCycle;
                                                     END_IF
                                                                    
     HEAD_STATES.OpenBag :                            // Close jaw to grab the bag
-                                                    openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawIn;
-                                                    state := HEAD_STATES.OpeningBag;
+                                                    state.sb.openBag := BAG_OPEN_ASSIST_STATES.MoveJawIn;
+                                                    state.head := HEAD_STATES.OpeningBag;
                                                     
                                                     
     HEAD_STATES.OpeningBag :                        // Open jaw and grab onto the bag
-                                                    IF openBagSubState = BAG_OPEN_ASSIST_STATES.Done THEN
-                                                        state := HEAD_STATES.OpenedBag;
-                                                        openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
-													ELSIF openBagSubState = BAG_OPEN_ASSIST_STATES.FeedNewBag THEN
-														state := HEAD_STATES.SealAndSeparateBag;
-														openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
+                                                    IF state.sb.openBag = BAG_OPEN_ASSIST_STATES.Done THEN
+                                                        state.head := HEAD_STATES.OpenedBag;
+                                                        state.sb.openBag := BAG_OPEN_ASSIST_STATES.Idle;
+													ELSIF state.sb.openBag = BAG_OPEN_ASSIST_STATES.FeedNewBag THEN
+														state.head := HEAD_STATES.SealAndSeparateBag;
+														state.sb.openBag := BAG_OPEN_ASSIST_STATES.Idle;
                                                     END_IF
                                                     
     HEAD_STATES.OpenedBag :                            // Move fingers in and to bag holding and reset cycle
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) //OR bagFailedToOpen
 														 AND pressureBar.state = PRESSURE_BAR_STATES.Idle THEN
-														state := HEAD_STATES.FinishCycle;
+														state.head := HEAD_STATES.FinishCycle;
                                                     END_IF
 	HEAD_STATES.FinishCycle :			//
-													finishCycleSubState := FINISH_CYCLE_STATES.Start;
-													state := HEAD_STATES.FinishingCycle;
+													state.sb.finishCycle := FINISH_CYCLE_STATES.Start;
+													state.head := HEAD_STATES.FinishingCycle;
 	HEAD_STATES.FinishingCycle : 		//
-													IF finishCycleSubState = FINISH_CYCLE_STATES.Done THEN
-														state := HEAD_STATES.FinishedCycle;
-														finishCycleSubState := FINISH_CYCLE_STATES.Idle;
+													IF state.sb.finishCycle = FINISH_CYCLE_STATES.Done THEN
+														state.head := HEAD_STATES.FinishedCycle;
+														state.sb.finishCycle := FINISH_CYCLE_STATES.Idle;
 													END_IF
 	HEAD_STATES.FinishedCycle :			//
 											HMIData.bagsMade.Increment();
 											HMIData.resettableBagsMade.Increment();
-                                            state := HEAD_STATES.Idle;
+                                            state.head := HEAD_STATES.Idle;
 											filler.BaggerCycledAndReady();
 											cycleTime := (TIME_TO_REAL(cycleTimer.ET) / 1000); 
 											cycleTimer.IN := FALSE;
@@ -1547,12 +1568,12 @@ CASE state OF
 												ELSE
 													IBD.OpenIBD();
 												END_IF
-                                            	state := HEAD_STATES.Homing; 
+                                            	state.head := HEAD_STATES.Homing; 
 											END_IF                             
     
     HEAD_STATES.Homing :                // 
 											IF pressureBar.pressureBarOpen AND (NOT IBD.Ready OR NOT IBD.enable) THEN
-                                                state := HEAD_STATES.HomingComplete;
+                                                state.head := HEAD_STATES.HomingComplete;
 												
 												//
 												IF loadShelf.inUse OR loadShelf.LoadingPositionWhileDisabled THEN
@@ -1583,20 +1604,20 @@ CASE state OF
 											IF (NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired) OR NOT motorizedSealFlatteners.enable THEN
 												homeJawPB := FALSE;
 												motorizedSealFlatteners.sealFlattenersVerticalAxis.Extend();
-												state := HEAD_STATES.MovePassthrough;
+												state.head := HEAD_STATES.MovePassthrough;
 											END_IF
                                            
     HEAD_STATES.MovePassthrough :           // 
                                             pressureBar.OpenJaw();
 											IBD.OpenIBD();
-                                            state := HEAD_STATES.MovingPassthrough;
+                                            state.head := HEAD_STATES.MovingPassthrough;
     
     HEAD_STATES.MovingPassthrough :    		IF pressureBar.pressureBarOpen AND (IBD.IBDOpen OR HMIData.independentBagDeflatorSelection = BagDeflatorSelection.NotInstalled) THEN
-                                                state := HEAD_STATES.MovedPassthrough;     
+                                                state.head := HEAD_STATES.MovedPassthrough;     
                                             END_IF
                                             
     HEAD_STATES.MovedPassthrough :          // 
-                                            state := HEAD_STATES.Idle;
+                                            state.head := HEAD_STATES.Idle;
 											setPassthroughPB := FALSE;
 											motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(HMIData.bagWidth,1000,1000,1000,125);
                                                     
@@ -1604,10 +1625,10 @@ CASE state OF
 											HMIData.inCycle := FALSE;
 											cycleTimer.IN := FALSE;
 											bagDelivery.PointToPointOnFault();
-											sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
-											releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;
-											openBagSubState := BAG_OPEN_ASSIST_STATES.Idle;
-											finishCycleSubState := FINISH_CYCLE_STATES.Idle;
+											state.sb.sealSeparate := SEAL_SEPARATE_STATES.Idle;
+											state.sb.releaseFeed := RELEASE_FEED_STATES.Idle;
+											state.sb.openBag := BAG_OPEN_ASSIST_STATES.Idle;
+											state.sb.finishCycle := FINISH_CYCLE_STATES.Idle;
 											oVacOn := FALSE;
 											filler.Reset();
 											LPA.ManualOff();
@@ -1627,7 +1648,7 @@ CASE state OF
 									
 END_CASE
 
-CASE sealAndSeparateSubState OF
+CASE state.sb.sealSeparate OF
     SEAL_SEPARATE_STATES.Idle:
 	SEAL_SEPARATE_STATES.Shake:						
 		//
@@ -1650,19 +1671,19 @@ CASE sealAndSeparateSubState OF
 
 		//
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
-			sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shaking;
+			state.sb.sealSeparate := SEAL_SEPARATE_STATES.Shaking;
 		ELSIF enableIBDDeflate THEN
-			sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+			state.sb.sealSeparate := SEAL_SEPARATE_STATES.BringInIBD;
 		ELSE
-			sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+			state.sb.sealSeparate := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
 		END_IF
 													
 	SEAL_SEPARATE_STATES.Shaking:				    //
 		IF NOT frontLoadPlate.Shaking AND NOT rearLoadPlate.Shaking AND NOT loadShelf.Shaking THEN
 			IF enableIBDDeflate THEN
-				sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+				state.sb.sealSeparate := SEAL_SEPARATE_STATES.BringInIBD;
 			ELSE
-				sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+				state.sb.sealSeparate := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
 			END_IF
 		END_IF											
  
@@ -1670,7 +1691,7 @@ CASE sealAndSeparateSubState OF
 													IF enableIBDDeflate THEN
 														IBD.CloseIBD();
 													END_IF 
-													sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+													state.sb.sealSeparate := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
 	
 	SEAL_SEPARATE_STATES.WaitForJawCloseDelay: 	    // Wait for jaw close delay. 
 													IF pressureBar.enable THEN
@@ -1679,11 +1700,11 @@ CASE sealAndSeparateSubState OF
 														IF (pressureBarCloseDelay.Q OR HMIData.pressureBarCloseDelay = 0) 
 															AND (funnel.closed OR NOT funnel.enable)
 															THEN
-															sealAndSeparateSubState := SEAL_SEPARATE_STATES.MoveJawIn;
+															state.sb.sealSeparate := SEAL_SEPARATE_STATES.MoveJawIn;
 															pressureBarCloseDelay.IN := FALSE;
 														END_IF
                                                     ELSE 
-                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
+                                                        state.sb.sealSeparate := SEAL_SEPARATE_STATES.ReverseBag;
                                                     END_IF
         
     SEAL_SEPARATE_STATES.MoveJawIn:                 // Perform actions as enabled - close jaw and move flatteners out. If jaw is disabled then go right to reverse bag
@@ -1692,24 +1713,24 @@ CASE sealAndSeparateSubState OF
                                                     END_IF
                                                 
 													pressureBar.CloseJaw();
-                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.MovingJawIn;
+                                                    state.sb.sealSeparate := SEAL_SEPARATE_STATES.MovingJawIn;
                                                     
     SEAL_SEPARATE_STATES.MovingJawIn :              // If Jaw is in and flatteners out then move on
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
                                                         THEN
-                                                            sealAndSeparateSubState := SEAL_SEPARATE_STATES.MovedJawIn;    
+                                                            state.sb.sealSeparate := SEAL_SEPARATE_STATES.MovedJawIn;    
                                                     END_IF
                                                                 
     SEAL_SEPARATE_STATES.MovedJawIn :               // Will add sealing logic here
-                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReverseBag;
+                                                    state.sb.sealSeparate := SEAL_SEPARATE_STATES.ReverseBag;
                                                     
     SEAL_SEPARATE_STATES.ReverseBag :               // Reverse bag if bag delivery enabled, otherwise open jaw
 													//IBD.OpenFull();
                                                     IF bagDelivery.enable THEN
                                                         bagDelivery.AutoReverseBag();
-                                                        sealAndSeparateSubState := SEAL_SEPARATE_STATES.ReversingBag;
-                                                    ELSE sealAndSeparateSubState := SEAL_SEPARATE_STATES.Done;    
+                                                        state.sb.sealSeparate := SEAL_SEPARATE_STATES.ReversingBag;
+                                                    ELSE state.sb.sealSeparate := SEAL_SEPARATE_STATES.Done;    
                                                     END_IF
                                                                     
     SEAL_SEPARATE_STATES.ReversingBag :             // 
@@ -1735,11 +1756,11 @@ CASE sealAndSeparateSubState OF
 															END_IF
 															
 															sealTimer.IN := FALSE;
-                                                            sealAndSeparateSubState := SEAL_SEPARATE_STATES.Reversedbag;
+                                                            state.sb.sealSeparate := SEAL_SEPARATE_STATES.Reversedbag;
                                                     END_IF
 													
     SEAL_SEPARATE_STATES.Reversedbag :              // 
-                                                    sealAndSeparateSubState := SEAL_SEPARATE_STATES.SealBag;
+                                                    state.sb.sealSeparate := SEAL_SEPARATE_STATES.SealBag;
 													
 	SEAL_SEPARATE_STATES.SealBag:					
 													IF HMIData.separateBeforeSeal THEN
@@ -1753,17 +1774,17 @@ CASE sealAndSeparateSubState OF
 															oSealBarExtend := FALSE;
 															oSealBarRetract := TRUE;
 															HMIData.sealBarCycles.Increment();
-															sealAndSeparateSubState := SEAL_SEPARATE_STATES.Done;
+															state.sb.sealSeparate := SEAL_SEPARATE_STATES.Done;
 														END_IF
 													ELSE
-														sealAndSeparateSubState := SEAL_SEPARATE_STATES.Done;
+														state.sb.sealSeparate := SEAL_SEPARATE_STATES.Done;
 													END_IF                      
     SEAL_SEPARATE_STATES.Done:                        
     SEAL_SEPARATE_STATES.Fault:
 END_CASE
 
 
-CASE releaseAndFeedSubState OF
+CASE state.sb.releaseFeed OF
     RELEASE_FEED_STATES.Idle :                        //
                                                         
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
@@ -1817,7 +1838,7 @@ CASE releaseAndFeedSubState OF
 															END_IF
 															IBD.OpenFull();
                                                            bagDropTimer.IN := TRUE;
-														   releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndDroppingBag;
+														   state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndDroppingBag;
                                                     END_IF
 													
 	 RELEASE_FEED_STATES.MovingJawOutAndDroppingBag :
@@ -1835,13 +1856,13 @@ CASE releaseAndFeedSubState OF
 															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
                                                                 bagDelivery.AutoFeedBagOut();
  																LPA.ManualOff();
-                                                                releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
+                                                                state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
                                                             ELSIF bagDelivery.enable AND zebraPrinter.enable THEN
                                                                 bagDelivery.AutoWaitForPrinter();
 																LPA.ManualOff();
-                                                                releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForPrinter;
+                                                                state.sb.releaseFeed := RELEASE_FEED_STATES.WaitForPrinter;
                                                             ELSE 
-                                                                releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
+                                                                state.sb.releaseFeed := RELEASE_FEED_STATES.Done;
                                                             END_IF												
     													END_IF
 														
@@ -1850,7 +1871,7 @@ CASE releaseAndFeedSubState OF
                                                         IF HMIData.lpaDuringBagFeedEnable THEN
                                                             LPA.ManualOn();
                                                         END_IF														
-                                                        releaseAndFeedSubState := RELEASE_FEED_STATES.FeedToOffset;
+                                                        state.sb.releaseFeed := RELEASE_FEED_STATES.FeedToOffset;
                                                     END_IF
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
@@ -1859,7 +1880,7 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.FeedToOffset :              // This starts feeding to the print offset
 													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) THEN
 														bagDelivery.AutoPrinterReady();
-                                                    	releaseAndFeedSubState := RELEASE_FEED_STATES.FeedingToOffset;
+                                                    	state.sb.releaseFeed := RELEASE_FEED_STATES.FeedingToOffset;
 													END_IF
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
@@ -1868,7 +1889,7 @@ CASE releaseAndFeedSubState OF
                                                         
     RELEASE_FEED_STATES.FeedingToOffset :            // Once offset done start printing
                                                     IF bagDelivery.state = BAG_DELIVERY_STATES.FedToPrintOffset THEN
-                                                        releaseAndFeedSubState := RELEASE_FEED_STATES.StartPrinting;
+                                                        state.sb.releaseFeed := RELEASE_FEED_STATES.StartPrinting;
                                                     END_IF       
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  														bagOpenFingers.Release();
@@ -1876,7 +1897,7 @@ CASE releaseAndFeedSubState OF
     
     RELEASE_FEED_STATES.StartPrinting :             // Printer starts print cycle and bag delivery starts moving at print speed
 													zebraPrinter.AutoPrintNow();
-                                                    releaseAndFeedSubState := RELEASE_FEED_STATES.SendPrintSignal;                                            
+                                                    state.sb.releaseFeed := RELEASE_FEED_STATES.SendPrintSignal;                                            
 
     RELEASE_FEED_STATES.SendPrintSignal:            // 
               
@@ -1887,7 +1908,7 @@ CASE releaseAndFeedSubState OF
 														bagDelivery.AutoStartPrintFeed();
 														zebraPrinter.AutoSendPrintSignal();
 														barcodeVerifier.Trigger();
-                                                        releaseAndFeedSubState := RELEASE_FEED_STATES.Printing;
+                                                        state.sb.releaseFeed := RELEASE_FEED_STATES.Printing;
                                                     END_IF                                        
 
     RELEASE_FEED_STATES.Printing :                // 
@@ -1895,15 +1916,14 @@ CASE releaseAndFeedSubState OF
  														bagOpenFingers.Release();
  													END_IF	
                                                     IF zebraPrinter.state = PRINTER_STATES.DonePrinting THEN
-                                                        releaseAndFeedSubState := RELEASE_FEED_STATES.StopPrinting;
+                                                        state.sb.releaseFeed := RELEASE_FEED_STATES.StopPrinting;
                                                     END_IF
                                                     
     RELEASE_FEED_STATES.StopPrinting :                // Tell bag delivery it's okay to feed out the rest of the bag and the printer that it can prep itself for the next print
                                                     bagDelivery.AutoPrinterDone();
                                                     zebraPrinter.AutoAckPrintDone();
-                                                    releaseAndFeedSubState := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
-                                                                                
-                                                                                                            
+                                                    state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
+                                                                                                                                                                        
     RELEASE_FEED_STATES.MovingJawOutAndFeedingBag :    // 
 													
 													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
@@ -1913,7 +1933,7 @@ CASE releaseAndFeedSubState OF
                                                         AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.pressureBarOpen OR NOT pressureBar.enable)
                                                         THEN
-                                                            releaseAndFeedSubState := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
+                                                            state.sb.releaseFeed := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
                                                     
     RELEASE_FEED_STATES.MovedJawOutAndFedBag :      // Wait until bag is fed out before triggering barcode fail.
@@ -1924,12 +1944,12 @@ CASE releaseAndFeedSubState OF
 													IF enableIBDDeflate OR enableIBDEject THEN
 														IBD.OpenIBD();
 													END_IF
-													releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
+													state.sb.releaseFeed := RELEASE_FEED_STATES.Done;
     RELEASE_FEED_STATES.Done :
     RELEASE_FEED_STATES.Fault :
 END_CASE
 
-CASE openBagSubState OF
+CASE state.sb.openBag OF
     BAG_OPEN_ASSIST_STATES.Idle:                    // 
                                                     bagOpenCheckDelay.IN := FALSE;
                                                                          
@@ -1942,36 +1962,36 @@ CASE openBagSubState OF
 													END_IF
 													
 													//oVacOn := TRUE; // Hard coded for now, this is vacuum
-                                                    openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawIn;        
+                                                    state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawIn;        
                                                     
     BAG_OPEN_ASSIST_STATES.MovingJawIn :            // Move on once jaw is closed
                                                     IF pressureBar.iPressureBarClosed OR NOT pressureBar.enable THEN
-                                                        openBagSubState := BAG_OPEN_ASSIST_STATES.MovedJawIn;        
+                                                        state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovedJawIn;        
                                                     END_IF
                                                     
     BAG_OPEN_ASSIST_STATES.MovedJawIn :             // Hold onto the bag with vacuum to build suction
 													IF HMIData.enableDryCycle THEN
-														openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut;
+														state.sb.openBag := BAG_OPEN_ASSIST_STATES.MoveJawOut;
 													ELSE
 														vacuumHoldTimer.IN := TRUE;
 														oVacOn := TRUE; // Hard coded for now, this is vacuum
 														IF vacuumHoldTimer.Q THEN
 															vacuumHoldTimer.IN := FALSE;
-															openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawOut;
+															state.sb.openBag := BAG_OPEN_ASSIST_STATES.MoveJawOut;
 														END_IF            
 													END_IF
                                                                    
     BAG_OPEN_ASSIST_STATES.MoveJawOut :             // Open the jaw and move seal flatteners in and to bag holding
                                                     pressureBar.OpenJaw();
 													motorizedSealFlatteners.AutoMoveIn();
-                                                    openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
+                                                    state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
                                                                                              
     BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab :    // Once everything that is enabled is homed finish cycle 
 													bagOpenFingerDelay.IN := TRUE;
 													IF bagOpenFingerDelay.Q THEN
 														bagOpenFingers.Grab();
 														bagOpenFingerDelay.IN := FALSE;
-														openBagSubState := BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab;
+														state.sb.openBag := BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab;
 													END_IF
 													  
 
@@ -1980,36 +2000,36 @@ CASE openBagSubState OF
 															bagOpenCheckDelay.IN := TRUE;
 															IF bagOpenCheckDelay.Q THEN
 																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) OR HMIData.enableDryCycle THEN // This method checks to see if the bag is grabbed and returns true if so.
-																	openBagSubState := BAG_OPEN_ASSIST_STATES.BagOpened;
+																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.BagOpened;
 																	motorizedSealFlatteners.AutoMoveIn();
 																ELSE 
-																	openBagSubState := BAG_OPEN_ASSIST_STATES.BagFailedToOpen;
+																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.BagFailedToOpen;
 																END_IF
 																bagOpenCheckDelay.IN := FALSE;
 															END_IF
 														ELSE 
 															motorizedSealFlatteners.AutoMoveToBagHolding();
-															openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab;
+															state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab;
 														END_IF
 													  
 	BAG_OPEN_ASSIST_STATES.BagFailedToOpen :			// 
 														bagOpenFingers.Release();
 														bagOpenRetryCount := bagOpenRetryCount + 1;
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
-															openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawIn;
+															state.sb.openBag := BAG_OPEN_ASSIST_STATES.MoveJawIn;
 														ELSIF HMIData.bagOpenFeedNewBagCount < HMIData.bagOpenFeedNewBagSetting THEN
 															HMIData.bagOpenFeedNewBagCount := HMIData.bagOpenFeedNewBagCount + 1;
 															bagOpenRetryCount := 0;
 															motorizedSealFlatteners.AutoMoveOut();
 															oVacOn := FALSE;
-															openBagSubState := BAG_OPEN_ASSIST_STATES.FeedNewBag;
+															state.sb.openBag := BAG_OPEN_ASSIST_STATES.FeedNewBag;
 															
 														ELSE 
 															//IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) THEN
 																motorizedSealFlatteners.AutoMoveToBagHolding();
 																bagFailedToOpen.Trigger();
 																
-																openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab;
+																state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab;
 																bagOpenRetryCount := 0; 
 																HMIData.bagOpenFeedNewBagCount := 0;
 																HMIData.bagsRejectedTotal.Increment();
@@ -2024,22 +2044,22 @@ CASE openBagSubState OF
 														bagOpenRetryCount := 0;
 														HMIData.bagOpenFeedNewBagCount := 0;
 														
-														openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
+														state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
 														  
     BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab :		// 
 														IF (pressureBar.pressureBarOpen OR NOT pressureBar.enable) 
 															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable)
 															THEN
-																openBagSubState := BAG_OPEN_ASSIST_STATES.MovedJawOut;        
+																state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovedJawOut;        
 														END_IF	 
 														
 	BAG_OPEN_ASSIST_STATES.MovedJawOut :                // 
 														oVacOn := FALSE; 		// Hard coded for now, this is vacuum
-														openBagSubState := BAG_OPEN_ASSIST_STATES.Done;
+														state.sb.openBag := BAG_OPEN_ASSIST_STATES.Done;
                                
 	BAG_OPEN_ASSIST_STATES.FeedNewBag :   			//
 													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) THEN
-														state := HEAD_STATES.SealAndSeparateBag;
+														state.head := HEAD_STATES.SealAndSeparateBag;
 													END_IF
 										                        
     BAG_OPEN_ASSIST_STATES.Done:                    //                                             
@@ -2048,17 +2068,17 @@ CASE openBagSubState OF
 
 END_CASE
 
-CASE finishCycleSubState OF
+CASE state.sb.finishCycle OF
 	FINISH_CYCLE_STATES.Start :								//
 															IF funnel.enable THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.OpenFunnel;
+																state.sb.finishCycle := FINISH_CYCLE_STATES.OpenFunnel;
 															ELSIF enableBagOpen THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+																state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
 															ELSE
 																IF motorizedSealFlatteners.enable THEN
-																	finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersInAndDown;
+																	state.sb.finishCycle := FINISH_CYCLE_STATES.BringSealFlattenersInAndDown;
 																ELSE
-																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+																	state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
 																END_IF
 															END_IF
 															IF LPA.DwellSetting <> 0 THEN
@@ -2072,66 +2092,66 @@ CASE finishCycleSubState OF
 																LPA.Trigger();
 															END_IF
 															funnel.OpenNow();
-															finishCycleSubState := FINISH_CYCLE_STATES.OpeningFunnel;
+															state.sb.finishCycle := FINISH_CYCLE_STATES.OpeningFunnel;
 	
 	FINISH_CYCLE_STATES.OpeningFunnel :						//
 															IF funnel.opened THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.OpenedFunnel;
+																state.sb.finishCycle := FINISH_CYCLE_STATES.OpenedFunnel;
 															END_IF
 	
 	FINISH_CYCLE_STATES.OpenedFunnel :						//
 															//IF enableBagOpen THEN
 																IF iLefttFingerBagPresent AND iRightFingerBagPresent THEN
-																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
+																	state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
 																ELSE
 																	IF bagOpenRetryCount < bagOpenRetrySetting THEN
 																		bagOpenRetryCount := bagOpenRetryCount + 1;
 																		funnel.CloseNow();
-																		finishCycleSubState := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
+																		state.sb.finishCycle := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
 																	ELSE
 																		bagFailedToOpen.Trigger();
 																		funnel.CloseNow();
 																		bagOpenRetryCount := 0; 
 																		HMIData.bagsRejectedTotal.Increment();
-																		finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+																		state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
 																	END_IF
 																END_IF
 															
 																IF motorizedSealFlatteners.enable THEN
-																	finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
+																	state.sb.finishCycle := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
 																ELSE
-																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+																	state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
 																END_IF
 															//END_IF
 	
 	FINISH_CYCLE_STATES.ClosingFunnelForRetry :				//
 															IF funnel.closed THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.Start;
+																state.sb.finishCycle := FINISH_CYCLE_STATES.Start;
 															END_IF												
 	
 	FINISH_CYCLE_STATES.BringSealFlattenersInAndDown :		//
 															motorizedSealFlatteners.AutoMoveToHandLoad();
-															finishCycleSubState := FINISH_CYCLE_STATES.BringingSealFlattenersInAndDown;
+															state.sb.finishCycle := FINISH_CYCLE_STATES.BringingSealFlattenersInAndDown;
 	
 	FINISH_CYCLE_STATES.BringingSealFlattenersInAndDown :	//
 															IF motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.SealFlattenersInAndDown;
+																state.sb.finishCycle := FINISH_CYCLE_STATES.SealFlattenersInAndDown;
 															END_IF
 	
 	FINISH_CYCLE_STATES.SealFlattenersInAndDown :			//
-															finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+															state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
 	
 	FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding:	//
 															motorizedSealFlatteners.AutoMoveToBagHolding();
-															finishCycleSubState := FINISH_CYCLE_STATES.BringingSealFlattenersToBagHolding;
+															state.sb.finishCycle := FINISH_CYCLE_STATES.BringingSealFlattenersToBagHolding;
 	
 	FINISH_CYCLE_STATES.BringingSealFlattenersToBagHolding: //
 															IF motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle THEN
-																finishCycleSubState := FINISH_CYCLE_STATES.SealFlattenersAtBagHolding;
+																state.sb.finishCycle := FINISH_CYCLE_STATES.SealFlattenersAtBagHolding;
 															END_IF
 																
 	FINISH_CYCLE_STATES.SealFlattenersAtBagHolding : 		//
-															finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+															state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
 															
 	FINISH_CYCLE_STATES.Shake:
 		//
@@ -2154,14 +2174,14 @@ CASE finishCycleSubState OF
 
 		//
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
-			finishCycleSubState := FINISH_CYCLE_STATES.Shaking;
+			state.sb.finishCycle := FINISH_CYCLE_STATES.Shaking;
 		ELSE
-			finishCycleSubState := FINISH_CYCLE_STATES.Done;
+			state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
 		END_IF
 	
 	FINISH_CYCLE_STATES.Shaking:
 		IF NOT frontLoadPlate.Shaking AND NOT rearLoadPlate.Shaking AND NOT loadShelf.Shaking THEN
-			finishCycleSubState := FINISH_CYCLE_STATES.Done;
+			state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
 		END_IF	
 	
 	FINISH_CYCLE_STATES.Done :								
