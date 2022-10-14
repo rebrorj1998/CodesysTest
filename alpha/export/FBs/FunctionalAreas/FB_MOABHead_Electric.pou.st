@@ -2129,14 +2129,14 @@ CASE finishCycleSubState OF
 																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
 																END_IF
 															END_IF
+															LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 															IF LPA.DwellSetting <> 0 THEN
-																LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 																LPA.Trigger();
 															END_IF
 	
 	FINISH_CYCLE_STATES.OpenFunnel :						//
+															LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 															IF LPA.DwellSetting <> 0 THEN
-																LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 																LPA.Trigger();
 															END_IF
 															funnel.Open();

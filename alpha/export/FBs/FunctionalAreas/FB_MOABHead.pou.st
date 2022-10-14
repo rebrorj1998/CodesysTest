@@ -117,6 +117,8 @@ VAR
 	exhaustTimer : TON := (PT := T#300MS);
 	triggerLPAWhileFeedingONS : FB_ONS;
 	eState: INT;
+	_funnelSensingDebounceTimer : Standard.TON := (PT := T#250MS);
+	_funn: INT;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -877,6 +879,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	LPA.ManualOff();
 	HPA.Reset();
 	funnel.Close();
+	stagingFunnel.Close();
 	exitConveyorRun.Reset();
 	externalExitConveyorRun.Reset();
 	oSealBarExtend := FALSE;
@@ -1781,8 +1784,8 @@ CASE finishCycleSubState OF
 	FINISH_CYCLE_STATES.Start:								
 		
    		//
+  		LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
    		IF LPA.DwellSetting <> 0 THEN
-			LPA.DwellSetting := TO_DINT(HMIData.lpaDwell * 1000);
 			LPA.Trigger();
 		END_IF
 
@@ -1805,11 +1808,16 @@ CASE finishCycleSubState OF
 	FINISH_CYCLE_STATES.OpeningFunnel:						
 		//
 		IF funnel.opened THEN
-			finishCycleSubState := FINISH_CYCLE_STATES.OpenedFunnel;
+	  		_funnelSensingDebounceTimer.IN := TRUE;
 		END_IF
+   
+		IF _funnelSensingDebounceTimer.Q THEN
+	   		finishCycleSubState := FINISH_CYCLE_STATES.OpenedFunnel;
+   		END_IF
 	
 	FINISH_CYCLE_STATES.OpenedFunnel:
-		//					
+		//			
+		_funnelSensingDebounceTimer.IN := FALSE;		
 		IF iLeftFingerBagPresent AND iRightFingerBagPresent THEN
 			IF motorizedSealFlatteners.enable THEN
 				finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
@@ -1906,3 +1914,5 @@ END_CASE
 
 //
 HMIData.initiateCycle := FALSE;
+
+_funnelSensingDebounceTimer();

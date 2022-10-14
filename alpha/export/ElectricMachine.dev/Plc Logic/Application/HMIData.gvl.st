@@ -143,6 +143,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	rearLoadPlateService : ServiceCommands;
 	loadShelfService : ServiceCommands;
 	IBDService : ServiceCommands;
+	accumulatingFunnel : ServiceCommands;
 	funnelService : ServiceCommands;
 	baggerHeadService : ServiceCommands;
 	jogBagForward : BOOL;
