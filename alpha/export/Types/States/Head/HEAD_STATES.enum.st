@@ -25,6 +25,9 @@ TYPE HEAD_STATES :
 	MovingPassthrough := 61,
 	MovedPassthrough := 62,
 	Stopping := 70,
+	PrepareForAutomatedBagRemoval := 80,
+	PreparingForAutomatedBagRemoval := 81,
+	PreparedForAutomatedBagRemoval := 82,
 	Fault := 99
 );
 END_TYPE

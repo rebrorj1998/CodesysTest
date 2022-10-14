@@ -32,6 +32,15 @@
     <TypeArray name="T_ARRAY__0__300__OF_STRING" size="24381" nativesize="24381" typeclass="Array" iecname="ARRAY [0..300] OF STRING" basetype="T_STRING">
       <ArrayDim minrange="0" maxrange="300" />
     </TypeArray>
+    <TypeUserDef name="T_AUTOMATION_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AUTOMATION_STATES" basetype="T_INT">
+      <UserDefElement type="T_AUTOMATION_STATES" iecname="Idle" enumvalue="0" />
+      <UserDefElement type="T_AUTOMATION_STATES" iecname="MoveSealFlattenersIn" enumvalue="1" />
+      <UserDefElement type="T_AUTOMATION_STATES" iecname="MovingSealFlattenersIn" enumvalue="2" />
+      <UserDefElement type="T_AUTOMATION_STATES" iecname="MovedSealFlattenersIn" enumvalue="3" />
+      <UserDefElement type="T_AUTOMATION_STATES" iecname="DisableBagOpenSensing" enumvalue="4" />
+      <UserDefElement type="T_AUTOMATION_STATES" iecname="RaiseBOF" enumvalue="5" />
+      <UserDefElement type="T_AUTOMATION_STATES" iecname="Done" enumvalue="6" />
+    </TypeUserDef>
     <TypeUserDef name="T_AuxInputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxInputSelection" basetype="T_INT">
       <UserDefElement type="T_AuxInputSelection" iecname="NotConfigured" enumvalue="0" />
       <UserDefElement type="T_AuxInputSelection" iecname="BaggerInhibit" enumvalue="1" />
@@ -378,6 +387,9 @@
       <UserDefElement type="T_HEAD_STATES" iecname="MovingPassthrough" enumvalue="61" />
       <UserDefElement type="T_HEAD_STATES" iecname="MovedPassthrough" enumvalue="62" />
       <UserDefElement type="T_HEAD_STATES" iecname="Stopping" enumvalue="70" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PrepareForAutomatedBagRemoval" enumvalue="80" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PreparingForAutomatedBagRemoval" enumvalue="81" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PreparedForAutomatedBagRemoval" enumvalue="82" />
       <UserDefElement type="T_HEAD_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
     <TypeUserDef name="T_IP_ADDR" size="81" nativesize="81" typeclass="Userdef" pouclass="STRUCTURE" iecname="IP_ADDR">
@@ -589,11 +601,12 @@
       <UserDefElement iecname="commFail" type="T_FB_Fault" byteoffset="36" vartype="VAR" />
       <UserDefElement iecname="notHomed" type="T_FB_Fault" byteoffset="39" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_Substate" size="8" nativesize="8" typeclass="Userdef" pouclass="STRUCTURE" iecname="Substate">
+    <TypeUserDef name="T_Substate" size="10" nativesize="10" typeclass="Userdef" pouclass="STRUCTURE" iecname="Substate">
       <UserDefElement iecname="sealSeparate" type="T_SEAL_SEPARATE_STATES" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="releaseFeed" type="T_RELEASE_FEED_STATES" byteoffset="2" vartype="VAR" />
       <UserDefElement iecname="openBag" type="T_BAG_OPEN_ASSIST_STATES" byteoffset="4" vartype="VAR" />
       <UserDefElement iecname="finishCycle" type="T_FINISH_CYCLE_STATES" byteoffset="6" vartype="VAR" />
+      <UserDefElement iecname="automation" type="T_AUTOMATION_STATES" byteoffset="8" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_TCP_Client" size="100" nativesize="436" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Client" basetype="T_LTrig">
       <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" />
@@ -781,7 +794,7 @@
       <UserDefElement iecname="enableRibbonDetection" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_StateMachine" size="10" nativesize="10" typeclass="Userdef" pouclass="STRUCTURE" iecname="StateMachine">
+    <TypeUserDef name="T_StateMachine" size="12" nativesize="12" typeclass="Userdef" pouclass="STRUCTURE" iecname="StateMachine">
       <UserDefElement iecname="head" type="T_HEAD_STATES" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="sb" type="T_Substate" byteoffset="2" vartype="VAR" />
     </TypeUserDef>
@@ -877,13 +890,13 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77296" nativesize="186568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77296" nativesize="186572" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="10" vartype="VAR" />
-      <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="52" vartype="VAR" />
-      <UserDefElement iecname="IBD" type="T_FB_MotorizedIBD" byteoffset="82" vartype="VAR" />
-      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="85" vartype="VAR" />
-      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="88" vartype="VAR" />
+      <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="12" vartype="VAR" />
+      <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="54" vartype="VAR" />
+      <UserDefElement iecname="IBD" type="T_FB_MotorizedIBD" byteoffset="84" vartype="VAR" />
+      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="87" vartype="VAR" />
+      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="90" vartype="VAR" />
       <UserDefElement iecname="bagDelivery" type="T_FB_BagDelivery" byteoffset="96" vartype="VAR" />
       <UserDefElement iecname="zebraPrinter" type="T_FB_ZebraPrinter" byteoffset="196" vartype="VAR" />
       <UserDefElement iecname="bagOpened" type="T_BOOL" byteoffset="200" vartype="VAR" />

@@ -250,7 +250,7 @@ CASE state OF
                                                                     END_IF
     
     SEAL_FLATTENER_STATES.MoveFlattenersUpAndToClearance :          // Move flatteners to clearance position
-                                                                    //sealFlattenersHorizontalAxisMotor.NextSequence();
+                                                                    // sealFlattenersHorizontalAxisMotor.NextSequence();
 																	timeoutTimer.IN := TRUE;
                                                                     sealFlattenersHorizontalAxisMotor.MoveToPosition(position := (outSetpoint - clearanceOffset), 
                                                                                                                         acceleration := horizontalAxisAccel,
@@ -316,15 +316,14 @@ CASE state OF
                                                                     END_IF
                                            
     SEAL_FLATTENER_STATES.MoveFlattenersIn :                        // Move flatteners up and in
-                                                                    //sealFlattenersHorizontalAxisMotor.NextSequence(); 
+                                                                    // sealFlattenersHorizontalAxisMotor.NextSequence(); 
 																	timeoutTimer.IN := TRUE;   
                                                                     sealFlattenersHorizontalAxisMotor.MoveToPosition(position := inSetpoint, 
-                                                                                                                        acceleration := horizontalAxisAccel,
-                                                                                                                        deceleration := horizontalAxisDecel,
-                                                                                                                        velocity := moveInSpeed);                                                    
+                                                                                                                 acceleration := horizontalAxisAccel,
+                                                                                                                 deceleration := horizontalAxisDecel,
+                                                                                                                     velocity := moveInSpeed);                                                    
                                                                     state := SEAL_FLATTENER_STATES.MovingFlattenersIn;
-                                                                    
-                                                                    
+                                                                                                                  
     SEAL_FLATTENER_STATES.MovingFlattenersIn :                      // If we did that command well move on 
                                                                         delay.IN := TRUE;
                                                                         IF delay.Q THEN
@@ -334,7 +333,7 @@ CASE state OF
 																			END_IF
                                                                         END_IF 
                                                                     
-    SEAL_FLATTENER_STATES.MovedFlattenersIn :                        // Now that we're up and in move to down and 4 corners/bag holding
+    SEAL_FLATTENER_STATES.MovedFlattenersIn:                        // Now that we're up and in move to down and 4 corners/bag holding
 																	timeoutTimer.IN := FALSE;
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveHandLoad)) THEN
                                                                         state := SEAL_FLATTENER_STATES.MovingFlattenersDown;
@@ -358,7 +357,7 @@ CASE state OF
                                                                     state := SEAL_FLATTENER_STATES.MovingFlattenersDown;
                              
     SEAL_FLATTENER_STATES.MovingFlattenersDown :            
-                                                                        //IF sealFlattenersVerticalAxis.CommandAcknowledged AND sealFlattenersVerticalAxis.InPosition THEN
+                                                                    	// IF sealFlattenersVerticalAxis.CommandAcknowledged AND sealFlattenersVerticalAxis.InPosition THEN
                                                                        	fingersDownDelay.IN := TRUE;
 																	  	IF fingersDownDelay.Q THEN
 																			IF handLoadRequested THEN

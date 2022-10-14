@@ -183,6 +183,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;
 	lightCurtainSelection : LightCurtainsSelection := LightCurtainsSelection.NotInstalled;
 	baggerModelSelection : ModelSelection;
+	baggerProfileSelection : BaggerProfile := BaggerProfile.Standard;
 	auxIOConfig : AuxIOConfiguration;
 	fillerFactorySelection : FillerSelection;
 	funnelFactorySelection : FunnelSelection;
