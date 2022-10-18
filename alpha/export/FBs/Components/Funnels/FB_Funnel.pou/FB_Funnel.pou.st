@@ -51,6 +51,7 @@ IF _openRequest THEN
 	_openingDelayTimer.IN := TRUE;
 ELSIF _closeRequest THEN
 	oOpen := FALSE;
+	_openingDelayTimer.IN := FALSE;
 	oClose := TRUE;
 	_closeRequest := FALSE;
 END_IF

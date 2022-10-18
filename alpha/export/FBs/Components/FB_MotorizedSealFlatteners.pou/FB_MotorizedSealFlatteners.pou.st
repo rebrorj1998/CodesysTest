@@ -25,10 +25,10 @@ VAR_INPUT
     startPB : BOOL;
     nextSeqPB : BOOL;
     delay : TON := (PT:= T#25MS);
-	fingersDownDelay : Standard.TON := (PT := T#50MS);
-	sealFlattenerMotorCommFailInput : BOOL;
 	manualPosSetpoint : REAL;
-	
+	sealFlattenerMotorCommFailInput : BOOL;
+	_fingersUpDelay : Standard.TON := (PT := T#50MS);
+	_fingersDownDelay : Standard.TON := (PT := T#250MS);
 END_VAR
 VAR_IN_OUT
 	jogIn : BOOL;
@@ -61,6 +61,8 @@ VAR
 	_amMoveHandLoad : BOOL;			// Auto move to hand load positon command
 	handLoadRequested : BOOL;
 	testTorque : BOOL;
+	_inSP : REAL;
+	_inSPForFunnel : REAL := 0.25;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block:  MotorizedSealFlattenersFB
@@ -79,7 +81,8 @@ IF testTorque THEN
 END_IF
 
 // Temporary delay between states for testing
-fingersDownDelay();
+_fingersUpDelay();
+_fingersDownDelay();
 bagDropDelay(PT := TO_TIME(HMIData.bagDropTime * 1000));
 delay();
 jogInONS(CLK := jogIn);
@@ -262,14 +265,14 @@ CASE state OF
 																	delay.IN := TRUE;	
                                                                     IF delay.Q THEN
 																		IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND sealFlattenersHorizontalAxisMotor.InPosition THEN
-																			IF fingersDownDelay.Q THEN
+																			IF _fingersUpDelay.Q THEN
 																				state := SEAL_FLATTENER_STATES.MovedFlattenersUpAndToClearance;    
                                                                         		delay.IN := FALSE;
-																				fingersDownDelay.IN := FALSE;
+																				_fingersUpDelay.IN := FALSE;
 																			END_IF
 																		END_IF
                                                                     END_IF
-																	fingersDownDelay.IN := TRUE;
+																	_fingersUpDelay.IN := TRUE;
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersUpAndToClearance :         // Move flatteners to up state
 																	bagDropDelay.IN := TRUE;
@@ -318,6 +321,11 @@ CASE state OF
     SEAL_FLATTENER_STATES.MoveFlattenersIn :                        // Move flatteners up and in
                                                                     //sealFlattenersHorizontalAxisMotor.NextSequence(); 
 																	timeoutTimer.IN := TRUE;   
+																	IF HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled AND HMIData.funnelInUse THEN
+																		_inSP := _inSPForFunnel;
+																	ELSE
+																		_inSP := inSetpoint;
+																	END_IF
                                                                     sealFlattenersHorizontalAxisMotor.MoveToPosition(position := inSetpoint, 
                                                                                                                         acceleration := horizontalAxisAccel,
                                                                                                                         deceleration := horizontalAxisDecel,
@@ -359,15 +367,15 @@ CASE state OF
                              
     SEAL_FLATTENER_STATES.MovingFlattenersDown :            
                                                                         //IF sealFlattenersVerticalAxis.CommandAcknowledged AND sealFlattenersVerticalAxis.InPosition THEN
-                                                                       	fingersDownDelay.IN := TRUE;
-																	  	IF fingersDownDelay.Q THEN
+                                                                       	_fingersDownDelay.IN := TRUE;
+																	  	IF _fingersDownDelay.Q THEN
 																			IF handLoadRequested THEN
 																				state := SEAL_FLATTENER_STATES.Idle;
 																				handLoadRequested := FALSE;
 																			ELSE
 																				state := SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding;
 																			END_IF
-																			fingersDownDelay.IN := FALSE;
+																			_fingersDownDelay.IN := FALSE;
 																		END_IF 
                                                                         //END_IF 
                                                                         
@@ -375,6 +383,7 @@ CASE state OF
 																	                             
     SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding :            // Do moves for down and bag holding
                                                                   // sealFlattenersHorizontalAxisMotor.NextSequence();
+
                                                                   timeoutTimer.IN := TRUE;    
                                                                   sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := bagHoldingSetpoint, 
                                                                                                                   acceleration := horizontalAxisAccel,

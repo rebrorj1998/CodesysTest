@@ -16,6 +16,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	batchSetting : UDINT := 10;
 	batchCount : UDINT;
 	batchReset : BOOL;
+	test : BOOL;
 	headCycleCount : UDINT;
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;
@@ -132,6 +133,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	loadShelfService : ServiceCommands;
 	IBDService : ServiceCommands;
 	funnelService : ServiceCommands;
+	accumulatingFunnel : ServiceCommands;
 	jogBagForward : BOOL;
 	jogBagReverse : BOOL;
 	jogPassthroughForward : BOOL;

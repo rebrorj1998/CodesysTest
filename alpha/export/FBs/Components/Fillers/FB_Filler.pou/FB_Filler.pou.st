@@ -6,7 +6,6 @@ VAR_INPUT
 	fillerTrigger : BOOL;
 	activateFiller : BOOL;
 	fillerOK : BOOL;
-	dropTime : REAL;
 END_VAR
 VAR_OUTPUT
 	state : FILLER_STATES;
@@ -22,7 +21,6 @@ VAR
     _baggerCycledAndReady : BOOL;
 	_fillerRequestedCycle : BOOL;
 	_fillerTrigONS : FB_ONS;
-	_dropTimer : Standard.TON;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FillerFB
 //    Description: Filler state machine
@@ -33,9 +31,6 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();
 
 //
-_dropTimer(PT := TO_TIME(dropTime * 1000));
-
-//
 IF resetONS.Q OR faultActive OR NOT enable OR NOT activateFiller THEN
 	state := FILLER_STATES.Idle;
 	cycleBagRequest := FALSE;
@@ -44,7 +39,6 @@ IF resetONS.Q OR faultActive OR NOT enable OR NOT activateFiller THEN
 	_fillerRequestedCycle := FALSE;
 	_baggerCycledAndReady := FALSE;
 	_baggerCycleInitiated := FALSE;
-	_dropTimer.IN := FALSE;
 END_IF
 
 //
@@ -75,20 +69,10 @@ CASE state OF
 		waitingForFiller := TRUE;
 		IF _fillerRequestedCycle THEN
 			waitingForFiller := FALSE;
+			cycleBagRequest := TRUE;
 			_fillerRequestedCycle := FALSE;
-			state := FILLER_STATES.Dropping;
-			_baggerCycledAndReady := FALSE;	
-		END_IF
-													
-	FILLER_STATES.Dropping:						
-		// Filler is dropping product
-		_dropTimer.IN := TRUE;
-		IF _dropTimer.Q THEN
-			IF NOT baggerInhibited THEN
-				_dropTimer.IN := FALSE;
-				cycleBagRequest := TRUE;
-				state := FILLER_STATES.BaggerCycling;	
-			END_IF
+			_baggerCycledAndReady := FALSE;
+			state := FILLER_STATES.BaggerCycling;	
 		END_IF
 	
 	FILLER_STATES.BaggerCycling:					
@@ -104,5 +88,3 @@ CASE state OF
 		END_IF
 
 END_CASE
-
-droppingProduct := _dropTimer.IN;
