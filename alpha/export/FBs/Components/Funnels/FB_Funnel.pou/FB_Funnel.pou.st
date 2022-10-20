@@ -68,7 +68,7 @@ IF _reset OR NOT enable THEN
 	oOpen := FALSE;
 END_IF
 
-//;
+//      
 IF feedback <> eActuatorFeedbackType.None THEN
 	opened := iOpened;
 	closed := iClosed;
@@ -87,6 +87,6 @@ _cylinderFault(
 	retractCommand := oClose, 
 	retractedInput := iClosed, 
 	faultTime:= T#1S, 
-	failToExtend=> failToClose.faultTrigger, 
-	failToRetract=> failToOpen.faultTrigger
+	failToExtend=> failToOpen.faultTrigger, 
+	failToRetract=> failToClose.faultTrigger
 );

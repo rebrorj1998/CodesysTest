@@ -1233,13 +1233,13 @@ CASE state OF
                                                     			   
 	HEAD_STATES.DropProduct:	
 
-		//
+		// If Funnel or Filler is enabled and a bag is presented 
 		IF ((HMIData.funnelFactorySelection <> 0) OR (filler.enable AND HMIData.fillerEnable)) AND bagOpened THEN
-	   		_dropTimer.IN := TRUE;
-	   		_dropTimer.PT := TO_TIME(HMIData.fillerDropTime * 1000);
 	   		IF HMIData.funnelFactorySelection = FunnelSelection.TwoStageFunnelWithSensors THEN
 			   	stagingFunnel.Open();
 	   		END_IF
+	   		_dropTimer.IN := TRUE;
+	   		_dropTimer.PT := TO_TIME(HMIData.fillerDropTime * 1000);
 	   		state := HEAD_STATES.DroppingProduct;
 		ELSE
 	   		startCycle := FALSE;
