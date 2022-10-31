@@ -632,7 +632,7 @@ CASE HMIData.auxIOConfig.factorySelection OF
                                                         
                                                         {warning :'Should not be an AUXIO selection anymore'}        
                                                         HMIData.packageBlockingTrunkline.active := (HMIData.auxIOConfig.cfgInput1Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection) OR
-                                                                                                   (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection) OR 														
+                                                                                                   (HMIData.auxIOConfig.cfgInput2Selection = AuxInputSelection.CollisionDetection AND collisionDetection.packageHeldByCollisionDetection); 														
  
 														CASE HMIData.auxIOConfig.cfgOutput1Selection OF
 																 

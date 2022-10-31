@@ -164,7 +164,9 @@ exitConveyorRunAfterPA(Q => runConveyorAfterApply);
 
 // Resetting logic
 IF resetONS.Q THEN
-	IF faultInput OR baggerFaulted AND NOT (exemptFaultsActive AND GlobalObjects.CollectionOfActiveFaults.totalObj = 1) THEN
+	IF (faultInput 
+		OR (baggerFaulted AND NOT (exemptFaultsActive AND GlobalObjects.CollectionOfActiveFaults.totalObj = 1)))
+		AND enable THEN
 		_tcpServer.ClearLabel();
 		resetOutputTimer.Trigger();
 	END_IF
