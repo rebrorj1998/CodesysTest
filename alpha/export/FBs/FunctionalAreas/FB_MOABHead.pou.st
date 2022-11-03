@@ -573,7 +573,8 @@ infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = Fille
 fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
-	enable:= , 
+	enable:= ,
+	inCycle := HMIData.inCycle, 
 	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine), 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
@@ -929,9 +930,10 @@ footSwitchONS(CLK := iFootSwitch);
 
 stopONS(CLK := HMIDAta.stopMachine);
 
-IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
+IF HMIData.batchCountDone.active OR NOT HMIData.autoEnable OR HMIData.fillerEnable THEN
 	HMIData.initiateCycle := FALSE;
 END_IF
+
 CASE state OF
     HEAD_STATES.Idle :                              // Start cycle if enabled
                                                     IF (startCycle AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
