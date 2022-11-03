@@ -435,7 +435,7 @@ revision = info.version.Revision</Entry>
           </Parameters>
           <Command TestRunner="TestManager.FileIO" Verb="CreateDirectory" />
           <Configuration>
-            <Entry Name="Directory">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}\</Entry>
+            <Entry Name="Directory">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}-WIN7\</Entry>
           </Configuration>
         </Action>
         <Action>
@@ -458,7 +458,7 @@ revision = info.version.Revision</Entry>
           </Parameters>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
-            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}\Application.app</Entry>
+            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}-WIN7\Application.app</Entry>
             <Entry Name="FullAppName">ElectricMachine.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
@@ -485,8 +485,8 @@ revision = info.version.Revision</Entry>
           <Configuration>
             <Entry Name="Command">import shutil
 
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID
-dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID
+output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN7'
+dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN7'
 shutil.make_archive(output_filename, 'zip', dir_name)
 shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
@@ -751,8 +751,8 @@ revision = info.version.Revision</Entry>
           <Configuration>
             <Entry Name="Command">import shutil
 
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + 'WIN10'
-dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + 'WIN10'
+output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN10'
+dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN10'
 shutil.make_archive(output_filename, 'zip', dir_name)
 shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
