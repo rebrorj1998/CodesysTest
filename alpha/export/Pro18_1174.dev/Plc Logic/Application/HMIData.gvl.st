@@ -16,7 +16,6 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	batchSetting : UDINT := 10;
 	batchCount : UDINT;
 	batchReset : BOOL;
-	test : BOOL;
 	headCycleCount : UDINT;
 	pressureBarOpenDelay : REAL;
 	pressureBarCloseDelay : REAL;

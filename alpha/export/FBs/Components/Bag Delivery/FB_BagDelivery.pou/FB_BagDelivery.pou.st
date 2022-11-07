@@ -103,7 +103,7 @@ _bagFeedFrontMotor(
 	defaultCurrentSetpoint := 1150, 
 	commFail := bagFeedMasterMotorCommFailInput
 );
-_bagFeedFrontMotor.Execute();
+_bagFeedFrontMotor.Execute();  // VERY NICE!!!!!!
 
 //
 _bagFeedRearMotor(

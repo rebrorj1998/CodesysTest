@@ -2067,7 +2067,6 @@ CASE openBagSubState OF
 															openBagSubState := BAG_OPEN_ASSIST_STATES.MoveJawIn;
 														ELSIF HMIData.bagOpenFeedNewBagCount < HMIData.bagOpenFeedNewBagSetting THEN
 															HMIData.bagOpenFeedNewBagCount := HMIData.bagOpenFeedNewBagCount + 1;
-															bagOpenRetryCount := 0;
 															motorizedSealFlatteners.AutoMoveOut();
 															oVacOn := FALSE;
 															openBagSubState := BAG_OPEN_ASSIST_STATES.FeedNewBag;
@@ -2142,35 +2141,34 @@ CASE finishCycleSubState OF
 															funnel.Open();
 															finishCycleSubState := FINISH_CYCLE_STATES.OpeningFunnel;
 	
-	FINISH_CYCLE_STATES.OpeningFunnel :						//
+	FINISH_CYCLE_STATES.OpeningFunnel:						//
 															IF funnel.opened THEN
 																finishCycleSubState := FINISH_CYCLE_STATES.OpenedFunnel;
 															END_IF
 	
-	FINISH_CYCLE_STATES.OpenedFunnel :						//
-															//IF enableBagOpen THEN
-																IF iLeftFingerBagPresent AND iRightFingerBagPresent THEN
-																	finishCycleSubState := FINISH_CYCLE_STATES.Done;
-																ELSE
-																	IF bagOpenRetryCount < bagOpenRetrySetting THEN
-																		bagOpenRetryCount := bagOpenRetryCount + 1;
-																		funnel.Close();
-																		finishCycleSubState := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
-																	ELSE
-																		bagFailedToOpen.Trigger();
-																		funnel.Close();
-																		bagOpenRetryCount := 0; 
-																		HMIData.bagsRejectedTotal.Increment();
-																		finishCycleSubState := FINISH_CYCLE_STATES.Shake;
-																	END_IF
-																END_IF
-															
-																IF motorizedSealFlatteners.enable THEN
-																	finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
-																ELSE
-																	finishCycleSubState := FINISH_CYCLE_STATES.Shake;
-																END_IF
-															//END_IF
+	FINISH_CYCLE_STATES.OpenedFunnel:						
+		//
+		IF iLeftFingerBagPresent AND iRightFingerBagPresent THEN
+			finishCycleSubState := FINISH_CYCLE_STATES.Done;
+		ELSE
+			IF bagOpenRetryCount < bagOpenRetrySetting THEN
+				funnel.Close();
+				bagOpenRetryCount := bagOpenRetryCount + 1;
+				finishCycleSubState := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
+			ELSE
+				funnel.Close();
+				bagOpenRetryCount := 0;
+				bagFailedToOpen.Trigger(); 
+				HMIData.bagsRejectedTotal.Increment();
+				finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+			END_IF
+		END_IF
+		
+		IF motorizedSealFlatteners.enable THEN
+			finishCycleSubState := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
+		ELSE
+			finishCycleSubState := FINISH_CYCLE_STATES.Shake;
+		END_IF
 	
 	FINISH_CYCLE_STATES.ClosingFunnelForRetry :				//
 															IF funnel.closed THEN
