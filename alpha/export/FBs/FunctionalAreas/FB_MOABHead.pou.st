@@ -1872,7 +1872,7 @@ CASE finishCycleSubState OF
 		   		oVacOn := FALSE;
 		   		funnel.Close();
 		   		HMIData.bagOpenFeedNewBagCount := HMIData.bagOpenFeedNewBagCount + 1;
-				motorizedSealFlatteners.AutoMoveOut();
+				motorizedSealFlatteners.AutoMoveToBagHolding();
 				HMIData.bagsRejectedTotal.Increment();	
 		   		state := HEAD_STATES.SealAndSeparateBag;
 				finishCycleSubState := FINISH_CYCLE_STATES.Shake;										
