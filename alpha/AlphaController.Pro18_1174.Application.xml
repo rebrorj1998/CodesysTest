@@ -72,16 +72,6 @@
       <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="WaitAfterSettingOutputOn" enumvalue="15" />
       <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
-    <TypeUserDef name="T_BAG_DELIVERY_RESET_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_DELIVERY_RESET_STATES" basetype="T_INT">
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="Idle" enumvalue="0" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="ClearFaults" enumvalue="1" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SetTorque" enumvalue="2" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SettingTorque" enumvalue="3" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="TorqueSet" enumvalue="4" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SetTorqueMode" enumvalue="5" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SettingTorqueMode" enumvalue="6" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="TorqueModeSet" enumvalue="7" />
-    </TypeUserDef>
     <TypeUserDef name="T_BAG_OPEN_ASSIST_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_OPEN_ASSIST_STATES" basetype="T_INT">
       <UserDefElement type="T_BAG_OPEN_ASSIST_STATES" iecname="Idle" enumvalue="0" />
       <UserDefElement type="T_BAG_OPEN_ASSIST_STATES" iecname="MoveJawIn" enumvalue="10" />
@@ -580,60 +570,11 @@
       <UserDefElement iecname="slowBlinkSec" type="T_REAL" byteoffset="64" vartype="VAR" />
       <UserDefElement iecname="fastBlinkSec" type="T_REAL" byteoffset="68" vartype="VAR" />
     </TypeUserDef>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <TypeUserDef name="T_FB_MurrIO" size="7" nativesize="500" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
-=======
-    <TypeUserDef name="T_FB_MurrIO" size="7" nativesize="676" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
->>>>>>> alpha/feature/MomDataConfigFail
-      <UserDefElement iecname="commFailController" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="configActive" type="T_Warning" byteoffset="6" vartype="VAR_OUTPUT" />
-=======
-<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
-    <TypeUserDef name="T_FB_MurrIO" size="7" nativesize="500" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="commFailController" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="configActive" type="T_Warning" byteoffset="6" vartype="VAR_OUTPUT" />
-========
-    <TypeUserDef name="T_FB_MonostableMultivibrator" size="56" nativesize="104" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MonostableMultivibrator" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="14" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_trigger" type="T_BOOL" byteoffset="15" vartype="VAR" />
-      <UserDefElement iecname="_dwellTimeInMS" type="T_UINT" byteoffset="16" vartype="VAR" />
-      <UserDefElement iecname="_delayTimeInMS" type="T_UINT" byteoffset="18" vartype="VAR" />
-      <UserDefElement iecname="_manualOn" type="T_BOOL" byteoffset="20" vartype="VAR" />
-      <UserDefElement iecname="_manualOff" type="T_BOOL" byteoffset="21" vartype="VAR" />
-      <UserDefElement iecname="active" type="T_BOOL" byteoffset="22" vartype="VAR" />
-      <UserDefElement iecname="dwellTimer" type="T_TON" byteoffset="24" vartype="VAR" />
-      <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="40" vartype="VAR" />
-    </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="440" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-    </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="2256" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="failToClampLeft" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToReleaseLeft" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToClampRight" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToReleaseRight" type="T_FB_Fault" byteoffset="9" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="12" vartype="VAR_OUTPUT" />
-    </TypeUserDef>
     <TypeUserDef name="T_FB_MurrIO" size="10" nativesize="676" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="MOMDataConfigFail" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="commFailController" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="configActive" type="T_Warning" byteoffset="9" vartype="VAR_OUTPUT" />
->>>>>>>> alpha/bugfix/AuxIO:alpha/AlphaController.ElectricMachine.Application.xml
->>>>>>> alpha/bugfix/AuxIO
     </TypeUserDef>
     <TypeUserDef name="T_FB_PneumaticPressureBar" size="18" nativesize="1324" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PneumaticPressureBar" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
@@ -737,13 +678,13 @@
       <UserDefElement iecname="_moveFinal" type="T_BOOL" byteoffset="821" vartype="VAR" />
       <UserDefElement iecname="_moveDone" type="T_BOOL" byteoffset="822" vartype="VAR" />
       <UserDefElement iecname="_finalMove" type="T_BOOL" byteoffset="823" vartype="VAR" />
-      <UserDefElement iecname="_restoreToDefault" type="T_BOOL" byteoffset="824" vartype="VAR" />
+      <UserDefElement iecname="_bagDeliveryReset" type="T_BOOL" byteoffset="824" vartype="VAR" />
       <UserDefElement iecname="_delayTimer" type="T_TON" byteoffset="828" vartype="VAR" />
       <UserDefElement iecname="_state" type="T_BAG_DELIVERY_MOVE_STATES" byteoffset="844" vartype="VAR" />
-      <UserDefElement iecname="_resetState" type="T_BAG_DELIVERY_RESET_STATES" byteoffset="846" vartype="VAR" />
+      <UserDefElement iecname="_torqueMode" type="T_BOOL" byteoffset="846" vartype="VAR" />
       <UserDefElement iecname="_tensionFaultDwellTimer" type="T_TON" byteoffset="848" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_BagDelivery" size="1744" nativesize="6520" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_BagDelivery" size="1744" nativesize="6516" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -751,16 +692,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="880" vartype="VAR" />
     </TypeUserDef>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <TypeUserDef name="T_FB_MOABHead" size="2034" nativesize="101412" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
-=======
-    <TypeUserDef name="T_FB_MOABHead" size="2034" nativesize="101588" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
->>>>>>> alpha/feature/MomDataConfigFail
-=======
-<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
-    <TypeUserDef name="T_FB_MOABHead" size="2034" nativesize="101412" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
->>>>>>> alpha/bugfix/AuxIO
+    <TypeUserDef name="T_FB_MOABHead" size="2037" nativesize="101584" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -793,61 +725,10 @@
       <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="1940" vartype="VAR" />
       <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="2012" vartype="VAR" />
       <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="2019" vartype="VAR" />
-      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="2026" vartype="VAR" />
+      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="2029" vartype="VAR" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
     <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
-<<<<<<< HEAD
-=======
-========
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77296" nativesize="186252" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="sealAndSeparateSubState" type="T_SEAL_SEPARATE_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="openBagSubState" type="T_BAG_OPEN_ASSIST_STATES" byteoffset="6" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="finishCycleSubState" type="T_FINISH_CYCLE_STATES" byteoffset="8" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="10" vartype="VAR" />
-      <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="52" vartype="VAR" />
-      <UserDefElement iecname="IBD" type="T_FB_MotorizedIBD" byteoffset="82" vartype="VAR" />
-      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="85" vartype="VAR" />
-      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="88" vartype="VAR" />
-      <UserDefElement iecname="bagDelivery" type="T_FB_BagDelivery" byteoffset="96" vartype="VAR" />
-      <UserDefElement iecname="zebraPrinter" type="T_FB_ZebraPrinter" byteoffset="196" vartype="VAR" />
-      <UserDefElement iecname="bagOpened" type="T_BOOL" byteoffset="200" vartype="VAR" />
-      <UserDefElement iecname="recoveryModeActive" type="T_BOOL" byteoffset="201" vartype="VAR" />
-      <UserDefElement iecname="pressureBarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="202" vartype="VAR" />
-      <UserDefElement iecname="IBDMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="244" vartype="VAR" />
-      <UserDefElement iecname="setPassthroughPB" type="T_BOOL" byteoffset="286" vartype="VAR" />
-      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="287" vartype="VAR" />
-      <UserDefElement iecname="openedBagWasRemoved" type="T_FB_Fault" byteoffset="290" vartype="VAR" />
-      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="293" vartype="VAR" />
-      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="296" vartype="VAR" />
-      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="299" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerificationFailed" type="T_FB_Fault" byteoffset="302" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerifierCommFail" type="T_FB_Fault" byteoffset="305" vartype="VAR" />
-      <UserDefElement iecname="infeedConveyorIOCommFail" type="T_FB_Fault" byteoffset="308" vartype="VAR" />
-      <UserDefElement iecname="infeedConveyorVFDFaulted" type="T_FB_Fault" byteoffset="311" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyFaulted" type="T_FB_Fault" byteoffset="314" vartype="VAR" />
-      <UserDefElement iecname="productJammed" type="T_FB_Fault" byteoffset="317" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyCommFailure" type="T_FB_Fault" byteoffset="320" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyWaitForLabelTimedOut" type="T_FB_Fault" byteoffset="323" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyPackageFailedToExit" type="T_FB_Fault" byteoffset="326" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyPackageFailedToReachTamp" type="T_FB_Fault" byteoffset="329" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyPackageRemovedBeforeTamp" type="T_FB_Fault" byteoffset="332" vartype="VAR" />
-      <UserDefElement iecname="labelsQueuedUpFault" type="T_FB_Fault" byteoffset="335" vartype="VAR" />
-      <UserDefElement iecname="sealFlattenerTimedOut" type="T_FB_Fault" byteoffset="338" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="341" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="350" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="359" vartype="VAR" />
-      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="368" vartype="VAR" />
-      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="440" vartype="VAR" />
-      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="447" vartype="VAR" />
-      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="457" vartype="VAR" />
-      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="465" vartype="VAR" />
-      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="468" vartype="VAR" />
-    </TypeUserDef>
->>>>>>>> alpha/bugfix/AuxIO:alpha/AlphaController.ElectricMachine.Application.xml
->>>>>>> alpha/bugfix/AuxIO
   </TypeList>
   <NodeList>
     <Node name="Application">

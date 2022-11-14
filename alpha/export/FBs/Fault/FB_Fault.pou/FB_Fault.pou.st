@@ -9,15 +9,13 @@ VAR_OUTPUT
 	active : BOOL;
 END_VAR
 VAR
-	_active : BOOL;
 	_acked : BOOL;
-	_ackCommand : BOOL;
+	_active : BOOL;
 	_logger : IMachineLogger;
-	ackCommandOSR : R_TRIG;
-	faultTriggerONS : FB_ONS;
-	activeONS : FB_ONS;
+	_faultTriggerONS : FB_ONS;
+	_ackCommandONS : FB_ONS;
+	_activeONS : FB_ONS;
 	_instanceName : STRING;
 END_VAR
 VAR_IN_OUT
-	
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

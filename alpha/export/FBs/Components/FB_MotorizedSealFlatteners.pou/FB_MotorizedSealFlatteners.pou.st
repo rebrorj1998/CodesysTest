@@ -72,12 +72,6 @@ END_VAR
 
 SUPER^();
 
-// Setup and execute 2 motor axis'
-IF testTorque THEN
-	sealFlattenersHorizontalAxisMotor.MoveDistanceTorque(-0.5, 100, 100, 100, 20);
-	testTorque := FALSE;
-END_IF
-
 // Temporary delay between states for testing
 fingersDownDelay();
 bagDropDelay(PT := TO_TIME(HMIData.bagDropTime * 1000));
@@ -91,66 +85,34 @@ bagHoldingSetpoint := HMIData.bagWidth;
 // Setup the vertical axis motor
 sealFlattenersVerticalAxis.Execute();
 
-
+//
 timeoutTimer();
-IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
+IF timeoutTimer.Q AND NOT bagDropDelay.IN THEN
 	timeoutFault := TRUE;
 END_IF
 
-// Setup the horizontal axis motor 
-(*
-sealFlattenersHorizontalAxisMotor(modbusInBuffer := OrientalMotorModbusRead,
-                stepsPerInchSetpoint := 125,
-                reversePolarity := FALSE,
-                operatingCurrentDefault := 500,
-                modbusCommandOutBuffer := OrientalMotorCommandWrites,
-                modbusParametersOutBuffer := OrientalMotorParameterWrites,
-                triggerCommandWrite => OrientalMotorTriggerCommandWrite,
-                triggerParameterWrite => OrientalMotorTriggerParameterWrite);                
-sealFlattenersHorizontalAxisMotor.Execute();
-*)
-
-sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMotorInputs),
-                ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
-                stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
-				reversePolarity := TRUE, 
-				defaultCurrentSetpoint := defaultCurrentMSF, 
-				commFail := sealFlattenerMotorCommFailInput,
-				isHomable := enable);
+sealFlattenersHorizontalAxisMotor(
+	ptrEIPInputs := ADR(sealFlattenerHorizontalMotorInputs),
+    ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
+    stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
+	reversePolarity := TRUE, 
+	defaultCurrentSetpoint := defaultCurrentMSF, 
+	commFail := sealFlattenerMotorCommFailInput,
+	isHomable := enable);
 sealFlattenersHorizontalAxisMotor.Execute();
 
-//Report as ready if mode is auto and we're not faulted
+// Report as ready if mode is auto and we're not faulted
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = SEAL_FLATTENER_STATES.Fault);
-
-enableMotorizedSealFlattenersONS(CLK := enable);
-IF stopPB THEN
-    sealFlattenersHorizontalAxisMotor.Stop();
-    stopPB := FALSE;
-END_IF
-
-IF startPB AND semiAutoModeSelected THEN 
-    //sealFlattenersHorizontalAxisMotor.StartOperation();
-    startPB := FALSE;
-END_IF
-
-IF nextSeqPB THEN 
-    //sealFlattenersHorizontalAxisMotor.NextSequence();
-    nextSeqPB := FALSE;
-END_IF
-
-IF testMovePB THEN
-    sealFlattenersHorizontalAxisMotor.MoveToPosition(position := testMoveSP, acceleration := 100, deceleration := 100, velocity := 600);
-    testMovePB := FALSE;
-END_IF
 
 IF enableONS.Q OR resetONS.Q THEN 
 	_reset := FALSE;
 	timeoutFault := FALSE;
+	timeoutTimer.IN := FALSE;
 	bagDropDelay.IN := FALSE;
-	ClearCommands();
 	handLoadRequested := FALSE;
 	state := SEAL_FLATTENER_STATES.Idle;
 	sealFlattenersHorizontalAxisMotor.Reset();
+	ClearCommands();
 END_IF
 
 IF NOT enable THEN
@@ -158,6 +120,7 @@ IF NOT enable THEN
 END_IF
 
 // Move seal flatteners out of the way when disabled
+enableMotorizedSealFlattenersONS(CLK := enable);
 IF enableMotorizedSealFlattenersONS.OSF THEN
 	sealFlattenersVerticalAxis.Retract();
 	IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
