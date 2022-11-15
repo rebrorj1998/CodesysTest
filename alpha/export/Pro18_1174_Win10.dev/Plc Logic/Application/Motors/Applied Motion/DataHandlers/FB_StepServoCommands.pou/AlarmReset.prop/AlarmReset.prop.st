@@ -1,0 +1,2 @@
+(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+PROPERTY AlarmReset : BOOL
