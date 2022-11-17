@@ -133,6 +133,7 @@ END_VAR
 {region "Setup"}
 
 {endregion}
+	 
 // Run BaseComponentFB
 SUPER^();
 
@@ -1765,7 +1766,7 @@ CASE openBagSubState OF
 			openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab;
 		END_IF
 													  
-	BAG_OPEN_ASSIST_STATES.BagFailedToOpen :			// 
+	BAG_OPEN_ASSIST_STATES.BagFailedToOpen:			// 
 														bagOpenFingers.Release();
 														bagOpenRetryCount := bagOpenRetryCount + 1;
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
@@ -1776,7 +1777,6 @@ CASE openBagSubState OF
 															motorizedSealFlatteners.AutoMoveOut();
 															oVacOn := FALSE;
 															openBagSubState := BAG_OPEN_ASSIST_STATES.FeedNewBag;
-															
 														ELSE 
 															motorizedSealFlatteners.AutoMoveToBagHolding();
 															bagFailedToOpen.Trigger();
@@ -1853,6 +1853,7 @@ CASE finishCycleSubState OF
 		_funnelBagOpenTimeoutTimer.IN := TRUE;
    		_funnelBagOpenDebounceTimer.IN := iLeftFingerBagPresent AND iRightFingerBagPresent;
 		IF _funnelBagOpenDebounceTimer.Q THEN
+	  		bagOpenRetryCount := 0; 
 	   		_funnelBagOpenTimeoutTimer.IN := FALSE;
 	   		_funnelBagOpenDebounceTimer.IN := FALSE;
 			IF motorizedSealFlatteners.enable THEN
