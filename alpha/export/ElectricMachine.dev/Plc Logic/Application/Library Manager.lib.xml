@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638030631818647319</Single>
+        <Single Name="Timestamp" Type="long">638043813574861011</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
@@ -319,18 +319,6 @@
             <Single Name="Name" Type="string">SysCom, 3.5.15.0 (System)</Single>
             <Single Name="Id" Type="long">3343620041</Single>
             <Single Name="Namespace" Type="string">SysCom</Single>
-            <Single Name="SystemLibrary" Type="bool">False</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
-          <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
-            <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
-            <Single Name="Name" Type="string">Recipe Management, 3.5.15.0 (System)</Single>
-            <Single Name="Id" Type="long">1108449833</Single>
-            <Single Name="Namespace" Type="string">Recipe_Management</Single>
             <Single Name="SystemLibrary" Type="bool">False</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
             <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
@@ -761,6 +749,14 @@
             </Key>
             <Value>
               <Single Type="string">VisuElemsWinControls, 4.2.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">RecipeManagement</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Recipe Management, 3.5.15.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>

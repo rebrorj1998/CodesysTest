@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">637625553438851904</Single>
+        <Single Name="Timestamp" Type="long">638043814039536235</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
@@ -395,18 +395,6 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
-            <Single Name="Name" Type="string">Recipe Management, 3.5.15.0 (System)</Single>
-            <Single Name="Id" Type="long">1108449833</Single>
-            <Single Name="Namespace" Type="string">Recipe_Management</Single>
-            <Single Name="SystemLibrary" Type="bool">False</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
-          <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
-            <Single Name="Optional" Type="bool">False</Single>
             <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
               <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
                 <Single Name="Name" Type="string">MAX_MODBUS_CHANNELS</Single>
@@ -555,7 +543,7 @@
               <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTextEditor, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemTextEditor, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -571,7 +559,7 @@
               <Single Type="string">System_VisuElemMeter</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemMeter, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemMeter, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -579,7 +567,7 @@
               <Single Type="string">System_VisuElemsSpecialControls</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsSpecialControls, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemsSpecialControls, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -595,7 +583,7 @@
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTrace, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemTrace, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -611,7 +599,7 @@
               <Single Type="string">System_VisuElemCamDisplayer</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemCamDisplayer, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemCamDisplayer, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -619,7 +607,7 @@
               <Single Type="string">System_VisuElems</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElems, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElems, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -635,7 +623,7 @@
               <Single Type="string">System_VisuElem3DPath</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElem3DPath, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElem3DPath, 4.1.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -643,7 +631,7 @@
               <Single Type="string">System_VisuElemsDateTime</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsDateTime, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemsDateTime, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -651,7 +639,7 @@
               <Single Type="string">System_VisuElemsAlarm</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsAlarm, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemsAlarm, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -675,7 +663,15 @@
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsWinControls, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemsWinControls, 4.2.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">RecipeManagement</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Recipe Management, 3.5.15.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -683,7 +679,7 @@
               <Single Type="string">System_VisuElemBase</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemBase, 3.5.16.30 (System)</Single>
+              <Single Type="string">VisuElemBase, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -691,7 +687,7 @@
               <Single Type="string">System_VisuNativeControl</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuNativeControl, 3.5.16.0 (System)</Single>
+              <Single Type="string">VisuNativeControl, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>
