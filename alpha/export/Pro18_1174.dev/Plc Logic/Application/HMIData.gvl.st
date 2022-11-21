@@ -113,6 +113,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerClearedAck : BOOL;
 	calculatedCyclesPerMinute : REAL;
 	sealFlattenersInUse : BOOL := TRUE;
+	feedToSealSetpoint : REAL := 0.0;
+	feedToSealInUse : BOOL := FALSE;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -167,6 +169,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printerSelection : LabelPrinterSelection := LabelPrinterSelection.ZebraPrinter203DPI;
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;
+	feedToSealBagSelection : FeedToSealSelection := FeedToSealSelection.NotInstalled;
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
 	packageEjectDisabledPosition : PackageEjectionDisabledPosition := PackageEjectionDisabledPosition.LoadingPosition;
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;

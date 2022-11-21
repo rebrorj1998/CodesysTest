@@ -9,3 +9,4 @@ _amMoveClearance := FALSE;
 _amMoveInToBagHolding := FALSE;
 _amMoveIn := FALSE;
 _amMoveHandLoad := FALSE;
+_amMoveToFeedToSeal := FALSE;

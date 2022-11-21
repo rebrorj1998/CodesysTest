@@ -17,6 +17,12 @@ TYPE SEAL_SEPARATE_STATES :
 	SealBag := 30, 
 	SealingBag := 31, 
 	SealedBag := 32,
+	PrepareToFeedToSeal := 40,
+	PreparingToFeedToSeal := 41,
+	PreparedToFeedToSeal := 42,
+	FeedToSeal := 43,
+	FeedingToSeal := 44,
+	FedToSeal := 45,
 	Done := 100,
 	Fault := 99
 );

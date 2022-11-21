@@ -241,6 +241,7 @@ opbar2Retract := oPBar1Retract;
 bagDelivery(
 	jogForwardPB := HMIData.jogBagForward,
 	jogReversePB := HMIData.jogBagReverse,
+	feedToSealSetpoint := HMIData.feedToSealSetpoint,
 	bagLengthSetpoint := HMIData.bagLength,	 
 	printVelocitySetpoint := HMIData.printSpeed,
 	printLengthSetpoint := HMIData.printLength,
@@ -1427,8 +1428,9 @@ CASE state OF
 END_CASE
 
 CASE sealAndSeparateSubState OF
+	    SEAL_SEPARATE_STATES.Idle:
 	SEAL_SEPARATE_STATES.Shake:						
-				//
+		//
 		IF loadShelf.shakeStart = SHAKER_START_SELECTION.CycleStart OR
    		   loadShelf.shakeStart = SHAKER_START_SELECTION.Both THEN
 		   loadShelf.Shake();
@@ -1445,24 +1447,69 @@ CASE sealAndSeparateSubState OF
    		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
 		   frontLoadPlate.Shake();
 		END_IF
-		
+
 		//
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
 			sealAndSeparateSubState := SEAL_SEPARATE_STATES.Shaking;
-		ELSIF enableIBDDeflate THEN
-			sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
 		ELSE
-			sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.PrepareToFeedToSeal;
 		END_IF
 													
 	SEAL_SEPARATE_STATES.Shaking:				    //
 		IF NOT frontLoadPlate.Shaking AND NOT rearLoadPlate.Shaking AND NOT loadShelf.Shaking THEN
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.PrepareToFeedToSeal;
+		END_IF
+		
+	SEAL_SEPARATE_STATES.PrepareToFeedToSeal:
+		IF HMIData.feedToSealInUse THEN
+			IF enableBagOpen THEN
+				bagOpenFingers.Release();
+			END_IF
+			motorizedSealFlatteners.AutoMovetoFeedToSeal();
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.PreparingToFeedToSeal;	
+		ELSE
+			//
 			IF enableIBDDeflate THEN
 				sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
 			ELSE
 				sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
-			END_IF
-		END_IF	 
+			END_IF	
+		END_IF
+	
+	SEAL_SEPARATE_STATES.PreparingToFeedToSeal:
+		IF motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle THEN
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.PreparedToFeedToSeal;
+		END_IF
+	
+	SEAL_SEPARATE_STATES.PreparedToFeedToSeal:
+		sealAndSeparateSubState := SEAL_SEPARATE_STATES.FeedToSeal;
+
+	SEAL_SEPARATE_STATES.FeedToSeal:
+		IF HMIData.feedToSealInUse THEN
+			bagDelivery.AutoFeedToSeal();
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.FeedingToSeal;		
+		ELSE
+			//
+			IF enableIBDDeflate THEN
+				sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+			ELSE
+				sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+			END_IF	
+		END_IF
+	
+	SEAL_SEPARATE_STATES.FeedingToSeal:
+		//
+		IF bagDelivery.state = BAG_DELIVERY_STATES.Ready THEN
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.FedToSeal;
+		END_IF
+	
+	SEAL_SEPARATE_STATES.FedToSeal:
+		//
+		IF enableIBDDeflate THEN
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.BringInIBD;
+		ELSE
+			sealAndSeparateSubState := SEAL_SEPARATE_STATES.WaitForJawCloseDelay;
+		END_IF		 
 	
 	SEAL_SEPARATE_STATES.BringInIBD : 				// Bring in IBD if enabled
 													IF enableIBDDeflate THEN

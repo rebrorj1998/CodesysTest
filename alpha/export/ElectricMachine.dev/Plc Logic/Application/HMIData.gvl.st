@@ -125,6 +125,8 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	IBDOffset : REAL := 3.0;
 	pressureBarBagFeedPosition : REAL := 2.0;
 	pressureBarInPosition : REAL := 0;
+	feedToSealSetpoint : REAL := 0.0;
+	feedToSealInUse : BOOL := FALSE;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -180,6 +182,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	printerSelection : LabelPrinterSelection := LabelPrinterSelection.ZebraPrinter203DPI;
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;
+	feedToSealBagSelection : FeedToSealSelection := FeedToSealSelection.NotInstalled;
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
 	packageEjectDisabledPosition : PackageEjectionDisabledPosition := PackageEjectionDisabledPosition.LoadingPosition;
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;

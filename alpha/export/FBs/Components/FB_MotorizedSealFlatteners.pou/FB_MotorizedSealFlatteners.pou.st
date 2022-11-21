@@ -25,10 +25,10 @@ VAR_INPUT
     startPB : BOOL;
     nextSeqPB : BOOL;
     delay : TON := (PT:= T#25MS);
-	manualPosSetpoint : REAL;
+	fingersDownDelay : Standard.TON := (PT := T#50MS);
 	sealFlattenerMotorCommFailInput : BOOL;
-	_fingersUpDelay : Standard.TON := (PT := T#50MS);
-	_fingersDownDelay : Standard.TON := (PT := T#250MS);
+	manualPosSetpoint : REAL;
+	
 END_VAR
 VAR_IN_OUT
 	jogIn : BOOL;
@@ -42,8 +42,6 @@ VAR_OUTPUT
 	timeoutFault : BOOL;
 END_VAR
 VAR
-    //pressureBarMotor : FB_FestoMotor();
-    //sealFlattenersVerticalAxisMotor : FB_AppliedMotionStepServoRTU();
 	jogInONS: FB_ONS;
 	jogOutONS: FB_ONS;
 	jogSpeed : INT := 100;
@@ -56,13 +54,17 @@ VAR
 	bagDropDelay : Standard.TON := (PT := T#1S);    
     _amMoveOut : BOOL;                // Auto mode move out command
 	_amMoveIn : BOOL;
+	_amMoveToFeedToSeal : BOOL;
     _amMoveClearance : BOOL;            // Auto mode move Clearance command
     _amMoveInToBagHolding : BOOL;    // Auto mode move in then bag holding command
 	_amMoveHandLoad : BOOL;			// Auto move to hand load positon command
 	handLoadRequested : BOOL;
 	testTorque : BOOL;
-	_inSP : REAL;
-	_inSPForFunnel : REAL := 0.25;
+	_testEnable : BOOL;
+	_testDisable : BOOL;
+END_VAR
+VAR CONSTANT
+	FEED_TO_SEAL_INSET : REAL := 1;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block:  MotorizedSealFlattenersFB
@@ -74,86 +76,49 @@ END_VAR
 
 SUPER^();
 
-// Setup and execute 2 motor axis'
-IF testTorque THEN
-	sealFlattenersHorizontalAxisMotor.MoveDistanceTorque(-0.5, 100, 100, 100, 20);
-	testTorque := FALSE;
-END_IF
-
 // Temporary delay between states for testing
-_fingersUpDelay();
-_fingersDownDelay();
+fingersDownDelay();
 bagDropDelay(PT := TO_TIME(HMIData.bagDropTime * 1000));
 delay();
 jogInONS(CLK := jogIn);
 jogOutONS(CLK := jogOut);
 
+//
 outSetpoint := HMIData.bagWidth + 0.2;
 bagHoldingSetpoint := HMIData.bagWidth;
 
 // Setup the vertical axis motor
 sealFlattenersVerticalAxis.Execute();
 
-
+//
 timeoutTimer();
-IF timeoutTimer.Q AND bagDropDelay.IN = FALSE THEN
+IF timeoutTimer.Q AND NOT bagDropDelay.IN THEN
 	timeoutFault := TRUE;
 END_IF
 
-// Setup the horizontal axis motor 
-(*
-sealFlattenersHorizontalAxisMotor(modbusInBuffer := OrientalMotorModbusRead,
-                stepsPerInchSetpoint := 125,
-                reversePolarity := FALSE,
-                operatingCurrentDefault := 500,
-                modbusCommandOutBuffer := OrientalMotorCommandWrites,
-                modbusParametersOutBuffer := OrientalMotorParameterWrites,
-                triggerCommandWrite => OrientalMotorTriggerCommandWrite,
-                triggerParameterWrite => OrientalMotorTriggerParameterWrite);                
-sealFlattenersHorizontalAxisMotor.Execute();
-*)
-
-sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMotorInputs),
-                ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
-                stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
-				reversePolarity := TRUE, 
-				defaultCurrentSetpoint := defaultCurrentMSF, 
-				commFail := sealFlattenerMotorCommFailInput,
-				isHomable := enable);
+//
+sealFlattenersHorizontalAxisMotor(
+	ptrEIPInputs := ADR(sealFlattenerHorizontalMotorInputs),
+    ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
+    stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
+	reversePolarity := TRUE, 
+	defaultCurrentSetpoint := defaultCurrentMSF, 
+	commFail := sealFlattenerMotorCommFailInput,
+	isHomable := enable);
 sealFlattenersHorizontalAxisMotor.Execute();
 
-//Report as ready if mode is auto and we're not faulted
+// Report as ready if mode is auto and we're not faulted
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = SEAL_FLATTENER_STATES.Fault);
-
-enableMotorizedSealFlattenersONS(CLK := enable);
-IF stopPB THEN
-    sealFlattenersHorizontalAxisMotor.Stop();
-    stopPB := FALSE;
-END_IF
-
-IF startPB AND semiAutoModeSelected THEN 
-    //sealFlattenersHorizontalAxisMotor.StartOperation();
-    startPB := FALSE;
-END_IF
-
-IF nextSeqPB THEN 
-    //sealFlattenersHorizontalAxisMotor.NextSequence();
-    nextSeqPB := FALSE;
-END_IF
-
-IF testMovePB THEN
-    sealFlattenersHorizontalAxisMotor.MoveToPosition(position := testMoveSP, acceleration := 100, deceleration := 100, velocity := 600);
-    testMovePB := FALSE;
-END_IF
 
 IF enableONS.Q OR resetONS.Q THEN 
 	_reset := FALSE;
 	timeoutFault := FALSE;
+	timeoutTimer.IN := FALSE;
 	bagDropDelay.IN := FALSE;
-	ClearCommands();
 	handLoadRequested := FALSE;
 	state := SEAL_FLATTENER_STATES.Idle;
 	sealFlattenersHorizontalAxisMotor.Reset();
+	ClearCommands();
 END_IF
 
 IF NOT enable THEN
@@ -161,6 +126,7 @@ IF NOT enable THEN
 END_IF
 
 // Move seal flatteners out of the way when disabled
+enableMotorizedSealFlattenersONS(CLK := enable);
 IF enableMotorizedSealFlattenersONS.OSF THEN
 	sealFlattenersVerticalAxis.Retract();
 	IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
@@ -179,14 +145,19 @@ END_IF
 // State amchine for motorized seal flatteners
 CASE state OF
     
-    SEAL_FLATTENER_STATES.Idle :                                    //If enabled move to out
+    SEAL_FLATTENER_STATES.Idle :                                    // If enabled move to out
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND _amMoveOut) THEN
                                                                         state := SEAL_FLATTENER_STATES.MoveFlattenersOut;
                                                                         ClearCommands();
                                                                     END_IF
 																	
+																	// If enabled move to out
+                                                                    IF enable AND (autoModeSelected AND _amMoveToFeedToSeal) THEN
+                                                                        state := SEAL_FLATTENER_STATES.MoveFlattenersInForFeedToSeal;
+                                                                        ClearCommands();
+                                                                    END_IF
+																	
 																	IF enable AND autoModeSelected AND _amMoveIn OR _amMoveInToBagHolding THEN
-																	//IF enable AND autoModeSelected AND _amMoveIn THEN
 																		sealFlattenersVerticalAxis.Retract();
 																		state := SEAL_FLATTENER_STATES.MoveFlattenersIn;
 																		ClearCommands();
@@ -265,14 +236,14 @@ CASE state OF
 																	delay.IN := TRUE;	
                                                                     IF delay.Q THEN
 																		IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND sealFlattenersHorizontalAxisMotor.InPosition THEN
-																			IF _fingersUpDelay.Q THEN
+																			IF fingersDownDelay.Q THEN
 																				state := SEAL_FLATTENER_STATES.MovedFlattenersUpAndToClearance;    
                                                                         		delay.IN := FALSE;
-																				_fingersUpDelay.IN := FALSE;
+																				fingersDownDelay.IN := FALSE;
 																			END_IF
 																		END_IF
                                                                     END_IF
-																	_fingersUpDelay.IN := TRUE;
+																	fingersDownDelay.IN := TRUE;
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersUpAndToClearance :         // Move flatteners to up state
 																	bagDropDelay.IN := TRUE;
@@ -321,11 +292,6 @@ CASE state OF
     SEAL_FLATTENER_STATES.MoveFlattenersIn :                        // Move flatteners up and in
                                                                     //sealFlattenersHorizontalAxisMotor.NextSequence(); 
 																	timeoutTimer.IN := TRUE;   
-																	IF HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled AND HMIData.funnelInUse THEN
-																		_inSP := _inSPForFunnel;
-																	ELSE
-																		_inSP := inSetpoint;
-																	END_IF
                                                                     sealFlattenersHorizontalAxisMotor.MoveToPosition(position := inSetpoint, 
                                                                                                                         acceleration := horizontalAxisAccel,
                                                                                                                         deceleration := horizontalAxisDecel,
@@ -367,23 +333,46 @@ CASE state OF
                              
     SEAL_FLATTENER_STATES.MovingFlattenersDown :            
                                                                         //IF sealFlattenersVerticalAxis.CommandAcknowledged AND sealFlattenersVerticalAxis.InPosition THEN
-                                                                       	_fingersDownDelay.IN := TRUE;
-																	  	IF _fingersDownDelay.Q THEN
+                                                                       	fingersDownDelay.IN := TRUE;
+																	  	IF fingersDownDelay.Q THEN
 																			IF handLoadRequested THEN
 																				state := SEAL_FLATTENER_STATES.Idle;
 																				handLoadRequested := FALSE;
 																			ELSE
 																				state := SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding;
 																			END_IF
-																			_fingersDownDelay.IN := FALSE;
+																			fingersDownDelay.IN := FALSE;
 																		END_IF 
                                                                         //END_IF 
                                                                         
-	SEAL_FLATTENER_STATES.MovedFlattenersDown :            			
+	SEAL_FLATTENER_STATES.MovedFlattenersDown :
+
+	SEAL_FLATTENER_STATES.MoveFlattenersInForFeedToSeal:
+		// Do moves for down and bag holding
+    	timeoutTimer.IN := TRUE;    
+    	sealFlattenersHorizontalAxisMotor.MoveToPosition(
+			position := bagHoldingSetpoint - FEED_TO_SEAL_INSET, 
+    	    acceleration := horizontalAxisAccel,
+    	    deceleration := horizontalAxisDecel,
+    	    velocity := moveBagHoldingSpeed
+		);                                                
+    	state := SEAL_FLATTENER_STATES.MovingFlattenersToBagHolding;
+	
+	SEAL_FLATTENER_STATES.MovingFlattenersInForFeedToSeal:
+		delay.IN := TRUE;
+        IF delay.Q THEN
+		 	IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged THEN
+				state := SEAL_FLATTENER_STATES.MovedFlattenersToBagHolding;
+              	delay.IN := FALSE; 
+			END_IF   
+        END_IF 
+	
+	SEAL_FLATTENER_STATES.MovedFlattenersInforFeedToSeal:
+    	timeoutTimer.IN := FALSE;
+		state := SEAL_FLATTENER_STATES.Idle; 			
 																	                             
     SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding :            // Do moves for down and bag holding
                                                                   // sealFlattenersHorizontalAxisMotor.NextSequence();
-
                                                                   timeoutTimer.IN := TRUE;    
                                                                   sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := bagHoldingSetpoint, 
                                                                                                                   acceleration := horizontalAxisAccel,
