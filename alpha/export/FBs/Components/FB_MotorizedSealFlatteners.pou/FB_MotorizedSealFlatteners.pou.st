@@ -110,12 +110,14 @@ sealFlattenersHorizontalAxisMotor.Execute();
 //Report as ready if mode is auto and we're not faulted
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = SEAL_FLATTENER_STATES.Fault);
 
+//
 enableMotorizedSealFlattenersONS(CLK := enable);
 IF stopPB THEN
     sealFlattenersHorizontalAxisMotor.Stop();
     stopPB := FALSE;
 END_IF
 
+//
 IF startPB AND semiAutoModeSelected THEN 
     //sealFlattenersHorizontalAxisMotor.StartOperation();
     startPB := FALSE;
@@ -313,13 +315,13 @@ CASE state OF
                                                                     state := SEAL_FLATTENER_STATES.MovingFlattenersIn;
                                                                                                                   
     SEAL_FLATTENER_STATES.MovingFlattenersIn :                      // If we did that command well move on 
-                                                                        delay.IN := TRUE;
-                                                                        IF delay.Q THEN
-																			IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND sealFlattenersHorizontalAxisMotor.InPosition THEN
-																				state := SEAL_FLATTENER_STATES.MovedFlattenersIn;
-                                                                           		delay.IN := FALSE;    
-																			END_IF
-                                                                        END_IF 
+                                                                    delay.IN := TRUE;
+                                                                    IF delay.Q THEN
+																		IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND sealFlattenersHorizontalAxisMotor.InPosition THEN
+																			state := SEAL_FLATTENER_STATES.MovedFlattenersIn;
+                                                                       		delay.IN := FALSE;    
+																		END_IF
+                                                                    END_IF 
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersIn:                        // Now that we're up and in move to down and 4 corners/bag holding
 																	timeoutTimer.IN := FALSE;

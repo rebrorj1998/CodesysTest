@@ -31,6 +31,10 @@ END_VAR
 
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
+//
+_configOutputManager();
+
+//
 CASE factorySelection.factorySelection OF
 	AuxiliaryIOSelection.NotInstalled:					
 	
@@ -38,8 +42,10 @@ CASE factorySelection.factorySelection OF
 		baggerOK := FALSE;
 		fillerOK := FALSE;
 		bagGrabbed := FALSE;
+		configOut1 := FALSE;
+		configOut2 := FALSE;
 		inhibitBagger := FALSE;
-		readyForFiller := FALSE;
+		readyForFiller := FALSE;	
 		
 		// Reset pulse manager
 		_configOutputManager.Reset();	
@@ -78,7 +84,9 @@ CASE factorySelection.factorySelection OF
 		
 		// Custom PRJ22085: Ready For Grab
 		IF waitingForFiller THEN
-			_configOutputManager.Trigger(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
+			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
+		ELSE
+			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
 		END_IF
 		
 		// Bags Low
@@ -119,6 +127,9 @@ CASE factorySelection.factorySelection OF
 				
 		IF printerDataReady OR faultActive OR (state.sb.releaseFeed = RELEASE_FEED_STATES.FeedToOffset) THEN
 			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.BagMadePlusLabelRequired));
-		END_IF									 
+		END_IF		
+
+		configOut1 := _configOutputManager.configOut1;
+		configOut2 := _configOutputManager.configOut2;							 
 			
 END_CASE 

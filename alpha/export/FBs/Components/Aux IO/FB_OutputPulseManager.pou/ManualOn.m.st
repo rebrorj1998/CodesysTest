@@ -5,8 +5,8 @@ VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 CASE output OF
-	1: _configOutput1Pulse.ManualOff();
-	2: _configOutput2Pulse.ManualOff();
-	3: _configOutput3Pulse.ManualOff();
-	4: _configOutput4Pulse.ManualOff();
+	1: _configOutput1Pulse.ManualOn();
+	2: _configOutput2Pulse.ManualOn();
+	3: _configOutput3Pulse.ManualOn();
+	4: _configOutput4Pulse.ManualOn();
 END_CASE
