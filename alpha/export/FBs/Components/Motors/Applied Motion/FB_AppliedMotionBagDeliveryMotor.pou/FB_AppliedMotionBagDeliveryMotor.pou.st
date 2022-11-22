@@ -14,11 +14,11 @@ VAR
 	_moveFinal : BOOL;
 	_moveDone : BOOL;
 	_finalMove : BOOL;
-	_restoreToDefault : BOOL;
+	_bagDeliveryReset : BOOL;
 	_delayTimer : TON := (PT := T#10MS);
 	_state : BAG_DELIVERY_MOVE_STATES;
-	_resetState : BAG_DELIVERY_RESET_STATES;
-	_tensionFaultDwellTimer : TON := (PT := T#1S);
+	_torqueMode : BOOL;
+	_tensionFaultDwellTimer : TON := (PT := T#250MS);
 END_VAR
 VAR CONSTANT
 	O2_L : INT := 16#4CB2;

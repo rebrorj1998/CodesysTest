@@ -200,7 +200,7 @@ IF state = BAG_DELIVERY_STATES.Idle OR state = BAG_DELIVERY_STATES.Ready THEN
 	END_IF
 	
 	//
-	IF (_bagFeedFrontMotor.status.moving OR _bagFeedRearMotor.status.moving) AND NOT jogForwardPB AND NOT jogReversePB THEN
+	IF _bagFeedFrontMotor.status.moving AND NOT jogForwardPB AND NOT jogReversePB THEN
 		_jogging := FALSE;
 		_bagFeedFrontMotor.Stop();
 		_bagFeedRearMotor.Stop();

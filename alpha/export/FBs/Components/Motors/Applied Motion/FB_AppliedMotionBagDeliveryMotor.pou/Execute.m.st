@@ -3,6 +3,7 @@ METHOD Execute
 VAR_INPUT
 END_VAR
 
+
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 //
@@ -12,15 +13,16 @@ SUPER^.Execute();
 _delayTimer();
 
 // If motor velocity is greater then threshold for 2 seconds, fault
-_tensionFaultDwellTimer(IN := ABS(velocity) > VELOCITY_THRESHOLD_FOR_TENSION_FAULT);
+_tensionFaultDwellTimer(IN := _torqueMode AND (ABS(velocity) > VELOCITY_THRESHOLD_FOR_TENSION_FAULT));
 IF _tensionFaultDwellTimer.Q AND NOT HMIData.enableDryCycle THEN
 	tensionFault := TRUE;
 END_IF
 
 // Clear Params
-IF _restoreToDefault THEN
-	_restoreToDefault := FALSE;
+IF _bagDeliveryReset THEN
+	_bagDeliveryReset := FALSE;
 	_state := BAG_DELIVERY_MOVE_STATES.Idle;
+	_delayTimer.IN := FALSE;
 	commandSuccessful := FALSE;
 	tensionFault := FALSE;
 	ackRequest := FALSE;

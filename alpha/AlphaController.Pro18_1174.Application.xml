@@ -72,16 +72,6 @@
       <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="WaitAfterSettingOutputOn" enumvalue="15" />
       <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
-    <TypeUserDef name="T_BAG_DELIVERY_RESET_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_DELIVERY_RESET_STATES" basetype="T_INT">
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="Idle" enumvalue="0" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="ClearFaults" enumvalue="1" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SetTorque" enumvalue="2" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SettingTorque" enumvalue="3" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="TorqueSet" enumvalue="4" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SetTorqueMode" enumvalue="5" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="SettingTorqueMode" enumvalue="6" />
-      <UserDefElement type="T_BAG_DELIVERY_RESET_STATES" iecname="TorqueModeSet" enumvalue="7" />
-    </TypeUserDef>
     <TypeUserDef name="T_BAG_OPEN_ASSIST_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_OPEN_ASSIST_STATES" basetype="T_INT">
       <UserDefElement type="T_BAG_OPEN_ASSIST_STATES" iecname="Idle" enumvalue="0" />
       <UserDefElement type="T_BAG_OPEN_ASSIST_STATES" iecname="MoveJawIn" enumvalue="10" />
@@ -695,10 +685,10 @@
       <UserDefElement iecname="_moveFinal" type="T_BOOL" byteoffset="821" vartype="VAR" />
       <UserDefElement iecname="_moveDone" type="T_BOOL" byteoffset="822" vartype="VAR" />
       <UserDefElement iecname="_finalMove" type="T_BOOL" byteoffset="823" vartype="VAR" />
-      <UserDefElement iecname="_restoreToDefault" type="T_BOOL" byteoffset="824" vartype="VAR" />
+      <UserDefElement iecname="_bagDeliveryReset" type="T_BOOL" byteoffset="824" vartype="VAR" />
       <UserDefElement iecname="_delayTimer" type="T_TON" byteoffset="828" vartype="VAR" />
       <UserDefElement iecname="_state" type="T_BAG_DELIVERY_MOVE_STATES" byteoffset="844" vartype="VAR" />
-      <UserDefElement iecname="_resetState" type="T_BAG_DELIVERY_RESET_STATES" byteoffset="846" vartype="VAR" />
+      <UserDefElement iecname="_torqueMode" type="T_BOOL" byteoffset="846" vartype="VAR" />
       <UserDefElement iecname="_tensionFaultDwellTimer" type="T_TON" byteoffset="848" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_BagDelivery" size="1744" nativesize="6520" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
