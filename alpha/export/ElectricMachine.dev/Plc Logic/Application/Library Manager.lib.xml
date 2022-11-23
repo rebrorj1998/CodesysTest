@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638047056429131050</Single>
+        <Single Name="Timestamp" Type="long">638047852028328134</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
@@ -135,20 +135,6 @@
             <Single Name="Id" Type="long">3614419918</Single>
             <Single Name="Namespace" Type="string">Network</Single>
             <Single Name="SystemLibrary" Type="bool">False</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
-          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">Recipe Management, 3.3.1.0 (System)</Single>
-            <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
-            <Single Name="PlaceholderName" Type="string">RecipeManagement</Single>
-            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">4060762849</Single>
-            <Single Name="Namespace" Type="string">Recipe_Management</Single>
-            <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
             <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
             <Single Name="QualifiedOnly" Type="bool">False</Single>

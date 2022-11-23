@@ -15,6 +15,7 @@ VAR_INPUT
 	fillerType : REFERENCE TO FillerSelection;
 END_VAR
 VAR_OUTPUT
+	installed : BOOL;
 	baggerOK : BOOL;
 	fillerOK : BOOL;
 	configOut1 : BOOL;
@@ -36,7 +37,10 @@ _configOutputManager();
 
 //
 CASE factorySelection.factorySelection OF
-	AuxiliaryIOSelection.NotInstalled:					
+	AuxiliaryIOSelection.NotInstalled:
+		
+		//
+		installed := FALSE;				
 	
 		// Turn outputs off
 		baggerOK := FALSE;
@@ -55,7 +59,10 @@ CASE factorySelection.factorySelection OF
 			fillerType := FillerSelection.NotInstalled;
 		END_IF
 		 
-	AuxiliaryIOSelection.AuxIOStandard:					
+	AuxiliaryIOSelection.AuxIOStandard:		
+
+		//
+		installed := TRUE;			
 		
 		(* Inputs *)	
 	
@@ -69,7 +76,7 @@ CASE factorySelection.factorySelection OF
         fillerOK := InputActive(AuxInputSelection.FillerOK);
         
         // Active if either input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
-        inhibitBagger := InputActive(AuxInputSelection.BagGrabbed) OR inhibitCycle;
+        inhibitBagger := InputActive(AuxInputSelection.BaggerInhibit) OR inhibitCycle;
 		
 		// Custom PRJ-22085: Robot successfully grabbed bag.
 		bagGrabbed := InputActive(AuxInputSelection.BagGrabbed);

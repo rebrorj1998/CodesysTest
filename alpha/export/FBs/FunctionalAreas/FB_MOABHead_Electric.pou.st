@@ -613,6 +613,7 @@ _auxIOManager(
 	waitingForFiller := filler.waitingForFiller,
 	fillerType := HMIData.fillerFactorySelection,
 	factorySelection := HMIData.auxIOConfig,
+	installed => murrIOBusNode.auxIONodeEnabled,
 	baggerOK => oAuxBaggerOk,
 	readyForFiller => oAuxReadyForFiller,
 	inhibitBagger => HMIData.baggerInhibited.active,

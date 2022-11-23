@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="4.0.0.0" runtimeid="3.5.17.0" libversion="3.5.16.0" compiler="3.5.16.10" lmm="3.5.17.0" profile="CODESYS V3.5 SP17+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.17.0" libversion="4.2.0.0" compiler="3.5.16.10" lmm="3.5.18.30" profile="CODESYS V3.5 SP18 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="ElectricMachine" appname="Application" />
   </Header>
   <TypeList>
@@ -97,6 +97,18 @@
     <TypeUserDef name="T_BagOpenFingersSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BagOpenFingersSelection" basetype="T_INT">
       <UserDefElement type="T_BagOpenFingersSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_BagOpenFingersSelection" iecname="PneumaticWithBagOpenSensors" enumvalue="1" />
+    </TypeUserDef>
+    <TypeUserDef name="T_BaggerProfile" size="4" nativesize="4" swapsize="4" typeclass="Enum" iecname="BaggerProfile" basetype="T_DINT">
+      <UserDefElement type="T_BaggerProfile" iecname="Standard" enumvalue="0" />
+      <UserDefElement type="T_BaggerProfile" iecname="EQMFT" enumvalue="1">
+        <Comment> MFT Automation</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_BaggerProfile" iecname="EQ59126" enumvalue="59126">
+        <Comment> ExpressScripts</Comment>
+      </UserDefElement>
+      <UserDefElement type="T_BaggerProfile" iecname="EQ22085" enumvalue="22085">
+        <Comment> Brazeway </Comment>
+      </UserDefElement>
     </TypeUserDef>
     <TypeSimple name="T_CAA_HANDLE" size="8" swapsize="8" typeclass="LWord" iecname="CAA.HANDLE" aliasedtype="T_LWORD" aliasediecname="LWORD" />
     <TypeSimple name="T_CAA_PVOID" size="8" swapsize="8" typeclass="LWord" iecname="CAA.PVOID" aliasedtype="T_LWORD" aliasediecname="LWORD" />
@@ -891,7 +903,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77404" nativesize="201584" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77404" nativesize="201592" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="12" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="54" vartype="VAR" />
@@ -1003,6 +1015,7 @@
         <Node name="baggerModelSelection" type="T_ModelSelection" access="ReadWrite" />
         <Node name="baggerNeedsClearing" type="T_BOOL" access="ReadWrite" />
         <Node name="baggerNotReady" type="T_Warning" access="ReadWrite" />
+        <Node name="baggerProfileSelection" type="T_BaggerProfile" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagLevelLow" type="T_Warning" access="ReadWrite" />
         <Node name="bagOpenFeedNewBagCount" type="T_INT" access="ReadWrite" />
