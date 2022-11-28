@@ -928,6 +928,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	printAndApply.Reset();
 	
 	bagDropTimer.IN := FALSE;
+	_skipToReverseBag := FALSE;
 	
 	motorizedSealFlattenersMode := DEVICE_MODES.Auto;
 	motorizedSealFlatteners.Reset();
@@ -1339,7 +1340,7 @@ CASE state.head OF
 		
         state.head := HEAD_STATES.SealingAndSeparatingBag;
 		state.sb.sealSeparate := SEAL_SEPARATE_STATES.Shake;
-                                                    
+                                     
     HEAD_STATES.SealingAndSeparatingBag :            IF state.sb.sealSeparate = SEAL_SEPARATE_STATES.Done THEN
                                                         state.head := HEAD_STATES.SealedAndSeparatedBag;
                                                         state.sb.sealSeparate := SEAL_SEPARATE_STATES.Idle;

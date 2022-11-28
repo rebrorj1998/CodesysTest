@@ -7,6 +7,7 @@ IF EIP THEN
 	sclCommand := 0;
 	parameter1 := TORQUE_MODE_PARAM_ID;
 	commands.SendQAndExecute := TRUE;
+	_torqueMode := TRUE;
 ELSE
 	sclCommand := SCL_SO; 
 	parameter1 := O2_L;

@@ -3,4 +3,4 @@ METHOD Reset : BOOL
 VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_restoreToDefault := TRUE;
+_bagDeliveryReset := TRUE;
