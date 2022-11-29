@@ -928,7 +928,6 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	printAndApply.Reset();
 	
 	bagDropTimer.IN := FALSE;
-	_skipToReverseBag := FALSE;
 	
 	motorizedSealFlattenersMode := DEVICE_MODES.Auto;
 	motorizedSealFlatteners.Reset();
