@@ -25,7 +25,8 @@ VAR_INPUT
     startPB : BOOL;
     nextSeqPB : BOOL;
     delay : TON := (PT:= T#25MS);
-	fingersDownDelay : Standard.TON := (PT := T#50MS);
+	_fingersUpDelay : Standard.TON := (PT := T#50MS);
+    _fingersDownDelay : Standard.TON := (PT := T#250MS);
 	sealFlattenerMotorCommFailInput : BOOL;
 	manualPosSetpoint : REAL;
 	
@@ -62,6 +63,8 @@ VAR
 	testTorque : BOOL;
 	_testEnable : BOOL;
 	_testDisable : BOOL;
+	_inSP : REAL;
+	_inSPForFunnel : REAL := 0.25;
 END_VAR
 VAR CONSTANT
 	FEED_TO_SEAL_INSET : REAL := 1;
@@ -77,7 +80,8 @@ END_VAR
 SUPER^();
 
 // Temporary delay between states for testing
-fingersDownDelay();
+_fingersDownDelay();
+_fingersUpDelay();
 bagDropDelay(PT := TO_TIME(HMIData.bagDropTime * 1000));
 delay();
 jogInONS(CLK := jogIn);
@@ -236,14 +240,14 @@ CASE state OF
 																	delay.IN := TRUE;	
                                                                     IF delay.Q THEN
 																		IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND sealFlattenersHorizontalAxisMotor.InPosition THEN
-																			IF fingersDownDelay.Q THEN
+																			IF _fingersUpDelay.Q THEN
 																				state := SEAL_FLATTENER_STATES.MovedFlattenersUpAndToClearance;    
                                                                         		delay.IN := FALSE;
-																				fingersDownDelay.IN := FALSE;
+																				_fingersUpDelay.IN := FALSE;
 																			END_IF
 																		END_IF
                                                                     END_IF
-																	fingersDownDelay.IN := TRUE;
+																	_fingersUpDelay.IN := TRUE;
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersUpAndToClearance :         // Move flatteners to up state
 																	bagDropDelay.IN := TRUE;
@@ -292,7 +296,12 @@ CASE state OF
     SEAL_FLATTENER_STATES.MoveFlattenersIn :                        // Move flatteners up and in
                                                                     //sealFlattenersHorizontalAxisMotor.NextSequence(); 
 																	timeoutTimer.IN := TRUE;   
-                                                                    sealFlattenersHorizontalAxisMotor.MoveToPosition(position := inSetpoint, 
+																	IF HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled AND HMIData.funnelInUse THEN
+																		_inSP := _inSPForFunnel;
+																	ELSE
+																		_inSP := inSetpoint;
+																	END_IF
+                                                                    sealFlattenersHorizontalAxisMotor.MoveToPosition(position := _inSP, 
                                                                                                                         acceleration := horizontalAxisAccel,
                                                                                                                         deceleration := horizontalAxisDecel,
                                                                                                                         velocity := moveInSpeed);                                                    
@@ -333,15 +342,15 @@ CASE state OF
                              
     SEAL_FLATTENER_STATES.MovingFlattenersDown :            
                                                                         //IF sealFlattenersVerticalAxis.CommandAcknowledged AND sealFlattenersVerticalAxis.InPosition THEN
-                                                                       	fingersDownDelay.IN := TRUE;
-																	  	IF fingersDownDelay.Q THEN
+                                                                       	_fingersDownDelay.IN := TRUE;
+																	  	IF _fingersDownDelay.Q THEN
 																			IF handLoadRequested THEN
 																				state := SEAL_FLATTENER_STATES.Idle;
 																				handLoadRequested := FALSE;
 																			ELSE
 																				state := SEAL_FLATTENER_STATES.MoveFlattenersToBagHolding;
 																			END_IF
-																			fingersDownDelay.IN := FALSE;
+																			_fingersDownDelay.IN := FALSE;
 																		END_IF 
                                                                         //END_IF 
                                                                         
