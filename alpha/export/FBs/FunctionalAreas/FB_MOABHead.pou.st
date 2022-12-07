@@ -1919,6 +1919,7 @@ CASE finishCycleSubState OF
 		    ELSIF HMIData.bagOpenFeedNewBagCount < HMIData.bagOpenFeedNewBagSetting THEN
 		   		oVacOn := FALSE;
 		   		funnel.Close();
+		   		bagOpenRetryCount := 0;
 		   		HMIData.bagOpenFeedNewBagCount := HMIData.bagOpenFeedNewBagCount + 1;
 				motorizedSealFlatteners.AutoMoveToBagHolding();
 				HMIData.bagsRejectedTotal.Increment();	
