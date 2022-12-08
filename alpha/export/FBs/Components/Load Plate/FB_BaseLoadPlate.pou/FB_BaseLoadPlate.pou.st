@@ -63,6 +63,7 @@ SUPER^();
 IF _triggerDwellTimer.Q OR resetONS.Q THEN
 	_trigger := FALSE;
 	_shaking := FALSE;
+	_shake := FALSE;
 	_shakerDelayTimer.IN := FALSE;
 	_shakerDwellTimer.IN := FALSE;
 	_extendFaultTimer.IN := FALSE;
