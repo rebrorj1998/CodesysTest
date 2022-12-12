@@ -2,6 +2,8 @@
 FUNCTION_BLOCK FB_Filler EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
 	inCycle : BOOL;
+	faultActive : BOOL;
+	baggerInhibited : BOOL;
 	fillerTrigger : BOOL;
 	activateFiller : BOOL;
 	fillerOK : BOOL;
@@ -9,6 +11,7 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	state : FILLER_STATES;
+	droppingProduct : BOOL;
 	fillerModeActive : BOOL;
 	waitingForFiller : BOOL;
 	cycleBagRequest : BOOL;
@@ -18,8 +21,8 @@ END_VAR
 VAR
 	_baggerCycleInitiated : BOOL;
     _baggerCycledAndReady : BOOL;
-	fillerRequestedCycle : BOOL;
-	fillerTrigONS : FB_ONS;
+	_fillerRequestedCycle : BOOL;
+	_fillerTrigONS : FB_ONS;
 	dropTimer : Standard.TON;
 END_VAR
 	
@@ -36,18 +39,19 @@ SUPER^();
 dropTimer(PT := TO_TIME(dropTime * 1000));
 IF resetONS.Q OR HMIData.faultActive OR NOT enable OR NOT activateFiller THEN
 	state := FILLER_STATES.Idle;
-	fillerRequestedCycle := FALSE;
-	cycleBaggerToActivateFiller.active := FALSE;
-	waitingForFiller := FALSE;
 	cycleBagRequest := FALSE;
+	waitingForFiller := FALSE;
+	cycleBaggerToActivateFiller.active := FALSE;
+	_fillerRequestedCycle := FALSE;
 	_baggerCycledAndReady := FALSE;
 	_baggerCycleInitiated := FALSE;
 	dropTimer.IN := FALSE;
 END_IF
 
-fillerTrigONS(CLK := fillerTrigger);
-IF fillerTrigONS.OSR THEN
-	fillerRequestedCycle := TRUE;
+//
+_fillerTrigONS(CLK := fillerTrigger);
+IF _fillerTrigONS.OSR THEN
+	_fillerRequestedCycle := TRUE;
 END_IF
 
 CASE state OF
@@ -56,20 +60,22 @@ CASE state OF
 													END_IF
 	
 	FILLER_STATES.CycleBaggerToActiveFiller :		// Operator must cycle a bag out first to guarentee bag open and ready for filler
+		// Operator must cycle a bag out first to guarentee bag open and ready for filler
 													cycleBaggerToActivateFiller.active := TRUE;
 													IF _baggerCycledAndReady THEN
 														cycleBaggerToActivateFiller.active := FALSE;
 														_baggerCycleInitiated := FALSE;
 														_baggerCycledAndReady := FALSE;
-														fillerRequestedCycle := FALSE;
+			_fillerRequestedCycle := FALSE;
 														state := FILLER_STATES.WaitingForFiller;
 													END_IF
 	
 	FILLER_STATES.WaitingForFiller :				// Waiting for filler trigger to initiate cycle
+		// Waiting for filler trigger to initiate cycle
 													waitingForFiller := TRUE;
-													IF fillerRequestedCycle THEN
+		IF _fillerRequestedCycle THEN
 														waitingForFiller := FALSE;
-														fillerRequestedCycle := FALSE;
+														_fillerRequestedCycle := FALSE;
 														state := FILLER_STATES.Dropping;
 													END_IF
 													
@@ -79,11 +85,14 @@ CASE state OF
 														IF NOT HMIData.baggerInhibited.active THEN
 															dropTimer.IN := FALSE;
 															cycleBagRequest := TRUE;
+			_fillerRequestedCycle := FALSE;
+			_baggerCycledAndReady := FALSE;
 															state := FILLER_STATES.BaggerCycling;	
 														END_IF
 													END_IF
 	
 	FILLER_STATES.BaggerCycling :					// Wait for bag to open 
+		// Wait for bag to open 
 													IF _baggerCycleInitiated THEN
 														_baggerCycleInitiated := FALSE;
 														cycleBagRequest := FALSE;

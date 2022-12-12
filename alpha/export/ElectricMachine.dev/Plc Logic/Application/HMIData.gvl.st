@@ -75,6 +75,9 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	funnelOpenDelay : REAL := 0.25;					// Funnel Open Delay after pressure bar open
 	funnelOpeningTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel open after command to open
 	funnelClosingTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel closed after command to close
+	stagingFunnelOpenDelay : REAL := 0.25;					// Funnel Open Delay after pressure bar open
+	stagingFunnelOpeningTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel open after command to open
+	stagingFunnelClosingTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel closed after command to close
 	externalExitConveyorDwell : REAL;
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;
@@ -122,6 +125,8 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	IBDOffset : REAL := 3.0;
 	pressureBarBagFeedPosition : REAL := 2.0;
 	pressureBarInPosition : REAL := 0;
+	feedToSealSetpoint : REAL := 0.0;
+	feedToSealInUse : BOOL := FALSE;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -140,6 +145,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	rearLoadPlateService : ServiceCommands;
 	loadShelfService : ServiceCommands;
 	IBDService : ServiceCommands;
+	accumulatingFunnel : ServiceCommands;
 	funnelService : ServiceCommands;
 	baggerHeadService : ServiceCommands;
 	jogBagForward : BOOL;
@@ -176,6 +182,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	printerSelection : LabelPrinterSelection := LabelPrinterSelection.ZebraPrinter203DPI;
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;
+	feedToSealBagSelection : FeedToSealSelection := FeedToSealSelection.NotInstalled;
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
 	packageEjectDisabledPosition : PackageEjectionDisabledPosition := PackageEjectionDisabledPosition.LoadingPosition;
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
@@ -183,6 +190,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;
 	lightCurtainSelection : LightCurtainsSelection := LightCurtainsSelection.NotInstalled;
 	baggerModelSelection : ModelSelection;
+	baggerProfileSelection : BaggerProfile := BaggerProfile.Standard;
 	auxIOConfig : AuxIOConfiguration;
 	fillerFactorySelection : FillerSelection;
 	funnelFactorySelection : FunnelSelection;

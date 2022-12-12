@@ -56,11 +56,11 @@ VAR
 	colorOne:= TL50Colors.Yellow, 
 	colorOneIntensity:= TL50Intensity.High, 
 	animationType:= TL50AnimationTypes.fiftyfiftyRotate, 
-	animationSpeed:= K50AnimationSpeeds.Medium, 
-	animationPattern:= K50AnimationPatterns.Flash, 
-	colorTwo:= K50Colors.White, 
+	animationSpeed:= TL50AnimationSpeeds.Medium, 
+	animationPattern:= TL50AnimationPatterns.Flash, 
+	colorTwo:= TL50Colors.White, 
 	colorTwoIntensity:= TL50Intensity.High, 
-	animationDirection:= K50AnimationDirection.CCW ,
+	animationDirection:= TL50AnimationDirection.CCW ,
 	audibleState := TL50AudibleStates.Off);
  
   _baggerFaultedProfile : TL50SegmentProfile := (

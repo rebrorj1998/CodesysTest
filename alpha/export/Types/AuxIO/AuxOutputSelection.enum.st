@@ -9,6 +9,7 @@ TYPE AuxOutputSelection :
 	CycleComplete := 3,
 	BagMade := 4,
 	BagMadePlusLabelRequired := 5,
-	BagsLow := 6
+	BagsLow := 6,
+	ReadyForGrab := 7
 );
 END_TYPE

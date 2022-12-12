@@ -22,7 +22,10 @@ TYPE SEAL_FLATTENER_STATES :
 	MoveFlattenersToBagHolding := 50,
 	MovingFlattenersToBagHolding := 51,
 	MovedFlattenersToBagHolding := 52,
-	Ready := 60,
+	MoveFlattenersInForFeedToSeal := 60,
+	MovingFlattenersInForFeedToSeal := 61,
+	MovedFlattenersInforFeedToSeal := 62,
+	Ready := 70,
 	Fault := 99
 );
 END_TYPE

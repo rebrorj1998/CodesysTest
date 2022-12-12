@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_BagDelivery EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
+	feedToSealSetpoint : REAL := 0;
     feedBagPB : BOOL;                // Manually Feed bag out
 	jogForwardPB : BOOL;
 	jogReversePB : BOOL;
@@ -47,6 +48,7 @@ VAR
 	_bagFeedRearMotor : FB_AppliedMotionBagDeliveryMotor();
 	_accelPercent : REAL := 0.1;
 	_decelPercent : REAL := 0.05;
+	_amFeedToSeal : BOOL;            // Auto Mode - Feed Bag To 'FeedToSeal' Setting
     _amReverseBag : BOOL;            // Auto Mode - Reverse bag
     _amFeedBagOut : BOOL;            // Auto Mode - Feed new bag out
     _amWaitForPrinter : BOOL;        // Auto Mode - wait for printer
@@ -228,8 +230,11 @@ CASE state OF
 		ELSIF NOT iBagNotPresent OR HMIData.enableDryCycle THEN
 			state := BAG_DELIVERY_STATES.Ready;
 		ELSIF (_amFeedToEye OR _amReverseBag) THEN
-			state := BAG_DELIVERY_STATES.FeedToEye;
 			_amFeedToEye := FALSE;
+			state := BAG_DELIVERY_STATES.FeedToEye;
+		ELSIF _amFeedToSeal THEN
+			_amFeedToSeal := FALSE;
+			state := BAG_DELIVERY_STATES.FeedToSeal;
 		END_IF
     
 	BAG_DELIVERY_STATES.FeedToEye:					
@@ -535,6 +540,41 @@ CASE state OF
 		HMIData.driveRollerClean.SetCount(HMIData.driveRollerClean.count + TO_INT(bagLengthSetpoint));
         Globals.bagDeliveryCycleCount := Globals.bagDeliveryCycleCount + 1;
 		
+	BAG_DELIVERY_STATES.FeedToSeal:
+		
+		//
+		_bagFeedFrontMotor.MoveDistanceFinal(
+			distance := feedToSealSetpoint, 
+            acceleration := accelSetpoint, 
+            deceleration := decelSetpoint, 
+            velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier))
+		);
+		_bagFeedRearMotor.MoveDistanceFinal(
+			distance := feedToSealSetpoint, 
+            acceleration := accelSetpoint, 
+            deceleration := decelSetpoint, 
+            velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier))
+		);
+		UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.FeedingToSeal);
+		
+	BAG_DELIVERY_STATES.FeedingToSeal:
+		
+		// Wait until move is done
+		_delayTimer.PT := _checkMotorStatusDelay;
+		_delayTimer.IN := TRUE;
+		IF _delayTimer.Q THEN
+			IF _bagFeedFrontMotor.InPosition AND CommandAcknowledged THEN
+            	state := BAG_DELIVERY_STATES.FedToSeal;
+        	END_IF
+			_delayTimer.IN := FALSE;
+		END_IF
+		
+		
+	BAG_DELIVERY_STATES.FedToSeal:
+		
+		//
+		state := BAG_DELIVERY_STATES.Ready;
+		
 	BAG_DELIVERY_STATES.Sync:
 	
 		// 
@@ -554,6 +594,10 @@ CASE state OF
 		IF _amFeedToEye THEN
 			_amFeedToEye := FALSE;			
 			state := BAG_DELIVERY_STATES.SetTorqueMode;
+		END_IF
+		IF _amFeedToSeal THEN
+			_amFeedToSeal := FALSE;
+			state := BAG_DELIVERY_STATES.FeedToSeal;
 		END_IF
 		IF iBagNotPresent AND NOT HMIData.enableDryCycle THEN 
 			state := BAG_DELIVERY_STATES.Idle;

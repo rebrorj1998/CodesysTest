@@ -2,7 +2,7 @@
 FUNCTION_BLOCK FB_ZebraPrinter EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
     autoSendLabel :BOOL;    // Automatically send a label
-	ribbonEncoderPulse : BOOL;	// Ribbon Encoder Input
+	ribbonEncoderState : BOOL;	// Ribbon Encoder Input
 	enableRibbonDetection : BOOL := TRUE;                
 END_VAR
 VAR_OUTPUT
@@ -24,7 +24,7 @@ VAR
 	printerNotPrintingTimer : Standard.TON := (PT := T#250MS);
 	_printerRibbonTimeoutTimer : Standard.TON := (PT := T#500MS);
 	_printRibbonStateChanges : SINT;
-	_previousRibbonState : BOOL;
+	_previousRibbonEncoderState : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: Printer
@@ -118,20 +118,20 @@ CASE state OF
 														_amSendPrintSignal := FALSE;
                                                         printHeadDebounce.IN := FALSE;
 														state := PRINTER_STATES.Printing;
-														_previousRibbonState := ribbonEncoderPulse;
+														_previousRibbonEncoderState := ribbonEncoderState;
                                                     END_IF                                                    
                                         
     PRINTER_STATES.Printing :                       
 													//	
-													IF _previousRibbonState <> ribbonEncoderPulse THEN
-														_printRibbonStateChanges := _printRibbonStateChanges + 1;
-														_previousRibbonState := ribbonEncoderPulse;
+													_printerRibbonTimeoutTimer.IN := TRUE;
+													IF _previousRibbonEncoderState <> ribbonEncoderState THEN
+														_printerRibbonTimeoutTimer.IN := FALSE;
+														_previousRibbonEncoderState := ribbonEncoderState;
 													END_IF
 													
-													_printerRibbonTimeoutTimer.IN := _printRibbonStateChanges = 0;
 													IF _printerRibbonTimeoutTimer.Q THEN
-														ribbonFault.Trigger();
 														state := PRINTER_STATES.Idle; 
+														ribbonFault.Trigger();
 													END_IF
 													
 													// While printing, wait for End of Print signal

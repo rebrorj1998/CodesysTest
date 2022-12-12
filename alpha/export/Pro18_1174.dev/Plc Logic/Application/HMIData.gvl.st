@@ -74,6 +74,9 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	funnelOpenDelay : REAL := 0.25;					// Funnel Open Delay after pressure bar open
 	funnelOpeningTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel open after command to open
 	funnelClosingTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel closed after command to close
+	stagingFunnelOpenDelay : REAL := 0.25;					// Funnel Open Delay after pressure bar open
+	stagingFunnelOpeningTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel open after command to open
+	stagingFunnelClosingTime : REAL := 0.5;				// For funnel w/o sensors only : Time required to consider funnel closed after command to close
 	externalExitConveyorDwell : REAL;
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;
@@ -110,6 +113,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	baggerClearedAck : BOOL;
 	calculatedCyclesPerMinute : REAL;
 	sealFlattenersInUse : BOOL := TRUE;
+	feedToSealSetpoint : REAL := 0.0;
+	feedToSealInUse : BOOL := FALSE;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -129,6 +134,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	loadShelfService : ServiceCommands;
 	IBDService : ServiceCommands;
 	funnelService : ServiceCommands;
+	accumulatingFunnel : ServiceCommands;
 	jogBagForward : BOOL;
 	jogBagReverse : BOOL;
 	jogPassthroughForward : BOOL;
@@ -163,6 +169,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printerSelection : LabelPrinterSelection := LabelPrinterSelection.ZebraPrinter203DPI;
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;
+	feedToSealBagSelection : FeedToSealSelection := FeedToSealSelection.NotInstalled;
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
 	packageEjectDisabledPosition : PackageEjectionDisabledPosition := PackageEjectionDisabledPosition.LoadingPosition;
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
