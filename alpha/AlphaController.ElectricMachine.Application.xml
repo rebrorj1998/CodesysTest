@@ -1367,6 +1367,9 @@ Misc</Comment>
         <Node name="iLeftPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX63.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
+        <Node name="iLightCurtainsClear" type="T_BIT_X_7" access="Read" directaddress="%IX69.7">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
         <Node name="iLightedTouchButton" type="T_BIT_X_0" access="Read" directaddress="%IX73.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
