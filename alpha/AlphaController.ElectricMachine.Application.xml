@@ -2,8 +2,18 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
+<<<<<<< HEAD
     <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.16.10" libversion="4.2.0.0" compiler="3.5.16.10" lmm="3.5.18.30" profile="CODESYS V3.5 SP18 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="ElectricMachine" appname="Application" />
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.13.0" libversion="4.2.0.0" compiler="3.5.16.10" lmm="3.5.18.30" profile="CODESYS V3.5 SP18 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <ProjectInfo name="AlphaController" devicename="Pro18_1174" appname="Application" />
+========
+    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.17.0" libversion="4.2.0.0" compiler="3.5.16.10" lmm="3.5.18.30" profile="CODESYS V3.5 SP18 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <ProjectInfo name="AlphaController" devicename="ElectricMachine" appname="Application" />
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
   </Header>
   <TypeList>
     <TypeSimple name="T_BIT_X_0" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="0" />
@@ -17,8 +27,13 @@
     <TypeSimple name="T_BOOL" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" />
     <TypeSimple name="T_BYTE" size="1" swapsize="1" typeclass="Byte" iecname="BYTE" />
     <TypeSimple name="T_DINT" size="4" swapsize="4" typeclass="DInt" iecname="DINT" />
+<<<<<<< HEAD
     <TypeSimple name="T_DWORD" size="4" swapsize="4" typeclass="DWord" iecname="DWORD" />
     <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
+=======
+    <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
+    <TypeSimple name="T_LWORD" size="8" swapsize="8" typeclass="LWord" iecname="LWORD" />
+>>>>>>> alpha/custom/Brazeway
     <TypeSimple name="T_REAL" size="4" swapsize="4" typeclass="Real" iecname="REAL" />
     <TypeSimple name="T_STRING" size="81" swapsize="0" typeclass="String" iecname="STRING" />
     <TypeSimple name="T_STRING_100_" size="101" swapsize="0" typeclass="String" iecname="STRING(100)" />
@@ -29,6 +44,10 @@
     <TypeSimple name="T_TIME" size="4" swapsize="4" typeclass="Time" iecname="TIME" />
     <TypeSimple name="T_UDINT" size="4" swapsize="4" typeclass="UDInt" iecname="UDINT" />
     <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
+<<<<<<< HEAD
+=======
+    <TypeSimple name="T_ULINT" size="8" swapsize="8" typeclass="ULInt" iecname="ULINT" />
+>>>>>>> alpha/custom/Brazeway
     <TypeArray name="T_ARRAY__0__300__OF_STRING" size="24381" nativesize="24381" typeclass="Array" iecname="ARRAY [0..300] OF STRING" basetype="T_STRING">
       <ArrayDim minrange="0" maxrange="300" />
     </TypeArray>
@@ -47,9 +66,24 @@
       <UserDefElement type="T_AuxInputSelection" iecname="CollisionDetection" enumvalue="2" />
       <UserDefElement type="T_AuxInputSelection" iecname="ConveyorFaulted" enumvalue="3" />
       <UserDefElement type="T_AuxInputSelection" iecname="FillerOK" enumvalue="4" />
+<<<<<<< HEAD
       <UserDefElement type="T_AuxInputSelection" iecname="EnableBagger" enumvalue="5" />
       <UserDefElement type="T_AuxInputSelection" iecname="ReverseConveyor" enumvalue="6" />
       <UserDefElement type="T_AuxInputSelection" iecname="BagGrabbed" enumvalue="7" />
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+      <UserDefElement type="T_AuxInputSelection" iecname="EnableBagger" enumvalue="5" />
+      <UserDefElement type="T_AuxInputSelection" iecname="ReverseConveyor" enumvalue="6" />
+      <UserDefElement type="T_AuxInputSelection" iecname="BagGrabbed" enumvalue="7" />
+=======
+>>>>>>> alpha/feature/BagLoadingTray
+========
+      <UserDefElement type="T_AuxInputSelection" iecname="EnableBagger" enumvalue="5" />
+      <UserDefElement type="T_AuxInputSelection" iecname="ReverseConveyor" enumvalue="6" />
+      <UserDefElement type="T_AuxInputSelection" iecname="BagGrabbed" enumvalue="7" />
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
     </TypeUserDef>
     <TypeUserDef name="T_AuxOutputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxOutputSelection" basetype="T_INT">
       <UserDefElement type="T_AuxOutputSelection" iecname="NotConfigured" enumvalue="0" />
@@ -59,12 +93,49 @@
       <UserDefElement type="T_AuxOutputSelection" iecname="BagMade" enumvalue="4" />
       <UserDefElement type="T_AuxOutputSelection" iecname="BagMadePlusLabelRequired" enumvalue="5" />
       <UserDefElement type="T_AuxOutputSelection" iecname="BagsLow" enumvalue="6" />
+<<<<<<< HEAD
       <UserDefElement type="T_AuxOutputSelection" iecname="ReadyForGrab" enumvalue="7" />
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+      <UserDefElement type="T_AuxOutputSelection" iecname="ReadyForGrab" enumvalue="7" />
+=======
+>>>>>>> alpha/feature/BagLoadingTray
+========
+      <UserDefElement type="T_AuxOutputSelection" iecname="ReadyForGrab" enumvalue="7" />
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
     </TypeUserDef>
     <TypeUserDef name="T_AuxiliaryIOSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxiliaryIOSelection" basetype="T_INT">
       <UserDefElement type="T_AuxiliaryIOSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_AuxiliaryIOSelection" iecname="AuxIOStandard" enumvalue="1" />
     </TypeUserDef>
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+    <TypeUserDef name="T_BAG_DELIVERY_IC" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_DELIVERY_IC" basetype="T_INT">
+      <UserDefElement type="T_BAG_DELIVERY_IC" iecname="CBL" enumvalue="1" />
+      <UserDefElement type="T_BAG_DELIVERY_IC" iecname="EIP" enumvalue="0" />
+    </TypeUserDef>
+    <TypeUserDef name="T_BAG_DELIVERY_MOTOR_PLACEMENT" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_DELIVERY_MOTOR_PLACEMENT" basetype="T_INT">
+      <UserDefElement type="T_BAG_DELIVERY_MOTOR_PLACEMENT" iecname="Front" enumvalue="0" />
+      <UserDefElement type="T_BAG_DELIVERY_MOTOR_PLACEMENT" iecname="Rear" enumvalue="1" />
+    </TypeUserDef>
+    <TypeUserDef name="T_BAG_DELIVERY_MOVE_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_DELIVERY_MOVE_STATES" basetype="T_INT">
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="Idle" enumvalue="0" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="SetToPointToPointMode" enumvalue="10" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="AckPointToPointMode" enumvalue="1" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="WaitAfterSettingOutputOff" enumvalue="11" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="MoveMotor" enumvalue="12" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="WaitAfterMovingMotor" enumvalue="13" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="SetToTorqueMode" enumvalue="14" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="AckTorqueMode" enumvalue="2" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="WaitAfterSettingOutputOn" enumvalue="15" />
+      <UserDefElement type="T_BAG_DELIVERY_MOVE_STATES" iecname="Fault" enumvalue="99" />
+    </TypeUserDef>
+========
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
     <TypeUserDef name="T_BAG_OPEN_ASSIST_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="BAG_OPEN_ASSIST_STATES" basetype="T_INT">
       <UserDefElement type="T_BAG_OPEN_ASSIST_STATES" iecname="Idle" enumvalue="0" />
       <UserDefElement type="T_BAG_OPEN_ASSIST_STATES" iecname="MoveJawIn" enumvalue="10" />
@@ -109,10 +180,17 @@
         <Comment> Brazeway </Comment>
       </UserDefElement>
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeSimple name="T_CAA_HANDLE" size="4" swapsize="4" typeclass="DWord" iecname="CAA.HANDLE" aliasedtype="T_DWORD" aliasediecname="DWORD" />
     <TypeSimple name="T_CAA_PVOID" size="4" swapsize="4" typeclass="DWord" iecname="CAA.PVOID" aliasedtype="T_DWORD" aliasediecname="DWORD" />
     <TypeSimple name="T_CAA_SIZE" size="4" swapsize="4" typeclass="UDInt" iecname="CAA.SIZE" aliasedtype="T_UDINT" aliasediecname="UDINT" />
     <TypeUserDef name="T_CLK_PRG" size="16" nativesize="20" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="CLK_PRG">
+=======
+    <TypeSimple name="T_CAA_HANDLE" size="8" swapsize="8" typeclass="LWord" iecname="CAA.HANDLE" aliasedtype="T_LWORD" aliasediecname="LWORD" />
+    <TypeSimple name="T_CAA_PVOID" size="8" swapsize="8" typeclass="LWord" iecname="CAA.PVOID" aliasedtype="T_LWORD" aliasediecname="LWORD" />
+    <TypeSimple name="T_CAA_SIZE" size="8" swapsize="8" typeclass="ULInt" iecname="CAA.SIZE" aliasedtype="T_ULINT" aliasediecname="ULINT" />
+    <TypeUserDef name="T_CLK_PRG" size="16" nativesize="24" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="CLK_PRG">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="PT" type="T_TIME" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="4" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="init" type="T_BOOL" byteoffset="5" vartype="VAR" />
@@ -314,7 +392,11 @@
         <Comment> Reserved</Comment>
       </UserDefElement>
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_ETrigTo" size="11" nativesize="36" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="ETrigTo">
+=======
+    <TypeUserDef name="T_ETrigTo" size="11" nativesize="56" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="ETrigTo">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="xExecute" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" />
       <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
@@ -325,16 +407,36 @@
       <UserDefElement type="T_ExteralConveyorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_ExteralConveyorSelection" iecname="ExternalExitConveyor" enumvalue="1" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_CycleCounter" size="8" nativesize="12" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CycleCounter">
       <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_Fault" size="3" nativesize="184" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Fault">
+=======
+    <TypeUserDef name="T_FB_CycleCounter" size="8" nativesize="16" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CycleCounter">
+      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
+      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" />
+    </TypeUserDef>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_Fault" size="3" nativesize="184" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Fault">
+=======
+    <TypeUserDef name="T_FB_Fault" size="3" nativesize="168" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Fault">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_FB_Fault" size="3" nativesize="248" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Fault">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="ackCommand" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="acknowledged" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="active" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_TemperatureSensor" size="184" nativesize="192" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TemperatureSensor">
+=======
+    <TypeUserDef name="T_FB_TemperatureSensor" size="184" nativesize="200" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TemperatureSensor">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="_rawTemperatureReading" type="T_INT" byteoffset="82" vartype="VAR" />
       <UserDefElement iecname="_temperatureReadingC" type="T_REAL" byteoffset="84" vartype="VAR" />
@@ -362,7 +464,11 @@
       <UserDefElement type="T_FINISH_CYCLE_STATES" iecname="Done" enumvalue="100" />
       <UserDefElement type="T_FINISH_CYCLE_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_F_TRIG" size="2" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="F_TRIG">
+=======
+    <TypeUserDef name="T_F_TRIG" size="2" nativesize="16" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="F_TRIG">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -407,9 +513,24 @@
       <UserDefElement type="T_HEAD_STATES" iecname="MovingPassthrough" enumvalue="61" />
       <UserDefElement type="T_HEAD_STATES" iecname="MovedPassthrough" enumvalue="62" />
       <UserDefElement type="T_HEAD_STATES" iecname="Stopping" enumvalue="70" />
+<<<<<<< HEAD
       <UserDefElement type="T_HEAD_STATES" iecname="PrepareForAutomatedBagRemoval" enumvalue="80" />
       <UserDefElement type="T_HEAD_STATES" iecname="PreparingForAutomatedBagRemoval" enumvalue="81" />
       <UserDefElement type="T_HEAD_STATES" iecname="PreparedForAutomatedBagRemoval" enumvalue="82" />
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+      <UserDefElement type="T_HEAD_STATES" iecname="PrepareForAutomatedBagRemoval" enumvalue="80" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PreparingForAutomatedBagRemoval" enumvalue="81" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PreparedForAutomatedBagRemoval" enumvalue="82" />
+=======
+>>>>>>> alpha/feature/BagLoadingTray
+========
+      <UserDefElement type="T_HEAD_STATES" iecname="PrepareForAutomatedBagRemoval" enumvalue="80" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PreparingForAutomatedBagRemoval" enumvalue="81" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PreparedForAutomatedBagRemoval" enumvalue="82" />
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement type="T_HEAD_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
     <TypeUserDef name="T_IP_ADDR" size="81" nativesize="81" typeclass="Userdef" pouclass="STRUCTURE" iecname="IP_ADDR">
@@ -419,7 +540,11 @@
       <UserDefElement type="T_IntegratedConveyorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_IntegratedConveyorSelection" iecname="RearExit" enumvalue="1" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_LTrig" size="4" nativesize="20" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="LTrig">
+=======
+    <TypeUserDef name="T_LTrig" size="4" nativesize="32" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="LTrig">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
@@ -485,7 +610,11 @@
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Done" enumvalue="100" />
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_R_TRIG" size="2" nativesize="8" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="R_TRIG">
+=======
+    <TypeUserDef name="T_R_TRIG" size="2" nativesize="16" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="R_TRIG">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -504,12 +633,15 @@
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="SealBag" enumvalue="30" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="SealingBag" enumvalue="31" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="SealedBag" enumvalue="32" />
+<<<<<<< HEAD
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="PrepareToFeedToSeal" enumvalue="40" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="PreparingToFeedToSeal" enumvalue="41" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="PreparedToFeedToSeal" enumvalue="42" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="FeedToSeal" enumvalue="43" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="FeedingToSeal" enumvalue="44" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="FedToSeal" enumvalue="45" />
+=======
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="Done" enumvalue="100" />
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
@@ -529,13 +661,21 @@
       <UserDefElement iecname="extendedFeedback" type="T_BOOL" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="retractedFeedback" type="T_BOOL" byteoffset="4" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_TON" size="16" nativesize="28" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TON">
+=======
+    <TypeUserDef name="T_TON" size="16" nativesize="32" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TON">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="IN" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="PT" type="T_TIME" byteoffset="4" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="ET" type="T_TIME" byteoffset="12" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_TP_X" size="28" nativesize="32" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TP_X">
+=======
+    <TypeUserDef name="T_TP_X" size="28" nativesize="40" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TP_X">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="IN" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="PT" type="T_TIME" byteoffset="4" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
@@ -547,6 +687,11 @@
     <TypeUserDef name="T_Warning" size="1" nativesize="1" typeclass="Userdef" pouclass="STRUCTURE" iecname="Warning">
       <UserDefElement iecname="active" type="T_BOOL" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+>>>>>>> alpha/custom/Brazeway
     <TypeUserDef name="T_AuxIOConfiguration" size="18" nativesize="18" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOConfiguration">
       <UserDefElement iecname="factorySelection" type="T_AuxiliaryIOSelection" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="cfgInput1Selection" type="T_AuxInputSelection" byteoffset="2" vartype="VAR" />
@@ -557,8 +702,33 @@
       <UserDefElement iecname="cfgOutput2Selection" type="T_AuxOutputSelection" byteoffset="12" vartype="VAR" />
       <UserDefElement iecname="cfgOutput3Selection" type="T_AuxOutputSelection" byteoffset="14" vartype="VAR" />
       <UserDefElement iecname="cfgOutput4Selection" type="T_AuxOutputSelection" byteoffset="16" vartype="VAR" />
+<<<<<<< HEAD
     </TypeUserDef>
     <TypeUserDef name="T_FB_BaseComponent" size="14" nativesize="36" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BaseComponent">
+=======
+=======
+    <TypeUserDef name="T_AuxIOConfiguration" size="10" nativesize="10" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOConfiguration">
+      <UserDefElement iecname="factorySelection" type="T_AuxiliaryIOSelection" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="cfgInput1Selection" type="T_AuxInputSelection" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="cfgInput2Selection" type="T_AuxInputSelection" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput1Selection" type="T_AuxOutputSelection" byteoffset="6" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput2Selection" type="T_AuxOutputSelection" byteoffset="8" vartype="VAR" />
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_AuxIOConfiguration" size="18" nativesize="18" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOConfiguration">
+      <UserDefElement iecname="factorySelection" type="T_AuxiliaryIOSelection" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="cfgInput1Selection" type="T_AuxInputSelection" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="cfgInput2Selection" type="T_AuxInputSelection" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="cfgInput3Selection" type="T_AuxInputSelection" byteoffset="6" vartype="VAR" />
+      <UserDefElement iecname="cfgInput4Selection" type="T_AuxInputSelection" byteoffset="8" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput1Selection" type="T_AuxOutputSelection" byteoffset="10" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput2Selection" type="T_AuxOutputSelection" byteoffset="12" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput3Selection" type="T_AuxOutputSelection" byteoffset="14" vartype="VAR" />
+      <UserDefElement iecname="cfgOutput4Selection" type="T_AuxOutputSelection" byteoffset="16" vartype="VAR" />
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_BaseComponent" size="14" nativesize="64" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BaseComponent">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" />
@@ -570,6 +740,7 @@
       <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" />
       <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" propertytype="variable" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_CollectionHandlerActiveFaults" size="24381" nativesize="25600" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CollectionHandlerActiveFaults">
       <UserDefElement iecname="ObjNames" type="T_ARRAY__0__300__OF_STRING" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
@@ -577,25 +748,89 @@
       <UserDefElement iecname="rtdFailure" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_ONS" size="7" nativesize="24" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ONS">
+=======
+    <TypeUserDef name="T_FB_CollectionHandlerActiveFaults" size="24381" nativesize="26808" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CollectionHandlerActiveFaults">
+      <UserDefElement iecname="ObjNames" type="T_ARRAY__0__300__OF_STRING" byteoffset="0" vartype="VAR" />
+    </TypeUserDef>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_IFMTempSensor" size="3" nativesize="428" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_IFMTempSensor" basetype="T_FB_TemperatureSensor">
+=======
+    <TypeUserDef name="T_FB_IFMTempSensor" size="3" nativesize="412" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_IFMTempSensor" basetype="T_FB_TemperatureSensor">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_FB_IFMTempSensor" size="3" nativesize="528" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_IFMTempSensor" basetype="T_FB_TemperatureSensor">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+      <UserDefElement iecname="rtdFailure" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_ONS" size="7" nativesize="48" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ONS">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="OSR" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="OSF" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="CLK_OSR" type="T_R_TRIG" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="CLK_OSF" type="T_F_TRIG" byteoffset="5" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_PredictiveMaint" size="174" nativesize="180" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PredictiveMaint" basetype="T_FB_CycleCounter">
+=======
+    <TypeUserDef name="T_FB_PredictiveMaint" size="174" nativesize="184" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PredictiveMaint" basetype="T_FB_CycleCounter">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" />
       <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" />
       <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" />
       <UserDefElement iecname="name" type="T_STRING" byteoffset="12" vartype="VAR_INPUT" />
       <UserDefElement iecname="units" type="T_STRING" byteoffset="93" vartype="VAR_INPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_LoadPlateFaultsType" size="9" nativesize="552" typeclass="Userdef" pouclass="STRUCTURE" iecname="LoadPlateFaultsType">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+    <TypeUserDef name="T_FB_StepServoCommands" size="60" nativesize="88" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_StepServoCommands">
+      <UserDefElement iecname="commandWord" type="T_DINT" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="commandSent" type="T_BOOL" byteoffset="4" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="_idleState" type="T_BOOL" byteoffset="5" vartype="VAR" />
+      <UserDefElement iecname="_enable" type="T_BOOL" byteoffset="6" vartype="VAR" />
+      <UserDefElement iecname="_disable" type="T_BOOL" byteoffset="7" vartype="VAR" />
+      <UserDefElement iecname="_feedToLength" type="T_BOOL" byteoffset="8" vartype="VAR" />
+      <UserDefElement iecname="_feedToPosition" type="T_BOOL" byteoffset="9" vartype="VAR" />
+      <UserDefElement iecname="_feedToSensor" type="T_BOOL" byteoffset="10" vartype="VAR" />
+      <UserDefElement iecname="_feedToDoubleSensor" type="T_BOOL" byteoffset="11" vartype="VAR" />
+      <UserDefElement iecname="_feedToSensorSafety" type="T_BOOL" byteoffset="12" vartype="VAR" />
+      <UserDefElement iecname="_feedToSensorMask" type="T_BOOL" byteoffset="13" vartype="VAR" />
+      <UserDefElement iecname="_feedAndSetOutput" type="T_BOOL" byteoffset="14" vartype="VAR" />
+      <UserDefElement iecname="_feedSpeedChange" type="T_BOOL" byteoffset="15" vartype="VAR" />
+      <UserDefElement iecname="_seekHome" type="T_BOOL" byteoffset="16" vartype="VAR" />
+      <UserDefElement iecname="_findHome" type="T_BOOL" byteoffset="17" vartype="VAR" />
+      <UserDefElement iecname="_followEncoder" type="T_BOOL" byteoffset="18" vartype="VAR" />
+      <UserDefElement iecname="_stopAndKillCrash" type="T_BOOL" byteoffset="19" vartype="VAR" />
+      <UserDefElement iecname="_stopAndKillNormal" type="T_BOOL" byteoffset="20" vartype="VAR" />
+      <UserDefElement iecname="_startJog" type="T_BOOL" byteoffset="21" vartype="VAR" />
+      <UserDefElement iecname="_updateJogSpeed" type="T_BOOL" byteoffset="22" vartype="VAR" />
+      <UserDefElement iecname="_sendHostCommand" type="T_BOOL" byteoffset="23" vartype="VAR" />
+      <UserDefElement iecname="_sendQAndExecute" type="T_BOOL" byteoffset="24" vartype="VAR" />
+      <UserDefElement iecname="_alarmReset" type="T_BOOL" byteoffset="25" vartype="VAR" />
+      <UserDefElement iecname="clearCommandWordTimer" type="T_TON" byteoffset="28" vartype="VAR" />
+      <UserDefElement iecname="clearCommandWordTimer2" type="T_TON" byteoffset="44" vartype="VAR" />
+    </TypeUserDef>
+<<<<<<< HEAD
+    <TypeUserDef name="T_LoadPlateFaultsType" size="9" nativesize="552" typeclass="Userdef" pouclass="STRUCTURE" iecname="LoadPlateFaultsType">
+=======
+    <TypeUserDef name="T_LoadPlateFaultsType" size="9" nativesize="504" typeclass="Userdef" pouclass="STRUCTURE" iecname="LoadPlateFaultsType">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_LoadPlateFaultsType" size="9" nativesize="744" typeclass="Userdef" pouclass="STRUCTURE" iecname="LoadPlateFaultsType">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="failedToDischarge" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="failedToLoad" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_PWM_DC" size="60" nativesize="72" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PWM_DC">
+=======
+    <TypeUserDef name="T_PWM_DC" size="60" nativesize="96" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PWM_DC">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="F" type="T_REAL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="DC" type="T_REAL" byteoffset="4" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
@@ -603,7 +838,19 @@
       <UserDefElement iecname="pulse" type="T_TP_X" byteoffset="28" vartype="VAR" />
       <UserDefElement iecname="tmp" type="T_REAL" byteoffset="56" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_PressureBarFaultsType" size="18" nativesize="1104" typeclass="Userdef" pouclass="STRUCTURE" iecname="PressureBarFaultsType">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_PressureBarFaultsType" size="18" nativesize="1104" typeclass="Userdef" pouclass="STRUCTURE" iecname="PressureBarFaultsType">
+=======
+    <TypeUserDef name="T_PressureBarFaultsType" size="18" nativesize="1008" typeclass="Userdef" pouclass="STRUCTURE" iecname="PressureBarFaultsType">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_PressureBarFaultsType" size="18" nativesize="1488" typeclass="Userdef" pouclass="STRUCTURE" iecname="PressureBarFaultsType">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="failedToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="failedToClose" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
@@ -611,7 +858,19 @@
       <UserDefElement iecname="obstructionFailedToSwitch" type="T_FB_Fault" byteoffset="12" vartype="VAR" />
       <UserDefElement iecname="lightCurtainViolation" type="T_FB_Fault" byteoffset="15" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_StepServoFaultsType" size="42" nativesize="2576" typeclass="Userdef" pouclass="STRUCTURE" iecname="StepServoFaultsType">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_StepServoFaultsType" size="42" nativesize="2576" typeclass="Userdef" pouclass="STRUCTURE" iecname="StepServoFaultsType">
+=======
+    <TypeUserDef name="T_StepServoFaultsType" size="42" nativesize="2352" typeclass="Userdef" pouclass="STRUCTURE" iecname="StepServoFaultsType">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_StepServoFaultsType" size="42" nativesize="3472" typeclass="Userdef" pouclass="STRUCTURE" iecname="StepServoFaultsType">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="positionLimit" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="CCWLimit" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="CWLimit" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
@@ -634,7 +893,24 @@
       <UserDefElement iecname="finishCycle" type="T_FINISH_CYCLE_STATES" byteoffset="6" vartype="VAR" />
       <UserDefElement iecname="automation" type="T_AUTOMATION_STATES" byteoffset="8" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_TCP_Client" size="100" nativesize="436" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Client" basetype="T_LTrig">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="2992" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBaseQX" size="42" nativesize="2992" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBaseQX">
+=======
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="2768" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBaseQX" size="42" nativesize="2768" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBaseQX">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_TCP_Client" size="104" nativesize="616" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Client" basetype="T_LTrig">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" />
       <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
       <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
@@ -646,11 +922,16 @@
       <UserDefElement iecname="xActive" type="T_BOOL" byteoffset="94" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="96" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_TCP_Connection" size="16" nativesize="232" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Connection" basetype="T_LTrig">
+=======
+    <TypeUserDef name="T_TCP_Connection" size="32" nativesize="392" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Connection" basetype="T_LTrig">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" />
       <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
       <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
       <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
+<<<<<<< HEAD
       <UserDefElement iecname="hServer" type="T_CAA_HANDLE" byteoffset="4" vartype="VAR_INPUT" />
       <UserDefElement iecname="eError" type="T_ERROR" byteoffset="8" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="xActive" type="T_BOOL" byteoffset="10" vartype="VAR_OUTPUT" />
@@ -669,17 +950,46 @@
       <UserDefElement iecname="szCount" type="T_CAA_SIZE" byteoffset="20" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_TCP_Write" size="26" nativesize="184" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Write" basetype="T_ETrigTo">
+=======
+      <UserDefElement iecname="hServer" type="T_CAA_HANDLE" byteoffset="8" vartype="VAR_INPUT" />
+      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="16" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="xActive" type="T_BOOL" byteoffset="18" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="24" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TCP_Read" size="48" nativesize="168" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Read" basetype="T_LTrig">
+      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" />
+      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
+      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
+      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
+      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="8" vartype="VAR_INPUT" />
+      <UserDefElement iecname="szSize" type="T_CAA_SIZE" byteoffset="16" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="24" vartype="VAR_INPUT" />
+      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="32" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="xReady" type="T_BOOL" byteoffset="34" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="szCount" type="T_CAA_SIZE" byteoffset="40" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_TCP_Write" size="42" nativesize="288" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Write" basetype="T_ETrigTo">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="xExecute" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_ETrigTo" />
       <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" inherited_from="T_ETrigTo" />
       <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" />
       <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="9" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" />
       <UserDefElement iecname="xError" type="T_BOOL" byteoffset="10" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" />
+<<<<<<< HEAD
       <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="12" vartype="VAR_INPUT" />
       <UserDefElement iecname="szSize" type="T_CAA_SIZE" byteoffset="16" vartype="VAR_INPUT" />
       <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="20" vartype="VAR_INPUT" />
       <UserDefElement iecname="eError" type="T_ERROR" byteoffset="24" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_DelayDwellFB" size="62" nativesize="112" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="DelayDwellFB" basetype="T_FB_BaseComponent">
+=======
+      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="16" vartype="VAR_INPUT" />
+      <UserDefElement iecname="szSize" type="T_CAA_SIZE" byteoffset="24" vartype="VAR_INPUT" />
+      <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="32" vartype="VAR_INPUT" />
+      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="40" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_DelayDwellFB" size="62" nativesize="152" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="DelayDwellFB" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
@@ -701,6 +1011,7 @@
       <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="44" vartype="VAR" />
       <UserDefElement iecname="state" type="T_DELAY_DWELL_STATES" byteoffset="60" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="3040" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -708,6 +1019,16 @@
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_CylinderLeak" size="204" nativesize="236" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CylinderLeak" basetype="T_FB_PredictiveMaint">
+=======
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="4048" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBaseQX" size="42" nativesize="4000" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBaseQX">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_CylinderLeak" size="204" nativesize="264" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CylinderLeak" basetype="T_FB_PredictiveMaint">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" />
       <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" />
       <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
@@ -721,7 +1042,11 @@
       <UserDefElement iecname="extendedONS" type="T_R_TRIG" byteoffset="200" vartype="VAR" />
       <UserDefElement iecname="retractedONS" type="T_R_TRIG" byteoffset="202" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_DriveTemp" size="188" nativesize="192" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_DriveTemp" basetype="T_FB_PredictiveMaint">
+=======
+    <TypeUserDef name="T_FB_DriveTemp" size="188" nativesize="200" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_DriveTemp" basetype="T_FB_PredictiveMaint">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" />
       <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" />
       <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
@@ -731,20 +1056,48 @@
       <UserDefElement iecname="maxTemp" type="T_REAL" byteoffset="180" vartype="VAR_INPUT" />
       <UserDefElement iecname="DriveTemp" type="T_REAL" byteoffset="184" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_Filler" size="7" nativesize="296" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Filler" basetype="T_FB_BaseComponent">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_Filler" size="7" nativesize="296" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Filler" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_Filler" size="7" nativesize="248" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Filler" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_FB_Filler" size="7" nativesize="416" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Filler" basetype="T_FB_BaseComponent">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="activateFiller" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="fillerModeActive" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="waitingForFiller" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="cycleBaggerToActivateFiller" type="T_Warning" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="notReady" type="T_FB_Fault" byteoffset="4" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_Funnel" size="8" nativesize="588" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Funnel" basetype="T_FB_BaseComponent">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_Funnel" size="8" nativesize="588" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Funnel" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_Funnel" size="8" nativesize="556" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Funnel" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_FB_Funnel" size="8" nativesize="760" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Funnel" basetype="T_FB_BaseComponent">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="opened" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="closed" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToClose" type="T_FB_Fault" byteoffset="5" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_HMILight" size="72" nativesize="88" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMILight">
+=======
+    <TypeUserDef name="T_FB_HMILight" size="72" nativesize="120" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMILight">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="lightOutput" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="_turnOn" type="T_BOOL" byteoffset="1" vartype="VAR" />
       <UserDefElement iecname="_blinkFast" type="T_BOOL" byteoffset="2" vartype="VAR" />
@@ -753,7 +1106,15 @@
       <UserDefElement iecname="slowBlinkSec" type="T_REAL" byteoffset="64" vartype="VAR" />
       <UserDefElement iecname="fastBlinkSec" type="T_REAL" byteoffset="68" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_MonostableMultivibrator" size="56" nativesize="104" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MonostableMultivibrator" basetype="T_FB_BaseComponent">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_MurrIO" size="10" nativesize="724" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
+========
+    <TypeUserDef name="T_FB_MonostableMultivibrator" size="56" nativesize="144" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MonostableMultivibrator" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
@@ -774,21 +1135,34 @@
       <UserDefElement iecname="dwellTimer" type="T_TON" byteoffset="24" vartype="VAR" />
       <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="40" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="456" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="2416" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="632" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="3272" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="failToClampLeft" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToReleaseLeft" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToClampRight" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToReleaseRight" type="T_FB_Fault" byteoffset="9" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="12" vartype="VAR_OUTPUT" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_MurrIO" size="10" nativesize="724" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_MurrIO" size="10" nativesize="992" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="MOMDataConfigFail" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="commFailController" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="configActive" type="T_Warning" byteoffset="9" vartype="VAR_OUTPUT" />
+<<<<<<< HEAD
     </TypeUserDef>
     <TypeUserDef name="T_FB_TCPClient" size="76400" nativesize="77344" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TCPClient">
       <UserDefElement iecname="_TCPClient" type="T_TCP_Client" byteoffset="0" vartype="VAR" />
@@ -811,12 +1185,76 @@
       <UserDefElement iecname="_clearLabel" type="T_BOOL" byteoffset="26397" vartype="VAR" />
       <UserDefElement iecname="label203" type="T_STRING_25000_" byteoffset="26398" vartype="VAR" />
       <UserDefElement iecname="label300" type="T_STRING_25000_" byteoffset="51399" vartype="VAR" />
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_PneumaticPressureBar" size="18" nativesize="1420" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PneumaticPressureBar" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
+>>>>>>> alpha/custom/Brazeway
     </TypeUserDef>
     <TypeUserDef name="T_FB_TempController" size="6" nativesize="864" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_ZebraPrinter" size="4" nativesize="77864" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinter" basetype="T_FB_BaseComponent">
+<<<<<<< HEAD
+=======
+=======
+    <TypeUserDef name="T_FB_MurrIO" size="7" nativesize="500" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="commFailController" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="configActive" type="T_Warning" byteoffset="6" vartype="VAR_OUTPUT" />
+========
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_TCPClient" size="76500" nativesize="77984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TCPClient">
+      <UserDefElement iecname="_TCPClient" type="T_TCP_Client" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="_TCPClient_ipAddr" type="T_IP_ADDR" byteoffset="104" vartype="VAR" />
+      <UserDefElement iecname="_TCPClient_uiPort" type="T_UINT" byteoffset="186" vartype="VAR" />
+      <UserDefElement iecname="_TCPClient_hClient" type="T_CAA_HANDLE" byteoffset="192" vartype="VAR" />
+      <UserDefElement iecname="_sClientIP" type="T_STRING_15_" byteoffset="200" vartype="VAR" />
+      <UserDefElement iecname="_uiPort" type="T_UINT" byteoffset="216" vartype="VAR" />
+      <UserDefElement iecname="_TCPConnection" type="T_TCP_Connection" byteoffset="224" vartype="VAR" />
+      <UserDefElement iecname="_TCPConnection_hConnection" type="T_CAA_HANDLE" byteoffset="256" vartype="VAR" />
+      <UserDefElement iecname="_TCPWriteSendLabel" type="T_TCP_Write" byteoffset="264" vartype="VAR" />
+      <UserDefElement iecname="_TCPWriteClearLabel" type="T_TCP_Write" byteoffset="312" vartype="VAR" />
+      <UserDefElement iecname="_TCPRead" type="T_TCP_Read" byteoffset="360" vartype="VAR" />
+      <UserDefElement iecname="_sTCPSendLabel" type="T_STRING_25000_" byteoffset="408" vartype="VAR" />
+      <UserDefElement iecname="_sTCPClearLabel" type="T_STRING_3_" byteoffset="25409" vartype="VAR" />
+      <UserDefElement iecname="_sTCPReadData" type="T_STRING_1000_" byteoffset="25413" vartype="VAR" />
+      <UserDefElement iecname="_TCPWriteEn" type="T_BOOL" byteoffset="26414" vartype="VAR" />
+      <UserDefElement iecname="_sServerIP" type="T_STRING" byteoffset="26415" vartype="VAR" />
+      <UserDefElement iecname="_sendLabel" type="T_BOOL" byteoffset="26496" vartype="VAR" />
+      <UserDefElement iecname="_clearLabel" type="T_BOOL" byteoffset="26497" vartype="VAR" />
+      <UserDefElement iecname="label203" type="T_STRING_25000_" byteoffset="26498" vartype="VAR" />
+      <UserDefElement iecname="label300" type="T_STRING_25000_" byteoffset="51499" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_TempController" size="6" nativesize="1096" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+    <TypeUserDef name="T_FB_ZebraPrinter" size="4" nativesize="77832" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinter" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/feature/BagLoadingTray
+      <UserDefElement iecname="enableRibbonDetection" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
+      <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
+    </TypeUserDef>
+    <TypeSimple name="T_REFERENCE_TO_FB_FaultHandler_REF" size="406" swapsize="0" typeclass="Reference" iecname="REFERENCE TO FB_FaultHandler_REF" basetype="T_FB_FaultHandler" />
+    <TypeSimple name="T_REFERENCE_TO_StepServoFaultsType_REF" size="42" swapsize="0" typeclass="Reference" iecname="REFERENCE TO StepServoFaultsType_REF" basetype="T_StepServoFaultsType" />
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="3032" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="3368" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="2808" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="3144" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_FB_ZebraPrinter" size="4" nativesize="78688" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinter" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="enableRibbonDetection" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
     </TypeUserDef>
@@ -824,6 +1262,7 @@
       <UserDefElement iecname="head" type="T_HEAD_STATES" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="sb" type="T_Substate" byteoffset="2" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="42" nativesize="3116" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
     </TypeUserDef>
@@ -834,6 +1273,19 @@
       <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_PrintAndApply" size="76828" nativesize="78100" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="42" nativesize="4136" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="4104" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="4488" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+      <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_FB_PrintAndApply" size="76932" nativesize="79016" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
@@ -906,9 +1358,96 @@
       <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="388" vartype="VAR" />
       <UserDefElement iecname="labelsInQueueFaultTimer" type="T_TON" byteoffset="404" vartype="VAR" />
       <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" />
+<<<<<<< HEAD
       <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="428" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="7112" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+=======
+      <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="432" vartype="VAR" />
+    </TypeUserDef>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="864" nativesize="3068" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
+=======
+    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="864" nativesize="2844" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
+>>>>>>> alpha/feature/BagLoadingTray
+      <UserDefElement iecname="ptrEIPInputs" type="T_POINTER_TO_ARRAY__0__13__OF_DINT" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="ptrEIPOutputs" type="T_POINTER_TO_ARRAY__0__15__OF_DINT" byteoffset="4" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="faultHandler" type="T_FB_FaultHandler" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="414" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="stepsPerInchSetpoint" type="T_INT" byteoffset="416" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="reversePolarity" type="T_BOOL" byteoffset="418" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="jogAccelSetpoint" type="T_INT" byteoffset="420" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="jogDecelSetpoint" type="T_INT" byteoffset="422" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="jogVelocitySetpoint" type="T_INT" byteoffset="424" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="pointToPointAccelSetpoint" type="T_INT" byteoffset="426" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="pointToPointDecelSetpoint" type="T_INT" byteoffset="428" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="velocitySetpoint" type="T_INT" byteoffset="430" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="defaultCurrentSetpoint" type="T_DINT" byteoffset="432" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="sclCommand" type="T_DINT" byteoffset="436" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="parameter1" type="T_DINT" byteoffset="440" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="parameter2" type="T_DINT" byteoffset="444" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="distanceSetpointInches" type="T_REAL" byteoffset="448" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="moveDistanceManualPB" type="T_BOOL" byteoffset="452" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="movePositionManualPB" type="T_BOOL" byteoffset="453" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="isHomable" type="T_BOOL" byteoffset="454" vartype="VAR_INPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="absolutePositionSteps" type="T_DINT" byteoffset="456" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="distanceToMoveInSteps" type="T_DINT" byteoffset="460" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="stepServoStatusRaw" type="T_INT" byteoffset="464" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="stepServoAlarmCodeRaw" type="T_INT" byteoffset="466" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="currentLimit" type="T_DINT" byteoffset="468" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="commands" type="T_FB_StepServoCommands" byteoffset="472" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="commandSuccessful" type="T_BOOL" byteoffset="532" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="commandSuccessfulONS" type="T_R_TRIG" byteoffset="533" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="commandSentONS" type="T_R_TRIG" byteoffset="535" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="homeRequiredIndication" type="T_BOOL" byteoffset="537" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="driveInputs" type="T_ARRAY__0__13__OF_DINT" byteoffset="540" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="driveOutputs" type="T_ARRAY__0__15__OF_DINT" byteoffset="596" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="interfaceToPass" type="T_TYPE_REFERENCE" byteoffset="660" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="faultListRegisterSuccess" type="T_BOOL" byteoffset="664" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="_faulted" type="T_BOOL" byteoffset="665" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="666" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="_homeNow" type="T_BOOL" byteoffset="667" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="homingOSF" type="T_F_TRIG" byteoffset="668" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="IECReferenceGood" type="T_BOOL" byteoffset="670" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="absolutePositonInches" type="T_REAL" byteoffset="672" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="velocity" type="T_INT" byteoffset="676" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="status" type="T_StepServoStatusFB" byteoffset="678" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="alarms" type="T_FB_StepServoAlarms" byteoffset="696" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="QSegmentRunning" type="T_INT" byteoffset="756" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="758" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="ActiveStoredProgramNumber" type="T_INT" byteoffset="800" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="CommandAcknowledged" type="T_BOOL" byteoffset="802" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="CurrentPosition" type="T_REAL" byteoffset="804" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Faulted" type="T_BOOL" byteoffset="808" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="HomeRequired" type="T_BOOL" byteoffset="809" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Homing" type="T_BOOL" byteoffset="810" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="811" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="812" vartype="VAR" inherited_from="T_FB_AppliedMotionStepServoEIPBase" propertytype="variable" />
+      <UserDefElement iecname="ack" type="T_BOOL" byteoffset="813" vartype="VAR_INPUT" />
+      <UserDefElement iecname="placement" type="T_BAG_DELIVERY_MOTOR_PLACEMENT" byteoffset="814" vartype="VAR_INPUT" />
+      <UserDefElement iecname="interconnect" type="T_BAG_DELIVERY_IC" byteoffset="816" vartype="VAR_INPUT" />
+      <UserDefElement iecname="ackRequest" type="T_BOOL" byteoffset="818" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="tensionFault" type="T_BOOL" byteoffset="819" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="_moveDistance" type="T_BOOL" byteoffset="820" vartype="VAR" />
+      <UserDefElement iecname="_moveFinal" type="T_BOOL" byteoffset="821" vartype="VAR" />
+      <UserDefElement iecname="_moveDone" type="T_BOOL" byteoffset="822" vartype="VAR" />
+      <UserDefElement iecname="_finalMove" type="T_BOOL" byteoffset="823" vartype="VAR" />
+      <UserDefElement iecname="_bagDeliveryReset" type="T_BOOL" byteoffset="824" vartype="VAR" />
+      <UserDefElement iecname="_delayTimer" type="T_TON" byteoffset="828" vartype="VAR" />
+      <UserDefElement iecname="_state" type="T_BAG_DELIVERY_MOVE_STATES" byteoffset="844" vartype="VAR" />
+      <UserDefElement iecname="_torqueMode" type="T_BOOL" byteoffset="846" vartype="VAR" />
+      <UserDefElement iecname="_tensionFaultDwellTimer" type="T_TON" byteoffset="848" vartype="VAR" />
+    </TypeUserDef>
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_BagDelivery" size="1744" nativesize="7016" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_BagDelivery" size="1744" nativesize="6520" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/feature/BagLoadingTray
+========
+    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="9528" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -916,7 +1455,59 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
+<<<<<<< HEAD
     <TypeUserDef name="T_FB_MOABHead_Electric" size="77296" nativesize="189372" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+=======
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+    <TypeUserDef name="T_FB_MOABHead" size="2037" nativesize="103896" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+=======
+    <TypeUserDef name="T_FB_MOABHead" size="2042" nativesize="102136" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/feature/BagLoadingTray
+      <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
+      <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="openBagSubState" type="T_BAG_OPEN_ASSIST_STATES" byteoffset="6" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="finishCycleSubState" type="T_FINISH_CYCLE_STATES" byteoffset="8" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="pressureBarEndStopMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="10" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="52" vartype="VAR" />
+      <UserDefElement iecname="pressureBar" type="T_FB_PneumaticPressureBar" byteoffset="94" vartype="VAR" />
+      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="112" vartype="VAR" />
+      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="115" vartype="VAR" />
+      <UserDefElement iecname="factoryTestModeKeepCycling" type="T_BOOL" byteoffset="121" vartype="VAR" />
+      <UserDefElement iecname="bagDelivery" type="T_FB_BagDelivery" byteoffset="124" vartype="VAR" />
+      <UserDefElement iecname="zebraPrinter" type="T_FB_ZebraPrinter" byteoffset="1868" vartype="VAR" />
+      <UserDefElement iecname="bagOpened" type="T_BOOL" byteoffset="1872" vartype="VAR" />
+      <UserDefElement iecname="recoveryModeActive" type="T_BOOL" byteoffset="1873" vartype="VAR" />
+      <UserDefElement iecname="passthrough" type="T_FB_AdjustablePneumaticPassthrough" byteoffset="1876" vartype="VAR" />
+      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="1880" vartype="VAR" />
+      <UserDefElement iecname="openedBagWasRemoved" type="T_FB_Fault" byteoffset="1883" vartype="VAR" />
+      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="1886" vartype="VAR" />
+      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="1889" vartype="VAR" />
+      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="1892" vartype="VAR" />
+      <UserDefElement iecname="barcodeVerificationFailed" type="T_FB_Fault" byteoffset="1895" vartype="VAR" />
+      <UserDefElement iecname="infeedConveyorIOCommFail" type="T_FB_Fault" byteoffset="1898" vartype="VAR" />
+      <UserDefElement iecname="infeedConveyorVFDFaulted" type="T_FB_Fault" byteoffset="1901" vartype="VAR" />
+      <UserDefElement iecname="barcodeVerifierCommFail" type="T_FB_Fault" byteoffset="1904" vartype="VAR" />
+      <UserDefElement iecname="sealFlattenerTimedOut" type="T_FB_Fault" byteoffset="1907" vartype="VAR" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="1910" vartype="VAR" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="1919" vartype="VAR" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="1928" vartype="VAR" />
+      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="1940" vartype="VAR" />
+      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="2012" vartype="VAR" />
+      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="2019" vartype="VAR" />
+<<<<<<< HEAD
+      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="2029" vartype="VAR" />
+=======
+      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="2026" vartype="VAR" />
+      <UserDefElement iecname="stagingFunnel" type="T_FB_Funnel" byteoffset="2034" vartype="VAR" />
+>>>>>>> alpha/feature/BagLoadingTray
+    </TypeUserDef>
+    <TypeSimple name="T_TYPE_REFERENCE" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
+    <TypeSimple name="T_TYPE_REFERENCE_1" size="4" swapsize="4" typeclass="Userdef" iecname="TYPE_REFERENCE" />
+========
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77404" nativesize="201592" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+>>>>>>> alpha/custom/Brazeway
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="12" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="54" vartype="VAR" />
@@ -956,8 +1547,14 @@
       <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="447" vartype="VAR" />
       <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="457" vartype="VAR" />
       <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="465" vartype="VAR" />
+<<<<<<< HEAD
       <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="468" vartype="VAR" />
     </TypeUserDef>
+=======
+      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="472" vartype="VAR" />
+    </TypeUserDef>
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
   </TypeList>
   <NodeList>
     <Node name="Application">
@@ -1295,6 +1892,7 @@ Misc</Comment>
         <Node name="waitingForPrinter" type="T_Warning" access="ReadWrite" />
       </Node>
       <Node name="IoConfig_Globals_Mapping">
+<<<<<<< HEAD
         <Node name="iAuxConfigInput1" type="T_BIT_X_2" access="Read" directaddress="%IX61.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1361,12 +1959,73 @@ Misc</Comment>
         <Node name="iJawClearToClamp" type="T_BIT_X_5" access="Read" directaddress="%IX69.5">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
+=======
+        <Node name="iAuxConfigInput1" type="T_BIT_X_2" access="Read" directaddress="%IX29.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iAuxConfigInput2" type="T_BIT_X_1" access="Read" directaddress="%IX29.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iAuxFillerTrigger" type="T_BIT_X_0" access="Read" directaddress="%IX29.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iBagNotPresent" type="T_BIT_X_2" access="Read" directaddress="%IX380.2">
+          <Comment>Bag_Delivery_EIP_Motor : </Comment>
+        </Node>
+        <Node name="iBagsLow" type="T_BIT_X_5" access="Read" directaddress="%IX33.5">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iBagTensionFault" type="T_BIT_X_3" access="Read" directaddress="%IX496.3">
+          <Comment>Bag_Delivery_Rear_Motor : </Comment>
+        </Node>
+        <Node name="iBarcodeReadGood" type="T_BIT_X_4" access="Read" directaddress="%IX35.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iConveyorClear" type="T_BIT_X_5" access="Read" directaddress="%IX32.5">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iEStopOK" type="T_BIT_X_2" access="Read" directaddress="%IX32.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iFootSwitch" type="T_BIT_X_6" access="Read" directaddress="%IX37.6">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iFrontLoadPlateExtended" type="T_BIT_X_3" access="Read" directaddress="%IX33.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iFrontLoadPlateRetracted" type="T_BIT_X_3" access="Read" directaddress="%IX32.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iFunnelClosed" type="T_BIT_X_0" access="Read" directaddress="%IX31.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iFunnelOpened" type="T_BIT_X_0" access="Read" directaddress="%IX30.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iHeadLowered" type="T_BIT_X_6" access="Read" directaddress="%IX32.6">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iHeadRaised" type="T_BIT_X_6" access="Read" directaddress="%IX33.6">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iInfeedFlightSensor" type="T_BIT_X_4" access="Read" directaddress="%IX736.4">
+          <Comment>Infeed_Conveyor_IO : </Comment>
+        </Node>
+        <Node name="iInfeedVFDNotFaulted" type="T_BIT_X_1" access="Read" directaddress="%IX736.1">
+          <Comment>Infeed_Conveyor_IO : </Comment>
+        </Node>
+        <Node name="iInfeedVFDRunning" type="T_BIT_X_0" access="Read" directaddress="%IX736.0">
+          <Comment>Infeed_Conveyor_IO : </Comment>
+        </Node>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+>>>>>>> alpha/custom/Brazeway
         <Node name="iLeftFingerBagPresent" type="T_BIT_X_2" access="Read" directaddress="%IX68.2">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iLeftPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX63.3">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
+<<<<<<< HEAD
         <Node name="iLightCurtainsClear" type="T_BIT_X_7" access="Read" directaddress="%IX69.7">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1440,6 +2099,157 @@ Misc</Comment>
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iRightPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX62.3">
+=======
+<<<<<<< HEAD
+        <Node name="iLightCurtainsClear" type="T_BIT_X_7" access="Read" directaddress="%IX69.7">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+=======
+>>>>>>> alpha/feature/BagLoadingTray
+        <Node name="iLoadPlateExtended" type="T_BIT_X_0" access="Read" directaddress="%IX65.0">
+========
+        <Node name="iJawClampsExtended" type="T_BIT_X_0" access="Read" directaddress="%IX36.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iJawClampsRetracted" type="T_BIT_X_0" access="Read" directaddress="%IX37.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iJawClearToClamp" type="T_BIT_X_5" access="Read" directaddress="%IX37.5">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iLeftPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX31.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iLefttFingerBagPresent" type="T_BIT_X_2" access="Read" directaddress="%IX36.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iLightedTouchButton" type="T_BIT_X_0" access="Read" directaddress="%IX41.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+        <Node name="iPAApplicatorHome" type="T_BIT_X_1" access="Read" directaddress="%IX715.1">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPABypassOn" type="T_BIT_X_6" access="Read" directaddress="%IX715.6">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPackageEjectGuardClosed" type="T_BIT_X_6" access="Read" directaddress="%IX64.6">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iPACycleComplete" type="T_BIT_X_0" access="Read" directaddress="%IX715.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAFaulted" type="T_BIT_X_7" access="Read" directaddress="%IX714.7">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAHeartbeat" type="T_BIT_X_7" access="Read" directaddress="%IX715.7">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALabelOut" type="T_BIT_X_3" access="Read" directaddress="%IX714.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALOTAR" type="T_BIT_X_3" access="Read" directaddress="%IX715.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALowLabels" type="T_BIT_X_2" access="Read" directaddress="%IX715.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAOnlineDataReady" type="T_BIT_X_4" access="Read" directaddress="%IX714.4">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAPrintEngineError" type="T_BIT_X_1" access="Read" directaddress="%IX714.1">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAPrintEnginePower" type="T_BIT_X_0" access="Read" directaddress="%IX714.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPARibbonLow" type="T_BIT_X_2" access="Read" directaddress="%IX714.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPARibbonOut" type="T_BIT_X_5" access="Read" directaddress="%IX714.5">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+=======
+        <Node name="iPackageEjectGuardClosed" type="T_BIT_X_6" access="Read" directaddress="%IX64.6">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+>>>>>>> alpha/feature/BagLoadingTray
+        <Node name="iPassthroughHomeSensorClear" type="T_BIT_X_2" access="Read" directaddress="%IX468.2">
+          <Comment>Pbar_ServoEIP : </Comment>
+        </Node>
+        <Node name="iPowerOffButton" type="T_BIT_X_3" access="Read" directaddress="%IX69.3">
+========
+        <Node name="iLoadPlateExtended" type="T_BIT_X_0" access="Read" directaddress="%IX33.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iLoadPlateRetracted" type="T_BIT_X_0" access="Read" directaddress="%IX32.0">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iLoadShelfExtended" type="T_BIT_X_1" access="Read" directaddress="%IX33.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iLoadShelfRetracted" type="T_BIT_X_1" access="Read" directaddress="%IX32.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iPAApplicatorHome" type="T_BIT_X_1" access="Read" directaddress="%IX739.1">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPABypassOn" type="T_BIT_X_6" access="Read" directaddress="%IX739.6">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPackageAtExit" type="T_BIT_X_4" access="Read" directaddress="%IX33.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iPACycleComplete" type="T_BIT_X_0" access="Read" directaddress="%IX739.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAFaulted" type="T_BIT_X_7" access="Read" directaddress="%IX738.7">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAHeartbeat" type="T_BIT_X_7" access="Read" directaddress="%IX739.7">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALabelOut" type="T_BIT_X_3" access="Read" directaddress="%IX738.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALOTAR" type="T_BIT_X_3" access="Read" directaddress="%IX739.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPALowLabels" type="T_BIT_X_2" access="Read" directaddress="%IX739.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAOnlineDataReady" type="T_BIT_X_4" access="Read" directaddress="%IX738.4">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAPrintEngineError" type="T_BIT_X_1" access="Read" directaddress="%IX738.1">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPAPrintEnginePower" type="T_BIT_X_0" access="Read" directaddress="%IX738.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPARibbonLow" type="T_BIT_X_2" access="Read" directaddress="%IX738.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPARibbonOut" type="T_BIT_X_5" access="Read" directaddress="%IX738.5">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="iPowerOffButton" type="T_BIT_X_3" access="Read" directaddress="%IX37.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iPressureBarNotObstructed" type="T_BIT_X_1" access="Read" directaddress="%IX37.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iPrinterRibbonEncoder" type="T_BIT_X_3" access="Read" directaddress="%IX35.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iRightFingerBagPresent" type="T_BIT_X_2" access="Read" directaddress="%IX37.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="iRightPalmButton" type="T_BIT_X_3" access="Read" directaddress="%IX30.3">
+>>>>>>> alpha/custom/Brazeway
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="iStagingFunnelClosed" type="T_BIT_X_1" access="Read" directaddress="%IX63.1">
@@ -1448,6 +2258,7 @@ Misc</Comment>
         <Node name="iStagingFunnelOpened" type="T_BIT_X_1" access="Read" directaddress="%IX62.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
+<<<<<<< HEAD
         <Node name="oAuxBaggerOK" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX29.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1493,10 +2304,77 @@ Misc</Comment>
         <Node name="oHPAOn" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX187.5">
           <Comment>FestoManifold : </Comment>
         </Node>
+=======
+        <Node name="oAuxBaggerOK" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX28.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oAuxConfigOut1" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX28.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oAuxConfigOut2" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX28.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oAuxReadyForFiller" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX28.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oBaggerHeadMotorDir" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX32.7">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oBarcodeTrigger" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX34.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oBOFDown" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX187.1">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oBOFUp" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oFrontLoadPlateToDischarge" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX188.3">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+<<<<<<< HEAD
+        <Node name="oFrontLoadPlateToDischarge" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX188.3">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+=======
+>>>>>>> alpha/feature/BagLoadingTray
+        <Node name="oFrontLoadPlateToLoad" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX188.2">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oFunnelClose" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX189.1">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oFunnelOpen" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX189.0">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oHeaterPulse" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX37.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oHMILight" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX36.3">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oHPAOn" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX186.5">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+<<<<<<< HEAD
+        <Node name="oIBDExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX188.6">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oIBDExtendWithFunnel" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX189.6">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oIBDRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX188.7">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+        <Node name="oIBDRetractWithFunnel" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX189.7">
+=======
+>>>>>>> alpha/custom/Brazeway
         <Node name="oIBDExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX189.6">
           <Comment>FestoManifold : </Comment>
         </Node>
         <Node name="oIBDRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX189.7">
+<<<<<<< HEAD
           <Comment>FestoManifold : </Comment>
         </Node>
         <Node name="oJawClampExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">
@@ -1525,6 +2403,54 @@ Misc</Comment>
         </Node>
         <Node name="oPABypassEnable" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX594.3">
           <Comment>Panther_PA : </Comment>
+=======
+>>>>>>> alpha/feature/BagLoadingTray
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oLoadPlateExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">
+========
+        <Node name="oJawClampExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX186.0">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oJawClampRetract" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX186.1">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oLoadPlateExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX186.6">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oLoadPlateRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX186.7">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oLoadShelfUp" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX188.4">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oLPAOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX186.4">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oMOMConfig" type="T_BYTE" access="ReadWrite" directaddress="%QB0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+<<<<<<< HEAD
+        <Node name="oPABypassEnable" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX530.3">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="oPAReset" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX530.2">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+        <Node name="oPATrigger1" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX530.0">
+          <Comment>Panther_PA : </Comment>
+        </Node>
+=======
+>>>>>>> alpha/feature/BagLoadingTray
+        <Node name="oPBar1Extend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX186.0">
+          <Comment>FestoManifold : </Comment>
+========
+        <Node name="oPABypassEnable" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX594.3">
+          <Comment>Panther_PA : </Comment>
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+>>>>>>> alpha/custom/Brazeway
         </Node>
         <Node name="oPAReset" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX594.2">
           <Comment>Panther_PA : </Comment>
@@ -1532,6 +2458,7 @@ Misc</Comment>
         <Node name="oPATrigger1" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX594.0">
           <Comment>Panther_PA : </Comment>
         </Node>
+<<<<<<< HEAD
         <Node name="oPrinterStartPrint" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX35.0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1539,11 +2466,21 @@ Misc</Comment>
           <Comment>FestoManifold : </Comment>
         </Node>
         <Node name="oPrintHeadUp" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX188.3">
+=======
+        <Node name="oPrinterStartPrint" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX34.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oPrintHeadDown" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX187.2">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oPrintHeadUp" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX187.3">
+>>>>>>> alpha/custom/Brazeway
           <Comment>FestoManifold : </Comment>
         </Node>
         <Node name="oResetInfeedVFD" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX592.1">
           <Comment>Infeed_Conveyor_IO : </Comment>
         </Node>
+<<<<<<< HEAD
         <Node name="oRunBaggerHeadMotor" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX34.7">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1551,11 +2488,21 @@ Misc</Comment>
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oRunExternalExitConveyor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX37.1">
+=======
+        <Node name="oRunBaggerHeadMotor" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX33.7">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oRunExitConveyor" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX33.2">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oRunExternalExitConveyor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX36.1">
+>>>>>>> alpha/custom/Brazeway
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oRunInfeedVFD" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX592.0">
           <Comment>Infeed_Conveyor_IO : </Comment>
         </Node>
+<<<<<<< HEAD
         <Node name="oRunPrinterRibbonUnwindMotor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX35.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
@@ -1590,6 +2537,46 @@ Misc</Comment>
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="printerReady" type="T_BIT_X_2" access="Read" directaddress="%IX67.2">
+=======
+        <Node name="oRunPrinterRibbonUnwindMotor" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX34.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="oSealBarExtend" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX186.2">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oSealBarRetract" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX186.3">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oSealFlatDown" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX187.7">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oSealFlatUp" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX187.6">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oSoftStart" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX32.4">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+<<<<<<<< HEAD:alpha/AlphaController.Pro18_1174.Application.xml
+        <Node name="oStagingFunnelClose" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX189.3">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oStagingFunnelOpen" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX189.2">
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="oVacOn" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX187.6">
+========
+        <Node name="oVacOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX187.4">
+>>>>>>>> alpha/custom/Brazeway:alpha/AlphaController.ElectricMachine.Application.xml
+          <Comment>FestoManifold : </Comment>
+        </Node>
+        <Node name="printerDataReady" type="T_BIT_X_0" access="Read" directaddress="%IX35.0">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="printerEndOfPrint" type="T_BIT_X_1" access="Read" directaddress="%IX35.1">
+          <Comment>Cube67_BN_E_V2 : </Comment>
+        </Node>
+        <Node name="printerReady" type="T_BIT_X_2" access="Read" directaddress="%IX35.2">
+>>>>>>> alpha/custom/Brazeway
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
       </Node>
