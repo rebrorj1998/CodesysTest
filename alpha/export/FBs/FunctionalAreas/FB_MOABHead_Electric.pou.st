@@ -1440,7 +1440,7 @@ CASE state.head OF
                                                     
     HEAD_STATES.OpenedBag :                            // Move fingers in and to bag holding and reset cycle
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) //OR bagFailedToOpen
-														 AND pressureBar.state = PRESSURE_BAR_STATES.Idle THEN
+														 AND pressureBar.state = MotorizedPbarStates.Idle THEN
 														state.head := HEAD_STATES.FinishCycle;
                                                     END_IF
 	HEAD_STATES.FinishCycle :			//
@@ -1767,8 +1767,8 @@ CASE state.sb.sealSeparate OF
 													ELSE
 														state.sb.sealSeparate := SEAL_SEPARATE_STATES.Done;
 													END_IF                      
-    SEAL_SEPARATE_STATES.Done:                        
-    SEAL_SEPARATE_STATES.Fault:
+    SEAL_SEPARATE_STATES.Done:                        //
+    SEAL_SEPARATE_STATES.Fault:						//
 END_CASE
 
 
@@ -1933,8 +1933,8 @@ CASE state.sb.releaseFeed OF
 														IBD.OpenIBD();
 													END_IF
 													state.sb.releaseFeed := RELEASE_FEED_STATES.Done;
-    RELEASE_FEED_STATES.Done :
-    RELEASE_FEED_STATES.Fault :
+    RELEASE_FEED_STATES.Done :						//
+    RELEASE_FEED_STATES.Fault :						//
 END_CASE
 
 CASE state.sb.openBag OF

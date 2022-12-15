@@ -465,13 +465,13 @@ CASE state OF
 				distance := printLengthSetpoint + _printerExtraFeedLength, 
                 acceleration := accelSetpoint, 
                 deceleration := decelSetpoint, 
-                velocity := REAL_TO_INT((printVelocitySetpoint * velocityMultiplier))
+                velocity := REAL_TO_INT((TO_REAL(printVelocitySetpoint) * velocityMultiplier))
 			);
 			_bagFeedRearMotor.MoveDistance(
 				distance := printLengthSetpoint + _printerExtraFeedLength, 
                 acceleration := accelSetpoint, 
                 deceleration := decelSetpoint, 
-                velocity := REAL_TO_INT((printVelocitySetpoint * velocityMultiplier))
+                velocity := REAL_TO_INT((TO_REAL(printVelocitySetpoint) * velocityMultiplier))
 			);      
 			UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.FeedingAtPrintSpeed);
 		END_IF	

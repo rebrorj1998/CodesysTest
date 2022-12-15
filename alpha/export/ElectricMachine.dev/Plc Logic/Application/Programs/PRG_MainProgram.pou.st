@@ -75,7 +75,6 @@ profileThis := TIME_TO_DINT(ctfb.ct_last) >= 25;
 // Run other programs
 //PRG_PneumaticHead();
 PRG_Bagger();
-Faults();
 versionInfo := GetVersion();
 HMIData.version := Standard.CONCAT(TO_STRING(versionInfo.uiMajor),'.');
 	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiMinor),'.'));
