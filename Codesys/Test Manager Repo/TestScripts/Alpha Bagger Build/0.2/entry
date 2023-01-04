@@ -1,7 +1,7 @@
 <TestScript>
   <Information>
     <Name>Alpha Bagger Build</Name>
-    <Version>0.1</Version>
+    <Version>0.2</Version>
     <Author>Ben Hess</Author>
   </Information>
   <Sequence>
@@ -459,7 +459,7 @@ revision = info.version.Revision</Entry>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
             <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\1174_{version}-build{buildID}-WIN10\Application.app</Entry>
-            <Entry Name="FullAppName">Pro18_1174.Plc Logic.Application</Entry>
+            <Entry Name="FullAppName">Pro18_1174_Win10.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
         <Action>
