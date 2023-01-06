@@ -37,7 +37,7 @@ VAR
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
 	bagDelivery : FB_BagDelivery();
-	zebraPrinter : FB_ZebraPrinter;
+	zebraPrinter : FB_ZebraPrinterStandard;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
 	bagDropTimer : Standard.TON;
@@ -130,6 +130,7 @@ VAR
 	batchEnableONS : FB_ONS;
 	estopONS : FB_ONS;
 	triggerLPAWhileFeedingONS : FB_ONS();
+	_runIntegratedExitConveyor : BOOL;
 	_auxIOManager : FB_AuxIO;
 	_bagGrabbedONS : Standard.R_TRIG;
 END_VAR
@@ -377,8 +378,15 @@ CASE HMIData.printerSelection OF
 END_CASE
 
 // Run Zebra Printer
+//
 zebraPrinter(ribbonEncoderState := iPrinterRibbonEncoder, oLowerPrintHead => oPrintHeadDown);
 zebraPrinter.Mode := printerMode;
+
+// Disable out of cycle priting if not possible
+IF NOT HMIData.printOutOfCycleEnable THEN 
+	HMIData.printerCycleSelection := PrinterCycleSelection.PrintWhileFeeding;
+END_IF
+
 IF HMIData.activateDemoMode THEN
 	HMIData.demoModeIsActive.active := TRUE;
 	zebraPrinter.autoSendLabel := TRUE;
@@ -862,7 +870,12 @@ exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 
 oRunExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
-	 
+
+_runIntegratedExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);	 
+oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor);
+oRunExitConveyor := oRunExitConveyorForward;
+oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor);
+ 
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
 externalExitConveyorJogONS(CLK := HMIData.externalExitConveyorJog);
@@ -1845,7 +1858,7 @@ CASE state.sb.releaseFeed OF
                                                                 bagDelivery.AutoFeedBagOut();
  																LPA.ManualOff();
                                                                 state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
-                                                            ELSIF bagDelivery.enable AND zebraPrinter.enable THEN
+                                                            ELSIF (bagDelivery.enable AND zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintWhileFeeding) THEN
                                                                 bagDelivery.AutoWaitForPrinter();
 																LPA.ManualOff();
                                                                 state.sb.releaseFeed := RELEASE_FEED_STATES.WaitForPrinter;
