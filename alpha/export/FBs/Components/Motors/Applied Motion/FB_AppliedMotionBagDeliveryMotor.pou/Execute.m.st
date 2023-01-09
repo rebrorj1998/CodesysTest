@@ -14,7 +14,7 @@ _delayTimer();
 
 // If motor velocity is greater then threshold for 2 seconds, fault
 _tensionFaultDwellTimer(IN := _torqueMode AND (ABS(velocity) > VELOCITY_THRESHOLD_FOR_TENSION_FAULT));
-IF _tensionFaultDwellTimer.Q AND NOT HMIData.enableDryCycle THEN
+IF (_tensionFaultDwellTimer.Q AND NOT HMIData.enableDryCycle) AND _tensionFaultEnabled THEN
 	tensionFault := TRUE;
 END_IF
 

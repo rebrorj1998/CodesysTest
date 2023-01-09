@@ -19,6 +19,7 @@ VAR
 	_state : BAG_DELIVERY_MOVE_STATES;
 	_torqueMode : BOOL;
 	_tensionFaultDwellTimer : TON := (PT := T#250MS);
+	_tensionFaultEnabled : BOOL;
 END_VAR
 VAR CONSTANT
 	O2_L : INT := 16#4CB2;

@@ -133,6 +133,7 @@ VAR
 	_runIntegratedExitConveyor : BOOL;
 	_auxIOManager : FB_AuxIO;
 	_bagGrabbedONS : Standard.R_TRIG;
+	_waitForTakeupTimer : Standard.TON := (PT := T#500ms);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -250,7 +251,9 @@ END_IF
 HMIData.lastCycleTime := cycleTime;
 
 HMIData.printerNotReady.active := (NOT printerReady AND zebraPrinter.enable) OR (printAndApply.printerNotReady AND printAndApply.enable);
-HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPrinter) OR (printAndApply.waitingForPrinter AND printAndApply.enable);
+HMIData.waitingForPrinter.active := (zebraPrinter.state = PRINTER_STATES.WaitingForData AND state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPrinter) 
+									OR (printAndApply.waitingForPrinter AND printAndApply.enable)
+									OR (zebraPrinter.state = PRINTER_STATES.WaitingForData AND state.sb.printOutOfCycle = PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter);
 
 bagOpenRetrySetting := HMIData.bagOpenRetrySetting;
 HMIData.bagOpenRetryCount := bagOpenRetryCount;
@@ -344,7 +347,7 @@ bagDelivery(
 	reverseVelocitySetpoint := TO_INT(HMIData.bagReverseSpeed),
 	feedVelocitySetpoint := TO_INT(HMIData.bagForwardSpeed),
 	printOffsetSetpoint := HMIData.printOffset,	
-	reverseToPrintheadRequired := zebraPrinter.enable,
+	reverseToPrintheadRequired := zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintWhileFeeding,
 	bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 	bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 	stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
@@ -1067,9 +1070,11 @@ IF enableONS.Q OR resetONS.Q THEN
 	state.sb.openBag := BAG_OPEN_ASSIST_STATES.Idle;
 	state.sb.finishCycle := FINISH_CYCLE_STATES.Idle;
 	state.sb.automation := AUTOMATION_STATES.Idle;
+	state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.Idle;
 	motorizedSealFlatteners.Reset();
 	pressureBar.Reset();
 	IBD.Reset();
+	bagDelivery._bagFeedRearMotor.EnableTensionFault();
 	bagDelivery.AutoFeedToEye();
 // 	bagDelivery.Reset();
 	zebraPrinter.Reset();
@@ -1854,7 +1859,7 @@ CASE state.sb.releaseFeed OF
 															THEN   
 															bagDropTimer.IN := FALSE;
 															
-															IF bagDelivery.enable AND NOT zebraPrinter.enable THEN
+															IF bagDelivery.enable AND NOT (zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintWhileFeeding) THEN
                                                                 bagDelivery.AutoFeedBagOut();
  																LPA.ManualOff();
                                                                 state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
@@ -1941,6 +1946,11 @@ CASE state.sb.releaseFeed OF
 													IF barcodeVerifier.barcodeFault THEN
 														barcodeVerificationFailed.Trigger();
 													END_IF 
+													
+													// Trigger mid cycle print
+													IF HMIData.printerCycleSelection = PrinterCycleSelection.PrintMidCycle THEN
+														state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter;
+													END_IF
 													
 													IF enableIBDDeflate OR enableIBDEject THEN
 														IBD.OpenIBD();
@@ -2174,17 +2184,41 @@ CASE state.sb.finishCycle OF
 		   frontLoadPlate.Shake();
 		END_IF
 
-		//
+		//Print end cycle if needed.
+		IF zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintEndCycle THEN
+			state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter;
+		END_IF
+		
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
 			state.sb.finishCycle := FINISH_CYCLE_STATES.Shaking;
+		ELSIF zebraPrinter.enable AND HMIData.printerCycleSelection <> PrinterCycleSelection.PrintWhileFeeding THEN
+			state.sb.finishCycle := FINISH_CYCLE_STATES.WaitForEndCyclePrint;
 		ELSE
 			state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
 		END_IF
 	
 	FINISH_CYCLE_STATES.Shaking:
 		IF NOT frontLoadPlate.Shaking AND NOT rearLoadPlate.Shaking AND NOT loadShelf.Shaking THEN
-			state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
+			IF zebraPrinter.enable AND HMIData.printerCycleSelection <> PrinterCycleSelection.PrintWhileFeeding THEN
+				state.sb.finishCycle := FINISH_CYCLE_STATES.WaitForEndCyclePrint;
+			ELSE
+				state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
+			END_IF
 		END_IF	
+	
+	FINISH_CYCLE_STATES.WaitForEndCyclePrint:
+		//
+		IF bagOpened THEN
+        	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) AND NOT HMIData.enableDryCycle THEN
+				openedBagWasRemoved.Trigger();
+				bagOpened := FALSE;
+			END_IF
+		END_IF
+		
+		IF state.sb.printOutOfCycle = PRINT_OUT_OF_CYCLE_STATES.Done THEN
+			state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.Idle;
+			state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
+		END_IF
 	
 	FINISH_CYCLE_STATES.Done :								
 		//
@@ -2213,6 +2247,63 @@ CASE state.sb.automation OF
 	AUTOMATION_STATES.RaiseBOF:
 		bagOpenFingers.Release();
 		state.sb.automation := AUTOMATION_STATES.Done; 
+END_CASE
+
+// Print out of cycle
+_waitForTakeupTimer(IN := state.sb.printOutOfCycle = PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup);
+CASE state.sb.printOutOfCycle OF
+	PRINT_OUT_OF_CYCLE_STATES.Idle:
+		//
+		
+	PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter:
+		//
+		IF zebraPrinter.state = PRINTER_STATES.DataReady THEN
+        	state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.StartPrinting;
+        END_IF
+		
+	PRINT_OUT_OF_CYCLE_STATES.StartPrinting:
+		//
+		zebraPrinter.AutoPrintNow();
+		//bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
+		bagDelivery._bagFeedRearMotor.SetTorque(0);
+		bagDelivery._bagFeedRearMotor.DisableTensionFault();
+        state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.SendPrintSignal;
+	
+	PRINT_OUT_OF_CYCLE_STATES.SendPrintSignal:
+		//	
+		IF zebraPrinter.printHeadDebounced THEN												
+			zebraPrinter.AutoSendPrintSignal();
+			barcodeVerifier.Trigger();
+			state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.Printing;
+        END_IF
+													
+	PRINT_OUT_OF_CYCLE_STATES.Printing:
+		//
+		 IF zebraPrinter.state = PRINTER_STATES.DonePrinting THEN
+         	state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.FinishedPrinting;
+         END_IF
+		 
+	PRINT_OUT_OF_CYCLE_STATES.FinishedPrinting:
+		//
+		zebraPrinter.AutoAckPrintDone();
+		
+		bagDelivery._bagFeedRearMotor.SetTorque(100);
+        state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup;
+		
+	PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup:
+		//
+		IF  _waitForTakeupTimer.Q THEN
+			bagDelivery._bagFeedRearMotor.EnableTensionFault();
+			//bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
+		END_IF
+		state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.Done;
+		
+	PRINT_OUT_OF_CYCLE_STATES.Done:
+		//
+		
+	PRINT_OUT_OF_CYCLE_STATES.Fault:
+		//
+		
 END_CASE
 
 HMIData.initiateCycle := FALSE;
