@@ -18,7 +18,7 @@ TYPE FINISH_CYCLE_STATES :
 	SealFlattenersAtBagHolding := 32,
 	Shake := 33,
 	Shaking := 34,
-	WaitForEndCyclePrint := 40,
+	WaitForOutOfCyclePrint := 40,
 	Done := 100,
 	Fault := 99
 );

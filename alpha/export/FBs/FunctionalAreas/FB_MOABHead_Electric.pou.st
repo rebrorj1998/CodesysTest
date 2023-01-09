@@ -1766,6 +1766,11 @@ CASE state.sb.sealSeparate OF
                                                     END_IF
 													
     SEAL_SEPARATE_STATES.Reversedbag :              // 
+													//Print mid cycle if needed.
+													IF zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintMidCycle THEN
+														state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter;
+													END_IF
+													
                                                     state.sb.sealSeparate := SEAL_SEPARATE_STATES.SealBag;
 													
 	SEAL_SEPARATE_STATES.SealBag:					
@@ -1947,8 +1952,8 @@ CASE state.sb.releaseFeed OF
 														barcodeVerificationFailed.Trigger();
 													END_IF 
 													
-													// Trigger mid cycle print
-													IF HMIData.printerCycleSelection = PrinterCycleSelection.PrintMidCycle THEN
+													// Trigger end cycle print
+													IF HMIData.printerCycleSelection = PrinterCycleSelection.PrintEndCycle THEN
 														state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter;
 													END_IF
 													
@@ -2183,16 +2188,11 @@ CASE state.sb.finishCycle OF
    		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
 		   frontLoadPlate.Shake();
 		END_IF
-
-		//Print end cycle if needed.
-		IF zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintEndCycle THEN
-			state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter;
-		END_IF
 		
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
 			state.sb.finishCycle := FINISH_CYCLE_STATES.Shaking;
 		ELSIF zebraPrinter.enable AND HMIData.printerCycleSelection <> PrinterCycleSelection.PrintWhileFeeding THEN
-			state.sb.finishCycle := FINISH_CYCLE_STATES.WaitForEndCyclePrint;
+			state.sb.finishCycle := FINISH_CYCLE_STATES.WaitForOutOfCyclePrint;
 		ELSE
 			state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
 		END_IF
@@ -2200,13 +2200,13 @@ CASE state.sb.finishCycle OF
 	FINISH_CYCLE_STATES.Shaking:
 		IF NOT frontLoadPlate.Shaking AND NOT rearLoadPlate.Shaking AND NOT loadShelf.Shaking THEN
 			IF zebraPrinter.enable AND HMIData.printerCycleSelection <> PrinterCycleSelection.PrintWhileFeeding THEN
-				state.sb.finishCycle := FINISH_CYCLE_STATES.WaitForEndCyclePrint;
+				state.sb.finishCycle := FINISH_CYCLE_STATES.WaitForOutOfCyclePrint;
 			ELSE
 				state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
 			END_IF
 		END_IF	
 	
-	FINISH_CYCLE_STATES.WaitForEndCyclePrint:
+	FINISH_CYCLE_STATES.WaitForOutOfCyclePrint:
 		//
 		IF bagOpened THEN
         	IF NOT bagOpenFingers.CheckIfBagGrabbed(FALSE) AND NOT HMIData.enableDryCycle THEN
@@ -2253,24 +2253,23 @@ END_CASE
 _waitForTakeupTimer(IN := state.sb.printOutOfCycle = PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup);
 CASE state.sb.printOutOfCycle OF
 	PRINT_OUT_OF_CYCLE_STATES.Idle:
-		//
+		// Machine state machine will start this sub state by setting to "WaitForPrinter"
 		
 	PRINT_OUT_OF_CYCLE_STATES.WaitForPrinter:
-		//
+		// Wait for label
 		IF zebraPrinter.state = PRINTER_STATES.DataReady THEN
         	state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.StartPrinting;
         END_IF
 		
 	PRINT_OUT_OF_CYCLE_STATES.StartPrinting:
-		//
+		// Turn off power to rear motor and disable tension fault. Tell Zebra FB to prep for print cycle.
 		zebraPrinter.AutoPrintNow();
-		//bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 		bagDelivery._bagFeedRearMotor.SetTorque(0);
 		bagDelivery._bagFeedRearMotor.DisableTensionFault();
         state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.SendPrintSignal;
 	
 	PRINT_OUT_OF_CYCLE_STATES.SendPrintSignal:
-		//	
+		// After print head and compensator are down, send the print and start barcode verifier
 		IF zebraPrinter.printHeadDebounced THEN												
 			zebraPrinter.AutoSendPrintSignal();
 			barcodeVerifier.Trigger();
@@ -2278,20 +2277,19 @@ CASE state.sb.printOutOfCycle OF
         END_IF
 													
 	PRINT_OUT_OF_CYCLE_STATES.Printing:
-		//
+		// Wait for print to complete
 		 IF zebraPrinter.state = PRINTER_STATES.DonePrinting THEN
          	state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.FinishedPrinting;
          END_IF
 		 
 	PRINT_OUT_OF_CYCLE_STATES.FinishedPrinting:
-		//
+		// All done. Tell Zebra FB that we see it finished, and up the torque on the rear motor to take up slack
 		zebraPrinter.AutoAckPrintDone();
-		
 		bagDelivery._bagFeedRearMotor.SetTorque(100);
         state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup;
 		
 	PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup:
-		//
+		// Change this to a rear motor move in reverse to take up faster?
 		IF  _waitForTakeupTimer.Q THEN
 			bagDelivery._bagFeedRearMotor.EnableTensionFault();
 			//bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
@@ -2299,7 +2297,7 @@ CASE state.sb.printOutOfCycle OF
 		state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.Done;
 		
 	PRINT_OUT_OF_CYCLE_STATES.Done:
-		//
+		// Machine state machine will set this back to idle.
 		
 	PRINT_OUT_OF_CYCLE_STATES.Fault:
 		//
