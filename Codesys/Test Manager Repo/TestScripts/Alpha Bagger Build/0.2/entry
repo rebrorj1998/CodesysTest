@@ -240,8 +240,8 @@ revision = info.version.Revision</Entry>
           <Configuration>
             <Entry Name="Command">import shutil
 
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\1174_' + version + '-build' + buildID + '-WIN7'
 dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\1174_' + version + '-build' + buildID + '-WIN7'
+output_filename = dir_name
 shutil.make_archive(output_filename, 'zip', dir_name)
 shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
@@ -485,253 +485,8 @@ revision = info.version.Revision</Entry>
           <Configuration>
             <Entry Name="Command">import shutil
 
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\1174_' + version + '-build' + buildID + '-WIN10'
 dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\1174_' + version + '-build' + buildID + '-WIN10'
-shutil.make_archive(output_filename, 'zip', dir_name)
-shutil.rmtree(dir_name)</Entry>
-            <Entry Name="ImplicitImport">True</Entry>
-            <Entry Name="ShowTabs">True</Entry>
-          </Configuration>
-        </Action>
-      </Actions>
-    </TestCase>
-    <TestCase definesScope="False">
-      <Information>
-        <Title>Open SharpBagger Project and build Electric Win 7</Title>
-      </Information>
-      <Actions>
-        <Action>
-          <Information>
-            <Title>Get Worskspace name from Jenkins</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Outputs>
-              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
-            </Outputs>
-          </Parameters>
-          <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
-          <Configuration>
-            <Entry Name="Encoding">UTF-8</Entry>
-            <Entry Name="FilePath">C:\jenkins\workspace\activews.txt</Entry>
-            <Entry Name="ReadMode">String</Entry>
-            <Entry Name="TrimWhitespaces">True</Entry>
-            <Entry Name="Variable">workspace</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Close Project</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="RequireCancel">True</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Command TestRunner="TestManager.Projects" Verb="CloseProject" />
-          <Configuration>
-            <Entry Name="FailNoProject">False</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Load SharpBagger Project</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Command TestRunner="TestManager.Projects" Verb="LoadProject" />
-          <Configuration>
-            <Entry Name="FailOnMissingLibraries">False</Entry>
-            <Entry Name="OtherMessageBoxes">ReportAsError</Entry>
-            <Entry Name="PathToProject">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\AlphaController.project</Entry>
-            <Entry Name="UpdateCompilerVersion">False</Entry>
-            <Entry Name="UpdateLibraryVerions">False</Entry>
-            <Entry Name="UpdateStorageFormate">False</Entry>
-            <Entry Name="UpdateVisualisationProfile">False</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Set Active app to Electric</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Command TestRunner="TestManager.Projects" Verb="SetActiveApplication" />
-          <Configuration>
-            <Entry Name="AppName">ElectricMachine.Plc Logic.Application</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Clean project</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Command TestRunner="TestManager.Projects" Verb="CleanActiveApplication" />
-          <Configuration />
-        </Action>
-        <Action>
-          <Information>
-            <Title>Get version</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Outputs>
-              <Parameter Name="major" Variable="major" />
-              <Parameter Name="minor" Variable="minor" />
-              <Parameter Name="revision" Variable="revision" />
-              <Parameter Name="build" Variable="build" />
-              <Parameter Name="version" Variable="$GLOBALS.version" />
-            </Outputs>
-          </Parameters>
-          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
-          <Configuration>
-            <Entry Name="Command">proj = projects.primary
-info = proj.get_project_info()
-
-version = str(info.version)
-major = info.version.Major
-minor = info.version.Minor
-build = info.version.Build
-revision = info.version.Revision</Entry>
-            <Entry Name="ImplicitImport">True</Entry>
-            <Entry Name="ShowTabs">True</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Get BuildID from Jenkins</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Outputs>
-              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
-            </Outputs>
-          </Parameters>
-          <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
-          <Configuration>
-            <Entry Name="Encoding">UTF-8</Entry>
-            <Entry Name="FilePath">C:\jenkins\workspace\{$GLOBALS.workspace}\buildID.txt</Entry>
-            <Entry Name="ReadMode">String</Entry>
-            <Entry Name="TrimWhitespaces">True</Entry>
-            <Entry Name="Variable">buildID</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Create App Dir</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Inputs>
-              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
-              <Parameter Name="version" Variable="$GLOBALS.version" />
-            </Inputs>
-          </Parameters>
-          <Command TestRunner="TestManager.FileIO" Verb="CreateDirectory" />
-          <Configuration>
-            <Entry Name="Directory">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}-WIN7\</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Create Boot Project</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Inputs>
-              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
-              <Parameter Name="version" Variable="$GLOBALS.version" />
-            </Inputs>
-          </Parameters>
-          <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
-          <Configuration>
-            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}-WIN7\Application.app</Entry>
-            <Entry Name="FullAppName">ElectricMachine.Plc Logic.Application</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Zip up and delete directory</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Parameters>
-            <Inputs>
-              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
-              <Parameter Name="version" Variable="$GLOBALS.version" />
-              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
-            </Inputs>
-          </Parameters>
-          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
-          <Configuration>
-            <Entry Name="Command">import shutil
-
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN7'
-dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN7'
+output_filename = dir_name
 shutil.make_archive(output_filename, 'zip', dir_name)
 shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
@@ -827,27 +582,6 @@ shutil.rmtree(dir_name)</Entry>
           <Command TestRunner="TestManager.Projects" Verb="SetActiveApplication" />
           <Configuration>
             <Entry Name="AppName">ElectricMachine.Plc Logic.Application</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
-            <Title>Change to Win10 Runtime</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Command TestRunner="TestManager.Devices" Verb="UpdateDevice" />
-          <Configuration>
-            <Entry Name="DeviceID">0000 0022</Entry>
-            <Entry Name="DevicePath">ElectricMachine</Entry>
-            <Entry Name="DeviceType">4096</Entry>
-            <Entry Name="NewestVersion">False</Entry>
-            <Entry Name="Version">3.5.17.0</Entry>
           </Configuration>
         </Action>
         <Action>
@@ -996,8 +730,274 @@ revision = info.version.Revision</Entry>
           <Configuration>
             <Entry Name="Command">import shutil
 
-output_filename = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN10'
 dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN10'
+output_filename = dir_name
+shutil.make_archive(output_filename, 'zip', dir_name)
+shutil.rmtree(dir_name)</Entry>
+            <Entry Name="ImplicitImport">True</Entry>
+            <Entry Name="ShowTabs">True</Entry>
+          </Configuration>
+        </Action>
+      </Actions>
+    </TestCase>
+    <TestCase definesScope="False">
+      <Information>
+        <Title>Open SharpBagger Project and build Electric Win 7</Title>
+      </Information>
+      <Actions>
+        <Action>
+          <Information>
+            <Title>Get Worskspace name from Jenkins</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Outputs>
+              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
+            </Outputs>
+          </Parameters>
+          <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
+          <Configuration>
+            <Entry Name="Encoding">UTF-8</Entry>
+            <Entry Name="FilePath">C:\jenkins\workspace\activews.txt</Entry>
+            <Entry Name="ReadMode">String</Entry>
+            <Entry Name="TrimWhitespaces">True</Entry>
+            <Entry Name="Variable">workspace</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Close Project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="RequireCancel">True</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="CloseProject" />
+          <Configuration>
+            <Entry Name="FailNoProject">False</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Load SharpBagger Project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="LoadProject" />
+          <Configuration>
+            <Entry Name="FailOnMissingLibraries">False</Entry>
+            <Entry Name="OtherMessageBoxes">ReportAsError</Entry>
+            <Entry Name="PathToProject">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\AlphaController.project</Entry>
+            <Entry Name="UpdateCompilerVersion">False</Entry>
+            <Entry Name="UpdateLibraryVerions">False</Entry>
+            <Entry Name="UpdateStorageFormate">False</Entry>
+            <Entry Name="UpdateVisualisationProfile">False</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Set Active app to Electric</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="SetActiveApplication" />
+          <Configuration>
+            <Entry Name="AppName">ElectricMachine.Plc Logic.Application</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Change to Win7 (Advantech) Runtime</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Devices" Verb="UpdateDevice" />
+          <Configuration>
+            <Entry Name="DeviceID">1635 0002</Entry>
+            <Entry Name="DevicePath">ElectricMachine</Entry>
+            <Entry Name="DeviceType">4096</Entry>
+            <Entry Name="NewestVersion">False</Entry>
+            <Entry Name="Version">3.5.16.10</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Clean project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Command TestRunner="TestManager.Projects" Verb="CleanActiveApplication" />
+          <Configuration />
+        </Action>
+        <Action>
+          <Information>
+            <Title>Get version</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Outputs>
+              <Parameter Name="major" Variable="major" />
+              <Parameter Name="minor" Variable="minor" />
+              <Parameter Name="revision" Variable="revision" />
+              <Parameter Name="build" Variable="build" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+            </Outputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
+          <Configuration>
+            <Entry Name="Command">proj = projects.primary
+info = proj.get_project_info()
+
+version = str(info.version)
+major = info.version.Major
+minor = info.version.Minor
+build = info.version.Build
+revision = info.version.Revision</Entry>
+            <Entry Name="ImplicitImport">True</Entry>
+            <Entry Name="ShowTabs">True</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Get BuildID from Jenkins</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Outputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+            </Outputs>
+          </Parameters>
+          <Command TestRunner="TestManager.FileIO" Verb="ReadFromFile" />
+          <Configuration>
+            <Entry Name="Encoding">UTF-8</Entry>
+            <Entry Name="FilePath">C:\jenkins\workspace\{$GLOBALS.workspace}\buildID.txt</Entry>
+            <Entry Name="ReadMode">String</Entry>
+            <Entry Name="TrimWhitespaces">True</Entry>
+            <Entry Name="Variable">buildID</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Create App Dir</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.FileIO" Verb="CreateDirectory" />
+          <Configuration>
+            <Entry Name="Directory">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}-WIN7\</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Create Boot Project</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
+          <Configuration>
+            <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\ElectricMachine_{version}-build{buildID}-WIN7\Application.app</Entry>
+            <Entry Name="FullAppName">ElectricMachine.Plc Logic.Application</Entry>
+          </Configuration>
+        </Action>
+        <Action>
+          <Information>
+            <Title>Zip up and delete directory</Title>
+          </Information>
+          <Settings>
+            <Entry Name="Condition" />
+            <Entry Name="ExecutionDelay">0</Entry>
+            <Entry Name="ForceEvaluation">False</Entry>
+            <Entry Name="IgnoreResults">False</Entry>
+            <Entry Name="ResultVariable" />
+            <Entry Name="RetryOnError">0|0</Entry>
+          </Settings>
+          <Parameters>
+            <Inputs>
+              <Parameter Name="buildID" Variable="$GLOBALS.buildID" />
+              <Parameter Name="version" Variable="$GLOBALS.version" />
+              <Parameter Name="workspace" Variable="$GLOBALS.workspace" />
+            </Inputs>
+          </Parameters>
+          <Command TestRunner="TestManager.Scripting" Verb="ExecuteScript" />
+          <Configuration>
+            <Entry Name="Command">import shutil
+
+dir_name = 'C:\\jenkins\\workspace\\' + workspace + '\\alpha\\app\\ElectricMachine_' + version + '-build' + buildID + '-WIN7'
+output_filename = dir_name
 shutil.make_archive(output_filename, 'zip', dir_name)
 shutil.rmtree(dir_name)</Entry>
             <Entry Name="ImplicitImport">True</Entry>
