@@ -873,7 +873,7 @@ exitConveyorRun.DwellSetting := TO_DINT(HMIData.exitConveyorDwell * 1000);
 exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 
 oRunExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
-
+	 
 _runIntegratedExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);	 
 oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor);
 oRunExitConveyor := oRunExitConveyorForward;
@@ -2188,7 +2188,7 @@ CASE state.sb.finishCycle OF
    		   frontLoadPlate.shakeStart = SHAKER_START_SELECTION.Both THEN
 		   frontLoadPlate.Shake();
 		END_IF
-		
+
 		IF rearLoadPlate.Shaking OR frontLoadPlate.Shaking OR loadShelf.Shaking THEN
 			state.sb.finishCycle := FINISH_CYCLE_STATES.Shaking;
 		ELSIF zebraPrinter.enable AND HMIData.printerCycleSelection <> PrinterCycleSelection.PrintWhileFeeding THEN
@@ -2218,7 +2218,7 @@ CASE state.sb.finishCycle OF
 		IF state.sb.printOutOfCycle = PRINT_OUT_OF_CYCLE_STATES.Done THEN
 			state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.Idle;
 			state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
-		END_IF
+		END_IF	
 	
 	FINISH_CYCLE_STATES.Done :								
 		//
