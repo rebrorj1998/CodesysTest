@@ -41,6 +41,8 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	printSpeed : UDINT := 6;
 	printLength : REAL := 8.0;
 	printOffset : REAL := 2.0;
+	printOutOfCycleEnable : BOOL;
+	printerCycleSelection : PrinterCycleSelection;
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;
@@ -127,6 +129,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	pressureBarInPosition : REAL := 0;
 	feedToSealSetpoint : REAL := 0.0;
 	feedToSealInUse : BOOL := FALSE;
+	reverseConveyor : BOOL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;

@@ -42,7 +42,7 @@ VAR
 	autoModeKeepCycling : BOOL;
 	autoModeKeepCyclingTimer : Standard.TON;
     bagDelivery : FB_BagDelivery();
-	zebraPrinter : FB_ZebraPrinter;
+	zebraPrinter : FB_ZebraPrinterStandard;
 	sealTimer : Standard.TON() := (PT := T#350MS);
 	bagOpenFingerDelay : Standard.TON := (PT := T#100MS);
 	bagDropTimer : Standard.TON;
