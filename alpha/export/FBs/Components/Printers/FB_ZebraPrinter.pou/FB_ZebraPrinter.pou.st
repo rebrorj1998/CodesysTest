@@ -130,8 +130,9 @@ CASE state OF
 													END_IF
 													
 													IF _printerRibbonTimeoutTimer.Q THEN
-														state := PRINTER_STATES.Idle; 
+														oLowerPrintHead := FALSE;
 														ribbonFault.Trigger();
+														state := PRINTER_STATES.Idle; 
 													END_IF
 													
 													// While printing, wait for End of Print signal
@@ -150,5 +151,5 @@ CASE state OF
 														HMIData.printHeadClean.Increment();
                                                         Globals.printerCycleCounts := Globals.printerCycleCounts + 1;
                                                     END_IF                       
-                                        
+													            
 END_CASE

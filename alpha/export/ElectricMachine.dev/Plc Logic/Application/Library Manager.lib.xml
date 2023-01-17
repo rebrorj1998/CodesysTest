@@ -649,6 +649,14 @@
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
             <Key>
+              <Single Type="string">System_VisuElemXYChart</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemXYChart, 4.2.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
@@ -661,6 +669,14 @@
             </Key>
             <Value>
               <Single Type="string">Visu Utils, 4.2.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">CmpUserMgr Implementation</Single>
+            </Key>
+            <Value>
+              <Single Type="string">CmpUserMgr Implementation, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -693,6 +709,14 @@
             </Key>
             <Value>
               <Single Type="string">VisuElem3DPath, 4.1.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuInputs</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuInputs, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -773,30 +797,6 @@
             </Key>
             <Value>
               <Single Type="string">VisuNativeControl, 4.2.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">System_VisuElemXYChart</Single>
-            </Key>
-            <Value>
-              <Single Type="string">VisuElemXYChart, 4.2.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">System_VisuInputs</Single>
-            </Key>
-            <Value>
-              <Single Type="string">VisuInputs, 4.2.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">CmpUserMgr Implementation</Single>
-            </Key>
-            <Value>
-              <Single Type="string">CmpUserMgr Implementation, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>
