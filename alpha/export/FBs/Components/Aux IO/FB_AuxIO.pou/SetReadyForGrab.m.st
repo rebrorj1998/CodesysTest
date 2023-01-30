@@ -1,7 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-METHOD Reset
+METHOD SetReadyForGrab : BOOL
 VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-_configOutputManager.reset();
-_readyForGrab := FALSE;
+_readyForGrab := TRUE;

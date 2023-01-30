@@ -28,6 +28,8 @@ VAR_OUTPUT
 END_VAR
 VAR
 	_configOutputManager : FB_OutputPulseManager;
+	_readyForGrab : BOOL;
+	_readyForGrabONS : Standard.R_TRIG();
 END_VAR
 
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -88,9 +90,13 @@ CASE factorySelection.factorySelection OF
 	 	enableBagger := InputActive(AuxInputSelection.EnableBagger);
 		
 		(* Outputs *)
-		
+
 		// Custom PRJ22085: Ready For Grab
-		IF waitingForFiller THEN
+		_readyForGrabONS(CLK := waitingForFiller);
+		IF _readyForGrabONS.Q THEN
+			SetReadyForGrab();
+		END_IF
+		IF _readyForGrab THEN
 			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
 		ELSE
 			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.ReadyForGrab)); 

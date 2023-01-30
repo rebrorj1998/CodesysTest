@@ -1573,6 +1573,7 @@ CASE state.head OF
 	HEAD_STATES.PreparingForAutomatedBagRemoval:
 		//
 		IF state.sb.automation = AUTOMATION_STATES.Done THEN
+			_auxIOManager.ResetReadyForGrab();
 			state.head := HEAD_STATES.PreparedForAutomatedBagRemoval;
 		END_IF
 	
