@@ -382,6 +382,7 @@
       <UserDefElement type="T_FunnelSelection" iecname="FunnelWithSensors" enumvalue="1" />
       <UserDefElement type="T_FunnelSelection" iecname="FunnelWithoutSensors" enumvalue="2" />
       <UserDefElement type="T_FunnelSelection" iecname="TwoStageFunnelWithSensors" enumvalue="3" />
+      <UserDefElement type="T_FunnelSelection" iecname="BagLoadingTray" enumvalue="4" />
     </TypeUserDef>
     <TypeUserDef name="T_HEAD_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="HEAD_STATES" basetype="T_INT">
       <UserDefElement type="T_HEAD_STATES" iecname="Idle" enumvalue="0" />
@@ -1491,22 +1492,22 @@ Misc</Comment>
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oBOFDown" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX187.1">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 4B</Comment>
         </Node>
         <Node name="oBOFUp" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX187.0">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 4A</Comment>
         </Node>
         <Node name="oFrontLoadPlateToDischarge" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX188.3">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 9B</Comment>
         </Node>
         <Node name="oFrontLoadPlateToLoad" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX188.2">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 9A</Comment>
         </Node>
-        <Node name="oFunnelClose" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX189.1">
-          <Comment>FestoManifold : </Comment>
+        <Node name="oFunnelClose" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX188.1">
+          <Comment>FestoManifold : Station 8B</Comment>
         </Node>
-        <Node name="oFunnelOpen" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX189.0">
-          <Comment>FestoManifold : </Comment>
+        <Node name="oFunnelOpen" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX188.0">
+          <Comment>FestoManifold : Station 8A</Comment>
         </Node>
         <Node name="oHeaterPulse" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX37.4">
           <Comment>Cube67_BN_E_V2 : </Comment>
@@ -1515,37 +1516,31 @@ Misc</Comment>
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oHPAOn" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX186.5">
-          <Comment>FestoManifold : </Comment>
-        </Node>
-        <Node name="oIBDExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX188.6">
-          <Comment>FestoManifold : </Comment>
-        </Node>
-        <Node name="oIBDRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX188.7">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 2B</Comment>
         </Node>
         <Node name="oJawClampExtend" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX186.0">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 0A</Comment>
         </Node>
         <Node name="oJawClampRetract" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX186.1">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 0B</Comment>
         </Node>
         <Node name="oLoadPlateExtend" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX186.6">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 3A</Comment>
         </Node>
         <Node name="oLoadPlateRetract" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX186.7">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 3B</Comment>
         </Node>
         <Node name="oLoadShelfDown" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX188.5">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 10B</Comment>
         </Node>
         <Node name="oLoadShelfUp" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX188.4">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 10A</Comment>
         </Node>
         <Node name="oLowerPrintheadSolenoid" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX34.4">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oLPAOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX186.4">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 2A</Comment>
         </Node>
         <Node name="oMOMConfig" type="T_BYTE" access="ReadWrite" directaddress="%QB0">
           <Comment>Cube67_BN_E_V2 : </Comment>
@@ -1563,10 +1558,10 @@ Misc</Comment>
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oPrintHeadDown" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX187.2">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 5A</Comment>
         </Node>
         <Node name="oPrintHeadUp" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX187.3">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 5B</Comment>
         </Node>
         <Node name="oResetInfeedVFD" type="T_BIT_X_1" access="ReadWrite" directaddress="%QX592.1">
           <Comment>Infeed_Conveyor_IO : </Comment>
@@ -1593,28 +1588,28 @@ Misc</Comment>
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
         <Node name="oSealBarExtend" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX186.2">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 1A</Comment>
         </Node>
         <Node name="oSealBarRetract" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX186.3">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 1B</Comment>
         </Node>
         <Node name="oSealFlatDown" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX187.7">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 7B</Comment>
         </Node>
         <Node name="oSealFlatUp" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX187.6">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 7A</Comment>
         </Node>
         <Node name="oSoftStart" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX32.4">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oStagingFunnelClose" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX189.3">
-          <Comment>FestoManifold : </Comment>
+        <Node name="oStagingFunnelClose" type="T_BIT_X_7" access="ReadWrite" directaddress="%QX188.7">
+          <Comment>FestoManifold : Station 11B</Comment>
         </Node>
-        <Node name="oStagingFunnelOpen" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX189.2">
-          <Comment>FestoManifold : </Comment>
+        <Node name="oStagingFunnelOpen" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX188.6">
+          <Comment>FestoManifold : Station 11A</Comment>
         </Node>
         <Node name="oVacOn" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX187.4">
-          <Comment>FestoManifold : </Comment>
+          <Comment>FestoManifold : Station 6A</Comment>
         </Node>
         <Node name="printerDataReady" type="T_BIT_X_0" access="Read" directaddress="%IX35.0">
           <Comment>Cube67_BN_E_V2 : </Comment>

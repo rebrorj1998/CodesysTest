@@ -31,7 +31,7 @@ END_VAR
 //    Created Date: November 18th, 2019
 
 // 
-SUPER^();
+
 
 // Setup timers
 _closingTimer(PT := TO_TIME(closingDwell * 1000));
@@ -90,3 +90,4 @@ _cylinderFault(
 	failToExtend=> failToOpen.faultTrigger, 
 	failToRetract=> failToClose.faultTrigger
 );
+SUPER^();

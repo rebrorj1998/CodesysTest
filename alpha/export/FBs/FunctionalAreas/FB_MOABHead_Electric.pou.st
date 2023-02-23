@@ -504,7 +504,12 @@ CASE HMIData.funnelFactorySelection OF
 		funnel.feedback := eActuatorFeedbackType.Both;
 		stagingFunnel.enable := HMIData.funnelInUse;
 		stagingFunnel.feedback := eActuatorFeedbackType.Both;
-		
+			 
+	FunnelSelection.BagLoadingTray:
+		funnel.enable := HMIData.funnelInUse;
+		funnel.feedback := eActuatorFeedbackType.Both;
+		stagingFunnel.enable := FALSE;
+			 
 END_CASE
 //
 //
@@ -1032,7 +1037,16 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	LPA.Reset();
 	LPA.ManualOff();
 	HPA.Reset();
-	funnel.Close();
+	IF (HMIData.funnelFactorySelection = FunnelSelection.BagLoadingTray) THEN
+		IF pressureBar.pressureBarOpen THEN
+			funnel.Open();
+		ELSE
+			funnel.Close();
+		END_IF
+	ELSE
+		funnel.Close();
+	END_IF
+	
 	exitConveyorRun.Reset();
 	externalExitConveyorRun.Reset();
 	oSealBarExtend := FALSE;
@@ -1457,8 +1471,10 @@ CASE state.head OF
                                                     END_IF
                                                     
     HEAD_STATES.OpenedBag :                            // Move fingers in and to bag holding and reset cycle
-                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable) //OR bagFailedToOpen
-														 AND pressureBar.state = MotorizedPbarStates.Idle THEN
+                                                    IF ((motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle)
+														OR (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersIn AND HMIData.funnelFactorySelection = FunnelSelection.BagLoadingTray)	
+														OR NOT motorizedSealFlatteners.enable)
+														THEN
 														state.head := HEAD_STATES.FinishCycle;
                                                     END_IF
 	HEAD_STATES.FinishCycle :			//
@@ -1592,6 +1608,7 @@ CASE state.head OF
 											state.sb.finishCycle := FINISH_CYCLE_STATES.Idle;
 											oVacOn := FALSE;
 											filler.Reset();
+											funnel.Reset();
 											LPA.ManualOff();
 											exitConveyorRun.Reset();
 											externalExitConveyorRun.Reset();
@@ -1705,7 +1722,7 @@ CASE state.sb.sealSeparate OF
 														LPA.ManualOff();
 														pressureBarCloseDelay.IN := TRUE;
 														IF (pressureBarCloseDelay.Q OR HMIData.pressureBarCloseDelay = 0) 
-															AND (funnel.closed OR NOT funnel.enable)
+															//AND (funnel.closed OR NOT funnel.enable)
 															THEN
 															state.sb.sealSeparate := SEAL_SEPARATE_STATES.MoveJawIn;
 															pressureBarCloseDelay.IN := FALSE;
@@ -2057,7 +2074,12 @@ CASE state.sb.openBag OF
 	
 	BAG_OPEN_ASSIST_STATES.BagOpened :					//
 														bagOpened := TRUE;
-                                                    	motorizedSealFlatteners.AutoMoveToBagHolding();
+														// Move flatteners now if no funnel. Otherwise let the funnel move the flatteners when done
+														IF NOT funnel.enable THEN 
+															motorizedSealFlatteners.AutoMoveToBagHolding();
+														END_IF
+														
+                                                    	
 														bagOpenRetryCount := 0;
 														HMIData.bagOpenFeedNewBagCount := 0;
 														
@@ -2065,7 +2087,8 @@ CASE state.sb.openBag OF
 														  
     BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab :		// 
 														IF (pressureBar.pressureBarOpen OR NOT pressureBar.enable) 
-															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable)
+															AND ((motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable)
+																OR (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersIn AND HMIData.funnelFactorySelection = FunnelSelection.BagLoadingTray))
 															THEN
 																state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovedJawOut;        
 														END_IF	 
@@ -2108,6 +2131,7 @@ CASE state.sb.finishCycle OF
 															IF LPA.DwellSetting <> 0 THEN
 																LPA.Trigger();
 															END_IF
+															motorizedSealFlatteners.AutoMoveToBagHolding();
 															funnel.Open();
 															state.sb.finishCycle := FINISH_CYCLE_STATES.OpeningFunnel;
 	
@@ -2118,13 +2142,18 @@ CASE state.sb.finishCycle OF
 	
 	FINISH_CYCLE_STATES.OpenedFunnel :						//
 															//IF enableBagOpen THEN
-		IF iLeftFingerBagPresent AND iRightFingerBagPresent THEN
-																	state.sb.finishCycle := FINISH_CYCLE_STATES.Done;
+															IF iLeftFingerBagPresent AND iRightFingerBagPresent THEN
+																	//IF motorizedSealFlatteners.enable THEN
+																	//	state.sb.finishCycle := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
+																	//ELSE
+																		
+																		state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
+																	//END_IF
+																	bagOpened := TRUE;
 																ELSE
 																	IF bagOpenRetryCount < bagOpenRetrySetting THEN
 																		funnel.Close();
 																		bagOpenRetryCount := bagOpenRetryCount + 1;
-																		state.sb.finishCycle := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
 																		state.sb.finishCycle := FINISH_CYCLE_STATES.ClosingFunnelForRetry;
 																	ELSE
 																		funnel.Close();
@@ -2135,11 +2164,7 @@ CASE state.sb.finishCycle OF
 																	END_IF
 																END_IF
 															
-																IF motorizedSealFlatteners.enable THEN
-																	state.sb.finishCycle := FINISH_CYCLE_STATES.BringSealFlattenersToBagHolding;
-																ELSE
-																	state.sb.finishCycle := FINISH_CYCLE_STATES.Shake;
-																END_IF
+																
 															//END_IF
 	
 	FINISH_CYCLE_STATES.ClosingFunnelForRetry :				//
