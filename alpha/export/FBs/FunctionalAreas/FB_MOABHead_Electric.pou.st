@@ -848,7 +848,7 @@ CASE HMIData.packageEjectSelection OF
 														frontLoadPlate.enable := TRUE;
 														rearLoadPlate.faultsEnabled := powerSettlingTimer.Q;
 														frontLoadPlate.faultsEnabled := state.head >= HEAD_STATES.ReleaseAndFeedBag;
-														rearLoadPlate.triggerDelay := 0;
+														rearLoadPlate.triggerDelay := HMIData.loadPlateDelay;
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
 														loadShelf.triggerDelay := HMIData.loadShelfDelay;
 														loadShelf.triggerDwell := HMIData.loadShelfDwell;
