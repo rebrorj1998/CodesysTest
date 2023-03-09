@@ -4,7 +4,7 @@ VAR_GLOBAL
     firstScan : BOOL; //First Scan Bit
     pressureBarServoCommsType : MODBUS_COMM_TYPE;  //Comm path to Pressure Bar Servo - 0 = TCP, 1 = RTU
     STEPS_PER_INCH : INT;  //Steps Per Inch for Pressure Bar Servos
-    
+    maximumPassthough : REAL := 9.0;
 	SystemLog : FB_InternalLogger;
 	jawMovingIn : BOOL;
 	passthroughChangedFromJog : BOOL;
@@ -29,6 +29,8 @@ VAR_GLOBAL CONSTANT
     MAX_BAG_WIDTH : REAL := 18;                //Passthrough setting
 	AMP_MOTOR_RPI : INT := 10;
 	MAX_LOGGED_ITEMS : UINT := 500;	// Max items to be logged
+	MAXIMUM_PASSTHROUGH_PRO18 : REAL := 9.0;
+	MAXIMUM_PASSTHROUGH_PRO24 : REAL := 12.0;
 END_VAR
 
 VAR_GLOBAL

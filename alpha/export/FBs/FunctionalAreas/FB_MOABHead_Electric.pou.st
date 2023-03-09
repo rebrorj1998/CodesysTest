@@ -133,7 +133,7 @@ VAR
 	_runIntegratedExitConveyor : BOOL;
 	_auxIOManager : FB_AuxIO;
 	_bagGrabbedONS : Standard.R_TRIG;
-	_waitForTakeupTimer : Standard.TON := (PT := T#500ms);
+	_waitForTakeupTimer : Standard.TON := (PT := T#500MS);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -918,9 +918,10 @@ IBDMotor(ptrEIPInputs := ADR(iIBDMotorEIP),
 				commFail := IBD_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING AND IBD_Motor.Enable,
 				isHomable := TRUE);
 IBDMotor.Execute();
-	 
-IF HMIData.passthroughSetting + HMIData.IBDOffset > 12.0 THEN
-	 IBDOutSetting := 12.0;
+
+// Clamp maximim IBD open position - 9" for Pro 18, 12" for Pro 24
+IF HMIData.passthroughSetting + HMIData.IBDOffset > Globals.maximumPassthough THEN
+	 IBDOutSetting := Globals.maximumPassthough;
 ELSE
 	IBDOutSetting := HMIData.passthroughSetting + HMIData.IBDOffset;
 END_IF

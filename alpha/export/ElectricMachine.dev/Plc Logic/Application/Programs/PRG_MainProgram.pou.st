@@ -81,11 +81,23 @@ HMIData.version := Standard.CONCAT(TO_STRING(versionInfo.uiMajor),'.');
 	BPLog.AppendToString(ADR(HMIData.version), CONCAT(TO_STRING(versionInfo.uiServicePack),'.'));
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(versionInfo.uiPatch));
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(GetTextProperty("VersionPostfix")));
+	
+//Set maximum passthrough based on model selection
+CASE HMIdata.baggerModelSelection OF
+	ModelSelection.Pro18,
+	ModelSelection.Pro18_02:
+		 Globals.maximumPassthough := Globals.MAXIMUM_PASSTHROUGH_PRO18;
+			  
+	ModelSelection.Pro24:
+		 Globals.maximumPassthough := Globals.MAXIMUM_PASSTHROUGH_PRO24;		  
+END_CASE
+
+// Perform functions on first scan
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := Globals.SystemLog);
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
 	firstScanDone := TRUE;
-	// After first scan turn off flag set by StartDone system event
+	 // After first scan turn off flag set by StartDone system event
 	Globals.firstScan := FALSE;	
 END_IF
 
