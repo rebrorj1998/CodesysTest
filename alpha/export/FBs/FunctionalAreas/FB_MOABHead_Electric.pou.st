@@ -134,6 +134,7 @@ VAR
 	_auxIOManager : FB_AuxIO;
 	_bagGrabbedONS : Standard.R_TRIG;
 	_waitForTakeupTimer : Standard.TON := (PT := T#500MS);
+	_waitForSealFlattenersUpTimer : Standard.TON := (PT := T#500MS);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -1585,7 +1586,7 @@ CASE state.head OF
 	HEAD_STATES.PrepareForAutomatedBagRemoval:
 		//
 		state.head := HEAD_STATES.PreparingForAutomatedBagRemoval;
-		state.sb.automation := AUTOMATION_STATES.MoveSealFlattenersIn;
+		state.sb.automation := AUTOMATION_STATES.MoveSealFlattenersUp;
 		
 	HEAD_STATES.PreparingForAutomatedBagRemoval:
 		//
@@ -2252,14 +2253,25 @@ CASE state.sb.finishCycle OF
 		bagOpenRetryCount := 0;
 END_CASE
 
+_waitForSealFlattenersUpTimer(IN := state.sb.automation = AUTOMATION_STATES.MovingSealFlattenersUp);
 CASE state.sb.automation OF
 	
-	AUTOMATION_STATES.MoveSealFlattenersIn:
-		motorizedSealFlatteners.AutoMoveIn();
-		state.sb.automation := AUTOMATION_STATES.MovingSealFlattenersIn;
+	AUTOMATION_STATES.MoveSealFlattenersUp:
+		motorizedSealFlatteners.sealFlattenersVerticalAxis.Retract();
+		state.sb.automation := AUTOMATION_STATES.MovingSealFlattenersUp;
 		
-	AUTOMATION_STATES.MovingSealFlattenersIn:
-		IF motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersIn THEN
+	AUTOMATION_STATES.MovingSealFlattenersUp:	
+		IF _waitForSealFlattenersUpTimer.Q THEN
+			motorizedSealFlatteners.AutoMoveOut();
+			state.sb.automation := AUTOMATION_STATES.MovingSealFlattenersOut;
+		END_IF
+		
+	AUTOMATION_STATES.MoveSealFlattenersOut:	
+		motorizedSealFlatteners.AutoMoveOut();
+		state.sb.automation := AUTOMATION_STATES.MoveSealFlattenersOut;
+	
+	AUTOMATION_STATES.MovingSealFlattenersOut:
+		IF motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut THEN
 			motorizedSealFlatteners.Reset();
 			state.sb.automation := AUTOMATION_STATES.MovedSealFlattenersIn;
 		END_IF
