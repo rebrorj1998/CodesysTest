@@ -6,13 +6,13 @@
     <Single Type="{6198ad31-4b98-445c-927f-3258a0e82fe3}" Method="IArchivable">
       <Single Name="IsRoot" Type="bool">True</Single>
       <Single Name="MetaObject" Type="{81297157-7ec9-45ce-845e-84cab2b88ade}" Method="IArchivable">
-        <Single Name="Guid" Type="System.Guid">e97aab09-72b9-403b-97d1-f9519e9ed48d</Single>
-        <Single Name="ParentGuid" Type="System.Guid">04900101-d93f-4b23-8381-7996552c9c0c</Single>
+        <Single Name="Guid" Type="System.Guid">c5779719-7a83-479f-9ce8-3a70c7763697</Single>
+        <Single Name="ParentGuid" Type="System.Guid">d140c3ec-cb0a-4124-b79d-0240c11645ff</Single>
         <Single Name="Name" Type="string">EtherCAT_Task</Single>
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">98a2708a-9b18-4f31-82ed-a1465b24fa2d</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638142978623753553</Single>
+        <Single Name="Timestamp" Type="long">638170098042871100</Single>
       </Single>
       <Single Name="Object" Type="{98a2708a-9b18-4f31-82ed-a1465b24fa2d}" Method="IArchivable">
         <Single Name="AllowEmpty" Type="bool">True</Single>
@@ -37,8 +37,8 @@
         </Single>
         <Single Name="Event" Type="string"></Single>
         <Single Name="ExternalEvent" Type="string"></Single>
-        <Single Name="TaskGuid" Type="System.Guid">4ac47343-fc74-4830-94be-e5f494a3400b</Single>
-        <Single Name="EventPOUGuid" Type="System.Guid">9903e978-5fa3-4e0e-96a2-cd9e42ebd0de</Single>
+        <Single Name="TaskGuid" Type="System.Guid">d9877219-66b0-4118-b58c-9a1241040b1a</Single>
+        <Single Name="EventPOUGuid" Type="System.Guid">0b382706-9744-42e7-9edc-9388b1ce5119</Single>
         <List Name="PouList" Type="{33f568bb-4a2c-48cb-a762-34cca3066d03}" />
         <Single Name="Implicit" Type="bool">False</Single>
         <Single Name="WithinSPSTimeSlicing" Type="bool">True</Single>
@@ -47,7 +47,7 @@
         <Single Name="TaskGroup" Type="string">IEC-Tasks</Single>
         <Single Name="SynchTask" Type="string"></Single>
       </Single>
-      <Single Name="ParentSVNodeGuid" Type="System.Guid">04900101-d93f-4b23-8381-7996552c9c0c</Single>
+      <Single Name="ParentSVNodeGuid" Type="System.Guid">d140c3ec-cb0a-4124-b79d-0240c11645ff</Single>
       <Array Name="Path" Type="string">
         <Single Type="string">SX_1195</Single>
         <Single Type="string">PLC Logic</Single>

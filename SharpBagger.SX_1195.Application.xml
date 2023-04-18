@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
+  <Header>
+    <Version>3.5.14.0</Version>
+    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.13.30" libversion="3.5.13.0" compiler="3.5.13.30" lmm="3.5.18.30" profile="CODESYS V3.5 SP18 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <ProjectInfo name="SharpBagger" devicename="SX_1195" appname="Application" />
+  </Header>
+  <TypeList>
+    <TypeSimple name="T_BIT_X_0" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="0" />
+    <TypeSimple name="T_BIT_X_1" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="1" />
+    <TypeSimple name="T_BIT_X_2" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="2" />
+    <TypeSimple name="T_BIT_X_3" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="3" />
+    <TypeSimple name="T_BIT_X_4" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="4" />
+    <TypeSimple name="T_BIT_X_5" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="5" />
+    <TypeSimple name="T_BIT_X_6" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="6" />
+    <TypeSimple name="T_BIT_X_7" size="1" swapsize="0" typeclass="Bool" iecname="BIT" bitoffset="7" />
+    <TypeSimple name="T_BOOL" size="1" swapsize="0" typeclass="Bool" iecname="BOOL" />
+    <TypeSimple name="T_DINT" size="4" swapsize="4" typeclass="DInt" iecname="DINT" />
+    <TypeSimple name="T_DWORD" size="4" swapsize="4" typeclass="DWord" iecname="DWORD" />
+    <TypeSimple name="T_INT" size="2" swapsize="2" typeclass="Int" iecname="INT" />
+    <TypeSimple name="T_REAL" size="4" swapsize="4" typeclass="Real" iecname="REAL" />
+    <TypeSimple name="T_SINT" size="1" swapsize="1" typeclass="SInt" iecname="SINT" />
+    <TypeSimple name="T_STRING" size="81" swapsize="0" typeclass="String" iecname="STRING" />
+    <TypeSimple name="T_UDINT" size="4" swapsize="4" typeclass="UDInt" iecname="UDINT" />
+    <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
+    <TypeSimple name="T_WORD" size="2" swapsize="2" typeclass="Word" iecname="WORD" />
+    <TypeArray name="T_ARRAY__0__300__OF_STRING" size="24381" nativesize="24381" typeclass="Array" iecname="ARRAY [0..300] OF STRING" basetype="T_STRING">
+      <ArrayDim minrange="0" maxrange="300" />
+    </TypeArray>
+    <TypeArray name="T_ARRAY__0__31__OF_WORD" size="64" nativesize="64" typeclass="Array" iecname="ARRAY [0..31] OF WORD" basetype="T_WORD">
+      <ArrayDim minrange="0" maxrange="31" />
+    </TypeArray>
+    <TypeArray name="T_ARRAY__0__4__OF_WORD" size="10" nativesize="10" typeclass="Array" iecname="ARRAY [0..4] OF WORD" basetype="T_WORD">
+      <ArrayDim minrange="0" maxrange="4" />
+    </TypeArray>
+    <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
+      <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="retractCommand" type="T_BOOL" byteoffset="1" vartype="VAR" />
+      <UserDefElement iecname="exhaustCommand" type="T_BOOL" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="extendedFeedback" type="T_BOOL" byteoffset="3" vartype="VAR" />
+      <UserDefElement iecname="retractedFeedback" type="T_BOOL" byteoffset="4" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_eDiscreteMotionType" size="1" nativesize="1" typeclass="Enum" iecname="eDiscreteMotionType" basetype="T_SINT">
+      <UserDefElement type="T_eDiscreteMotionType" iecname="Absolute" enumvalue="0" />
+      <UserDefElement type="T_eDiscreteMotionType" iecname="Relative" enumvalue="1" />
+    </TypeUserDef>
+    <TypeUserDef name="T_sctAppliedMotionHMIData" size="4" nativesize="4" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctAppliedMotionHMIData">
+      <UserDefElement iecname="statusCode" type="T_WORD" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="alarmCode" type="T_WORD" byteoffset="2" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_sctAxisConfig" size="20" nativesize="20" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctAxisConfig">
+      <UserDefElement iecname="zeroOffset" type="T_REAL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="stepsPerInch" type="T_REAL" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="rotationsPerInch" type="T_REAL" byteoffset="8" vartype="VAR" />
+      <UserDefElement iecname="reversePolarity" type="T_BOOL" byteoffset="12" vartype="VAR" />
+      <UserDefElement iecname="defaultCurrent" type="T_REAL" byteoffset="16" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_sctMotionProfile" size="28" nativesize="28" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctMotionProfile">
+      <UserDefElement iecname="velocity" type="T_REAL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="acceleration" type="T_REAL" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="deceleration" type="T_REAL" byteoffset="8" vartype="VAR" />
+      <UserDefElement iecname="position" type="T_REAL" byteoffset="12" vartype="VAR" />
+      <UserDefElement iecname="minPosition" type="T_REAL" byteoffset="16" vartype="VAR" />
+      <UserDefElement iecname="maxPosition" type="T_REAL" byteoffset="20" vartype="VAR" />
+      <UserDefElement iecname="current" type="T_REAL" byteoffset="24" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_sctOrientalHMIData" size="14" nativesize="16" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctOrientalHMIData">
+      <UserDefElement iecname="CommandedPos" type="T_REAL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="ActPos" type="T_REAL" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="CurrentAlarmCode" type="T_DWORD" byteoffset="8" vartype="VAR" />
+      <UserDefElement iecname="setPreset" type="T_BOOL" byteoffset="12" vartype="VAR" />
+      <UserDefElement iecname="freeMotor" type="T_BOOL" byteoffset="13" vartype="VAR" />
+    </TypeUserDef>
+    <TypeUserDef name="T_sctAxisData" size="164" nativesize="164" typeclass="Userdef" pouclass="STRUCTURE" iecname="sctAxisData">
+      <UserDefElement iecname="config" type="T_sctAxisConfig" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="jogType" type="T_eDiscreteMotionType" byteoffset="20" vartype="VAR" />
+      <UserDefElement iecname="jogProfile" type="T_sctMotionProfile" byteoffset="24" vartype="VAR" />
+      <UserDefElement iecname="openProfile" type="T_sctMotionProfile" byteoffset="52" vartype="VAR" />
+      <UserDefElement iecname="closeProfile" type="T_sctMotionProfile" byteoffset="80" vartype="VAR" />
+      <UserDefElement iecname="raiseProfile" type="T_sctMotionProfile" byteoffset="108" vartype="VAR" />
+      <UserDefElement iecname="lowerProfile" type="T_sctMotionProfile" byteoffset="136" vartype="VAR" />
+    </TypeUserDef>
+  </TypeList>
+  <NodeList>
+    <Node name="Application">
+      <Node name="AxisData">
+        <Comment>{attribute 'global_init_slot' := '49994'}</Comment>
+        <Node name="FilmFeed" type="T_sctAxisData" access="ReadWrite" />
+        <Node name="FilmFeedConfig" type="T_sctAxisConfig" access="ReadWrite">
+          <Comment> Film Feed </Comment>
+        </Node>
+        <Node name="FilmFeedForwardMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="FilmFeedJogMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="FilmFeedReverseMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="IBD" type="T_sctAxisData" access="ReadWrite" />
+        <Node name="IBDCloseMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="IBDConfig" type="T_sctAxisConfig" access="ReadWrite">
+          <Comment> IBD </Comment>
+        </Node>
+        <Node name="IBDJogMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="IBDOpenMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="jaw" type="T_sctAxisData" access="ReadWrite" />
+        <Node name="jawCloseMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="jawConfig" type="T_sctAxisConfig" access="ReadWrite">
+          <Comment> Jaw </Comment>
+        </Node>
+        <Node name="jawOpenMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="jawPushMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="loadPlate" type="T_sctAxisData" access="ReadWrite" />
+        <Node name="loadPlateConfig" type="T_sctAxisConfig" access="ReadWrite">
+          <Comment> Load Plate </Comment>
+        </Node>
+        <Node name="loadPlateLowerMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+        <Node name="loadPlateRaiseMotionProfile" type="T_sctMotionProfile" access="ReadWrite" />
+      </Node>
+      <Node name="HMIData">
+        <Node name="ackAllFaults" type="T_BOOL" access="ReadWrite">
+          <Comment> Acknowledge All Faults from HMI</Comment>
+        </Node>
+        <Node name="activeFaults" type="T_ARRAY__0__300__OF_STRING" access="ReadWrite" />
+        <Node name="activeScreen" type="T_DINT" access="ReadWrite" />
+        <Node name="autoModeDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="autoModeEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
+        <Node name="bagDeliveryMotorData" type="T_sctAppliedMotionHMIData" access="ReadWrite" />
+        <Node name="bagDeliveryReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="bagDropClearanceDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="bagForwardSpeed" type="T_UDINT" access="ReadWrite" />
+        <Node name="bagLength" type="T_REAL" access="ReadWrite" />
+        <Node name="bagReverseSpeed" type="T_UDINT" access="ReadWrite" />
+        <Node name="bagSkirtLength" type="T_REAL" access="ReadWrite" />
+        <Node name="bagsMade" type="T_UDINT" access="ReadWrite" />
+        <Node name="bagThickness" type="T_REAL" access="ReadWrite" />
+        <Node name="bagWidth" type="T_REAL" access="ReadWrite" />
+        <Node name="bannerMessageIndication" type="T_DINT" access="ReadWrite" />
+        <Node name="barcodeBadReadCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeBadReadFaultSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeGoodReadCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="barcodeReadBadIndication" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeReadGoodIndication" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeScanDistance" type="T_REAL" access="ReadWrite" />
+        <Node name="barcodeStartPosition" type="T_REAL" access="ReadWrite" />
+        <Node name="barcodeVerifierInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeVerifierInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="barcodeVerifierTrigger" type="T_BOOL" access="ReadWrite" />
+        <Node name="batchCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="batchEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="batchSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="bcvReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="BPMActiveTime" type="T_STRING" access="ReadWrite" />
+        <Node name="BPMBagsMade" type="T_UDINT" access="ReadWrite" />
+        <Node name="BPMBagsPerMinute" type="T_REAL" access="ReadWrite" />
+        <Node name="BPMReset" type="T_BOOL" access="ReadWrite" />
+        <Node name="clearAllLabels" type="T_BOOL" access="ReadWrite" />
+        <Node name="consecutiveBagsCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="consecutiveBagsEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="consecutiveBagsSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="currentJobID" type="T_INT" access="ReadWrite" />
+        <Node name="currentPackMLState" type="T_STRING" access="ReadWrite" />
+        <Node name="cycleSealer" type="T_BOOL" access="ReadWrite" />
+        <Node name="cycleTime" type="T_REAL" access="ReadWrite" />
+        <Node name="dryCycleEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="factoryHomeJaw" type="T_BOOL" access="ReadWrite" />
+        <Node name="faultActive" type="T_BOOL" access="ReadWrite" />
+        <Node name="fillerCountSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="fillerCurrentCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="fillerDropTime" type="T_REAL" access="ReadWrite" />
+        <Node name="fillerEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="filmEnableMotion" type="T_BOOL" access="ReadWrite" />
+        <Node name="filmFeedAxisMotorTemperature" type="T_REAL" access="ReadWrite" />
+        <Node name="filmFeedMotionDriveErrorCode" type="T_STRING" access="ReadWrite" />
+        <Node name="filmFeedTestCycles" type="T_DINT" access="ReadWrite" />
+        <Node name="frontJawMotorData" type="T_sctOrientalHMIData" access="ReadWrite" />
+        <Node name="headCycleCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="homeMachine" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDJogClosed" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDJogOpen" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDMotorData" type="T_sctOrientalHMIData" access="ReadWrite" />
+        <Node name="IBDReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="IBDService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="inCycle" type="T_BOOL" access="ReadWrite" />
+        <Node name="initiateCycle" type="T_BOOL" access="ReadWrite">
+          <Comment> Initiate Cycle Pushbutton</Comment>
+        </Node>
+        <Node name="jawActualPosition" type="T_REAL" access="ReadWrite" />
+        <Node name="jawActualPositionInSteps" type="T_REAL" access="ReadWrite" />
+        <Node name="jawAxisMotorTemperature" type="T_REAL" access="ReadWrite" />
+        <Node name="jawClampCycleTestActive" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawClampDriveFaulted" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawClampInterval" type="T_REAL" access="ReadWrite" />
+        <Node name="jawClampReverseTime" type="T_REAL" access="ReadWrite" />
+        <Node name="jawClampTestCycles" type="T_DINT" access="ReadWrite" />
+        <Node name="jawClampTime" type="T_REAL" access="ReadWrite" />
+        <Node name="jawCloseDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="jawClosePositionSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="jawCycleTestActive" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawCycleTestCycles" type="T_DINT" access="ReadWrite" />
+        <Node name="jawEnableClamping" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawEnableMotion" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawjobClosed" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawJogOpen" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawMotionDriveErrorCode" type="T_STRING" access="ReadWrite" />
+        <Node name="jawMotionDriveFaulted" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawResetDrives" type="T_BOOL" access="ReadWrite" />
+        <Node name="jawService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="jawTargetPosition" type="T_REAL" access="ReadWrite" />
+        <Node name="jawTargetPositionInSteps" type="T_REAL" access="ReadWrite" />
+        <Node name="jogFilmForward" type="T_BOOL" access="ReadWrite" />
+        <Node name="jogFilmReverse" type="T_BOOL" access="ReadWrite" />
+        <Node name="lastCycleTime" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="loadPlateInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="loadPlateLoweredPositionSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateMotorData" type="T_sctOrientalHMIData" access="ReadWrite" />
+        <Node name="loadPlateRaisedPositionSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="loadPlateReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="loadPlateService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="machineHomed" type="T_BOOL" access="ReadWrite" />
+        <Node name="makeReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="partsCounterCount" type="T_UDINT" access="ReadWrite" />
+        <Node name="partsCounterEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="partsCounterSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="passthroughActual" type="T_REAL" access="ReadWrite" />
+        <Node name="passthroughSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="pressureBarCloseDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="pressureBarOpenDelay" type="T_REAL" access="ReadWrite" />
+        <Node name="pressureBarState" type="T_STRING" access="ReadWrite" />
+        <Node name="printerAndVerifierEnableIndication" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerAndVerifierEnablePB" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerCancelRequest" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerInUse" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="printHeadService" type="T_ServiceCommands" access="ReadWrite" />
+        <Node name="printLength" type="T_REAL" access="ReadWrite" />
+        <Node name="printOffset" type="T_REAL" access="ReadWrite" />
+        <Node name="printSpeed" type="T_UINT" access="ReadWrite" />
+        <Node name="rearJawMotorData" type="T_sctOrientalHMIData" access="ReadWrite" />
+        <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
+        <Node name="resetMotors" type="T_BOOL" access="ReadWrite" />
+        <Node name="sealBarCool" type="T_REAL" access="ReadWrite" />
+        <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
+        <Node name="sendSampleLabels" type="T_BOOL" access="ReadWrite" />
+        <Node name="separateBeforeSeal" type="T_BOOL" access="ReadWrite" />
+        <Node name="simulateAllIO" type="T_BOOL" access="ReadWrite" />
+        <Node name="standbyActive" type="T_BOOL" access="ReadWrite" />
+        <Node name="standbyTimeSetting" type="T_REAL" access="ReadWrite">
+          <Comment> Standby timeout in minutes</Comment>
+        </Node>
+        <Node name="startJawCycleClampTest" type="T_BOOL" access="ReadWrite" />
+        <Node name="startJawCycleTest" type="T_BOOL" access="ReadWrite" />
+        <Node name="stopJawCycleClampTest" type="T_BOOL" access="ReadWrite" />
+        <Node name="stopJawCycleTest" type="T_BOOL" access="ReadWrite" />
+        <Node name="stopMachine" type="T_BOOL" access="ReadWrite" />
+        <Node name="teachBagPhotoeye" type="T_BOOL" access="ReadWrite" />
+        <Node name="teachingBagPhoteye" type="T_BOOL" access="ReadWrite" />
+        <Node name="version" type="T_STRING" access="Read" />
+      </Node>
+      <Node name="IoConfig_Globals_Mapping">
+        <Node name="filmFeedDriveInputs" type="T_ARRAY__0__31__OF_WORD" access="Read" directaddress="%IB27">
+          <Comment>Film_Feed_Drive : Read Holding Registers</Comment>
+        </Node>
+        <Node name="filmFeedDriveOutputs" type="T_ARRAY__0__4__OF_WORD" access="ReadWrite" directaddress="%QB32">
+          <Comment>Film_Feed_Drive : Write Multiple Registers</Comment>
+        </Node>
+        <Node name="filmFeedOpcodeOutput" type="T_WORD" access="ReadWrite" directaddress="%QW38">
+          <Comment>Film_Feed_Drive : 0x007C</Comment>
+        </Node>
+        <Node name="iBagEdgePhotoeye" type="T_BIT_X_3" access="Read" directaddress="%IX0.3">
+          <Comment>Main_IO : DI3</Comment>
+        </Node>
+        <Node name="iBarcodeNG" type="T_BIT_X_1" access="Read" directaddress="%IX1.1">
+          <Comment>Main_IO : DI9</Comment>
+        </Node>
+        <Node name="iBarcodeOK" type="T_BIT_X_0" access="Read" directaddress="%IX1.0">
+          <Comment>Main_IO : DI8</Comment>
+        </Node>
+        <Node name="iClampHomeSensor" type="T_BIT_X_6" access="Read" directaddress="%IX0.6">
+          <Comment>Main_IO : DI6</Comment>
+        </Node>
+        <Node name="iCycleStart" type="T_BIT_X_4" access="Read" directaddress="%IX0.4">
+          <Comment>Main_IO : DI4</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisErrorcode" type="T_UINT" access="Read" directaddress="%IW14">
+          <Comment>AZD4A_KED : Error code</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisModesOfOperationDisplay" type="T_SINT" access="Read" directaddress="%IB48">
+          <Comment>AZD4A_KED : Modes of operation display</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisPositionActualValue" type="T_DINT" access="Read" directaddress="%ID9">
+          <Comment>AZD4A_KED : Position actual value</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisPositionDemandValue" type="T_DINT" access="Read" directaddress="%ID8">
+          <Comment>AZD4A_KED : Position demand value</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisStatusword" type="T_UINT" access="Read" directaddress="%IW15">
+          <Comment>AZD4A_KED : Statusword</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisTemperature" type="T_INT" access="Read" directaddress="%IW25">
+          <Comment>AZD4A_KED : Axis2 motor temperature</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisVelocityActualValue" type="T_DINT" access="Read" directaddress="%ID11">
+          <Comment>AZD4A_KED : Velocity actual value</Comment>
+        </Node>
+        <Node name="iFilmFeedAxisVelocityDemandValue" type="T_DINT" access="Read" directaddress="%ID10">
+          <Comment>AZD4A_KED : Velocity demand value</Comment>
+        </Node>
+        <Node name="iFrontJawAxisErrorcode" type="T_UINT" access="Read" directaddress="%IW2">
+          <Comment>AZD4A_KED : Error code</Comment>
+        </Node>
+        <Node name="iFrontJawAxisModesOfOperationDisplay" type="T_SINT" access="Read" directaddress="%IB24">
+          <Comment>AZD4A_KED : Modes of operation display</Comment>
+        </Node>
+        <Node name="iFrontJawAxisPositionActualValue" type="T_DINT" access="Read" directaddress="%ID3">
+          <Comment>AZD4A_KED : Position actual value</Comment>
+        </Node>
+        <Node name="iFrontJawAxisPositionDemandValue" type="T_DINT" access="Read" directaddress="%ID2">
+          <Comment>AZD4A_KED : Position demand value</Comment>
+        </Node>
+        <Node name="iFrontJawAxisStatusword" type="T_UINT" access="Read" directaddress="%IW3">
+          <Comment>AZD4A_KED : Statusword</Comment>
+        </Node>
+        <Node name="iFrontJawAxisTemperature" type="T_INT" access="Read" directaddress="%IW13">
+          <Comment>AZD4A_KED : Axis1 motor temperature</Comment>
+        </Node>
+        <Node name="iFrontJawAxisVelocityActualValue" type="T_DINT" access="Read" directaddress="%ID5">
+          <Comment>AZD4A_KED : Velocity actual value</Comment>
+        </Node>
+        <Node name="iFrontJawAxisVelocityDemandValue" type="T_DINT" access="Read" directaddress="%ID4">
+          <Comment>AZD4A_KED : Velocity demand value</Comment>
+        </Node>
+        <Node name="iJawNotObstructed" type="T_BIT_X_7" access="Read" directaddress="%IX0.7">
+          <Comment>Main_IO : DI7</Comment>
+        </Node>
+        <Node name="iLightCurtainClear" type="T_BIT_X_2" access="Read" directaddress="%IX1.2">
+          <Comment>Main_IO : DI10</Comment>
+        </Node>
+        <Node name="iPbarClampMotorAlarm" type="T_BIT_X_5" access="Read" directaddress="%IX0.5">
+          <Comment>Main_IO : DI5</Comment>
+        </Node>
+        <Node name="iPrinterBusy" type="T_BIT_X_2" access="Read" directaddress="%IX0.2">
+          <Comment>Main_IO : DI2</Comment>
+        </Node>
+        <Node name="iPrinterDataReady" type="T_BIT_X_1" access="Read" directaddress="%IX0.1">
+          <Comment>Main_IO : DI1</Comment>
+        </Node>
+        <Node name="iPrinterRibbonEncoder" type="T_BIT_X_7" access="Read" directaddress="%IX1.7">
+          <Comment>Main_IO : DI15</Comment>
+        </Node>
+        <Node name="iPrinterServiceRequired" type="T_BIT_X_0" access="Read" directaddress="%IX0.0">
+          <Comment>Main_IO : DI0</Comment>
+        </Node>
+        <Node name="iTopCoverClosed" type="T_BIT_X_6" access="Read" directaddress="%IX1.6">
+          <Comment>Main_IO : DI14</Comment>
+        </Node>
+        <Node name="oFansEnable" type="T_BIT_X_6" access="ReadWrite" directaddress="%QX0.6">
+          <Comment>Main_IO : DO6</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisBaseCurrent" type="T_INT" access="ReadWrite" directaddress="%QW29">
+          <Comment>AZD4A_KED : Axis2 base current</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisControlword" type="T_UINT" access="ReadWrite" directaddress="%QW16">
+          <Comment>AZD4A_KED : Controlword</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisModesOfOperation" type="T_SINT" access="ReadWrite" directaddress="%QB40">
+          <Comment>AZD4A_KED : Modes of operation</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisProfileAcceleration" type="T_UDINT" access="ReadWrite" directaddress="%QD12">
+          <Comment>AZD4A_KED : Profile acceleration</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisProfileDeceleration" type="T_UDINT" access="ReadWrite" directaddress="%QD13">
+          <Comment>AZD4A_KED : Profile deceleration</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisProfileVelocity" type="T_UDINT" access="ReadWrite" directaddress="%QD11">
+          <Comment>AZD4A_KED : Profile velocity</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisPushCurrent" type="T_INT" access="ReadWrite" directaddress="%QW28">
+          <Comment>AZD4A_KED : Axis2 push current</Comment>
+        </Node>
+        <Node name="oFilmFeedAxisTargetPosition" type="T_DINT" access="ReadWrite" directaddress="%QD9">
+          <Comment>AZD4A_KED : Target position</Comment>
+        </Node>
+        <Node name="oFrontJawAxisBaseCurrent" type="T_INT" access="ReadWrite" directaddress="%QW15">
+          <Comment>AZD4A_KED : Axis1 base current</Comment>
+        </Node>
+        <Node name="oFrontJawAxisControlword" type="T_UINT" access="ReadWrite" directaddress="%QW2">
+          <Comment>AZD4A_KED : Controlword</Comment>
+        </Node>
+        <Node name="oFrontJawAxisModesOfOperation" type="T_SINT" access="ReadWrite" directaddress="%QB12">
+          <Comment>AZD4A_KED : Modes of operation</Comment>
+        </Node>
+        <Node name="oFrontJawAxisProfileAcceleration" type="T_UDINT" access="ReadWrite" directaddress="%QD5">
+          <Comment>AZD4A_KED : Profile acceleration</Comment>
+        </Node>
+        <Node name="oFrontJawAxisProfileDeceleration" type="T_UDINT" access="ReadWrite" directaddress="%QD6">
+          <Comment>AZD4A_KED : Profile deceleration</Comment>
+        </Node>
+        <Node name="oFrontJawAxisProfileVelocity" type="T_UDINT" access="ReadWrite" directaddress="%QD4">
+          <Comment>AZD4A_KED : Profile velocity</Comment>
+        </Node>
+        <Node name="oFrontJawAxisPushCurrent" type="T_INT" access="ReadWrite" directaddress="%QW14">
+          <Comment>AZD4A_KED : Axis1 push current</Comment>
+        </Node>
+        <Node name="oFrontJawAxisTargetPosition" type="T_DINT" access="ReadWrite" directaddress="%QD2">
+          <Comment>AZD4A_KED : Target position</Comment>
+        </Node>
+        <Node name="oLowerPrinthead" type="T_BIT_X_1" access="Read" directaddress="%QX0.1">
+          <Comment>Main_IO : DO1</Comment>
+        </Node>
+        <Node name="oPalmButton0" type="T_BIT_X_6" access="Read" directaddress="%QX1.6">
+          <Comment>Main_IO : DO14</Comment>
+        </Node>
+        <Node name="oPalmButton1" type="T_BIT_X_7" access="Read" directaddress="%QX1.7">
+          <Comment>Main_IO : DO15</Comment>
+        </Node>
+        <Node name="oPbarClampMotorAlarmReset" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX1.5">
+          <Comment>Main_IO : DO13</Comment>
+        </Node>
+        <Node name="oPbarClampMotorReverse" type="T_BIT_X_4" access="ReadWrite" directaddress="%QX1.4">
+          <Comment>Main_IO : DO12</Comment>
+        </Node>
+        <Node name="oPbarClampMotorStart" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX1.3">
+          <Comment>Main_IO : DO11</Comment>
+        </Node>
+        <Node name="oPrinterRibbonUnwind" type="T_BIT_X_3" access="Read" directaddress="%QX0.3">
+          <Comment>Main_IO : DO3</Comment>
+        </Node>
+        <Node name="oRequestPrint" type="T_BIT_X_2" access="Read" directaddress="%QX0.2">
+          <Comment>Main_IO : DO2</Comment>
+        </Node>
+        <Node name="oSealWire" type="T_BIT_X_0" access="Read" directaddress="%QX0.0">
+          <Comment>Main_IO : DO0</Comment>
+        </Node>
+        <Node name="oTriggerBCV" type="T_BIT_X_4" access="Read" directaddress="%QX0.4">
+          <Comment>Main_IO : DO4</Comment>
+        </Node>
+        <Node name="triggerFilmDriveOpCode" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX74.0">
+          <Comment>Film_Feed_Drive : Trigger variable</Comment>
+        </Node>
+        <Node name="triggerFilmDriveOutputUpdate" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX62.0">
+          <Comment>Film_Feed_Drive : Trigger variable</Comment>
+        </Node>
+      </Node>
+    </Node>
+  </NodeList>
+</Symbolconfiguration>

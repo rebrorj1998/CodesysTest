@@ -1,0 +1,2 @@
+(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+PROPERTY PPMode : eDiscreteMotionType

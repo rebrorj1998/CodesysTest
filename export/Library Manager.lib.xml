@@ -372,6 +372,14 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">System_VisuInputs</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuInputs, 4.2.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemCamDisplayer</Single>
             </Key>
             <Value>
@@ -416,14 +424,6 @@
             </Key>
             <Value>
               <Single Type="string">VisuNativeControl, 4.2.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">System_VisuInputs</Single>
-            </Key>
-            <Value>
-              <Single Type="string">VisuInputs, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>

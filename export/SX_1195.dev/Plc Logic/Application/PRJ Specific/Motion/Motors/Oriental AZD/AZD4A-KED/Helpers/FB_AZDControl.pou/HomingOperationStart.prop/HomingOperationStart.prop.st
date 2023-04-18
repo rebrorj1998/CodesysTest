@@ -1,0 +1,2 @@
+(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+PROPERTY HomingOperationStart : BOOL

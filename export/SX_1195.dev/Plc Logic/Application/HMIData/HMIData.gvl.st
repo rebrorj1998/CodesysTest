@@ -22,7 +22,7 @@ VAR_GLOBAL
 	printHeadService : ServiceCommands;
 	startJawCycleTest : BOOL;
 	stopJawCycleTest : BOOL;
-	jawCycleTestCycles : DINT;
+
 	jawCycleTestActive : BOOL;
 	teachBagPhotoeye : BOOL;
 	teachingBagPhoteye : BOOL;
@@ -30,7 +30,6 @@ VAR_GLOBAL
     stopMachine : BOOL;
 	inCycle : BOOL;
 	resetAverageCycleTime : BOOL;
-	profaceInterface : ARRAY[0..20] OF INT;
 	bannerMessageIndication : DINT;
 	faultActive : BOOL;
 	simulateAllIO : BOOL;
@@ -62,6 +61,20 @@ VAR_GLOBAL
 	barcodeVerifierTrigger : BOOL;
 	standbyActive : BOOL;
 	resetMotors : BOOL;
+	startJawCycleClampTest : BOOL;
+	stopJawCycleClampTest : BOOL;
+	jawClampDriveFaulted : BOOL;
+	jawMotionDriveFaulted : BOOL;
+	jawMotionDriveErrorCode : STRING;
+	jawResetDrives : BOOL;
+	jawClampCycleTestActive : BOOL;
+	jawActualPosition : REAL;
+	jawActualPositionInSteps : REAL;
+	jawTargetPosition : REAL;
+	jawTargetPositionInSteps : REAL;
+	jawAxisMotorTemperature : REAL;
+	filmFeedMotionDriveErrorCode : STRING;
+	filmFeedAxisMotorTemperature : REAL;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN
@@ -81,7 +94,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	bagThickness : REAL := 2.5;
 	bagForwardSpeed : UDINT := 40;
 	bagReverseSpeed : UDINT := 8;
-	printSpeed : UDINT := 6;
+	printSpeed : UINT := 6;
 	printLength : REAL := 1.25;
 	printOffset : REAL := 9.0;
 	fillerCountSetting : UDINT;
@@ -91,14 +104,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	loadPlateDwell : REAL := 0.1;
 	IBDInUse : BOOL := TRUE;
 	IBDInstalled : BOOL := TRUE;
-	IBDOpenMotionProfile : sctMotionProfile := (velo := 9.0, accel := 30.0, decel := 50.0, current := 100.0);
-	IBDCloseMotionProfile : sctMotionProfile := (velo := 15.0, accel := 10.0, decel := 10.0, current := 50.0);
-	IBDZeroOffset : REAL := 2.0;
 	jawCloseDelay : REAL := 0.1;
 	jawClosePositionSetting : REAL := -0.45;
-	jawOpenMotionProfile : sctMotionProfile := (velo := 14.0, accel := 300.0, decel := 300.0, current := 100.0);
-	jawCloseMotionProfile : sctMotionProfile := (velo := 14.0, accel := 10.0, decel := 10.0, current := 100.0);
-	jawZeroOffset : REAL := 2.0;
 	lastCycleTime : REAL;
 	bagDropClearanceDwell : REAL := 0.5;
 	averageCycleTime : REAL;
@@ -124,15 +131,22 @@ VAR_GLOBAL PERSISTENT RETAIN
 	loadPlateLoweredPositionSetting : REAL := 0;
 	loadPlateRaisedPositionSetting :  REAL := 1;
 	loadPlateInUse : BOOL := TRUE;
-	loadPlateRaiseProfile : sctMotionProfile := (velo := 3.0, accel := 100.0, decel := 10.0, current := 100.0);
-	loadPlateLowerProfile : sctMotionProfile := (velo := 5.0, accel := 100.0, decel := 100.0, current := 100.0);
 	fillerEnable : BOOL;
 	autoModeEnable : BOOL;
 	autoModeDwell : REAL;
 	dryCycleEnable : BOOL;
 	standbyTimeSetting : REAL := 5.0;  // Standby timeout in minutes
+	jawClampTime : REAL := 1.0;
+	jawClampReverseTime : REAL := 0.56;
+	jawClampInterval : REAL := 2.0;
+	jawEnableClamping : BOOL;
+	jawCycleTestCycles : DINT;
+	jawClampTestCycles : DINT;
+	filmFeedTestCycles : DINT;
+	jawEnableMotion : BOOL;
+	filmEnableMotion : BOOL;
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.1.0.2';
+	version : STRING := '1.1.0.0';
 END_VAR
