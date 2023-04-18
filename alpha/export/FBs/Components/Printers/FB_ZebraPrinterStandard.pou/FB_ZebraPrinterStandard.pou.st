@@ -3,7 +3,8 @@ FUNCTION_BLOCK FB_ZebraPrinterStandard EXTENDS FB_BaseComponent IMPLEMENTS IComp
 VAR_INPUT
     autoSendLabel :BOOL;    // Automatically send a label
 	ribbonEncoderState : BOOL;	// Ribbon Encoder Input
-	enableRibbonDetection : BOOL := TRUE;                
+	enableRibbonDetection : BOOL := TRUE; 
+	reverseEndPrint : BOOL;               
 END_VAR
 VAR_OUTPUT
     state : PRINTER_STATES; // Printer State Machine
@@ -19,10 +20,11 @@ VAR
 	printStarted : BOOL;
     printHeadDebouneSetpoint : TIME := T#50MS;
     tcpServer : FB_TCPClient();
-	endOfPrintONS : Standard.F_TRIG();
+	endOfPrintONS : FB_ONS();
 	printerNotPrintingFault : FB_Fault(name := 'Printer didnt respond to print request');
 	printerNotPrintingTimer : Standard.TON := (PT := T#250MS);
 	_printerRibbonTimeoutTimer : Standard.TON := (PT := T#500MS);
+	_printerPrintSignalSettlingTimer : Standard.TON := (PT := T#100MS);
 	_printRibbonStateChanges : SINT;
 	_previousRibbonEncoderState : BOOL;
 END_VAR
@@ -48,7 +50,7 @@ _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PRINTER_STATES.Fault);
 // END_IF
 
 _printerRibbonTimeoutTimer();
-
+_printerPrintSignalSettlingTimer(IN := state = PRINTER_STATES.Printing);
 printHeadDebounce(PT:= printHeadDebouneSetpoint, Q=> printHeadDebounced);
 
 IF enableONS.Q OR resetONS.Q THEN
@@ -136,7 +138,7 @@ CASE state OF
 													END_IF
 													
 													// While printing, wait for End of Print signal
-                                                    IF endOfPrintONS.Q THEN
+                                                    IF (endOfPrintONS.OSR OR endOfPrintONS.OSF) AND _printerPrintSignalSettlingTimer.Q THEN
                                                         oPrinterStartPrint := FALSE;
                                                         oLowerPrintHead := FALSE;
                                                         state := PRINTER_STATES.DonePrinting;    
