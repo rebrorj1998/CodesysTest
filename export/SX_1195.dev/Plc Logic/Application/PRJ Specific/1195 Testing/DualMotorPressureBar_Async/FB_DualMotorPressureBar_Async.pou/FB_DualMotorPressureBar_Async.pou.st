@@ -56,6 +56,7 @@ VAR
 	_timeoutTimer : Standard.TON := (PT := T#6S);
 	_jawTestDelayTimer : Standard.TON := (PT := T#250MS);
 	_faultONS : FB_ONS;
+	_startClampingONS : FB_ONS;
 	_startClampingPosition : REAL := 4.0;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_DualMotorPressureBar_Async()
@@ -112,6 +113,9 @@ pressureBarObstructed.faultTrigger := NOT obstructionSensor AND NOT (actualPosit
 
 //	 
 _faultONS(CLK := pressureBarObstructed.active OR failedToClose.active OR frontMotorFault.active OR failedToOpen.active OR failedToHome.active);
+
+_startClampingONS(CLK := (actualPositionInInches < _startClampingPosition) AND state = eDualMotorPressureBar_AsyncStates.ClosingToFaceplate);
+
 IF _faultONS.OSR THEN
 	state := eDualMotorPressureBar_AsyncStates.Faulting;
 END_IF
@@ -209,7 +213,6 @@ CASE state OF
 
 	eDualMotorPressureBar_AsyncStates.CloseToFaceplate:	
 		// Start Moving jaw to closed position
-		clampingMechanism.StartClamping();
 		AbsoluteMove(
 			motionProfile := closeProfile,
 			nextState := eDualMotorPressureBar_AsyncStates.ClosingToFaceplate
@@ -219,7 +222,7 @@ CASE state OF
 		
 	eDualMotorPressureBar_AsyncStates.ClosingToFaceplate:
 		// Wait for jaw closed indication
-		IF actualPositionInInches < _startClampingPosition THEN
+		IF _startClampingONS.OSR THEN
 			clampingMechanism.StartClamping();
 		END_IF
 		

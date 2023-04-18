@@ -17,8 +17,8 @@ _executeOSR(CLK := execute);
 
 //
 IF _engineState <> eMCEngineState.Idle AND axis.error THEN
-	_moveState := eMCMoveState.Error;
-	_engineState := eMCEngineState.Idle;
+	//_moveState := eMCMoveState.Error;
+	//_engineState := eMCEngineState.Idle;
 	errorID := eMCError.AXIS_ERROR_DURING_COMMAND;
 END_IF
 

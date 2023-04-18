@@ -69,7 +69,7 @@ _controlword(
 // Active Alarm
 alarmCode := OSCAT_BASIC.BYTE_OF_DWORD(iErrorCode,0);
 isHomed := _statusword.homingAttained;
-//error := _statusword.fault;
+error := _statusword.fault;
 // Convert Distance setpoint to steps.  Reverse polarity for display purposes if needed. 
 actualPositonInInches := (actPos / TO_REAL(axisData.config.stepsPerInch));
 IF axisData.config.reversePolarity THEN
