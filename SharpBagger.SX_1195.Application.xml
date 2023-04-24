@@ -190,7 +190,9 @@
         <Node name="jawClampCycleTestActive" type="T_BOOL" access="ReadWrite" />
         <Node name="jawClampDriveFaulted" type="T_BOOL" access="ReadWrite" />
         <Node name="jawClampInterval" type="T_REAL" access="ReadWrite" />
-        <Node name="jawClampReverseTime" type="T_REAL" access="ReadWrite" />
+        <Node name="jawClampReverseTime" type="T_REAL" access="ReadWrite">
+          <Comment>0.56;</Comment>
+        </Node>
         <Node name="jawClampTestCycles" type="T_DINT" access="ReadWrite" />
         <Node name="jawClampTime" type="T_REAL" access="ReadWrite" />
         <Node name="jawCloseDelay" type="T_REAL" access="ReadWrite" />

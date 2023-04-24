@@ -33,7 +33,7 @@ VAR
 	endOfPrintONS : Standard.F_TRIG();
 	printerRibbonMovingTimer1 : Standard.TON;
 	printerRibbonMovingTimer2 : Standard.TON;
-	printerRibbonMovingSettleTime : TIME := T#450MS;
+	printerRibbonMovingSettleTime : TIME := T#1h;//T#450MS;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_ZebraPrinter
@@ -50,6 +50,10 @@ _ready := NOT (state = eZebraPrinterStates.Fault);
 
 printerRibbonMovingTimer1(PT := printerRibbonMovingSettleTime);
 printerRibbonMovingTimer2(PT := printerRibbonMovingSettleTime);
+
+printerRibbonMovingTimer1(PT := T#1H);
+printerRibbonMovingTimer2(PT := T#1H);
+
 
 printHeadDebounce(PT:= printHeadDebounceSetting, Q=> printHeadDebounced);
 raisePrintHeadDelay();
@@ -149,7 +153,7 @@ CASE state OF
         END_IF                                                    
                                                               
     eZebraPrinterStates.Printing:                        
-		// While printing, wait for End of Print signal
+		// While printing, wait for End of Print signal	
 		printerRibbonMovingTimer1.IN := ribbonEncoderPulseInput;
 		printerRibbonMovingTimer2.IN := NOT ribbonEncoderPulseInput;
         IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable OR _stopPrinting THEN

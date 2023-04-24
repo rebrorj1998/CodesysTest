@@ -34,6 +34,8 @@ VAR
 	_axisCommsStatus : BOOL;
 	_driveState : DED.DEVICE_STATE;
 	oAxis3TargetPosition: DINT;
+	
+	homeSensorCTU : CTU;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 _driveState := AZD4A_KED.GetDeviceState();
@@ -58,12 +60,14 @@ jawFrontMotor(
 	defaultCurrent := 100.0
 );
 
+homeSensorCTU(CU := iClampHomeSensor);
+
 clampingMechanism(
 	driveAlarm:= NOT iPbarClampMotorAlarm, 
 	homeSensor:= iClampHomeSensor, 
 	timeFromHomeToClamp:= T#500MS, 
 	maximumClampingTime:= T#4.8S, 
-	maximumReverseTime:= T#540MS, 
+	maximumReverseTime:= T#600MS,//T#540MS, 
 	oStartMotor=> oPbarClampMotorStart, 
 	oForwardMotor=> oPbarClampMotorReverse, 
 	oResetDrive=> oPbarClampMotorAlarmReset, 

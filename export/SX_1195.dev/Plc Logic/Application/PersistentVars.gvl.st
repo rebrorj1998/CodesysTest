@@ -120,7 +120,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.jawClampTime: REAL := REAL#1;
 	// Generated instance path of persistent variable
-	HMIData.jawClampReverseTime: REAL := REAL#0.56;
+	HMIData.jawClampReverseTime: REAL := REAL#2.0;//REAL#0.56;
 	// Generated instance path of persistent variable
 	HMIData.jawClampInterval: REAL := REAL#2;
 	// Generated instance path of persistent variable

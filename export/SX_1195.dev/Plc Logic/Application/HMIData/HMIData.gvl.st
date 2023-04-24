@@ -137,7 +137,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	dryCycleEnable : BOOL;
 	standbyTimeSetting : REAL := 5.0;  // Standby timeout in minutes
 	jawClampTime : REAL := 1.0;
-	jawClampReverseTime : REAL := 0.56;
+	jawClampReverseTime : REAL := 1.0;//0.56;
 	jawClampInterval : REAL := 2.0;
 	jawEnableClamping : BOOL;
 	jawCycleTestCycles : DINT;
