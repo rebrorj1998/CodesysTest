@@ -58,6 +58,11 @@ VAR
 	_faultONS : FB_ONS;
 	_startClampingONS : FB_ONS;
 	_startClampingPosition : REAL := 4.0;
+	_moveOutDelay : Standard.TON := (PT := T#100MS);
+	_moveOutTimeOut : Standard.TON := (PT := T#1250MS);
+	_jawOpenPositionDelta : REAL;
+	_moveOutStuckCount : INT := 0;
+	_haltWaitTimer : TON := (PT := T#50MS);
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_DualMotorPressureBar_Async()
 //	Description: Dual motor passthough, using a low torque positionable motor for most movements and a high torque brushless motor for clamping force to seal and 
@@ -86,6 +91,11 @@ _moveInDelay(IN := _closeNow, PT := moveInDelaySetting);
   
 // Jaw test delay timer
 _jawTestDelayTimer();
+
+// Jaw move out delay
+_moveOutDelay (IN := state = eDualMotorPressureBar_AsyncStates.Open);
+_moveOutTimeOut(IN := state = eDualMotorPressureBar_AsyncStates.Opening AND _jawOpenPositionDelta < 0.1);
+_haltWaitTimer(IN :=  state = eDualMotorPressureBar_AsyncStates.HaltDelay);
 	 
 // Passthrough position is based on reported motor position
 
@@ -109,8 +119,13 @@ _failedToOpenTimer(
 // Trigger motor faults from drive			
 frontMotorFault.faultTrigger := frontMotor.error;
 frontMotorCommFault.faultTrigger := NOT frontMotor.commStatus;
-pressureBarObstructed.faultTrigger := NOT obstructionSensor AND NOT (actualPositionInInches < 0.01 OR _isFullyOpen);
+pressureBarObstructed.faultTrigger := NOT obstructionSensor AND NOT (actualPositionInInches < 0.06 OR _isFullyOpen);
 
+//diagnostic code - delete me
+IF pressureBarObstructed.faultTrigger THEN
+	pressureBarObstructed.faultTrigger := pressureBarObstructed.faultTrigger;
+END_IF
+	
 //	 
 _faultONS(CLK := pressureBarObstructed.active OR failedToClose.active OR frontMotorFault.active OR failedToOpen.active OR failedToHome.active);
 
@@ -184,15 +199,30 @@ CASE state OF
 	
 	eDualMotorPressureBar_AsyncStates.Open:	
 		// Move jaw out to passthrough
-		AbsoluteMove(
-			motionProfile := openProfile,
-			nextState := eDualMotorPressureBar_AsyncStates.Opening
-		);
+		IF _moveOutDelay.Q THEN
+			AbsoluteMove(
+				motionProfile := openProfile,
+				nextState := eDualMotorPressureBar_AsyncStates.Opening
+			);
+		END_IF
 		
 	eDualMotorPressureBar_AsyncStates.Opening:
+		_jawOpenPositionDelta := ABS(HMIData.passthroughSetting - MC_MoveFrontMotorABS.position);
+	
 		// wait for jaw to report open
-		IF MC_MoveFrontMotorABS.Done THEN
-			
+		IF MC_MoveFrontMotorABS.Done  THEN
+			state := eDualMotorPressureBar_AsyncStates.Opened;
+		ELSIF MC_MoveFrontMotorABS.Error OR _timeoutTimer.Q THEN
+			failedToOpen.Trigger();
+			state := eDualMotorPressureBar_AsyncStates.Faulting;
+		// moveOutTimeOut to fix oriental motor getting stuck in out position
+		ELSIF _moveOutTimeOut.Q THEN
+			MC_HaltFrontMotor.execute := TRUE;
+			_moveOutStuckCount := _moveOutStuckCount + 1;	
+			state := eDualMotorPressureBar_AsyncStates.HaltDelay;		
+		END_IF
+
+		eDualMotorPressureBar_AsyncStates.Opened:
 			//
 			_timeoutTimer.IN := FALSE;
 			MC_MoveFrontMotorABS.execute := FALSE;
@@ -206,19 +236,20 @@ CASE state OF
 			ELSE
 				state := eDualMotorPressureBar_AsyncStates.Idle;
 			END_IF
-		ELSIF MC_MoveFrontMotorABS.Error OR _timeoutTimer.Q THEN
-			failedToOpen.Trigger();
-			state := eDualMotorPressureBar_AsyncStates.Faulting;
+			
+	eDualMotorPressureBar_AsyncStates.HaltDelay:	
+		//Wait for communication interval per datasheet to turn off then close jaw
+		IF _haltWaitTimer.Q THEN
+			MC_HaltFrontMotor.execute := FALSE;
+			state := eDualMotorPressureBar_AsyncStates.Opened;
 		END_IF
-
+				
 	eDualMotorPressureBar_AsyncStates.CloseToFaceplate:	
 		// Start Moving jaw to closed position
 		AbsoluteMove(
 			motionProfile := closeProfile,
 			nextState := eDualMotorPressureBar_AsyncStates.ClosingToFaceplate
-		);
-		
-		
+		);	
 		
 	eDualMotorPressureBar_AsyncStates.ClosingToFaceplate:
 		// Wait for jaw closed indication

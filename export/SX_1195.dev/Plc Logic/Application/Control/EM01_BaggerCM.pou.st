@@ -26,8 +26,8 @@ VAR_OUTPUT
 	
 	barcodeVerifier : FB_BaseBCV(name := 'Barcode Verifier');
 	
-	bagDelivery : FB_1195BagDelivery(name := 'Bag Delivery');
-	//bagDelivery : FB_SXBagDelivery(name := 'Bag Delivery');
+	//bagDelivery : FB_1195BagDelivery(name := 'Bag Delivery');
+	bagDelivery : FB_1195_Test_BagDelivery(name := 'Bag Delivery');
 	bagDeliveryFrontMotor : FB_AZDKAxis;	
 END_VAR
 VAR
@@ -67,7 +67,7 @@ clampingMechanism(
 	homeSensor:= iClampHomeSensor, 
 	timeFromHomeToClamp:= T#500MS, 
 	maximumClampingTime:= T#4.8S, 
-	maximumReverseTime:= T#600MS,//T#540MS, 
+	maximumReverseTime:= T#1500MS,//T#540MS, 
 	oStartMotor=> oPbarClampMotorStart, 
 	oForwardMotor=> oPbarClampMotorReverse, 
 	oResetDrive=> oPbarClampMotorAlarmReset, 

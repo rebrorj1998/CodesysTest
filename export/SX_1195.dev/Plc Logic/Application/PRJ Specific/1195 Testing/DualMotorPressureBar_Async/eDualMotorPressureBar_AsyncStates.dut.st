@@ -27,6 +27,7 @@ TYPE eDualMotorPressureBar_AsyncStates :
 	ResetDone := 201,
 	ResetEncoder := 205,
 	Halting := 210,
-	Cleanup := 220
+	Cleanup := 220,
+	HaltDelay := 230
 );
 END_TYPE

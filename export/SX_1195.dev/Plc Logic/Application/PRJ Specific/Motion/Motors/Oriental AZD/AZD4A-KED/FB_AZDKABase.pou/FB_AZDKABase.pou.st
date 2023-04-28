@@ -36,6 +36,7 @@ VAR
 	_state : eAxisREFMotionState;
 	_startupState : eAZDPowerupState;
 	_motorExcitationDelayTimer : Standard.TON := (PT := T#250MS);
+	_resetSignalPulseTON : Standard.TON := (PT := t#50ms);
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
@@ -50,10 +51,8 @@ END_VAR
 operational := EnableAxisOps();
 	
 //
-_resetONS(CLK := ackError);
-IF _statusword.fault THEN
-	_controlword.FaultReset := _resetONS.OSR;
-END_IF
+_resetSignalPulseTON.IN := ackError;
+_controlword.FaultReset := _statusword.fault AND NOT _resetSignalPulseTON.Q;
 
 // Status bits read from the AZD4A drive
 _statusword(
@@ -69,7 +68,7 @@ _controlword(
 // Active Alarm
 alarmCode := OSCAT_BASIC.BYTE_OF_DWORD(iErrorCode,0);
 isHomed := _statusword.homingAttained;
-error := _statusword.fault;
+//error := _statusword.fault;
 // Convert Distance setpoint to steps.  Reverse polarity for display purposes if needed. 
 actualPositonInInches := (actPos / TO_REAL(axisData.config.stepsPerInch));
 IF axisData.config.reversePolarity THEN

@@ -59,7 +59,7 @@ jawFrontMotor(
 	TargetPosDist:= , 
 	TargetVelocity:= , 
 	ProfileVelocity:= , 
-	ProfileAcceleration:= , 
+	ProfileAcceleration:= ,
 	ProfileDeceleration:= , 
 	ProfileCurrentLimit:= , 
 	QuickStopDeceleration:= , 

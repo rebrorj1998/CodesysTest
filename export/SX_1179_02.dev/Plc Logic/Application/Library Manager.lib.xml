@@ -12,24 +12,10 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638142976274002884</Single>
+        <Single Name="Timestamp" Type="long">638181824581845556</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List Name="Items" Type="System.Collections.ArrayList">
-          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">Breakpoint Logging Functions, 3.5.5.0 (3S - Smart Software Solutions GmbH)</Single>
-            <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
-            <Single Name="PlaceholderName" Type="string">BreakpointLogging</Single>
-            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">2492830292</Single>
-            <Single Name="Namespace" Type="string">BPLog</Single>
-            <Single Name="SystemLibrary" Type="bool">True</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
             <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
@@ -268,6 +254,20 @@
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">1674954025</Single>
             <Single Name="Namespace" Type="string">IoDrvModbus</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">Breakpoint Logging Functions, * (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Single Name="PlaceholderName" Type="string">BreakpointLogging</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">2415524178</Single>
+            <Single Name="Namespace" Type="string">BPLog</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
             <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
