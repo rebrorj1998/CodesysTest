@@ -209,7 +209,7 @@ CASE releaseAndFeedSubState OF
 													END_IF
 													bagger.loadPlate.BeginDischarge();	
 													discharge.TakeAwayBag(THIS^);
-													releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	
+													//releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	
 													// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
 													IF NOT bagger.printer.OptionActive THEN
 														IF NOT bagger.pressureBar.IsFullyClosed THEN

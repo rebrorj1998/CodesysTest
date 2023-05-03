@@ -64,10 +64,10 @@ MC_PowerUpBagDelivery(
 	 
 // If reset of motors fails state machine must move on
 _resetTimer(IN := state = 91);
-moveBagDeliveryTimeout();
+//moveBagDeliveryTimeout();
 	 
 IF _reset THEN
-	state := 100;
+	state := 90;
 	nextState := 0;
 	ClearStatus();
 	MC_ResetBagDelivery.Execute := TRUE;
@@ -290,6 +290,7 @@ CASE state OF
 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
+				moveBagDeliveryTimeout.IN := FALSE;
 				ClearStatus();
 				nextState := 0;
 				state := 100;
@@ -342,7 +343,7 @@ CASE state OF
 		
 	92:		//ResetDone:
  		IF bagDeliveryMotor.operational THEN
- 			state := 0;
+ 			state := 100;
  		END_IF
 
 END_CASE
