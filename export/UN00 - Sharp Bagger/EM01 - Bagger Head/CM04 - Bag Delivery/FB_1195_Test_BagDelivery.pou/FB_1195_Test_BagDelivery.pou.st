@@ -57,14 +57,14 @@ MC_MoveBagDelivery(Axis := bagDeliveryMotor);
 MC_HaltBagDelivery(Axis := bagDeliveryMotor);
 MC_ResetBagDelivery(Axis := bagDeliveryMotor);
 MC_PowerUpBagDelivery(
-	enable := F_EtherCatSlaveCommsRunning(state := AZD4A_KED.wState) AND NOT (state = eDualMotorPressureBar_AsyncStates.Resetting), 
+	enable := F_EtherCatSlaveCommsRunning(state := AZD4A_KED.wState) AND NOT (state = 91), 
 	axis := bagDeliveryMotor
 );
 {endregion}
 	 
 // If reset of motors fails state machine must move on
 _resetTimer(IN := state = 91);
-
+moveBagDeliveryTimeout();
 	 
 IF _reset THEN
 	state := 100;
@@ -124,6 +124,7 @@ CASE state OF
 	10:		// Feed bag out
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := feedSpeed;
+			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := remainingLength;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(remainingLength, feedSpeed, 1000);
 			moveBagDeliveryTimeout.IN := TRUE;
@@ -146,6 +147,7 @@ CASE state OF
 			ELSE
 				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
 				MC_MoveBagDelivery.Velocity := feedSpeed;
+				MC_MoveBagDelivery.currentLimit := 100;
 				MC_MoveBagDelivery.Distance := printOffset;
 				remainingLength := remainingLength - printOffset;
 				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(printOffset, feedSpeed, 1000);
@@ -165,6 +167,7 @@ CASE state OF
 			IF NOT bagPresent AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
 				MC_MoveBagDelivery.Velocity := reverseSpeed;
+				MC_MoveBagDelivery.currentLimit := 100;
 				MC_MoveBagDelivery.Distance := maxReverseSetpoint;
 				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
 				moveBagDeliveryTimeout.IN := TRUE;
@@ -210,6 +213,7 @@ CASE state OF
 	30:		// Reverse to Separate
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := reverseSpeed;
+			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := maxReverseSetpoint * -1;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
 			moveBagDeliveryTimeout.IN := TRUE;
@@ -263,6 +267,7 @@ CASE state OF
 	40:		// Feed at Print Speed
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := printSpeed;
+			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := printLength + _printerExtraFeedLength;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 1000);
 			moveBagDeliveryTimeout.IN := TRUE;
@@ -336,8 +341,8 @@ CASE state OF
 		END_IF
 		
 	92:		//ResetDone:
-// 		IF frontMotor.operational THEN
+ 		IF bagDeliveryMotor.operational THEN
  			state := 0;
-// 		END_IF
+ 		END_IF
 
 END_CASE

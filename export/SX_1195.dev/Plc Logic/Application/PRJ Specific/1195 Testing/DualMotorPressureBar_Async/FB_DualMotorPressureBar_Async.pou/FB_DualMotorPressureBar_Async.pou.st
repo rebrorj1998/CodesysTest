@@ -58,7 +58,7 @@ VAR
 	_faultONS : FB_ONS;
 	_startClampingONS : FB_ONS;
 	_startClampingPosition : REAL := 4.0;
-	_moveOutDelay : Standard.TON := (PT := T#100MS);
+	_moveOutDelay : Standard.TON := (PT := T#100MS);//T#100MS);
 	_moveOutTimeOut : Standard.TON := (PT := T#1250MS);
 	_jawOpenPositionDelta : REAL;
 	_moveOutStuckCount : INT := 0;
@@ -121,11 +121,6 @@ frontMotorFault.faultTrigger := frontMotor.error;
 frontMotorCommFault.faultTrigger := NOT frontMotor.commStatus;
 pressureBarObstructed.faultTrigger := NOT obstructionSensor AND NOT (actualPositionInInches < 0.06 OR _isFullyOpen);
 
-//diagnostic code - delete me
-IF pressureBarObstructed.faultTrigger THEN
-	pressureBarObstructed.faultTrigger := pressureBarObstructed.faultTrigger;
-END_IF
-	
 //	 
 _faultONS(CLK := pressureBarObstructed.active OR failedToClose.active OR frontMotorFault.active OR failedToOpen.active OR failedToHome.active);
 
