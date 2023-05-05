@@ -63,6 +63,7 @@ VAR
 	_jawOpenPositionDelta : REAL;
 	_moveOutStuckCount : INT := 0;
 	_haltWaitTimer : TON := (PT := T#50MS);
+	_lastState : eDualMotorPressureBar_AsyncStates;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_DualMotorPressureBar_Async()
 //	Description: Dual motor passthough, using a low torque positionable motor for most movements and a high torque brushless motor for clamping force to seal and 
@@ -134,6 +135,11 @@ _ready := state = eDualMotorPressureBar_AsyncStates.Idle AND _isFullyOpen;
 // 
 IF stopJawTestMode THEN
 	jawTestModeActive := FALSE;
+END_IF
+
+//diagnostic code - delete me
+IF _lastState <> state THEN
+	_lastState := state;
 END_IF
 
 CASE state OF

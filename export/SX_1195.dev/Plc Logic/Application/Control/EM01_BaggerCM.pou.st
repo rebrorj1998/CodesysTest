@@ -75,7 +75,7 @@ clampingMechanism(
 	homeSensorNotSeen=> , 
 	reversing=> , 
 	state=> );
-
+AxisDAta.jawOpenMotionProfile.position := HMIData.passthroughSetting;
 dualMotorPassthrough(
 	frontMotor:= jawFrontMotor, 
 	closeProfile:= AxisData.jawCloseMotionProfile, 
