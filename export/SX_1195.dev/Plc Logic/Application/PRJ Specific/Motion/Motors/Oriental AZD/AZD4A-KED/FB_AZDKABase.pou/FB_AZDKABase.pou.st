@@ -30,13 +30,15 @@ VAR
 	_absoluteONS : FB_ONS;
 	_absoluteTorqueONS : FB_ONS;
 	_homeONS : FB_ONS;
+	_errorONS : FB_ONS;
 	_haltONS : Standard.R_TRIG;
 	_statusword : FB_AZDStatus;
 	_controlword : FB_AZDControl;
 	_state : eAxisREFMotionState;
 	_startupState : eAZDPowerupState;
 	_motorExcitationDelayTimer : Standard.TON := (PT := T#250MS);
-	_resetSignalPulseTON : Standard.TON := (PT := t#50ms);
+	_resetSignalPulseTON : Standard.TON := (PT := T#50MS);
+	_codetemp : DWORD;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
@@ -52,7 +54,12 @@ operational := EnableAxisOps();
 	
 //
 _resetSignalPulseTON.IN := ackError;
-_controlword.FaultReset := _statusword.fault AND NOT _resetSignalPulseTON.Q;
+_controlword.FaultReset := _statusword.fault AND ackError AND NOT _resetSignalPulseTON.Q;
+
+//diagnostic code - delete me
+IF _statusword.fault AND ackError AND NOT _resetSignalPulseTON.Q THEN
+	_codetemp := _codetemp;
+END_IF
 
 // Status bits read from the AZD4A drive
 _statusword(
@@ -68,7 +75,15 @@ _controlword(
 // Active Alarm
 alarmCode := OSCAT_BASIC.BYTE_OF_DWORD(iErrorCode,0);
 isHomed := _statusword.homingAttained;
-//error := _statusword.fault;
+IF alarmCode <> 0 THEN
+	_codetemp := alarmCode;
+END_IF
+_errorONS(CLK := _statusword.fault);
+
+error := _statusword.fault;
+// IF _errorONS.OSR THEN
+// 	error := TRUE;
+// END_IF
 // Convert Distance setpoint to steps.  Reverse polarity for display purposes if needed. 
 actualPositonInInches := (actPos / TO_REAL(axisData.config.stepsPerInch));
 IF axisData.config.reversePolarity THEN

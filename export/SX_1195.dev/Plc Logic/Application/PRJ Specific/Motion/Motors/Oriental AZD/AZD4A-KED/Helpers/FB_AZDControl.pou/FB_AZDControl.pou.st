@@ -25,6 +25,7 @@ VAR
 	_profileVelocityMode : SINT;
 	//
 	_homingOperationStart : BOOL;
+	_catchFaultReset : BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
@@ -42,6 +43,10 @@ data.2 := _quickStop;
 data.3 := _enableOperation;
 data.7 := _faultReset;
 data.8 := _halt;
+
+IF _faultReset THEN
+	_catchFaultReset := TRUE;
+END_IF
 
 CASE mode OF 
 	eAZDProfileMode.PP:

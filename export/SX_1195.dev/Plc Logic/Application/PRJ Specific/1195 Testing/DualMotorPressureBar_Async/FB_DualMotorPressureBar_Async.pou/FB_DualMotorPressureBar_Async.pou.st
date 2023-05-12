@@ -137,11 +137,6 @@ IF stopJawTestMode THEN
 	jawTestModeActive := FALSE;
 END_IF
 
-//diagnostic code - delete me
-IF _lastState <> state THEN
-	_lastState := state;
-END_IF
-
 CASE state OF
 	
 	eDualMotorPressureBar_AsyncStates.Idle:
@@ -311,7 +306,7 @@ CASE state OF
 		MC_MoveFrontMotorABS.execute := FALSE;
 		MC_MoveFrontMotorPush.execute := FALSE;
 		MC_ResetFrontMotor.execute := FALSE;
- 		MC_HaltFrontMotor.execute := TRUE;
+ 		//MC_HaltFrontMotor.execute := TRUE;
 		state := eDualMotorPressureBar_AsyncStates.Faulted;
 		
 	eDualMotorPressureBar_AsyncStates.Faulted:

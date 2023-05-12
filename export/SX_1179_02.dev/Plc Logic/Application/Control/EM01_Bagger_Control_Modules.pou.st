@@ -65,9 +65,9 @@ jawRearMotor(
 	triggerRIOWriteNow => rearJowMotorRIOTrigger);
 
 jawBothMotors( 
+	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
 	DefaultCurrent:= 100, 
 	isGroup:= TRUE, 
-	stepsPerInchSP:= Globals.STEPS_PER_INCH_JAW, 
 	zeroOffset:= HMIData.jawZeroOffset, 
 	jogForwardCMD:= HMIData.jawjobClosed, 
 	jogReverseCMD:= HMIData.jawJogOpen, 

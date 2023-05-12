@@ -171,7 +171,8 @@ bannerManager(
 	tooManyPartsCounted:= , 
 	jawFailedToClose:= baggerCM.dualMotorPassthrough.failedToClose.Active, 
 	jawFailedToHome:= baggerCM.dualMotorPassthrough.failedToHome.Active, 
-	//filmFeedMotionFault:= , 
+	filmFeedMotorFault:=  baggerCM.bagDeliveryFrontMotor.error OR baggerCM.bagDelivery.reverseFault.Active,
+	jawMotionFault:= baggerCM.jawFrontMotor.error OR baggerCM.dualMotorPassthrough.frontMotorFault.Active OR baggerCM.dualMotorPassthrough.frontMotorCommFault.Active,
 	//jawMotionFault:= baggerCM.dualMotorPassthrough.bothMotorsFault.Active, 
 	waitingOnPrinter:= UN00_SXMachine.baggerManager.BaggerAutoMode.releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter,
 	waitingOnFiller:= , 
@@ -190,7 +191,7 @@ bannerManager(
 	printerRibbonFault := baggerCM.labelPrinter.ribbonFault.Active,
 	printerServiceRequired := baggerCM.labelPrinter.serviceRequired.Active,
 	jawFailedToOpen:= baggerCM.dualMotorPassthrough.failedToOpen.Active, 
-	IBDFailedToClose:= , 
+	IBDFailedToClose:= baggerCM.dualMotorPassthrough.failedToClose.Active, 
 	//IBDFailedToOpen:= baggerCM.IBD.failedToOpen.Active, 
 	messageDisplayIndication=> HMIData.bannerMessageIndication);
 

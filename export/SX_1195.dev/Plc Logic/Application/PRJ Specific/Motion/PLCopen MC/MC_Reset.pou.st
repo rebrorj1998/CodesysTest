@@ -37,8 +37,9 @@ CASE _engineState OF
 		_engineState := eMCEngineState.Executing;
 		
 	eMCEngineState.Executing:
-		axis.ackError := FALSE;
+		
 		IF NOT axis.error THEN
+			axis.ackError := FALSE;
 			_engineState := eMCEngineState.Executed;
 		END_IF
 		
