@@ -903,6 +903,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	pressureBar.Reset();
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
+	bagDelivery._bagFeedRearMotor.EnableTensionFault();
 
 	_reset := FALSE;
 	_dropTimer.IN := FALSE;
