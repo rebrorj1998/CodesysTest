@@ -155,6 +155,7 @@ HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive
 // PackML state to string for HMI
 HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.currentBaggerState;
 
+oFansEnable := NOT HMIData.standbyActive;
 
 // Banner manager takes care of the Multistate lamp used as a banner on the proface 
 bannerManager(
