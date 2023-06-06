@@ -144,15 +144,15 @@ IBD.OptionInstalled := HMIData.IBDInstalled;
 IBD.OptionEnabled := HMIData.IBDInUse;
 
 barcodeVerifier(
-// 	feedSpeed := HMIData.printSpeed, 
-// 	positionOffset := HMIData.barcodeStartPosition, 
-// 	distanceToScan := HMIData.barcodeScanDistance, 
-// 	iGoodRead := iBarcodeOK, 
-// 	iBadRead := iBarcodeNG, 
-// 	badReadFaultCountSetting := HMIData.barcodeBadReadFaultSetting, 
-// 	triggerScanner => oTriggerBCV, 
-// 	currentGoodReadCount => HMIData.barcodeGoodReadCount, 
-// 	currentBadReadCount => HMIData.barcodeBadReadCount
+	feedSpeed := HMIData.printSpeed, 
+	positionOffset := HMIData.barcodeStartPosition, 
+	distanceToScan := HMIData.barcodeScanDistance, 
+	readGoodInput := iBarcodeOK, 
+	badReadInput := iBarcodeNG, 
+	badReadFaultCountSetting := HMIData.barcodeBadReadFaultSetting, 
+	triggerScannerOutput => oTriggerBCV, 
+	currentGoodReadCount => HMIData.barcodeGoodReadCount, 
+	currentBadReadCount => HMIData.barcodeBadReadCount
 );
 barcodeVerifier.OptionInstalled := HMIData.barcodeVerifierInstalled;
 barcodeVerifier.OptionEnabled := HMIData.barcodeVerifierInUse;	
