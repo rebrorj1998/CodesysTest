@@ -414,11 +414,11 @@
         <Node name="oLowerPrinthead" type="T_BIT_X_1" access="Read" directaddress="%QX0.1">
           <Comment>Main_IO : DO1</Comment>
         </Node>
-        <Node name="oPalmButton0" type="T_BIT_X_6" access="Read" directaddress="%QX1.6">
-          <Comment>Main_IO : DO14</Comment>
+        <Node name="oPalmButton0" type="T_BIT_X_1" access="Read" directaddress="%QX1.1">
+          <Comment>Main_IO : DO9</Comment>
         </Node>
-        <Node name="oPalmButton1" type="T_BIT_X_7" access="Read" directaddress="%QX1.7">
-          <Comment>Main_IO : DO15</Comment>
+        <Node name="oPalmButton1" type="T_BIT_X_2" access="Read" directaddress="%QX1.2">
+          <Comment>Main_IO : DO10</Comment>
         </Node>
         <Node name="oPbarClampMotorAlarmReset" type="T_BIT_X_5" access="ReadWrite" directaddress="%QX1.5">
           <Comment>Main_IO : DO13</Comment>
