@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?neo version='2.44.53.0'?>
+<nacs:ScreenWindow Topmost="False" Title="Service_P2" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowState="Normal" BorderStyle="ThreeDBorder" ScreenSize="480, 272" StyleName="Default" IsCacheable="True" Background="{x:Null}" Width="480" Height="272" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:nacs="clr-namespace:Neo.ApplicationFramework.Controls.Screen;assembly=Controls" xmlns:nacs1="clr-namespace:Neo.ApplicationFramework.Controls.Screen;assembly=ControlsCF" xmlns:nac="clr-namespace:Neo.ApplicationFramework.Controls;assembly=Controls" xmlns:nacsd="clr-namespace:Neo.ApplicationFramework.Controls.Screen.Design;assembly=Controls" xmlns:nac1="clr-namespace:Neo.ApplicationFramework.Common;assembly=Common" xmlns:nai="clr-namespace:Neo.ApplicationFramework.Interfaces;assembly=Interfaces" xmlns:nata="clr-namespace:Neo.ApplicationFramework.Tools.Action;assembly=Tools" xmlns:nacd="clr-namespace:Neo.ApplicationFramework.Common.Data;assembly=CommonCF" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:nacb="clr-namespace:Neo.ApplicationFramework.Common.Behaviors;assembly=Common" xmlns:nacd1="clr-namespace:Neo.ApplicationFramework.Common.Dynamics;assembly=Common" xmlns:nacd2="clr-namespace:Neo.ApplicationFramework.Common.Dynamics;assembly=CommonCF" xmlns:nacgl="clr-namespace:Neo.ApplicationFramework.Common.Graphics.Logic;assembly=CommonCF" xmlns:nacc="clr-namespace:Neo.ApplicationFramework.Common.Converters;assembly=Common" x:Class="Neo.ApplicationFramework.Generated.Service_P2">
+  <nacs:ScreenWindow.TemplateScreen>
+    <nacs1:TemplateScreen Name="BaseTemplate" RenderMode="Background" />
+  </nacs:ScreenWindow.TemplateScreen>
+  <nacs:ElementCanvas Name="m_EditorCanvas" Width="480" Height="272" FocusVisualStyle="{x:Null}" AllowDrop="True" ClipToBounds="True" Focusable="True" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType" Panel.ZIndex="104">
+    <nac:Button ImageMargin="5,5,5,5" Text="" RequiresTransparency="True" SymbolName="ag_arrow right green" SymbolTransparent="False" Background="#FFC8C0C0" FontSize="9" Name="m_Button" Width="60" Height="46" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="1" Canvas.Left="420" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
+      <nac:Button.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Button.TextDecorations>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList>
+          <nata:Action Name="Show Screen">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="Show" ObjectName="Service_P3" EventName="Click" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="Neo.ApplicationFramework.Tools.Action.ScreenInstanceObjectPathProvider, ToolsIde, Version=2.44.53.0, Culture=neutral, PublicKeyToken=null" ObjectPath="" ExplicitAuditTrail="False">
+                <nata:ActionMethodInfo.ActionParameterInfo>
+                  <nai:ActionParameterInfoList>
+                    <nata:ActionParameterInfo Position="0" Value="{x:Null}" ParameterName="position" ParameterTypeString="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" TagName="" />
+                  </nai:ActionParameterInfoList>
+                </nata:ActionMethodInfo.ActionParameterInfo>
+              </nata:ActionMethodInfo>
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+        </nai:ActionList>
+      </nai:ActionProperties.Actions>
+    </nac:Button>
+    <nac:Button ImageMargin="5,5,5,5" Text="" RequiresTransparency="True" SymbolName="ag_arrow left green" SymbolTransparent="False" Background="#FFC8C0C0" FontSize="9" Name="m_Button1" Width="60" Height="46" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="360" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
+      <nac:Button.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Button.TextDecorations>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList>
+          <nata:Action Name="Show Screen">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="Show" ObjectName="Service_P1" EventName="Click" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="Neo.ApplicationFramework.Tools.Action.ScreenInstanceObjectPathProvider, ToolsIde, Version=2.44.53.0, Culture=neutral, PublicKeyToken=null" ObjectPath="" ExplicitAuditTrail="False">
+                <nata:ActionMethodInfo.ActionParameterInfo>
+                  <nai:ActionParameterInfoList>
+                    <nata:ActionParameterInfo Position="0" Value="{x:Null}" ParameterName="position" ParameterTypeString="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" TagName="" />
+                  </nai:ActionParameterInfoList>
+                </nata:ActionMethodInfo.ActionParameterInfo>
+              </nata:ActionMethodInfo>
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+        </nai:ActionList>
+      </nai:ActionProperties.Actions>
+    </nac:Button>
+    <nac:Label Text="Service Page" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="4,0,4,1" Name="m_Text" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="3" Canvas.Left="220" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
+      <nac:Label.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Label.TextDecorations>
+    </nac:Label>
+    <nac:Label Text="2/3" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text1" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="260" Canvas.Top="25" nacsd:EditorProperties.IsLocked="False">
+      <nac:Label.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Label.TextDecorations>
+    </nac:Label>
+    <nac:Button Text="Close IBD" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button2" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="5" Canvas.Left="83" Canvas.Top="59" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+      <nac:Button.Resources>
+        <ResourceDictionary>
+          <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
+            <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+              <nacd2:BrushCFIntervalMapper>
+                <nacd2:BrushCFIntervalMapper.Intervals>
+                  <nacd2:BrushCFIntervalList>
+                    <nacd2:BrushCFInterval>
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                    <nacd2:BrushCFInterval Start="1" End="1">
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                  </nacd2:BrushCFIntervalList>
+                </nacd2:BrushCFIntervalMapper.Intervals>
+                <nacd2:BrushCFIntervalMapper.DefaultValue>
+                  <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                </nacd2:BrushCFIntervalMapper.DefaultValue>
+              </nacd2:BrushCFIntervalMapper>
+            </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+          </nacd1:BrushDynamicsConverter>
+          <nacc:VariantValueConverter x:Key="TextValueConverter" />
+        </ResourceDictionary>
+      </nac:Button.Resources>
+      <nac:Button.TextValue>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_retractedFeedback].Value" Converter="{StaticResource TextValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Int32>0</s:Int32>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.TextValue>
+      <nac:Button.Background>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_retractedFeedback].Value" Converter="{StaticResource BackgroundConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <SolidColorBrush>#FFC8C0C0</SolidColorBrush>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Background>
+      <nac:Button.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Button.TextDecorations>
+      <nac:Button.TextIntervalMapper>
+        <nacd1:StringIntervalMapper DefaultValue="Close IBD">
+          <nacd1:StringIntervalMapper.Intervals>
+            <nacd1:StringIntervalList>
+              <nacd1:StringInterval Value="Close IBD" />
+              <nacd1:StringInterval Start="1" End="1" Value="IBD Closed" />
+            </nacd1:StringIntervalList>
+          </nacd1:StringIntervalMapper.Intervals>
+        </nacd1:StringIntervalMapper>
+      </nac:Button.TextIntervalMapper>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList>
+          <nata:Action Name="Set Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_IBDService_retractCommand" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_retractCommand" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_retractCommand" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+        </nai:ActionList>
+      </nai:ActionProperties.Actions>
+    </nac:Button>
+    <nac:Button Text="Jog IBD&#xD;&#xA;Closed" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button5" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="83" Canvas.Top="119" Style="{nac1:StyleMarkupExtension DefaultCF}">
+      <nac:Button.Resources>
+        <ResourceDictionary>
+          <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
+            <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+              <nacd2:BrushCFIntervalMapper>
+                <nacd2:BrushCFIntervalMapper.Intervals>
+                  <nacd2:BrushCFIntervalList>
+                    <nacd2:BrushCFInterval>
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                    <nacd2:BrushCFInterval Start="1" End="1">
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                  </nacd2:BrushCFIntervalList>
+                </nacd2:BrushCFIntervalMapper.Intervals>
+                <nacd2:BrushCFIntervalMapper.DefaultValue>
+                  <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                </nacd2:BrushCFIntervalMapper.DefaultValue>
+              </nacd2:BrushCFIntervalMapper>
+            </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+          </nacd1:BrushDynamicsConverter>
+        </ResourceDictionary>
+      </nac:Button.Resources>
+      <nac:Button.Background>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDJogClosed].Value" Converter="{StaticResource BackgroundConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <SolidColorBrush>#FFC8C0C0</SolidColorBrush>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Background>
+      <nac:Button.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Button.TextDecorations>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList>
+          <nata:Action Name="Set Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_IBDJogClosed" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDJogClosed" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDJogClosed" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+        </nai:ActionList>
+      </nai:ActionProperties.Actions>
+    </nac:Button>
+    <nac:Button Text="Jog IBD&#xD;&#xA;Open" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button6" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="7" Canvas.Left="217" Canvas.Top="119" Style="{nac1:StyleMarkupExtension DefaultCF}">
+      <nac:Button.Resources>
+        <ResourceDictionary>
+          <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
+            <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+              <nacd2:BrushCFIntervalMapper>
+                <nacd2:BrushCFIntervalMapper.Intervals>
+                  <nacd2:BrushCFIntervalList>
+                    <nacd2:BrushCFInterval>
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                    <nacd2:BrushCFInterval Start="1" End="1">
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                  </nacd2:BrushCFIntervalList>
+                </nacd2:BrushCFIntervalMapper.Intervals>
+                <nacd2:BrushCFIntervalMapper.DefaultValue>
+                  <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                </nacd2:BrushCFIntervalMapper.DefaultValue>
+              </nacd2:BrushCFIntervalMapper>
+            </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+          </nacd1:BrushDynamicsConverter>
+        </ResourceDictionary>
+      </nac:Button.Resources>
+      <nac:Button.Background>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDJogOpen].Value" Converter="{StaticResource BackgroundConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <SolidColorBrush>#FFC8C0C0</SolidColorBrush>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Background>
+      <nac:Button.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Button.TextDecorations>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList>
+          <nata:Action Name="Set Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_IBDJogOpen" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDJogOpen" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDJogOpen" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+        </nai:ActionList>
+      </nai:ActionProperties.Actions>
+    </nac:Button>
+    <nac:Button Text="Open IBD" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button7" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="217" Canvas.Top="59" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+      <nac:Button.Resources>
+        <ResourceDictionary>
+          <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
+            <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+              <nacd2:BrushCFIntervalMapper>
+                <nacd2:BrushCFIntervalMapper.Intervals>
+                  <nacd2:BrushCFIntervalList>
+                    <nacd2:BrushCFInterval>
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                    <nacd2:BrushCFInterval Start="1" End="1">
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                  </nacd2:BrushCFIntervalList>
+                </nacd2:BrushCFIntervalMapper.Intervals>
+                <nacd2:BrushCFIntervalMapper.DefaultValue>
+                  <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                </nacd2:BrushCFIntervalMapper.DefaultValue>
+              </nacd2:BrushCFIntervalMapper>
+            </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+          </nacd1:BrushDynamicsConverter>
+          <nacc:VariantValueConverter x:Key="TextValueConverter" />
+        </ResourceDictionary>
+      </nac:Button.Resources>
+      <nac:Button.TextValue>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_extendedFeedback].Value" Converter="{StaticResource TextValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Int32>0</s:Int32>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.TextValue>
+      <nac:Button.Background>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_extendedFeedback].Value" Converter="{StaticResource BackgroundConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <SolidColorBrush>#FFC8C0C0</SolidColorBrush>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Background>
+      <nac:Button.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Button.TextDecorations>
+      <nac:Button.TextIntervalMapper>
+        <nacd1:StringIntervalMapper DefaultValue="Open IBD">
+          <nacd1:StringIntervalMapper.Intervals>
+            <nacd1:StringIntervalList>
+              <nacd1:StringInterval Value="Open IBD" />
+              <nacd1:StringInterval Start="1" End="1" Value="IBD Opened" />
+            </nacd1:StringIntervalList>
+          </nacd1:StringIntervalMapper.Intervals>
+        </nacd1:StringIntervalMapper>
+      </nac:Button.TextIntervalMapper>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList>
+          <nata:Action Name="Set Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_IBDService_extendCommand" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_extendCommand" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_extendCommand" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+        </nai:ActionList>
+      </nai:ActionProperties.Actions>
+    </nac:Button>
+    <nac:Button Text="Teach Bag&#xD;&#xA;Photoeye" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button3" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="351" Canvas.Top="59" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+      <nac:Button.Resources>
+        <ResourceDictionary>
+          <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
+            <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+              <nacd2:BrushCFIntervalMapper>
+                <nacd2:BrushCFIntervalMapper.Intervals>
+                  <nacd2:BrushCFIntervalList>
+                    <nacd2:BrushCFInterval>
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                    <nacd2:BrushCFInterval Start="1" End="1">
+                      <nacd2:BrushCFInterval.Value>
+                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                      </nacd2:BrushCFInterval.Value>
+                    </nacd2:BrushCFInterval>
+                  </nacd2:BrushCFIntervalList>
+                </nacd2:BrushCFIntervalMapper.Intervals>
+                <nacd2:BrushCFIntervalMapper.DefaultValue>
+                  <nacgl:BrushCF StartColor="200, 192, 192" EndColor="" FillDirection="None" />
+                </nacd2:BrushCFIntervalMapper.DefaultValue>
+              </nacd2:BrushCFIntervalMapper>
+            </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
+          </nacd1:BrushDynamicsConverter>
+          <nacc:VariantValueConverter x:Key="TextValueConverter" />
+        </ResourceDictionary>
+      </nac:Button.Resources>
+      <nac:Button.TextValue>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_teachingBagPhoteye].Value" Converter="{StaticResource TextValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Int32>0</s:Int32>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.TextValue>
+      <nac:Button.Background>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_teachingBagPhoteye].Value" Converter="{StaticResource BackgroundConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <SolidColorBrush>#FFC8C0C0</SolidColorBrush>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Background>
+      <nac:Button.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Button.TextDecorations>
+      <nac:Button.TextIntervalMapper>
+        <nacd1:StringIntervalMapper DefaultValue="Teach Bag&#xD;&#xA;Photoeye">
+          <nacd1:StringIntervalMapper.Intervals>
+            <nacd1:StringIntervalList>
+              <nacd1:StringInterval Value="Teach Bag&#xD;&#xA;Photoeye" />
+              <nacd1:StringInterval Start="1" End="1" Value="Teach In&#xD;&#xA;Progress" />
+            </nacd1:StringIntervalList>
+          </nacd1:StringIntervalMapper.Intervals>
+        </nacd1:StringIntervalMapper>
+      </nac:Button.TextIntervalMapper>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList>
+          <nata:Action Name="Set Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_teachBagPhotoeye" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_teachBagPhotoeye" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+          <nata:Action Name="Reset Tag">
+            <nata:Action.ActionMethodInfo>
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_teachBagPhotoeye" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+            </nata:Action.ActionMethodInfo>
+          </nata:Action>
+        </nai:ActionList>
+      </nai:ActionProperties.Actions>
+    </nac:Button>
+  </nacs:ElementCanvas>
+</nacs:ScreenWindow>

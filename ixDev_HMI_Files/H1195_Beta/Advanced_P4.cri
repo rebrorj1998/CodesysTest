@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.47.473.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Advanced_P4.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text9" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text10" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Button3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text11" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text12" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text13" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Button4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Button" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="Advanced_P4.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_CurrentAlarmCode" />
+        <Item Target="Advanced_P4.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_ActPos" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_IBDMotorData_setPreset" />
+        <Item Target="Advanced_P4.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_CurrentAlarmCode" />
+        <Item Target="Advanced_P4.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_ActPos" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button3" TargetProperty="Background" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" />
+        <Item Target="Advanced_P4.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_rearJawMotorData_CurrentAlarmCode" />
+        <Item Target="Advanced_P4.AnalogNumeric7" TargetProperty="Value" Source="Tags.Application_HMIData_rearJawMotorData_ActPos" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button4" TargetProperty="Background" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" />
+        <Item Target="Advanced_P4.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_loadPlateMotorData_CurrentAlarmCode" />
+        <Item Target="Advanced_P4.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_loadPlateMotorData_ActPos" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button" TargetProperty="Background" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" />
+      </Items>
+    </Category>
+    <Category Name="IntegratorSwapActiveProjectAction">
+      <Items />
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects">
+          <Details>
+            <Detail>
+              <Key>Label</Key>
+              <Value>15</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>11</Value>
+            </Detail>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>8</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>17</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button1" TargetProperty="Actions" Source="Advanced_P3" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>51</ObjectsCount>
+          <ScreenName>Advanced_P4</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Advanced_P4</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+      </Items>
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="Advanced_P4.Button1" Source="ag_arrow left green" Width="37" Height="29" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>

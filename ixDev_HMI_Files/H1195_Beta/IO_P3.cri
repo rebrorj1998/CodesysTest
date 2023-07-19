@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.47.473.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="IO_P3.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text17" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text16" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text15" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text14" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text13" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text12" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text11" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text10" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text9" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P3.Text8" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="IO_P3.MultiPicture" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_iPrinterServiceRequired" />
+      </Items>
+    </Category>
+    <Category Name="IntegratorSwapActiveProjectAction">
+      <Items />
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects">
+          <Details>
+            <Detail>
+              <Key>Button</Key>
+              <Value>7</Value>
+            </Detail>
+            <Detail>
+              <Key>Label</Key>
+              <Value>19</Value>
+            </Detail>
+            <Detail>
+              <Key>Symbol</Key>
+              <Value>16</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>1</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="IO_P3.Button1" TargetProperty="Actions" Source="IO_P2" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>43</ObjectsCount>
+          <ScreenName>IO_P3</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>IO_P3</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items />
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="IO_P3.Button1" Source="ag_arrow left green" Width="37" Height="29" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture9" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture8" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture8" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture7" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture7" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture6" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture6" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture5" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture5" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture5" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture3" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture3" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P3.MultiPicture" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>

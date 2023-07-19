@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.47.473.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Advanced_P3.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P3.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="Advanced_P3.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_bagsMade" />
+        <Item Target="Advanced_P3.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_standbyTimeSetting" />
+        <Item Target="Advanced_P3.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_jawClosePositionSetting" />
+      </Items>
+    </Category>
+    <Category Name="IntegratorSwapActiveProjectAction">
+      <Items />
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects">
+          <Details>
+            <Detail>
+              <Key>Label</Key>
+              <Value>6</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>8</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>7</Value>
+            </Detail>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>3</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Advanced_P3.Button" TargetProperty="Actions" Source="Advanced_P4" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P3.Button1" TargetProperty="Actions" Source="Advanced_P2" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>24</ObjectsCount>
+          <ScreenName>Advanced_P3</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Advanced_P3</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items />
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="Advanced_P3.Button" Source="ag_arrow right green" Width="37" Height="29" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="Advanced_P3.Button1" Source="ag_arrow left green" Width="37" Height="29" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>
