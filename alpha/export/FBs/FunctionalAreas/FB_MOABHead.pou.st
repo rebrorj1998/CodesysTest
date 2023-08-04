@@ -215,7 +215,8 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
 						sealFlattenerMotorCommFailInput := (sealFlattenerCommFail AND motorizedSealFlatteners.enable),
-						timeoutFault => sealFlattenerTimedOut.faultTrigger
+						timeoutFault => sealFlattenerTimedOut.faultTrigger,
+						position => HMIData.sealFlattenersPosition
 );
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;

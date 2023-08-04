@@ -41,6 +41,7 @@ END_VAR
 VAR_OUTPUT
     state : SEAL_FLATTENER_STATES;
 	timeoutFault : BOOL;
+	position : REAL;
 END_VAR
 VAR
 	jogInONS: FB_ONS;
@@ -110,7 +111,7 @@ sealFlattenersHorizontalAxisMotor(
 	commFail := sealFlattenerMotorCommFailInput,
 	isHomable := enable);
 sealFlattenersHorizontalAxisMotor.Execute();
-
+position := sealFlattenersHorizontalAxisMotor.absolutePositonInches;
 // Report as ready if mode is auto and we're not faulted
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = SEAL_FLATTENER_STATES.Fault);
 
