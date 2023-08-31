@@ -2168,7 +2168,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.Height = 46;
             this.m_Button1.ImageMargin = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(5D, 5D, 5D, 5D);
             this.m_Button1.IndicatorMargin = null;
-            this.m_Button1.Left = 360;
+            this.m_Button1.Left = 352;
             this.m_Button1.Name = "m_Button1";
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "IO_P1";

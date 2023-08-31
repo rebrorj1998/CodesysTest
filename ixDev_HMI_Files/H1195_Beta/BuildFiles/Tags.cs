@@ -1708,7 +1708,7 @@ namespace Neo.ApplicationFramework.Generated
 		private void InitializeObjects()
 		{
 			this.ConnectedImportFilePath = "";
-			this.IO_Page_Index.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(new Neo.ApplicationFramework.Interfaces.VariantValue(1), 0, new string[0], new string[0], true));
+			this.IO_Page_Index.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(new Neo.ApplicationFramework.Interfaces.VariantValue("1"), 0, new string[0], new string[0], true));
 			this.IO_Page_Index.ValueChange += new System.EventHandler<Core.Api.DataSource.ValueChangedEventArgs>(this.IO_Page_Index_ValueChange);
 			this.IO_Alias_Title.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(new Neo.ApplicationFramework.Interfaces.VariantValue("Inputs"), 0, new string[0], new string[0], true));
 			this.LightweightTags.Add(this.Application_IoConfig_Globals_Mapping_oTriggerBCV);
