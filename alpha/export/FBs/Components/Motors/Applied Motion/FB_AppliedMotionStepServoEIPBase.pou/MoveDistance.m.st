@@ -25,5 +25,8 @@ pointToPointAccelSetpoint := acceleration;
 pointToPointDecelSetpoint := deceleration;
 velocitySetpoint := velocity;
 currentLimit := defaultCurrentSetpoint;
-
-commands.feedToLength := TRUE;
+IF driveInputs[5] <> driveInputs[6] THEN
+	ResetEncoderPosition(driveinputs[5]);
+ELSE
+	commands.feedToLength := TRUE;
+END_IF

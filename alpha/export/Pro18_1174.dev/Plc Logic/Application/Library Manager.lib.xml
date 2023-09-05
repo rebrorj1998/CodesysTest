@@ -15,11 +15,129 @@
         <Single Name="Timestamp" Type="long">638065454282094002</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
+        <List2 Name="ParameterTable">
+          <Single Type="{21a976b3-7eb8-4f66-8d07-0b988431cc37}" Method="IArchivable">
+            <Single Name="Name" Type="string">#IoDrvEthernet</Single>
+            <List2 Name="Values">
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">TASK_PRIORITY</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">7318349394477058</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">15</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </List2>
+          </Single>
+          <Single Type="{21a976b3-7eb8-4f66-8d07-0b988431cc37}" Method="IArchivable">
+            <Single Name="Name" Type="string">CIP Object, * (3S - Smart Software Solutions GmbH)</Single>
+            <List2 Name="Values">
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">INIT_SIZE_CIPDATA_MEM_MAN</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">10696049115004930</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">2</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">INITIAL_NUMBER_OF_CLASS1_CONNECTIONS</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">13510798882111494</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">8</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">INITIAL_NUMBER_OF_CLASS3_CONNECTIONS</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">13510798882111492</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">8</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">MAX_NUMBER_PROXIED_ASSEMBLIES</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">11540474045136901</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">64</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">RETAIN_INSTANCES</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">8162774324609031</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">10</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </List2>
+          </Single>
+          <Single Type="{21a976b3-7eb8-4f66-8d07-0b988431cc37}" Method="IArchivable">
+            <Single Name="Name" Type="string">IoDrvModbus, 3.5.15.0 (3S - Smart Software Solutions GmbH)</Single>
+            <List2 Name="Values">
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">MAX_MODBUS_CHANNELS</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">8725724278030338</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">100</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </List2>
+          </Single>
+          <Single Type="{21a976b3-7eb8-4f66-8d07-0b988431cc37}" Method="IArchivable">
+            <Single Name="Name" Type="string">Util, 3.5.11.0 (System)</Single>
+            <List2 Name="Values">
+              <Single Type="{91d8a082-920c-473c-b38b-e5dfb9d7ae4c}" Method="IArchivable">
+                <Single Name="Name" Type="string">IBLOCKSIZE</Single>
+                <Single Name="Values" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
+                  <Null Name="Type" />
+                  <Single Name="PositionToSave" Type="long">5910974510923778</Single>
+                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
+                  <Single Name="LongValue" Type="long">22800</Single>
+                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                  <Single Name="Negative" Type="bool">False</Single>
+                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
+                </Single>
+              </Single>
+            </List2>
+          </Single>
+        </List2>
         <List Name="Items" Type="System.Collections.ArrayList">
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">Recipe Management, 3.3.1.0 (System)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">RecipeManagement</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">2537537164</Single>
@@ -33,7 +151,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">Standard, * (System)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">Standard</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">2599331243</Single>
@@ -47,7 +165,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">VisuDialogs, * (System)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">VisuDialogs</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">110312440</Single>
@@ -61,7 +179,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">IecVarAccess, * (System)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IecVarAccess</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">1775952137</Single>
@@ -74,7 +192,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Unit Conversion Interfaces, * (Intern)</Single>
             <Single Name="Id" Type="long">735797297</Single>
             <Single Name="Namespace" Type="string">UC</Single>
@@ -86,7 +204,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Festo_Motion_FHPP_3, 3.5.7.21 (Festo AG &amp; Co. KG)</Single>
             <Single Name="Id" Type="long">3325360838</Single>
             <Single Name="Namespace" Type="string">FML</Single>
@@ -98,7 +216,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Serial Communication, 3.5.7.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Id" Type="long">3746608047</Single>
             <Single Name="Namespace" Type="string">Serial_Communication</Single>
@@ -110,7 +228,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Storage, 3.5.7.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Id" Type="long">3719598870</Single>
             <Single Name="Namespace" Type="string">Storage</Single>
@@ -122,7 +240,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">SysPort, 3.5.5.0 (System)</Single>
             <Single Name="Id" Type="long">1284707174</Single>
             <Single Name="Namespace" Type="string">SysPort</Single>
@@ -134,7 +252,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Time and Date, 3.5.7.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Id" Type="long">71256700</Single>
             <Single Name="Namespace" Type="string">Time_and_Date</Single>
@@ -146,7 +264,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">SysTime, 3.5.9.0 (System)</Single>
             <Single Name="Id" Type="long">2789323188</Single>
             <Single Name="Namespace" Type="string">SysTime</Single>
@@ -158,7 +276,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Network, 3.5.7.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Id" Type="long">3614419918</Single>
             <Single Name="Namespace" Type="string">Network</Single>
@@ -170,7 +288,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">CmpEventMgr, * (System)</Single>
             <Single Name="Id" Type="long">3988458144</Single>
             <Single Name="Namespace" Type="string">CmpEventMgr</Single>
@@ -182,7 +300,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Component Manager, * (System)</Single>
             <Single Name="Id" Type="long">2272423224</Single>
             <Single Name="Namespace" Type="string">Component_Manager</Single>
@@ -194,7 +312,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">CmpApp, * (System)</Single>
             <Single Name="Id" Type="long">872797073</Single>
             <Single Name="Namespace" Type="string">CmpApp</Single>
@@ -206,7 +324,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">CmpIecTask, * (System)</Single>
             <Single Name="Id" Type="long">3717574968</Single>
             <Single Name="Namespace" Type="string">CmpIecTask</Single>
@@ -218,80 +336,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">INITIAL_NUMBER_OF_CLASS3_CONNECTIONS</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">13510798882111492</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">8</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">MAX_NUMBER_PROXIED_ASSEMBLIES</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">11540474045136901</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">64</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">INITIAL_NUMBER_OF_CLASS1_CONNECTIONS</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">13510798882111494</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">8</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">INIT_SIZE_CIPDATA_MEM_MAN</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">10696049115004930</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">2</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">RETAIN_INSTANCES</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">8162774324609031</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">10</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">NUMBER_OF_ASSEMBLYMANAGER_ENTRIES</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">12666373951979528</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">4</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-            </Array>
+            <Null Name="Params" />
             <Single Name="Name" Type="string">CIP Object, * (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Id" Type="long">1431684544</Single>
             <Single Name="Namespace" Type="string">CIP_Object</Single>
@@ -303,7 +348,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">CAA Memory Block Manager Extern, * (CAA Technical Workgroup)</Single>
             <Single Name="Id" Type="long">1496246358</Single>
             <Single Name="Namespace" Type="string">MBM</Single>
@@ -316,7 +361,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">CmpBitmapPool, * (System)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">CmpBitmapPool</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">1690430420</Single>
@@ -329,7 +374,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">IoDrvModbusBase, 3.5.13.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Id" Type="long">3274734480</Single>
             <Single Name="Namespace" Type="string">IoDrvModbusBase</Single>
@@ -342,7 +387,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">IoStandard, 3.5.13.0 (System)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoStandard</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">2313039778</Single>
@@ -356,7 +401,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">3SLicense</Single>
             <Single Name="ResolverGuid" Type="System.Guid">97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b</Single>
             <Single Name="Id" Type="long">2234723753</Single>
@@ -370,7 +415,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">CAA Device Diagnosis, 3.5.13.0 (CAA Technical Workgroup)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">CAA Device Diagnosis</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">3296552027</Single>
@@ -383,7 +428,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">SysFile, 3.5.15.0 (System)</Single>
             <Single Name="Id" Type="long">3515710180</Single>
             <Single Name="Namespace" Type="string">SysFile</Single>
@@ -395,7 +440,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">SysCom, 3.5.15.0 (System)</Single>
             <Single Name="Id" Type="long">3343620041</Single>
             <Single Name="Namespace" Type="string">SysCom</Single>
@@ -407,20 +452,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">MAX_MODBUS_CHANNELS</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">8725724278030338</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">100</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-            </Array>
+            <Null Name="Params" />
             <Single Name="Name" Type="string">IoDrvModbus, 3.5.15.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Id" Type="long">648178476</Single>
             <Single Name="Namespace" Type="string">IoDrvModbus</Single>
@@ -432,7 +464,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">SysTypes Interfaces, * (System)</Single>
             <Single Name="Id" Type="long">531007741</Single>
             <Single Name="Namespace" Type="string">SysTypes</Single>
@@ -445,7 +477,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">Breakpoint Logging Functions, 3.5.5.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">BreakpointLogging</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">3462486886</Single>
@@ -458,7 +490,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="Name" Type="string">BASIC, * (OSCAT)</Single>
             <Single Name="Id" Type="long">3815444048</Single>
             <Single Name="Namespace" Type="string">OSCAT_BASIC</Single>
@@ -471,7 +503,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">EtherNetIP Services, 3.5.12.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">EtherNetIP Services</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">4133535119</Single>
@@ -485,7 +517,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">IoDrvCIFXEthernetIP, 3.5.13.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" />
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoDrvCIFXEthernetIP</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">173973293</Single>
@@ -499,20 +531,7 @@
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">IoDrvEthernet, 3.5.13.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">TASK_PRIORITY</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">7318349394477058</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">15</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-            </Array>
+            <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoDrvEthernet</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
             <Single Name="Id" Type="long">2338059461</Single>
@@ -525,20 +544,7 @@
           </Single>
           <Single Type="{51a11660-6c0d-4598-8c08-419c5845ea1f}" Method="IArchivable">
             <Single Name="Optional" Type="bool">False</Single>
-            <Array Name="Params" Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}">
-              <Single Type="{e38db981-1fbe-4d68-b5b0-d55ca6086daa}" Method="IArchivable">
-                <Single Name="Name" Type="string">IBLOCKSIZE</Single>
-                <Single Name="Exp" Type="{88513019-926a-4125-ab4f-260cf5e4c63e}" Method="IArchivable">
-                  <Null Name="Type" />
-                  <Single Name="PositionToSave" Type="long">5910974510923778</Single>
-                  <Array Name="MessagesToSave" Type="{bc2be951-49f6-4f0f-b731-e31e36606f1e}" />
-                  <Single Name="LongValue" Type="long">22800</Single>
-                  <Single Name="TypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                  <Single Name="Negative" Type="bool">False</Single>
-                  <Single Name="OriginalTypeClass" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">AnyInt</Single>
-                </Single>
-              </Single>
-            </Array>
+            <Null Name="Params" />
             <Single Name="Name" Type="string">Util, 3.5.11.0 (System)</Single>
             <Single Name="Id" Type="long">1401843290</Single>
             <Single Name="Namespace" Type="string">Util</Single>

@@ -238,6 +238,7 @@ _ready := state = MotorizedPbarStates.Idle AND NOT homeRequired AND pressureBarO
 
 CASE state OF
 	MotorizedPbarStates.Idle :					//
+										//Test Reset encoder and motor										
 										IF startTest THEN
 											startTest := FALSE;
 											testActive := TRUE;
@@ -398,15 +399,16 @@ CASE state OF
 	
 	MotorizedPbarStates.StartedClamping :		//
 										IF iPressureBarClosed AND iJawClampsRetracted THEN
-											
+											state := MotorizedPbarStates.Clamping;	
+											//Removed this delay and moved the Encoder-Drive Sync to the Motor Control FB.  CT 9/5/23
 											//pbarMotor.AllowClamping();
-											delayTimer.PT := T#250MS;
-											delayTimer.IN := TRUE;
-											IF delayTimer.Q THEN
+											//delayTimer.PT := T#250MS;
+											//delayTimer.IN := TRUE;
+											//IF delayTimer.Q THEN
 												//pbarMotor.AllowClamping();
-												pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
-												state := MotorizedPbarStates.Clamping;	
-											END_IF
+											//	pbarMotor.ResetEncoderPosition(pbarMotor.driveInputs[5]);
+											//	state := MotorizedPbarStates.Clamping;	
+											//END_IF
 										END_IF
 										
 										

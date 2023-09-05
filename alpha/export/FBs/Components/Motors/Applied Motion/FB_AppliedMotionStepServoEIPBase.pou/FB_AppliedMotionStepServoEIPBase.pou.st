@@ -57,3 +57,8 @@ VAR_OUTPUT
 	faults : StepServoFaultsType;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+//Change log
+//******************************************
+//9/5/2023 CT Modified the Move Methods (MoveDistance, MoveDistanceTorque, MoveToPosition, MoveToPositionTorque) to ensure 
+//that the Drive Position and Encoder Steps match prior to allowing any move and eliminating Encoder/Motor positional drift.
+//******************************************
