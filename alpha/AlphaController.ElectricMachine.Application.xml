@@ -723,7 +723,7 @@
       <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="44" vartype="VAR" />
       <UserDefElement iecname="state" type="T_DELAY_DWELL_STATES" byteoffset="60" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="4496" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="4512" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBaseQX" size="42" nativesize="4448" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBaseQX">
@@ -799,7 +799,7 @@
     <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="664" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="3592" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="3608" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToClampLeft" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToReleaseLeft" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="failToClampRight" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -848,10 +848,10 @@
       <UserDefElement iecname="head" type="T_HEAD_STATES" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="sb" type="T_Substate" byteoffset="2" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="42" nativesize="4592" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="42" nativesize="4608" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="4552" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="4568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="4984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
@@ -932,7 +932,7 @@
       <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" />
       <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="432" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10464" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10496" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -940,7 +940,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="206856" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="206936" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" />
