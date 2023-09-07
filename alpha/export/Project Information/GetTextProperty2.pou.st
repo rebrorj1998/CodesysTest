@@ -16,8 +16,6 @@ ELSIF stKey = "Project" THEN
 	GetTextProperty2 := ADR("AlphaController");
 ELSIF stKey = "Title" THEN
 	GetTextProperty2 := ADR("MOAB Prototype");
-ELSIF stKey = "VersionPostfix" THEN
-	GetTextProperty2 := ADR("-alpha/master_CT");
 ELSE
 	GetTextProperty2 := ADR("");
 END_IF
