@@ -71,13 +71,19 @@ VAR
 	movingONS : FB_ONS;
 	doneClampingDelay : Standard.TON := (PT := T#50MS);
 	pressureBarPositionError : DINT;
+	movingOSF: f_trig;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
 	pbarMotor : FB_AppliedMotionStepServoEIPPassthrough;
 	//IBDMotor : FB_AppliedMotionStepServoEIPPassthrough;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+//Modified to ensure that PBAR motor syncs with encoder after each move. CT
+movingOSF(CLK:= pbarmotor.status.moving);
 
+IF (pbarmotor.driveInputs[5] <> pbarmotor.driveInputs[6]+100) AND movingOSF.Q THEN
+	pbarmotor.ResetEncoderPosition(pbarmotor.driveinputs[5]);
+END_IF
 //
 actualPosition := pbarMotor.absolutePositonInches;
 
