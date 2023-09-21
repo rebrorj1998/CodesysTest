@@ -814,8 +814,8 @@ frontLoadPlate(
 	inUse := HMIData.loadPlateInUse,
 	inLoadingPosition := iFrontLoadPlateRetracted,
 	inDischargePosition := iFrontLoadPlateExtended,
-	triggerDwell := HMIData.loadPlateDwell,
-	triggerDelay := HMIData.loadPlateDelay,
+	//triggerDwell := HMIData.loadPlateDwell,
+	//triggerDelay := HMIData.loadPlateDelay,
     shakerEnable := HMIData.shakerInstalled,
 	shakeStart := HMIData.frontloadPlateShakerStart,
 	shakerDwell := HMIData.frontLoadPlateShakerDwell,
@@ -859,6 +859,8 @@ CASE HMIData.packageEjectSelection OF
 														rearLoadPlate.triggerDwell := HMIData.loadPlateDwell + HMIData.loadPlateDelay;
 														loadShelf.triggerDelay := HMIData.loadShelfDelay;
 														loadShelf.triggerDwell := HMIData.loadShelfDwell;
+														frontLoadPlate.triggerDelay := HMIData.loadShelfDelay;
+														frontLoadPlate.triggerDwell := HMIData.loadShelfDwell;
 															 
 	PackageEjectionSelection.RearRetractWithRetractShelf:   
 														// Enable Rear Retracting Load Plate and Shelf
