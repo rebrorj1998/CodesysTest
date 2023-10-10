@@ -24,7 +24,6 @@
     </Category>
     <Category Name="Font">
       <Items>
-        <Item Target="Dashboard.Button4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Button2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Button3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Button5" TargetProperty="FontFamily" Source="Tahoma" />
@@ -38,6 +37,7 @@
         <Item Target="Dashboard.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Button" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Text6" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -80,16 +80,16 @@
         <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects">
           <Details>
             <Detail>
-              <Key>Button</Key>
-              <Value>11</Value>
-            </Detail>
-            <Detail>
               <Key>Rectangle</Key>
               <Value>8</Value>
             </Detail>
             <Detail>
+              <Key>Button</Key>
+              <Value>11</Value>
+            </Detail>
+            <Detail>
               <Key>Label</Key>
-              <Value>7</Value>
+              <Value>9</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
@@ -121,7 +121,7 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>31</ObjectsCount>
+          <ObjectsCount>33</ObjectsCount>
           <ScreenName>Dashboard</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
@@ -148,7 +148,6 @@
     </Category>
     <Category Name="Symbol">
       <Items>
-        <Item xsi:type="SymbolItem" Target="Dashboard.Button4" Source="padlock" Width="32" Height="43" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="Dashboard.Picture" Source="letter-x-256" Width="76" Height="47" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="Dashboard.Picture1" Source="barcode (1)" Width="116" Height="49" IsAnimated="false" />
       </Items>

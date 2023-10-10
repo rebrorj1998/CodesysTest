@@ -131,7 +131,7 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>8</Value>
+              <Value>9</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
@@ -147,7 +147,7 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>1</Value>
+              <Value>2</Value>
             </Detail>
           </Details>
         </Item>
@@ -172,7 +172,7 @@
       <Items>
         <Item xsi:type="ActionItem" Target="IO_P1.Button" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Outputs0" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>44</ObjectsCount>
+          <ObjectsCount>46</ObjectsCount>
           <ScreenName>IO_P1</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

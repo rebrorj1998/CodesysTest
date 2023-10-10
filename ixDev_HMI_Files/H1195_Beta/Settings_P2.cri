@@ -27,28 +27,26 @@
         <Item Target="Settings_P2.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Text1" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Button1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.Text7" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.Text6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.Text4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Text2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Button5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Button4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Button3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Button2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P2.Button" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P2.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group1.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group1.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group2.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group2.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group3.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group3.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group4.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group4.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="Settings_P2.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_bagLength" />
-        <Item Target="Settings_P2.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterSetting" />
-        <Item Target="Settings_P2.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarDwell" />
-        <Item Target="Settings_P2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_consecutiveBagsSetting" />
         <Item xsi:type="ActionItem" Target="Settings_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_separateBeforeSeal" Event="Click" Action="Toggle Tag" Param="" />
         <Item Target="Settings_P2.Button5" TargetProperty="TextValue" Source="Tags.Application_HMIData_separateBeforeSeal" />
         <Item Target="Settings_P2.Button5" TargetProperty="Background" Source="Tags.Application_HMIData_separateBeforeSeal" />
@@ -69,6 +67,11 @@
         <Item Target="Settings_P2.Button" TargetProperty="TextValue" Source="Tags.Application_HMIData_batchEnable" />
         <Item Target="Settings_P2.Button" TargetProperty="Background" Source="Tags.Application_HMIData_batchEnable" />
         <Item Target="Settings_P2.Button" TargetProperty="Foreground" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Settings_P2.Group.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_bagLength" />
+        <Item Target="Settings_P2.Group1.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterSetting" />
+        <Item Target="Settings_P2.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_consecutiveBagsSetting" />
+        <Item Target="Settings_P2.Group3.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarDwell" />
+        <Item Target="Settings_P2.Group4.AnalogNumeric3" TargetProperty="Value" Source="Tags.logout_delay" />
       </Items>
     </Category>
     <Category Name="IntegratorSwapActiveProjectAction">
@@ -83,19 +86,19 @@
           <Details>
             <Detail>
               <Key>Label</Key>
-              <Value>8</Value>
+              <Value>10</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>12</Value>
+              <Value>13</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
-              <Value>4</Value>
+              <Value>5</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
-              <Value>10</Value>
+              <Value>1</Value>
             </Detail>
           </Details>
         </Item>
@@ -120,7 +123,7 @@
       <Items>
         <Item xsi:type="ActionItem" Target="Settings_P2.Button1" TargetProperty="Actions" Source="Settings_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>34</ObjectsCount>
+          <ObjectsCount>29</ObjectsCount>
           <ScreenName>Settings_P2</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

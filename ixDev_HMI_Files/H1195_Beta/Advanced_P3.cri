@@ -55,11 +55,11 @@
           <Details>
             <Detail>
               <Key>Label</Key>
-              <Value>6</Value>
+              <Value>7</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>8</Value>
+              <Value>9</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -93,7 +93,7 @@
         <Item xsi:type="ActionItem" Target="Advanced_P3.Button" TargetProperty="Actions" Source="Advanced_P4" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Advanced_P3.Button1" TargetProperty="Actions" Source="Advanced_P2" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>24</ObjectsCount>
+          <ObjectsCount>26</ObjectsCount>
           <ScreenName>Advanced_P3</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

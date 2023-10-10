@@ -40,6 +40,8 @@ VAR
 	MC_MoveFrontMotorPush : MC_MoveAbsolutePush;
 	MC_ResetFrontMotor : MC_Reset;
 	MC_HaltFrontMotor : MC_Halt;
+	feedOpeningInches: REAL:= 2.0;
+	_isReadyForFeed: BOOL:= FALSE;
 	_movePassthroughNow : BOOL;
 	_homeNow : BOOL;
 	_openNow : BOOL;
@@ -64,6 +66,18 @@ VAR
 	_moveOutStuckCount : INT := 0;
 	_haltWaitTimer : TON := (PT := T#50MS);
 	_lastState : eDualMotorPressureBar_AsyncStates;
+	//
+	Test:BOOL;
+	clampingReleaseDebounce: TON:= (PT := T#100MS);
+	
+		//variables for the state timer
+	stateTimer:TON;
+	laststate: INT;
+	count_index :INT :=0;
+	clr:BOOL:=FALSE;
+	speedTracking : ARRAY[0..20] OF ARRAY[0..20] OF TIME;
+	speedTracking_mt : ARRAY[0..20] OF ARRAY[0..20] OF TIME:=[21([21(T#0S)])]; 
+	state_index : INT:=0;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_DualMotorPressureBar_Async()
 //	Description: Dual motor passthough, using a low torque positionable motor for most movements and a high torque brushless motor for clamping force to seal and 
@@ -73,7 +87,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 SUPER^();
 
-
+test:= IsReadyForFeed;
 // Setup of Motion Commands for passthrough motor axis
 MC_HomeFrontMotor(axis := frontMotor);
 MC_MoveFrontMotorABS(axis := frontMotor);
@@ -94,7 +108,7 @@ _moveInDelay(IN := _closeNow, PT := moveInDelaySetting);
 _jawTestDelayTimer();
 
 // Jaw move out delay
-_moveOutDelay (IN := state = eDualMotorPressureBar_AsyncStates.Open);
+_moveOutDelay (IN :=  state = eDualMotorPressureBar_AsyncStates.Open);
 _moveOutTimeOut(IN := state = eDualMotorPressureBar_AsyncStates.Opening AND _jawOpenPositionDelta < 0.1);
 _haltWaitTimer(IN :=  state = eDualMotorPressureBar_AsyncStates.HaltDelay);
 	 
@@ -104,6 +118,7 @@ actualPositionInInches := frontMotor.actualPositonInInches;
 	 
 //_isFullyClosed := actualPositionInInches < -0.1;
 _isFullyClosed := state = eDualMotorPressureBar_AsyncStates.Clamping;
+_isReadyForFeed :=actualPositionInInches > feedOpeningInches;
 _isFullyOpen := ABS(actualPositionInInches - passthroughSetting) < 0.1;
 
 // Failed to reach sensor timers
@@ -131,6 +146,27 @@ IF _faultONS.OSR THEN
 	state := eDualMotorPressureBar_AsyncStates.Faulting;
 END_IF
 
+//code to add timer to track duration in states
+stateTimer(PT:=T#10000S);
+IF clr THEN
+	speedTracking:=speedTracking_mt;
+	clr:=FALSE;
+END_IF
+IF state  = laststate THEN
+	stateTimer.IN := TRUE;
+ELSIF state  <> laststate THEN
+	stateTimer.IN := FALSE;
+	IF state =0 THEN
+		count_index := count_index +1;
+	END_IF
+	laststate:=state;
+END_IF
+speedTracking[state_index][count_index] := stateTimer.ET;
+
+IF count_index >=20 THEN
+	count_index :=0;
+END_IF
+//End modded code
 _ready := state = eDualMotorPressureBar_AsyncStates.Idle AND _isFullyOpen;
 // 
 IF stopJawTestMode THEN
@@ -140,7 +176,7 @@ END_IF
 CASE state OF
 	
 	eDualMotorPressureBar_AsyncStates.Idle:
-	
+		state_index:=0;
 		//	  
 		_ready := _isHomed AND NOT _faultONS.CLK AND InPosition;
 	
@@ -175,13 +211,19 @@ CASE state OF
 		END_IF
 	
 	eDualMotorPressureBar_AsyncStates.Home:
-	 	//
-		AbsoluteMove(
-			motionProfile := openProfile,
-			nextState := eDualMotorPressureBar_AsyncStates.Homing
-		);
+		state_index:=8;	 	
+//
+		IF clampingMechanism.Cleared  THEN
+			AbsoluteMove(
+				motionProfile := openProfile,
+				nextState := eDualMotorPressureBar_AsyncStates.Homing
+			);
+		ELSE
+			clampingMechanism.StopClamping();
+		END_IF
 					
 	eDualMotorPressureBar_AsyncStates.Homing:
+		state_index:=10;
 		// Once Homed, Open
 		IF MC_MoveFrontMotorABS.done THEN
 			_isHomed := TRUE;
@@ -194,6 +236,7 @@ CASE state OF
 		END_IF	
 	
 	eDualMotorPressureBar_AsyncStates.Open:	
+		state_index:=1;
 		// Move jaw out to passthrough
 		IF _moveOutDelay.Q THEN
 			AbsoluteMove(
@@ -203,6 +246,7 @@ CASE state OF
 		END_IF
 		
 	eDualMotorPressureBar_AsyncStates.Opening:
+		state_index:=2;
 		_jawOpenPositionDelta := ABS(HMIData.passthroughSetting - MC_MoveFrontMotorABS.position);
 	
 		// wait for jaw to report open
@@ -219,6 +263,7 @@ CASE state OF
 		END_IF
 
 		eDualMotorPressureBar_AsyncStates.Opened:
+			state_index:=11;
 			//
 			_timeoutTimer.IN := FALSE;
 			MC_MoveFrontMotorABS.execute := FALSE;
@@ -234,13 +279,15 @@ CASE state OF
 			END_IF
 			
 	eDualMotorPressureBar_AsyncStates.HaltDelay:	
+		state_index:=6;
 		//Wait for communication interval per datasheet to turn off then close jaw
 		IF _haltWaitTimer.Q THEN
 			MC_HaltFrontMotor.execute := FALSE;
 			state := eDualMotorPressureBar_AsyncStates.Opened;
 		END_IF
 				
-	eDualMotorPressureBar_AsyncStates.CloseToFaceplate:	
+	eDualMotorPressureBar_AsyncStates.CloseToFaceplate:
+		state_index:=7;	
 		// Start Moving jaw to closed position
 		AbsoluteMove(
 			motionProfile := closeProfile,
@@ -248,6 +295,7 @@ CASE state OF
 		);	
 		
 	eDualMotorPressureBar_AsyncStates.ClosingToFaceplate:
+		state_index:=3;
 		// Wait for jaw closed indication
 		IF _startClampingONS.OSR THEN
 			clampingMechanism.StartClamping();
@@ -273,6 +321,7 @@ CASE state OF
 		END_IF
 		
 	eDualMotorPressureBar_AsyncStates.ClosedToFaceplate:
+		state_index:=9;
 		// Push in and wait for clamping
 		AbsoluteMovePush(
 			motionProfile := pushProfile,
@@ -280,6 +329,7 @@ CASE state OF
 		);
 	
 	eDualMotorPressureBar_AsyncStates.Clamp:
+		state_index:=4;
 		// Wait for clamp signal
 		
 		IF clampingMechanism.Clamping AND MC_MoveFrontMotorPush.Done THEN
@@ -288,35 +338,41 @@ CASE state OF
 		END_IF
 		
 	eDualMotorPressureBar_AsyncStates.Clamping:
+		state_index:=5;
 		// Wait for clamp complete
 		IF _openNow THEN
 			clampingMechanism.StopClamping();
 			_openNow := FALSE;
 		END_IF
-		IF clampingMechanism.Cleared THEN
+		IF clampingMechanism.Cleared  THEN
 			state := eDualMotorPressureBar_AsyncStates.Open;
 		END_IF
 	
 	eDualMotorPressureBar_AsyncStates.Clamped:
+		state_index:=12;
 		
 	eDualMotorPressureBar_AsyncStates.Faulting:
+		state_index:=13;
 		// Free up motors on a fault
 		_timeoutTimer.IN := FALSE;
 		MC_HomeFrontMotor.execute := FALSE;
 		MC_MoveFrontMotorABS.execute := FALSE;
 		MC_MoveFrontMotorPush.execute := FALSE;
 		MC_ResetFrontMotor.execute := FALSE;
- 		//MC_HaltFrontMotor.execute := TRUE;
+		//7-17-2023 CT Removed comments on MC_HaltFrontMotor.execute:=TRUE;  No reason could be found for this bypass.
+ 		MC_HaltFrontMotor.execute := TRUE;
 		state := eDualMotorPressureBar_AsyncStates.Faulted;
 		
 	eDualMotorPressureBar_AsyncStates.Faulted:
-		//
+		state_index:=14;		
+//
 		IF MC_HaltFrontMotor.Done OR
 		   MC_HaltFrontMotor.Error  THEN
 			MC_HaltFrontMotor.execute := FALSE;
 		END_IF
 		
 	eDualMotorPressureBar_AsyncStates.Reset:
+		state_index:=15;
 		//
 		_homeNow := FALSE;
 		_openNow := FALSE;
@@ -331,6 +387,7 @@ CASE state OF
 		state := eDualMotorPressureBar_AsyncStates.Resetting;
 
 	eDualMotorPressureBar_AsyncStates.Resetting:
+		state_index:=16;
 		//
 		IF  _resetTimer.Q THEN
 			MC_ResetFrontMotor.Execute := FALSE;	
@@ -338,6 +395,7 @@ CASE state OF
 		END_IF
 	
 	eDualMotorPressureBar_AsyncStates.ResetDone:
+		state_index:=17;
 		IF frontMotor.operational THEN
 			state := eDualMotorPressureBar_AsyncStates.Idle;
 		END_IF

@@ -55,7 +55,7 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>4</Value>
+              <Value>5</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
@@ -63,7 +63,7 @@
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>6</Value>
+              <Value>7</Value>
             </Detail>
           </Details>
         </Item>
@@ -87,7 +87,7 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>15</ObjectsCount>
+          <ObjectsCount>17</ObjectsCount>
           <ScreenName>Option_LoadShelf</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

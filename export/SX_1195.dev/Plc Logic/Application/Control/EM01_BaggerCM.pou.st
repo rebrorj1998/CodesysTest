@@ -57,7 +57,9 @@ jawFrontMotor(
 	oProfileVelocity => oFrontJawAxisProfileVelocity,
 	oProfilePushCurrent => oFrontJawAxisPushCurrent,
 	oProfileOperationalCurrent => oFrontJawAxisBaseCurrent,
-	defaultCurrent := 100.0
+	defaultCurrent := 100.0,
+	jogForwardCMD:= HMIData.jawJogClosed,
+	jogReverseCMD:= HMIData.jawJogOpen
 );
 
 homeSensorCTU(CU := iClampHomeSensor);
@@ -85,7 +87,7 @@ dualMotorPassthrough(
 	passthroughSetting:= HMIData.passthroughSetting, 
 	jawClosedSetting:= HMIData.jawClosePositionSetting, 
 	clampingMechanism := clampingMechanism,
-	//pressureBarClosedSensor:= iJawClosed, 
+	pressureBarClosedSensor:= NOT iClampHomeSensor, 
 	//pressureBarNearClosedSensor:= iJawNearClosed, 
 	obstructionSensor:= iJawNotObstructed, 
 	openJawPB:= HMIData.jawService.extendCommand, 
@@ -100,6 +102,7 @@ dualMotorPassthrough.OptionInstalled := TRUE;
 dualMotorPassthrough.OptionEnabled := TRUE;
 
 labelPrinter(
+	dryCycleEnable:=HMIData.dryCycleEnable,
 	printSpeed:= HMIData.printSpeed, 
 	printLength:= HMIData.printLength, 
 	dataReadyInput:= iPrinterDataReady, 
@@ -144,6 +147,7 @@ IBD.OptionInstalled := HMIData.IBDInstalled;
 IBD.OptionEnabled := HMIData.IBDInUse;
 
 barcodeVerifier(
+	dryCycleEnable:=HMIData.dryCycleEnable,
 	feedSpeed := HMIData.printSpeed, 
 	positionOffset := HMIData.barcodeStartPosition, 
 	distanceToScan := HMIData.barcodeScanDistance, 
@@ -176,6 +180,7 @@ bagDeliveryFrontMotor(
 	defaultCurrent := 100.0
 );
 bagDelivery(
+	dryCycleEnable:=HMIData.dryCycleEnable,
 	printer:= PLC_PRG_1.EM01_SXBaggerHead.printer, 
 	bagLength:= HMIData.bagLength, 
 	feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 

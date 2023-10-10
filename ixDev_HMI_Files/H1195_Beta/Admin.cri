@@ -56,11 +56,11 @@
           <Details>
             <Detail>
               <Key>Label</Key>
-              <Value>2</Value>
+              <Value>3</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>11</Value>
+              <Value>12</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -89,7 +89,7 @@
       <Items>
         <Item xsi:type="ActionItem" Target="Admin.Button" TargetProperty="Actions" Source="Advanced_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>14</ObjectsCount>
+          <ObjectsCount>16</ObjectsCount>
           <ScreenName>Admin</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

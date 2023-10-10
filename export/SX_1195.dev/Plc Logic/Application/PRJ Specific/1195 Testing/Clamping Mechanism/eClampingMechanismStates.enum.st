@@ -17,6 +17,8 @@ TYPE eClampingMechanismStates :
 	Faulted := 102, 
 	Reset := 110, 
 	Resetting := 111, 
-	ResetDone := 112
+	ResetDone := 112,
+	Home:= 40,
+	Homing:= 50
 );
 END_TYPE

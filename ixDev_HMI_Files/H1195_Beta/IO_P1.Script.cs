@@ -21,7 +21,7 @@ namespace Neo.ApplicationFramework.Generated
 		
 		void Button_Click(System.Object sender, System.EventArgs e)
 		{
-			if(Globals.Tags.IO_Page_Index.Value<3)
+			if(Globals.Tags.IO_Page_Index.Value<2)
 			{
 				Globals.Tags.IO_Page_Index.IncrementAnalog(1);
 			}
@@ -54,7 +54,7 @@ namespace Neo.ApplicationFramework.Generated
 			}
 			else
 			{
-				Globals.Tags.IO_Page_Index.Value = 3;
+				Globals.Tags.IO_Page_Index.Value = 2;
 			}
 
 			switch(Globals.Tags.IO_Page_Index.Value.Int)

@@ -44,11 +44,11 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>1</Value>
+              <Value>2</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>6</Value>
+              <Value>7</Value>
             </Detail>
           </Details>
         </Item>
@@ -72,7 +72,7 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>8</ObjectsCount>
+          <ObjectsCount>10</ObjectsCount>
           <ScreenName>Help</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

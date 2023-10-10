@@ -24,17 +24,11 @@
     </Category>
     <Category Name="Font">
       <Items>
-        <Item Target="Home.Button" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button7" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Home.Button3" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button8" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Home.Button9" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Home.Button10" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Home.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Home.Button8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Home.Button4" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -52,7 +46,7 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>17</Value>
+              <Value>12</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -60,7 +54,7 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>1</Value>
+              <Value>2</Value>
             </Detail>
           </Details>
         </Item>
@@ -83,14 +77,13 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="Home.Button4" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Default" />
-        <Item xsi:type="ActionItem" Target="Home.Button2" TargetProperty="Actions" Source="Settings_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Home.Button3" TargetProperty="Actions" Source="Admin" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Home.Button10" TargetProperty="Actions" Source="Service_P1" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Home.Button2" TargetProperty="Actions" Source="Settings_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Home.Button8" TargetProperty="Actions" Source="Options" Event="Click" Action="Show Screen" Param="" />
-        <Item xsi:type="ActionItem" Target="Home.Button9" TargetProperty="Actions" Source="About_Sharp" Event="Click" Action="Show Screen" Param="" />
-        <Item xsi:type="ActionItem" Target="Home.Button10" TargetProperty="Actions" Source="Service_P1" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Home.Button4" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>19</ObjectsCount>
+          <ObjectsCount>15</ObjectsCount>
           <ScreenName>Home</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

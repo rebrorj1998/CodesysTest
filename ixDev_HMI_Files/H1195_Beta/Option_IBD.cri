@@ -57,7 +57,7 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>5</Value>
+              <Value>6</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
@@ -65,7 +65,7 @@
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>6</Value>
+              <Value>7</Value>
             </Detail>
           </Details>
         </Item>
@@ -89,7 +89,7 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>19</ObjectsCount>
+          <ObjectsCount>21</ObjectsCount>
           <ScreenName>Option_IBD</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

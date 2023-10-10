@@ -50,7 +50,7 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>10</Value>
+              <Value>11</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -58,7 +58,7 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>1</Value>
+              <Value>2</Value>
             </Detail>
           </Details>
         </Item>
@@ -81,12 +81,12 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="Options.Button" TargetProperty="Actions" Source="Option_Printer" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Options.Button" TargetProperty="Actions" Source="Option_Printer" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Options.Button1" TargetProperty="Actions" Source="Option_BarcodeVerifier" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Options.Button2" TargetProperty="Actions" Source="Option_IBD" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Options.Button3" TargetProperty="Actions" Source="Option_LoadShelf" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>12</ObjectsCount>
+          <ObjectsCount>14</ObjectsCount>
           <ScreenName>Options</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

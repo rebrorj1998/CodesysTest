@@ -72,11 +72,11 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>8</Value>
+              <Value>9</Value>
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>19</Value>
+              <Value>20</Value>
             </Detail>
             <Detail>
               <Key>Symbol</Key>
@@ -107,10 +107,10 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="IO_P2.Button" TargetProperty="Actions" Source="IO_P3" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="IO_P2.Button" TargetProperty="Actions" Source="IO_P3" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="IO_P2.Button1" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>44</ObjectsCount>
+          <ObjectsCount>46</ObjectsCount>
           <ScreenName>IO_P2</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

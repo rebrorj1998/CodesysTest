@@ -11,7 +11,7 @@ VAR_GLOBAL
 	activeScreen : DINT;
 	jawService : ServiceCommands;
 	jawJogOpen : BOOL;
-	jawjobClosed : BOOL;
+	jawJogClosed : BOOL;
 	loadPlateService : ServiceCommands;
 	IBDService : ServiceCommands;
 	IBDJogOpen : BOOL;
@@ -75,6 +75,7 @@ VAR_GLOBAL
 	jawAxisMotorTemperature : REAL;
 	filmFeedMotionDriveErrorCode : STRING;
 	filmFeedAxisMotorTemperature : REAL;
+	faultMessage:STRING;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN
@@ -145,6 +146,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	filmFeedTestCycles : DINT;
 	jawEnableMotion : BOOL;
 	filmEnableMotion : BOOL;
+
 END_VAR
 
 VAR_GLOBAL CONSTANT

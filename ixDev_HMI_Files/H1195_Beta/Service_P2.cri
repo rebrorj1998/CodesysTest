@@ -37,27 +37,23 @@
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item xsi:type="ActionItem" Target="Service_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P2.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_IBDService_retractCommand" />
         <Item Target="Service_P2.Button2" TargetProperty="TextValue" Source="Tags.Application_HMIData_IBDService_retractedFeedback" />
         <Item Target="Service_P2.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_IBDService_retractedFeedback" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogClosed" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogClosed" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogClosed" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P2.Button2" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_IBDInUse" />
+        <Item Target="Service_P2.Button5" TargetProperty="Value" Source="Tags.Application_HMIData_IBDJogClosed" />
         <Item Target="Service_P2.Button5" TargetProperty="Background" Source="Tags.Application_HMIData_IBDJogClosed" />
+        <Item Target="Service_P2.Button5" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_IBDInUse" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogOpen" Event="PreviewMouseDown" Action="Set Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogOpen" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogOpen" Event="MouseLeave" Action="Reset Tag" Param="" />
         <Item Target="Service_P2.Button6" TargetProperty="Background" Source="Tags.Application_HMIData_IBDJogOpen" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P2.Button6" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_IBDInUse" />
+        <Item Target="Service_P2.Button7" TargetProperty="Value" Source="Tags.Application_HMIData_IBDService_extendCommand" />
         <Item Target="Service_P2.Button7" TargetProperty="TextValue" Source="Tags.Application_HMIData_IBDService_extendedFeedback" />
         <Item Target="Service_P2.Button7" TargetProperty="Background" Source="Tags.Application_HMIData_IBDService_extendedFeedback" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_teachBagPhotoeye" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_teachBagPhotoeye" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_teachBagPhotoeye" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Service_P2.Button7" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_IBDInUse" />
+        <Item Target="Service_P2.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_teachBagPhotoeye" />
         <Item Target="Service_P2.Button3" TargetProperty="TextValue" Source="Tags.Application_HMIData_teachingBagPhoteye" />
         <Item Target="Service_P2.Button3" TargetProperty="Background" Source="Tags.Application_HMIData_teachingBagPhoteye" />
       </Items>
@@ -74,11 +70,11 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>13</Value>
+              <Value>14</Value>
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>3</Value>
+              <Value>4</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -108,7 +104,7 @@
         <Item xsi:type="ActionItem" Target="Service_P2.Button" TargetProperty="Actions" Source="Service_P3" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button1" TargetProperty="Actions" Source="Service_P1" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>17</ObjectsCount>
+          <ObjectsCount>19</ObjectsCount>
           <ScreenName>Service_P2</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
@@ -121,21 +117,9 @@
     </Category>
     <Category Name="StructuredTag">
       <Items>
-        <Item xsi:type="ActionItem" Target="Service_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogClosed" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogClosed" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogClosed" Event="MouseLeave" Action="Reset Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogOpen" Event="PreviewMouseDown" Action="Set Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogOpen" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDJogOpen" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_teachBagPhotoeye" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_teachBagPhotoeye" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_teachBagPhotoeye" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
       </Items>
     </Category>
     <Category Name="Symbol">

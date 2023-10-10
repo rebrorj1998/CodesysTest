@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?neo version='2.44.53.0'?>
-<nacs:ScreenWindow Topmost="False" Title="Service_P2" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowState="Normal" BorderStyle="ThreeDBorder" ScreenSize="480, 272" StyleName="Default" IsCacheable="True" Background="{x:Null}" Width="480" Height="272" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:nacs="clr-namespace:Neo.ApplicationFramework.Controls.Screen;assembly=Controls" xmlns:nacs1="clr-namespace:Neo.ApplicationFramework.Controls.Screen;assembly=ControlsCF" xmlns:nac="clr-namespace:Neo.ApplicationFramework.Controls;assembly=Controls" xmlns:nacsd="clr-namespace:Neo.ApplicationFramework.Controls.Screen.Design;assembly=Controls" xmlns:nac1="clr-namespace:Neo.ApplicationFramework.Common;assembly=Common" xmlns:nai="clr-namespace:Neo.ApplicationFramework.Interfaces;assembly=Interfaces" xmlns:nata="clr-namespace:Neo.ApplicationFramework.Tools.Action;assembly=Tools" xmlns:nacd="clr-namespace:Neo.ApplicationFramework.Common.Data;assembly=CommonCF" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:nacb="clr-namespace:Neo.ApplicationFramework.Common.Behaviors;assembly=Common" xmlns:nacd1="clr-namespace:Neo.ApplicationFramework.Common.Dynamics;assembly=Common" xmlns:nacd2="clr-namespace:Neo.ApplicationFramework.Common.Dynamics;assembly=CommonCF" xmlns:nacgl="clr-namespace:Neo.ApplicationFramework.Common.Graphics.Logic;assembly=CommonCF" xmlns:nacc="clr-namespace:Neo.ApplicationFramework.Common.Converters;assembly=Common" x:Class="Neo.ApplicationFramework.Generated.Service_P2">
+<?neo version='2.47.473.0'?>
+<nacs:ScreenWindow Topmost="False" Title="Service_P2" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowState="Normal" BorderStyle="ThreeDBorder" ScreenSize="480, 272" StyleName="Default" IsCacheable="True" Background="{x:Null}" Width="480" Height="272" nai:SecurityProperties.SecurityGroupsRequired="Administrators, Maintenance" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:nacs="clr-namespace:Neo.ApplicationFramework.Controls.Screen;assembly=Controls" xmlns:nai="clr-namespace:Neo.ApplicationFramework.Interfaces;assembly=Interfaces" xmlns:nacs1="clr-namespace:Neo.ApplicationFramework.Controls.Screen;assembly=ControlsCF" xmlns:nac="clr-namespace:Neo.ApplicationFramework.Controls;assembly=Controls" xmlns:nacsd="clr-namespace:Neo.ApplicationFramework.Controls.Screen.Design;assembly=Controls" xmlns:nac1="clr-namespace:Neo.ApplicationFramework.Common;assembly=Common" xmlns:nata="clr-namespace:Neo.ApplicationFramework.Tools.Action;assembly=Tools" xmlns:nacd="clr-namespace:Neo.ApplicationFramework.Common.Data;assembly=CommonCF" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:nacb="clr-namespace:Neo.ApplicationFramework.Controls.Blink;assembly=Controls" xmlns:nacb1="clr-namespace:Neo.ApplicationFramework.Common.Behaviors;assembly=Common" xmlns:nacd1="clr-namespace:Neo.ApplicationFramework.Common.Dynamics;assembly=Common" xmlns:nacc="clr-namespace:Neo.ApplicationFramework.Common.Converters;assembly=Common" xmlns:nacd2="clr-namespace:Neo.ApplicationFramework.Common.Dynamics;assembly=CommonCF" xmlns:nacgl="clr-namespace:Neo.ApplicationFramework.Common.Graphics.Logic;assembly=CommonCF" x:Class="Neo.ApplicationFramework.Generated.Service_P2">
   <nacs:ScreenWindow.TemplateScreen>
     <nacs1:TemplateScreen Name="BaseTemplate" RenderMode="Background" />
   </nacs:ScreenWindow.TemplateScreen>
@@ -55,9 +55,10 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Button Text="Close IBD" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button2" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="5" Canvas.Left="83" Canvas.Top="59" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Close IBD" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button2" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="5" Canvas.Left="83" Canvas.Top="59" nacb:BlinkProperties.VisibleDynamicsValue="True" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
             <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
               <nacd2:BrushCFIntervalMapper>
@@ -70,7 +71,7 @@
                     </nacd2:BrushCFInterval>
                     <nacd2:BrushCFInterval Start="1" End="1">
                       <nacd2:BrushCFInterval.Value>
-                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                        <nacgl:BrushCF StartColor="Cyan" EndColor="" FillDirection="None" />
                       </nacd2:BrushCFInterval.Value>
                     </nacd2:BrushCFInterval>
                   </nacd2:BrushCFIntervalList>
@@ -82,8 +83,16 @@
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
           <nacc:VariantValueConverter x:Key="TextValueConverter" />
+          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
+      <nac:Button.Value>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_retractCommand].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Double>0</s:Double>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Value>
       <nac:Button.TextValue>
         <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_retractedFeedback].Value" Converter="{StaticResource TextValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>
@@ -98,6 +107,13 @@
           </Binding.FallbackValue>
         </Binding>
       </nac:Button.Background>
+      <nac:EnabledProperties.EnabledDynamicsValue>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDInUse].Value" Converter="{StaticResource EnabledDynamicsValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Boolean>True</s:Boolean>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:EnabledProperties.EnabledDynamicsValue>
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
@@ -115,25 +131,26 @@
         <nai:ActionList>
           <nata:Action Name="Set Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_IBDService_retractCommand" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="" EventName="PreviewMouseDown" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_retractCommand" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="PreviewMouseUp" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_retractCommand" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="MouseLeave" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Jog IBD&#xD;&#xA;Closed" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button5" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="83" Canvas.Top="119" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Jog IBD&#xD;&#xA;Closed" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button5" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="83" Canvas.Top="119" nacb:BlinkProperties.VisibleDynamicsValue="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
             <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
               <nacd2:BrushCFIntervalMapper>
@@ -146,7 +163,7 @@
                     </nacd2:BrushCFInterval>
                     <nacd2:BrushCFInterval Start="1" End="1">
                       <nacd2:BrushCFInterval.Value>
-                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                        <nacgl:BrushCF StartColor="Cyan" EndColor="" FillDirection="None" />
                       </nacd2:BrushCFInterval.Value>
                     </nacd2:BrushCFInterval>
                   </nacd2:BrushCFIntervalList>
@@ -157,8 +174,16 @@
               </nacd2:BrushCFIntervalMapper>
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
+          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
+      <nac:Button.Value>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDJogClosed].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Double>0</s:Double>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Value>
       <nac:Button.Background>
         <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDJogClosed].Value" Converter="{StaticResource BackgroundConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>
@@ -166,6 +191,13 @@
           </Binding.FallbackValue>
         </Binding>
       </nac:Button.Background>
+      <nac:EnabledProperties.EnabledDynamicsValue>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDInUse].Value" Converter="{StaticResource EnabledDynamicsValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Boolean>True</s:Boolean>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:EnabledProperties.EnabledDynamicsValue>
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
@@ -173,23 +205,23 @@
         <nai:ActionList>
           <nata:Action Name="Set Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_IBDJogClosed" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="" EventName="PreviewMouseDown" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDJogClosed" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="PreviewMouseUp" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDJogClosed" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="MouseLeave" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Jog IBD&#xD;&#xA;Open" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button6" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="7" Canvas.Left="217" Canvas.Top="119" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Jog IBD&#xD;&#xA;Open" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button6" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="7" Canvas.Left="217" Canvas.Top="119" nacb:BlinkProperties.VisibleDynamicsValue="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
@@ -204,7 +236,7 @@
                     </nacd2:BrushCFInterval>
                     <nacd2:BrushCFInterval Start="1" End="1">
                       <nacd2:BrushCFInterval.Value>
-                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                        <nacgl:BrushCF StartColor="Cyan" EndColor="" FillDirection="None" />
                       </nacd2:BrushCFInterval.Value>
                     </nacd2:BrushCFInterval>
                   </nacd2:BrushCFIntervalList>
@@ -215,6 +247,7 @@
               </nacd2:BrushCFIntervalMapper>
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
+          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Background>
@@ -224,6 +257,13 @@
           </Binding.FallbackValue>
         </Binding>
       </nac:Button.Background>
+      <nac:EnabledProperties.EnabledDynamicsValue>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDInUse].Value" Converter="{StaticResource EnabledDynamicsValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Boolean>True</s:Boolean>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:EnabledProperties.EnabledDynamicsValue>
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
@@ -247,9 +287,10 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Open IBD" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button7" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="217" Canvas.Top="59" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Open IBD" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button7" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="217" Canvas.Top="59" nacb:BlinkProperties.VisibleDynamicsValue="True" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
             <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
               <nacd2:BrushCFIntervalMapper>
@@ -262,7 +303,7 @@
                     </nacd2:BrushCFInterval>
                     <nacd2:BrushCFInterval Start="1" End="1">
                       <nacd2:BrushCFInterval.Value>
-                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                        <nacgl:BrushCF StartColor="Cyan" EndColor="" FillDirection="None" />
                       </nacd2:BrushCFInterval.Value>
                     </nacd2:BrushCFInterval>
                   </nacd2:BrushCFIntervalList>
@@ -274,8 +315,16 @@
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
           <nacc:VariantValueConverter x:Key="TextValueConverter" />
+          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
+      <nac:Button.Value>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_extendCommand].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Double>0</s:Double>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Value>
       <nac:Button.TextValue>
         <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDService_extendedFeedback].Value" Converter="{StaticResource TextValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>
@@ -290,6 +339,13 @@
           </Binding.FallbackValue>
         </Binding>
       </nac:Button.Background>
+      <nac:EnabledProperties.EnabledDynamicsValue>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_IBDInUse].Value" Converter="{StaticResource EnabledDynamicsValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Boolean>True</s:Boolean>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:EnabledProperties.EnabledDynamicsValue>
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
@@ -307,25 +363,26 @@
         <nai:ActionList>
           <nata:Action Name="Set Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_IBDService_extendCommand" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="" EventName="PreviewMouseDown" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_extendCommand" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="PreviewMouseUp" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_IBDService_extendCommand" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="MouseLeave" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Teach Bag&#xD;&#xA;Photoeye" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button3" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="351" Canvas.Top="59" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Teach Bag&#xD;&#xA;Photoeye" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button3" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="352" Canvas.Top="59" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
             <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
               <nacd2:BrushCFIntervalMapper>
@@ -338,7 +395,7 @@
                     </nacd2:BrushCFInterval>
                     <nacd2:BrushCFInterval Start="1" End="1">
                       <nacd2:BrushCFInterval.Value>
-                        <nacgl:BrushCF StartColor="0, 255, 255" EndColor="" FillDirection="None" />
+                        <nacgl:BrushCF StartColor="Cyan" EndColor="" FillDirection="None" />
                       </nacd2:BrushCFInterval.Value>
                     </nacd2:BrushCFInterval>
                   </nacd2:BrushCFIntervalList>
@@ -352,6 +409,13 @@
           <nacc:VariantValueConverter x:Key="TextValueConverter" />
         </ResourceDictionary>
       </nac:Button.Resources>
+      <nac:Button.Value>
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_teachBagPhotoeye].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
+          <Binding.FallbackValue>
+            <s:Double>0</s:Double>
+          </Binding.FallbackValue>
+        </Binding>
+      </nac:Button.Value>
       <nac:Button.TextValue>
         <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_teachingBagPhoteye].Value" Converter="{StaticResource TextValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>
@@ -383,17 +447,17 @@
         <nai:ActionList>
           <nata:Action Name="Set Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="SetTag" ObjectName="Tags.Application_HMIData_teachBagPhotoeye" EventName="PreviewMouseDown" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="SetTag" ObjectName="" EventName="PreviewMouseDown" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_teachBagPhotoeye" EventName="MouseLeave" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="MouseLeave" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
           <nata:Action Name="Reset Tag">
             <nata:Action.ActionMethodInfo>
-              <nata:ActionMethodInfo Name="ResetTag" ObjectName="Tags.Application_HMIData_teachBagPhotoeye" EventName="PreviewMouseUp" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+              <nata:ActionMethodInfo Name="ResetTag" ObjectName="" EventName="PreviewMouseUp" ReferenceType="ThisTag" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
             </nata:Action.ActionMethodInfo>
           </nata:Action>
         </nai:ActionList>

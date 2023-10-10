@@ -71,7 +71,7 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>8</Value>
+              <Value>9</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
@@ -79,7 +79,7 @@
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>7</Value>
+              <Value>8</Value>
             </Detail>
             <Detail>
               <Key>Symbol</Key>
@@ -107,7 +107,7 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>34</ObjectsCount>
+          <ObjectsCount>36</ObjectsCount>
           <ScreenName>Option_BarcodeVerifier</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

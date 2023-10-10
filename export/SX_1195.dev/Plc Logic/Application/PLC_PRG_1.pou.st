@@ -1,7 +1,6 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 PROGRAM PLC_PRG_1
 VAR
-	
 	firstScanDone: BOOL;
 	cycleStartONS : FB_ONS;
 	powerUpFrontJawMotor : MC_Power;
@@ -16,6 +15,7 @@ VAR
 	baggerCM : EM01_BaggerCM;
 	dischargeCM : EM02_DischargeCM;
 	bannerManager : FB_BannerManager;
+	hmiFaultMessage : FB_FaultMessageHandler;
 	palmButton : FB_BannerPalmButton;
 	topCoverLiftedFault : FB_Fault(name := 'Top Cover Lifeted During Cycle');
 	amazonBPM : FB_AmazonThroughput();
@@ -26,6 +26,15 @@ VAR
 	cycleComplete : FB_ONS;
 	hIecTask : RTS_IEC_HANDLE;//Declaration of the variable hIecTask
 	teachPhotoeyeTimer : Standard.TOF() := (PT := T#3S);
+	//variables for the state timer
+	stateTimer:TON;
+	laststate: INT;
+	count_index :INT :=0;
+	clr:BOOL:=FALSE;
+	speedTracking : ARRAY[0..20] OF ARRAY[0..20] OF TIME;
+	speedTracking_mt : ARRAY[0..20] OF ARRAY[0..20] OF TIME:=[21([21(T#0S)])]; 
+	state_index : INT:=0;
+	hold: BOOL;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
@@ -33,9 +42,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Created by: Ben Hess
 //	Created Date: 
 
-
-
-
+IO_Map();
 // Initialze global objects on first scan
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
@@ -147,10 +154,31 @@ palmButton(
 //
 // HMI Mapping
 //
+//code to add timer to track duration in states
+stateTimer(PT:=T#10000S);
+stateTimer.IN := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive;
+IF clr THEN
+	speedTracking:=speedTracking_mt;
+	clr:=FALSE;
+END_IF
+IF UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive AND NOT hold THEN
+		count_index := count_index +1;
+		hold:=TRUE;
+ELSIF hold AND NOT UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive THEN
+	hold := FALSE;	
+END_IF
+IF stateTimer.ET>T#0MS THEN
+	speedTracking[state_index][count_index] := stateTimer.ET;
+END_IF
+IF count_index >=20 THEN
+	count_index :=0;
+END_IF
 
+//End modded code
 // Send the list of active fault strings to HMI for viewing
 HMIData.activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames;
-
+hmiFaultMessage(faultActive:= GlobalObjects.CollectionOfActiveFaults.faultActive,faultList:= GlobalObjects.CollectionOfActiveFaults.ObjNames);
+HMIData.faultMessage:=hmiFaultMessage.faultMessagestr;
 HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive;
 // PackML state to string for HMI
 HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.currentBaggerState;

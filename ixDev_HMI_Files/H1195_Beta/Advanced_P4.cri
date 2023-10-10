@@ -93,11 +93,11 @@
           <Details>
             <Detail>
               <Key>Label</Key>
-              <Value>15</Value>
+              <Value>16</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>11</Value>
+              <Value>12</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
@@ -130,7 +130,7 @@
       <Items>
         <Item xsi:type="ActionItem" Target="Advanced_P4.Button1" TargetProperty="Actions" Source="Advanced_P3" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>51</ObjectsCount>
+          <ObjectsCount>53</ObjectsCount>
           <ScreenName>Advanced_P4</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

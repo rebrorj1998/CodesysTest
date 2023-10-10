@@ -212,7 +212,7 @@ CASE releaseAndFeedSubState OF
 													//releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	
 													// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
 													IF NOT bagger.printer.OptionActive THEN
-														IF NOT bagger.pressureBar.IsFullyClosed THEN
+														IF bagger.pressureBar.IsReadyForFeed THEN
 															bagger.bagDelivery.FeedBagOut();
 															SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
 														END_IF
@@ -224,7 +224,7 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.WaitForOKFromDischarge :   	// Wait for EM02 - Discharge to give OK to feed bag signal
 													IF discharge.OKToFeedBag THEN
 														IF NOT bagger.printer.OptionActive THEN
-															IF NOT bagger.pressureBar.IsFullyClosed THEN
+															IF bagger.pressureBar.IsReadyForFeed THEN
 																bagger.bagDelivery.FeedBagOut();
 																SetReleaseFeedState(RELEASE_FEED_STATES.MovingJawOutAndFeedingBag);
 															END_IF
@@ -236,7 +236,7 @@ CASE releaseAndFeedSubState OF
 													                                         
     
     RELEASE_FEED_STATES.WaitForPrinter :            // Data Ready means the printer has a label and we're all set to print
-                                                    IF bagger.printer.HasLabel AND NOT bagger.pressureBar.IsFullyClosed THEN
+                                                    IF bagger.printer.HasLabel AND bagger.pressureBar.IsReadyForFeed THEN
 														SetReleaseFeedState(RELEASE_FEED_STATES.FeedToOffset);
                                                     END_IF
 													IF bagger.cancelPrint OR NOT bagger.printer.OptionActive THEN

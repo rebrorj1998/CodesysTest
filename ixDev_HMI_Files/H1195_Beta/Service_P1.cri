@@ -38,31 +38,20 @@
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item xsi:type="ActionItem" Target="Service_P1.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Service_P1.Button1" TargetProperty="Value" Source="Tags.Application_HMIData_jawService_retractCommand" />
         <Item Target="Service_P1.Button1" TargetProperty="TextValue" Source="Tags.Application_HMIData_jawService_retractedFeedback" />
         <Item Target="Service_P1.Button1" TargetProperty="Background" Source="Tags.Application_HMIData_jawService_retractedFeedback" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmReverse" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmReverse" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmReverse" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Service_P1.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_jogFilmReverse" />
         <Item Target="Service_P1.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_jogFilmReverse" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierTrigger" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmForward" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmForward" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmForward" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P1.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeVerifierTrigger" />
+        <Item Target="Service_P1.Button3" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
+        <Item Target="Service_P1.Button4" TargetProperty="Value" Source="Tags.Application_HMIData_jogFilmForward" />
         <Item Target="Service_P1.Button4" TargetProperty="Background" Source="Tags.Application_HMIData_jogFilmForward" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_jawjobClosed" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_jawjobClosed" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_jawjobClosed" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item Target="Service_P1.Button5" TargetProperty="Background" Source="Tags.Application_HMIData_jawjobClosed" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_jawJogOpen" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_jawJogOpen" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_jawJogOpen" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Service_P1.Button5" TargetProperty="Value" Source="Tags.Application_HMIData_jawJogClosed" />
+        <Item Target="Service_P1.Button5" TargetProperty="Background" Source="Tags.Application_HMIData_jawJogClosed" />
+        <Item Target="Service_P1.Button6" TargetProperty="Value" Source="Tags.Application_HMIData_jawJogOpen" />
         <Item Target="Service_P1.Button6" TargetProperty="Background" Source="Tags.Application_HMIData_jawJogOpen" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P1.Button7" TargetProperty="Value" Source="Tags.Application_HMIData_jawService_extendCommand" />
         <Item Target="Service_P1.Button7" TargetProperty="TextValue" Source="Tags.Application_HMIData_jawService_extendedFeedback" />
         <Item Target="Service_P1.Button7" TargetProperty="Background" Source="Tags.Application_HMIData_jawService_extendedFeedback" />
       </Items>
@@ -79,11 +68,11 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>14</Value>
+              <Value>15</Value>
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>3</Value>
+              <Value>4</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -110,9 +99,9 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="Service_P1.Button" TargetProperty="Actions" Source="Service_P2" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Service_P1.Button" TargetProperty="Actions" Source="Service_P2" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>18</ObjectsCount>
+          <ObjectsCount>20</ObjectsCount>
           <ScreenName>Service_P1</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
@@ -124,27 +113,7 @@
       <Items />
     </Category>
     <Category Name="StructuredTag">
-      <Items>
-        <Item xsi:type="ActionItem" Target="Service_P1.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmReverse" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmReverse" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmReverse" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierTrigger" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmForward" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmForward" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_jogFilmForward" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_jawjobClosed" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_jawjobClosed" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_jawjobClosed" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_jawJogOpen" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_jawJogOpen" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_jawJogOpen" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P1.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_jawService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-      </Items>
+      <Items />
     </Category>
     <Category Name="Symbol">
       <Items>

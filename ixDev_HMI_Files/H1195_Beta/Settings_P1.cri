@@ -67,7 +67,7 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>9</Value>
+              <Value>10</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -75,7 +75,7 @@
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>7</Value>
+              <Value>8</Value>
             </Detail>
           </Details>
         </Item>
@@ -100,7 +100,7 @@
       <Items>
         <Item xsi:type="ActionItem" Target="Settings_P1.Button" TargetProperty="Actions" Source="Settings_P2" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>35</ObjectsCount>
+          <ObjectsCount>37</ObjectsCount>
           <ScreenName>Settings_P1</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

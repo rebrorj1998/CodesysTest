@@ -39,33 +39,25 @@
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item xsi:type="ActionItem" Target="Service_P3.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P3.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_printHeadService_retractCommand" />
         <Item Target="Service_P3.Button2" TargetProperty="TextValue" Source="Tags.Application_HMIData_printHeadService_retractedFeedback" />
         <Item Target="Service_P3.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_printHeadService_retractedFeedback" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P3.Button2" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_printerInUse" />
+        <Item Target="Service_P3.Button5" TargetProperty="Value" Source="Tags.Application_HMIData_loadPlateService_extendCommand" />
         <Item Target="Service_P3.Button5" TargetProperty="TextValue" Source="Tags.Application_HMIData_loadPlateService_extendedFeedback" />
         <Item Target="Service_P3.Button5" TargetProperty="Background" Source="Tags.Application_HMIData_loadPlateService_extendedFeedback" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P3.Button5" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_loadPlateInUse" />
+        <Item Target="Service_P3.Button6" TargetProperty="Value" Source="Tags.Application_HMIData_loadPlateService_retractCommand" />
         <Item Target="Service_P3.Button6" TargetProperty="TextValue" Source="Tags.Application_HMIData_loadPlateService_retractedFeedback" />
         <Item Target="Service_P3.Button6" TargetProperty="Background" Source="Tags.Application_HMIData_loadPlateService_retractedFeedback" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P3.Button6" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_loadPlateInUse" />
+        <Item Target="Service_P3.Button7" TargetProperty="Value" Source="Tags.Application_HMIData_printHeadService_extendCommand" />
         <Item Target="Service_P3.Button7" TargetProperty="TextValue" Source="Tags.Application_HMIData_printHeadService_extendedFeedback" />
         <Item Target="Service_P3.Button7" TargetProperty="Background" Source="Tags.Application_HMIData_printHeadService_extendedFeedback" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_stopJawCycleTest" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_stopJawCycleTest" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_stopJawCycleTest" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P3.Button7" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_printerInUse" />
+        <Item Target="Service_P3.Button" TargetProperty="Value" Source="Tags.Application_HMIData_stopJawCycleTest" />
         <Item Target="Service_P3.Button" TargetProperty="Background" Source="Tags.Application_HMIData_stopJawCycleTest" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_startJawCycleTest" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_startJawCycleTest" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_startJawCycleTest" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Service_P3.Button4" TargetProperty="Value" Source="Tags.Application_HMIData_startJawCycleTest" />
         <Item Target="Service_P3.Button4" TargetProperty="Background" Source="Tags.Application_HMIData_startJawCycleTest" />
         <Item Target="Service_P3.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_jawCycleTestCycles" />
       </Items>
@@ -82,11 +74,11 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>13</Value>
+              <Value>14</Value>
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>4</Value>
+              <Value>5</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -117,9 +109,9 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="Service_P3.Button1" TargetProperty="Actions" Source="Service_P2" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Service_P3.Button1" TargetProperty="Actions" Source="Service_P2" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>21</ObjectsCount>
+          <ObjectsCount>23</ObjectsCount>
           <ScreenName>Service_P3</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
@@ -131,26 +123,7 @@
       <Items />
     </Category>
     <Category Name="StructuredTag">
-      <Items>
-        <Item xsi:type="ActionItem" Target="Service_P3.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_retractCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_retractCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateService_retractCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_extendCommand" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_extendCommand" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button7" TargetProperty="Actions" Source="Tags.Application_HMIData_printHeadService_extendCommand" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_stopJawCycleTest" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_stopJawCycleTest" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_stopJawCycleTest" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_startJawCycleTest" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_startJawCycleTest" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Service_P3.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_startJawCycleTest" Event="MouseLeave" Action="Reset Tag" Param="" />
-      </Items>
+      <Items />
     </Category>
     <Category Name="Symbol">
       <Items>

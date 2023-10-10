@@ -107,7 +107,6 @@
         <Item Target="Tags" TargetProperty="Application_HMIData_jawService_extendCommand" Source="Controller1.DataItem92" />
         <Item Target="Tags" TargetProperty="Application_HMIData_jawReady" Source="Controller1.DataItem93" />
         <Item Target="Tags" TargetProperty="Application_HMIData_jawJogOpen" Source="Controller1.DataItem94" />
-        <Item Target="Tags" TargetProperty="Application_HMIData_jawjobClosed" Source="Controller1.DataItem95" />
         <Item Target="Tags" TargetProperty="Application_HMIData_jawCycleTestCycles" Source="Controller1.DataItem96" />
         <Item Target="Tags" TargetProperty="Application_HMIData_jawCycleTestActive" Source="Controller1.DataItem97" />
         <Item Target="Tags" TargetProperty="Application_HMIData_jawClosePositionSetting" Source="Controller1.DataItem98" />
@@ -552,6 +551,8 @@
         <Item Target="Tags" TargetProperty="Application_IO_Mapping_mainIOamax4830Input_1__discreteSignal" Source="Controller1.DataItem532" />
         <Item Target="Tags" TargetProperty="Application_IO_Mapping_mainIOamax4830Input_0__signalCommonName" Source="Controller1.DataItem533" />
         <Item Target="Tags" TargetProperty="Application_IO_Mapping_mainIOamax4830Input_0__discreteSignal" Source="Controller1.DataItem534" />
+        <Item Target="Tags" TargetProperty="Application_HMIData_jawJogClosed" Source="Controller1.DataItem95" />
+        <Item Target="Tags" TargetProperty="Application_HMIData_faultMessage" Source="Controller1.DataItem535" />
       </Items>
     </Category>
     <Category Name="IntegratorSwapActiveProjectAction">
@@ -566,7 +567,7 @@
           <Details>
             <Detail>
               <Key>Group1</Key>
-              <Value>500</Value>
+              <Value>100</Value>
             </Detail>
             <Detail>
               <Key>Group2</Key>

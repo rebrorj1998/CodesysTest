@@ -13,7 +13,7 @@ VAR
 	simUnitMode			: PACK_ML.UnitMode; // Example unit mode for semi auto production
 	manitUnitMode		: PACK_ML.UnitMode; // Example unit mode for setup
 	unitModeManager		: PACK_ML.UnitModeManager; // Unit mode manager to switch between unitmodes
-	currentUnitMode		: PACK_ML.IUnitMode;
+	currentUnitMode		: PACK_ML.IUnitMode; 
 	xInit				: BOOL := FALSE; // Flag for initialization
 	xNextState : BOOL; // Next state from HMI
 	sCurrentUnitModeName : STRING;
@@ -106,7 +106,7 @@ CASE currentState OF
 									currentUnitMode.Abort();
 								END_IF
 								IF resetONS.OSR THEN
-									//baggerManager.BaggerAutoMode.resetCMD := TRUE;
+									currentUnitMode.Reset();
 								END_IF	
 	
 	PACK_ML.State.Clearing :	clearTimer.IN := TRUE;

@@ -52,7 +52,7 @@
           <Details>
             <Detail>
               <Key>Label</Key>
-              <Value>7</Value>
+              <Value>8</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
@@ -64,7 +64,7 @@
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>6</Value>
+              <Value>7</Value>
             </Detail>
           </Details>
         </Item>
@@ -88,7 +88,7 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>20</ObjectsCount>
+          <ObjectsCount>22</ObjectsCount>
           <ScreenName>About_Sharp</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

@@ -12,10 +12,19 @@ VAR
 	beginSealingONS : FB_ONS;
 	sealTimer : TON;
 	coolTimer : Standard.TON;
+
 	_sealComplete : BOOL;
 	sealActive : BOOL;
 	state : INT;
 	//beginSealing : FB_SimulatedFeedback(name := CONCAT(_prefix,'Begin Sealing'));
+	//variables for the state timer
+	stateTimer:TON;
+	laststate: INT;
+	count_index :INT :=0;
+	clr:BOOL:=FALSE;
+	speedTracking : ARRAY[0..20] OF ARRAY[0..20] OF TIME;
+	speedTracking_mt : ARRAY[0..20] OF ARRAY[0..20] OF TIME:=[21([21(T#0S)])]; 
+	state_index : INT:=0;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();
@@ -31,6 +40,28 @@ IF _reset THEN
 	_reset := FALSE;
 	state := 0;
 END_IF
+//code to add timer to track duration in states
+state_index := state;
+stateTimer(PT:=T#10000S);
+IF clr THEN
+	speedTracking:=speedTracking_mt;
+	clr:=FALSE;
+END_IF
+IF state  = laststate THEN
+	stateTimer.IN := TRUE;
+ELSIF state  <> laststate THEN
+	stateTimer.IN := FALSE;
+	IF state =0 THEN
+		count_index := count_index +1;
+	END_IF
+	laststate:=state;
+END_IF
+speedTracking[state_index][count_index] := stateTimer.ET;
+
+IF count_index >=20 THEN
+	count_index :=0;
+END_IF
+//End modded code
 _ready := state = 0;
 CASE state OF
 	
