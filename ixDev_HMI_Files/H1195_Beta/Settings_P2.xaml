@@ -653,7 +653,7 @@
         </nai:ActionProperties.Actions>
       </nac:AnalogNumericFX>
     </nac:Group>
-    <nac:Group Name="m_Group4" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="33" Canvas.Left="81" Canvas.Top="203">
+    <nac:Group Name="m_Group4" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="33" Canvas.Left="80" Canvas.Top="203">
       <nac:Label AutoSize="False" Text="    Automatic Logout Delay (S) " BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text5" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="18" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
         <nac:Label.TextDecorations>
           <TextDecorationCollection />

@@ -57,27 +57,19 @@
       <Items>
         <Item Target="Advanced_P4.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_CurrentAlarmCode" />
         <Item Target="Advanced_P4.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_ActPos" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_setPreset" />
         <Item Target="Advanced_P4.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_IBDMotorData_setPreset" />
         <Item Target="Advanced_P4.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_CurrentAlarmCode" />
         <Item Target="Advanced_P4.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_ActPos" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" />
         <Item Target="Advanced_P4.Button3" TargetProperty="Background" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" />
         <Item Target="Advanced_P4.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_rearJawMotorData_CurrentAlarmCode" />
         <Item Target="Advanced_P4.AnalogNumeric7" TargetProperty="Value" Source="Tags.Application_HMIData_rearJawMotorData_ActPos" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button4" TargetProperty="Value" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" />
         <Item Target="Advanced_P4.Button4" TargetProperty="Background" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" />
         <Item Target="Advanced_P4.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_loadPlateMotorData_CurrentAlarmCode" />
         <Item Target="Advanced_P4.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_loadPlateMotorData_ActPos" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item Target="Advanced_P4.Button" TargetProperty="Value" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" />
         <Item Target="Advanced_P4.Button" TargetProperty="Background" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" />
       </Items>
     </Category>
@@ -142,20 +134,7 @@
       <Items />
     </Category>
     <Category Name="StructuredTag">
-      <Items>
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_IBDMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_rearJawMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P4.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_loadPlateMotorData_setPreset" Event="MouseLeave" Action="Reset Tag" Param="" />
-      </Items>
+      <Items />
     </Category>
     <Category Name="Symbol">
       <Items>
