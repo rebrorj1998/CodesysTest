@@ -612,8 +612,10 @@
     <Category Name="Script">
       <Items>
         <Item Target="Tags.Script.cs" TargetProperty="ValueChange" Source="Tags.IO_Page_Index" />
+        <Item Target="Tags.Script.cs" TargetProperty="ValueChange" Source="Tags.Fault_Instance" />
         <Item Target="Tags.Script.cs" Source="Tags.IO_Page_Index" />
         <Item Target="Tags.Script.cs" Source="Tags.IO_Alias_Title" />
+        <Item Target="Tags.Script.cs" Source="Tags.Fault_Instance" />
       </Items>
     </Category>
     <Category Name="StructuredTag">

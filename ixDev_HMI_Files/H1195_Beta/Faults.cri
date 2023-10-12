@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.47.473.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items>
+        <Item Target="Faults.AnalogNumeric" TargetProperty="Value" Source="Faults.Fault_0" />
+        <Item Target="Faults.AnalogNumeric1" TargetProperty="Value" Source="Faults.Fault_1" />
+        <Item Target="Faults.AnalogNumeric2" TargetProperty="Value" Source="Faults.Fault_2" />
+        <Item Target="Faults.AnalogNumeric3" TargetProperty="Value" Source="Faults.Fault_3" />
+        <Item Target="Faults.AnalogNumeric4" TargetProperty="Value" Source="Faults.Fault_4" />
+        <Item Target="Faults.AnalogNumeric5" TargetProperty="Value" Source="Faults.Fault_5" />
+      </Items>
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items>
+        <Item xsi:type="AliasReference" Target="Faults.Default" TargetProperty="Fault_1" Source="Tags.Application_HMIData_activeFaults_1_" />
+        <Item xsi:type="AliasReference" Target="Faults.Default" TargetProperty="Fault_2" Source="Tags.Application_HMIData_activeFaults_2_" />
+        <Item xsi:type="AliasReference" Target="Faults.Default" TargetProperty="Fault_3" Source="Tags.Application_HMIData_activeFaults_3_" />
+        <Item xsi:type="AliasReference" Target="Faults.Default" TargetProperty="Fault_4" Source="Tags.Application_HMIData_activeFaults_4_" />
+        <Item xsi:type="AliasReference" Target="Faults.Default" TargetProperty="Fault_5" Source="Tags.Application_HMIData_activeFaults_5_" />
+        <Item xsi:type="AliasReference" Target="Faults.Default" TargetProperty="Fault_0" Source="Tags.Application_HMIData_activeFaults_0_" />
+        <Item xsi:type="AliasReference" Target="Faults.Page_1" TargetProperty="Fault_1" Source="Tags.Application_HMIData_activeFaults_1_" />
+        <Item xsi:type="AliasReference" Target="Faults.Page_1" TargetProperty="Fault_0" Source="Tags.Application_HMIData_activeFaults_0_" />
+        <Item xsi:type="AliasReference" Target="Faults.Page_2" TargetProperty="Fault_1" Source="Tags.Application_HMIData_activeFaults_13_" />
+        <Item xsi:type="AliasReference" Target="Faults.Page_2" TargetProperty="Fault_0" Source="Tags.Application_HMIData_activeFaults_6_" />
+      </Items>
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Faults.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Faults.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="Faults.AnalogNumeric6" TargetProperty="Value" Source="Tags.Fault_Instance" />
+        <Item Target="Faults.Button" TargetProperty="Value" Source="Tags.Fault_Instance" />
+        <Item xsi:type="ActionItem" Target="Faults.Button1" TargetProperty="Actions" Source="Tags.Fault_Instance" Event="Click" Action="Increment Analog" Param="" />
+        <Item Target="Faults.Button1" TargetProperty="Value" Source="Tags.Fault_Instance" />
+      </Items>
+    </Category>
+    <Category Name="IntegratorSwapActiveProjectAction">
+      <Items />
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects">
+          <Details>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>7</Value>
+            </Detail>
+            <Detail>
+              <Key>Label</Key>
+              <Value>3</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>9</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>1</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>20</ObjectsCount>
+          <ScreenName>Faults</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Faults</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Faults.Button1" TargetProperty="Actions" Source="Tags.Fault_Instance" Event="Click" Action="Increment Analog" Param="" />
+      </Items>
+    </Category>
+    <Category Name="Symbol">
+      <Items />
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>

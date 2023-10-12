@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?neo version='2.47.473.0'?>
+<NeoItem d1p1:Serializer="Neo.ApplicationFramework.Common.Serialization.ObjectSerializer" xmlns:d1p1="urn:Neo.ApplicationFramework.Serializer">
+  <Object d1p1:type="Neo.ApplicationFramework.Tools.Screen.ScreenDesign.Screen, ToolsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" d1p1:Site.Name="Faults" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+    <AliasConfiguration>
+      <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasConfiguration, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="AliasConfiguration1" d1p1:Site.Name="AliasConfiguration1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+        <Definitions>
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasDefinition, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DataType="System.String" DefaultValue="Tags.Application_HMIData_activeFaults_1_" Name="Fault_1" d1p1:Site.Name="Fault_1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasDefinition, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DataType="System.String" DefaultValue="Tags.Application_HMIData_activeFaults_2_" Name="Fault_2" d1p1:Site.Name="Fault_2" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasDefinition, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DataType="System.String" DefaultValue="Tags.Application_HMIData_activeFaults_3_" Name="Fault_3" d1p1:Site.Name="Fault_3" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasDefinition, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DataType="System.String" DefaultValue="Tags.Application_HMIData_activeFaults_4_" Name="Fault_4" d1p1:Site.Name="Fault_4" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasDefinition, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DataType="System.String" DefaultValue="Tags.Application_HMIData_activeFaults_5_" Name="Fault_5" d1p1:Site.Name="Fault_5" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasDefinition, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DataType="System.String" DefaultValue="Tags.Application_HMIData_activeFaults_0_" Name="Fault_0" d1p1:Site.Name="Fault_0" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
+        </Definitions>
+        <Instances>
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasInstance, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Page_1" d1p1:Site.Name="Page_1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+            <Values>
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_1" Value="Tags.Application_HMIData_activeFaults_1_" DefaultValue="Tags.Application_HMIData_activeFaults_1_" IsDefault="False" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_2" Value="Tags.Application_HMIData_activeFaults_2_" DefaultValue="Tags.Application_HMIData_activeFaults_2_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_3" Value="Tags.Application_HMIData_activeFaults_3_" DefaultValue="Tags.Application_HMIData_activeFaults_3_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_4" Value="Tags.Application_HMIData_activeFaults_4_" DefaultValue="Tags.Application_HMIData_activeFaults_4_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_5" Value="Tags.Application_HMIData_activeFaults_5_" DefaultValue="Tags.Application_HMIData_activeFaults_5_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_0" Value="Tags.Application_HMIData_activeFaults_0_" DefaultValue="Tags.Application_HMIData_activeFaults_0_" IsDefault="False" />
+            </Values>
+          </Object>
+          <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasInstance, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Page_2" d1p1:Site.Name="Page_2" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+            <Values>
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_1" Value="Tags.Application_HMIData_activeFaults_13_" DefaultValue="Tags.Application_HMIData_activeFaults_1_" IsDefault="False" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_2" Value="Tags.Application_HMIData_activeFaults_2_" DefaultValue="Tags.Application_HMIData_activeFaults_2_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_3" Value="Tags.Application_HMIData_activeFaults_3_" DefaultValue="Tags.Application_HMIData_activeFaults_3_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_4" Value="Tags.Application_HMIData_activeFaults_4_" DefaultValue="Tags.Application_HMIData_activeFaults_4_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_5" Value="Tags.Application_HMIData_activeFaults_5_" DefaultValue="Tags.Application_HMIData_activeFaults_5_" IsDefault="True" />
+              <Object d1p1:type="Neo.ApplicationFramework.Controls.Screen.Alias.AliasValue, ControlsIde, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Name="Fault_0" Value="Tags.Application_HMIData_activeFaults_6_" DefaultValue="Tags.Application_HMIData_activeFaults_0_" IsDefault="False" />
+            </Values>
+          </Object>
+        </Instances>
+      </Object>
+    </AliasConfiguration>
+  </Object>
+</NeoItem>

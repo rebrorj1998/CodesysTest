@@ -2038,6 +2038,91 @@
           <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
         </ReferenceValue>
       </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric" PropertyName="Suffix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="Text" PropertyName="Text" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="Active Fault Page" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric1" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric1" PropertyName="Suffix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric2" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric2" PropertyName="Suffix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric3" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric3" PropertyName="Suffix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric4" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric4" PropertyName="Suffix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric5" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric5" PropertyName="Suffix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric6" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="Page: " />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="AnalogNumeric6" PropertyName="Suffix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="/50" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="Button" PropertyName="Text" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="Button" />
+        </ReferenceValue>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" DesignerName="Faults" ObjectName="Button1" PropertyName="Text" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
+        <ReferenceValue>
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="Button" />
+        </ReferenceValue>
+      </Object>
     </ResourceItems>
   </Object>
 </NeoItem>
