@@ -187,10 +187,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">SymbolicVarsBase</Single>
+              <Single Type="string">SysSocket Implementation</Single>
             </Key>
             <Value>
-              <Single Type="string">SymbolicVarsBase, 3.5.13.0 (System)</Single>
+              <Single Type="string">SysSocket Implementation, 3.5.15.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -203,18 +203,18 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">CmpIecVarAccess Implementation</Single>
+              <Single Type="string">SymbolicVarsBase</Single>
             </Key>
             <Value>
-              <Single Type="string">CmpIecVarAccess Implementation, 3.5.15.0 (System)</Single>
+              <Single Type="string">SymbolicVarsBase, 3.5.13.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">SysSocket Implementation</Single>
+              <Single Type="string">CmpIecVarAccess Implementation</Single>
             </Key>
             <Value>
-              <Single Type="string">SysSocket Implementation, 3.5.15.0 (System)</Single>
+              <Single Type="string">CmpIecVarAccess Implementation, 3.5.15.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>

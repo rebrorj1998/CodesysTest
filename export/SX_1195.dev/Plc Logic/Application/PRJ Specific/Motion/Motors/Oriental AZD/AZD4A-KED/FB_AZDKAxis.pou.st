@@ -45,7 +45,7 @@ CASE _state OF
 		targetReached := FALSE;
 		
 	
-	eAxisREFMotionState.Jog,	
+	eAxisREFMotionState.Jog,
 	eAxisREFMotionState.MoveRelative,
 	eAxisREFMotionState.MoveAbsolute: //
 		_controlword.NewSetPoint := TRUE;

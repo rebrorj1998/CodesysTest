@@ -8883,7 +8883,7 @@
           </Object>
         </GlobalDataSubItems>
       </Object>
-      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" GlobalDataType="DT_UINTEGER2" d1p1:Site.Name="Fault_Instance" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" GlobalDataType="DT_INTEGER2" d1p1:Site.Name="Fault_Instance" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
         <GlobalDataSubItems>
           <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" />
         </GlobalDataSubItems>

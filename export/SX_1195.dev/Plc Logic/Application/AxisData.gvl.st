@@ -32,14 +32,15 @@ VAR_GLOBAL PERSISTENT
 		acceleration := 100,
 		deceleration := 100,
 		velocity := 4,
-		current := 100.0,
+		current := 10.0,
 		position := -1
 	);
 	
 	jaw : sctAxisData := (
 		config := jawConfig,
 		openProfile := jawOpenMotionProfile,
-		closeProfile := jawCloseMotionProfile
+		closeProfile := jawCloseMotionProfile,
+		jogType:= eDiscreteMotionType.Relative
 	);
 
 	(* Load Plate *)

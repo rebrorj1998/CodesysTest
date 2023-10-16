@@ -8,7 +8,7 @@ IF state = eDualMotorPressureBar_AsyncStates.Idle THEN
 	MC_MoveFrontMotorABS.execute := FALSE;
 	MC_MoveFrontMotorPush.execute := FALSE;
 	MC_ResetFrontMotor.execute := FALSE;
- 	MC_HaltFrontMotor.execute := TRUE;
+ 	//MC_HaltFrontMotor.execute := TRUE;
 	_timeoutTimer.IN := FALSE;
 END_IF
 

@@ -99,6 +99,11 @@ CASE state OF
 			homeSensorNotSeen := FALSE;
 			state := eClampingMechanismStates.ClampMoveToClamp;
 		END_IF
+		IF _stopClamping AND NOT homeSensor THEN
+			state := eClampingMechanismStates.ClampMoveToRelease;
+		ELSE
+			_stopClamping:= FALSE;
+		END_IF
 	eClampingMechanismStates.Home:  
 		
 		IF homeSensor OR _maximumReverseTimeTimer.Q THEN
@@ -129,7 +134,7 @@ CASE state OF
 	eClampingMechanismStates.ClampMovingToClamp:	
 		state_index := 1;
 		// Wait for timer to move to clamp positon 
-		IF _timeFromHomeToClampTimer.Q THEN
+		IF _timeFromHomeToClampTimer.Q OR _stopClamping THEN
 			state := eClampingMechanismStates.ClampMovedToClamp;
 		END_IF
 	

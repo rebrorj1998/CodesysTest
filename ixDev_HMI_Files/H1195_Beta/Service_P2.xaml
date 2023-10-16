@@ -224,6 +224,7 @@
     <nac:Button Text="Jog IBD&#xD;&#xA;Open" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button6" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="7" Canvas.Left="217" Canvas.Top="119" nacb:BlinkProperties.VisibleDynamicsValue="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
+          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
             <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
               <nacd2:BrushCFIntervalMapper>
@@ -247,7 +248,6 @@
               </nacd2:BrushCFIntervalMapper>
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
-          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Background>

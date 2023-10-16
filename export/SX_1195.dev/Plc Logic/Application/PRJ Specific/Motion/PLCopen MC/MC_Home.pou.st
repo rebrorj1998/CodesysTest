@@ -3,6 +3,7 @@ FUNCTION_BLOCK FINAL MC_Home EXTENDS MC_Base
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
+	homeSuccess : BOOL;
 END_VAR
 VAR
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -26,7 +27,10 @@ END_IF
 //
 CASE _engineState OF
 	eMCEngineState.Idle:		
-		// Idle State.  If execute rising edge then start halt 
+		// Idle State.  If execute rising edge then start halt
+		IF NOT execute THEN
+			homeSuccess := FALSE;
+		END_IF; 
 		IF _executeOSR.Q THEN
 			IF NOT axis.error AND axis.operational THEN
 				_moveState := eMCMoveState.Busy;
@@ -43,10 +47,13 @@ CASE _engineState OF
 		axis.axisState := eAxisState.Homing;
 		axis.startHoming := TRUE;
 		_engineState := eMCEngineState.Executing;
+		axis.modeOfOperation := eAZDProfileMode.HM;
 	
 	eMCEngineState.Executing:
+		axis.modeOfOperation := eAZDProfileMode.HM;
 		axis.startHoming := FALSE;
-		IF axis.isHomed THEN
+		IF axis.isHomed or not execute THEN
+			homeSuccess := TRUE;
 			_engineState := eMCEngineState.Executed;
 		END_IF
 	
@@ -54,5 +61,6 @@ CASE _engineState OF
 		_moveState := eMCMoveState.Done;
 		_engineState := eMCEngineState.Idle;
 		axis.axisState := eAxisState.Standstill;
+		axis.modeOfOperation := eAZDProfileMode.PP;
 			
 END_CASE

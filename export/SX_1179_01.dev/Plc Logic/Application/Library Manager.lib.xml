@@ -204,14 +204,6 @@
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
             <Key>
-              <Single Type="string">CmpIecVarAccess Implementation</Single>
-            </Key>
-            <Value>
-              <Single Type="string">CmpIecVarAccess Implementation, 3.5.15.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
               <Single Type="string">IecVarAccess</Single>
             </Key>
             <Value>
@@ -224,6 +216,14 @@
             </Key>
             <Value>
               <Single Type="string">SymbolicVarsBase, 3.5.13.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">CmpIecVarAccess Implementation</Single>
+            </Key>
+            <Value>
+              <Single Type="string">CmpIecVarAccess Implementation, 3.5.15.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>

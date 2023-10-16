@@ -59,7 +59,7 @@ jawFrontMotor(
 	oProfileOperationalCurrent => oFrontJawAxisBaseCurrent,
 	defaultCurrent := 100.0,
 	jogForwardCMD:= HMIData.jawJogClosed,
-	jogReverseCMD:= HMIData.jawJogOpen
+	jogReverseCMD:= HMIData.jawJogOpen,
 );
 
 homeSensorCTU(CU := iClampHomeSensor);
@@ -96,7 +96,8 @@ dualMotorPassthrough(
 	stopJawTestMode:= HMIData.stopJawCycleTest,
 	actualPositionInInches=> HMIData.passthroughActual,
 	currentTestCycles=> HMIData.jawClampTestCycles,
-	jawTestModeActive => HMIData.jawCycleTestActive
+	jawTestModeActive => HMIData.jawCycleTestActive,
+	setZero:= HMIData.frontJawMotorData.setPreset
 );
 dualMotorPassthrough.OptionInstalled := TRUE;
 dualMotorPassthrough.OptionEnabled := TRUE;
