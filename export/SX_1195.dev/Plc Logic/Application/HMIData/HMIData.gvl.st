@@ -16,6 +16,8 @@ VAR_GLOBAL
 	IBDService : ServiceCommands;
 	IBDJogOpen : BOOL;
 	IBDJogClosed : BOOL;
+	IBDMinOpenThreshold : REAL;
+	IBDZeroOffset : REAL;
 	jogFilmForward : BOOL;
 	jogFilmReverse : BOOL;
 	cycleSealer : BOOL;

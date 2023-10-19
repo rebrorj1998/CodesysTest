@@ -13,6 +13,7 @@ VAR_INPUT
 	jawClosedSetting : REAL := 0;
 	openIBDPB : BOOL;
 	closeIBDPB : BOOL;
+	clearThreshold: REAL:= 2.0;
 END_VAR
 VAR_OUTPUT
 	failedToOpen : FB_Fault(name := CONCAT(_prefix, 'Failed to Open'));
@@ -20,8 +21,10 @@ VAR_OUTPUT
 	IBDMotorFault : FB_Fault(name := CONCAT(_prefix, 'Motor Fault'));
 	IBDMotorCommFault : FB_Fault(name := CONCAT(_prefix, 'Motor Comm Fault'));
 	actualPosition : REAL := 5.5;
+	
 END_VAR
 VAR
+	_ibdClear:BOOL;
 	_homeNow : BOOL;
 	_isFullyOpen : BOOL;
 	_isHomed : BOOL;
@@ -59,7 +62,7 @@ MC_MoveIBDMotorINC(Axis := IBDMotor);
 MC_ResetIBDMotor(Axis := IBDMotor);
 MC_HaltIBDMotor(Axis := IBDMotor);
 {endregion}
-
+_ibdClear := IBDMotor.ActualPosition >= clearThreshold;
 _isFullyOpen := TO_DINT(IBDMotor.ActualPosition * 1000) <= (TO_DINT(passthroughSetting * 1000) + 10) AND TO_DINT(IBDMotor.ActualPosition * 1000) >= (TO_DINT(passthroughSetting * 1000) - 10);
 
 {region "Timers"}

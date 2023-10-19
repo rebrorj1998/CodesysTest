@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK EM02_DischargeCM
 VAR_INPUT
+	loadPlateInterlocks : DINT;
 END_VAR
 VAR_OUTPUT
 	loadPlateMotor : FB_AZDKAxis := (defaultCurrent := 100);
@@ -39,7 +40,8 @@ loadPlate(
 	dwellSetting := HMIData.loadPlateDwell, 
 	raiseShelfPB := HMIData.loadPlateService.extendCommand, 
 	lowerShelfPB := HMIData.loadPlateService.retractCommand, 
-	loadPlateMotor := loadPlateMotor
+	loadPlateMotor := loadPlateMotor,
+	interlocks := loadPlateInterlocks
 );
 loadPlate.OptionInstalled := HMIData.loadPlateInstalled;
 loadPlate.OptionEnabled := HMIData.loadPlateInUse;

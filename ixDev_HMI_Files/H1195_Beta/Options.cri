@@ -60,6 +60,10 @@
               <Key>Label</Key>
               <Value>2</Value>
             </Detail>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>1</Value>
+            </Detail>
           </Details>
         </Item>
       </Items>
@@ -86,7 +90,7 @@
         <Item xsi:type="ActionItem" Target="Options.Button2" TargetProperty="Actions" Source="Option_IBD" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Options.Button3" TargetProperty="Actions" Source="Option_LoadShelf" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>14</ObjectsCount>
+          <ObjectsCount>15</ObjectsCount>
           <ScreenName>Options</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

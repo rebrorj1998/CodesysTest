@@ -13,6 +13,7 @@ VAR_INPUT
 	dwellSetting : REAL := 1.0;
 	raiseShelfPB : BOOL;
 	lowerShelfPB : BOOL;
+	interlocks : DINT :=0;
 END_VAR
 VAR_OUTPUT
 	failedToHome : FB_Fault(name := CONCAT(_prefix, 'Failed to Home'));
@@ -200,13 +201,14 @@ CASE state OF
 	eMotorizedLoadPlateStates.Lower:	
 		state_index:=5;
 		// Start Moving jaw to closed position
-		MC_MoveMotorABS.Position := loweredSetting;
-		MC_MoveMotorABS.Velocity := lowerVelo;
-		MC_MoveMotorABS.Acceleration := lowerAccel;
-		MC_MoveMotorABS.Deceleration := lowerDecel;
-		MC_MoveMotorABS.Execute := TRUE;
-		state := eMotorizedLoadPlateStates.Lowering;
-		
+		IF interlocks = 0 THEN
+			MC_MoveMotorABS.Position := loweredSetting;
+			MC_MoveMotorABS.Velocity := lowerVelo;
+			MC_MoveMotorABS.Acceleration := lowerAccel;
+			MC_MoveMotorABS.Deceleration := lowerDecel;
+			MC_MoveMotorABS.Execute := TRUE;
+			state := eMotorizedLoadPlateStates.Lowering;
+		END_IF
 	eMotorizedLoadPlateStates.Lowering:
 		state_index:=6;
 		// Wait for jaw closed indication

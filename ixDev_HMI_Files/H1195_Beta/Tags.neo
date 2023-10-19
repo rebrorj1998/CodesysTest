@@ -8864,7 +8864,7 @@
       </Object>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" GlobalDataType="DT_INTEGER2" d1p1:Site.Name="logout_delay" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
         <GlobalDataSubItems>
-          <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" InitialValue="60" />
+          <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" InitialValue="300" />
         </GlobalDataSubItems>
       </Object>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" Size="80" DataType="DT_STRING" d1p1:Site.Name="Application_HMIData_faultMessage" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
@@ -8890,6 +8890,16 @@
         <Events>
           <Event Name="ValueChange" EventHandler="Fault_Instance_ValueChange" />
         </Events>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" d1p1:Site.Name="UserName" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
+        <GlobalDataSubItems>
+          <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" />
+        </GlobalDataSubItems>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" GlobalDataType="DT_STRING" d1p1:Site.Name="Password" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
+        <GlobalDataSubItems>
+          <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.47.473.0, Culture=neutral, PublicKeyToken=null" />
+        </GlobalDataSubItems>
       </Object>
     </GlobalDataItems>
     <PollGroups>

@@ -39,7 +39,7 @@ CASE state OF
 														SetHeadState(HEAD_STATES.SealAndSeparateBag);
 													END_IF
 													
-													IF MoveRequested (bagger.pressureBar) THEN
+													IF MoveRequested(bagger.pressureBar) THEN
 														SetHeadState(HEAD_STATES.MovePassthrough);
 													END_IF
 													
@@ -49,7 +49,7 @@ CASE state OF
 	
 													
     HEAD_STATES.MovingPassthrough :                 //
-													IF NOT MoveRequested (bagger.pressureBar) THEN
+													IF NOT bagger.pressureBar.Busy THEN
 														SetHeadState(HEAD_STATES.MovedPassthrough);
 													END_IF
                                   
@@ -57,8 +57,10 @@ CASE state OF
 													SetHeadState(HEAD_STATES.Idle);
                   
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
+													IF NOT bagger.pressureBar.Busy THEN
                                                     SetSealSeparateState(SEAL_SEPARATE_STATES.MoveJawIn);
 													SetHeadState(HEAD_STATES.SealingAndSeparatingBag);
+													END_IF
                                                     
                 
     HEAD_STATES.SealingAndSeparatingBag :          //
@@ -142,8 +144,11 @@ CASE sealAndSeparateSubState OF
 													IF bagger.IBD.OptionActive THEN
 														bagger.IBD.MoveInToDeflate();
 													END_IF
-                                                    bagger.pressureBar.Close();
-													SetSealSeparateState(SEAL_SEPARATE_STATES.MovingJawIn);
+													IF NOT bagger.pressureBar.Busy THEN
+	                                                    bagger.pressureBar.Close();
+														SetSealSeparateState(SEAL_SEPARATE_STATES.MovingJawIn);
+													END_IF
+													
                                                     
                                                     
                                                     
@@ -203,11 +208,15 @@ CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.MoveJawOutAndFeedBag :        	
 													bagger.bagOpenFingers.ReleaseBag();
 													bagger.sealFlatteners.ToBagFeed();
-													bagger.pressureBar.Open();
+													IF NOT bagger.pressureBar.Busy THEN
+														bagger.pressureBar.Open();
+													END_IF
 													IF bagger.IBD.OptionActive THEN
 														bagger.IBD.MoveOut();
 													END_IF
+													IF bagger.loadPlate.OptionActive THEN
 													bagger.loadPlate.BeginDischarge();	
+													END_IF
 													discharge.TakeAwayBag(THIS^);
 													//releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForOKFromDischarge;	
 													// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
@@ -297,8 +306,11 @@ CASE bagOpenSubState OF
                                                     
                                                     
     BAG_OPEN_ASSIST_STATES.MoveJawIn :                // Close jaw against bag. In the future we may also start vacuum here
+													IF NOT bagger.pressureBar.Busy THEN
                                                     bagger.pressureBar.Close();
-													SetBagOpenState(BAG_OPEN_ASSIST_STATES.MovingJawIn);       
+													SetBagOpenState(BAG_OPEN_ASSIST_STATES.MovingJawIn);    
+													END_IF
+													   
                                                     
                                                     
     BAG_OPEN_ASSIST_STATES.MovingJawIn :            // Move on once jaw is closed
@@ -320,7 +332,9 @@ CASE bagOpenSubState OF
                                                     
                                                     
     BAG_OPEN_ASSIST_STATES.MoveJawOut :             // Open the jaw and move seal flatteners in and to bag holding
-                                                    bagger.pressureBar.Open();
+													IF NOT bagger.pressureBar.Busy THEN
+	                                                    bagger.pressureBar.Open();
+													END_IF
 													SetBagOpenState(BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab);
                                                     
                                                     

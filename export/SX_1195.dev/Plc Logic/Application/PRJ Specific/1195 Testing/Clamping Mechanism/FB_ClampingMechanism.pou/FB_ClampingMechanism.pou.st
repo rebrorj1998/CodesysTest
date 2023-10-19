@@ -62,6 +62,7 @@ _moving :=  state = eClampingMechanismStates.ClampMovingToClamp
 			OR state = eClampingMechanismStates.ClampMovingToRelease;
 _cleared := homeSensor OR homeSensorNotSeen;
 //code to add timer to track duration in states
+_IsHomed := homeSensor OR _maximumReverseTimeTimer.q;
 stateTimer(PT:=T#10000S);
 IF clr THEN
 	speedTracking:=speedTracking_mt;
@@ -90,13 +91,14 @@ CASE state OF
 		// Idle. Wait for command
 		oStartMotor := FALSE;
 		oForwardMotor := TRUE;
+		homeSensorNotSeen := FALSE;
 		IF _homeNow THEN
 			state := eClampingMechanismStates.Home;
 			_homeNow := False;
 		END_IF
 		IF _startClamping AND NOT driveAlarm THEN
 			_startClamping := FALSE;
-			homeSensorNotSeen := FALSE;
+			//homeSensorNotSeen := FALSE;
 			state := eClampingMechanismStates.ClampMoveToClamp;
 		END_IF
 		IF _stopClamping AND NOT homeSensor THEN
@@ -107,19 +109,18 @@ CASE state OF
 	eClampingMechanismStates.Home:  
 		
 		IF homeSensor OR _maximumReverseTimeTimer.Q THEN
-			_IsHomed := TRUE;
+			
 			state := eClampingMechanismStates.Idle;
 		ELSE
 			state:=eClampingMechanismStates.Homing;
 		END_IF
 	eClampingMechanismStates.Homing:  
-		IF NOT homeSensor AND NOT _maximumReverseTimeTimer.Q THEN
+		IF NOT (homeSensor OR _maximumReverseTimeTimer.Q) THEN
 			oForwardMotor := FALSE;	
 			oStartMotor:= TRUE;
 		ELSE
 			oForwardMotor := TRUE;	
-			oStartMotor:= FALSE;
-			_IsHomed := TRUE;	
+			oStartMotor:= FALSE;	
 			state:=eClampingMechanismStates.Idle;			
 		END_IF
 	

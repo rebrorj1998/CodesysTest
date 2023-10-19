@@ -99,6 +99,7 @@
       <Items>
         <Item xsi:type="ActionItem" Target="BaseTemplate.Button1" TargetProperty="Actions" Source="Dashboard" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Button" TargetProperty="Actions" Source="Home" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Group.Button5" TargetProperty="Actions" Source="Login" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Button2" TargetProperty="Actions" Source="Faults" Event="Click" Action="Show Screen" Param="Page_0" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
           <ObjectsCount>10</ObjectsCount>

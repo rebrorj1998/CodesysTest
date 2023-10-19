@@ -27,12 +27,13 @@ namespace Neo.ApplicationFramework.Generated
 		void BaseTemplate_Opened(System.Object sender, System.EventArgs e)
 		{
 			Globals.Tags.SystemTagSecond.ValueChange += new System.EventHandler<Core.Api.DataSource.ValueChangedEventArgs>(TimeOut);
-			
+
 		}
+
 		void TimeOut(System.Object sender, Core.Api.DataSource.ValueChangedEventArgs e)
 		{	
 
-			if(System.Math.Abs(Control.MousePosition.X-mouse_last_x)>5 && System.Math.Abs(Control.MousePosition.Y-mouse_last_y)>5 )
+			if(System.Math.Abs(Control.MousePosition.X-mouse_last_x)>1 || System.Math.Abs(Control.MousePosition.Y-mouse_last_y)>1 )
 			{
 				mouse_last_x =Control.MousePosition.X;
 				mouse_last_y=Control.MousePosition.Y;
@@ -49,7 +50,7 @@ namespace Neo.ApplicationFramework.Generated
 						
 						if(count >= Globals.Tags.logout_delay.Value)
 						{
-							Globals.Security.Logout(false);
+						//	Globals.Security.Logout(false);
 							t_out_start = false;
 							mouse_last_y = 0;
 							mouse_last_x = 0;
@@ -59,9 +60,26 @@ namespace Neo.ApplicationFramework.Generated
 					{
 
 						t_out_start = true;
+						count =0;
 					}
+				}
+				else
+				{
+					count = 0;
 				}
 			}
 		}
+		
+		void BaseTemplate_Closing(System.Object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			Globals.Tags.SystemTagSecond.ValueChange -= new System.EventHandler<Core.Api.DataSource.ValueChangedEventArgs>(TimeOut);
+		}
+		
+		void BaseTemplate_Closed(System.Object sender, System.EventArgs e)
+		{
+			Globals.Tags.SystemTagSecond.ValueChange -= new System.EventHandler<Core.Api.DataSource.ValueChangedEventArgs>(TimeOut);
+		}
+		
+
     }
 }

@@ -35,6 +35,7 @@ VAR
 	speedTracking_mt : ARRAY[0..20] OF ARRAY[0..20] OF TIME:=[21([21(T#0S)])]; 
 	state_index : INT:=0;
 	hold: BOOL;
+	loadPlateInterlocks: DINT := 0;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
@@ -108,7 +109,8 @@ printerLabel();
 
 // Run collection of bagger control modules
 baggerCM();
-dischargeCM();
+dischargeCM(loadPlateInterlocks:= loadPlateInterlocks);
+
 // Set bagger head control modules
 EM01_SXBaggerHead(
 	bagOpenFingers:= baggerCM.dummyBOF, 

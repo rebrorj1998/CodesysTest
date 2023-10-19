@@ -21,11 +21,13 @@ VAR_OUTPUT
 	printHeadActuator : FB_ElectricSolenoid(name := 'Print Head Actuator');
 	labelPrinter : FB_ZebraPrinter(name := 'Zebra Label Printer') := (_optionEnabled := FALSE, _optionInstalled := TRUE);
 	
+	
 	IBDMotor : FB_AZDKAxis := (DefaultCurrent := 100);
 	IBD : FB_BaseIBD(name := 'Motorized IBD');
 	
 	barcodeVerifier : FB_BaseBCV(name := 'Barcode Verifier');
 	
+
 	//bagDelivery : FB_1195BagDelivery(name := 'Bag Delivery');
 	bagDelivery : FB_1195_Test_BagDelivery(name := 'Bag Delivery');
 	bagDeliveryFrontMotor : FB_AZDKAxis;	
@@ -36,6 +38,7 @@ VAR
 	oAxis3TargetPosition: DINT;
 	
 	homeSensorCTU : CTU;
+	STEPS_PER_INCH_IBD: INT;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 _driveState := AZD4A_KED.GetDeviceState();
@@ -123,7 +126,7 @@ labelPrinter.OptionInstalled := HMIData.printerInstalled;
 labelPrinter.OptionEnabled := HMIData.printerInUse;
 	
 sealWire(simulateIO:= HMIData.simulateAllIO, sealDwell:= HMIData.sealBarDwell, sealCool := HMIData.sealBarCool , sealWireOutput=> oSealWire);	
-	
+
 IBDMotor( 
 	axisData := AxisData.IBD,
 	commStatus := _axisCommsStatus,
@@ -147,6 +150,7 @@ IBD(
 IBD.OptionInstalled := HMIData.IBDInstalled;
 IBD.OptionEnabled := HMIData.IBDInUse;
 
+
 barcodeVerifier(
 	dryCycleEnable:=HMIData.dryCycleEnable,
 	feedSpeed := HMIData.printSpeed, 
@@ -161,6 +165,7 @@ barcodeVerifier(
 );
 barcodeVerifier.OptionInstalled := HMIData.barcodeVerifierInstalled;
 barcodeVerifier.OptionEnabled := HMIData.barcodeVerifierInUse;	
+
 	
 bagDeliveryFrontMotor(
 	axisData := AxisData.FilmFeed,
