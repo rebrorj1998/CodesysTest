@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.47.473.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items>
+        <Item Target="BaseTemplate.Group.Button4" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="UserBlank" />
+        <Item Target="BaseTemplate.Group.Button5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="UserBlank" />
+      </Items>
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="BaseTemplate.Text" TargetProperty="FontFamily" Source="Arial" />
+        <Item Target="BaseTemplate.Button3" TargetProperty="FontFamily" Source="Arial" />
+        <Item Target="BaseTemplate.Button9" TargetProperty="FontFamily" Source="Arial" />
+        <Item Target="BaseTemplate.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="BaseTemplate.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="BaseTemplate.Group.Button4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="BaseTemplate.Group.Button5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="BaseTemplate.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="BaseTemplate.Text1" TargetProperty="FontFamily" Source="Arial" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="BaseTemplate.Text" TargetProperty="Value" Source="Tags.Application_HMIData_bannerMessageIndication" />
+        <Item Target="BaseTemplate.Text" TargetProperty="Background" Source="Tags.Application_HMIData_bannerMessageIndication" />
+        <Item Target="BaseTemplate.Text" TargetProperty="Foreground" Source="Tags.Application_HMIData_bannerMessageIndication" />
+        <Item Target="BaseTemplate.Text" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_faultActive" />
+        <Item Target="BaseTemplate.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_ackAllFaults" />
+        <Item Target="BaseTemplate.Button9" TargetProperty="Value" Source="Tags.Application_HMIData_initiateCycle" />
+        <Item Target="BaseTemplate.Group.Button4" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.SystemTagCurrentUser" />
+        <Item Target="BaseTemplate.Group.Button5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.SystemTagCurrentUser" />
+        <Item Target="BaseTemplate.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_faultActive" />
+        <Item Target="BaseTemplate.Button2" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_faultActive" />
+        <Item Target="BaseTemplate.Text1" TargetProperty="Text" Source="Tags.Application_HMIData_faultMessage" />
+        <Item Target="BaseTemplate.Text1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_faultActive" />
+      </Items>
+    </Category>
+    <Category Name="IntegratorSwapActiveProjectAction">
+      <Items />
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects">
+          <Details>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>1</Value>
+            </Detail>
+            <Detail>
+              <Key>Label</Key>
+              <Value>2</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>7</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Button1" TargetProperty="Actions" Source="Dashboard" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Button" TargetProperty="Actions" Source="Home" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Group.Button5" TargetProperty="Actions" Source="Login" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Button2" TargetProperty="Actions" Source="Faults" Event="Click" Action="Show Screen" Param="Page_0" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>10</ObjectsCount>
+          <ScreenName>BaseTemplate</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>BaseTemplate</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items>
+        <Item Target="BaseTemplate.Script.cs" Source="Tags.SystemTagSecond" />
+        <Item Target="BaseTemplate.Script.cs" Source="Tags.watch_me" />
+        <Item Target="BaseTemplate.Script.cs" Source="Tags.SystemTagCurrentUser" />
+        <Item Target="BaseTemplate.Script.cs" Source="Tags.logout_delay" />
+      </Items>
+    </Category>
+    <Category Name="StructuredTag">
+      <Items />
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="BaseTemplate.Button1" Source="touchscreen" Width="43" Height="42" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="BaseTemplate.Button" Source="home (1)" Width="44" Height="44" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="BaseTemplate.Group.Button4" Source="padlock" Width="32" Height="43" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="BaseTemplate.Group.Button5" Source="security" Width="43" Height="40" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="BaseTemplate.Button2" Source="alarm" Width="15" Height="20" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>

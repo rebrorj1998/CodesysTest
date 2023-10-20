@@ -31,6 +31,10 @@ CASE state OF
     HEAD_STATES.Idle :                              // Start cycle
 													
                                                     IF bagger.StartCycleRequest THEN
+
+													IF MoveRequested(bagger.pressureBar) THEN
+														SetHeadState(HEAD_STATES.MovePassthrough);
+													ELSE
 														baggerCycleActive := TRUE;
 														bagger.StartCycleRequest := FALSE;
 														cycleComplete := FALSE;
@@ -38,10 +42,9 @@ CASE state OF
 														_logger.AddLogItem('Cycle Started');
 														SetHeadState(HEAD_STATES.SealAndSeparateBag);
 													END_IF
-													
-													IF MoveRequested(bagger.pressureBar) THEN
-														SetHeadState(HEAD_STATES.MovePassthrough);
 													END_IF
+													
+
 													
 	HEAD_STATES.MovePassthrough : 					//
 													PostHomeMoveIfNeeded(bagger.pressureBar);
@@ -58,6 +61,8 @@ CASE state OF
                   
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
 													IF NOT bagger.pressureBar.Busy THEN
+
+
                                                     SetSealSeparateState(SEAL_SEPARATE_STATES.MoveJawIn);
 													SetHeadState(HEAD_STATES.SealingAndSeparatingBag);
 													END_IF

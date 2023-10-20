@@ -218,6 +218,14 @@
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
             <Key>
+              <Single Type="string">ElementCollections</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">IecVarAccess</Single>
             </Key>
             <Value>
@@ -238,14 +246,6 @@
             </Key>
             <Value>
               <Single Type="string">CmpIecVarAccess Implementation, 3.5.15.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">ElementCollections</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
             </Value>
           </Entry>
         </Dictionary>

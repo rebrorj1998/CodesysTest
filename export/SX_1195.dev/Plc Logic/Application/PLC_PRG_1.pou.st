@@ -2,6 +2,7 @@
 PROGRAM PLC_PRG_1
 VAR
 	firstScanDone: BOOL;
+	firstAborted :BOOL:=TRUE;
 	cycleStartONS : FB_ONS;
 	powerUpFrontJawMotor : MC_Power;
 	powerUpRearJawMotor : MC_Power;
@@ -36,6 +37,7 @@ VAR
 	state_index : INT:=0;
 	hold: BOOL;
 	loadPlateInterlocks: DINT := 0;
+	resetHold: Ton;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
@@ -53,7 +55,9 @@ IF NOT firstScanDone THEN
 	IecTaskDisableWatchdog(hIecTask); // Watchdog disabled
 	firstScanDone := TRUE;
 END_IF
-
+IF firstAborted AND UN00_SXMachine.currentState = PACK_ML.State.Aborted THEN
+	firstAborted := FALSE;
+END_IF
 // Use fault collection for faultActive indication
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
 
@@ -108,7 +112,7 @@ END_IF
 printerLabel();
 
 // Run collection of bagger control modules
-baggerCM();
+baggerCM(inhibitMotion:= firstAborted);
 dischargeCM(loadPlateInterlocks:= loadPlateInterlocks);
 
 // Set bagger head control modules
@@ -175,7 +179,12 @@ END_IF
 IF count_index >=20 THEN
 	count_index :=0;
 END_IF
-
+resetHold(IN:=HMIData.ackAllFaults,PT:=T#100MS);
+IF HMIData.ackAllFaults THEN
+	IF UN00_SXMachine.currentState = PACK_ML.State.Resetting OR resetHold.Q THEN
+		HMIData.ackAllFaults:= FALSE;
+	END_IF
+END_IF
 //End modded code
 // Send the list of active fault strings to HMI for viewing
 HMIData.activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames;

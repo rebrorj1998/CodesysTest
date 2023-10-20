@@ -24,7 +24,7 @@ VAR_GLOBAL
 	printHeadService : ServiceCommands;
 	startJawCycleTest : BOOL;
 	stopJawCycleTest : BOOL;
-
+	clampBypass : BOOL:=FALSE;
 	jawCycleTestActive : BOOL;
 	teachBagPhotoeye : BOOL;
 	teachingBagPhoteye : BOOL;

@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK EM01_BaggerCM
 VAR_INPUT
+	inhibitMotion:BOOL := FALSE;
 END_VAR
 VAR_OUTPUT
 	
@@ -36,7 +37,7 @@ VAR
 	_axisCommsStatus : BOOL;
 	_driveState : DED.DEVICE_STATE;
 	oAxis3TargetPosition: DINT;
-	
+	firstScanDone: BOOL:=TRUE;
 	homeSensorCTU : CTU;
 	STEPS_PER_INCH_IBD: INT;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -100,7 +101,10 @@ dualMotorPassthrough(
 	actualPositionInInches=> HMIData.passthroughActual,
 	currentTestCycles=> HMIData.jawClampTestCycles,
 	jawTestModeActive => HMIData.jawCycleTestActive,
-	setZero:= HMIData.frontJawMotorData.setPreset
+	setZero:= HMIData.frontJawMotorData.setPreset,
+	clampBypass := HMIData.clampBypass,
+	motionInhibit := inhibitMotion
+	
 );
 dualMotorPassthrough.OptionInstalled := TRUE;
 dualMotorPassthrough.OptionEnabled := TRUE;
