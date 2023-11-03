@@ -122,6 +122,7 @@ VAR
 	_funnelBagOpenTimeoutTimer : Standard.TON := (PT := T#500MS);
 	_funnelBagOpenDebounceTimer : Standard.TON := (PT := T#50MS);
 	_funnelBagRemovedDebounceTimer : Standard.TON := (PT := T#250MS);
+	_waitForPressureBarOpenDelay : TON;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -1601,15 +1602,15 @@ CASE sealAndSeparateSubState OF
 													
 END_CASE
 
-_waitForPressureBarOpenDelay(IN := state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPressureBarOpenTimer, PT := TO_TIME((HMIData.pressureBarOpenDelay * 1000.0)));
+_waitForPressureBarOpenDelay(IN := releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPressureBarOpenTimer, PT := TO_TIME((HMIData.pressureBarOpenDelay * 1000.0)));
 
-CASE state.sb.releaseFeed OF
+CASE releaseAndFeedSubState OF
     RELEASE_FEED_STATES.Idle :  
                       //
     
 	RELEASE_FEED_STATES.WaitForPressureBarOpenTimer : 		// Adding in Jaw Open Delay
 													IF _waitForPressureBarOpenDelay.Q THEN
-														state.sb.releaseFeed := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
+														releaseAndFeedSubState := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
 													END_IF
 											   
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
