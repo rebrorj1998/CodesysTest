@@ -16,6 +16,8 @@ ELSIF stKey = "Project" THEN
 	GetTextProperty := "AlphaController";
 ELSIF stKey = "Title" THEN
 	GetTextProperty := "MOAB Prototype";
+ELSIF stKey = "VersionPostfix" THEN
+	GetTextProperty := "/pbar-open-delay";
 ELSE
 	GetTextProperty := "";
 END_IF

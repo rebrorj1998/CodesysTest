@@ -4,10 +4,11 @@
 TYPE RELEASE_FEED_STATES :
 (
 	Idle := 0,
-	MoveJawOutAndDropBag := 10,
-	MovingJawOutAndDroppingBag := 11,
-	MovingJawOutAndFeedBag := 12,
-	MovingJawOutAndFeedingBag := 13,
+	WaitForPressureBarOpenTimer := 10,
+	MoveJawOutAndDropBag := 11,
+	MovingJawOutAndDroppingBag := 12,
+	MovingJawOutAndFeedBag := 13,
+	MovingJawOutAndFeedingBag := 14,
 	MovedJawOutAndFedBag := 15,
 	WaitForPrinter := 20,
 	FeedToOffset := 21,

@@ -135,6 +135,7 @@ VAR
 	_bagGrabbedONS : Standard.R_TRIG;
 	_waitForTakeupTimer : Standard.TON := (PT := T#500MS);
 	_waitForSealFlattenersUpTimer : Standard.TON := (PT := T#500MS);
+	_waitForPressureBarOpenDelay : TON;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -1435,7 +1436,7 @@ CASE state.head OF
     HEAD_STATES.SealedAndSeparatedBag :             state.head := HEAD_STATES.ReleaseAndFeedBag;                                    
                                                     
     HEAD_STATES.ReleaseAndFeedBag :                    // Open the jaw and release the bag
-                                                    state.sb.releaseFeed := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
+                                                    state.sb.releaseFeed := RELEASE_FEED_STATES.WaitForPressureBarOpenTimer;
                                                     state.head := HEAD_STATES.ReleasingAndFeedingBag;
                                                     
     HEAD_STATES.ReleasingAndFeedingBag :            // 
@@ -1817,10 +1818,19 @@ CASE state.sb.sealSeparate OF
     SEAL_SEPARATE_STATES.Fault:						//
 END_CASE
 
+_waitForPressureBarOpenDelay(IN := state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPressureBarOpenTimer, PT := TO_TIME((HMIData.pressureBarOpenDelay * 1000.0)));
 
 CASE state.sb.releaseFeed OF
-    RELEASE_FEED_STATES.Idle :                        //
-                                                        
+    RELEASE_FEED_STATES.Idle :  
+                      //
+    
+	RELEASE_FEED_STATES.WaitForPressureBarOpenTimer : 		// Adding in Jaw Open Delay
+													IF _waitForPressureBarOpenDelay.Q THEN
+														state.sb.releaseFeed := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
+													END_IF
+													
+
+                                                   
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)

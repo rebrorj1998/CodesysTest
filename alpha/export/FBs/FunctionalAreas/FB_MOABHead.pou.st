@@ -1280,7 +1280,7 @@ CASE state OF
     HEAD_STATES.SealedAndSeparatedBag :                state := HEAD_STATES.ReleaseAndFeedBag;                                    
                                                     
     HEAD_STATES.ReleaseAndFeedBag :                    // Open the jaw and release the bag
-                                                    releaseAndFeedSubState := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
+                                                    releaseAndFeedSubState := RELEASE_FEED_STATES.WaitForPressureBarOpenTimer;
                                                     state := HEAD_STATES.ReleasingAndFeedingBag;
                                                     
     HEAD_STATES.ReleasingAndFeedingBag :            // 
@@ -1601,8 +1601,17 @@ CASE sealAndSeparateSubState OF
 													
 END_CASE
 
+_waitForPressureBarOpenDelay(IN := state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPressureBarOpenTimer, PT := TO_TIME((HMIData.pressureBarOpenDelay * 1000.0)));
 
-CASE releaseAndFeedSubState OF
+CASE state.sb.releaseFeed OF
+    RELEASE_FEED_STATES.Idle :  
+                      //
+    
+	RELEASE_FEED_STATES.WaitForPressureBarOpenTimer : 		// Adding in Jaw Open Delay
+													IF _waitForPressureBarOpenDelay.Q THEN
+														state.sb.releaseFeed := RELEASE_FEED_STATES.MoveJawOutAndDropBag;
+													END_IF
+											   
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
                                                     IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
                                                         AND (pressureBar.state = PRESSURE_BAR_STATES.JawClosed OR NOT pressureBar.enable)

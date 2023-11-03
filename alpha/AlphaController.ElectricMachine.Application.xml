@@ -491,10 +491,11 @@
     </TypeUserDef>
     <TypeUserDef name="T_RELEASE_FEED_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="RELEASE_FEED_STATES" basetype="T_INT">
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Idle" enumvalue="0" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MoveJawOutAndDropBag" enumvalue="10" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndDroppingBag" enumvalue="11" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedBag" enumvalue="12" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedingBag" enumvalue="13" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="WaitForPressureBarOpenTimer" enumvalue="10" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MoveJawOutAndDropBag" enumvalue="11" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndDroppingBag" enumvalue="12" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedBag" enumvalue="13" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedingBag" enumvalue="14" />
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovedJawOutAndFedBag" enumvalue="15" />
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="WaitForPrinter" enumvalue="20" />
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="FeedToOffset" enumvalue="21" />
@@ -940,7 +941,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="206936" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="206968" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" />
