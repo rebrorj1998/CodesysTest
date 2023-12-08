@@ -69,7 +69,7 @@ jawFrontMotor(
 homeSensorCTU(CU := iClampHomeSensor);
 
 clampingMechanism(
-	driveAlarm:= NOT iPbarClampMotorAlarm, 
+	driveAlarm:= not iPbarClampMotorAlarm, 
 	homeSensor:= iClampHomeSensor, 
 	timeFromHomeToClamp:= T#500MS, 
 	maximumClampingTime:= T#4.8S,

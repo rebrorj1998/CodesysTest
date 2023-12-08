@@ -22,6 +22,7 @@ VAR_INPUT
 	adjClampedPos : REAL := 0.3;
 	clampBypass: BOOL:=FALSE;
 	motionInhibit: BOOL :=FALSE;
+	cleanup_ons : FB_ONS;
 END_VAR
 VAR_OUTPUT
 	pressureBarObstructed : FB_Fault(name := CONCAT(_prefix, 'Obstructed'));
@@ -101,6 +102,8 @@ VAR
 	clampPushed: BOOL;
 	_busy: BOOL;
 
+	init_vars: BOOL;
+	_maintenanceMove: BOOL;
 END_VAR
 VAR PERSISTENT
 	factoryHomeJaw: BOOL;
@@ -161,7 +164,7 @@ _isFullyOpen := ABS(actualPositionInInches - passthroughSetting) < 0.1;
 
 // Failed to reach sensor timers
 _failedToCloseTimer(
-	IN := state = eDualMotorPressureBar_AsyncStates.ClosingToFaceplate AND NOT _isFullyClosed,
+	IN := state = eDualMotorPressureBar_AsyncStates.ClosingToFaceplate AND NOT _isFullyClosed AND NOT closeJawPB,
 	PT := _jawCloseMotionFaultTimeOffset,
 	Q => failedToClose.faultTrigger);
 	
@@ -175,7 +178,7 @@ frontMotorFault.faultTrigger := frontMotor.error;
 frontMotorCommFault.faultTrigger := NOT frontMotor.commStatus;
 pressureBarObstructed.faultTrigger := NOT zeroNow AND NOT obstructionSensor AND NOT (actualPositionInInches < 0.06 OR _isFullyOpen);
 pressurebarTimeOut.faultTrigger:= stepTON1.Q OR stepTON2.Q;
-_activeFault := pressurebarTimeOut.active OR pressureBarObstructed.active OR failedToClose.active OR frontMotorFault.active OR failedToOpen.active OR failedToHome.active;
+_activeFault := pressurebarTimeOut.Active OR pressureBarObstructed.Active OR failedToClose.Active OR frontMotorFault.Active OR failedToOpen.Active OR failedToHome.Active;
 //	 
 _faultONS(CLK := _activeFault);
 
@@ -214,12 +217,17 @@ END_IF
 IF motionInhibit THEN
 	state:= eDualMotorPressureBar_AsyncStates.Idle;
 END_IF
+cleanup_ons(CLK:=state = eDualMotorPressureBar_AsyncStates.Idle);
+
 
 CASE state OF
 	
 	eDualMotorPressureBar_AsyncStates.Idle:
 		state_index:=0;
 		//	  
+		IF cleanup_ons.OSR THEN
+			SterilizeVariables();
+		END_IF 
 		_ready := _isHomed AND NOT _faultONS.CLK AND InPosition;
 		_isFullyClosed := FALSE;
 		 //
@@ -249,7 +257,7 @@ CASE state OF
 				_openNow := _makeReady :=  openJawPB := FALSE;
 				state := eDualMotorPressureBar_AsyncStates.Open;
 			ELSIF (_closeNow AND _moveInDelay.Q) OR closeJawPB THEN
-				closeJawPB := FALSE;
+				_maintenanceMove := TRUE;
 				_closeNow := FALSE;
 				state := eDualMotorPressureBar_AsyncStates.CloseToFaceplate;
 			END_IF
@@ -367,16 +375,18 @@ CASE state OF
 				motionProfile := closeProfile,
 				nextState := eDualMotorPressureBar_AsyncStates.ClosingToFaceplate
 			);	
+		ELSE
+			clampingMechanism.HomeNow();
 		END_IF
 		
 	eDualMotorPressureBar_AsyncStates.ClosingToFaceplate:
 		_isFullyClosed := FALSE;
 		state_index:=3;
 		// Wait for jaw closed indication
-		IF _startClampingONS.OSR AND NOT clampBypass THEN
+		IF _startClampingONS.OSR AND NOT clampBypass AND NOT _maintenanceMove THEN
 			clampingMechanism.StartClamping();
 		END_IF
-		IF  (clampingMechanism.Moving AND clampingMechanism.Forward) OR clampBypass THEN
+		IF  (clampingMechanism.Moving AND clampingMechanism.Forward) OR clampBypass OR _maintenanceMove THEN
 		IF MC_MoveFrontMotorABS.Done THEN
 			//
 			MC_MoveFrontMotorABS.execute := FALSE;
@@ -400,17 +410,22 @@ CASE state OF
 		_isFullyClosed := FALSE;
 		state_index:=9;
 		// Push in and wait for clamping
-		IF NOT clampingMechanism.Cleared OR clampBypass THEN
-		AbsoluteMovePush(
-			motionProfile := pushProfile,
-			nextState := eDualMotorPressureBar_AsyncStates.Clamp
-		);
+		IF _maintenanceMove THEN
+			MC_MoveFrontMotorPush.execute := FALSE;
+			state := eDualMotorPressureBar_AsyncStates.Idle;
+		ELSE
+			IF NOT clampingMechanism.Cleared OR clampBypass THEN
+			AbsoluteMovePush(
+				motionProfile := pushProfile,
+				nextState := eDualMotorPressureBar_AsyncStates.Clamp
+			);
+			END_IF
+			clampingState := TRUE;
+			clamp_pos := 0.0;
+			peak_velo := 0;
+			min_velo := 10000;
+			clampPushed:=FALSE;
 		END_IF
-		clampingState := TRUE;
-		clamp_pos := 0.0;
-		peak_velo := 0;
-		min_velo := 10000;
-		clampPushed:=FALSE;
 	
 	eDualMotorPressureBar_AsyncStates.Clamp:
 		_isFullyClosed := FALSE;

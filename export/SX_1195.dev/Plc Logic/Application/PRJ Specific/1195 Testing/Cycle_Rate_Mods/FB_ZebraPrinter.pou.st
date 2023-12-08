@@ -136,8 +136,9 @@ CASE state OF
 		printerRibbonMovingTimer2.IN := FALSE;
 		_printing := FALSE;
 		_stopPrinting := FALSE;
+		_printDone := FALSE;
 		IF _beginPrinting AND THIS^.OptionEnabled THEN
-			_printDone := FALSE;
+			
 			IF NOT dataReadyInput THEN
 				state := eZebraPrinterStates.WaitingForData;
 			ELSE
@@ -190,7 +191,7 @@ CASE state OF
 		// While printing, wait for End of Print signal	
 		printerRibbonMovingTimer1.IN := ribbonEncoderPulseInput;
 		printerRibbonMovingTimer2.IN := NOT ribbonEncoderPulseInput;
-        IF endOfPrintONS.Q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable OR _stopPrinting THEN
+        IF endOfPrintONS.q OR printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q OR dryCycleEnable OR _stopPrinting THEN
             startPrintOutput := FALSE;
 			_stopPrinting := FALSE;
 			ribbonUnwindRunOutput := FALSE;

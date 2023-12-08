@@ -39,6 +39,9 @@ VAR
 	speedTracking : ARRAY[0..20] OF ARRAY[0..20] OF TIME;
 	speedTracking_mt : ARRAY[0..20] OF ARRAY[0..20] OF TIME:=[21([21(T#0S)])]; 
 	state_index : INT:=0;
+	clampingMechanismDriveFault : FB_Fault(name := CONCAT(_prefix, 'Clamping Mechanism Fault'));
+	_faultONS: FB_ONS;
+	_activeFault: BOOL;
 END_VAR
 VAR_IN_OUT
 
@@ -51,7 +54,7 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Created by: Ben Hess
 //	Created Date: 4/11/2023
 SUPER^();
-
+clampingMechanismDriveFault.faultTrigger := driveAlarm;
 _timeFromHomeToClampTimer(PT := timeFromHomeToClamp, IN := state = eClampingMechanismStates.ClampMovingToClamp);
 _maximumClampingTimeTimer(PT := maximumClampingTime, IN := state = eClampingMechanismStates.ClampMovedToClamp);
 _maximumReverseTimeTimer(PT := maximumReverseTime, IN := oStartMotor = TRUE AND oForwardMotor = FALSE);//;state = eClampingMechanismStates.ClampMovingToRelease);
@@ -64,6 +67,11 @@ _cleared := homeSensor OR homeSensorNotSeen;
 //code to add timer to track duration in states
 _IsHomed := homeSensor OR _maximumReverseTimeTimer.q;
 stateTimer(PT:=T#10000S);
+_activeFault := clampingMechanismDriveFault.Active;
+_faultONS(CLK := _activeFault AND NOT oResetDrive );
+IF _faultONS.OSR THEN 
+	state:= eClampingMechanismStates.Fault;
+END_IF
 IF clr THEN
 	speedTracking:=speedTracking_mt;
 	clr:=FALSE;
@@ -84,7 +92,7 @@ IF count_index >=20 THEN
 END_IF
 
 //End modded code
-_ready := state = eClampingMechanismStates.Idle;// AND _cleared;
+_ready := state = eClampingMechanismStates.Idle and NOT driveAlarm;// AND _cleared;
 CASE state OF
 	eClampingMechanismStates.Idle:  
 		state_index := 0;
@@ -92,9 +100,10 @@ CASE state OF
 		oStartMotor := FALSE;
 		oForwardMotor := TRUE;
 		homeSensorNotSeen := FALSE;
-		IF _homeNow THEN
+		IF _homeNow OR _makeReady THEN
 			state := eClampingMechanismStates.Home;
-			_homeNow := False;
+			_homeNow := FALSE;
+			_makeReady := FALSE;
 		END_IF
 		IF _startClamping AND NOT driveAlarm THEN
 			_startClamping := FALSE;
@@ -178,6 +187,7 @@ CASE state OF
 		state := eClampingMechanismStates.Faulting;
 	eClampingMechanismStates.Faulting:
 		state_index := 8;
+		state := eClampingMechanismStates.Faulted;
 	
 	eClampingMechanismStates.Faulted:
 		state_index := 9;
@@ -193,12 +203,8 @@ CASE state OF
 	eClampingMechanismStates.Resetting:
 		state_index := 11;
 		// Wait for alarm to go away
-		IF NOT _resetDriveOutputPulse.Q THEN
-			IF driveAlarm THEN
-				state := eClampingMechanismStates.Fault;
-			ELSE
+		IF _resetDriveOutputPulse.Q THEN
 				state := eClampingMechanismStates.ResetDone;
-			END_IF
 		END_IF
 		
 	eClampingMechanismStates.ResetDone:
@@ -208,6 +214,3 @@ CASE state OF
 END_CASE
 
 
-IF driveAlarm THEN 
-	state := eClampingMechanismStates.Fault;
-END_IF

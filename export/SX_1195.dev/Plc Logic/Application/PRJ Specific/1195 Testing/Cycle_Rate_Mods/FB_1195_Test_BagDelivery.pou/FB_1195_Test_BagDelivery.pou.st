@@ -42,8 +42,10 @@ VAR
 	_bagSeparated : BOOL;
 	_readyForPrint : BOOL;
 	_printerExtraFeedLength : REAL := 0.25;
-	state : INT;
-	nextState : INT;
+	//state : INT;
+	state : eBagDeliveryStates;
+	//nextState : INT;
+	nextState : eBagDeliveryStates;
 	moveBagDeliveryTimeout : Standard.TON;
 	MC_MoveBagDelivery : MC_MoveRelative;
 	MC_HaltBagDelivery : MC_Halt;
@@ -72,11 +74,11 @@ MC_PowerUpBagDelivery(
 {endregion}
 	 
 // If reset of motors fails state machine must move on
-_resetTimer(IN := state = 91);
+_resetTimer(IN := state = eBagDeliveryStates.Resetting);
 //moveBagDeliveryTimeout();
 	 
 IF _reset THEN
-	state := 90;
+	state := eBagDeliveryStates.Reset;
 	nextState := 0;
 	ClearStatus();
 	MC_ResetBagDelivery.Execute := TRUE;
@@ -121,39 +123,44 @@ END_IF
 IF trapezoidalPercent <= 0 THEN
 	trapezoidalPercent := 0.1;
 END_IF
-
 CASE state OF
 	
-	0:		
+	eBagDeliveryStates.Idle:		
 			state_index := 0;
 			MC_ResetBagDelivery.Execute := FALSE;
 			// Idle
 			IF _feedBagOut THEN
-				state := 10;
+				state := eBagDeliveryStates.FeedBagOut;//10
 				_feedBagOut := FALSE;
 				ClearStatus();
 			END_IF
 			
 			IF _feedToPrintOffset THEN
-				state := 20;
+				state := eBagDeliveryStates.FeedToPrintOffset;//20;
 				_feedToPrintOffset := FALSE;
 				ClearStatus();
 			END_IF
 			
 			IF _reverseToSeparate THEN
 				_bagSeparated := FALSE;
-				state := 50;
+				state := eBagDeliveryStates.FeedToPhotoEye;//50;
 				_reverseToSeparate := FALSE;
 				ClearStatus();
 			END_IF
 			
 			IF _feedAtPrintSpeed THEN
-				state := 40;
+				state := eBagDeliveryStates.FeedAtPrintSpeed;//40;
 				_feedAtPrintSpeed := FALSE;
 				ClearStatus();
 			END_IF
+			IF _makeReady THEN 
+				IF (NOT bagPresent AND NOT HMIData.dryCycleEnable)THEN
+					state:= eBagDeliveryStates.Cleanup;//100;
+				END_IF
+				_makeReady := FALSE;
+			END_IF
 
-	10:		// Feed bag out
+	eBagDeliveryStates.FeedBagOut:		// Feed bag out state was 10
 			state_index := 5;
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := feedSpeed;
@@ -163,21 +170,21 @@ CASE state OF
 			moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag Out'));
-			state := 101;
-			nextState := 11;
+			state := eBagDeliveryStates.WaitingForMoveCompletion;
+			nextState := eBagDeliveryStates.FeedingBagOut;
 			
-	11:		// Set Bag Feed Done
+	eBagDeliveryStates.FeedingBagOut:		// Set Bag Feed Done
 			state_index := 6;
 			_bagFeedDone := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Bag Feed Done'));
-			state := 0;
-			nextState := 0;
+			state := eBagDeliveryStates.Idle;
+			nextState := eBagDeliveryStates.Idle;
 	
-	20:		// Feed bag to print offset.  If already at print offset from reversing, continue
+	eBagDeliveryStates.FeedToPrintOffset:		// Feed bag to print offset.  If already at print offset from reversing, continue
 			state_index := 7;
-			IF bagReversedToPrintOffset THEN
-				state := 21;
-				nextState := 0;
+			IF bagReversedToPrintOffset or printOffset = 0 THEN
+				state := eBagDeliveryStates.FeedingToPrintOffset;
+				nextState := eBagDeliveryStates.Idle;
 				bagReversedToPrintOffset := FALSE;
 			ELSE
 				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
@@ -189,17 +196,17 @@ CASE state OF
 				moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag to Print Offset'));
-				state := 101;
-				nextState := 21;	
+				state := eBagDeliveryStates.WaitingForMoveCompletion;
+				nextState := eBagDeliveryStates.FeedingToPrintOffset;	
 			END_IF
 	
-	21: 	// Set Ready For Print
+	eBagDeliveryStates.FeedingToPrintOffset: 	// Set Ready For Print
 			state_index := 8;
 			_readyForPrint := TRUE;
-			state := 0;
-			nextState := 0;	
+			state := eBagDeliveryStates.Idle;
+			nextState := eBagDeliveryStates.Idle;	
 	
-	50: 	// Feed bag if not over photoeye
+	eBagDeliveryStates.FeedToPhotoEye: 	// Feed bag if not over photoeye
 			state_index := 9;
 			IF NOT bagPresent AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
@@ -210,19 +217,19 @@ CASE state OF
 				moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feed to Photoeye'));
-				state := 51;
+				state := eBagDeliveryStates.FeedingToPhotoEye;
 			ELSE
-				state := 30;
+				state := eBagDeliveryStates.ReverseToSeperate;
 			END_IF
 			
-	51: 	// If move completed then fault, otherwise stop at photoeye
+	eBagDeliveryStates.FeedingToPhotoEye: 	// If move completed then fault, otherwise stop at photoeye
 			state_index := 10;
 			IF MC_MoveBagDelivery.Done THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				noBagOverEye.Trigger();
 				ClearStatus();
-				state := 100;
-				nextState := 0;
+				state := eBagDeliveryStates.Cleanup;
+				nextState := eBagDeliveryStates.Idle;
 			END_IF
 			
 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
@@ -230,26 +237,26 @@ CASE state OF
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				ClearStatus();
-				nextState := 0;
-				state := 100;
+				nextState := eBagDeliveryStates.Idle;
+				state := eBagDeliveryStates.Cleanup;
 			END_IF
 			
 			IF bagPresent THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				bagEdgePhotoeyeSim.in := FALSE;
-				state := 52;
+				state := eBagDeliveryStates.FeedToPhotoEyeDone;
 				
 			END_IF
 		
-	52:		// Wait for bag to stop
+	eBagDeliveryStates.FeedToPhotoEyeDone:		// Wait for bag to stop
 			state_index := 11;
 			IF MC_HaltBagDelivery.Done THEN
 				MC_HaltBagDelivery.Execute := FALSE;
-				state := 30;
+				state := eBagDeliveryStates.ReverseToSeperate;
 			END_IF
 	
-	30:		// Reverse to Separate
+	eBagDeliveryStates.ReverseToSeperate:		// Reverse to Separate
 			state_index := 1;
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := reverseSpeed;
@@ -260,24 +267,24 @@ CASE state OF
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Reversing to Photoeye'));
 			bagEdgePhotoeyeSim.in := TRUE;
-			state := 31;
-			//nextState := 31;
+			state := eBagDeliveryStates.ReversingToSeperate;
+			//nextState := eBagDeliveryStates.ReversingToSeperate;
 	
-	31:		// Stop bag once edge clears photoeye. If move command finishes that means the bag didn't separate 
+	eBagDeliveryStates.ReversingToSeperate:		// Stop bag once edge clears photoeye. If move command finishes that means the bag didn't separate 
 			state_index := 2;
 			IF MC_MoveBagDelivery.Done AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				bagFailedToSeparate.Trigger();
 				ClearStatus();
-				state := 100;
-				nextState := 0;
+				state := eBagDeliveryStates.Cleanup;
+				nextState := eBagDeliveryStates.Idle;
 			END_IF
 			
 			IF MC_MoveBagDelivery.Done AND dryCycleEnable THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := FALSE;
 				bagEdgePhotoeyeSim.in := FALSE;
-				state := 32;
+				state := eBagDeliveryStates.ReversingToSeperateDone;
 			END_IF
 			
 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
@@ -285,28 +292,28 @@ CASE state OF
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				ClearStatus();
-				nextState := 32;
-				state := 100;
+				nextState := eBagDeliveryStates.ReversingToSeperateDone;
+				state := eBagDeliveryStates.Cleanup;
 			END_IF
 			
 			IF NOT bagPresent AND NOT dryCycleEnable THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				bagEdgePhotoeyeSim.in := FALSE;
-				state := 32;
+				state := eBagDeliveryStates.ReversingToSeperateDone;
 			END_IF
 		
-	32: 	// Set Bag Reversed
+	eBagDeliveryStates.ReversingToSeperateDone: 	// Set Bag Reversed
 			state_index := 3;
 			IF MC_HaltBagDelivery.Done OR dryCycleEnable THEN
 				MC_HaltBagDelivery.Execute := FALSE;
 				remainingLength := bagLength - sealOffset + distanceFromSealBarToBagEdge;
 				_bagSeparated := TRUE;
-				state := 0;
-				nextState := 0;
+				state := eBagDeliveryStates.Idle;
+				nextState := eBagDeliveryStates.Idle;
 			END_IF
 			
-	40:		// Feed at Print Speed
+	eBagDeliveryStates.FeedAtPrintSpeed:		// Feed at Print Speed
 			state_index := 12;
 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
 			MC_MoveBagDelivery.Velocity := printSpeed;
@@ -319,26 +326,28 @@ CASE state OF
 			remainingLength := remainingLength - printLength - _printerExtraFeedLength;
 			_feedBagOut := FALSE;
 			printingNow := TRUE;
-			state := 101;
-			nextState := 10;
+			state := eBagDeliveryStates.WaitingForMoveCompletion;
+			nextState := eBagDeliveryStates.FeedBagOut;
 	
-	100:	// Cleanup
+	eBagDeliveryStates.Cleanup:	// Cleanup
 			state_index := 5;
 			MC_MoveBagDelivery.Execute := FALSE;
 			MC_HaltBagDelivery.Execute := FALSE;
 			moveBagDeliveryTimeout.IN := FALSE;
 			bagEdgePhotoeyeSim.in := FALSE;
-			state := nextState;
+			state := nextState;				
+			
+
 	
-	101: 	// Wait for Move to complete
+	eBagDeliveryStates.WaitingForMoveCompletion: 	// Wait for Move to complete
 			state_index := 4;
 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
 				MC_MoveBagDelivery.Execute := FALSE;
 				MC_HaltBagDelivery.Execute := TRUE;
 				moveBagDeliveryTimeout.IN := FALSE;
 				ClearStatus();
-				nextState := 0;
-				state := 100;
+				nextState := eBagDeliveryStates.Idle;
+				state := eBagDeliveryStates.Cleanup;
 			END_IF
 			
 			IF MC_MoveBagDelivery.Done THEN
@@ -357,12 +366,12 @@ CASE state OF
 				END_IF
 			END_IF
 			
-	103:	// Set In Position and go back to idle
+	eBagDeliveryStates.MoveComplete:	// Set In Position and go back to idle
 			state_index := 13;
-			nextState := 0;
-			state := 100;
+			nextState := eBagDeliveryStates.Idle;
+			state := eBagDeliveryStates.Cleanup;
 			
-	90:		//Reset:
+	eBagDeliveryStates.Reset:		//Reset:
 		state_index := 14;
 		_feedAtPrintSpeed := FALSE;
 		_feedBagOut := FALSE;
@@ -378,19 +387,299 @@ CASE state OF
 		//MC_PowerUpBagDelivery.execute := FALSE;
 				
 		
-		state := 91;
+		state := eBagDeliveryStates.Resetting;
 
-	91:		//Resetting:
+	eBagDeliveryStates.Resetting:		//Resetting:
 		state_index := 15;
 		IF  _resetTimer.Q THEN
 			MC_ResetBagDelivery.Execute := FALSE;	
-			state := 92;
+			state := eBagDeliveryStates.ResetDone;
 		END_IF
 		
-	92:		//ResetDone:
+	eBagDeliveryStates.ResetDone:		//ResetDone:
 		state_index := 16;
  		IF bagDeliveryMotor.operational THEN
- 			state := 100;
+ 			state := eBagDeliveryStates.Cleanup;
  		END_IF
 
 END_CASE
+// CASE state OF
+// 	
+// 	0:		
+// 			state_index := 0;
+// 			MC_ResetBagDelivery.Execute := FALSE;
+// 			// Idle
+// 			IF _feedBagOut THEN
+// 				state := 10;
+// 				_feedBagOut := FALSE;
+// 				ClearStatus();
+// 			END_IF
+// 			
+// 			IF _feedToPrintOffset THEN
+// 				state := 20;
+// 				_feedToPrintOffset := FALSE;
+// 				ClearStatus();
+// 			END_IF
+// 			
+// 			IF _reverseToSeparate THEN
+// 				_bagSeparated := FALSE;
+// 				state := 50;
+// 				_reverseToSeparate := FALSE;
+// 				ClearStatus();
+// 			END_IF
+// 			
+// 			IF _feedAtPrintSpeed THEN
+// 				state := 40;
+// 				_feedAtPrintSpeed := FALSE;
+// 				ClearStatus();
+// 			END_IF
+// 			IF _makeReady THEN 
+// 				IF (NOT bagPresent AND NOT HMIData.dryCycleEnable)THEN
+// 					state:= 100;
+// 				END_IF
+// 				_makeReady := FALSE;
+// 			END_IF
+// 
+// 	10:		// Feed bag out
+// 			state_index := 5;
+// 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
+// 			MC_MoveBagDelivery.Velocity := feedSpeed;
+// 			MC_MoveBagDelivery.currentLimit := 100;
+// 			MC_MoveBagDelivery.Distance := remainingLength;
+// 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(remainingLength, feedSpeed, 1000);
+// 			moveBagDeliveryTimeout.IN := TRUE;
+// 			MC_MoveBagDelivery.Execute := TRUE;
+// 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag Out'));
+// 			state := 101;
+// 			nextState := 11;
+// 			
+// 	11:		// Set Bag Feed Done
+// 			state_index := 6;
+// 			_bagFeedDone := TRUE;
+// 			_logger.AddLogItem(CONCAT(_prefix, 'Bag Feed Done'));
+// 			state := 0;
+// 			nextState := 0;
+// 	
+// 	20:		// Feed bag to print offset.  If already at print offset from reversing, continue
+// 			state_index := 7;
+// 			IF bagReversedToPrintOffset or printOffset = 0 THEN
+// 				state := 21;
+// 				nextState := 0;
+// 				bagReversedToPrintOffset := FALSE;
+// 			ELSE
+// 				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
+// 				MC_MoveBagDelivery.Velocity := feedSpeed;
+// 				MC_MoveBagDelivery.currentLimit := 100;
+// 				MC_MoveBagDelivery.Distance := printOffset;
+// 				remainingLength := remainingLength - printOffset;
+// 				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(printOffset, feedSpeed, 1000);
+// 				moveBagDeliveryTimeout.IN := TRUE;
+// 				MC_MoveBagDelivery.Execute := TRUE;
+// 				_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag to Print Offset'));
+// 				state := 101;
+// 				nextState := 21;	
+// 			END_IF
+// 	
+// 	21: 	// Set Ready For Print
+// 			state_index := 8;
+// 			_readyForPrint := TRUE;
+// 			state := 0;
+// 			nextState := 0;	
+// 	
+// 	50: 	// Feed bag if not over photoeye
+// 			state_index := 9;
+// 			IF NOT bagPresent AND NOT dryCycleEnable THEN
+// 				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
+// 				MC_MoveBagDelivery.Velocity := reverseSpeed;
+// 				MC_MoveBagDelivery.currentLimit := 100;
+// 				MC_MoveBagDelivery.Distance := maxReverseSetpoint;
+// 				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
+// 				moveBagDeliveryTimeout.IN := TRUE;
+// 				MC_MoveBagDelivery.Execute := TRUE;
+// 				_logger.AddLogItem(CONCAT(_prefix, 'Feed to Photoeye'));
+// 				state := 51;
+// 			ELSE
+// 				state := 30;
+// 			END_IF
+// 			
+// 	51: 	// If move completed then fault, otherwise stop at photoeye
+// 			state_index := 10;
+// 			IF MC_MoveBagDelivery.Done THEN
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				noBagOverEye.Trigger();
+// 				ClearStatus();
+// 				state := 100;
+// 				nextState := 0;
+// 			END_IF
+// 			
+// 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
+// 				reverseFault.Trigger();
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				MC_HaltBagDelivery.Execute := TRUE;
+// 				ClearStatus();
+// 				nextState := 0;
+// 				state := 100;
+// 			END_IF
+// 			
+// 			IF bagPresent THEN
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				MC_HaltBagDelivery.Execute := TRUE;
+// 				bagEdgePhotoeyeSim.in := FALSE;
+// 				state := 52;
+// 				
+// 			END_IF
+// 		
+// 	52:		// Wait for bag to stop
+// 			state_index := 11;
+// 			IF MC_HaltBagDelivery.Done THEN
+// 				MC_HaltBagDelivery.Execute := FALSE;
+// 				state := 30;
+// 			END_IF
+// 	
+// 	30:		// Reverse to Separate
+// 			state_index := 1;
+// 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
+// 			MC_MoveBagDelivery.Velocity := reverseSpeed;
+// 			MC_MoveBagDelivery.currentLimit := 100;
+// 			MC_MoveBagDelivery.Distance := maxReverseSetpoint * -1;
+// 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
+// 			moveBagDeliveryTimeout.IN := TRUE;
+// 			MC_MoveBagDelivery.Execute := TRUE;
+// 			_logger.AddLogItem(CONCAT(_prefix, 'Reversing to Photoeye'));
+// 			bagEdgePhotoeyeSim.in := TRUE;
+// 			state := 31;
+// 			//nextState := 31;
+// 	
+// 	31:		// Stop bag once edge clears photoeye. If move command finishes that means the bag didn't separate 
+// 			state_index := 2;
+// 			IF MC_MoveBagDelivery.Done AND NOT dryCycleEnable THEN
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				bagFailedToSeparate.Trigger();
+// 				ClearStatus();
+// 				state := 100;
+// 				nextState := 0;
+// 			END_IF
+// 			
+// 			IF MC_MoveBagDelivery.Done AND dryCycleEnable THEN
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				MC_HaltBagDelivery.Execute := FALSE;
+// 				bagEdgePhotoeyeSim.in := FALSE;
+// 				state := 32;
+// 			END_IF
+// 			
+// 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
+// 				reverseFault.Trigger();
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				MC_HaltBagDelivery.Execute := TRUE;
+// 				ClearStatus();
+// 				nextState := 32;
+// 				state := 100;
+// 			END_IF
+// 			
+// 			IF NOT bagPresent AND NOT dryCycleEnable THEN
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				MC_HaltBagDelivery.Execute := TRUE;
+// 				bagEdgePhotoeyeSim.in := FALSE;
+// 				state := 32;
+// 			END_IF
+// 		
+// 	32: 	// Set Bag Reversed
+// 			state_index := 3;
+// 			IF MC_HaltBagDelivery.Done OR dryCycleEnable THEN
+// 				MC_HaltBagDelivery.Execute := FALSE;
+// 				remainingLength := bagLength - sealOffset + distanceFromSealBarToBagEdge;
+// 				_bagSeparated := TRUE;
+// 				state := 0;
+// 				nextState := 0;
+// 			END_IF
+// 			
+// 	40:		// Feed at Print Speed
+// 			state_index := 12;
+// 			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
+// 			MC_MoveBagDelivery.Velocity := printSpeed;
+// 			MC_MoveBagDelivery.currentLimit := 100;
+// 			MC_MoveBagDelivery.Distance := printLength + _printerExtraFeedLength;
+// 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 1000);
+// 			moveBagDeliveryTimeout.IN := TRUE;
+// 			MC_MoveBagDelivery.Execute := TRUE;
+// 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding At Print Speed'));
+// 			remainingLength := remainingLength - printLength - _printerExtraFeedLength;
+// 			_feedBagOut := FALSE;
+// 			printingNow := TRUE;
+// 			state := 101;
+// 			nextState := 10;
+// 	
+// 	100:	// Cleanup
+// 			state_index := 5;
+// 			MC_MoveBagDelivery.Execute := FALSE;
+// 			MC_HaltBagDelivery.Execute := FALSE;
+// 			moveBagDeliveryTimeout.IN := FALSE;
+// 			bagEdgePhotoeyeSim.in := FALSE;
+// 			state := nextState;				
+// 			
+// 
+// 	
+// 	101: 	// Wait for Move to complete
+// 			state_index := 4;
+// 			IF MC_MoveBagDelivery.Error OR moveBagDeliveryTimeout.Q THEN
+// 				MC_MoveBagDelivery.Execute := FALSE;
+// 				MC_HaltBagDelivery.Execute := TRUE;
+// 				moveBagDeliveryTimeout.IN := FALSE;
+// 				ClearStatus();
+// 				nextState := 0;
+// 				state := 100;
+// 			END_IF
+// 			
+// 			IF MC_MoveBagDelivery.Done THEN
+// 				IF printingNow THEN
+// 					printer.StopPrinting();
+// 					IF printer.PrintDone THEN
+// 						printingNow := FALSE;
+// 						moveBagDeliveryTimeout.IN := FALSE;
+// 						MC_MoveBagDelivery.Execute := FALSE;
+// 						state := nextState;
+// 					END_IF
+// 				ELSE
+// 					moveBagDeliveryTimeout.IN := FALSE;
+// 					MC_MoveBagDelivery.Execute := FALSE;
+// 					state := nextState;
+// 				END_IF
+// 			END_IF
+// 			
+// 	103:	// Set In Position and go back to idle
+// 			state_index := 13;
+// 			nextState := 0;
+// 			state := 100;
+// 			
+// 	90:		//Reset:
+// 		state_index := 14;
+// 		_feedAtPrintSpeed := FALSE;
+// 		_feedBagOut := FALSE;
+// 		_feedToPrintOffset := FALSE;
+// 		_reverseToSeparate := FALSE;
+// 		
+// 		//_timeoutTimer.IN := FALSE;
+// 		//jawTestModeActive := FALSE;
+// 		
+// 		MC_MoveBagDelivery.execute := FALSE;
+// 		MC_HaltBagDelivery.execute := FALSE;
+// 		MC_ResetBagDelivery.execute := TRUE;
+// 		//MC_PowerUpBagDelivery.execute := FALSE;
+// 				
+// 		
+// 		state := 91;
+// 
+// 	91:		//Resetting:
+// 		state_index := 15;
+// 		IF  _resetTimer.Q THEN
+// 			MC_ResetBagDelivery.Execute := FALSE;	
+// 			state := 92;
+// 		END_IF
+// 		
+// 	92:		//ResetDone:
+// 		state_index := 16;
+//  		IF bagDeliveryMotor.operational THEN
+//  			state := 100;
+//  		END_IF
+// 
+// END_CASE
