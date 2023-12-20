@@ -43,6 +43,7 @@ VAR
 	speedTracking : ARRAY[0..20] OF ARRAY[0..20] OF TIME;
 	speedTracking_mt : ARRAY[0..20] OF ARRAY[0..20] OF TIME:=[21([21(T#0S)])]; 
 	state_index : INT:=0;
+	
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_ZebraPrinter
@@ -52,7 +53,7 @@ END_VAR
 SUPER^();
 
 _hasLabel := dataReadyInput OR simulateIO OR dryCycleEnable;
-
+_stateString := TO_STRING(state);
 endOfPrintONS(CLK := endOfPrintInput);
 //Report as ready if mode is auto and we're not faulted
 _ready := NOT (state = eZebraPrinterStates.Fault);

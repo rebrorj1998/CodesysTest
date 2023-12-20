@@ -111,7 +111,7 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="Advanced_P1.Button" TargetProperty="Actions" Source="Advanced_P2" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Advanced_P1.Button" TargetProperty="Actions" Source="Advanced_P3" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
           <ObjectsCount>34</ObjectsCount>
           <ScreenName>Advanced_P1</ScreenName>

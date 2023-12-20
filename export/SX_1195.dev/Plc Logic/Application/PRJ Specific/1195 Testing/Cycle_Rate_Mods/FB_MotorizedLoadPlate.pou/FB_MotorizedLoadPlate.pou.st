@@ -80,7 +80,7 @@ resetTimer(IN := state = eMotorizedLoadPlateStates.Resetting);
 // Dwell timer for load shelf
 dwellTimer(PT := TO_TIME(dwellSetting * 1000.0));
 {endregion}
-
+_stateString := TO_STRING(state);
 // Trigger motor faults from drive					
 IF loadPlateMotor.error AND THIS^.OptionActive THEN
 	motorFault.faultTrigger := TRUE;

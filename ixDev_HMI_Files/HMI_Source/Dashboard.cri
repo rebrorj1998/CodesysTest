@@ -132,7 +132,9 @@
       </Items>
     </Category>
     <Category Name="Script">
-      <Items />
+      <Items>
+        <Item Target="Dashboard.Script.cs" Source="Tags.Application_GlobalObjects_CollectionofComponents_ActiveState_0" />
+      </Items>
     </Category>
     <Category Name="StructuredTag">
       <Items>

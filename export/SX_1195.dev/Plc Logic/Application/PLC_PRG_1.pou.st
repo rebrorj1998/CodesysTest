@@ -117,13 +117,13 @@ dischargeCM(loadPlateInterlocks:= loadPlateInterlocks);
 
 // Set bagger head control modules
 EM01_SXBaggerHead(
-	bagOpenFingers:= baggerCM.dummyBOF, 
-	sealFlatteners:= baggerCM.dummySealFlatteners, 
+	bagOpenFingers:= baggerCM.BOF, 
+	sealFlatteners:= baggerCM.SealFlatteners, 
 	sealer:= baggerCM.sealWire, 
 	pressureBar:= baggerCM.dualMotorPassthrough, 
 	printer:= baggerCM.labelPrinter, 
 	bagDelivery:= baggercm.bagDelivery, 
-	vacuumBagOpen:= baggerCM.dummyVacuumCups, 
+	vacuumBagOpen:= baggerCM.VacuumCups, 
 	IBD:= baggerCM.IBD, 
 	loadPlate:= dischargeCM.loadPlate, 
 	barcodeVerifier:= baggerCM.barcodeVerifier, 
@@ -179,7 +179,7 @@ END_IF
 IF count_index >=20 THEN
 	count_index :=0;
 END_IF
-resetHold(IN:=HMIData.ackAllFaults,PT:=T#100MS);
+resetHold(IN:=HMIData.ackAllFaults,PT:=T#5000MS);
 IF HMIData.ackAllFaults THEN
 	IF UN00_SXMachine.currentState = PACK_ML.State.Resetting OR resetHold.Q THEN
 		HMIData.ackAllFaults:= FALSE;
@@ -191,6 +191,7 @@ HMIData.activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames;
 hmiFaultMessage(faultActive:= GlobalObjects.CollectionOfActiveFaults.faultActive,faultList:= GlobalObjects.CollectionOfActiveFaults.ObjNames);
 HMIData.faultMessage:=hmiFaultMessage.faultMessagestr;
 HMIData.inCycle := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive;
+GlobalObjects.CollectionOfComponents.UpdateInfo();
 // PackML state to string for HMI
 HMIData.currentPackMLState := UN00_SXMachine.baggerManager.BaggerAutoMode.currentBaggerState;
 
@@ -199,7 +200,7 @@ oFansEnable := NOT HMIData.standbyActive;
 // Banner manager takes care of the Multistate lamp used as a banner on the proface 
 bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.currentState = PACK_ML.State.Execute, 
-	baggerReady:= UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
+	baggerReady:= GlobalObjects.CollectionOfComponents.CheckIfAllReady() AND UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
 	baggerInCycle:= HMIData.inCycle, 
 	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
 	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 

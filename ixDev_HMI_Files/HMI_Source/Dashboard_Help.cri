@@ -27,6 +27,7 @@
         <Item Target="Dashboard_Help.Button" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard_Help.Button1" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard_Help.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard_Help.Button2" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -44,7 +45,7 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>9</Value>
+              <Value>10</Value>
             </Detail>
             <Detail>
               <Key>Label</Key>
@@ -77,8 +78,9 @@
       <Items>
         <Item xsi:type="ActionItem" Target="Dashboard_Help.Button" TargetProperty="Actions" Source="Dashboard" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Dashboard_Help.Button1" TargetProperty="Actions" Source="About_Sharp" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Dashboard_Help.Button2" TargetProperty="Actions" Source="Status" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>13</ObjectsCount>
+          <ObjectsCount>14</ObjectsCount>
           <ScreenName>Dashboard_Help</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

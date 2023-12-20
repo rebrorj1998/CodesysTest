@@ -6,6 +6,8 @@ VAR_INPUT
 	timeFromHomeToClamp : TIME := T#500MS; // Time between starting the clamp motion to when we call it clamped.
 	maximumClampingTime : TIME := T#4.8S;  // Maximum possible clamping time before drive will fault.
 	maximumReverseTime : TIME := T#540MS;
+	jogOpenCMD : BOOL := FALSE;
+	jogClosedCMD: BOOL := FALSE;
 END_VAR
 VAR_OUTPUT
 	oStartMotor : BOOL;
@@ -25,11 +27,12 @@ VAR
 	_moving : BOOL;
 	_cleared : BOOL;
 	_clamping : BOOL;
-	_resetDriveOutputPulse : FB_MonostableMultivibrator(name := 'Reset Clamp Drive Pulse');
+	_resetDriveOutputPulse : FB_MonostableMultivibrator;
 	//Timers
 	_timeFromHomeToClampTimer : TON;
 	_maximumClampingTimeTimer : TON;
 	_maximumReverseTimeTimer : TON;
+	_maximumJogTimeTimer : TON := (PT:= T#1500MS);
 	
 			//variables for the state timer
 	stateTimer:TON;
@@ -42,6 +45,9 @@ VAR
 	clampingMechanismDriveFault : FB_Fault(name := CONCAT(_prefix, 'Clamping Mechanism Fault'));
 	_faultONS: FB_ONS;
 	_activeFault: BOOL;
+	_jogOpenONS: FB_ONS;
+	_jogClosedONS: FB_ONS;
+	manMoving: BOOL := FALSE;
 END_VAR
 VAR_IN_OUT
 
@@ -54,12 +60,15 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Created by: Ben Hess
 //	Created Date: 4/11/2023
 SUPER^();
+_jogOpenONS(CLK := jogOpenCMD);
+_jogClosedONS(CLK := jogClosedCMD);
+_maximumJogTimeTimer(IN:= jogOpenCMD OR jogClosedCMD);
 clampingMechanismDriveFault.faultTrigger := driveAlarm;
 _timeFromHomeToClampTimer(PT := timeFromHomeToClamp, IN := state = eClampingMechanismStates.ClampMovingToClamp);
 _maximumClampingTimeTimer(PT := maximumClampingTime, IN := state = eClampingMechanismStates.ClampMovedToClamp);
 _maximumReverseTimeTimer(PT := maximumReverseTime, IN := oStartMotor = TRUE AND oForwardMotor = FALSE);//;state = eClampingMechanismStates.ClampMovingToRelease);
 _resetDriveOutputPulse.DwellSetting := DRIVE_RESET_PULSE_TIME_IN_MS;
-_resetDriveOutputPulse(Q => oResetDrive);
+_resetDriveOutputPulse(Q => oResetDrive,_reset := _reset);
 _clamping := state = eClampingMechanismStates.ClampMovedToClamp;
 _moving :=  state = eClampingMechanismStates.ClampMovingToClamp
 			OR state = eClampingMechanismStates.ClampMovingToRelease;
@@ -92,13 +101,31 @@ IF count_index >=20 THEN
 END_IF
 
 //End modded code
-_ready := state = eClampingMechanismStates.Idle and NOT driveAlarm;// AND _cleared;
+_stateString := TO_STRING(state);
+_ready := state = eClampingMechanismStates.Idle AND  NOT driveAlarm AND _cleared;
 CASE state OF
 	eClampingMechanismStates.Idle:  
+		IF jogClosedCMD AND NOT _maximumJogTimeTimer.Q THEN
+			oStartMotor := TRUE;
+			oForwardMotor := TRUE;
+			manMoving := TRUE;
+		END_IF
+		IF jogOpenCMD AND NOT _maximumJogTimeTimer.Q THEN
+			oStartMotor := TRUE;
+			oForwardMotor := FALSE;
+			manMoving := TRUE;
+		END_IF
+		IF  _maximumJogTimeTimer.Q OR (NOT jogClosedCMD AND NOT jogOpenCMD)  THEN
+			manMoving := FALSE;
+			oStartMotor := FALSE;
+			oForwardMotor := TRUE;
+		END_IF
 		state_index := 0;
 		// Idle. Wait for command
-		oStartMotor := FALSE;
-		oForwardMotor := TRUE;
+		IF NOT manMoving THEN
+			oStartMotor := FALSE;
+			oForwardMotor := TRUE;
+		END_IF
 		homeSensorNotSeen := FALSE;
 		IF _homeNow OR _makeReady THEN
 			state := eClampingMechanismStates.Home;

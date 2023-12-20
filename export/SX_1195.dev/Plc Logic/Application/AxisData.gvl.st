@@ -4,7 +4,13 @@
 VAR_GLOBAL PERSISTENT
 	
 	(* Jaw *)	
-	
+	jawJogMotionProfile : sctMotionProfile := (
+		acceleration := 10,
+		deceleration := 10,
+		velocity := 30,
+		minPosition := 5.5,
+		maxPosition := 0
+	);
 	jawConfig : sctAxisConfig := (
 		stepsPerInch := 2410, 
 		rotationsPerInch := 0.241,
@@ -40,7 +46,8 @@ VAR_GLOBAL PERSISTENT
 		config := jawConfig,
 		openProfile := jawOpenMotionProfile,
 		closeProfile := jawCloseMotionProfile,
-		jogType:= eDiscreteMotionType.Relative
+		jogProfile := jawJogMotionProfile,
+		jogType := eDiscreteMotionType.Absolute
 	);
 
 	(* Load Plate *)
@@ -123,7 +130,8 @@ VAR_GLOBAL PERSISTENT
 		deceleration := 10,
 		velocity := 100,
 	 	minPosition := 0,
-		maxPosition := 0
+		maxPosition := 0,
+		position := 20
 	);
 	
 	FilmFeedForwardMotionProfile : sctMotionProfile := (
@@ -147,7 +155,7 @@ VAR_GLOBAL PERSISTENT
 		openProfile := FilmFeedForwardMotionProfile,
 		closeProfile := FilmFeedReverseMotionProfile,
 		jogProfile := FilmFeedJogMotionProfile,
-		jogType := eDiscreteMotionType.Absolute
+		jogType := eDiscreteMotionType.Relative
 	);
 	
 END_VAR

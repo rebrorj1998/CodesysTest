@@ -63,6 +63,7 @@ IF count_index >=20 THEN
 END_IF
 //End modded code
 _ready := state = 0;
+
 CASE state OF
 	
 	0:	IF beginSealingONS.OSR THEN

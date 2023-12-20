@@ -26,18 +26,19 @@
       <Items>
         <Item Target="About_Sharp.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="About_Sharp.Text1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="About_Sharp.Text2" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="About_Sharp.Text3" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="About_Sharp.Text4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="About_Sharp.Text6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="About_Sharp.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="About_Sharp.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="About_Sharp.Group.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="About_Sharp.Group2.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="About_Sharp.Group1.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="About_Sharp.Group2.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="About_Sharp.Group1.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="About_Sharp.Group.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="About_Sharp.Button2" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="About_Sharp.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_version" />
-        <Item Target="About_Sharp.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_bagsMade" />
+        <Item Target="About_Sharp.Group1.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_version" />
+        <Item Target="About_Sharp.Group.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_bagsMade" />
       </Items>
     </Category>
     <Category Name="IntegratorSwapActiveProjectAction">
@@ -55,16 +56,16 @@
               <Value>8</Value>
             </Detail>
             <Detail>
-              <Key>Rectangle</Key>
-              <Value>5</Value>
-            </Detail>
-            <Detail>
               <Key>AnalogNumericFX</Key>
               <Value>2</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>7</Value>
+              <Value>8</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>1</Value>
             </Detail>
           </Details>
         </Item>
@@ -87,8 +88,9 @@
     </Category>
     <Category Name="Screen">
       <Items>
+        <Item xsi:type="ActionItem" Target="About_Sharp.Button2" TargetProperty="Actions" Source="Status" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>22</ObjectsCount>
+          <ObjectsCount>19</ObjectsCount>
           <ScreenName>About_Sharp</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

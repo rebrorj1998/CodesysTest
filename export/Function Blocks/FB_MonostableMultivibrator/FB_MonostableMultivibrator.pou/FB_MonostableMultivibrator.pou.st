@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_MonostableMultivibrator EXTENDS FB_BaseComponent
+FUNCTION_BLOCK FB_MonostableMultivibrator// EXTENDS FB_BaseComponent
 VAR_INPUT
+	_reset : BOOL := false;
 END_VAR
 VAR_OUTPUT
 	Q : BOOL;   // Output pulse
@@ -16,7 +17,7 @@ VAR
 	delayTimer : Standard.TON;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-SUPER^();
+//SUPER^();
 
 // HPA is on for only as long as its setpoint.
 

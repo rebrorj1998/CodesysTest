@@ -28,12 +28,12 @@
         <Item Target="Service_P1.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Service_P1.Text1" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Service_P1.Button1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Service_P1.Button2" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Service_P1.Button3" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Service_P1.Button4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Service_P1.Button5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Service_P1.Button6" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Service_P1.Button7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Service_P1.Button8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Service_P1.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Service_P1.Button3" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -41,12 +41,6 @@
         <Item Target="Service_P1.Button1" TargetProperty="Value" Source="Tags.Application_HMIData_jawService_retractCommand" />
         <Item Target="Service_P1.Button1" TargetProperty="TextValue" Source="Tags.Application_HMIData_jawService_retractedFeedback" />
         <Item Target="Service_P1.Button1" TargetProperty="Background" Source="Tags.Application_HMIData_jawService_retractedFeedback" />
-        <Item Target="Service_P1.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_jogFilmReverse" />
-        <Item Target="Service_P1.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_jogFilmReverse" />
-        <Item Target="Service_P1.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeVerifierTrigger" />
-        <Item Target="Service_P1.Button3" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
-        <Item Target="Service_P1.Button4" TargetProperty="Value" Source="Tags.Application_HMIData_jogFilmForward" />
-        <Item Target="Service_P1.Button4" TargetProperty="Background" Source="Tags.Application_HMIData_jogFilmForward" />
         <Item Target="Service_P1.Button5" TargetProperty="Value" Source="Tags.Application_HMIData_jawJogClosed" />
         <Item Target="Service_P1.Button5" TargetProperty="Background" Source="Tags.Application_HMIData_jawJogClosed" />
         <Item Target="Service_P1.Button6" TargetProperty="Value" Source="Tags.Application_HMIData_jawJogOpen" />
@@ -54,6 +48,12 @@
         <Item Target="Service_P1.Button7" TargetProperty="Value" Source="Tags.Application_HMIData_jawService_extendCommand" />
         <Item Target="Service_P1.Button7" TargetProperty="TextValue" Source="Tags.Application_HMIData_jawService_extendedFeedback" />
         <Item Target="Service_P1.Button7" TargetProperty="Background" Source="Tags.Application_HMIData_jawService_extendedFeedback" />
+        <Item Target="Service_P1.Button8" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeVerifierTrigger" />
+        <Item Target="Service_P1.Button8" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
+        <Item Target="Service_P1.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_clampJogClosed" />
+        <Item Target="Service_P1.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_clampJogClosed" />
+        <Item Target="Service_P1.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_clampJogOpen" />
+        <Item Target="Service_P1.Button3" TargetProperty="Background" Source="Tags.Application_HMIData_clampJogOpen" />
       </Items>
     </Category>
     <Category Name="IntegratorSwapActiveProjectAction">

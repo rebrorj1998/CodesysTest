@@ -12,6 +12,8 @@ VAR_GLOBAL
 	jawService : ServiceCommands;
 	jawJogOpen : BOOL;
 	jawJogClosed : BOOL;
+	clampJogClosed: BOOL;
+	clampJogOpen: BOOL;
 	loadPlateService : ServiceCommands;
 	IBDService : ServiceCommands;
 	IBDJogOpen : BOOL;
@@ -106,7 +108,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	loadPlateDelay : REAL;
 	loadPlateDwell : REAL := 0.1;
 	IBDInUse : BOOL := TRUE;
-	IBDInstalled : BOOL := TRUE;
+	IBDInstalled : BOOL := FALSE;
 	jawCloseDelay : REAL := 0.1;
 	jawClosePositionSetting : REAL := -0.45;
 	lastCycleTime : REAL;
@@ -120,17 +122,17 @@ VAR_GLOBAL PERSISTENT RETAIN
 	consecutiveBagsEnable : BOOL;
 	consecutiveBagsCount : UDINT;
 	consecutiveBagsSetting : UDINT;
-	printerInstalled : BOOL := TRUE;
+	printerInstalled : BOOL := FALSE;
 	printerInUse : BOOL := TRUE;
 	printerCancelRequest : BOOL;
-	barcodeVerifierInstalled : BOOL := TRUE;
+	barcodeVerifierInstalled : BOOL := FALSE;
 	barcodeGoodReadCount : UDINT;
 	barcodeBadReadCount : UDINT;
 	barcodeBadReadFaultSetting : UDINT := 1;
 	barcodeStartPosition : REAL := 4.5;
 	barcodeScanDistance : REAL := 0.1;
 	barcodeVerifierInUse : BOOL := TRUE;
-	loadPlateInstalled : BOOL := TRUE;
+	loadPlateInstalled : BOOL := FALSE;
 	loadPlateLoweredPositionSetting : REAL := 0;
 	loadPlateRaisedPositionSetting :  REAL := 1;
 	loadPlateInUse : BOOL := TRUE;

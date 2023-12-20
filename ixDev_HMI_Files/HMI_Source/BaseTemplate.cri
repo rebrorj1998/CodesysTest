@@ -97,6 +97,7 @@
     </Category>
     <Category Name="Screen">
       <Items>
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Text" TargetProperty="Actions" Source="Status" Event="MouseUp" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Button1" TargetProperty="Actions" Source="Dashboard" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Button" TargetProperty="Actions" Source="Home" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Group.Button5" TargetProperty="Actions" Source="Login" Event="Click" Action="Show Screen" Param="Default" />

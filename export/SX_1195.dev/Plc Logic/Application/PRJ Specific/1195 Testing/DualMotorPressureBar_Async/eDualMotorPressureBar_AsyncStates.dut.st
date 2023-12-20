@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {attribute 'qualified_only'}
 {attribute 'strict'}
+{attribute 'to_string'}
 TYPE eDualMotorPressureBar_AsyncStates :
 (
 	Idle := 0,

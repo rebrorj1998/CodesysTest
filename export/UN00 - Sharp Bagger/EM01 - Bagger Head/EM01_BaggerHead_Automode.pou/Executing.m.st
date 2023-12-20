@@ -29,19 +29,19 @@ vacuumDwellTimer(PT := bagger.vacuumDwell);
 // State machine for overall head states
 CASE state OF
     HEAD_STATES.Idle :                              // Start cycle
-													
-                                                    IF bagger.StartCycleRequest THEN
-
-													IF MoveRequested(bagger.pressureBar) THEN
-														SetHeadState(HEAD_STATES.MovePassthrough);
-													ELSE
-														baggerCycleActive := TRUE;
-														bagger.StartCycleRequest := FALSE;
-														cycleComplete := FALSE;
-														cycleTimer.IN := TRUE;
-														_logger.AddLogItem('Cycle Started');
-														SetHeadState(HEAD_STATES.SealAndSeparateBag);
-													END_IF
+													IF  GlobalObjects.CollectionOfComponents.CheckIfAllReady() THEN
+														IF bagger.StartCycleRequest THEN
+															IF MoveRequested(bagger.pressureBar) THEN
+																SetHeadState(HEAD_STATES.MovePassthrough);
+															ELSE
+																baggerCycleActive := TRUE;
+																bagger.StartCycleRequest := FALSE;
+																cycleComplete := FALSE;
+																cycleTimer.IN := TRUE;
+																_logger.AddLogItem('Cycle Started');
+																SetHeadState(HEAD_STATES.SealAndSeparateBag);
+															END_IF
+														END_IF
 													END_IF
 													
 
@@ -60,12 +60,17 @@ CASE state OF
 													SetHeadState(HEAD_STATES.Idle);
                   
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
-													IF NOT bagger.pressureBar.Busy THEN
-
-
-                                                    SetSealSeparateState(SEAL_SEPARATE_STATES.MoveJawIn);
-													SetHeadState(HEAD_STATES.SealingAndSeparatingBag);
+													IF bagger.pressureBar.Ready THEN
+														IF NOT bagger.pressureBar.Busy THEN
+	
+	
+														SetSealSeparateState(SEAL_SEPARATE_STATES.MoveJawIn);
+														SetHeadState(HEAD_STATES.SealingAndSeparatingBag);
+														END_IF
+													ELSE
+														bagger.pressureBar.MakeReady();
 													END_IF
+													
                                                     
                 
     HEAD_STATES.SealingAndSeparatingBag :          //
@@ -149,10 +154,13 @@ CASE sealAndSeparateSubState OF
 													IF bagger.IBD.OptionActive THEN
 														bagger.IBD.MoveInToDeflate();
 													END_IF
-													IF NOT bagger.pressureBar.Busy THEN
+													IF bagger.pressureBar.ready AND NOT bagger.pressureBar.Busy THEN
 	                                                    bagger.pressureBar.Close();
 														SetSealSeparateState(SEAL_SEPARATE_STATES.MovingJawIn);
+													ELSIF NOT bagger.pressureBar.ready AND NOT bagger.pressureBar.Busy THEN
+														bagger.pressureBar.MakeReady();
 													END_IF
+																										
 													
                                                     
                                                     

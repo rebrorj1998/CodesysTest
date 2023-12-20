@@ -22,8 +22,9 @@ VAR
 	startMachine : BOOL;
 	abortMachine : BOOL;
 	resetONS : FB_ONS;
+	resetHeld : TON := (PT:=T#5S);
 	homeONS : FB_ONS;
-	
+	resetHeldONS : FB_ONS;
 	clearTimer : Standard.TON := (PT := T#3S);
 	testResetSim : BOOL;
 END_VAR
@@ -69,6 +70,17 @@ baggerManager(
 	
 clearTimer();
 resetONS(CLK := resetMachine);
+resetHeld(IN:=resetMachine);
+resetHeldONS(CLK:= resetHeld.Q);
+IF resetONS.OSR THEN
+	IF NOT GlobalObjects.CollectionOfComponents.CheckIfAllReady() AND NOT baggerManager.BaggerAutoMode.baggerCycleActive THEN
+		GlobalObjects.CollectionOfComponents.MakeReadyAll();
+		baggerHead.StartCycleRequest:= FALSE;
+	END_IF
+END_IF
+IF resetHeldONS.osr THEN
+	currentUnitMode.Abort();
+END_IF
 homeONS(CLK := homeMachine);
 IF testResetSim THEN
 	UN00_Globals.simFaults.FB_Init(TRUE,TRUE);
@@ -123,9 +135,11 @@ CASE currentState OF
 									currentUnitMode.ActingStateCompleted();
 								END_IF
 								
-	PACK_ML.State.Execute :		IF resetONS.OSR THEN
-									currentUnitMode.Clear();
+	PACK_ML.State.Execute :		
+								IF resetONS.OSR THEN
+										currentUnitMode.Clear();
 								END_IF	
+								
 	
 	PACK_ML.State.Holding :		IF BaggerManager.HoldingDone THEN
 									currentUnitMode.ActingStateCompleted();

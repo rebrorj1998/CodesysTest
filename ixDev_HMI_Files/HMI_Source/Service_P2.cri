@@ -33,6 +33,8 @@
         <Item Target="Service_P2.Button6" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Service_P2.Button7" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Service_P2.Button3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Service_P2.Button9" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Service_P2.Button4" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -56,6 +58,10 @@
         <Item Target="Service_P2.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_teachBagPhotoeye" />
         <Item Target="Service_P2.Button3" TargetProperty="TextValue" Source="Tags.Application_HMIData_teachingBagPhoteye" />
         <Item Target="Service_P2.Button3" TargetProperty="Background" Source="Tags.Application_HMIData_teachingBagPhoteye" />
+        <Item Target="Service_P2.Button9" TargetProperty="Value" Source="Tags.Application_HMIData_jogFilmForward" />
+        <Item Target="Service_P2.Button9" TargetProperty="Background" Source="Tags.Application_HMIData_jogFilmForward" />
+        <Item Target="Service_P2.Button4" TargetProperty="Value" Source="Tags.Application_HMIData_jogFilmReverse" />
+        <Item Target="Service_P2.Button4" TargetProperty="Background" Source="Tags.Application_HMIData_jogFilmReverse" />
       </Items>
     </Category>
     <Category Name="IntegratorSwapActiveProjectAction">
@@ -70,7 +76,7 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>14</Value>
+              <Value>16</Value>
             </Detail>
             <Detail>
               <Key>Label</Key>
@@ -104,7 +110,7 @@
         <Item xsi:type="ActionItem" Target="Service_P2.Button" TargetProperty="Actions" Source="Service_P3" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Service_P2.Button1" TargetProperty="Actions" Source="Service_P1" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>19</ObjectsCount>
+          <ObjectsCount>21</ObjectsCount>
           <ScreenName>Service_P2</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

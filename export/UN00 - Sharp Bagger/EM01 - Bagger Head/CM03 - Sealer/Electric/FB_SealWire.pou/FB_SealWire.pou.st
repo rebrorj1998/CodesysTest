@@ -10,7 +10,7 @@ VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();
-
+_stateString := TO_STRING(state);
 IF sealActive THEN
 	sealWireOutput := TRUE;
 ELSE

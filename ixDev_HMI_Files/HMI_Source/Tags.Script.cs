@@ -52,5 +52,7 @@ namespace Neo.ApplicationFramework.Generated
 			}
 			
 		}
+		
+
     }
 }

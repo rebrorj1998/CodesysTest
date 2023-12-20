@@ -14,7 +14,7 @@ VAR
 	_stopPrinting : BOOL;
 	_printing : BOOL;
 	_simulate : BOOL;
-	state : INT;
+	state : eZebraPrinterStates;;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 SUPER^();

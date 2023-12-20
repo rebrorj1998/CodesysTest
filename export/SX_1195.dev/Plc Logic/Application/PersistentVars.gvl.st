@@ -136,6 +136,8 @@ VAR_GLOBAL PERSISTENT RETAIN
 	// Generated instance path of persistent variable
 	HMIData.filmEnableMotion: BOOL;
 	// Generated instance path of persistent variable
+	AxisData.jawJogMotionProfile : sctMotionProfile := STRUCT(acceleration := 0.0, deceleration := 0.0, velocity := 0.0, minPosition := 0.0, maxPosition := 0.0);
+	// Generated instance path of persistent variable	
 	AxisData.jawConfig: sctAxisConfig := STRUCT(stepsPerInch := 2410.0, rotationsPerInch := REAL#0.241, zeroOffset := 0.0, defaultCurrent := REAL#100);
 	// Generated instance path of persistent variable
 	AxisData.jawOpenMotionProfile: sctMotionProfile := STRUCT(acceleration := 100.0, deceleration := 100.0, velocity := REAL#30, current := REAL#100, position := REAL#5.5);

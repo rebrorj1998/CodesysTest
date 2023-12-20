@@ -96,7 +96,7 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ActionItem" Target="Advanced_P3.Button" TargetProperty="Actions" Source="Advanced_P4" Event="Click" Action="Show Screen" Param="" />
-        <Item xsi:type="ActionItem" Target="Advanced_P3.Button1" TargetProperty="Actions" Source="Advanced_P2" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P3.Button1" TargetProperty="Actions" Source="Advanced_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
           <ObjectsCount>27</ObjectsCount>
           <ScreenName>Advanced_P3</ScreenName>

@@ -1,6 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {attribute 'strict'}
 {attribute 'qualified_only'}
+{attribute 'to_string'}
 TYPE eBaseBCVStates :
 (
 	Idle := 0,

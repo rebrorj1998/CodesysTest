@@ -2,7 +2,9 @@
 METHOD PRIVATE EnableAxisOps : BOOL
 VAR_INPUT
 END_VAR
-(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+VAR
+	_driveEnabledONS : FB_ONS;
+END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // 250MS wait period from when the status operational bit goes high, until a command can be processed.
 _motorExcitationDelayTimer();
 _motorExcitationDelayTimer.IN := _startupState = eAZDPowerupState.Operational;
@@ -12,6 +14,7 @@ EnableAxisOps := _motorExcitationDelayTimer.Q;
 IF NOT driveEnable OR operational AND NOT _statusword.voltageEnabled THEN
 	_startupState := eAZDPowerupState.Idle;
 END_IF
+_driveEnabledONS(CLK := driveEnable);
 
 // Startup state machine
 CASE _startupState OF 
@@ -21,11 +24,13 @@ CASE _startupState OF
 			IF driveEnable THEN
 				_startupState := eAZDPowerupState.Shutdown; // Doesnt mean shutdown
 			END_IF
+// 		ELSIF _driveEnabledONS.OSR AND _statusword.readyToSwitchOn AND NOT _statusword.switchedOn AND NOT _statusword.operationEnabled  THEN
+// 			_startupState := eAZDPowerupState.Shutdown; // Doesnt mean shutdown
 		END_IF
 	
 	eAZDPowerupState.Shutdown:
 		_controlword.Shutdown();
-		IF _statusword.readyToSwitchOn THEN
+		IF _statusword.readyToSwitchOn  THEN
 			_startupState := eAZDPowerupState.SwitchOn;
 		END_IF
 	

@@ -17,7 +17,7 @@ VAR_IN_OUT
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 IF NOT xInit THEN
-	BaggerAutoMode(bagger := baggerHead, discharge := discharge);
+	BaggerAutoMode(bagger := baggerHead, discharge := discharge, resetCMD:= hmidata.ackAllFaults);
 	BaggerMaintMode(bagger := baggerHead);
 	xInit := TRUE;
 END_IF

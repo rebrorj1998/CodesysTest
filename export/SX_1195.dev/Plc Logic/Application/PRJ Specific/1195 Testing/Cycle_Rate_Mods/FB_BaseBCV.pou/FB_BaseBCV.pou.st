@@ -90,7 +90,7 @@ END_IF
 _ready := state = eBaseBCVStates.Idle;
 
 waitForReadTimer();
-
+_stateString := TO_STRING(state);
 CASE state OF
 	
 	eBaseBCVStates.Idle:				// Wait for trigger

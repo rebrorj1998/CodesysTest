@@ -11,6 +11,7 @@ VAR
 	_optionActive : BOOL;
 	_optionEnabled : BOOL;
 	_optionInstalled : BOOL;
+	_stateString : STRING := '';
 	enableONS : R_TRIG;
 	resetONS : R_TRIG;
 	makeReadyONS : Standard.R_TRIG;

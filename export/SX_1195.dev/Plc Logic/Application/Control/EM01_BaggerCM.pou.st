@@ -5,14 +5,14 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	
-	dummyVacuumCups : FB_BaseVacuum(name := 'Pneumatic Vacuum Cups') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
+	VacuumCups : FB_BaseVacuum(name := 'Pneumatic Vacuum Cups') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
 	sealWire : FB_SealWire(name := 'Seal Wire') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
 	
-	dummyBOF : FB_BaseBagOpenFingers(name := 'Dummy BOF') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
+	BOF : FB_BaseBagOpenFingers(name := 'Dummy BOF') := (_optionEnabled := FALSE, _optionInstalled := FALSE);
 	
 	//singleMotorClampingPassthrough :  FB_SingleMotorPressureBar(name := 'Dual Motor Jaw') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
 	dualMotorPassthrough : FB_DualMotorPressureBar_Async(name := 'Dual Motor Jaw') := (_optionEnabled := TRUE, _optionInstalled := TRUE);
-	dummySealFlatteners : FB_BaseSealFlatteners(name := 'Dummy Seal Flatteners') := (_optionEnabled := FALSE, _optionInstalled := FALSE); 
+	SealFlatteners : FB_BaseSealFlatteners(name := 'Dummy Seal Flatteners') := (_optionEnabled := FALSE, _optionInstalled := FALSE); 
 	
 	jawFrontMotor : FB_AZDKAxis := (defaultCurrent := 100);
 	//jawRearMotor : FB_AZDKAxis := (defaultCurrent := 100);
@@ -69,6 +69,8 @@ jawFrontMotor(
 homeSensorCTU(CU := iClampHomeSensor);
 
 clampingMechanism(
+	jogClosedCMD := HMIData.clampJogClosed,
+	jogOpenCMD := HMIData.clampJogOpen,
 	driveAlarm:= not iPbarClampMotorAlarm, 
 	homeSensor:= iClampHomeSensor, 
 	timeFromHomeToClamp:= T#500MS, 
@@ -81,7 +83,9 @@ clampingMechanism(
 	homeSensorNotSeen=> , 
 	reversing=> , 
 	state=> );
-AxisDAta.jawOpenMotionProfile.position := HMIData.passthroughSetting;
+	
+AxisDAta.jawOpenMotionProfile.position :=AxisData.jawJogMotionProfile.maxPosition := HMIData.passthroughSetting;
+
 dualMotorPassthrough(
 	frontMotor:= jawFrontMotor, 
 	closeProfile:= AxisData.jawCloseMotionProfile, 
@@ -173,6 +177,8 @@ barcodeVerifier.OptionEnabled := HMIData.barcodeVerifierInUse;
 	
 bagDeliveryFrontMotor(
 	axisData := AxisData.FilmFeed,
+	jogForwardCMD := HMIData.jogFilmForward,
+	jogReverseCMD := HMIData.jogFilmReverse,	
 	commStatus := TRUE,
 	iActualPosition := iFilmFeedAxisPositionActualValue,
 	iActualVelocity := iFilmFeedAxisVelocityActualValue,

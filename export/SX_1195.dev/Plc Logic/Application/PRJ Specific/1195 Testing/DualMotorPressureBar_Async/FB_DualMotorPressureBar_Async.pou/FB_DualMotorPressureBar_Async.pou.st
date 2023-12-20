@@ -211,6 +211,7 @@ END_IF
 //End modded code
 _ready := state = eDualMotorPressureBar_AsyncStates.Idle AND _isFullyOpen;
 // 
+
 IF stopJawTestMode THEN
 	jawTestModeActive := FALSE;
 END_IF
@@ -218,13 +219,14 @@ IF motionInhibit THEN
 	state:= eDualMotorPressureBar_AsyncStates.Idle;
 END_IF
 cleanup_ons(CLK:=state = eDualMotorPressureBar_AsyncStates.Idle);
-
+_stateString := TO_STRING(state);
 
 CASE state OF
 	
 	eDualMotorPressureBar_AsyncStates.Idle:
 		state_index:=0;
 		//	  
+		_maintenanceMove := closeJawPB OR openJawPB;
 		IF cleanup_ons.OSR THEN
 			SterilizeVariables();
 		END_IF 
@@ -257,7 +259,6 @@ CASE state OF
 				_openNow := _makeReady :=  openJawPB := FALSE;
 				state := eDualMotorPressureBar_AsyncStates.Open;
 			ELSIF (_closeNow AND _moveInDelay.Q) OR closeJawPB THEN
-				_maintenanceMove := TRUE;
 				_closeNow := FALSE;
 				state := eDualMotorPressureBar_AsyncStates.CloseToFaceplate;
 			END_IF

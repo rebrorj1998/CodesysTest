@@ -14,9 +14,19 @@ namespace Neo.ApplicationFramework.Generated
     using Neo.ApplicationFramework.Common.Graphics.Logic;
     using Neo.ApplicationFramework.Controls;
     using Neo.ApplicationFramework.Interfaces;
+	using Neo.ApplicationFramework.Interfaces.Tag;
     
     
     public partial class Dashboard
     {
+		void test()
+		{
+			//Globals.Tags.Application_GlobalObjects_CollectionofComponents_ActiveState_0.Value.Bool
+		}
+		
+		void Button4_Click(System.Object sender, System.EventArgs e)
+		{
+			Globals.Status.Show();
+		}
     }
 }

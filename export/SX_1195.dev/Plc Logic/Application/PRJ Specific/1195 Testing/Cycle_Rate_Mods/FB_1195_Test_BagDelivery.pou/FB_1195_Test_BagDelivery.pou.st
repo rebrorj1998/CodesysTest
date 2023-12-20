@@ -106,7 +106,7 @@ stateWatch(state:= state, trackingEnable := TRUE,cntUp := BagFeedDone);
 // 	count_index :=0;
 // END_IF
 //End modded code
-
+_stateString := TO_STRING(state);
 _ready := state = 0 AND bagDeliveryMotor.CommStatus AND NOT bagDeliveryMotor.Error;
 IF bagDeliveryMotor.Error THEN
 	motorFault.faultTrigger := TRUE;

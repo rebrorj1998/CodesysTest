@@ -38,7 +38,9 @@
       <Items />
     </Category>
     <Category Name="Script">
-      <Items />
+      <Items>
+        <Item Target="Expression.cs" Source="Tags.Application_GlobalObjects_CollectionofComponents_TotalObjects" />
+      </Items>
     </Category>
     <Category Name="StructuredTag">
       <Items />
