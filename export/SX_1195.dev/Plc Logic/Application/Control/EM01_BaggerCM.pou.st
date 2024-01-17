@@ -131,7 +131,7 @@ labelPrinter(
 	lowerPrintHeadOutput=> oLowerPrintHead
 );
 labelPrinter.OptionInstalled := HMIData.printerInstalled;
-labelPrinter.OptionEnabled := HMIData.printerInUse;
+labelPrinter.OptionEnabled := HMIData.printerInUse AND HMIData.printerInstalled;
 	
 sealWire(simulateIO:= HMIData.simulateAllIO, sealDwell:= HMIData.sealBarDwell, sealCool := HMIData.sealBarCool , sealWireOutput=> oSealWire);	
 
@@ -156,7 +156,7 @@ IBD(
 	
 );
 IBD.OptionInstalled := HMIData.IBDInstalled;
-IBD.OptionEnabled := HMIData.IBDInUse;
+IBD.OptionEnabled := HMIData.IBDInUse AND  HMIData.IBDInstalled;
 
 
 barcodeVerifier(
@@ -172,7 +172,7 @@ barcodeVerifier(
 	currentBadReadCount => HMIData.barcodeBadReadCount
 );
 barcodeVerifier.OptionInstalled := HMIData.barcodeVerifierInstalled;
-barcodeVerifier.OptionEnabled := HMIData.barcodeVerifierInUse;	
+barcodeVerifier.OptionEnabled := HMIData.barcodeVerifierInUse AND HMIData.barcodeVerifierInstalled;	
 
 	
 bagDeliveryFrontMotor(

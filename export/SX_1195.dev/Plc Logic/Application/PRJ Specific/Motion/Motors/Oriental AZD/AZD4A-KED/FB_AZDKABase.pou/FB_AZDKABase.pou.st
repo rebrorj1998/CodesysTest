@@ -97,7 +97,7 @@ _absoluteONS(CLK := MoveAbs);
 _absoluteTorqueONS(CLK := moveAbsTorque);
 _homeONS(CLK := startHoming);
 IF _homeONS.OSR THEN
-	_controlword.HomingOperationStart:=true;
+	_controlword.HomingOperationStart:=TRUE;
 END_IF
 // Write data from drive to local variables
 actPos := TO_REAL(iActualPosition) + zeroOffset * axisData.config.stepsPerInch;

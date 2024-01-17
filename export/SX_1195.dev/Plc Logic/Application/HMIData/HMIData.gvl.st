@@ -4,6 +4,7 @@
 VAR_GLOBAL
 	initiateCycle : BOOL;  // Initiate Cycle Pushbutton
 	ackAllFaults : BOOL; // Acknowledge All Faults from HMI
+	counterChange : BOOL; // Acknowledge All Faults from HMI
 	makeReady : BOOL;
 	homeMachine : BOOL;
 	machineHomed : BOOL;
@@ -154,5 +155,5 @@ VAR_GLOBAL PERSISTENT RETAIN
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.1.0.0';
+	version : STRING := '1.2.0.0';
 END_VAR

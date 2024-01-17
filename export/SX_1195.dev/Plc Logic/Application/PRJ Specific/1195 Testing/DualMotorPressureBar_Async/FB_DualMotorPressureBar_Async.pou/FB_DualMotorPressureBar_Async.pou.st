@@ -500,17 +500,20 @@ CASE state OF
 		state_index:=13;
 		// Free up motors on a fault
 // 		_timeoutTimer.IN := FALSE;
-// 		MC_HomeFrontMotor.execute := FALSE;
-// 		MC_MoveFrontMotorABS.execute := FALSE;
-// 		MC_MoveFrontMotorPush.execute := FALSE;
-// 		MC_ResetFrontMotor.execute := FALSE;
+ 		MC_HomeFrontMotor.execute := FALSE;
+ 		MC_MoveFrontMotorABS.execute := FALSE;
+ 		MC_MoveFrontMotorPush.execute := FALSE;
+ 		MC_ResetFrontMotor.execute := FALSE;
 		//7-17-2023 CT Removed comments on MC_HaltFrontMotor.execute:=TRUE;  No reason could be found for this bypass.
- 		//MC_HaltFrontMotor.execute := TRUE;
+ 		MC_HaltFrontMotor.execute := TRUE;
 		state := eDualMotorPressureBar_AsyncStates.halting;
 		
 	eDualMotorPressureBar_AsyncStates.Faulted:
 		state_index:=14;		
 //
+		MC_HomeFrontMotor.execute := FALSE;
+ 		MC_MoveFrontMotorABS.execute := FALSE;
+ 		MC_MoveFrontMotorPush.execute := FALSE;
 		IF MC_HaltFrontMotor.Done OR
 		   MC_HaltFrontMotor.Error  THEN
 			MC_HaltFrontMotor.execute := FALSE;

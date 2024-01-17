@@ -68,20 +68,20 @@ MC_MoveBagDelivery(Axis := bagDeliveryMotor);
 MC_HaltBagDelivery(Axis := bagDeliveryMotor);
 MC_ResetBagDelivery(Axis := bagDeliveryMotor);
 MC_PowerUpBagDelivery(
-	enable := F_EtherCatSlaveCommsRunning(state := AZD4A_KED.wState) AND NOT (state = 91), 
+	enable := F_EtherCatSlaveCommsRunning(state := AZD4A_KED.wState) AND NOT (state = eBagDeliveryStates.Resetting), 
 	axis := bagDeliveryMotor
 );
 {endregion}
-	 
+moveBagDeliveryTimeout();
 // If reset of motors fails state machine must move on
 _resetTimer(IN := state = eBagDeliveryStates.Resetting);
 //moveBagDeliveryTimeout();
 	 
 IF _reset THEN
 	state := eBagDeliveryStates.Reset;
-	nextState := 0;
+	nextState := eBagDeliveryStates.Idle;
 	ClearStatus();
-	MC_ResetBagDelivery.Execute := TRUE;
+	MC_ResetBagDelivery.Execute := FALSE;
 	_reset := FALSE;
 END_IF
 stateWatch(state:= state, trackingEnable := TRUE,cntUp := BagFeedDone);
@@ -128,6 +128,7 @@ CASE state OF
 	eBagDeliveryStates.Idle:		
 			state_index := 0;
 			MC_ResetBagDelivery.Execute := FALSE;
+			moveBagDeliveryTimeout.IN := FALSE;
 			// Idle
 			IF _feedBagOut THEN
 				state := eBagDeliveryStates.FeedBagOut;//10
@@ -166,7 +167,7 @@ CASE state OF
 			MC_MoveBagDelivery.Velocity := feedSpeed;
 			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := remainingLength;
-			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(remainingLength, feedSpeed, 1000);
+			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(remainingLength, feedSpeed, 2000);
 			moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag Out'));
@@ -192,7 +193,7 @@ CASE state OF
 				MC_MoveBagDelivery.currentLimit := 100;
 				MC_MoveBagDelivery.Distance := printOffset;
 				remainingLength := remainingLength - printOffset;
-				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(printOffset, feedSpeed, 1000);
+				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(printOffset, feedSpeed, 2000);
 				moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag to Print Offset'));
@@ -213,7 +214,7 @@ CASE state OF
 				MC_MoveBagDelivery.Velocity := reverseSpeed;
 				MC_MoveBagDelivery.currentLimit := 100;
 				MC_MoveBagDelivery.Distance := maxReverseSetpoint;
-				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
+				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 2000);
 				moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feed to Photoeye'));
@@ -246,6 +247,7 @@ CASE state OF
 				MC_HaltBagDelivery.Execute := TRUE;
 				bagEdgePhotoeyeSim.in := FALSE;
 				state := eBagDeliveryStates.FeedToPhotoEyeDone;
+				moveBagDeliveryTimeout.IN := FALSE;
 				
 			END_IF
 		
@@ -262,7 +264,7 @@ CASE state OF
 			MC_MoveBagDelivery.Velocity := reverseSpeed;
 			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := maxReverseSetpoint * -1;
-			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 1000);
+			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 2000);
 			moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Reversing to Photoeye'));
@@ -319,7 +321,7 @@ CASE state OF
 			MC_MoveBagDelivery.Velocity := printSpeed;
 			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := printLength + _printerExtraFeedLength;
-			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 1000);
+			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 2000);
 			moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding At Print Speed'));

@@ -25,6 +25,7 @@ IF _engineState <> eMCEngineState.Idle AND axis.error THEN
 	_engineState := eMCEngineState.Idle;
 	axis.axisState := eAxisState.ErrorStop;
 	errorID := eMCError.AXIS_ERROR_DURING_COMMAND;
+	Axis.moveRel := FALSE;
 END_IF
 
 _executeOSR(CLK := execute);
@@ -56,10 +57,12 @@ CASE _engineState OF
 		
 	eMCEngineState.Executing:
 		// Wait for target reached.  Once stopped go back to idle
-		axis.moveRel := FALSE;
+			axis.moveRel := FALSE;		
 		IF axis.targetReached THEN
+
 			_engineState := eMCEngineState.Executed;
 		ELSIF axis.axisState <> eAxisState.DiscreteMotion OR Aborted OR NOT execute THEN
+
 			_moveState := eMCMoveState.Aborted;
 			_engineState := eMCEngineState.Idle;
 		END_IF

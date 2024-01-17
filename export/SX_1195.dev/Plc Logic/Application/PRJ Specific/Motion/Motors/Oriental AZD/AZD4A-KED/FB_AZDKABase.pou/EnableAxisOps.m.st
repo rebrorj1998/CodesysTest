@@ -11,7 +11,7 @@ _motorExcitationDelayTimer.IN := _startupState = eAZDPowerupState.Operational;
 EnableAxisOps := _motorExcitationDelayTimer.Q;
 
 // If E-Stopped, or Comm Failure clear state machine
-IF NOT driveEnable OR operational AND NOT _statusword.voltageEnabled THEN
+IF NOT driveEnable OR operational AND (NOT _statusword.voltageEnabled OR NOT _statusword.switchedOn) THEN
 	_startupState := eAZDPowerupState.Idle;
 END_IF
 _driveEnabledONS(CLK := driveEnable);

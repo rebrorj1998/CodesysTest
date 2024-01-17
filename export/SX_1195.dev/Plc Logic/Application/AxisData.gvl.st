@@ -127,7 +127,7 @@ VAR_GLOBAL PERSISTENT
 	
 	FilmFeedJogMotionProfile : sctMotionProfile := (
 		acceleration := 10,
-		deceleration := 10,
+		deceleration := 200,
 		velocity := 100,
 	 	minPosition := 0,
 		maxPosition := 0,

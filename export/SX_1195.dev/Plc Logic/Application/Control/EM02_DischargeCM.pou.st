@@ -44,4 +44,4 @@ loadPlate(
 	interlocks := loadPlateInterlocks
 );
 loadPlate.OptionInstalled := HMIData.loadPlateInstalled;
-loadPlate.OptionEnabled := HMIData.loadPlateInUse;
+loadPlate.OptionEnabled := HMIData.loadPlateInUse AND HMIData.loadPlateInstalled;

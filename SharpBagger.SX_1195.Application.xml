@@ -2299,6 +2299,9 @@
         <Node name="consecutiveBagsCount" type="T_UDINT" access="ReadWrite" />
         <Node name="consecutiveBagsEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="consecutiveBagsSetting" type="T_UDINT" access="ReadWrite" />
+        <Node name="counterChange" type="T_BOOL" access="ReadWrite">
+          <Comment> Acknowledge All Faults from HMI</Comment>
+        </Node>
         <Node name="currentJobID" type="T_INT" access="ReadWrite" />
         <Node name="currentPackMLState" type="T_STRING" access="ReadWrite" />
         <Node name="cycleSealer" type="T_BOOL" access="ReadWrite" />
@@ -2567,6 +2570,7 @@
         <Node name="EM02_SXDischarge" type="T_EM02_Discharge" access="ReadWrite" />
         <Node name="firstAborted" type="T_BOOL" access="ReadWrite" />
         <Node name="firstScanDone" type="T_BOOL" access="ReadWrite" />
+        <Node name="flipFlop" type="T_TON" access="ReadWrite" />
         <Node name="hIecTask" type="T_RTS_IEC_HANDLE" access="ReadWrite">
           <Comment>Declaration of the variable hIecTask</Comment>
         </Node>

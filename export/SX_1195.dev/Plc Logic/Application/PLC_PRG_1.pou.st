@@ -38,6 +38,7 @@ VAR
 	hold: BOOL;
 	loadPlateInterlocks: DINT := 0;
 	resetHold: Ton;
+	flipFlop: TON;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
@@ -58,6 +59,10 @@ END_IF
 IF firstAborted AND UN00_SXMachine.currentState = PACK_ML.State.Aborted THEN
 	firstAborted := FALSE;
 END_IF
+IF flipFlop.Q THEN
+	HMIData.counterChange := NOT HMIData.counterChange; 
+END_IF
+flipFlop(IN := not flipFlop.Q,PT := T#500MS);
 // Use fault collection for faultActive indication
 HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
 
