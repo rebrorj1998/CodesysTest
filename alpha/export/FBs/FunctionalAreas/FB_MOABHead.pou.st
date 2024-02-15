@@ -517,7 +517,14 @@ CASE HMIData.auxIOConfig.factorySelection OF
 																										configOutput1Pulse.ManualOn();
 																									ELSE
 																										configOutput1Pulse.ManualOff();
-																									END_IF											 
+																									END_IF		
+
+															AuxOutputSelection.RunExternalExitConveyor:				//
+																									IF oRunExternalExitConveyor THEN
+																										configOutput1Pulse.ManualOn();
+																									ELSE
+																										configOutput1Pulse.ManualOff();
+																									END_IF										 
 															
 														END_CASE
 															 
@@ -562,6 +569,14 @@ CASE HMIData.auxIOConfig.factorySelection OF
 																									ELSE
 																										configOutput2Pulse.ManualOff();
 																									END_IF	
+															
+															AuxOutputSelection.RunExternalExitConveyor:				//
+																									IF oRunExternalExitConveyor THEN
+																										configOutput2Pulse.ManualOn();
+																									ELSE
+																										configOutput2Pulse.ManualOff();
+																									END_IF											
+															
 														END_CASE
 														
 		 

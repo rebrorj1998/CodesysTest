@@ -10,6 +10,7 @@ TYPE AuxOutputSelection :
 	BagMade := 4,
 	BagMadePlusLabelRequired := 5,
 	BagsLow := 6,
-	ReadyForGrab := 7
+	ReadyForGrab := 7,
+	RunExternalExitConveyor := 8
 );
 END_TYPE

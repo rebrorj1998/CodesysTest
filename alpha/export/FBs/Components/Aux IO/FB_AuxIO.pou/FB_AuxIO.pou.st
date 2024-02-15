@@ -10,6 +10,7 @@ VAR_INPUT
 	inhibitCycle : BOOL;
 	printerDataReady : BOOL;
 	waitingForFiller : BOOL;
+	runExitConveyor : BOOL;
 	state : StateMachine;
 	factorySelection : AuxIOConfiguration;
 	fillerType : REFERENCE TO FillerSelection;
@@ -141,7 +142,14 @@ CASE factorySelection.factorySelection OF
 		IF printerDataReady OR faultActive OR (state.sb.releaseFeed = RELEASE_FEED_STATES.FeedToOffset) THEN
 			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.BagMadePlusLabelRequired));
 		END_IF		
-
+		
+		// Exit Conveyor
+		IF runExitConveyor THEN
+			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.RunExternalExitConveyor)); 
+		ELSE
+			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.RunExternalExitConveyor)); 
+		END_IF
+		
 		configOut1 := _configOutputManager.configOut1;
 		configOut2 := _configOutputManager.configOut2;							 
 			

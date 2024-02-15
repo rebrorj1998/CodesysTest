@@ -675,6 +675,7 @@ _auxIOManager(
 	inhibitCycle := printAndApply.inhibitCycle,
 	printerDataReady := printerDataReady,
 	waitingForFiller := filler.waitingForFiller,
+	runExitConveyor := oRunExternalExitConveyor,
 	fillerType := HMIData.fillerFactorySelection,
 	factorySelection := HMIData.auxIOConfig,
 	installed => murrIOBusNode.auxIONodeEnabled,
