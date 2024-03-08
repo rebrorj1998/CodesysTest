@@ -389,14 +389,17 @@ CASE state OF
 	
 	MotorizedPbarStates.MovedJawIn :			//
 										//IF delayTimer.Q THEN
-											delayTimer.IN := FALSE;
-											IF _closeJawNoLatch THEN
-												_closeJawNoLatch := FALSE;
-												state := MotorizedPbarStates.Idle;
-											ELSE
-												state := MotorizedPbarStates.StartClamping;
+											//delayTimer.IN := FALSE;
+											delayTimer.IN := TRUE;
+											IF delayTimer.Q THEN
+												delayTimer.IN := FALSE;
+												IF _closeJawNoLatch THEN
+													_closeJawNoLatch := FALSE;
+													state := MotorizedPbarStates.Idle;
+												ELSE
+													state := MotorizedPbarStates.StartClamping;
+												END_IF
 											END_IF
-										//END_IF
 	
 	MotorizedPbarStates.StartClamping :			//
 										// pbarMotor.SetPositionLimit(20000);
