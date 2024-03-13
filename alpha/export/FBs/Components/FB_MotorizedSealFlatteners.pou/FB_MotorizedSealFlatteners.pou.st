@@ -134,7 +134,7 @@ END_IF
 enableMotorizedSealFlattenersONS(CLK := enable);
 IF enableMotorizedSealFlattenersONS.OSF THEN
 	sealFlattenersVerticalAxis.Retract();
-	IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
+	IF (HMIData.baggerModelSelection = ModelSelection.Pro18_1174) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_1183) THEN
 		sealFlattenersHorizontalAxisMotor.MoveToPosition(position := 17.8, 
 														acceleration := horizontalAxisAccel,
 														deceleration := horizontalAxisDecel,
@@ -259,7 +259,7 @@ CASE state OF
 																	END_IF
 																	
 	SEAL_FLATTENER_STATES.MoveFlattenersToBagFeed :      			// Move flatteners to out of the way of the bag for feeding
-																	IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
+																	IF (HMIData.baggerModelSelection = ModelSelection.Pro18_1174) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_1183) THEN
 																		IF (outSetpoint + clearanceOffset) <= 17.8 THEN
 																			bagFeedPosition := (outSetpoint + clearanceOffset);
 																		ELSE

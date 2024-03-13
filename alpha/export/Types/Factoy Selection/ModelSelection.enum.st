@@ -3,8 +3,9 @@
 {attribute 'strict'}
 TYPE ModelSelection :
 (
-	Pro18 := 0,
-	Pro24 := 1,
-	Pro18_02 := 2
+	Pro18_1174 := 0,
+	Pro24_1182 := 1,
+	Pro18_1183 := 2,
+	Pro24_1196 := 3
 );
 END_TYPE

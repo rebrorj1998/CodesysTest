@@ -102,8 +102,8 @@ _autoFeedDelay(IN := _amFeedBagOut);
 _sealBarToPrintHeadLength := ABS(_reverseToPrintHeadSetpoint) + 2.25;
 
 //
-IF (HMIData.baggerModelSelection = ModelSelection.Pro18) OR 
-   (HMIData.baggerModelSelection = ModelSelection.Pro18_02) THEN
+IF (HMIData.baggerModelSelection = ModelSelection.Pro18_1174) OR 
+   (HMIData.baggerModelSelection = ModelSelection.Pro18_1183) THEN
 	_reverseToPrintHeadSetpoint := -1.25;
 ELSE
 	_reverseToPrintHeadSetpoint := -1.0;

@@ -443,9 +443,10 @@
       <UserDefElement type="T_LightCurtainsSelection" iecname="LoadingAreaLightCurtains" enumvalue="1" />
     </TypeUserDef>
     <TypeUserDef name="T_ModelSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ModelSelection" basetype="T_INT">
-      <UserDefElement type="T_ModelSelection" iecname="Pro18" enumvalue="0" />
-      <UserDefElement type="T_ModelSelection" iecname="Pro24" enumvalue="1" />
-      <UserDefElement type="T_ModelSelection" iecname="Pro18_02" enumvalue="2" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro18_1174" enumvalue="0" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro24_1182" enumvalue="1" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro18_1183" enumvalue="2" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro24_1196" enumvalue="3" />
     </TypeUserDef>
     <TypeUserDef name="T_PRINT_AND_APPLY_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PRINT_AND_APPLY_STATES" basetype="T_INT">
       <UserDefElement type="T_PRINT_AND_APPLY_STATES" iecname="Idle" enumvalue="0" />
@@ -544,6 +545,7 @@
     <TypeUserDef name="T_SealFlattenerSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SealFlattenerSelection" basetype="T_INT">
       <UserDefElement type="T_SealFlattenerSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_SealFlattenerSelection" iecname="MotorizedSealFlatteners" enumvalue="1" />
+      <UserDefElement type="T_SealFlattenerSelection" iecname="PerfBreaker" enumvalue="2" />
     </TypeUserDef>
     <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
       <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />

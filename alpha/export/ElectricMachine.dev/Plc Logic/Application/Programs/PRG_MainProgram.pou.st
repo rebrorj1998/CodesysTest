@@ -84,11 +84,12 @@ HMIData.version := Standard.CONCAT(TO_STRING(versionInfo.uiMajor),'.');
 	
 //Set maximum passthrough based on model selection
 CASE HMIdata.baggerModelSelection OF
-	ModelSelection.Pro18,
-	ModelSelection.Pro18_02:
+	ModelSelection.Pro18_1174,
+	ModelSelection.Pro18_1183:
 		 Globals.maximumPassthough := Globals.MAXIMUM_PASSTHROUGH_PRO18;
 			  
-	ModelSelection.Pro24:
+	ModelSelection.Pro24_1182,
+	ModelSelection.Pro24_1196:
 		 Globals.maximumPassthough := Globals.MAXIMUM_PASSTHROUGH_PRO24;		  
 END_CASE
 

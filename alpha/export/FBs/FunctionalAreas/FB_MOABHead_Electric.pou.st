@@ -224,7 +224,7 @@ CASE HMIData.barcodeVerifierSelection OF
 		IF DM374_BCV.eState <> IoDrvEtherNetIP.AdapterState.RUNNING OR cognexDM374BCV.triggerFeedbackFault THEN
 			barcodeVerifierCommFail.Trigger();		 
 		END_IF
-		cognexDM374BCV.enable := HMIData.barcodeVerifierInUse AND HMIData.baggerModelSelection = ModelSelection.Pro18_02;
+		cognexDM374BCV.enable := HMIData.barcodeVerifierInUse AND HMIData.baggerModelSelection = ModelSelection.Pro18_1183;
 END_CASE
 	 
 // Raise/Lower bagger head logic

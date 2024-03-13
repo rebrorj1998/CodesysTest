@@ -391,7 +391,8 @@ CASE state OF
 										//IF delayTimer.Q THEN
 											//delayTimer.IN := FALSE;
 											delayTimer.IN := TRUE;
-											IF delayTimer.Q THEN
+											// Need this delay for the 1183/1196 motors - not the 1182 though.
+											IF delayTimer.Q OR HMIDAta.baggerModelSelection = ModelSelection.Pro24_1182 THEN
 												delayTimer.IN := FALSE;
 												IF _closeJawNoLatch THEN
 													_closeJawNoLatch := FALSE;
