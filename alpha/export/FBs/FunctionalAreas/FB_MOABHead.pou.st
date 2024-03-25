@@ -1778,6 +1778,11 @@ CASE releaseAndFeedSubState OF
 														barcodeVerificationFailed.Trigger();
 													END_IF 
 													releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
+											   
+													IF HPA.DwellSetting <> 0 THEN
+														HPA.Trigger();	
+													END_IF	  
+									 
 													
     RELEASE_FEED_STATES.Done :
     RELEASE_FEED_STATES.Fault :
@@ -1792,9 +1797,9 @@ CASE openBagSubState OF
                                                     pressureBar.AutoCloseJaw();
 													(*HPA.DwellSetting := 80;
 													HPA.Trigger();*)
-													IF HPA.DwellSetting <> 0 THEN
+													(*IF HPA.DwellSetting <> 0 THEN
 														HPA.Trigger();	
-													END_IF
+													END_IF*)
 													
 													//oVacOn := TRUE; // Hard coded for now, this is vacuum
                                                     openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawIn;        

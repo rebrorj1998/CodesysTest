@@ -1995,6 +1995,11 @@ CASE state.sb.releaseFeed OF
 														IBD.OpenIBD();
 													END_IF
 													state.sb.releaseFeed := RELEASE_FEED_STATES.Done;
+													
+													IF HPA.DwellSetting <> 0 THEN
+														HPA.Trigger();	
+													END_IF
+													
     RELEASE_FEED_STATES.Done :						//
     RELEASE_FEED_STATES.Fault :						//
 END_CASE
@@ -2007,9 +2012,9 @@ CASE state.sb.openBag OF
                                                     pressureBar.CloseJawNoLatch();
 													(*HPA.DwellSetting := 80;
 													HPA.Trigger();*)
-													IF HPA.DwellSetting <> 0 THEN
+													(*IF HPA.DwellSetting <> 0 THEN
 														HPA.Trigger();	
-													END_IF
+													END_IF*)
 													
 													//oVacOn := TRUE; // Hard coded for now, this is vacuum
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawIn;        
