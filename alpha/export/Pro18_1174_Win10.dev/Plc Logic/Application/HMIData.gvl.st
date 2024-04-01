@@ -92,6 +92,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	bagOpenRetryCount : INT;
 	bagOpenFeedNewBagSetting : INT := 1;
 	bagOpenFeedNewBagCount : INT;
+	bagOpenEnable : BOOL := TRUE;
 	currentJobID : INT;
 	separateBeforeSeal : BOOL;
 	activateDemoMode : BOOL;

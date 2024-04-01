@@ -1060,6 +1060,7 @@
         <Node name="baggerProfileSelection" type="T_BaggerProfile" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagLevelLow" type="T_Warning" access="ReadWrite" />
+        <Node name="bagOpenEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="bagOpenFeedNewBagCount" type="T_INT" access="ReadWrite" />
         <Node name="bagOpenFeedNewBagSetting" type="T_INT" access="ReadWrite" />
         <Node name="bagOpenFingerCycles" type="T_FB_CycleCounter" access="ReadWrite" />

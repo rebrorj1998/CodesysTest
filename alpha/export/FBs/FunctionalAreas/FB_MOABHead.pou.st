@@ -1779,7 +1779,9 @@ CASE releaseAndFeedSubState OF
 													END_IF 
 													releaseAndFeedSubState := RELEASE_FEED_STATES.Done;
 											   
-													IF HPA.DwellSetting <> 0 THEN
+													IF HPA.DwellSetting <> 0 
+													AND HMIData.bagOpenEnable = FALSE
+													THEN
 														HPA.Trigger();	
 													END_IF	  
 									 
@@ -1797,9 +1799,11 @@ CASE openBagSubState OF
                                                     pressureBar.AutoCloseJaw();
 													(*HPA.DwellSetting := 80;
 													HPA.Trigger();*)
-													(*IF HPA.DwellSetting <> 0 THEN
+													IF HPA.DwellSetting <> 0 
+													AND HMIData.bagOpenEnable = TRUE
+														THEN
 														HPA.Trigger();	
-													END_IF*)
+													END_IF
 													
 													//oVacOn := TRUE; // Hard coded for now, this is vacuum
                                                     openBagSubState := BAG_OPEN_ASSIST_STATES.MovingJawIn;        
