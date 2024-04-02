@@ -591,7 +591,8 @@ CASE HMIData.independentBagDeflatorSelection OF
 																enableIBDEject := FALSE;
 															END_IF
 END_CASE
-		  
+		
+(*  
 CASE HMIData.bofSelection OF
 	BagOpenFingersSelection.NotInstalled:					// Disable Bag Open
 		 													enableBagOpen := FALSE;
@@ -601,6 +602,8 @@ CASE HMIData.bofSelection OF
 															enableBagOpen := TRUE;
 	
 END_CASE
+	 *)
+		  enableBagOpen := hmidata.bagOpenEnable;
 
 CASE HMIData.cycleStartButtonSelection OF
 	PalmButtonSelection.NotInstalled:					// Dont' allow input to start bagger cycle
@@ -1996,11 +1999,9 @@ CASE state.sb.releaseFeed OF
 													END_IF
 													state.sb.releaseFeed := RELEASE_FEED_STATES.Done;
 													
-													IF HPA.DwellSetting <> 0 
-													AND HMIData.bagOpenEnable = FALSE
-														THEN
+													IF HPA.DwellSetting <> 0 THEN
 														HPA.Trigger();	
-													END_IF
+													END_IF	 
 													
     RELEASE_FEED_STATES.Done :						//
     RELEASE_FEED_STATES.Fault :						//
@@ -2012,13 +2013,7 @@ CASE state.sb.openBag OF
                                                                          
     BAG_OPEN_ASSIST_STATES.MoveJawIn :              // Close jaw against bag. In the future we may also start vacuum here
                                                     pressureBar.CloseJawNoLatch();
-													(*HPA.DwellSetting := 80;
-													HPA.Trigger();*)
-													IF HPA.DwellSetting <> 0 
-													AND HMIData.bagOpenEnable = TRUE
-														THEN
-														HPA.Trigger();	
-													END_IF
+												
 													
 													//oVacOn := TRUE; // Hard coded for now, this is vacuum
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawIn;        
