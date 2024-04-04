@@ -131,6 +131,8 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	feedToSealSetpoint : REAL := 0.0;
 	feedToSealInUse : BOOL := FALSE;
 	reverseConveyor : BOOL;
+	enablePerfBreaker : BOOL;
+	enablePaperBagger : BOOL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -182,7 +184,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	
 	(*Factoy Config*)
 	bofSelection : BagOpenFingersSelection := BagOpenFingersSelection.PneumaticWithBagOpenSensors;
-	sealFlattenersSelection : SealFlattenerSelection := SealFlattenerSelection.MotorizedSealFlatteners;
+	sealAreaOptionSelection : SealAreaOptionSelectionEnum := SealAreaOptionSelectionEnum.MotorizedSealFlatteners;
 	printerSelection : LabelPrinterSelection := LabelPrinterSelection.ZebraPrinter203DPI;
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;

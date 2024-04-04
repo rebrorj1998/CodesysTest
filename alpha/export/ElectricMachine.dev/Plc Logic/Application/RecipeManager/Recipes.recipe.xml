@@ -12,10 +12,10 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">6b3dfb6a-1865-4356-a39b-1fe0ef89651c</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638091075314026138</Single>
+        <Single Name="Timestamp" Type="long">638478239409452950</Single>
       </Single>
       <Single Name="Object" Type="{6b3dfb6a-1865-4356-a39b-1fe0ef89651c}" Method="IArchivable">
-        <Single Name="UniqueIdGenerator" Type="string">1581</Single>
+        <Single Name="UniqueIdGenerator" Type="string">1589</Single>
         <Single Name="Recipes" Type="{361612e3-b6f9-4397-98a8-756875b9e479}" Method="IArchivable">
           <List Name="Recipes" Type="System.Collections.ArrayList" />
         </Single>
@@ -110,12 +110,8 @@
               <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
               <Single Name="VarTypeAsString" Type="string">BOOL</Single>
               <Single Name="Name" Type="string"></Single>
-              <Single Name="Boundaries" Type="{27f9af88-23e7-4a13-82aa-c97c4e06a71a}" Method="IArchivable">
-                <Single Name="Type" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
-                <Single Name="LowerBound" Type="string"></Single>
-                <Single Name="UpperBound" Type="string"></Single>
-              </Single>
-              <Single Name="Id" Type="int">287</Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">1583</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
@@ -1260,6 +1256,16 @@
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
             <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.bagOpenEnable</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">1585</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
               <Single Name="VarName" Type="string">HMIData.currentJobID</Single>
               <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Int</Single>
               <Single Name="VarTypeAsString" Type="string">INT</Single>
@@ -1636,6 +1642,26 @@
               <Single Name="Name" Type="string"></Single>
               <Null Name="Boundaries" />
               <Single Name="Id" Type="int">1581</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.enablePerfBreaker</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">1587</Single>
+              <Single Name="Comment" Type="string"></Single>
+              <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
+            </Single>
+            <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
+              <Single Name="VarName" Type="string">HMIData.enablePaperBagger</Single>
+              <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Bool</Single>
+              <Single Name="VarTypeAsString" Type="string">BOOL</Single>
+              <Single Name="Name" Type="string"></Single>
+              <Null Name="Boundaries" />
+              <Single Name="Id" Type="int">1589</Single>
               <Single Name="Comment" Type="string"></Single>
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
@@ -2754,7 +2780,7 @@
               <Single Name="VarUserDefTypeAsString" Type="string">Invalid Type</Single>
             </Single>
             <Single Type="{53eb36d9-3360-453b-901e-ca88bd8f0cba}" Method="IArchivable">
-              <Single Name="VarName" Type="string">HMIData.sealFlattenersSelection</Single>
+              <Single Name="VarName" Type="string">HMIData.sealAreaOptionSelection</Single>
               <Single Name="VarType" Type="{16f7aa24-038f-444e-9d81-b001bc091d35}">Int</Single>
               <Single Name="VarTypeAsString" Type="string">INT</Single>
               <Single Name="Name" Type="string"></Single>

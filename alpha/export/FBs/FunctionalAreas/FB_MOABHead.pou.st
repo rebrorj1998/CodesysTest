@@ -220,7 +220,7 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						position => HMIData.sealFlattenersPosition
 );
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
-motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
+motorizedSealFlatteners.enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
 
 // Setup of MOAB Machine Pressure bar ("#2") on actual machine, not test rig
 pressureBar(

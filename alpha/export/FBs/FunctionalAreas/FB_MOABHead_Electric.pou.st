@@ -289,8 +289,8 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						position => HMIData.sealFlattenersPosition
 );
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
-motorizedSealFlatteners.enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
-MSFMotor.Enable := (HMIData.sealFlattenersSelection = SealFlattenerSelection.MotorizedSealFlatteners);
+motorizedSealFlatteners.enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
+MSFMotor.Enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners);
 	 
 pressureBarMotor(
 	ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),

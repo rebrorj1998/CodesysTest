@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {attribute 'qualified_only'}
 {attribute 'strict'}
-TYPE SealFlattenerSelection :
+TYPE SealAreaOptionSelectionEnum :
 (
 	NotInstalled := 0,
 	MotorizedSealFlatteners := 1,

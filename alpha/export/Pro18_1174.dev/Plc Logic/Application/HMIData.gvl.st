@@ -166,7 +166,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	
 	(*Factoy Config*)
 	bofSelection : BagOpenFingersSelection := BagOpenFingersSelection.PneumaticWithBagOpenSensors;
-	sealFlattenersSelection : SealFlattenerSelection := SealFlattenerSelection.MotorizedSealFlatteners;
+	sealFlattenersSelection : SealAreaOptionSelectionEnum := SealAreaOptionSelectionEnum.MotorizedSealFlatteners;
 	printerSelection : LabelPrinterSelection := LabelPrinterSelection.ZebraPrinter203DPI;
 	integratedExitConveyorSelection : IntegratedConveyorSelection := IntegratedConveyorSelection.RearExit;
 	externalExitConveyorSelection : ExteralConveyorSelection := ExteralConveyorSelection.NotInstalled;
