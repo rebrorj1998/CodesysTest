@@ -454,10 +454,10 @@
       <UserDefElement type="T_SHAKER_START_SELECTION" iecname="CycleStart" enumvalue="1" />
       <UserDefElement type="T_SHAKER_START_SELECTION" iecname="Both" enumvalue="2" />
     </TypeUserDef>
-    <TypeUserDef name="T_SealFlattenerSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SealFlattenerSelection" basetype="T_INT">
-      <UserDefElement type="T_SealFlattenerSelection" iecname="NotInstalled" enumvalue="0" />
-      <UserDefElement type="T_SealFlattenerSelection" iecname="MotorizedSealFlatteners" enumvalue="1" />
-      <UserDefElement type="T_SealFlattenerSelection" iecname="PerfBreaker" enumvalue="2" />
+    <TypeUserDef name="T_SealAreaOptionSelectionEnum" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SealAreaOptionSelectionEnum" basetype="T_INT">
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="MotorizedSealFlatteners" enumvalue="1" />
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="PerfBreaker" enumvalue="2" />
     </TypeUserDef>
     <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
       <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />
@@ -989,6 +989,7 @@
         <Node name="baggerNotReady" type="T_Warning" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagLevelLow" type="T_Warning" access="ReadWrite" />
+        <Node name="bagOpenEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="bagOpenFeedNewBagCount" type="T_INT" access="ReadWrite" />
         <Node name="bagOpenFeedNewBagSetting" type="T_INT" access="ReadWrite" />
         <Node name="bagOpenFingerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -1191,6 +1192,7 @@
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
+        <Node name="sealAreaOptionSelection" type="T_SealAreaOptionSelectionEnum" access="ReadWrite" />
         <Node name="sealBarCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
         <Node name="sealBarNotAtTemperature" type="T_Warning" access="ReadWrite" />
@@ -1205,7 +1207,6 @@
         <Node name="sealFlattenersManualPositionSetting" type="T_REAL" access="ReadWrite" />
         <Node name="sealFlattenersMoveToManualPos" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersPosition" type="T_REAL" access="ReadWrite" />
-        <Node name="sealFlattenersSelection" type="T_SealFlattenerSelection" access="ReadWrite" />
         <Node name="sealFlattenersServiceJogIn" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersServiceJogOut" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersServiceLower" type="T_BOOL" access="ReadWrite" />
