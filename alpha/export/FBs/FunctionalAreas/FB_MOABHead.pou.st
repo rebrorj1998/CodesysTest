@@ -947,7 +947,13 @@ IF passthrough.exhaustPressureBarRequest THEN
 	IF NOT oPBar1Extend AND NOT oPBar1Retract THEN
 		passthrough.AckRequest();
 	END_IF
-ELSIF passthrough.extendPressureBarRequest THEN
+ELSIF passthrough.extendPressureBarLowPressureRequest THEN
+    pressureBar.ExtendCylinderLowPressure();
+	IBDCylinders.Extend();
+	IF oPBar1Extend AND oPBar1Retract THEN
+		passthrough.AckRequest();
+	END_IF
+ELSIF passthrough.extendPressureBarHighPressureRequest THEN
     pressureBar.ExtendCylinderHighPressure();
 	IBDCylinders.Extend();
 	IF oPBar1Extend AND NOT oPBar1Retract THEN

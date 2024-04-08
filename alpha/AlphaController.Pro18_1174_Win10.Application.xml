@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.17.0" libversion="4.2.0.0" compiler="3.5.16.10" lmm="3.5.18.30" profile="CODESYS V3.5 SP18 Patch 3+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.17.0" libversion="4.2.0.0" compiler="3.5.16.10" lmm="3.5.19.0" profile="CODESYS V3.5 SP19+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="Pro18_1174_Win10" appname="Application" />
   </Header>
   <TypeList>
@@ -59,6 +59,7 @@
       <UserDefElement type="T_AuxOutputSelection" iecname="BagMadePlusLabelRequired" enumvalue="5" />
       <UserDefElement type="T_AuxOutputSelection" iecname="BagsLow" enumvalue="6" />
       <UserDefElement type="T_AuxOutputSelection" iecname="ReadyForGrab" enumvalue="7" />
+      <UserDefElement type="T_AuxOutputSelection" iecname="RunExternalExitConveyor" enumvalue="8" />
     </TypeUserDef>
     <TypeUserDef name="T_AuxiliaryIOSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxiliaryIOSelection" basetype="T_INT">
       <UserDefElement type="T_AuxiliaryIOSelection" iecname="NotInstalled" enumvalue="0" />
@@ -438,9 +439,10 @@
       <UserDefElement type="T_LightCurtainsSelection" iecname="LoadingAreaLightCurtains" enumvalue="1" />
     </TypeUserDef>
     <TypeUserDef name="T_ModelSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ModelSelection" basetype="T_INT">
-      <UserDefElement type="T_ModelSelection" iecname="Pro18" enumvalue="0" />
-      <UserDefElement type="T_ModelSelection" iecname="Pro24" enumvalue="1" />
-      <UserDefElement type="T_ModelSelection" iecname="Pro18_02" enumvalue="2" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro18_1174" enumvalue="0" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro24_1182" enumvalue="1" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro18_1183" enumvalue="2" />
+      <UserDefElement type="T_ModelSelection" iecname="Pro24_1196" enumvalue="3" />
     </TypeUserDef>
     <TypeSimple name="T_POINTER_TO_ARRAY__0__13__OF_DINT" size="8" swapsize="8" typeclass="Pointer" iecname="POINTER TO ARRAY [0..13] OF DINT" />
     <TypeSimple name="T_POINTER_TO_ARRAY__0__15__OF_DINT" size="8" swapsize="8" typeclass="Pointer" iecname="POINTER TO ARRAY [0..15] OF DINT" />
@@ -476,10 +478,11 @@
     </TypeUserDef>
     <TypeUserDef name="T_RELEASE_FEED_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="RELEASE_FEED_STATES" basetype="T_INT">
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Idle" enumvalue="0" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MoveJawOutAndDropBag" enumvalue="10" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndDroppingBag" enumvalue="11" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedBag" enumvalue="12" />
-      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedingBag" enumvalue="13" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="WaitForPressureBarOpenTimer" enumvalue="10" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MoveJawOutAndDropBag" enumvalue="11" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndDroppingBag" enumvalue="12" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedBag" enumvalue="13" />
+      <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovingJawOutAndFeedingBag" enumvalue="14" />
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="MovedJawOutAndFedBag" enumvalue="15" />
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="WaitForPrinter" enumvalue="20" />
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="FeedToOffset" enumvalue="21" />
@@ -500,9 +503,10 @@
       <UserDefElement type="T_SHAKER_START_SELECTION" iecname="CycleStart" enumvalue="1" />
       <UserDefElement type="T_SHAKER_START_SELECTION" iecname="Both" enumvalue="2" />
     </TypeUserDef>
-    <TypeUserDef name="T_SealFlattenerSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SealFlattenerSelection" basetype="T_INT">
-      <UserDefElement type="T_SealFlattenerSelection" iecname="NotInstalled" enumvalue="0" />
-      <UserDefElement type="T_SealFlattenerSelection" iecname="MotorizedSealFlatteners" enumvalue="1" />
+    <TypeUserDef name="T_SealAreaOptionSelectionEnum" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SealAreaOptionSelectionEnum" basetype="T_INT">
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="MotorizedSealFlatteners" enumvalue="1" />
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="PerfBreaker" enumvalue="2" />
     </TypeUserDef>
     <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
       <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />
@@ -701,7 +705,7 @@
       <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="32" vartype="VAR_INPUT" />
       <UserDefElement iecname="eError" type="T_ERROR" byteoffset="40" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AdjustablePneumaticPassthrough" size="8" nativesize="296" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AdjustablePneumaticPassthrough" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_AdjustablePneumaticPassthrough" size="8" nativesize="304" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AdjustablePneumaticPassthrough" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="pressureBarEndStopMotor" type="T_TYPE_REFERENCE_1" byteoffset="0" vartype="VAR_INPUT" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="4448" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
@@ -931,7 +935,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="1304" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="79509" nativesize="117112" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead" size="79509" nativesize="117152" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -1034,6 +1038,7 @@
         <Node name="baggerNotReady" type="T_Warning" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagLevelLow" type="T_Warning" access="ReadWrite" />
+        <Node name="bagOpenEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="bagOpenFeedNewBagCount" type="T_INT" access="ReadWrite" />
         <Node name="bagOpenFeedNewBagSetting" type="T_INT" access="ReadWrite" />
         <Node name="bagOpenFingerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -1236,6 +1241,7 @@
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
+        <Node name="sealAreaOptionSelection" type="T_SealAreaOptionSelectionEnum" access="ReadWrite" />
         <Node name="sealBarCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
         <Node name="sealBarNotAtTemperature" type="T_Warning" access="ReadWrite" />
@@ -1250,7 +1256,6 @@
         <Node name="sealFlattenersManualPositionSetting" type="T_REAL" access="ReadWrite" />
         <Node name="sealFlattenersMoveToManualPos" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersPosition" type="T_REAL" access="ReadWrite" />
-        <Node name="sealFlattenersSelection" type="T_SealFlattenerSelection" access="ReadWrite" />
         <Node name="sealFlattenersServiceJogIn" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersServiceJogOut" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersServiceLower" type="T_BOOL" access="ReadWrite" />

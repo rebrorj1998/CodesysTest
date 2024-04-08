@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638043814715299067</Single>
+        <Single Name="Timestamp" Type="long">638481843239727774</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List2 Name="ParameterTable">
@@ -589,7 +589,7 @@
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoStandard</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">987049959</Single>
+            <Single Name="Id" Type="long">2140586943</Single>
             <Single Name="Namespace" Type="string">IoStandard</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
@@ -603,22 +603,8 @@
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">3SLicense</Single>
             <Single Name="ResolverGuid" Type="System.Guid">97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b</Single>
-            <Single Name="Id" Type="long">2627838925</Single>
+            <Single Name="Id" Type="long">3822168684</Single>
             <Single Name="Namespace" Type="string">_3S_LICENSE</Single>
-            <Single Name="SystemLibrary" Type="bool">True</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
-          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">CAA Device Diagnosis, 3.5.17.0 (CAA Technical Workgroup)</Single>
-            <Single Name="Optional" Type="bool">False</Single>
-            <Null Name="Params" />
-            <Single Name="PlaceholderName" Type="string">CAA Device Diagnosis</Single>
-            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">2695854653</Single>
-            <Single Name="Namespace" Type="string">DED</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
             <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
@@ -631,7 +617,7 @@
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoDrvEthernet</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">3485238496</Single>
+            <Single Name="Id" Type="long">2282709147</Single>
             <Single Name="Namespace" Type="string">IoDrvEthernet</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
@@ -645,7 +631,7 @@
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoDrvEtherNetIP</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">4157663067</Single>
+            <Single Name="Id" Type="long">3297889729</Single>
             <Single Name="Namespace" Type="string">IoDrvEtherNetIP</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
@@ -659,8 +645,22 @@
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">EtherNetIP Services</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">2443486426</Single>
+            <Single Name="Id" Type="long">2925329890</Single>
             <Single Name="Namespace" Type="string">ENIP</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">CAA Device Diagnosis, 3.5.17.0 (CAA Technical Workgroup)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Null Name="Params" />
+            <Single Name="PlaceholderName" Type="string">CAA Device Diagnosis</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">1115202271</Single>
+            <Single Name="Namespace" Type="string">DED</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
             <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
@@ -682,7 +682,7 @@
               <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTextEditor, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuElemTextEditor, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -698,7 +698,7 @@
               <Single Type="string">System_VisuElemMeter</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemMeter, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuElemMeter, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -714,7 +714,7 @@
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTrace, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuElemTrace, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -738,7 +738,7 @@
               <Single Type="string">System_VisuElems</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElems, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuElems, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -762,7 +762,7 @@
               <Single Type="string">System_VisuElemsAlarm</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsAlarm, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuElemsAlarm, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -778,7 +778,7 @@
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsWinControls, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuElemsWinControls, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -794,7 +794,7 @@
               <Single Type="string">System_VisuElemBase</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemBase, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuElemBase, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -802,7 +802,15 @@
               <Single Type="string">System_VisuNativeControl</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuNativeControl, 4.2.0.0 (System)</Single>
+              <Single Type="string">VisuNativeControl, 4.3.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">System_VisuInputs</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuInputs, 4.2.0.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>

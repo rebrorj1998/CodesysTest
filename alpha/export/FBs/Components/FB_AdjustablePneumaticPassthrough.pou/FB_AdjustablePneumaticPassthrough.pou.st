@@ -10,7 +10,8 @@ VAR_OUTPUT
     passthroughPosition : REAL;
     state : PASSTHROUGH_SERVO_STATES := PASSTHROUGH_SERVO_STATES.Idle; //State indication of Jaw Passthrough Servo
     exhaustPressureBarRequest : BOOL; // Exhaust pressure bar request for passthrough movement
-    extendPressureBarRequest : BOOL; // Extend pressure bar request for passthrough movement
+    extendPressureBarLowPressureRequest : BOOL; // Extend pressure bar (Low Pressure) request for passthrough movement
+	extendPressureBarHighPressureRequest : BOOL; // Extend pressure bar (Low Pressure) request for passthrough movement
 END_VAR
 VAR        
     passthroughSetpoint : REAL;        // Passthrough setpoint in inches
@@ -25,7 +26,6 @@ VAR
 	faultONS : FB_ONS;
 	jogInONS : FB_ONS;
 	jogOutONS : FB_ONS;
-	
 END_VAR
 VAR_IN_OUT
 	cumulativeChangeCount : DINT;
@@ -70,7 +70,7 @@ END_IF
 
 CASE state OF
     PASSTHROUGH_SERVO_STATES.Idle :                     // Go to ready state if no home required.  Otherwise go to ready if enabled. Stay in Idle if disabled.
-                                                        extendPressureBarRequest := FALSE;
+                                                        extendPressureBarLowPressureRequest := FALSE;
                                                         exhaustPressureBarRequest := FALSE;
 														timerHomeDelay.IN := FALSE;
                                                         IF enable AND pressureBarEndStopMotor.HomeRequired THEN
@@ -104,18 +104,18 @@ CASE state OF
 														timerHomeDelay.PT := T#200MS;
 														timerHomeDelay.IN := TRUE;
 														IF NOT iPassthroughHomeSensorClear THEN
-															extendPressureBarRequest := TRUE;
+															extendPressureBarLowPressureRequest := TRUE;
 															Globals.jawMovingIn := FALSE;
 														END_IF
 														
 														IF _ackRequest THEN 
-															extendPressureBarRequest := FALSE;
+															extendPressureBarLowPressureRequest := FALSE;
 														END_IF 
 														
 														IF timerHomeDelay.Q THEN
 															IF (NOT pressureBarEndStopMotor.HomeRequired) THEN
 																state := PASSTHROUGH_SERVO_STATES.HomeComplete;
-																extendPressureBarRequest := FALSE;
+																extendPressureBarLowPressureRequest := FALSE;
 																_ackRequest := FALSE;
 																timerHomeDelay.IN := FALSE;
                                                         	END_IF
@@ -131,17 +131,18 @@ CASE state OF
                                                             exhaustPressureBarRequest := FALSE;
                                                             _ackRequest := FALSE;
                                                             state := PASSTHROUGH_SERVO_STATES.Ready;    
-                                                        END_IF
+                                                        END_IF 
+                                                      
                                                         
     PASSTHROUGH_SERVO_STATES.MovePassthroughOut :        // Move passthrough out
-                                                        extendPressureBarRequest := TRUE;
+                                                        extendPressureBarLowPressureRequest := TRUE;
                                                         IF _ackRequest THEN
                                                             pressureBarEndStopMotor.MoveToPosition(position := (passthroughSetpoint + HMIData.passthroughOffset), 
                                                                                     acceleration := 150, 
                                                                                     deceleration := 150, 
                                                                                     velocity := 2583);
                                                             //
-                                                            extendPressureBarRequest := FALSE;
+                                                            extendPressureBarLowPressureRequest := FALSE;
                                                             _ackRequest := FALSE;
                                                             state := PASSTHROUGH_SERVO_STATES.MovingPassthroughOut;        
                                                         END_IF
@@ -166,17 +167,25 @@ CASE state OF
 															END_IF
 														END_IF
     PASSTHROUGH_SERVO_STATES.PassthroughMovedOut :       
+														extendPressureBarHighPressureRequest := TRUE; 
+                                                         IF _ackRequest THEN
+                                                            extendPressureBarHighPressureRequest := FALSE;
+                                                            _ackRequest := FALSE;
+															HMIData.passthroughChanges.Increment();
+                                                            cumulativeChangeCount := cumulativeChangeCount + 1;
+															cumulativeChangeDistance := cumulativeChangeDistance + REAL_TO_UDINT((passthroughTravel * 10));
+                                                            state := PASSTHROUGH_SERVO_STATES.ExhaustPressureBarOnceMovedOut;    
+                                                        END_IF
+    
+	PASSTHROUGH_SERVO_STATES.ExhaustPressureBarOnceMovedOut :
 														exhaustPressureBarRequest := TRUE; 
                                                          IF _ackRequest THEN
                                                             exhaustPressureBarRequest := FALSE;
                                                             _movePassthrough := FALSE;
                                                             _ackRequest := FALSE;
-															HMIData.passthroughChanges.Increment();
-                                                            cumulativeChangeCount := cumulativeChangeCount + 1;
-															cumulativeChangeDistance := cumulativeChangeDistance + REAL_TO_UDINT((passthroughTravel * 10));
-                                                            state := PASSTHROUGH_SERVO_STATES.Ready;    
+															state := PASSTHROUGH_SERVO_STATES.Ready;    
                                                         END_IF
-                                                        
+                                                    
     PASSTHROUGH_SERVO_STATES.MovePassthroughIn :        
                                                         exhaustPressureBarRequest := TRUE;
 														Globals.jawMovingIn := TRUE;

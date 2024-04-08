@@ -11,6 +11,8 @@ TYPE PASSTHROUGH_SERVO_STATES :
 	MovePassthroughOut := 20,
 	MovingPassthroughOut := 21,
 	PassthroughMovedOut := 22,
+	ExtendHighPressureOnceMovedOut := 23,
+	ExhaustPressureBarOnceMovedOut := 24,
 	MovePassthroughIn := 30,
 	MovingPassthroughIn := 31,
 	PassthroughMovedIn := 32,
