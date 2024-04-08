@@ -1421,6 +1421,7 @@ CASE state OF
     HEAD_STATES.MovedPassthrough:           // 
                                             pressureBar.AutoDoneMovingPassthrough();
                                             state := HEAD_STATES.Idle;
+									   		//HMIdata.passthroughSetting := 
 											setPassthroughPB := FALSE;
                                                     
     HEAD_STATES.Fault:                      hmiLight.TurnOff();
