@@ -767,7 +767,7 @@ revision = info.version.Revision</Entry>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
             <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\1174_{version}-build{buildID}-EMBEDTEK-APLEX-WIN10\Application.app</Entry>
-            <Entry Name="FullAppName">Pro18_1174_Win10.Plc Logic.Application</Entry>
+            <Entry Name="FullAppName">Pro18_1174_CodesysDriver.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
         <Action>
@@ -1033,7 +1033,7 @@ revision = info.version.Revision</Entry>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
             <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\1174_{version}-build{buildID}-ADVANTECH-WIN7-NATIVE\Application.app</Entry>
-            <Entry Name="FullAppName">Pro18_1174_Win10.Plc Logic.Application</Entry>
+            <Entry Name="FullAppName">Pro18_1174_CodesysDriver.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
         <Action>
@@ -1299,7 +1299,7 @@ revision = info.version.Revision</Entry>
           <Command TestRunner="TestManager.Projects" Verb="CreateOfflineBootProject" />
           <Configuration>
             <Entry Name="FileName">C:\jenkins\workspace\{$GLOBALS.workspace}\alpha\app\1174_{version}-build{buildID}-ADVANTECH-WIN10-NATIVE\Application.app</Entry>
-            <Entry Name="FullAppName">Pro18_1174_Win10.Plc Logic.Application</Entry>
+            <Entry Name="FullAppName">Pro18_1174_CodesysDriver.Plc Logic.Application</Entry>
           </Configuration>
         </Action>
         <Action>
