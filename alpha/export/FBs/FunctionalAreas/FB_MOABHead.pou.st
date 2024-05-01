@@ -846,7 +846,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	bagOpenRetryCount := 0;
 	
 	HMIData.stopMachine := FALSE;
-	
+	HMIData.inCycle := FALSE;
 	electricPressureBarMode := DEVICE_MODES.Auto;
 	pressureBar.Reset();
 	pressureBar.enable := TRUE;

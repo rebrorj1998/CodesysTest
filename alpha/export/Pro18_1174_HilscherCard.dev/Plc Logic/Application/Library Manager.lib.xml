@@ -287,10 +287,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">ElementCollections</Single>
+              <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
-              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
+              <Single Type="string">VisuElemTextEditor, 4.3.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -335,14 +335,6 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemTextEditor</Single>
-            </Key>
-            <Value>
-              <Single Type="string">VisuElemTextEditor, 4.3.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
@@ -379,6 +371,14 @@
             </Key>
             <Value>
               <Single Type="string">CmpEventMgr Implementation, 3.5.17.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">ElementCollections</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
             </Value>
           </Entry>
           <Entry>
