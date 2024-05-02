@@ -31,7 +31,7 @@ VAR_GLOBAL PERSISTENT
 		deceleration := 100,
 		velocity := 30.0,
 		current := 100.0,
-		position := 0 
+		position := -0.5 
 	);
 
 	jawPushMotionProfile : sctMotionProfile := (

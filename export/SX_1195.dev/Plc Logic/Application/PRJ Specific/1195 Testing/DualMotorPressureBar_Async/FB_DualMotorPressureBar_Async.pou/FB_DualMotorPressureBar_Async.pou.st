@@ -65,7 +65,7 @@ VAR
 	_jawTestDelayTimer : Standard.TON := (PT := T#250MS);
 	_faultONS : FB_ONS;
 	_startClampingONS : FB_ONS;
-	_startClampingPosition : REAL := 4.0;
+	_startClampingPosition : REAL := 1.0;
 	_moveOutDelay : Standard.TON := (PT := T#100MS);//T#100MS);
 	_moveOutTimeOut : Standard.TON := (PT := T#1250MS);
 	_jawOpenPositionDelta : REAL;
