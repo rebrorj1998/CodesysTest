@@ -165,6 +165,10 @@ palmButton(
 //
 // HMI Mapping
 //
+
+// change jaw close position from HMI
+AxisData.jawCloseMotionProfile.position := HMIData.jawClosePositionSetting;
+
 //code to add timer to track duration in states
 stateTimer(PT:=T#10000S);
 stateTimer.IN := UN00_SXMachine.baggerManager.BaggerAutoMode.baggerCycleActive;
@@ -190,6 +194,7 @@ IF HMIData.ackAllFaults THEN
 		HMIData.ackAllFaults:= FALSE;
 	END_IF
 END_IF
+
 //End modded code
 // Send the list of active fault strings to HMI for viewing
 HMIData.activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames;
