@@ -109,7 +109,7 @@ packageFailedToReachTampTimer(
 
 // Fault if label is in queue for too long
 // Need to add check for if the enable is high.  SCO 
-labelsInQueueFaultTimer(IN := dataReady AND (machineState = HEAD_STATES.Idle), 
+labelsInQueueFaultTimer(IN := dataReady AND (machineState = HEAD_STATES.Idle AND HmiData.labelsQueuedUpFaultEnable), 
 						Q => labelsInQueue);	
 							
 IF watchForBagExit AND packageAtExitSensor THEN

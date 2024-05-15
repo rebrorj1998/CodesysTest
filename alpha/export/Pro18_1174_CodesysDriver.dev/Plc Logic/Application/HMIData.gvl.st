@@ -212,6 +212,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	(*Misc*)
 	pressureBarState : STRING;
     heartbeat : UDINT;
+	labelsQueuedUpFaultEnable : BOOL := FALSE;
+	
     (*Counters*)
     baggerCycles : FB_CycleCounter;
 	bagOpenFingerCycles : FB_CycleCounter;
