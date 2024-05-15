@@ -23,6 +23,7 @@ VAR_INPUT
 	waitForPrinterFaultSetting : REAL;
 	packageExitTimeSetting : REAL;
 	packageToTampTimeSetting : REAL;
+	machineState : HEAD_STATES;
 END_VAR
 VAR_OUTPUT
 	state : PRINT_AND_APPLY_STATES;
@@ -107,8 +108,9 @@ packageFailedToReachTampTimer(
 );
 
 // Fault if label is in queue for too long
-labelsInQueueFaultTimer(IN := dataReady AND enable, 
-						Q=> labelsInQueue);	
+// Need to add check for if the enable is high.  SCO 
+labelsInQueueFaultTimer(IN := dataReady AND (machineState = HEAD_STATES.Idle), 
+						Q => labelsInQueue);	
 							
 IF watchForBagExit AND packageAtExitSensor THEN
 	watchForBagExit := FALSE;
