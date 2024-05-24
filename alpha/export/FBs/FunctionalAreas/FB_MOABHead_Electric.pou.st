@@ -439,8 +439,7 @@ printAndApply(
 	triggerOutput=> oPATrigger1,
 	resetOutput=> oPAReset, 
 	clearOutBaggerIndicaiton => HMIDAta.baggerNeedsClearing,
-	labelsInQueue=> labelsQueuedUpFault.faultTrigger,
-	machineState := state.head
+	labelsInQueue=> labelsQueuedUpFault.faultTrigger
 );
 	 
 collisionDetection(

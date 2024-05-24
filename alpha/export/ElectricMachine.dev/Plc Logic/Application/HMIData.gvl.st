@@ -234,8 +234,6 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	batchCountDone : Warning;
 	
 	(*Faults*)
-	labelsQueuedUpFaultEnable : BOOL := FALSE;
-	
 	(*Misc*)
 	pressureBarState : STRING;
     heartbeat : UDINT;
