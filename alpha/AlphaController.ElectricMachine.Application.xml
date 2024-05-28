@@ -1195,6 +1195,9 @@
         <Node name="jogBagReverse" type="T_BOOL" access="ReadWrite" />
         <Node name="jogPassthroughForward" type="T_BOOL" access="ReadWrite" />
         <Node name="jogPassthroughReverse" type="T_BOOL" access="ReadWrite" />
+        <Node name="labelsQueuedUpFaultEnable" type="T_BOOL" access="ReadWrite">
+          <Comment>Faults</Comment>
+        </Node>
         <Node name="lastCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="lightCurtainsBlocked" type="T_Warning" access="ReadWrite" />
         <Node name="lightCurtainSelection" type="T_LightCurtainsSelection" access="ReadWrite" />

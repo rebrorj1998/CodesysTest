@@ -108,7 +108,7 @@ packageFailedToReachTampTimer(
 );
 
 // Fault if label is in queue for too long
-labelsInQueueFaultTimer(IN := dataReady AND (machineState = HEAD_STATES.Idle AND HmiData.labelsQueuedUpFaultEnable), 
+labelsInQueueFaultTimer(IN := dataReady AND machineState = HEAD_STATES.Idle AND HmiData.labelsQueuedUpFaultEnable, 
 						Q=> labelsInQueue);	
 							
 IF watchForBagExit AND packageAtExitSensor THEN
