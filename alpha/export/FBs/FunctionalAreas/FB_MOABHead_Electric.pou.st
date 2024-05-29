@@ -386,7 +386,7 @@ END_CASE
 // Run Zebra Printer
 //
 zebraPrinter(ribbonEncoderState := iPrinterRibbonEncoder, oLowerPrintHead => oPrintHeadDown);
-zebraPrinter.Mode := printerMode;   
+zebraPrinter.Mode := printerMode;
 
 // Disable out of cycle priting if not possible
 IF NOT HMIData.printOutOfCycleEnable THEN 
@@ -1414,15 +1414,16 @@ CASE state.head OF
 														bagOpenFingers.Release();
 														HMIData.bagOpenFingersServiceRelease := FALSE;
 													END_IF
-														 
-													// Fault if labels stack up in queue 
-													IF (printerDataReady AND HmiData.labelsQueuedUpFaultEnable) THEN
-														labelsQueuedUpFault.faultTrigger := TRUE;	
-													ELSE
-														labelsQueuedUpFault.faultTrigger := FALSE;
-													END_IF			  
 													{endregion:'Service'}
                                                     
+													                                                         
+                                                    // Fault if labels stack up in queue 
+                                                    IF (printerDataReady AND HmiData.labelsQueuedUpFaultEnable) THEN
+                                                        labelsQueuedUpFault.faultTrigger := TRUE;    
+                                                    ELSE
+                                                        labelsQueuedUpFault.faultTrigger := FALSE;
+                                                    END_IF              
+														 
     HEAD_STATES.SealAndSeparateBag :                // Begin Seal and Separate State machine
 		// Begin Seal and Separate State machine
 													IF printAndApply.enable AND bagOpened THEN

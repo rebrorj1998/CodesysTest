@@ -80,6 +80,7 @@ VAR
 	infeedConveyorVFDFaulted : FB_Fault(name := 'Infeed Conveyor VFD Failure');
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
+	labelsQueuedUpFault : FB_Fault(name := 'Labels Queued Up in Printer');
 	loadShelf : FB_BaseLoadPlate;
 	rearLoadPlate : FB_BaseLoadPlate;
 	frontLoadPlate : FB_BaseLoadPlate;
@@ -1255,9 +1256,13 @@ CASE state OF
 														bagOpenFingers.Release();
 														HMIData.bagOpenFingersServiceRelease := FALSE;
 													END_IF
-		  
 													{endregion:'Service'}
-                                                    			   
+													
+                                                    IF (printerDataReady AND HmiData.labelsQueuedUpFaultEnable) THEN
+                                                        labelsQueuedUpFault.faultTrigger := TRUE;    
+                                                    ELSE
+                                                        labelsQueuedUpFault.faultTrigger := FALSE;
+                                                    END_IF      			   
 	HEAD_STATES.DropProduct:	
 
 		// If Funnel or Filler is enabled and a bag is presented 

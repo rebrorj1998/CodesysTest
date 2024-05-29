@@ -78,6 +78,7 @@ ELSIF HMIData.printHeadServiceLower THEN
 	HMIData.printHeadServiceLower := FALSE;
 END_IF
 
+
 //State machine for the printer
 CASE state OF
     PRINTER_STATES.Idle :                           // Go to waiting for data if printer is ready

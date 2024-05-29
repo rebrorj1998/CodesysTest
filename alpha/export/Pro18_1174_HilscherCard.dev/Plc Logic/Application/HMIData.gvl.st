@@ -116,6 +116,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	sealFlattenersInUse : BOOL := TRUE;
 	feedToSealSetpoint : REAL := 0.0;
 	feedToSealInUse : BOOL := FALSE;
+	labelsQueuedUpFaultEnable : BOOL := FALSE;	
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -210,7 +211,6 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	batchCountDone : Warning;
 	
 	(*Misc*)
-	labelsQueuedUpFaultEnable : BOOL := FALSE;
 	pressureBarState : STRING;
     heartbeat : UDINT;
     (*Counters*)

@@ -133,6 +133,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	reverseConveyor : BOOL;
 	enablePerfBreaker : BOOL;
 	enablePaperBagger : BOOL;
+	labelsQueuedUpFaultEnable : BOOL := FALSE;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -234,8 +235,6 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	batchCountDone : Warning;
 	
 	(*Faults*)
-	labelsQueuedUpFaultEnable : BOOL := FALSE;
-	
 	(*Misc*)
 	pressureBarState : STRING;
     heartbeat : UDINT;
