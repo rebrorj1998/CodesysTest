@@ -542,10 +542,10 @@
       <UserDefElement type="T_SHAKER_START_SELECTION" iecname="CycleStart" enumvalue="1" />
       <UserDefElement type="T_SHAKER_START_SELECTION" iecname="Both" enumvalue="2" />
     </TypeUserDef>
-    <TypeUserDef name="T_SealFlattenerSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SealFlattenerSelection" basetype="T_INT">
-      <UserDefElement type="T_SealFlattenerSelection" iecname="NotInstalled" enumvalue="0" />
-      <UserDefElement type="T_SealFlattenerSelection" iecname="MotorizedSealFlatteners" enumvalue="1" />
-      <UserDefElement type="T_SealFlattenerSelection" iecname="PerfBreaker" enumvalue="2" />
+    <TypeUserDef name="T_SealAreaOptionSelectionEnum" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SealAreaOptionSelectionEnum" basetype="T_INT">
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="NotInstalled" enumvalue="0" />
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="MotorizedSealFlatteners" enumvalue="1" />
+      <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="PerfBreaker" enumvalue="2" />
     </TypeUserDef>
     <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
       <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />
@@ -842,7 +842,7 @@
       <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_ZebraPrinterStandard" size="11" nativesize="78816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinterStandard" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_ZebraPrinterStandard" size="11" nativesize="78856" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinterStandard" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printHeadDebounced" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="printHeadDebouneSetpoint" type="T_TIME" byteoffset="4" vartype="VAR" />
@@ -894,25 +894,26 @@
       <UserDefElement iecname="waitForPrinterFaultSetting" type="T_REAL" byteoffset="44" vartype="VAR_INPUT" />
       <UserDefElement iecname="packageExitTimeSetting" type="T_REAL" byteoffset="48" vartype="VAR_INPUT" />
       <UserDefElement iecname="packageToTampTimeSetting" type="T_REAL" byteoffset="52" vartype="VAR_INPUT" />
-      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="56" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="58" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="faultedStatus" type="T_BOOL" byteoffset="59" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="60" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="61" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="62" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="63" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="resetOutput" type="T_BOOL" byteoffset="64" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="65" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="66" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="runConveyorAfterApply" type="T_BOOL" byteoffset="67" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitForPrintFault" type="T_BOOL" byteoffset="68" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="jammedFault" type="T_BOOL" byteoffset="69" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="clearOutBaggerIndicaiton" type="T_BOOL" byteoffset="70" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageFailedToExitFault" type="T_BOOL" byteoffset="71" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageFailedToReachTamp" type="T_BOOL" byteoffset="72" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageRemovedBeforeTamp" type="T_BOOL" byteoffset="73" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="labelsInQueue" type="T_BOOL" byteoffset="74" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_pantherTriggerDelay" type="T_INT" byteoffset="76" vartype="VAR" />
+      <UserDefElement iecname="machineState" type="T_HEAD_STATES" byteoffset="56" vartype="VAR_INPUT" />
+      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="58" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="60" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="faultedStatus" type="T_BOOL" byteoffset="61" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="62" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="63" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="64" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="65" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="resetOutput" type="T_BOOL" byteoffset="66" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="67" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="68" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="runConveyorAfterApply" type="T_BOOL" byteoffset="69" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="waitForPrintFault" type="T_BOOL" byteoffset="70" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="jammedFault" type="T_BOOL" byteoffset="71" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="clearOutBaggerIndicaiton" type="T_BOOL" byteoffset="72" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="packageFailedToExitFault" type="T_BOOL" byteoffset="73" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="packageFailedToReachTamp" type="T_BOOL" byteoffset="74" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="packageRemovedBeforeTamp" type="T_BOOL" byteoffset="75" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="labelsInQueue" type="T_BOOL" byteoffset="76" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="_pantherTriggerDelay" type="T_INT" byteoffset="78" vartype="VAR" />
       <UserDefElement iecname="resetOutputTimer" type="T_FB_MonostableMultivibrator" byteoffset="80" vartype="VAR" />
       <UserDefElement iecname="triggerToPanther" type="T_DelayDwellFB" byteoffset="136" vartype="VAR" />
       <UserDefElement iecname="exitConveyorRunAfterPA" type="T_DelayDwellFB" byteoffset="200" vartype="VAR" />
@@ -944,7 +945,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="206968" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="207008" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" />
@@ -1107,6 +1108,8 @@
         <Node name="enableDryCycle" type="T_BOOL" access="ReadWrite">
           <Comment> Enable dry cycle</Comment>
         </Node>
+        <Node name="enablePaperBagger" type="T_BOOL" access="ReadWrite" />
+        <Node name="enablePerfBreaker" type="T_BOOL" access="ReadWrite" />
         <Node name="exitConveyorDwell" type="T_REAL" access="ReadWrite" />
         <Node name="exitConveyorJog" type="T_BOOL" access="ReadWrite" />
         <Node name="exitConveyorJogTime" type="T_TIME" access="ReadWrite" />
@@ -1192,6 +1195,9 @@
         <Node name="jogBagReverse" type="T_BOOL" access="ReadWrite" />
         <Node name="jogPassthroughForward" type="T_BOOL" access="ReadWrite" />
         <Node name="jogPassthroughReverse" type="T_BOOL" access="ReadWrite" />
+        <Node name="labelsQueuedUpFaultEnable" type="T_BOOL" access="ReadWrite">
+          <Comment>Faults</Comment>
+        </Node>
         <Node name="lastCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="lightCurtainsBlocked" type="T_Warning" access="ReadWrite" />
         <Node name="lightCurtainSelection" type="T_LightCurtainsSelection" access="ReadWrite" />
@@ -1246,8 +1252,7 @@
         <Node name="pressureBarPositionBuffer" type="T_DINT" access="ReadWrite" />
         <Node name="pressureBarService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="pressureBarState" type="T_STRING" access="ReadWrite">
-          <Comment>Faults
-Misc</Comment>
+          <Comment>Misc</Comment>
         </Node>
         <Node name="printAndApplyBypassed" type="T_Warning" access="ReadWrite" />
         <Node name="printAndApplyConveyorDwell" type="T_REAL" access="ReadWrite" />
@@ -1288,6 +1293,7 @@ Misc</Comment>
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="reverseConveyor" type="T_BOOL" access="ReadWrite" />
+        <Node name="sealAreaOptionSelection" type="T_SealAreaOptionSelectionEnum" access="ReadWrite" />
         <Node name="sealBarCycles" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
         <Node name="sealBarNotAtTemperature" type="T_Warning" access="ReadWrite" />
@@ -1302,7 +1308,6 @@ Misc</Comment>
         <Node name="sealFlattenersManualPositionSetting" type="T_REAL" access="ReadWrite" />
         <Node name="sealFlattenersMoveToManualPos" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersPosition" type="T_REAL" access="ReadWrite" />
-        <Node name="sealFlattenersSelection" type="T_SealFlattenerSelection" access="ReadWrite" />
         <Node name="sealFlattenersServiceJogIn" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersServiceJogOut" type="T_BOOL" access="ReadWrite" />
         <Node name="sealFlattenersServiceLower" type="T_BOOL" access="ReadWrite" />
