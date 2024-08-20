@@ -2025,6 +2025,7 @@
       <UserDefElement iecname="setZeroONS" type="T_FB_ONS" byteoffset="4674" vartype="VAR" />
       <UserDefElement iecname="zeroNow" type="T_BOOL" byteoffset="4681" vartype="VAR" />
       <UserDefElement iecname="Test" type="T_BOOL" byteoffset="4682" vartype="VAR" />
+      <UserDefElement iecname="test2" type="T_BOOL" byteoffset="4683" vartype="VAR" />
       <UserDefElement iecname="clampingReleaseDebounce" type="T_TON" byteoffset="4684" vartype="VAR" />
       <UserDefElement iecname="stateTimer" type="T_TON" byteoffset="4700" vartype="VAR" />
       <UserDefElement iecname="laststate" type="T_INT" byteoffset="4716" vartype="VAR" />

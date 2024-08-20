@@ -149,7 +149,7 @@ _moveInDelay(IN := _closeNow, PT := moveInDelaySetting);
 _jawTestDelayTimer();
 
 // Jaw move out delay
-_moveOutDelay (IN :=  state = eDualMotorPressureBar_AsyncStates.Open);
+_moveOutDelay (IN :=  (state = eDualMotorPressureBar_AsyncStates.Open) AND clampingMechanism.Cleared);
 _moveOutTimeOut(IN := state = eDualMotorPressureBar_AsyncStates.Opening AND _jawOpenPositionDelta < 0.1);
 _haltWaitTimer(IN :=  state = eDualMotorPressureBar_AsyncStates.HaltDelay);
 	 
