@@ -34,6 +34,20 @@ VAR
 	_maximumReverseTimeTimer : TON;
 	_maximumJogTimeTimer : TON := (PT:= T#1500MS);
 	
+	_closingTime : TIME;
+	_closingTimeHighest : TIME;
+	_closingTimeLowest : TIME := T#10S;
+	_releasingTime : TIME;
+	_releasingTimeHighest : TIME;
+	_releasingTimeLowest : TIME := T#10S;
+	_closingTimeArray : ARRAY[0..1000] OF TIME;
+	_closingTimeaverage : TIME;
+	_closingTimeCycles : INT :=0;
+	_releasingTimeArray : ARRAY[0..1000] OF TIME;
+	_releasingTimeAverage : TIME;
+	_releasingTimeWorkingVar : TIME;
+	_releasingTimeCycles : INT :=0;
+	
 			//variables for the state timer
 	stateTimer:TON;
 	laststate: INT;
@@ -182,29 +196,50 @@ CASE state OF
 			_stopClamping := FALSE;
 			// Flag on max clamping time exceeded
 			maximumClampingTimeExceeded := _maximumClampingTimeTimer.Q;
+			_closingTime := _maximumClampingTimeTimer.ET;
+			_closingTimeArray[_closingTimeCycles] := _closingTime;
+			
+			IF _closingTimeCycles > 1 THEN
+				_closingTimeAverage := (((_closingTimeAverage*(_closingTimeCycles-1)) + _closingTime)/(_closingTimeCycles));
+			ELSE 
+				_closingTimeAverage := _closingTime;
+			END_IF
+			_closingTimeCycles := _closingTimeCycles +1;
 			state := eClampingMechanismStates.ClampMoveToRelease;
 		END_IF
+		
+		 
 	
 	eClampingMechanismStates.ClampMoveToRelease:
 		state_index := 5;
 		// Start moving to release 
 		oStartMotor := TRUE;
 		oForwardMotor := FALSE;
-		state := eClampingMechanismStates.ClampMovingToRelease;
-
-	eClampingMechanismStates.ClampMovingToRelease:	
+		state := eClampingMechanismStates.ClampMovingToRelease;		
+		eClampingMechanismStates.ClampMovingToRelease:	
 		state_index := 3;
 		// Wait for home sensor, or maximum reverse time
 		IF homeSensor OR _maximumReverseTimeTimer.Q THEN
 			_stopClamping := FALSE;
 			// Flag on broken sensor
 			homeSensorNotSeen := _maximumReverseTimeTimer.Q;
-			state := eClampingMechanismStates.ClampMovedToRelease;
+			
+			_releasingTime := _maximumReverseTimeTimer.ET;
+			_releasingTimeArray[_releasingTimeCycles] := _releasingTime;
+			
+			IF _releasingTimeCycles > 1 THEN
+				_releasingTimeAverage := (((_releasingTimeAverage*(_releasingTimeCycles-1)) + _releasingTime)/(_releasingTimeCycles));
+			ELSE 
+				_releasingTimeAverage := _releasingTime;
+			END_IF
+			_releasingTimeCycles := _releasingTimeCycles +1;
+			state := eClampingMechanismStates.ClampMovedToRelease;				
 		END_IF
 		
 	eClampingMechanismStates.ClampMovedToRelease:
 		state_index := 6;
 		// Home. 
+		_releasingTime := _maximumReverseTimeTimer.ET;
 		state := eClampingMechanismStates.Idle;
 	
 	eClampingMechanismStates.Fault:
@@ -241,3 +276,18 @@ CASE state OF
 END_CASE
 
 
+IF _closingTime > _closingTimeHighest AND _closingTime < maximumClampingTime THEN
+	_closingTimeHighest := _closingTime;
+END_IF
+
+IF _closingTime < _closingTimeLowest AND _closingTime > T#0s THEN
+	_closingTimeLowest := _closingTime;
+END_IF
+
+IF _releasingTime > _releasingTimeHighest AND _releasingTime < maximumReverseTime THEN	
+	_releasingTimeHighest := _releasingTime;
+END_IF
+
+IF _releasingTime < _releasingTimeLowest AND _releasingTime > T#0S THEN
+	_releasingTimeLowest := _releasingTime;
+END_IF
