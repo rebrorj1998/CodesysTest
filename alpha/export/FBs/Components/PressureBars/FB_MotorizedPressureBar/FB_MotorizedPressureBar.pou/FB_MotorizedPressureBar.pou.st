@@ -95,7 +95,9 @@ pressureBarOpen := pressureBarPositionError < openedPositionBuffer;
 
 delayTimer();
 pressureBarClosed := iPressureBarClosed;
-failTimer(IN := (state = MotorizedPbarStates.StartedClamping) AND (NOT (iJawCLampRetracted AND iPressureBarClosed)));
+failTimer(IN := ((state = MotorizedPbarStates.StartedClamping)AND (NOT (iJawCLampRetracted AND iPressureBarClosed)))
+				OR ((state = MotorizedPbarStates.ReleaseClamp)AND NOT iJawClampExtended)
+		);
 
 clamped := state = MotorizedPbarStates.Clamping;
 
