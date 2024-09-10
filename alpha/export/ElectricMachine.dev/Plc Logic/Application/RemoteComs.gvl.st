@@ -22,5 +22,6 @@ VAR_GLOBAL
 	bagMade : BOOL;
 	waitingForPrinter : BOOL;
 	bagMadePluseLabelRequired : BOOL;
+	activeFaults : ARRAY[0..GlobalObjects.MAX_FAULTS] OF STRING;
 
 END_VAR

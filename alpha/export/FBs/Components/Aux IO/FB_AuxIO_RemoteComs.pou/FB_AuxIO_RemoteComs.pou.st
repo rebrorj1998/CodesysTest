@@ -8,6 +8,7 @@ VAR_INPUT
 	waitingForFiller : BOOL;
 	runExitConveyor : BOOL;
 	state : StateMachine;
+	activeFaults   : ARRAY[0..GlobalObjects.MAX_FAULTS] OF STRING;
 
 END_VAR
 VAR_OUTPUT
@@ -26,6 +27,7 @@ VAR
 	_outputPulse_CycleComplete : FB_MonostableMultivibrator();
 	_OutputPulse_BagMade : FB_MonostableMultivibrator();
 	_heartbeatFaultTimer : TON := (PT := T#1000MS);
+	RemoteComsFault : FB_Fault(name := 'OPC UA Remote Communication Fault');
 END_VAR
 
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
@@ -58,8 +60,8 @@ IF HMIData.remoteComsEnable THEN
 		// Custom PRJ-MFT01: Enable Bagger
 	 	enableBagger := RemoteComs.enableBagger;
 		
-		(* Outputs *)
 		
+		(* Outputs *)		
 				// Cycle Complete
 		IF state.head = HEAD_STATES.OpenedBag THEN
 			_OutputPulse_CycleComplete.Trigger();
@@ -89,11 +91,14 @@ IF HMIData.remoteComsEnable THEN
 //Heartbeat
 	IF RemoteComs.heartbeat THEN	
 		RemoteComs.heartbeat := FALSE;
+		_heartbeatFaultTimer.IN := FALSE;
 	ELSE
 		_heartbeatFaultTimer.IN :=TRUE;
-		
+		RemoteComsFault.faultTrigger := _heartbeatFaultTimer.Q;		
 	END_IF
-
+	
+//Fault Passing
+	RemoteComs.activeFaults := activeFaults;
 			
 ELSE
 		// Turn outputs off

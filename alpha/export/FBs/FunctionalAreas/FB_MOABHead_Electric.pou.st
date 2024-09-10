@@ -699,6 +699,7 @@ _auxIORemote(
 	printerDataReady := printerDataReady,
 	waitingForFiller := filler.waitingForFiller,
 	runExitConveyor := oRunExternalExitConveyor,	
+	activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames,
 	baggerOK => RemoteComs.baggerOK,
 	inhibitBagger => HMIData.baggerInhibited.active,
 );
