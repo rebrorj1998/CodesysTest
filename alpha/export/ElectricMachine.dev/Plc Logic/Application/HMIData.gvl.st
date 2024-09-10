@@ -134,6 +134,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	enablePerfBreaker : BOOL;
 	enablePaperBagger : BOOL;
 	labelsQueuedUpFaultEnable : BOOL := FALSE;
+	remoteComsEnable : BOOL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;

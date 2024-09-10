@@ -944,7 +944,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="206968" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="207944" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" />
@@ -1288,6 +1288,7 @@ Misc</Comment>
         <Node name="rearUnwindMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="rearUnwindMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
+        <Node name="remoteComsEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="reverseConveyor" type="T_BOOL" access="ReadWrite" />
@@ -1634,6 +1635,27 @@ Misc</Comment>
       <Node name="PRG_Bagger">
         <Node name="moabHead" type="T_FB_MOABHead_Electric" access="ReadWrite" />
         <Node name="resetCommFaults" type="T_BOOL" access="ReadWrite" />
+      </Node>
+      <Node name="RemoteComs">
+        <Node name="baggerOK" type="T_BOOL" access="ReadWrite">
+          <Comment> Outputs	</Comment>
+        </Node>
+        <Node name="bagGrabbed" type="T_BOOL" access="ReadWrite" />
+        <Node name="bagMade" type="T_BOOL" access="ReadWrite" />
+        <Node name="bagMadePluseLabelRequired" type="T_BOOL" access="ReadWrite" />
+        <Node name="bagsLow" type="T_BOOL" access="ReadWrite">
+          <Comment>Inputs</Comment>
+        </Node>
+        <Node name="cycleComplete" type="T_BOOL" access="ReadWrite" />
+        <Node name="enableBagger" type="T_BOOL" access="ReadWrite" />
+        <Node name="fillerOK" type="T_BOOL" access="ReadWrite" />
+        <Node name="inhibitBagger" type="T_BOOL" access="ReadWrite" />
+        <Node name="inhibitCycle" type="T_BOOL" access="ReadWrite" />
+        <Node name="printerDataReady" type="T_BOOL" access="ReadWrite" />
+        <Node name="readyForFiller" type="T_BOOL" access="ReadWrite" />
+        <Node name="reverseConveyor" type="T_BOOL" access="ReadWrite" />
+        <Node name="runExitConveyor" type="T_BOOL" access="ReadWrite" />
+        <Node name="waitingForPrinter" type="T_BOOL" access="ReadWrite" />
       </Node>
     </Node>
   </NodeList>

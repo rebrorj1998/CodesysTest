@@ -132,6 +132,7 @@ VAR
 	triggerLPAWhileFeedingONS : FB_ONS();
 	_runIntegratedExitConveyor : BOOL;
 	_auxIOManager : FB_AuxIO;
+	_auxIORemote : FB_AuxIO_RemoteComs;
 	_bagGrabbedONS : Standard.R_TRIG;
 	_waitForTakeupTimer : Standard.TON := (PT := T#500MS);
 	_waitForSealFlattenersUpTimer : Standard.TON := (PT := T#500MS);
@@ -688,6 +689,19 @@ _auxIOManager(
 	configOut1 => oAuxConfigOut1,
 	configOut2 => oAuxConfigOut2,
 );
+	 
+		  
+_auxIORemote(
+	state := state,	
+	bagsLow := HMIData.bagLevelLow.active,
+	faultActive := HMIData.faultActive,
+	inhibitCycle := printAndApply.inhibitCycle,
+	printerDataReady := printerDataReady,
+	waitingForFiller := filler.waitingForFiller,
+	runExitConveyor := oRunExternalExitConveyor,	
+	baggerOK => RemoteComs.baggerOK,
+	inhibitBagger => HMIData.baggerInhibited.active,
+);
 		 
 
 // Filler and EZFeed conveyor setup
@@ -891,7 +905,7 @@ oRunExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR
 _runIntegratedExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);	 
 oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor);
 oRunExitConveyor := oRunExitConveyorForward;
-oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor);
+oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor OR _auxIORemote.reverseConveyor);
  
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
@@ -1175,7 +1189,7 @@ autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := auto
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
 footSwitchONS(CLK := iFootSwitch);
-_bagGrabbedONS(CLK := _auxIOManager.bagGrabbed);
+_bagGrabbedONS(CLK := _auxIOManager.bagGrabbed OR _auxIORemote.bagGrabbed);
 
 IF state.head <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
@@ -1608,6 +1622,7 @@ CASE state.head OF
 		//
 		IF state.sb.automation = AUTOMATION_STATES.Done THEN
 			_auxIOManager.ResetReadyForGrab();
+			_auxIORemote.ResetReadyForGrab();
 			state.head := HEAD_STATES.PreparedForAutomatedBagRemoval;
 		END_IF
 	
