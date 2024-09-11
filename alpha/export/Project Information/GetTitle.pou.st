@@ -6,4 +6,4 @@ FUNCTION GetTitle : WSTRING
 VAR_INPUT
 	
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-GetTitle := "MOAB Prototype";
+GetTitle := "testing/OPC_UA_AuxIO";

@@ -18,7 +18,6 @@ VAR_OUTPUT
 	enableBagger : BOOL;
 	inhibitBagger : BOOL;
 	reverseConveyor : BOOL;
-	readyForFiller : BOOL;
 END_VAR
 VAR
 	_configOutputManager : FB_OutputPulseManager;
@@ -26,7 +25,7 @@ VAR
 	_readyForGrabONS : Standard.R_TRIG();
 	_outputPulse_CycleComplete : FB_MonostableMultivibrator();
 	_OutputPulse_BagMade : FB_MonostableMultivibrator();
-	_heartbeatFaultTimer : TON := (PT := T#1000MS);
+	_heartbeatFaultTimer : Standard.TON := (PT := T#1000MS);
 	RemoteComsFault : FB_Fault(name := 'OPC UA Remote Communication Fault');
 END_VAR
 
@@ -89,6 +88,8 @@ IF HMIData.remoteComsEnable THEN
 		END_IF	
 
 //Heartbeat
+
+
 	IF RemoteComs.heartbeat THEN	
 		RemoteComs.heartbeat := FALSE;
 		_heartbeatFaultTimer.IN := FALSE;

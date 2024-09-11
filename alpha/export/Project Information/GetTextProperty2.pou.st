@@ -15,7 +15,7 @@ ELSIF stKey = "CompiledLibraryCompatibilityVersion" THEN
 ELSIF stKey = "Project" THEN
 	GetTextProperty2 := ADR("AlphaController");
 ELSIF stKey = "Title" THEN
-	GetTextProperty2 := ADR("MOAB Prototype");
+	GetTextProperty2 := ADR("testing/OPC_UA_AuxIO");
 ELSIF stKey = "VersionPostfix" THEN
 	GetTextProperty2 := ADR("-alpha/master");
 ELSE
