@@ -132,7 +132,7 @@ VAR
 	triggerLPAWhileFeedingONS : FB_ONS();
 	_runIntegratedExitConveyor : BOOL;
 	_auxIOManager : FB_AuxIO;
-	_auxIORemote : FB_AuxIO_RemoteComs;
+	_auxIORemote : FB_AuxIO_RemoteComms;
 	_bagGrabbedONS : Standard.R_TRIG;
 	_waitForTakeupTimer : Standard.TON := (PT := T#500MS);
 	_waitForSealFlattenersUpTimer : Standard.TON := (PT := T#500MS);
@@ -700,7 +700,7 @@ _auxIORemote(
 	waitingForFiller := filler.waitingForFiller,
 	runExitConveyor := oRunExternalExitConveyor,	
 	activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames,
-	baggerOK => RemoteComs.baggerOK,
+	baggerOK => RemoteComms.baggerOK,
 	inhibitBagger => HMIData.baggerInhibited.active,
 );
 		 

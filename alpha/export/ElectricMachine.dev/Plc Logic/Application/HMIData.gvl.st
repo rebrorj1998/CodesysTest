@@ -234,6 +234,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	dryCycleActive : Warning;
 	lightCurtainsBlocked : Warning;
 	batchCountDone : Warning;
+	remoteComsHeartbeat: Warning;
 	
 	(*Faults*)
 	(*Misc*)
