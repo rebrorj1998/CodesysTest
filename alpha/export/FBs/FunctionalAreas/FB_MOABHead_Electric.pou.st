@@ -767,7 +767,7 @@ fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= ,	
 	inCycle := HMIData.inCycle,
-	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone, 
+	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone OR RemoteComms.fillerTrigger, 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state=> , 

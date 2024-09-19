@@ -8,6 +8,7 @@ VAR_GLOBAL
 	inhibitCycle : BOOL;
 	printerDataReady : BOOL;
 	runExitConveyor : BOOL;
+	fillerTrigger : BOOL;
 	heartbeat : BOOL;
 	
 // Outputs	

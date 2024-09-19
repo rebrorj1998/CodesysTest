@@ -36,7 +36,7 @@ _OutputPulse_BagMade(Q => RemoteComms.BagMade);
 _OutputPulse_BagMade.DwellSetting := 500;
 
 
-IF HMIData.remoteComsEnable THEN
+IF HMIData.remoteCommsEnable THEN
 	//		
 		(* Inputs *)	
 	
@@ -92,10 +92,10 @@ IF HMIData.remoteComsEnable THEN
 	IF RemoteComms.heartbeat THEN	
 		RemoteComms.heartbeat := FALSE;
 		_heartbeatWarningTimer.IN := FALSE;
-		hmidata.remoteComsHeartbeat.active := FALSE;		
+		hmidata.remoteCommsHeartbeatLost.active := FALSE;		
 	ELSE
 		_heartbeatWarningTimer.IN :=TRUE;
-		hmidata.remoteComsHeartbeat.active := _heartbeatWarningTimer.Q;		
+		hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimer.Q;		
 	END_IF
 	
 //Fault Passing

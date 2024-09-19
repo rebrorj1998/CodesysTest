@@ -1288,7 +1288,8 @@ Misc</Comment>
         <Node name="rearUnwindMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="rearUnwindMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
-        <Node name="remoteComsEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="remoteCommsEnable" type="T_BOOL" access="ReadWrite" />
+        <Node name="remoteCommsHeartbeatLost" type="T_Warning" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="reverseConveyor" type="T_BOOL" access="ReadWrite" />
@@ -1643,12 +1644,14 @@ Misc</Comment>
         </Node>
         <Node name="bagGrabbed" type="T_BOOL" access="ReadWrite" />
         <Node name="bagMade" type="T_BOOL" access="ReadWrite" />
+        <Node name="bagMadePlusLabelRequired" type="T_BOOL" access="ReadWrite" />
         <Node name="bagsLow" type="T_BOOL" access="ReadWrite">
           <Comment>Inputs</Comment>
         </Node>
         <Node name="cycleComplete" type="T_BOOL" access="ReadWrite" />
         <Node name="enableBagger" type="T_BOOL" access="ReadWrite" />
         <Node name="fillerOK" type="T_BOOL" access="ReadWrite" />
+        <Node name="fillerTrigger" type="T_BOOL" access="ReadWrite" />
         <Node name="heartbeat" type="T_BOOL" access="ReadWrite" />
         <Node name="inhibitBagger" type="T_BOOL" access="ReadWrite" />
         <Node name="inhibitCycle" type="T_BOOL" access="ReadWrite" />

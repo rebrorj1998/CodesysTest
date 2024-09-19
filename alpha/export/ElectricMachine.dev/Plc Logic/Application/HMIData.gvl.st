@@ -134,7 +134,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	enablePerfBreaker : BOOL;
 	enablePaperBagger : BOOL;
 	labelsQueuedUpFaultEnable : BOOL := FALSE;
-	remoteComsEnable : BOOL;
+	remoteCommsEnable : BOOL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -234,7 +234,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	dryCycleActive : Warning;
 	lightCurtainsBlocked : Warning;
 	batchCountDone : Warning;
-	remoteComsHeartbeat: Warning;
+	remoteCommsHeartbeatLost: Warning;
 	
 	(*Faults*)
 	(*Misc*)

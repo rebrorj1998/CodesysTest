@@ -886,7 +886,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="884" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="78553" nativesize="103984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead" size="78553" nativesize="104168" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -1114,6 +1114,7 @@
         <Node name="jogBagReverse" type="T_BOOL" access="ReadWrite" />
         <Node name="jogPassthroughForward" type="T_BOOL" access="ReadWrite" />
         <Node name="jogPassthroughReverse" type="T_BOOL" access="ReadWrite" />
+        <Node name="labelsQueuedUpFaultEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="lastCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="lightCurtainsBlocked" type="T_Warning" access="ReadWrite" />
         <Node name="lightCurtainSelection" type="T_LightCurtainsSelection" access="ReadWrite" />
@@ -1190,6 +1191,7 @@
         <Node name="rearUnwindMotorConfigVersion" type="T_CONFIG_VERSIONS" access="ReadWrite" />
         <Node name="rearUnwindMotorConfigVersionMax" type="T_CONFIG_VERSIONS" access="Read" />
         <Node name="recoveryModeActive" type="T_Warning" access="ReadWrite" />
+        <Node name="remoteComsEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
         <Node name="resettableBagsMade" type="T_FB_CycleCounter" access="ReadWrite" />
         <Node name="sealAreaOptionSelection" type="T_SealAreaOptionSelectionEnum" access="ReadWrite" />
