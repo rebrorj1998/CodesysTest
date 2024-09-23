@@ -36,7 +36,31 @@ _OutputPulse_BagMade(Q => RemoteComms.BagMade);
 _OutputPulse_BagMade.DwellSetting := 500;
 
 
-IF HMIData.remoteCommsEnable THEN
+
+CASE HMIData.AuxIOType OF
+	AuxIOType.None, AuxIOType.Physical:
+		// Turn outputs off
+		RemoteComms.bagsLow := FALSE;
+		RemoteComms.inhibitCycle := FALSE;
+		RemoteComms.printerDataReady := FALSE;		
+		RemoteComms.runExitConveyor := FALSE;	
+		RemoteComms.heartbeat := FALSE;	
+		
+		
+		RemoteComms.baggerOK := FALSE;
+		RemoteComms.bagGrabbed := FALSE;
+		RemoteComms.bagMade := FALSE;
+		RemoteComms.bagMadePlusLabelRequired := FALSE;
+		RemoteComms.cycleComplete := FALSE;
+		RemoteComms.enableBagger := FALSE;
+		RemoteComms.fillerOK := FALSE;
+		RemoteComms.inhibitBagger := FALSE;
+		RemoteComms.readyForFiller := FALSE;
+		RemoteComms.reverseConveyor := FALSE;
+		RemoteComms.waitingForPrinter := FALSE;
+		
+
+	AuxIOType.OPC_UA:
 	//		
 		(* Inputs *)	
 	
@@ -87,7 +111,7 @@ IF HMIData.remoteCommsEnable THEN
 		END_IF	
 
 //Heartbeat
-
+IF HMIData.remoteCommsHeartbeatEnable THEN
 	_heartbeatWarningTimer();
 	IF RemoteComms.heartbeat THEN	
 		RemoteComms.heartbeat := FALSE;
@@ -97,28 +121,21 @@ IF HMIData.remoteCommsEnable THEN
 		_heartbeatWarningTimer.IN :=TRUE;
 		hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimer.Q;		
 	END_IF
-	
+END_IF
+
+IF HMIData.remoteCommsHeartbeatEnable THEN
+	_heartbeatWarningTimer();
+	IF RemoteComms.heartbeat THEN	
+		RemoteComms.heartbeat := FALSE;
+		_heartbeatWarningTimer.IN := FALSE;
+		hmidata.remoteCommsHeartbeatLost.active := FALSE;		
+	ELSE
+		_heartbeatWarningTimer.IN :=TRUE;
+		hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimer.Q;		
+	END_IF
+END_IF
+
 //Fault Passing
 	RemoteComms.activeFaults := activeFaults;
-			
-ELSE
-		// Turn outputs off
-		RemoteComms.bagsLow := FALSE;
-		RemoteComms.inhibitCycle := FALSE;
-		RemoteComms.printerDataReady := FALSE;		
-		RemoteComms.runExitConveyor := FALSE;	
-		RemoteComms.heartbeat := FALSE;	
-		
-		RemoteComms.baggerOK := FALSE;
-		RemoteComms.bagGrabbed := FALSE;
-		RemoteComms.bagMade := FALSE;
-		RemoteComms.bagMadePlusLabelRequired := FALSE;
-		RemoteComms.cycleComplete := FALSE;
-		RemoteComms.enableBagger := FALSE;
-		RemoteComms.fillerOK := FALSE;
-		RemoteComms.inhibitBagger := FALSE;
-		RemoteComms.readyForFiller := FALSE;
-		RemoteComms.reverseConveyor := FALSE;
-		RemoteComms.waitingForPrinter := FALSE;
 
-END_IF 
+END_CASE

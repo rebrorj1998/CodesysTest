@@ -134,7 +134,8 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	enablePerfBreaker : BOOL;
 	enablePaperBagger : BOOL;
 	labelsQueuedUpFaultEnable : BOOL := FALSE;
-	remoteCommsEnable : BOOL;
+	remoteCommsHeartbeatEnable : BOOL;
+	AuxIOType : AuxIOType;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
