@@ -9,7 +9,6 @@ VAR_INPUT
 	runExitConveyor : BOOL;
 	state : StateMachine;
 	activeFaults   : ARRAY[0..GlobalObjects.MAX_FAULTS] OF STRING;
-
 END_VAR
 VAR_OUTPUT
 	baggerOK : BOOL;

@@ -45,112 +45,119 @@ CASE factorySelection.factorySelection OF
 		//
 		installed := FALSE;				
 	
-		// Turn outputs off
-		baggerOK := FALSE;
-		fillerOK := FALSE;
-		bagGrabbed := FALSE;
-		configOut1 := FALSE;
-		configOut2 := FALSE;
-		inhibitBagger := FALSE;
-		readyForFiller := FALSE;	
 		
-		// Reset pulse manager
-		_configOutputManager.Reset();	
 	
 		// Turn Filler off if Aux IO is off
 		IF __ISVALIDREF(fillerType) THEN
 			fillerType := FillerSelection.NotInstalled;
 		END_IF
 		 
-	AuxiliaryIOSelection.AuxIOStandard:		
-
-		//
+	AuxiliaryIOSelection.AuxIOStandard:	
 		installed := TRUE;			
-		
-		(* Inputs *)	
-	
-		// Baggers not faults and heated up.
-		baggerOK := NOT faultActive;
-		
-		// Bags open and ready for filler.
-		readyForFiller := waitingForFiller;
-			 
-        // Active if either input is set to 'FillerOK' and the corresponding input is active.
-        fillerOK := InputActive(AuxInputSelection.FillerOK);
-        
-        // Active if either input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
-        inhibitBagger := InputActive(AuxInputSelection.BaggerInhibit) OR inhibitCycle;
-		
-		// Custom PRJ-22085: Robot successfully grabbed bag.
-		bagGrabbed := InputActive(AuxInputSelection.BagGrabbed);
-		
-		// Custom PRJ-59126: Reverse BEC when high
-		reverseConveyor := InputActive(AuxInputSelection.ReverseConveyor);
-		
-		// Custom PRJ-MFT01: Enable Bagger
-	 	enableBagger := InputActive(AuxInputSelection.EnableBagger);
-		
-		(* Outputs *)
 
-		// Custom PRJ22085: Ready For Grab
-		_readyForGrabONS(CLK := waitingForFiller);
-		IF _readyForGrabONS.Q THEN
-			SetReadyForGrab();
-		END_IF
-		IF _readyForGrab THEN
-			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
-		ELSE
-			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
-		END_IF
-		
-		// Bags Low
-		IF bagsLow THEN
-			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.BagsLow)); 
-		ELSE
-			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.BagsLow)); 
-		END_IF	
-		
-		// Cycle Complete
-		IF state.head = HEAD_STATES.OpenedBag THEN
-			_configOutputManager.Trigger(OutputSelected(AuxOutputSelection.CycleComplete));
-		END_IF
-		
-		// Bag Made
-		IF state.head = HEAD_STATES.SealedAndSeparatedBag THEN
-			_configOutputManager.Trigger(OutputSelected(AuxOutputSelection.BagMade));
-		END_IF		
-	
-		// Printer Data Ready
-		IF printerDataReady THEN
-			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.PrinterDataReady)); 
-		ELSE
-			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.PrinterDataReady)); 
-		END_IF
-		
-		// Waiting For Printer
-		IF state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPrinter THEN
-			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.WaitingForPrinter)); 
-		ELSE
-			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.WaitingForPrinter)); 
-		END_IF
-		
-		// Bag Made Plus Label Required
-		IF NOT printerDataReady AND state.head = HEAD_STATES.SealedAndSeparatedBag THEN
-			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.BagMadePlusLabelRequired)); 
-		END_IF
+		// only use Physical aux IO if selected - otherwise turn it all off	
+		CASE HMIData.AuxIOType OF
+			AuxIOType.None, AuxIOType.Modbus, AuxIOType.OPC_UA: 
+				// Turn outputs off
+				baggerOK := FALSE;
+				fillerOK := FALSE;
+				bagGrabbed := FALSE;
+				configOut1 := FALSE;
+				configOut2 := FALSE;
+				inhibitBagger := FALSE;
+				readyForFiller := FALSE;	
 				
-		IF printerDataReady OR faultActive OR (state.sb.releaseFeed = RELEASE_FEED_STATES.FeedToOffset) THEN
-			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.BagMadePlusLabelRequired));
-		END_IF		
+				// Reset pulse manager
+				_configOutputManager.Reset();	
+				
+			AuxIOType.Physical:
+				//
+				
 		
-		// Exit Conveyor
-		IF runExitConveyor THEN
-			_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.RunExternalExitConveyor)); 
-		ELSE
-			_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.RunExternalExitConveyor)); 
-		END_IF
-		
-		configOut1 := _configOutputManager.configOut1;
-		configOut2 := _configOutputManager.configOut2;							 
+				(* Inputs *)	
 			
+				// Baggers not faults and heated up.
+				baggerOK := NOT faultActive;
+				
+				// Bags open and ready for filler.
+				readyForFiller := waitingForFiller;
+					 
+				// Active if either input is set to 'FillerOK' and the corresponding input is active.
+				fillerOK := InputActive(AuxInputSelection.FillerOK);
+				
+				// Active if either input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
+				inhibitBagger := InputActive(AuxInputSelection.BaggerInhibit) OR inhibitCycle;
+				
+				// Custom PRJ-22085: Robot successfully grabbed bag.
+				bagGrabbed := InputActive(AuxInputSelection.BagGrabbed);
+				
+				// Custom PRJ-59126: Reverse BEC when high
+				reverseConveyor := InputActive(AuxInputSelection.ReverseConveyor);
+				
+				// Custom PRJ-MFT01: Enable Bagger
+				enableBagger := InputActive(AuxInputSelection.EnableBagger);
+				
+				(* Outputs *)
+		
+				// Custom PRJ22085: Ready For Grab
+				_readyForGrabONS(CLK := waitingForFiller);
+				IF _readyForGrabONS.Q THEN
+					SetReadyForGrab();
+				END_IF
+				IF _readyForGrab THEN
+					_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
+				ELSE
+					_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.ReadyForGrab)); 
+				END_IF
+				
+				// Bags Low
+				IF bagsLow THEN
+					_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.BagsLow)); 
+				ELSE
+					_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.BagsLow)); 
+				END_IF	
+				
+				// Cycle Complete
+				IF state.head = HEAD_STATES.OpenedBag THEN
+					_configOutputManager.Trigger(OutputSelected(AuxOutputSelection.CycleComplete));
+				END_IF
+				
+				// Bag Made
+				IF state.head = HEAD_STATES.SealedAndSeparatedBag THEN
+					_configOutputManager.Trigger(OutputSelected(AuxOutputSelection.BagMade));
+				END_IF		
+			
+				// Printer Data Ready
+				IF printerDataReady THEN
+					_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.PrinterDataReady)); 
+				ELSE
+					_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.PrinterDataReady)); 
+				END_IF
+				
+				// Waiting For Printer
+				IF state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPrinter THEN
+					_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.WaitingForPrinter)); 
+				ELSE
+					_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.WaitingForPrinter)); 
+				END_IF
+				
+				// Bag Made Plus Label Required
+				IF NOT printerDataReady AND state.head = HEAD_STATES.SealedAndSeparatedBag THEN
+					_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.BagMadePlusLabelRequired)); 
+				END_IF
+						
+				IF printerDataReady OR faultActive OR (state.sb.releaseFeed = RELEASE_FEED_STATES.FeedToOffset) THEN
+					_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.BagMadePlusLabelRequired));
+				END_IF		
+				
+				// Exit Conveyor
+				IF runExitConveyor THEN
+					_configOutputManager.ManualOn(OutputSelected(AuxOutputSelection.RunExternalExitConveyor)); 
+				ELSE
+					_configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.RunExternalExitConveyor)); 
+				END_IF
+				
+				configOut1 := _configOutputManager.configOut1;
+				configOut2 := _configOutputManager.configOut2;							 
+		END_CASE	
 END_CASE 
