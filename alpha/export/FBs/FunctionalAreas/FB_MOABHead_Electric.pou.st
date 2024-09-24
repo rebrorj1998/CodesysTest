@@ -685,7 +685,7 @@ _auxIOManager(
 	installed => murrIOBusNode.auxIONodeEnabled,
 	baggerOK => oAuxBaggerOk,
 	readyForFiller => oAuxReadyForFiller,
-	inhibitBagger => HMIData.baggerInhibited.active,
+	inhibitBagger => ,
 	configOut1 => oAuxConfigOut1,
 	configOut2 => oAuxConfigOut2,
 );
@@ -700,10 +700,11 @@ _auxIORemote(
 	waitingForFiller := filler.waitingForFiller,
 	runExitConveyor := oRunExternalExitConveyor,	
 	activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames,
-	baggerOK => RemoteComms.baggerOK,
-	inhibitBagger => HMIData.baggerInhibited.active,
+	baggerOK => RemoteComms.outputsFromBagger.baggerOK,
+	inhibitBagger => 
 );
-		 
+
+HMIData.baggerInhibited.active :=_auxIORemote.inhibitBagger OR _auxIOManager.inhibitBagger;
 
 // Filler and EZFeed conveyor setup
 CASE HMIData.fillerFactorySelection OF
@@ -716,8 +717,8 @@ CASE HMIData.fillerFactorySelection OF
 													fillerModeCycleStartOnlyPulse.Reset();
 													Infeed_Conveyor_IO.Enable := FALSE;
 		 
-	FillerSelection.StandardFiller:					// Only enable filler if Aux IO is enabled
-		// Only enable filler if Aux IO is enabled
+	FillerSelection.StandardFiller:					
+													// Only enable filler if Aux IO is enabled
 		 											filler.enable := (HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard);
 													Infeed_Conveyor_IO.Enable := FALSE;
 														 
@@ -767,7 +768,7 @@ fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= ,	
 	inCycle := HMIData.inCycle,
-	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone OR RemoteComms.fillerTrigger, 
+	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone OR RemoteComms.inputsToBagger.fillerTrigger, 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state=> , 

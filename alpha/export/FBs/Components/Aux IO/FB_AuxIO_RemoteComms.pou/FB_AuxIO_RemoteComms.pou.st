@@ -24,14 +24,15 @@ VAR
 	_readyForGrabONS : Standard.R_TRIG();
 	_outputPulse_CycleComplete : FB_MonostableMultivibrator();
 	_OutputPulse_BagMade : FB_MonostableMultivibrator();
-	_heartbeatWarningTimer : TON := (PT := T#1000MS);
+	_heartbeatWarningTimerOn : TON := (PT := T#1000MS);
+	_heartbeatWarningTimerOff : TON := (PT := T#1000MS);
 END_VAR
 
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
-_OutputPulse_CycleComplete(Q => RemoteComms.cycleComplete);
+_OutputPulse_CycleComplete(Q => RemoteComms.outputsFromBagger.cycleComplete);
 _outputPulse_CycleComplete.DwellSetting := 500;
-_OutputPulse_BagMade(Q => RemoteComms.BagMade);
+_OutputPulse_BagMade(Q => RemoteComms.outputsFromBagger.bagMade);
 _OutputPulse_BagMade.DwellSetting := 500;
 
 
@@ -39,24 +40,24 @@ _OutputPulse_BagMade.DwellSetting := 500;
 CASE HMIData.AuxIOType OF
 	AuxIOType.None, AuxIOType.Physical:
 		// Turn outputs off
-		RemoteComms.bagsLow := FALSE;
-		RemoteComms.inhibitCycle := FALSE;
-		RemoteComms.printerDataReady := FALSE;		
-		RemoteComms.runExitConveyor := FALSE;	
-		RemoteComms.heartbeat := FALSE;	
+		RemoteComms.outputsFromBagger.bagsLow := FALSE;
+		//RemoteComms.inhibitCycle := FALSE;
+		RemoteComms.outputsFromBagger.printerDataReady := FALSE;		
+		RemoteComms.outputsFromBagger.runExternalExitConveyor := FALSE;	
+		RemoteComms.outputsFromBagger.heartbeatResponse := FALSE;	
 		
 		
-		RemoteComms.baggerOK := FALSE;
-		RemoteComms.bagGrabbed := FALSE;
-		RemoteComms.bagMade := FALSE;
-		RemoteComms.bagMadePlusLabelRequired := FALSE;
-		RemoteComms.cycleComplete := FALSE;
-		RemoteComms.enableBagger := FALSE;
-		RemoteComms.fillerOK := FALSE;
-		RemoteComms.inhibitBagger := FALSE;
-		RemoteComms.readyForFiller := FALSE;
-		RemoteComms.reverseConveyor := FALSE;
-		RemoteComms.waitingForPrinter := FALSE;
+		RemoteComms.outputsFromBagger.baggerOK := FALSE;
+		RemoteComms.inputsToBagger.bagGrabbed := FALSE;
+		RemoteComms.outputsFromBagger.bagMade := FALSE;
+		RemoteComms.outputsFromBagger.bagMadePlusLabelRequired := FALSE;
+		RemoteComms.outputsFromBagger.cycleComplete := FALSE;
+		//RemoteComms.outputsFromBagger.enableBagger := FALSE;
+		RemoteComms.inputsToBagger.fillerOK := FALSE;
+		RemoteComms.inputsToBagger.baggerInhibit := FALSE;
+		RemoteComms.outputsFromBagger.readyForFiller := FALSE;
+		RemoteComms.inputsToBagger.reverseConveyor := FALSE;
+		RemoteComms.outputsFromBagger.waitingForPrinter := FALSE;
 		
 
 	AuxIOType.OPC_UA:
@@ -67,19 +68,19 @@ CASE HMIData.AuxIOType OF
 		baggerOK := NOT faultActive;		
 		 
         // Filler is ready
-        fillerOK := RemoteComms.fillerOK;
+        fillerOK := RemoteComms.inputsToBagger.fillerOK;
         
         // Active if either input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
-        inhibitBagger := RemoteComms.inhibitCycle OR inhibitCycle;		
+        inhibitBagger := RemoteComms.inputsToBagger.baggerInhibit OR inhibitCycle;		
 		
 		// Custom PRJ-22085: Robot successfully grabbed bag.
-		bagGrabbed := RemoteComms.bagGrabbed;
+		bagGrabbed := RemoteComms.inputsToBagger.bagGrabbed;
 		
 		// Custom PRJ-59126: Reverse BEC when high
-		reverseConveyor := RemoteComms.reverseConveyor;
+		reverseConveyor := RemoteComms.inputsToBagger.reverseConveyor;
 		
-		// Custom PRJ-MFT01: Enable Bagger
-	 	enableBagger := RemoteComms.enableBagger;
+		// Custom PRJ-MFT01: Enable Bagger (not used?
+	 	//enableBagger := RemoteComms.enableBagger;
 		
 		
 		(* Outputs *)		
@@ -95,46 +96,30 @@ CASE HMIData.AuxIOType OF
 		
 
 				
-		RemoteComms.readyForFiller := waitingForFiller;
-		RemoteComms.bagsLow := bagsLow;
-		RemoteComms.printerDataReady := printerDataReady;
-		RemoteComms.waitingForPrinter := state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPrinter;
-		RemoteComms.runExitConveyor := runExitConveyor;
+		RemoteComms.outputsFromBagger.readyForFiller := waitingForFiller;
+		RemoteComms.outputsFromBagger.bagsLow := bagsLow;
+		RemoteComms.outputsFromBagger.printerDataReady := printerDataReady;
+		RemoteComms.outputsFromBagger.waitingForPrinter := state.sb.releaseFeed = RELEASE_FEED_STATES.WaitForPrinter;
+		RemoteComms.outputsFromBagger.runExternalExitConveyor := runExitConveyor;
 		// Bag Made Plus Label Required
 		IF NOT printerDataReady AND state.head = HEAD_STATES.SealedAndSeparatedBag THEN
-			RemoteComms.bagMadePlusLabelRequired := TRUE;
+			RemoteComms.outputsFromBagger.bagMadePlusLabelRequired := TRUE;
 		END_IF
 				
 		IF printerDataReady OR faultActive OR (state.sb.releaseFeed = RELEASE_FEED_STATES.FeedToOffset) THEN
-			RemoteComms.bagMadePlusLabelRequired := FALSE;
+			RemoteComms.outputsFromBagger.bagMadePlusLabelRequired := FALSE;
 		END_IF	
 
-//Heartbeat
-IF HMIData.remoteCommsHeartbeatEnable THEN
-	_heartbeatWarningTimer();
-	IF RemoteComms.heartbeat THEN	
-		RemoteComms.heartbeat := FALSE;
-		_heartbeatWarningTimer.IN := FALSE;
-		hmidata.remoteCommsHeartbeatLost.active := FALSE;		
-	ELSE
-		_heartbeatWarningTimer.IN :=TRUE;
-		hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimer.Q;		
-	END_IF
-END_IF
+// Heartbeat.
+// External device sets heartbeat bit and resets when it sees the same change from heartbeatResponse. 
+// If heartbeat stays on or off for too long set warning.
+_heartbeatWarningTimerOn(IN := RemoteComms.inputsToBagger.heartbeat AND HMIData.remoteCommsHeartbeatEnable);
+_heartbeatWarningTimerOff(IN := NOT RemoteComms.inputsToBagger.heartbeat AND HMIData.remoteCommsHeartbeatEnable);
+hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimerOn.Q OR _heartbeatWarningTimerOff.Q;
+RemoteComms.outputsFromBagger.heartbeatResponse := RemoteComms.inputsToBagger.heartbeat;
 
-IF HMIData.remoteCommsHeartbeatEnable THEN
-	_heartbeatWarningTimer();
-	IF RemoteComms.heartbeat THEN	
-		RemoteComms.heartbeat := FALSE;
-		_heartbeatWarningTimer.IN := FALSE;
-		hmidata.remoteCommsHeartbeatLost.active := FALSE;		
-	ELSE
-		_heartbeatWarningTimer.IN :=TRUE;
-		hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimer.Q;		
-	END_IF
-END_IF
 
 //Fault Passing
-	RemoteComms.activeFaults := activeFaults;
+	RemoteComms.outputsFromBagger.activeFaultsList := activeFaults;
 
 END_CASE
