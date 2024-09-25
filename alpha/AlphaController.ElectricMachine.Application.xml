@@ -44,11 +44,10 @@
       <UserDefElement type="T_AUTOMATION_STATES" iecname="RaiseBOF" enumvalue="7" />
       <UserDefElement type="T_AUTOMATION_STATES" iecname="Done" enumvalue="8" />
     </TypeUserDef>
-    <TypeUserDef name="T_AuxIOType" size="4" nativesize="4" swapsize="4" typeclass="Enum" iecname="AuxIOType" basetype="T_DINT">
-      <UserDefElement type="T_AuxIOType" iecname="None" enumvalue="0" />
-      <UserDefElement type="T_AuxIOType" iecname="Physical" enumvalue="1" />
-      <UserDefElement type="T_AuxIOType" iecname="OPC_UA" enumvalue="2" />
-      <UserDefElement type="T_AuxIOType" iecname="Modbus" enumvalue="3" />
+    <TypeUserDef name="T_AuxIOSource" size="3" nativesize="3" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOSource">
+      <UserDefElement iecname="Physical" type="T_BOOL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="OPC_UA" type="T_BOOL" byteoffset="1" vartype="VAR" />
+      <UserDefElement iecname="ModbusTCP" type="T_BOOL" byteoffset="2" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_AuxInputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxInputSelection" basetype="T_INT">
       <UserDefElement type="T_AuxInputSelection" iecname="NotConfigured" enumvalue="0" />
@@ -973,7 +972,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="232352" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="232696" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" />
@@ -1072,7 +1071,7 @@
         <Node name="autoEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="autoModeDwell" type="T_REAL" access="ReadWrite" />
         <Node name="auxIOConfig" type="T_AuxIOConfiguration" access="ReadWrite" />
-        <Node name="AuxIOType" type="T_AuxIOType" access="ReadWrite" />
+        <Node name="auxIOSource" type="T_AuxIOSource" access="ReadWrite" />
         <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="bagDeliveryMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
         <Node name="bagDropTime" type="T_REAL" access="ReadWrite" />

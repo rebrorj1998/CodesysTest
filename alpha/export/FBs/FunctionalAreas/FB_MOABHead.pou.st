@@ -657,7 +657,7 @@ infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = Fille
 filler( 
 	faultActive:= HMIData.faultActive,
 	baggerInhibited:= HMIData.baggerInhibited.active,
-	fillerTrigger:= iAuxFillerTrigger OR (ezfeed.EZFeedDone AND NOT HMIData.stopMachine), 
+	fillerTrigger:= (iAuxFillerTrigger AND HMIData.auxIOSource.Physical) OR ezfeed.EZFeedDone OR (RemoteComms.inputsToBagger.fillerTrigger AND HMIData.auxIOSource.OPC_UA), 
 	activateFiller:= HMIData.fillerEnable
 ); 
 	

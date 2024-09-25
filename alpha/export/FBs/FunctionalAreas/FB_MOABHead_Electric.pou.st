@@ -131,7 +131,7 @@ VAR
 	estopONS : FB_ONS;
 	triggerLPAWhileFeedingONS : FB_ONS();
 	_runIntegratedExitConveyor : BOOL;
-	_auxIOManager : FB_AuxIO;
+	_auxIOPhysical : FB_AuxIOPhysical;
 	_auxIORemote : FB_AuxIO_RemoteComms;
 	_bagGrabbedONS : Standard.R_TRIG;
 	_waitForTakeupTimer : Standard.TON := (PT := T#500MS);
@@ -270,7 +270,7 @@ murrIOBusNode(
 						OR (HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled)), 
 	printerNodeEnabled:= , 
 	dischargeNodeEnabled:= TRUE, 
-	auxIONodeEnabled:= , 
+	auxIONodeEnabled:= HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard, 
 	configVersion:= HMIData.murrIOConfigVersion, 
 	ptrMachineOptionsManagementOutputs:= ADR(oMOMConfig), 
 	ptrSystemStatusInputs:= ADR(iMurrSystemState));
@@ -670,7 +670,7 @@ IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButto
 END_IF
 
 		 
-_auxIOManager(
+_auxIOPhysical(
 	state := state,
 	configIn1 := iAuxConfigInput1, 
 	configIn2 := iAuxConfigInput2,
@@ -682,7 +682,6 @@ _auxIOManager(
 	runExitConveyor := oRunExternalExitConveyor,
 	fillerType := HMIData.fillerFactorySelection,
 	factorySelection := HMIData.auxIOConfig,
-	installed => murrIOBusNode.auxIONodeEnabled,
 	baggerOK => oAuxBaggerOk,
 	readyForFiller => oAuxReadyForFiller,
 	inhibitBagger => ,
@@ -704,7 +703,7 @@ _auxIORemote(
 	inhibitBagger => 
 );
 
-HMIData.baggerInhibited.active :=_auxIORemote.inhibitBagger OR _auxIOManager.inhibitBagger;
+HMIData.baggerInhibited.active := _auxIORemote.inhibitBagger  OR _auxIOPhysical.inhibitBagger;
 
 // Filler and EZFeed conveyor setup
 CASE HMIData.fillerFactorySelection OF
@@ -768,7 +767,7 @@ fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= ,	
 	inCycle := HMIData.inCycle,
-	fillerTrigger:= iAuxFillerTrigger OR ezfeed.EZFeedDone OR RemoteComms.inputsToBagger.fillerTrigger, 
+	fillerTrigger:= (iAuxFillerTrigger AND HMIData.auxIOSource.Physical) OR ezfeed.EZFeedDone OR (RemoteComms.inputsToBagger.fillerTrigger AND HMIData.auxIOSource.OPC_UA), 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state=> , 
@@ -905,15 +904,20 @@ exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 oRunExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
 	 
 _runIntegratedExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);	 
-oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor);
+oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor);
 oRunExitConveyor := oRunExitConveyorForward;
-oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOManager.reverseConveyor OR _auxIORemote.reverseConveyor);
+oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
  
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
 externalExitConveyorJogONS(CLK := HMIData.externalExitConveyorJog);
 
-oRunExternalExitConveyor := collisionDetection.runExternalExitConveyor OR externalExitConveyorRun.Q OR (printAndApply.runConveyorAfterApply AND NOT collisionDetection.inhibitExternalExitConveyor AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled) AND NOT barcodeVerificationFailed.active;
+oRunExternalExitConveyor := collisionDetection.runExternalExitConveyor 
+							OR externalExitConveyorRun.Q
+							OR (printAndApply.runConveyorAfterApply  
+								AND NOT collisionDetection.inhibitExternalExitConveyor 
+								AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled) 
+							AND NOT barcodeVerificationFailed.active;
 //oRunExternalExitConveyor := collisionDetection.runExternalExitConveyor OR externalExitConveyorRun.Q OR printAndApply.runConveyorAfterApply AND NOT collisionDetection.inhibitExternalExitConveyor AND HMIData.externalExitConveyorSelection <> ExteralConveyorSelection.NotInstalled;	  
 	  
 IF printAndApply.inhibitConveyor THEN
@@ -1080,7 +1084,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	sealTimer.IN := FALSE;
 	pressureBarCloseDelay.IN := FALSE;
 	filler.Reset();
-	_auxIOManager.Reset();
+	_auxIOPhysical.Reset();
 	fillerModeCycleStartOnlyPulse.Reset();
 	barcodeVerifier.Reset();
 	keyenceBCV.Reset();
@@ -1191,7 +1195,7 @@ autoModeKeepCyclingTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := auto
 HMIData.mayCycleUnexpectedly.active := autoModeSelected OR filler.activateFiller;
 
 footSwitchONS(CLK := iFootSwitch);
-_bagGrabbedONS(CLK := _auxIOManager.bagGrabbed OR _auxIORemote.bagGrabbed);
+_bagGrabbedONS(CLK := _auxIOPhysical.bagGrabbed OR _auxIORemote.bagGrabbed);
 
 IF state.head <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
@@ -1623,7 +1627,7 @@ CASE state.head OF
 	HEAD_STATES.PreparingForAutomatedBagRemoval:
 		//
 		IF state.sb.automation = AUTOMATION_STATES.Done THEN
-			_auxIOManager.ResetReadyForGrab();
+			_auxIOPhysical.ResetReadyForGrab();
 			_auxIORemote.ResetReadyForGrab();
 			state.head := HEAD_STATES.PreparedForAutomatedBagRemoval;
 		END_IF
