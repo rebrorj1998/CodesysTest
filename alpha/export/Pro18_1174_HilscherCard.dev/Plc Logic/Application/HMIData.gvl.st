@@ -118,6 +118,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	feedToSealInUse : BOOL := FALSE;
 	labelsQueuedUpFaultEnable : BOOL := FALSE;	
 	remoteComsEnable : BOOL;
+	auxIOSource : AuxIOSource;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
