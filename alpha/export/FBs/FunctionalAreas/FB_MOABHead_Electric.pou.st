@@ -719,8 +719,8 @@ CASE HMIData.fillerFactorySelection OF
 	FillerSelection.StandardFiller:					
 													// Only enable filler if Aux IO is enabled
 		 											filler.enable := ((HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard)
-																		OR HMIdata.auxIOSource = AuxIOType.Modbus
-																		OR HMIdata.AuxIOType = AuxIOType.OPC_UA);
+																		OR HMIdata.auxIOSource.ModbusTCP
+																		OR HMIdata.auxIOSource.OPC_UA);
 													Infeed_Conveyor_IO.Enable := FALSE;
 														 
 	FillerSelection.EZFeed:							
