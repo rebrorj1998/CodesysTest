@@ -63,10 +63,42 @@ IF commandSuccessfulONS.Q THEN
 END_IF
 
 
-IF _reset AND (status.driveFaulted OR status.alarmPresent) THEN
-	commands.alarmReset := TRUE;
+resetTimeout(IN := _reset, PT := T#1S);
+encoderResetTimeout(PT := T#150MS);
+IF resetTimeout.Q THEN
+	resetState := 0;
+	encoderResetTimeout.IN := FALSE;
 	_reset := FALSE;
 END_IF
+CASE resetState OF
+	
+	0 :		// Do Nothing
+			IF _reset THEN
+				resetState := 1;
+			END_IF
+	1 :		// 
+			commandSuccessful := FALSE;
+			commands.alarmReset := TRUE;
+			resetState := 2;
+	
+	2 :		IF commandSuccessful THEN
+				commandSuccessful := FALSE;
+				commands.Enable := TRUE;
+				resetState := 3;		
+			END_IF
+	
+	3 :		//
+			IF commandSuccessful THEN;
+					resetState := 0;	
+					_reset := FALSE;
+			END_IF
+	
+	4 :		//
+			IF commandSuccessful THEN;
+				resetState := 0;
+				_reset := FALSE;
+			END_IF
+END_CASE
 
 IF reversePolarity THEN
     absolutePositonInches := absolutePositonInches * -1; 

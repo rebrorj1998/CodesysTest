@@ -44,7 +44,9 @@ VAR
 	_reset : BOOL;			//Reset Motor
 	_homeNow : BOOL;
 	homingOSF : F_TRIG;
-	
+	resetTimeout : Standard.TON;
+	resetState : INT;
+	encoderResetTimeout : Standard.TON;
 	IECReferenceGood : BOOL;
 END_VAR
 VAR_OUTPUT
