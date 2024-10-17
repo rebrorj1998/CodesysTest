@@ -73,7 +73,9 @@ VAR
 	_haltWaitTimer : TON := (PT := T#50MS);
 	_lastState : eDualMotorPressureBar_AsyncStates;
 	setZeroONS : FB_ONS;
-	zeroNow : BOOL := false;
+	zeroNow : BOOL := FALSE;
+	_faultedState : eDualMotorPressureBar_AsyncStates;
+	faultedPos : REAL;
 	//
 	Test:BOOL;
 	clampingReleaseDebounce: TON:= (PT := T#100MS);
@@ -176,15 +178,18 @@ _failedToOpenTimer(
 // Trigger motor faults from drive			
 frontMotorFault.faultTrigger := frontMotor.error;
 frontMotorCommFault.faultTrigger := NOT frontMotor.commStatus;
-pressureBarObstructed.faultTrigger := NOT zeroNow AND NOT obstructionSensor AND NOT (actualPositionInInches < 0.06 OR _isFullyOpen);
+pressureBarObstructed.faultTrigger := NOT zeroNow AND 
+										NOT obstructionSensor AND (actualPositionInInches > 0.13);
 pressurebarTimeOut.faultTrigger:= stepTON1.Q OR stepTON2.Q;
 _activeFault := pressurebarTimeOut.Active OR pressureBarObstructed.Active OR failedToClose.Active OR frontMotorFault.Active OR failedToOpen.Active OR failedToHome.Active;
 //	 
 _faultONS(CLK := _activeFault);
 
-_startClampingONS(CLK := (actualPositionInInches < _startClampingPosition) AND state = eDualMotorPressureBar_AsyncStates.ClosingToFaceplate AND clampingMechanism.Ready);
+_startClampingONS(CLK := (actualPositionInInches < _startClampingPosition) AND state = eDualMotorPressureBar_AsyncStates.ClosingToFaceplate AND clampingMechanism.Cleared);
 
 IF _faultONS.OSR THEN
+	_faultedState := state;
+	faultedPos := actualPositionInInches;
 	state := eDualMotorPressureBar_AsyncStates.Faulting;
 END_IF
 
@@ -505,6 +510,7 @@ CASE state OF
  		MC_MoveFrontMotorABS.execute := FALSE;
  		MC_MoveFrontMotorPush.execute := FALSE;
  		MC_ResetFrontMotor.execute := FALSE;
+		clampingMechanism.StopClamping();
 		//7-17-2023 CT Removed comments on MC_HaltFrontMotor.execute:=TRUE;  No reason could be found for this bypass.
  		MC_HaltFrontMotor.execute := TRUE;
 		state := eDualMotorPressureBar_AsyncStates.halting;
@@ -519,7 +525,9 @@ CASE state OF
 		   MC_HaltFrontMotor.Error  THEN
 			MC_HaltFrontMotor.execute := FALSE;
 		END_IF
-		
+		IF 	zeroNow THEN
+			state := eDualMotorPressureBar_AsyncStates.Reset;
+		END_IF
 	eDualMotorPressureBar_AsyncStates.Reset:
 		state_index:=15;
 		//
@@ -533,7 +541,7 @@ CASE state OF
 		MC_MoveFrontMotorPush.execute := FALSE;
 		MC_ResetFrontMotor.execute := TRUE;
 		MC_HaltFrontMotor.execute := FALSE;
-		zeroNow:= FALSE;
+		//zeroNow:= FALSE;
 		state := eDualMotorPressureBar_AsyncStates.Resetting;
 
 	eDualMotorPressureBar_AsyncStates.Resetting:
