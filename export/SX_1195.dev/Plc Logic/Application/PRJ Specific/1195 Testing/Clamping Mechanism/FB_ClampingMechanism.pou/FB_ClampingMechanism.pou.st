@@ -56,7 +56,7 @@ VAR
 	speedTracking : ARRAY[0..20] OF ARRAY[0..20] OF TIME;
 	speedTracking_mt : ARRAY[0..20] OF ARRAY[0..20] OF TIME:=[21([21(T#0S)])]; 
 	state_index : INT:=0;
-	clampingMechanismDriveFault : FB_Fault(name := CONCAT(_prefix, 'Clamping Mechanism Fault'));
+	clampingMechanismDriveFault : FB_Fault(name := CONCAT(_prefix, 'Drive Fault'));
 	_faultONS: FB_ONS;
 	_activeFault: BOOL;
 	_jogOpenONS: FB_ONS;
@@ -86,7 +86,7 @@ _resetDriveOutputPulse(Q => oResetDrive,_reset := _reset);
 _clamping := state = eClampingMechanismStates.ClampMovedToClamp;
 _moving :=  state = eClampingMechanismStates.ClampMovingToClamp
 			OR state = eClampingMechanismStates.ClampMovingToRelease;
-_cleared := homeSensor OR homeSensorNotSeen;
+_cleared := homeSensor ;//OR homeSensorNotSeen;
 //code to add timer to track duration in states
 _IsHomed := homeSensor OR _maximumReverseTimeTimer.q;
 stateTimer(PT:=T#10000S);

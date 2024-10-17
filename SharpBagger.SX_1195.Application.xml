@@ -22,6 +22,9 @@
     <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
     <TypeSimple name="T_USINT" size="1" swapsize="1" typeclass="USInt" iecname="USINT" />
     <TypeSimple name="T_WORD" size="2" swapsize="2" typeclass="Word" iecname="WORD" />
+    <TypeArray name="T_ARRAY__0__1000__OF_TIME" size="4004" nativesize="4004" typeclass="Array" iecname="ARRAY [0..1000] OF TIME" basetype="T_TIME">
+      <ArrayDim minrange="0" maxrange="1000" />
+    </TypeArray>
     <TypeArray name="T_ARRAY__0__100__OF_IMachineLogger" size="404" nativesize="404" typeclass="Array" iecname="ARRAY [0..100] OF IMachineLogger" basetype="T_TYPE_REFERENCE">
       <ArrayDim minrange="0" maxrange="100" />
     </TypeArray>
@@ -693,8 +696,8 @@
       <UserDefElement iecname="loadPlateMotorNotHomed" type="T_BOOL" byteoffset="23" vartype="VAR_INPUT" />
       <UserDefElement iecname="loadPlateMotorFaulted" type="T_BOOL" byteoffset="24" vartype="VAR_INPUT" />
       <UserDefElement iecname="loadPlateMotorCommF" type="T_BOOL" byteoffset="25" vartype="VAR_INPUT" />
-      <UserDefElement iecname="topCoverLiftedFault" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" />
-      <UserDefElement iecname="topCoverLiftedWarning" type="T_BOOL" byteoffset="27" vartype="VAR_INPUT" />
+      <UserDefElement iecname="safePowerFault" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" />
+      <UserDefElement iecname="safePowerWarning" type="T_BOOL" byteoffset="27" vartype="VAR_INPUT" />
       <UserDefElement iecname="IBDMotorNotHomed" type="T_BOOL" byteoffset="28" vartype="VAR_INPUT" />
       <UserDefElement iecname="IBDMotorFaulted" type="T_BOOL" byteoffset="29" vartype="VAR_INPUT" />
       <UserDefElement iecname="IBDMotorCommF" type="T_BOOL" byteoffset="30" vartype="VAR_INPUT" />
@@ -1422,7 +1425,7 @@
       <UserDefElement iecname="_resetSignalPulseTON" type="T_TON" byteoffset="424" vartype="VAR" />
       <UserDefElement iecname="_codetemp" type="T_DWORD" byteoffset="440" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_ClampingMechanism" size="4348" nativesize="4612" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ClampingMechanism" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_ClampingMechanism" size="12400" nativesize="12664" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ClampingMechanism" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" inherited_from="T_FB_BaseObject" />
       <UserDefElement iecname="_prefix" type="T_STRING" byteoffset="81" vartype="VAR" inherited_from="T_FB_BaseObject" />
       <UserDefElement iecname="_logger" type="T_TYPE_REFERENCE" byteoffset="164" vartype="VAR" inherited_from="T_FB_BaseObject" />
@@ -1468,23 +1471,36 @@
       <UserDefElement iecname="_maximumClampingTimeTimer" type="T_TON" byteoffset="444" vartype="VAR" />
       <UserDefElement iecname="_maximumReverseTimeTimer" type="T_TON" byteoffset="460" vartype="VAR" />
       <UserDefElement iecname="_maximumJogTimeTimer" type="T_TON" byteoffset="476" vartype="VAR" />
-      <UserDefElement iecname="stateTimer" type="T_TON" byteoffset="492" vartype="VAR" />
-      <UserDefElement iecname="laststate" type="T_INT" byteoffset="508" vartype="VAR" />
-      <UserDefElement iecname="count_index" type="T_INT" byteoffset="510" vartype="VAR" />
-      <UserDefElement iecname="clr" type="T_BOOL" byteoffset="512" vartype="VAR" />
-      <UserDefElement iecname="speedTracking" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" byteoffset="516" vartype="VAR" />
-      <UserDefElement iecname="speedTracking_mt" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" byteoffset="2280" vartype="VAR" />
-      <UserDefElement iecname="state_index" type="T_INT" byteoffset="4044" vartype="VAR" />
-      <UserDefElement iecname="clampingMechanismDriveFault" type="T_FB_Fault" byteoffset="4048" vartype="VAR" />
-      <UserDefElement iecname="_faultONS" type="T_FB_ONS" byteoffset="4321" vartype="VAR" />
-      <UserDefElement iecname="_activeFault" type="T_BOOL" byteoffset="4328" vartype="VAR" />
-      <UserDefElement iecname="_jogOpenONS" type="T_FB_ONS" byteoffset="4329" vartype="VAR" />
-      <UserDefElement iecname="_jogClosedONS" type="T_FB_ONS" byteoffset="4336" vartype="VAR" />
-      <UserDefElement iecname="manMoving" type="T_BOOL" byteoffset="4343" vartype="VAR" />
-      <UserDefElement iecname="Clamping" type="T_BOOL" byteoffset="4344" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="Cleared" type="T_BOOL" byteoffset="4345" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="Forward" type="T_BOOL" byteoffset="4346" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="4347" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="_closingTime" type="T_TIME" byteoffset="492" vartype="VAR" />
+      <UserDefElement iecname="_closingTimeHighest" type="T_TIME" byteoffset="496" vartype="VAR" />
+      <UserDefElement iecname="_closingTimeLowest" type="T_TIME" byteoffset="500" vartype="VAR" />
+      <UserDefElement iecname="_releasingTime" type="T_TIME" byteoffset="504" vartype="VAR" />
+      <UserDefElement iecname="_releasingTimeHighest" type="T_TIME" byteoffset="508" vartype="VAR" />
+      <UserDefElement iecname="_releasingTimeLowest" type="T_TIME" byteoffset="512" vartype="VAR" />
+      <UserDefElement iecname="_closingTimeArray" type="T_ARRAY__0__1000__OF_TIME" byteoffset="516" vartype="VAR" />
+      <UserDefElement iecname="_closingTimeaverage" type="T_TIME" byteoffset="4520" vartype="VAR" />
+      <UserDefElement iecname="_closingTimeCycles" type="T_INT" byteoffset="4524" vartype="VAR" />
+      <UserDefElement iecname="_releasingTimeArray" type="T_ARRAY__0__1000__OF_TIME" byteoffset="4528" vartype="VAR" />
+      <UserDefElement iecname="_releasingTimeAverage" type="T_TIME" byteoffset="8532" vartype="VAR" />
+      <UserDefElement iecname="_releasingTimeWorkingVar" type="T_TIME" byteoffset="8536" vartype="VAR" />
+      <UserDefElement iecname="_releasingTimeCycles" type="T_INT" byteoffset="8540" vartype="VAR" />
+      <UserDefElement iecname="stateTimer" type="T_TON" byteoffset="8544" vartype="VAR" />
+      <UserDefElement iecname="laststate" type="T_INT" byteoffset="8560" vartype="VAR" />
+      <UserDefElement iecname="count_index" type="T_INT" byteoffset="8562" vartype="VAR" />
+      <UserDefElement iecname="clr" type="T_BOOL" byteoffset="8564" vartype="VAR" />
+      <UserDefElement iecname="speedTracking" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" byteoffset="8568" vartype="VAR" />
+      <UserDefElement iecname="speedTracking_mt" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" byteoffset="10332" vartype="VAR" />
+      <UserDefElement iecname="state_index" type="T_INT" byteoffset="12096" vartype="VAR" />
+      <UserDefElement iecname="clampingMechanismDriveFault" type="T_FB_Fault" byteoffset="12100" vartype="VAR" />
+      <UserDefElement iecname="_faultONS" type="T_FB_ONS" byteoffset="12373" vartype="VAR" />
+      <UserDefElement iecname="_activeFault" type="T_BOOL" byteoffset="12380" vartype="VAR" />
+      <UserDefElement iecname="_jogOpenONS" type="T_FB_ONS" byteoffset="12381" vartype="VAR" />
+      <UserDefElement iecname="_jogClosedONS" type="T_FB_ONS" byteoffset="12388" vartype="VAR" />
+      <UserDefElement iecname="manMoving" type="T_BOOL" byteoffset="12395" vartype="VAR" />
+      <UserDefElement iecname="Clamping" type="T_BOOL" byteoffset="12396" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="Cleared" type="T_BOOL" byteoffset="12397" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="Forward" type="T_BOOL" byteoffset="12398" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="Moving" type="T_BOOL" byteoffset="12399" vartype="VAR" propertytype="variable" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_SealWire" size="3956" nativesize="4064" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_SealWire" basetype="T_FB_BasicSealer">
       <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" inherited_from="T_FB_BaseObject" />
@@ -2025,7 +2041,6 @@
       <UserDefElement iecname="setZeroONS" type="T_FB_ONS" byteoffset="4674" vartype="VAR" />
       <UserDefElement iecname="zeroNow" type="T_BOOL" byteoffset="4681" vartype="VAR" />
       <UserDefElement iecname="Test" type="T_BOOL" byteoffset="4682" vartype="VAR" />
-      <UserDefElement iecname="test2" type="T_BOOL" byteoffset="4683" vartype="VAR" />
       <UserDefElement iecname="clampingReleaseDebounce" type="T_TON" byteoffset="4684" vartype="VAR" />
       <UserDefElement iecname="stateTimer" type="T_TON" byteoffset="4700" vartype="VAR" />
       <UserDefElement iecname="laststate" type="T_INT" byteoffset="4716" vartype="VAR" />
@@ -2120,7 +2135,7 @@
       <UserDefElement iecname="state_index" type="T_INT" byteoffset="6488" vartype="VAR" />
       <UserDefElement iecname="loadPlateMotor" type="T_Axis_REF" byteoffset="6492" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_EM01_BaggerCM" size="38804" nativesize="38568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="EM01_BaggerCM">
+    <TypeUserDef name="T_EM01_BaggerCM" size="46856" nativesize="46620" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="EM01_BaggerCM">
       <UserDefElement iecname="inhibitMotion" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="VacuumCups" type="T_FB_BaseVacuum" byteoffset="4" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealWire" type="T_FB_SealWire" byteoffset="352" vartype="VAR_OUTPUT" />
@@ -2129,19 +2144,19 @@
       <UserDefElement iecname="SealFlatteners" type="T_FB_BaseSealFlatteners" byteoffset="13848" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="jawFrontMotor" type="T_FB_AZDKAxis" byteoffset="14196" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="clampingMechanism" type="T_FB_ClampingMechanism" byteoffset="14648" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printHeadActuator" type="T_FB_ElectricSolenoid" byteoffset="18996" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="labelPrinter" type="T_FB_ZebraPrinter" byteoffset="19248" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="IBDMotor" type="T_FB_AZDKAxis" byteoffset="24396" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="IBD" type="T_FB_BaseIBD" byteoffset="24848" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="barcodeVerifier" type="T_FB_BaseBCV" byteoffset="25200" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="bagDelivery" type="T_FB_1195_Test_BagDelivery" byteoffset="29176" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="bagDeliveryFrontMotor" type="T_FB_AZDKAxis" byteoffset="38332" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_axisCommsStatus" type="T_BOOL" byteoffset="38783" vartype="VAR" />
-      <UserDefElement iecname="_driveState" type="T_DEVICE_STATE" byteoffset="38784" vartype="VAR" />
-      <UserDefElement iecname="oAxis3TargetPosition" type="T_DINT" byteoffset="38788" vartype="VAR" />
-      <UserDefElement iecname="firstScanDone" type="T_BOOL" byteoffset="38792" vartype="VAR" />
-      <UserDefElement iecname="homeSensorCTU" type="T_CTU" byteoffset="38794" vartype="VAR" />
-      <UserDefElement iecname="STEPS_PER_INCH_IBD" type="T_INT" byteoffset="38802" vartype="VAR" />
+      <UserDefElement iecname="printHeadActuator" type="T_FB_ElectricSolenoid" byteoffset="27048" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="labelPrinter" type="T_FB_ZebraPrinter" byteoffset="27300" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="IBDMotor" type="T_FB_AZDKAxis" byteoffset="32448" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="IBD" type="T_FB_BaseIBD" byteoffset="32900" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="barcodeVerifier" type="T_FB_BaseBCV" byteoffset="33252" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="bagDelivery" type="T_FB_1195_Test_BagDelivery" byteoffset="37228" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="bagDeliveryFrontMotor" type="T_FB_AZDKAxis" byteoffset="46384" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="_axisCommsStatus" type="T_BOOL" byteoffset="46835" vartype="VAR" />
+      <UserDefElement iecname="_driveState" type="T_DEVICE_STATE" byteoffset="46836" vartype="VAR" />
+      <UserDefElement iecname="oAxis3TargetPosition" type="T_DINT" byteoffset="46840" vartype="VAR" />
+      <UserDefElement iecname="firstScanDone" type="T_BOOL" byteoffset="46844" vartype="VAR" />
+      <UserDefElement iecname="homeSensorCTU" type="T_CTU" byteoffset="46846" vartype="VAR" />
+      <UserDefElement iecname="STEPS_PER_INCH_IBD" type="T_INT" byteoffset="46854" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_EM02_DischargeCM" size="7196" nativesize="6100" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="EM02_DischargeCM">
       <UserDefElement iecname="loadPlateInterlocks" type="T_DINT" byteoffset="0" vartype="VAR_INPUT" />
@@ -2427,7 +2442,7 @@
         <Node name="iPrinterDataReady" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="iPrinterRibbonEncoder" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="iPrinterServiceRequired" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
-        <Node name="iTopCoverClosed" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
+        <Node name="iSafePowerOK" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="mainIOamax4830Input" type="T_ARRAY__0__15__OF_universalIOObject" access="ReadWrite" />
         <Node name="mainIOamax4830Output" type="T_ARRAY__0__15__OF_universalIOObject" access="ReadWrite" />
         <Node name="oFansEnable" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
@@ -2588,6 +2603,7 @@
         <Node name="powerUpRearJawMotor" type="T_MC_Power" access="ReadWrite" />
         <Node name="printerLabel" type="T_FB_PrinterSerial" access="ReadWrite" />
         <Node name="resetHold" type="T_TON" access="ReadWrite" />
+        <Node name="safePowerOffFault" type="T_FB_Fault" access="ReadWrite" />
         <Node name="speedTracking" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" access="ReadWrite" />
         <Node name="speedTracking_mt" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" access="ReadWrite" />
         <Node name="state_index" type="T_INT" access="ReadWrite" />
@@ -2595,7 +2611,6 @@
           <Comment>variables for the state timer</Comment>
         </Node>
         <Node name="teachPhotoeyeTimer" type="T_TOF" access="ReadWrite" />
-        <Node name="topCoverLiftedFault" type="T_FB_Fault" access="ReadWrite" />
         <Node name="UN00_SXMachine" type="T_FB_UN00_SharpMachine" access="ReadWrite" />
       </Node>
     </Node>

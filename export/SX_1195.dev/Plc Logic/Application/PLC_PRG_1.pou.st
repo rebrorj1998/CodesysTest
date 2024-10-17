@@ -18,7 +18,8 @@ VAR
 	bannerManager : FB_BannerManager;
 	hmiFaultMessage : FB_FaultMessageHandler;
 	palmButton : FB_BannerPalmButton;
-	topCoverLiftedFault : FB_Fault(name := 'Top Cover Lifeted During Cycle');
+	safePowerOffFault : FB_Fault(name := 'Safety Circuit Broken During Cycle');
+	eStopPressedFault : FB_Fault(name := 'E-Stop Pressed');
 	amazonBPM : FB_AmazonThroughput();
 	printerLabel : FB_PrinterSerial();
 	autoModeTimer : Standard.TON;
@@ -149,10 +150,12 @@ EM02_SXDischarge();
 UN00_SXMachine(faultActive:= HMIData.faultActive, resetMachine := HMIData.ackAllFaults, homeMachine := HMIData.homeMachine, currentState=> , baggerHead:= EM01_SXBaggerHead, discharge:= EM02_SXDischarge);
 
 // Trigger fault if top cover lifted during cycle
-IF HMIData.inCycle AND NOT iTopCoverClosed THEN
-	topCoverLiftedFault.Trigger();
+IF HMIData.inCycle AND NOT iSafePowerOK THEN
+	safePowerOffFault.Trigger();
 END_IF
-
+IF NOT iEstopNormal THEN
+	eStopPressedFault.Trigger();
+END_IF
 
 // Banner palm button has 4 states - off, solid green, 50/50 green/white rotating, and flashing red
 palmButton(
@@ -234,8 +237,8 @@ bannerManager(
 	//loadPlateMotorNotHomed:= NOT baggerCM.loadPlate.IsHomed AND baggerCM.loadPlate.OptionActive, 
 	//loadPlateMotorFaulted:= baggerCM.loadPlate.motorFault.Active, 
 	//loadPlateMotorCommF:= baggerCM.loadPlate.motorCommFault.Active, 
-	topCoverLiftedFault:= topCoverLiftedFault.Active, 
-	topCoverLiftedWarning:= NOT iTopCoverClosed AND NOT HMIData.inCycle, 
+	safePowerFault:= safePowerOffFault.Active, 
+	safePowerWarning:= NOT iSafePowerOK AND NOT HMIData.inCycle, 
 	//IBDMotorNotHomed:= NOT baggerCM.IBD.IsHomed AND baggerCM.IBD.OptionActive AND NOT HMIData.inCycle, 
 	//IBDMotorFaulted:= baggerCM.IBD.IBDMotorFault.Active, 
 	//IBDMotorCommF:= baggerCM.IBD.IBDMotorCommFault.Active, 

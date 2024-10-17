@@ -25,6 +25,7 @@ VAR_GLOBAL
 	iBarcodeOK: Reference to BOOL;
 	iBarcodeNG: Reference to BOOL;
 	iLightCurtainClear: Reference to BOOL;
-	iTopCoverClosed: Reference to BOOL;
+	iSafePowerOK: Reference to BOOL;
 	iPrinterRibbonEncoder: REFERENCE TO BOOL;
+	iEstopNormal: REFERENCE TO BOOL;
 END_VAR

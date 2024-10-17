@@ -473,7 +473,8 @@ CASE state OF
 			_openNow := FALSE;
 			
 		END_IF
-		IF NOT clampingMechanism.Clamping AND ((clampingMechanism.Moving AND NOT clampingMechanism.Forward) OR clampingMechanism.Cleared)  THEN
+		//IF NOT clampingMechanism.Clamping AND ((clampingMechanism.Moving AND NOT clampingMechanism.Forward) OR clampingMechanism.Cleared)  THEN
+		IF NOT clampingMechanism.Clamping AND clampingMechanism.Cleared THEN
 			MC_MoveFrontMotorPush.execute := FALSE;
 			state := eDualMotorPressureBar_AsyncStates.Open;
 		END_IF
