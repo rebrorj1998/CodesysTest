@@ -9,7 +9,8 @@ VAR_GLOBAL PERSISTENT
 		deceleration := 10,
 		velocity := 30,
 		minPosition := 5.5,
-		maxPosition := 0
+		maxPosition := 0,
+		current := 30.0
 	);
 	jawConfig : sctAxisConfig := (
 		stepsPerInch := 2410, 
@@ -41,14 +42,7 @@ VAR_GLOBAL PERSISTENT
 		current := 100.0,
 		position := -1
 	);
-	
-	jaw : sctAxisData := (
-		config := jawConfig,
-		openProfile := jawOpenMotionProfile,
-		closeProfile := jawCloseMotionProfile,
-		jogProfile := jawJogMotionProfile,
-		jogType := eDiscreteMotionType.Absolute
-	);
+
 
 	(* Load Plate *)
 	
@@ -72,11 +66,7 @@ VAR_GLOBAL PERSISTENT
 		current := 100.0
 	);
 
-	loadPlate : sctAxisData := (
-		config := loadPlateConfig, 
-		raiseProfile := loadPlateRaiseMotionProfile, 
-		lowerProfile := loadPlateLowerMotionProfile
-	);		
+	
 
 	(* IBD *)
 	
@@ -107,14 +97,7 @@ VAR_GLOBAL PERSISTENT
 		velocity := 10.0,
 		current := 50.0
 	);
-	
-	IBD : sctAxisData := (
-		config := IBDConfig, 
-		openProfile := IBDOpenMotionProfile,
-		closeProfile := IBDCloseMotionProfile,
-		jogProfile := IBDJogMotionProfile,
-		jogType := eDiscreteMotionType.Absolute
-	);
+
 	
 	(* Film Feed *)
 	
@@ -126,17 +109,18 @@ VAR_GLOBAL PERSISTENT
 	);
 	
 	FilmFeedJogMotionProfile : sctMotionProfile := (
-		acceleration := 10,
+		acceleration := 200,
 		deceleration := 200,
-		velocity := 100,
-	 	minPosition := 0,
-		maxPosition := 0,
-		position := 20
+		velocity := 2,
+	 	minPosition := -20,
+		maxPosition := 20,
+		position := 20,
+		current := 100
 	);
 	
 	FilmFeedForwardMotionProfile : sctMotionProfile := (
-		acceleration := 200,
- 		deceleration := 200,
+		acceleration := 75,
+ 		deceleration := 100,
 		velocity := 60,
 		position := 17.5,
 		current := 100.0 
@@ -150,12 +134,42 @@ VAR_GLOBAL PERSISTENT
 		current := 100.0 
 	);
 	
+	FilmFeedPrintMotionProfile : sctMotionProfile := (
+		acceleration := 100,
+ 		deceleration := 100,
+		velocity := 12,
+		position := -1,
+		current := 100.0 
+	);
+	
+	FilmFeedPrintOffsetMotionProfile : sctMotionProfile := (
+		acceleration := 75,
+ 		deceleration := 100,
+		velocity := 12,
+		position := -1,
+		current := 100.0 
+	);	
+
+	
+END_VAR
+
+VAR_GLOBAL
+	jaw : sctAxisData := (
+		config := jawConfig,
+		jogType := eDiscreteMotionType.Absolute
+	);
+	
 	FilmFeed : sctAxisData := (
 		config := FilmFeedConfig, 
-		openProfile := FilmFeedForwardMotionProfile,
-		closeProfile := FilmFeedReverseMotionProfile,
-		jogProfile := FilmFeedJogMotionProfile,
 		jogType := eDiscreteMotionType.Relative
 	);
 	
+	IBD : sctAxisData := (
+		config := IBDConfig, 
+		jogType := eDiscreteMotionType.Absolute
+	);
+	
+	loadPlate : sctAxisData := (
+		config := loadPlateConfig
+	);	
 END_VAR

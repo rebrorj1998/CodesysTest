@@ -6,7 +6,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	//loggedItems : ARRAY[0..500] OF FaultLogType;
-	loggedItems : ARRAY[0..Globals.MAX_LOGGED_ITEMS] OF LogMessageType;
+	loggedItems : ARRAY[0..GlobalData.MAX_LOGGED_ITEMS] OF LogMessageType;
 	numOfLogEntries : UINT;
 	logFull : BOOL;
 	RTC : FB_GetTime();

@@ -41,8 +41,8 @@ CASE _engineState OF
 	
 	eMCEngineState.Execute:
 		axis.axisState := eAxisState.Halting;
-		axis.quickStopDeceleration := deceleration;
 		axis.halt := TRUE;
+		axis.quickStopDeceleration := deceleration;
 		_engineState := eMCEngineState.Executing;
 			
 	eMCEngineState.Executing:

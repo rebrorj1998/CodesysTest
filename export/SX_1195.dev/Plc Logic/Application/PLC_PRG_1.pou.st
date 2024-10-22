@@ -4,7 +4,7 @@ VAR
 	firstScanDone: BOOL;
 	firstAborted :BOOL:=TRUE;
 	cycleStartONS : FB_ONS;
-	powerUpFrontJawMotor : MC_Power;
+	//powerUpFrontJawMotor : MC_Power;
 	powerUpRearJawMotor : MC_Power;
 	powerUpBothJawMotors : MC_Power;
 	powerUpLoadPlateMotor : MC_Power;
@@ -40,6 +40,8 @@ VAR
 	loadPlateInterlocks: DINT := 0;
 	resetHold: Ton;
 	flipFlop: TON;
+	batchCounter : CTU;
+	cycleStartDebounce : TON := (PT := T#75MS);
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1179/1181 SX. 
@@ -51,7 +53,7 @@ IO_Map();
 // Initialze global objects on first scan
 IF NOT firstScanDone THEN
 	GlobalObjects.CollectionOfInitialzable.InitializeAll();
-	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := Globals.SystemLog);
+	GlobalObjects.CollectionOfLoggable.RegisterAll(internalLogger := GlobalData.SystemLog);
 	GlobalObjects.CollectionOfFaults.FaultUpdateForHMI();
 	hIecTask := IecTaskGetCurrent(0);
 	IecTaskDisableWatchdog(hIecTask); // Watchdog disabled
@@ -71,9 +73,15 @@ HMIData.faultActive := GlobalObjects.CollectionOfActiveFaults.faultActive;
 // Auto mode dwell timer
 autoModeTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCycling AND UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle);
 // Start from Cycle Start input
-cycleStartONS(clk := iCycleStart);
+cycleStartDebounce(IN := iCycleStart);
+cycleStartONS(clk := cycleStartDebounce.Q);
+// Batch Counter
+batchCounter(CU := cycleComplete.OSR, RESET := (NOT HMIData.batchEnable) OR HMIData.resetBatchCounter, PV := TO_WORD(HMIData.batchSetting), Q => HMIData.batchCounterDone, CV => HMIData.batchCount);
+IF HMIData.resetBatchCounter THEN 
+	HMIData.resetBatchCounter := FALSE;
+END_IF
 // All start conditions
-IF HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q THEN
+IF (HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q) AND NOT HMIData.batchCounterDone THEN
 	IF UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle THEN
 		EM01_SXBaggerHead.StartCycle();
 		IF HMIData.autoModeEnable THEN
@@ -213,7 +221,7 @@ oFansEnable := NOT HMIData.standbyActive;
 // Banner manager takes care of the Multistate lamp used as a banner on the proface 
 bannerManager(
 	baggerNotReady:= NOT UN00_SXMachine.currentState = PACK_ML.State.Execute, 
-	baggerReady:= GlobalObjects.CollectionOfComponents.CheckIfAllReady() AND UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle, 
+	baggerReady:= GlobalObjects.CollectionOfComponents.CheckIfAllReady() AND UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle AND NOT HMIData.batchCounterDone, 
 	baggerInCycle:= HMIData.inCycle, 
 	noBagCoveringEye:= baggerCM.bagDelivery.noBagOverEye.Active, 
 	bagFailedToSeperate:= baggerCM.bagDelivery.bagFailedToSeparate.Active, 
@@ -230,7 +238,7 @@ bannerManager(
 	//jawMotionFault:= baggerCM.dualMotorPassthrough.bothMotorsFault.Active, 
 	waitingOnPrinter:= UN00_SXMachine.baggerManager.BaggerAutoMode.releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter,
 	waitingOnFiller:= , 
-	batchCounterDone:= , 
+	batchCounterDone:= HMIData.batchCounterDone, 
 	jawNotHomed:= NOT baggerCM.dualMotorPassthrough.IsHomed AND NOT HMIData.inCycle, 
 	cycleBaggerTForFiller:= , 
 	machineNotTested:=  HMIData.bagsMade < 1000, 

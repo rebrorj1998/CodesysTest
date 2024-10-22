@@ -54,6 +54,7 @@ operational := EnableAxisOps();
 	
 //
 _resetSignalPulseTON.IN := ackError;
+_resetONS(CLK := ackError);
 _controlword.FaultReset := _statusword.fault AND ackError AND NOT _resetSignalPulseTON.Q;
 
 //diagnostic code - delete me
@@ -113,6 +114,9 @@ IF push THEN
 	oProfileOperationalCurrent := TO_INT(defaultCurrent * 10.0);
 ELSE
 	oProfileOperationalCurrent := TO_INT(profileCurrentLimit * 10.0);	
+	IF oProfileOperationalCurrent = 0 THEN
+		oProfileOperationalCurrent := TO_INT(defaultCurrent * 10.0);
+	END_IF
 END_IF
 
 oModeOfOperation := modeOfOperation;
@@ -123,21 +127,25 @@ _jogReverseONS(CLK := jogReverseCMD);
 IF _jogForwardONS.OSR OR _jogReverseONS.OSR THEN
 	CASE axisData.jogType OF
 		eDiscreteMotionType.Relative:
-			profileAcceleration := axisData.jogProfile.acceleration;
-			profileDeceleration := axisData.jogProfile.deceleration;
-			profileVelocity := axisData.jogProfile.velocity;
-			targetPosDist := axisData.jogProfile.position;
+			profileAcceleration := jogProfile.acceleration;
+			profileDeceleration := jogProfile.deceleration;
+			profileVelocity := jogProfile.velocity;
+			targetPosDist := jogProfile.position;
+			profileCurrentLimit := jogProfile.current;
 			IF _jogReverseONS.OSR THEN
 				targetPosDist := targetPosDist * -1;
 			END_IF
+			_controlword.PPMode := eDiscreteMotionType.Relative;
 		eDiscreteMotionType.Absolute:
-			profileAcceleration := axisData.jogProfile.acceleration;
-			profileDeceleration := axisData.jogProfile.deceleration;
-			profileVelocity := axisData.jogProfile.velocity;
-			targetPosDist := axisData.jogProfile.maxPosition;
+			profileAcceleration := jogProfile.acceleration;
+			profileDeceleration := jogProfile.deceleration;
+			profileVelocity := jogProfile.velocity;
+			targetPosDist := jogProfile.maxPosition;
+			profileCurrentLimit := jogProfile.current;
 			IF _jogReverseONS.OSR THEN
-				targetPosDist := axisData.jogProfile.minPosition;
+				targetPosDist := jogProfile.minPosition;
 			END_IF
+			_controlword.PPMode := eDiscreteMotionType.Absolute;
 	END_CASE
 	_state := eAxisREFMotionState.Jog;
 ELSIF _jogForwardONS.OSF OR _jogReverseONS.OSF OR _haltONS.Q THEN

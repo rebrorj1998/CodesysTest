@@ -27,18 +27,18 @@ CASE _engineState OF
 	eMCEngineState.Idle:		
 		// Idle State.  If execute rising edge then start halt 
 		IF _executeOSR.Q THEN
+			axis.ackError := TRUE;
 			_moveState := eMCMoveState.Busy;
 			_engineState := eMCEngineState.Execute;
 			errorID := eMCError.NO_ERROR;
 		END_IF
 		
 	eMCEngineState.Execute:
-		axis.ackError := TRUE;
 		_engineState := eMCEngineState.Executing;
 		
 	eMCEngineState.Executing:
 		
-		IF NOT axis.error THEN
+		IF NOT axis.error OR NOT execute THEN
 			axis.ackError := FALSE;
 			_engineState := eMCEngineState.Executed;
 		END_IF

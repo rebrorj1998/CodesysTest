@@ -24,7 +24,6 @@ IF NOT _stoppingDone THEN
 	bagger.StartCycleRequest := FALSE;
 	bagger.ReadyForProduct := FALSE;
 	bagger.CurrentBagOpenRetryCount := 0;
-	bagger.StartCycleRequest := FALSE;
 	state := HEAD_STATES.Idle;
 	sealAndSeparateSubState := SEAL_SEPARATE_STATES.Idle;
     releaseAndFeedSubState := RELEASE_FEED_STATES.Idle;

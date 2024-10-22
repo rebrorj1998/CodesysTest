@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_ZebraPrinter EXTENDS FB_BasicPrinter
 VAR_INPUT
-	printHeadDebounceSetting : TIME := T#20MS;
+	printHeadDebounceSetting : TIME := T#0MS;
 	printHeadDownInput : BOOL;
 	dataReadyInput : BOOL;
 	serviceRequiredInput : BOOL;
@@ -61,8 +61,8 @@ _ready := NOT (state = eZebraPrinterStates.Fault);
 printerRibbonMovingTimer1(PT := printerRibbonMovingSettleTime);
 printerRibbonMovingTimer2(PT := printerRibbonMovingSettleTime);
 
-printerRibbonMovingTimer1(PT := T#1H);
-printerRibbonMovingTimer2(PT := T#1H);
+//printerRibbonMovingTimer1(PT := T#1H);
+//printerRibbonMovingTimer2(PT := T#1H);
 
 
 printHeadDebounce(PT:= printHeadDebounceSetting, Q=> printHeadDebounced);
@@ -196,7 +196,7 @@ CASE state OF
             startPrintOutput := FALSE;
 			_stopPrinting := FALSE;
 			ribbonUnwindRunOutput := FALSE;
-			IF printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q THEN
+			IF (printerRibbonMovingTimer1.Q OR printerRibbonMovingTimer2.Q) AND NOT dryCycleEnable THEN
 				ribbonFault.Trigger();
 			END_IF
 			printerRibbonMovingTimer1.IN := FALSE;

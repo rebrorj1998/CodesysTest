@@ -41,7 +41,7 @@ VAR
 	_bagFeedDone : BOOL;
 	_bagSeparated : BOOL;
 	_readyForPrint : BOOL;
-	_printerExtraFeedLength : REAL := 0.25;
+	_printerExtraFeedLength : REAL := 0.5;
 	//state : INT;
 	state : eBagDeliveryStates;
 	//nextState : INT;
@@ -55,7 +55,7 @@ VAR
 	bagReversedToPrintOffset : BOOL;
 	bagEdgePhotoeyeSim : FB_SimulatedFeedbackPhysicalInput(name := 'Bag Edge Photoeye Sim');
 	printingNow : BOOL;
-	_resetTimer: Standard.TON := (PT := T#2S);
+	_resetTimer: Standard.TON := (PT := T#250MS);
 END_VAR
 VAR_IN_OUT
 	bagDeliveryMotor : Axis_REF;
@@ -163,12 +163,13 @@ CASE state OF
 
 	eBagDeliveryStates.FeedBagOut:		// Feed bag out state was 10
 			state_index := 5;
-			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
+			MC_MoveBagDelivery.Acceleration := AxisData.FilmFeedForwardMotionProfile.acceleration;
+			MC_MoveBagDelivery.Deceleration := AxisData.FilmFeedForwardMotionProfile.deceleration;
 			MC_MoveBagDelivery.Velocity := feedSpeed;
 			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := remainingLength;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(remainingLength, feedSpeed, 2000);
-			moveBagDeliveryTimeout.IN := TRUE;
+			//moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag Out'));
 			state := eBagDeliveryStates.WaitingForMoveCompletion;
@@ -188,13 +189,14 @@ CASE state OF
 				nextState := eBagDeliveryStates.Idle;
 				bagReversedToPrintOffset := FALSE;
 			ELSE
-				MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (feedSpeed / trapezoidalPercent);
+				MC_MoveBagDelivery.Acceleration := AxisData.FilmFeedPrintOffsetMotionProfile.acceleration;
+				MC_MoveBagDelivery.Deceleration := AxisData.FilmFeedPrintOffsetMotionProfile.deceleration;
 				MC_MoveBagDelivery.Velocity := feedSpeed;
 				MC_MoveBagDelivery.currentLimit := 100;
 				MC_MoveBagDelivery.Distance := printOffset;
 				remainingLength := remainingLength - printOffset;
 				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(printOffset, feedSpeed, 2000);
-				moveBagDeliveryTimeout.IN := TRUE;
+				//moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feeding Bag to Print Offset'));
 				state := eBagDeliveryStates.WaitingForMoveCompletion;
@@ -215,7 +217,7 @@ CASE state OF
 				MC_MoveBagDelivery.currentLimit := 100;
 				MC_MoveBagDelivery.Distance := maxReverseSetpoint;
 				moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 2000);
-				moveBagDeliveryTimeout.IN := TRUE;
+				//moveBagDeliveryTimeout.IN := TRUE;
 				MC_MoveBagDelivery.Execute := TRUE;
 				_logger.AddLogItem(CONCAT(_prefix, 'Feed to Photoeye'));
 				state := eBagDeliveryStates.FeedingToPhotoEye;
@@ -260,12 +262,12 @@ CASE state OF
 	
 	eBagDeliveryStates.ReverseToSeperate:		// Reverse to Separate
 			state_index := 1;
-			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (reverseSpeed / trapezoidalPercent);
+			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := AxisData.FilmFeedReverseMotionProfile.acceleration;
 			MC_MoveBagDelivery.Velocity := reverseSpeed;
 			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := maxReverseSetpoint * -1;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(maxReverseSetpoint, reverseSpeed, 2000);
-			moveBagDeliveryTimeout.IN := TRUE;
+			//moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Reversing to Photoeye'));
 			bagEdgePhotoeyeSim.in := TRUE;
@@ -317,12 +319,13 @@ CASE state OF
 			
 	eBagDeliveryStates.FeedAtPrintSpeed:		// Feed at Print Speed
 			state_index := 12;
-			MC_MoveBagDelivery.Acceleration := MC_MoveBagDelivery.Deceleration := (printSpeed / trapezoidalPercent);
+			MC_MoveBagDelivery.Acceleration := AxisData.FilmFeedPrintMotionProfile.acceleration;
+			MC_MoveBagDelivery.Deceleration := AxisData.FilmFeedPrintMotionProfile.deceleration;
 			MC_MoveBagDelivery.Velocity := printSpeed;
 			MC_MoveBagDelivery.currentLimit := 100;
 			MC_MoveBagDelivery.Distance := printLength + _printerExtraFeedLength;
 			moveBagDeliveryTimeout.PT := MoveTimeoutCalc(distanceFromNipToBagEdge, reverseSpeed, 2000);
-			moveBagDeliveryTimeout.IN := TRUE;
+			//moveBagDeliveryTimeout.IN := TRUE;
 			MC_MoveBagDelivery.Execute := TRUE;
 			_logger.AddLogItem(CONCAT(_prefix, 'Feeding At Print Speed'));
 			remainingLength := remainingLength - printLength - _printerExtraFeedLength;
@@ -355,7 +358,7 @@ CASE state OF
 			IF MC_MoveBagDelivery.Done THEN
 				IF printingNow THEN
 					printer.StopPrinting();
-					IF printer.PrintDone THEN
+					IF printer.PrintDone OR dryCycleEnable THEN
 						printingNow := FALSE;
 						moveBagDeliveryTimeout.IN := FALSE;
 						MC_MoveBagDelivery.Execute := FALSE;

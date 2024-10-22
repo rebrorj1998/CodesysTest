@@ -15,7 +15,7 @@ VAR
 
 	_sealComplete : BOOL;
 	sealActive : BOOL;
-	state : INT;
+	state : eBasicSealerStates;
 	//beginSealing : FB_SimulatedFeedback(name := CONCAT(_prefix,'Begin Sealing'));
 	//variables for the state timer
 	stateTimer:TON;
@@ -38,7 +38,7 @@ IF _reset THEN
 	sealTimer.IN := FALSE;
 	coolTimer.IN := FALSE;
 	_reset := FALSE;
-	state := 0;
+	state := eBasicSealerStates.Idle;
 END_IF
 //code to add timer to track duration in states
 state_index := state;
@@ -51,7 +51,7 @@ IF state  = laststate THEN
 	stateTimer.IN := TRUE;
 ELSIF state  <> laststate THEN
 	stateTimer.IN := FALSE;
-	IF state =0 THEN
+	IF state = eBasicSealerStates.Idle THEN
 		count_index := count_index +1;
 	END_IF
 	laststate:=state;
@@ -62,12 +62,13 @@ IF count_index >=20 THEN
 	count_index :=0;
 END_IF
 //End modded code
-_ready := state = 0;
+_ready := state = eBasicSealerStates.Idle;
 
 CASE state OF
 	
-	0:	IF beginSealingONS.OSR THEN
-			
+	eBasicSealerStates.Idle:	
+
+		IF beginSealingONS.OSR THEN
 			_beginSealing := FALSE;
 			_sealComplete := FALSE;
 			sealTimer.PT := TO_TIME(sealDwell * 1000.0);
@@ -76,29 +77,29 @@ CASE state OF
 			IF sealDwell <> 0 THEN
 				sealActive := TRUE;
 			END_IF
-			state := 1;
+			state := eBasicSealerStates.SealDwellActive;
 		END_IF
 	
-	1:	// Wait for dwell then go to cool
+	eBasicSealerStates.SealDwellActive:	
+		// Wait for dwell then go to cool
 		IF sealTimer.Q THEN
 			sealTimer.IN := FALSE;
 			sealActive := FALSE;
 			IF sealCool <> 0 THEN
 				coolTimer.IN := TRUE;
-				state := 2;
+				state := eBasicSealerStates.SealCoolActive;
 			ELSE
 				_sealComplete := TRUE;
-				state := 0;
+				state := eBasicSealerStates.Idle;
 			END_IF
 			
 		END_IF
 	
-	2: // Wait for cool then complete
+	eBasicSealerStates.SealCoolActive: // Wait for cool then complete
 		IF coolTimer.Q THEN
 			coolTimer.IN := FALSE;
 			_sealComplete := TRUE;
-			state := 0;
+			state := eBasicSealerStates.Idle;
 		END_IF	
-	
-	3: //
+
 END_CASE

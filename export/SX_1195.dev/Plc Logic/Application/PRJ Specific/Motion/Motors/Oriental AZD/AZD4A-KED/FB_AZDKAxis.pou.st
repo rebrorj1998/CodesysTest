@@ -19,9 +19,14 @@ END_VAR
 SUPER^();
 
 // On rising edge of the reset, clear out the state engine
-IF _resetONS.OSR THEN
+IF _resetONS.OSR OR _errorONS.OSR THEN
 	_state := eAxisREFMotionState.Idle;
 END_IF
+
+IF _haltONS.Q THEN
+	_state := eAxisREFMotionState.Halt;
+END_IF
+
 _TLCOns(CLK := _statusword.TLC AND (_state = eAxisREFMotionState.MovingAbsolute OR _state = eAxisREFMotionState.MovingRelative));
 CASE _state OF
 	eAxisREFMotionState.Idle:

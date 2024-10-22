@@ -60,7 +60,7 @@ VAR
 	_moveInDelay : Standard.TON;
 	_jawOpenMotionFaultTimeOffset : TIME := T#3S;
 	_jawCloseMotionFaultTimeOffset : TIME := T#3S;
-	_resetTimer: Standard.TON := (PT := T#2S);
+	_resetTimer: Standard.TON := (PT := T#250MS);
 	_timeoutTimer : Standard.TON := (PT := T#6S);
 	_jawTestDelayTimer : Standard.TON := (PT := T#250MS);
 	_faultONS : FB_ONS;
@@ -138,7 +138,8 @@ MC_MoveFrontMotorPush(axis := frontMotor);
 MC_ResetFrontMotor(axis := frontMotor);
 MC_HaltFrontMotor(axis := frontMotor);
 MC_PowerUpFrontJawMotor(
-	enable := F_EtherCatSlaveCommsRunning(state := AZD4A_KED.wState) AND NOT (state = eDualMotorPressureBar_AsyncStates.Resetting), 
+	//enable := F_EtherCatSlaveCommsRunning(state := AZD4A_KED.wState) AND NOT ((state = eDualMotorPressureBar_AsyncStates.Faulting) OR pressureBarObstructed.Active) , 
+	enable := F_EtherCatSlaveCommsRunning(state := AZD4A_KED.wState) AND NOT ((state = eDualMotorPressureBar_AsyncStates.Resetting) OR pressureBarObstructed.Active) ,
 	axis := frontMotor
 );
 // If reset of motors fails state machine must move on
@@ -179,7 +180,7 @@ _failedToOpenTimer(
 frontMotorFault.faultTrigger := frontMotor.error;
 frontMotorCommFault.faultTrigger := NOT frontMotor.commStatus;
 pressureBarObstructed.faultTrigger := NOT zeroNow AND 
-										NOT obstructionSensor AND (actualPositionInInches > 0.13);
+										NOT obstructionSensor AND ((actualPositionInInches > 0.13) AND NOT _isFullyOpen);
 pressurebarTimeOut.faultTrigger:= stepTON1.Q OR stepTON2.Q;
 _activeFault := pressurebarTimeOut.Active OR pressureBarObstructed.Active OR failedToClose.Active OR frontMotorFault.Active OR failedToOpen.Active OR failedToHome.Active;
 //	 
@@ -512,7 +513,7 @@ CASE state OF
  		MC_ResetFrontMotor.execute := FALSE;
 		clampingMechanism.StopClamping();
 		//7-17-2023 CT Removed comments on MC_HaltFrontMotor.execute:=TRUE;  No reason could be found for this bypass.
- 		MC_HaltFrontMotor.execute := TRUE;
+ 		MC_HaltFrontMotor.execute := FALSE;
 		state := eDualMotorPressureBar_AsyncStates.halting;
 		
 	eDualMotorPressureBar_AsyncStates.Faulted:
@@ -539,14 +540,19 @@ CASE state OF
 		MC_HomeFrontMotor.execute := FALSE;
 		MC_MoveFrontMotorABS.execute := FALSE;
 		MC_MoveFrontMotorPush.execute := FALSE;
-		MC_ResetFrontMotor.execute := TRUE;
+		//MC_ResetFrontMotor.execute := TRUE;
+		MC_ResetFrontMotor.execute := FALSE;
 		MC_HaltFrontMotor.execute := FALSE;
 		//zeroNow:= FALSE;
-		state := eDualMotorPressureBar_AsyncStates.Resetting;
+		IF MC_PowerUpFrontJawMotor.enable = TRUE THEN
+			state := eDualMotorPressureBar_AsyncStates.Resetting;
+		END_IF
+		
 
 	eDualMotorPressureBar_AsyncStates.Resetting:
 		state_index:=16;
 		//
+		MC_ResetFrontMotor.execute := TRUE;
 		IF  _resetTimer.Q THEN
 			MC_ResetFrontMotor.Execute := FALSE;	
 			state := eDualMotorPressureBar_AsyncStates.ResetDone;

@@ -81,6 +81,8 @@ VAR_GLOBAL
 	filmFeedMotionDriveErrorCode : STRING;
 	filmFeedAxisMotorTemperature : REAL;
 	faultMessage:STRING;
+	batchCounterDone : BOOL;
+	resetBatchCounter : BOOL;
 END_VAR
 
 VAR_GLOBAL PERSISTENT RETAIN
@@ -108,7 +110,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	fillerDropTime : REAL;
 	loadPlateDelay : REAL;
 	loadPlateDwell : REAL := 0.1;
-	IBDInUse : BOOL := TRUE;
+	IBDInUse : BOOL;
 	IBDInstalled : BOOL := FALSE;
 	jawCloseDelay : REAL := 0.1;
 	jawClosePositionSetting : REAL := -0.45;
@@ -124,7 +126,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	consecutiveBagsCount : UDINT;
 	consecutiveBagsSetting : UDINT;
 	printerInstalled : BOOL := FALSE;
-	printerInUse : BOOL := TRUE;
+	printerInUse : BOOL := FALSE;
 	printerCancelRequest : BOOL;
 	barcodeVerifierInstalled : BOOL := FALSE;
 	barcodeGoodReadCount : UDINT;
@@ -132,11 +134,11 @@ VAR_GLOBAL PERSISTENT RETAIN
 	barcodeBadReadFaultSetting : UDINT := 1;
 	barcodeStartPosition : REAL := 4.5;
 	barcodeScanDistance : REAL := 0.1;
-	barcodeVerifierInUse : BOOL := TRUE;
+	barcodeVerifierInUse : BOOL;
 	loadPlateInstalled : BOOL := FALSE;
 	loadPlateLoweredPositionSetting : REAL := 0;
 	loadPlateRaisedPositionSetting :  REAL := 1;
-	loadPlateInUse : BOOL := TRUE;
+	loadPlateInUse : BOOL;
 	fillerEnable : BOOL;
 	autoModeEnable : BOOL;
 	autoModeDwell : REAL;
@@ -151,9 +153,9 @@ VAR_GLOBAL PERSISTENT RETAIN
 	filmFeedTestCycles : DINT;
 	jawEnableMotion : BOOL;
 	filmEnableMotion : BOOL;
-
+	printer300DPI : BOOL; // On for 300, off for 203
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.2.0.1';
+	version : STRING := '1.2.0.5';
 END_VAR

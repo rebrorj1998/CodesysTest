@@ -3,6 +3,7 @@
 FUNCTION_BLOCK Axis_REF IMPLEMENTS IAxisRef
 VAR_INPUT
 	axisData : sctAxisData;
+	jogProfile : sctMotionProfile;
 	axisState : eAxisState;			// The axis state
 	modeOfOperation : eAZDProfileMode; 	// The set opmode
 	powerOn : BOOL; 				// Regulator (power) on/off

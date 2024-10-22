@@ -29,12 +29,12 @@ loadPlateMotor(
 	
 //
 loadPlate(
-	lowerVelo := AxisData.loadPlate.lowerProfile.velocity, 
-	lowerAccel := AxisData.loadPlate.lowerProfile.acceleration, 
-	lowerDecel := AxisData.loadPlate.lowerProfile.deceleration, 
-	raiseVelo := AxisData.loadPlate.raiseProfile.velocity,    
-	raiseAccel := AxisData.loadPlate.raiseProfile.acceleration,  
-	raiseDecel := AxisData.loadPlate.raiseProfile.deceleration, 
+	lowerVelo := AxisData.loadPlateLowerMotionProfile.velocity, 
+	lowerAccel := AxisData.loadPlateLowerMotionProfile.acceleration, 
+	lowerDecel := AxisData.loadPlateLowerMotionProfile.deceleration, 
+	raiseVelo := AxisData.loadPlateRaiseMotionProfile.velocity,    
+	raiseAccel := AxisData.loadPlateRaiseMotionProfile.acceleration,  
+	raiseDecel := AxisData.loadPlateRaiseMotionProfile.deceleration, 
 	raisedSetting := HMIData.loadPlateRaisedPositionSetting, 
 	loweredSetting := HMIData.loadPlateLoweredPositionSetting, 
 	dwellSetting := HMIData.loadPlateDwell, 

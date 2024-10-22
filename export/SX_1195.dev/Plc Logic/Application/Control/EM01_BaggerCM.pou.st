@@ -47,6 +47,7 @@ _axisCommsStatus := NOT (_driveState <> DED.DEVICE_STATE.RUNNING);
 
 jawFrontMotor(
 	axisData := AxisData.jaw,
+	jogProfile := AxisData.jawJogMotionProfile,
 	commStatus := TRUE,
 	iActualPosition := iFrontJawAxisPositionActualValue,
 	iActualVelocity := iFrontJawAxisVelocityActualValue,
@@ -177,6 +178,7 @@ barcodeVerifier.OptionEnabled := HMIData.barcodeVerifierInUse AND HMIData.barcod
 	
 bagDeliveryFrontMotor(
 	axisData := AxisData.FilmFeed,
+	jogProfile := AxisData.FilmFeedJogMotionProfile,
 	jogForwardCMD := HMIData.jogFilmForward,
 	jogReverseCMD := HMIData.jogFilmReverse,	
 	commStatus := TRUE,
