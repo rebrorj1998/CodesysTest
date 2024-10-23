@@ -33,7 +33,7 @@ VAR
 	endOfPrintONS : Standard.F_TRIG();
 	printerRibbonMovingTimer1 : Standard.TON;
 	printerRibbonMovingTimer2 : Standard.TON;
-	printerRibbonMovingSettleTime : TIME := T#1H;//T#450MS;
+	printerRibbonMovingSettleTime : TIME := T#450MS;
 	
 	//variables for the state timer
 	stateTimer:TON;
@@ -60,9 +60,6 @@ _ready := NOT (state = eZebraPrinterStates.Fault);
 
 printerRibbonMovingTimer1(PT := printerRibbonMovingSettleTime);
 printerRibbonMovingTimer2(PT := printerRibbonMovingSettleTime);
-
-//printerRibbonMovingTimer1(PT := T#1H);
-//printerRibbonMovingTimer2(PT := T#1H);
 
 
 printHeadDebounce(PT:= printHeadDebounceSetting, Q=> printHeadDebounced);
