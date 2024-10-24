@@ -63,8 +63,8 @@ jawFrontMotor(
 	oProfilePushCurrent => oFrontJawAxisPushCurrent,
 	oProfileOperationalCurrent => oFrontJawAxisBaseCurrent,
 	defaultCurrent := 100.0,
-	jogForwardCMD:= HMIData.jawJogClosed,
-	jogReverseCMD:= HMIData.jawJogOpen,
+	jogForwardCMD:= HMIData.jawJogOpen,
+	jogReverseCMD:= HMIData.jawJogClosed,
 );
 
 homeSensorCTU(CU := iClampHomeSensor);

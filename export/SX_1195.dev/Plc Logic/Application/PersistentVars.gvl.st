@@ -140,7 +140,7 @@ VAR_GLOBAL RETAIN PERSISTENT
 	// Generated instance path of persistent variable
 	HMIData.printer300DPI: BOOL;
 	// Generated instance path of persistent variable
-	AxisData.jawJogMotionProfile: sctMotionProfile := STRUCT(acceleration := 10.0, deceleration := 10.0, velocity := 30.0, minPosition := REAL#5.5, maxPosition := 0.0, current := REAL#30);
+	AxisData.jawJogMotionProfile: sctMotionProfile := STRUCT(acceleration := 200.0, deceleration := 200.0, velocity := 2.0, minPosition := REAL#0.0, maxPosition := 5.5, current := REAL#30);
 	// Generated instance path of persistent variable
 	AxisData.jawConfig: sctAxisConfig := STRUCT(stepsPerInch := 2410.0, rotationsPerInch := REAL#0.241, zeroOffset := 0.0, defaultCurrent := REAL#100);
 	// Generated instance path of persistent variable

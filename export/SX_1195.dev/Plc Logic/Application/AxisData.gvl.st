@@ -5,11 +5,11 @@ VAR_GLOBAL PERSISTENT
 	
 	(* Jaw *)	
 	jawJogMotionProfile : sctMotionProfile := (
-		acceleration := 10,
-		deceleration := 10,
-		velocity := 30,
-		minPosition := 5.5,
-		maxPosition := 0,
+		acceleration := 200,
+		deceleration := 200,
+		velocity := 2,
+		minPosition := 0,
+		maxPosition := 5.5,
 		current := 30.0
 	);
 	jawConfig : sctAxisConfig := (
