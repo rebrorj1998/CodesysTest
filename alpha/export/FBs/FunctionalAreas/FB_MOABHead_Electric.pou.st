@@ -699,7 +699,6 @@ _auxIORemote(
 	waitingForFiller := filler.waitingForFiller,
 	runExitConveyor := oRunExternalExitConveyor,	
 	activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames,
-	baggerOK => RemoteComms.outputsFromBagger.baggerOK,
 	inhibitBagger => 
 );
 
@@ -769,7 +768,7 @@ fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
 	enable:= ,	
 	inCycle := HMIData.inCycle,
-	fillerTrigger:= (iAuxFillerTrigger AND HMIData.auxIOSource.Physical) OR ezfeed.EZFeedDone OR (RemoteComms.inputsToBagger.fillerTrigger AND HMIData.auxIOSource.OPC_UA), 
+	fillerTrigger:= (iAuxFillerTrigger AND HMIData.auxIOSource.Physical) OR ezfeed.EZFeedDone OR (RemoteComms.OPCInputsToBagger.fillerTrigger AND HMIData.auxIOSource.OPC_UA) OR (RemoteComms.modbusInputsToBagger.fillerTrigger AND HMIData.auxIOSource.ModbusTCP), 
 	activateFiller:= HMIData.fillerEnable, 
 	dropTime:= HMIData.fillerDropTime,
 	state=> , 
