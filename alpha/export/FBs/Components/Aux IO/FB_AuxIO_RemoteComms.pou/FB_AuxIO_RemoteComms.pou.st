@@ -31,10 +31,13 @@ END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 _OutputPulse_CycleComplete(Q => RemoteComms.OPCOutputsFromBagger.cycleComplete);
+_OutputPulse_CycleComplete(Q => RemoteComms.modbusOutputsFromBagger.cycleComplete);
 _outputPulse_CycleComplete.DwellSetting := 500;
 _OutputPulse_BagMade(Q => RemoteComms.OPCOutputsFromBagger.bagMade);
+_OutputPulse_BagMade(Q => RemoteComms.modbusOutputsFromBagger.bagMade);
 _OutputPulse_BagMade.DwellSetting := 500;
 
+(*
 IF NOT HMIData.auxIOSource.OPC_UA THEN
     // Turn OPC outputs off
     RemoteComms.OPCOutputsFromBagger.bagsLow := FALSE;
@@ -51,14 +54,16 @@ IF NOT HMIData.auxIOSource.OPC_UA THEN
     RemoteComms.OPCOutputsFromBagger.readyForFiller := FALSE;
     RemoteComms.OPCInputsToBagger.reverseConveyor := FALSE;
     RemoteComms.OPCOutputsFromBagger.waitingForPrinter := FALSE;
-
-	ELSIF NOT HMIData.auxIOSource.ModbusTCP THEN
+END_IF
+*)
+(*
+IF NOT HMIData.auxIOSource.ModbusTCP THEN
 	// Turn modbus outputs off
 	RemoteComms.modbusOutputsFromBagger.bagsLow := FALSE;
     RemoteComms.modbusOutputsFromBagger.printerDataReady := FALSE;
     RemoteComms.modbusOutputsFromBagger.runExternalExitConveyor := FALSE;
     RemoteComms.modbusOutputsFromBagger.heartbeatResponse := FALSE;
-    RemoteComms.modbusOutputsFromBagger.baggerOK := FALSE;
+    //RemoteComms.modbusOutputsFromBagger.baggerOK := FALSE;
     RemoteComms.modbusInputsToBagger.bagGrabbed := FALSE;
     RemoteComms.modbusOutputsFromBagger.bagMade := FALSE;
     RemoteComms.modbusOutputsFromBagger.bagMadePlusLabelRequired := FALSE;
@@ -69,12 +74,13 @@ IF NOT HMIData.auxIOSource.OPC_UA THEN
     RemoteComms.modbusOutputsFromBagger.waitingForPrinter := FALSE;
     //	
 END_IF	
+*)
 
 
 IF HMIData.auxIOSource.OPC_UA THEN
     (* Inputs *)	
     // Baggers not faults and heated up.
-    RemoteComms.modbusOutputsFromBagger.baggerOK := RemoteComms.OPCOutputsFromBagger.baggerOK := NOT faultActive;	
+    RemoteComms.OPCOutputsFromBagger.baggerOK := NOT faultActive;	
 
     // Filler is ready
     fillerOK := RemoteComms.OPCInputsToBagger.fillerOK;
@@ -135,7 +141,7 @@ END_IF
 IF HMIData.auxIOSource.ModbusTCP THEN
     (* Inputs *)	
     // Baggers not faults and heated up.
-    RemoteComms.modbusOutputsFromBagger.baggerOK := RemoteComms.modbusOutputsFromBagger.baggerOK := NOT faultActive;	
+   RemoteComms.modbusOutputsFromBagger.baggerOK := NOT faultActive;	
 
     // Filler is ready
     fillerOK := RemoteComms.modbusInputsToBagger.fillerOK;
