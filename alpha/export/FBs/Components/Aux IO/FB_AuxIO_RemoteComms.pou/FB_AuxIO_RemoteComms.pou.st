@@ -37,7 +37,7 @@ _OutputPulse_BagMade(Q => RemoteComms.OPCOutputsFromBagger.bagMade);
 _OutputPulse_BagMade(Q => RemoteComms.modbusOutputsFromBagger.bagMade);
 _OutputPulse_BagMade.DwellSetting := 500;
 
-(*
+
 IF NOT HMIData.auxIOSource.OPC_UA THEN
     // Turn OPC outputs off
     RemoteComms.OPCOutputsFromBagger.bagsLow := FALSE;
@@ -55,8 +55,8 @@ IF NOT HMIData.auxIOSource.OPC_UA THEN
     RemoteComms.OPCInputsToBagger.reverseConveyor := FALSE;
     RemoteComms.OPCOutputsFromBagger.waitingForPrinter := FALSE;
 END_IF
-*)
-(*
+
+
 IF NOT HMIData.auxIOSource.ModbusTCP THEN
 	// Turn modbus outputs off
 	RemoteComms.modbusOutputsFromBagger.bagsLow := FALSE;
@@ -74,7 +74,7 @@ IF NOT HMIData.auxIOSource.ModbusTCP THEN
     RemoteComms.modbusOutputsFromBagger.waitingForPrinter := FALSE;
     //	
 END_IF	
-*)
+
 
 
 IF HMIData.auxIOSource.OPC_UA THEN

@@ -17,6 +17,7 @@ VAR_OUTPUT
 	IBDFullyOpen : BOOL;
 	homeRequired : BOOL;
 	clamped : BOOL;
+	failedToHome : BOOL;
 END_VAR
 VAR
 	_homeNow : BOOL;
@@ -33,7 +34,8 @@ VAR
 	testActive : BOOL;
 	movePassthroughNow : BOOL;
 	delayTimer : Standard.TON := (PT:= T#500MS);
-	failToOpenTimer : Standard.TON := (PT := T#2s);
+	failToOpenTimer : Standard.TON := (PT := T#2S);
+	homeFaultTimer : Standard.TON := (PT := T#5S);
 	homeRequiredONS : FB_ONS;
 	faultingONS : FB_ONS;
 	feedbackHandler : FB_CylinderFeedback;
@@ -47,6 +49,7 @@ IBDOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT((pbarOutSetting) * 1000) -
 IBDFullyOpen := TO_DINT(actualPosition * 1000) >= (TO_DINT(12 * 1000) - 10) AND TO_DINT(actualPosition * 1000) <= (TO_DINT(12 * 1000) + 10);
 //IBDOpen := TO_DINT(IBDMotor.absolutePositonInches) = TO_DINT(pbarOutSetting);
 delayTimer();
+homeFaultTimer();
 
 clamped := state = MotorizedIBDStates.Clamping;
 
@@ -87,6 +90,7 @@ IF resetONS.Q THEN
 	testActive := FALSE;
 	delayTimer.IN := FALSE;
 	state := MotorizedIBDStates.Idle; 
+	failedToHome := FALSE;
 END_IF
 faultingONS(CLK := IBDMotor.Faulted AND NOT disableFaults);
 
@@ -158,7 +162,6 @@ CASE state OF
 	
 	
 	MotorizedIBDStates.Initialize :			//
-										
 										IF IBDOpen THEN
 											delayTimer.IN := FALSE;
 											state := MotorizedIBDStates.Initialized;
@@ -170,14 +173,20 @@ CASE state OF
 												state := MotorizedIBDStates.Initializing;	
 											END_IF
 											
-										END_IF
+										END_IF	
 	
-	
-	MotorizedIBDStates.Initializing :			//
+	MotorizedIBDStates.Initializing :	
+										homeFaultTimer.IN := TRUE;
 										IF IBDOpen THEN
 											state := MotorizedIBDStates.Initialized;
+											homeFaultTimer.IN := FALSE;
+										ELSE
+											IF homeFaultTimer.Q THEN											
+												homeFaultTimer.IN := FALSE;
+												failedToHome := TRUE;
+												state := MotorizedIBDStates.Faulting;
+											END_IF
 										END_IF
-	
 	
 	MotorizedIBDStates.Initialized :			//
 										state := MotorizedIBDStates.Idle;

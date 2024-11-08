@@ -86,6 +86,7 @@ VAR
 	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
 	labelsQueuedUpFault : FB_Fault(name := 'Labels Queued Up in Printer');
 	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
+	IBDFailedToHome : FB_Fault(name := 'Independent Bag Deflator Failed to Home');
 	
 	iPowerOffButtonONS : FB_ONS();
 	forwardLoadPlateFaults : LoadPlateFaultsType;
@@ -905,7 +906,7 @@ exitConveyorJogONS(CLK := HMIData.exitConveyorJog);
 oRunExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);
 	 
 _runIntegratedExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitConveyor OR (printAndApply.runConveyorAfterApply AND NOT printAndApply.inhibitConveyor)) AND HMIData.integratedExitConveyorSelection = IntegratedConveyorSelection.RearExit);	 
-oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor);
+oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
 oRunExitConveyor := oRunExitConveyorForward;
 oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
  
@@ -969,7 +970,8 @@ IBD(
 	IBDOpen=> , 
 	homeRequired=> , 
 	clamped=> , 
-	IBDMotor:= IBDMotor);
+	IBDMotor:= IBDMotor,
+	failedToHome=> IBDFailedToHome.faultTrigger);
 
 obstructionFaultONS(CLK := (pressureBar.faults.obstructionDetected.active OR pressureBar.faults.failedToClose.active));
 IF obstructionFaultONS.OSR THEN
