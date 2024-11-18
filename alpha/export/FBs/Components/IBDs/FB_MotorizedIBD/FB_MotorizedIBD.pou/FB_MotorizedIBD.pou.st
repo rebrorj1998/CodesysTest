@@ -130,7 +130,18 @@ CASE state OF
 											delayTimer.IN := TRUE;
 											state := MotorizedIBDStates.Homing;
 										END_IF
-																					
+											
+										(*                   	
+										IF IBDMotor.HomeRequired THEN
+											//_homeNow := FALSE;
+											IBDMotor.HomeNow();
+											delayTimer.PT := T#150MS;
+											delayTimer.IN := TRUE;
+											state := MotorizedIBDStates.Homing;
+										END_IF
+*)
+
+										
 										IF IBDMotor.status.motorEnabled THEN
 											IF _openIBD THEN
 												IF NOT IBDOpen THEN
@@ -276,7 +287,7 @@ CASE state OF
 										_reset := FALSE;
 										_openIBD := FALSE;
 										_closeIBD := FALSE;
-										_homeNow := FALSE;
+										_homeNow := TRUE;
 										startTest := FALSE;
 										testActive := FALSE;
 										delayTimer.IN := FALSE;
