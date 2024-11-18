@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?neo version='2.51.49.0' LastConverterVersion='2.50.5'?>
+<NeoItem d1p1:Serializer="Neo.ApplicationFramework.Common.Serialization.ObjectSerializer" xmlns:d1p1="urn:Neo.ApplicationFramework.Serializer">
+  <Object d1p1:type="Neo.ApplicationFramework.Tools.Expressions.ExpressionManager, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" d1p1:Site.Name="Expressions" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+    <Expressions>
+      <Object d1p1:type="Neo.ApplicationFramework.Controls.Expressions.Expression, ControlsIde, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Group="" Script="value == &quot;&quot;" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True" Name="UserBlank" Description="" />
+      <Object d1p1:type="Neo.ApplicationFramework.Controls.Expressions.Expression, ControlsIde, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Group="" Script="value &gt; 1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True" Name="greaterThan1" Description="" />
+      <Object d1p1:type="Neo.ApplicationFramework.Controls.Expressions.Expression, ControlsIde, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Group="" Script="((value) *6)&lt;Globals.Tags.Application_GlobalObjects_CollectionOfComponents_TotalObjects.Value" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True" Name="MoreObjectsThandisplayed" Description="" />
+    </Expressions>
+  </Object>
+</NeoItem>

@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.51.49.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Options.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Button3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Group.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Group.Button4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Text" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="Options.Button" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_printerInstalled" />
+        <Item Target="Options.Button1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_barcodeVerifierInstalled" />
+        <Item Target="Options.Button2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_IBDInstalled" />
+        <Item Target="Options.Button3" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_loadPlateInstalled" />
+        <Item Target="Options.Text6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Options.Group" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Options.Group.Text5" TargetProperty="Value" Source="Tags.Application_HMIData_printerAndVerifierEnableIndication" />
+        <Item Target="Options.Group.Text5" TargetProperty="Background" Source="Tags.Application_HMIData_printerAndVerifierEnableIndication" />
+        <Item Target="Options.Group.Text5" TargetProperty="Foreground" Source="Tags.Application_HMIData_printerAndVerifierEnableIndication" />
+        <Item Target="Options.Group.Picture" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_printerAndVerifierEnableIndication" />
+        <Item xsi:type="ActionItem" Target="Options.Group.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_printerAndVerifierEnablePB" Event="Click" Action="Toggle Tag" Param="" />
+        <Item Target="Options.Group.Button4" TargetProperty="Value" Source="Tags.Application_HMIData_clearAllLabels" />
+        <Item Target="Options.Text" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+      </Items>
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyItems">
+      <Items>
+        <Item xsi:type="LegacyItemMetadata" ScreenName="Options" ItemName="LegacyScreenObjects">
+          <Details />
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects" ScreenName="Options" TemplateScreen="BaseTemplate">
+          <Details>
+            <Detail>
+              <Key>Button</Key>
+              <Value>5</Value>
+            </Detail>
+            <Detail>
+              <Key>Label</Key>
+              <Value>3</Value>
+            </Detail>
+            <Detail>
+              <Key>Picture</Key>
+              <Value>2</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>1</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Options.Button" TargetProperty="Actions" Source="Option_Printer" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Options.Button1" TargetProperty="Actions" Source="Option_BarcodeVerifier" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Options.Button2" TargetProperty="Actions" Source="Option_IBD" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Options.Button3" TargetProperty="Actions" Source="Option_LoadShelf" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>11</ObjectsCount>
+          <ScreenName>Options</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Options</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Options.Group.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_printerAndVerifierEnablePB" Event="Click" Action="Toggle Tag" Param="" />
+      </Items>
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="Options.Group.Picture" Source="letter-x-256" Width="76" Height="47" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="Options.Group.Picture1" Source="barcode (1)" Width="116" Height="49" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>

@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.51.49.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Dashboard.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group1.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button6" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="Dashboard.Text3" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_autoModeEnable" />
+        <Item Target="Dashboard.Text4" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_dryCycleEnable" />
+        <Item Target="Dashboard.Button" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item Target="Dashboard.Button5" TargetProperty="Value" Source="Tags.Application_HMIData_clearAllLabels" />
+        <Item Target="Dashboard.Button5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_printerInUse" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_printerCancelRequest" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_printerCancelRequest" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_printerCancelRequest" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item Target="Dashboard.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_printerCancelRequest" />
+        <Item Target="Dashboard.Button3" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_printerInUse" />
+        <Item Target="Dashboard.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_BPMBagsPerMinute" />
+        <Item Target="Dashboard.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_BPMActiveTime" />
+        <Item Target="Dashboard.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_BPMBagsMade" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Dashboard.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_BPMReset" />
+        <Item Target="Dashboard.Group" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Dashboard.Group.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_batchSetting" />
+        <Item Target="Dashboard.Group1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_batchCount" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item Target="Dashboard.Button6" TargetProperty="Value" Source="Tags.Application_HMIData_resetBatchCounter" />
+        <Item Target="Dashboard.Button6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
+      </Items>
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyItems">
+      <Items>
+        <Item xsi:type="LegacyItemMetadata" ScreenName="Dashboard" ItemName="LegacyScreenObjects">
+          <Details />
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects" ScreenName="Dashboard" TemplateScreen="BaseTemplate">
+          <Details>
+            <Detail>
+              <Key>Label</Key>
+              <Value>7</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>7</Value>
+            </Detail>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>5</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>10</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Dashboard.Button1" TargetProperty="Actions" Source="About_Sharp" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button" TargetProperty="Actions" Source="Status" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button4" TargetProperty="Actions" Source="Faults" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>29</ObjectsCount>
+          <ScreenName>Dashboard</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Dashboard</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items>
+        <Item Target="Dashboard.Script.cs" Source="Tags.Application_GlobalObjects_CollectionofComponents_ActiveState_0" />
+      </Items>
+    </Category>
+    <Category Name="StructuredTag">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Dashboard.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_printerCancelRequest" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_printerCancelRequest" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_printerCancelRequest" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="MouseLeave" Action="Reset Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
+      </Items>
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="Dashboard.Button1" Source="button9_green13" Width="14" Height="14" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>

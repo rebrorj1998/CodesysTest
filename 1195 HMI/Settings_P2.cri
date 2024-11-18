@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.51.49.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Settings_P2.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Button5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Button4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Button3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group1.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group1.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group2.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group2.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group3.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group3.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group4.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P2.Group4.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_separateBeforeSeal" Event="Click" Action="Toggle Tag" Param="" />
+        <Item Target="Settings_P2.Button5" TargetProperty="TextValue" Source="Tags.Application_HMIData_separateBeforeSeal" />
+        <Item Target="Settings_P2.Button5" TargetProperty="Background" Source="Tags.Application_HMIData_separateBeforeSeal" />
+        <Item Target="Settings_P2.Button5" TargetProperty="Foreground" Source="Tags.Application_HMIData_separateBeforeSeal" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_fillerEnable" Event="Click" Action="Toggle Tag" Param="" />
+        <Item Target="Settings_P2.Button4" TargetProperty="TextValue" Source="Tags.Application_HMIData_fillerEnable" />
+        <Item Target="Settings_P2.Button4" TargetProperty="Background" Source="Tags.Application_HMIData_fillerEnable" />
+        <Item Target="Settings_P2.Button4" TargetProperty="Foreground" Source="Tags.Application_HMIData_fillerEnable" />
+        <Item Target="Settings_P2.Button4" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_consecutiveBagsEnable" Event="Click" Action="Toggle Tag" Param="" />
+        <Item Target="Settings_P2.Button3" TargetProperty="TextValue" Source="Tags.Application_HMIData_consecutiveBagsEnable" />
+        <Item Target="Settings_P2.Button3" TargetProperty="Background" Source="Tags.Application_HMIData_consecutiveBagsEnable" />
+        <Item Target="Settings_P2.Button3" TargetProperty="Foreground" Source="Tags.Application_HMIData_consecutiveBagsEnable" />
+        <Item Target="Settings_P2.Button3" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_partsCounterEnable" Event="Click" Action="Toggle Tag" Param="" />
+        <Item Target="Settings_P2.Button2" TargetProperty="TextValue" Source="Tags.Application_HMIData_partsCounterEnable" />
+        <Item Target="Settings_P2.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_partsCounterEnable" />
+        <Item Target="Settings_P2.Button2" TargetProperty="Foreground" Source="Tags.Application_HMIData_partsCounterEnable" />
+        <Item Target="Settings_P2.Button2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_batchEnable" Event="Click" Action="Toggle Tag" Param="" />
+        <Item Target="Settings_P2.Button" TargetProperty="TextValue" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Settings_P2.Button" TargetProperty="Background" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Settings_P2.Button" TargetProperty="Foreground" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Settings_P2.Group.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_batchSetting" />
+        <Item Target="Settings_P2.Group1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Settings_P2.Group1.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterSetting" />
+        <Item Target="Settings_P2.Group2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Settings_P2.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_consecutiveBagsSetting" />
+        <Item Target="Settings_P2.Group3" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Settings_P2.Group3.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarDwell" />
+        <Item Target="Settings_P2.Group4.AnalogNumeric3" TargetProperty="Value" Source="Tags.logout_delay" />
+      </Items>
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyItems">
+      <Items>
+        <Item xsi:type="LegacyItemMetadata" ScreenName="Settings_P2" ItemName="LegacyScreenObjects">
+          <Details />
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects" ScreenName="Settings_P2" TemplateScreen="BaseTemplate">
+          <Details>
+            <Detail>
+              <Key>Label</Key>
+              <Value>8</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>6</Value>
+            </Detail>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>5</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button1" TargetProperty="Actions" Source="Settings_P1" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>19</ObjectsCount>
+          <ScreenName>Settings_P2</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Settings_P2</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button5" TargetProperty="Actions" Source="Tags.Application_HMIData_separateBeforeSeal" Event="Click" Action="Toggle Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_fillerEnable" Event="Click" Action="Toggle Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button3" TargetProperty="Actions" Source="Tags.Application_HMIData_consecutiveBagsEnable" Event="Click" Action="Toggle Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_partsCounterEnable" Event="Click" Action="Toggle Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Settings_P2.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_batchEnable" Event="Click" Action="Toggle Tag" Param="" />
+      </Items>
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="Settings_P2.Button1" Source="ag_arrow left green" Width="37" Height="29" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>
