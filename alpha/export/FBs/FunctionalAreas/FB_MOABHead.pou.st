@@ -124,6 +124,7 @@ VAR
 	_funnelBagOpenDebounceTimer : Standard.TON := (PT := T#50MS);
 	_funnelBagRemovedDebounceTimer : Standard.TON := (PT := T#250MS);
 	_waitForPressureBarOpenDelay : TON;
+	_auxIORemote : FB_AuxIO_RemoteComms;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -621,6 +622,19 @@ CASE HMIData.fillerFactorySelection OF
 													Infeed_Conveyor_IO.Enable := TRUE;
 END_CASE 
 
+_auxIORemote(
+	//state := state,	//Unavailable with 1174
+	bagsLow := HMIData.bagLevelLow.active,
+	faultActive := HMIData.faultActive,
+	//inhibitCycle := printAndApply.inhibitCycle,
+	printerDataReady := printerDataReady,
+	waitingForFiller := filler.waitingForFiller,
+	runExitConveyor := oRunExternalExitConveyor,	
+	activeFaults := GlobalObjects.CollectionOfActiveFaults.ObjNames,
+	inhibitBagger => 
+	);
+
+
 ezfeed(
 	enable:= , 
 	baggerFaulted:= HMIData.faultActive, 
@@ -657,7 +671,7 @@ infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = Fille
 filler( 
 	faultActive:= HMIData.faultActive,
 	baggerInhibited:= HMIData.baggerInhibited.active,
-	fillerTrigger:= (iAuxFillerTrigger AND HMIData.auxIOSource.Physical) OR ezfeed.EZFeedDone OR (RemoteComms.inputsToBagger.fillerTrigger AND HMIData.auxIOSource.OPC_UA), 
+	fillerTrigger:= (iAuxFillerTrigger AND HMIData.auxIOSource.Physical) OR ezfeed.EZFeedDone OR (RemoteComms.OPCInputsToBagger.fillerTrigger AND HMIData.auxIOSource.OPC_UA) OR (RemoteComms.modbusInputsToBagger.fillerTrigger AND HMIData.auxIOSource.ModbusTCP), 
 	activateFiller:= HMIData.fillerEnable
 ); 
 	

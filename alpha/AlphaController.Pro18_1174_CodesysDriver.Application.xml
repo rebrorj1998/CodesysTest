@@ -40,6 +40,11 @@
     <TypeArray name="T_ARRAY__0__15__OF_DINT" size="64" nativesize="64" typeclass="Array" iecname="ARRAY [0..15] OF DINT" basetype="T_DINT">
       <ArrayDim minrange="0" maxrange="15" />
     </TypeArray>
+    <TypeUserDef name="T_AuxIOSource" size="3" nativesize="3" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOSource">
+      <UserDefElement iecname="Physical" type="T_BOOL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="OPC_UA" type="T_BOOL" byteoffset="1" vartype="VAR" />
+      <UserDefElement iecname="ModbusTCP" type="T_BOOL" byteoffset="2" vartype="VAR" />
+    </TypeUserDef>
     <TypeUserDef name="T_AuxInputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxInputSelection" basetype="T_INT">
       <UserDefElement type="T_AuxInputSelection" iecname="NotConfigured" enumvalue="0" />
       <UserDefElement type="T_AuxInputSelection" iecname="BaggerInhibit" enumvalue="1" />
@@ -935,7 +940,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="1304" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="79509" nativesize="117432" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead" size="79509" nativesize="142816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="2" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="releaseAndFeedSubState" type="T_RELEASE_FEED_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -1023,6 +1028,7 @@
         <Node name="autoEnable" type="T_BOOL" access="ReadWrite" />
         <Node name="autoModeDwell" type="T_REAL" access="ReadWrite" />
         <Node name="auxIOConfig" type="T_AuxIOConfiguration" access="ReadWrite" />
+        <Node name="auxIOSource" type="T_AuxIOSource" access="ReadWrite" />
         <Node name="averageCycleTime" type="T_REAL" access="ReadWrite" />
         <Node name="bagDeliveryMotorTemp" type="T_FB_DriveTemp" access="ReadWrite" />
         <Node name="bagDropTime" type="T_REAL" access="ReadWrite" />

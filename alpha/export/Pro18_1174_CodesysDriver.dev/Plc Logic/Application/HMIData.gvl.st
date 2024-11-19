@@ -118,7 +118,8 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	feedToSealInUse : BOOL := FALSE;
 	labelsQueuedUpFaultEnable : BOOL := FALSE;
 	remoteComsEnable : BOOL;
-	auxIOSource : AuxIOSource;
+	remoteCommsHeartbeatEnable : BOOL;
+	auxIOSource : AuxIOSource := (Physical := TRUE);
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -211,6 +212,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	dryCycleActive : Warning;
 	lightCurtainsBlocked : Warning;
 	batchCountDone : Warning;
+	remoteCommsHeartbeatLost: Warning;
 	
 	(*Misc*)
 	pressureBarState : STRING;
