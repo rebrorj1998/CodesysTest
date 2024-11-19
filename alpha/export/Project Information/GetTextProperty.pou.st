@@ -17,7 +17,7 @@ ELSIF stKey = "Project" THEN
 ELSIF stKey = "Title" THEN
 	GetTextProperty := "";
 ELSIF stKey = "VersionPostfix" THEN
-	GetTextProperty := "-alpha/testing/ModbusIntegration";
+	GetTextProperty := "-alpha/master";
 ELSE
 	GetTextProperty := "";
 END_IF

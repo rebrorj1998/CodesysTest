@@ -39,9 +39,6 @@
     <TypeArray name="T_ARRAY__0__15__OF_DINT" size="64" nativesize="64" typeclass="Array" iecname="ARRAY [0..15] OF DINT" basetype="T_DINT">
       <ArrayDim minrange="0" maxrange="15" />
     </TypeArray>
-    <TypeArray name="T_ARRAY__0__300__OF_STRING" size="24381" nativesize="24381" typeclass="Array" iecname="ARRAY [0..300] OF STRING" basetype="T_STRING">
-      <ArrayDim minrange="0" maxrange="300" />
-    </TypeArray>
     <TypeUserDef name="T_AuxIOSource" size="3" nativesize="3" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOSource">
       <UserDefElement iecname="Physical" type="T_BOOL" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="OPC_UA" type="T_BOOL" byteoffset="1" vartype="VAR" />
@@ -403,15 +400,6 @@
       <UserDefElement type="T_ModelSelection" iecname="Pro18_1183" enumvalue="2" />
       <UserDefElement type="T_ModelSelection" iecname="Pro24_1196" enumvalue="3" />
     </TypeUserDef>
-    <TypeUserDef name="T_OPC_Inputs" size="7" nativesize="7" typeclass="Userdef" pouclass="STRUCTURE" iecname="OPC_Inputs">
-      <UserDefElement iecname="fillerTrigger" type="T_BOOL" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="baggerInhibit" type="T_BOOL" byteoffset="1" vartype="VAR" />
-      <UserDefElement iecname="collisionDetection" type="T_BOOL" byteoffset="2" vartype="VAR" />
-      <UserDefElement iecname="fillerOK" type="T_BOOL" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="reverseConveyor" type="T_BOOL" byteoffset="4" vartype="VAR" />
-      <UserDefElement iecname="bagGrabbed" type="T_BOOL" byteoffset="5" vartype="VAR" />
-      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="6" vartype="VAR" />
-    </TypeUserDef>
     <TypeSimple name="T_POINTER_TO_ARRAY__0__13__OF_DINT" size="4" swapsize="4" typeclass="Pointer" iecname="POINTER TO ARRAY [0..13] OF DINT" />
     <TypeSimple name="T_POINTER_TO_ARRAY__0__15__OF_DINT" size="4" swapsize="4" typeclass="Pointer" iecname="POINTER TO ARRAY [0..15] OF DINT" />
     <TypeUserDef name="T_PRINTER_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PRINTER_STATES" basetype="T_INT">
@@ -595,20 +583,6 @@
       <UserDefElement iecname="failedToDischarge" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
       <UserDefElement iecname="failedToLoad" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
       <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
-    </TypeUserDef>
-    <TypeUserDef name="T_OPC_Outputs" size="24392" nativesize="24392" typeclass="Userdef" pouclass="STRUCTURE" iecname="OPC_Outputs">
-      <UserDefElement iecname="baggerOK" type="T_BOOL" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="readyForFiller" type="T_BOOL" byteoffset="1" vartype="VAR" />
-      <UserDefElement iecname="printerDataReady" type="T_BOOL" byteoffset="2" vartype="VAR" />
-      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="cycleComplete" type="T_BOOL" byteoffset="4" vartype="VAR" />
-      <UserDefElement iecname="bagMade" type="T_BOOL" byteoffset="5" vartype="VAR" />
-      <UserDefElement iecname="bagMadePlusLabelRequired" type="T_BOOL" byteoffset="6" vartype="VAR" />
-      <UserDefElement iecname="bagsLow" type="T_BOOL" byteoffset="7" vartype="VAR" />
-      <UserDefElement iecname="readyForGrab" type="T_BOOL" byteoffset="8" vartype="VAR" />
-      <UserDefElement iecname="runExternalExitConveyor" type="T_BOOL" byteoffset="9" vartype="VAR" />
-      <UserDefElement iecname="heartbeatResponse" type="T_BOOL" byteoffset="10" vartype="VAR" />
-      <UserDefElement iecname="activeFaultsList" type="T_ARRAY__0__300__OF_STRING" byteoffset="11" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_PWM_DC" size="60" nativesize="72" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PWM_DC">
       <UserDefElement iecname="F" type="T_REAL" byteoffset="0" vartype="VAR_INPUT" />
@@ -920,7 +894,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="924" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead" size="78633" nativesize="104348" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead" size="78633" nativesize="129464" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printerMode" type="T_DEVICE_MODES" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="laserBarcodeScannerCommFail" type="T_BOOL" byteoffset="2" vartype="VAR_INPUT" />
       <UserDefElement iecname="state" type="T_HEAD_STATES" byteoffset="4" vartype="VAR_OUTPUT" />
@@ -1561,10 +1535,6 @@
       </Node>
       <Node name="PRG_Bagger">
         <Node name="moabHead" type="T_FB_MOABHead" access="ReadWrite" />
-      </Node>
-      <Node name="RemoteComms">
-        <Node name="inputsToBagger" type="T_OPC_Inputs" access="ReadWrite" />
-        <Node name="outputsFromBagger" type="T_OPC_Outputs" access="ReadWrite" />
       </Node>
     </Node>
   </NodeList>
