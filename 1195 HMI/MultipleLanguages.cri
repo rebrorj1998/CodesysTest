@@ -34,7 +34,15 @@
           <Details>
             <Detail>
               <Key>Languages</Key>
-              <Value>0</Value>
+              <Value>4</Value>
+            </Detail>
+          </Details>
+        </Item>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="Keyboards">
+          <Details>
+            <Detail>
+              <Key>US</Key>
+              <Value>4</Value>
             </Detail>
           </Details>
         </Item>
