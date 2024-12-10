@@ -449,10 +449,50 @@ CASE state OF
     BAG_DELIVERY_STATES.FedToPrintOffset:           
 		
 		// 
+	IF HMIData.printOutOfCycleEnable THEN
+		IF (_mode  = DEVICE_MODES.Auto) THEN //AND _amStartPrint) THEN
+            state := BAG_DELIVERY_STATES.CreateSlack;
+        END_IF
+	ELSE
         IF (_mode  = DEVICE_MODES.Auto AND _amStartPrint) THEN
             state := BAG_DELIVERY_STATES.FeedAtPrintSpeed;
             _amStartPrint := FALSE;
         END_IF
+	END_IF	
+	
+	BAG_DELIVERY_STATES.CreateSlack:
+       _bagFeedFrontMotor.MoveDistance(
+			distance := 0, 
+            acceleration := accelSetpoint, 
+            deceleration := decelSetpoint, 
+            velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier))
+		);
+		_bagFeedRearMotor.MoveDistance(
+			distance := 0.75,//0.0625, 
+            acceleration := accelSetpoint, 
+            deceleration := decelSetpoint, 
+            velocity := REAL_TO_INT((feedVelocitySetpoint * velocityMultiplier))
+		);
+		UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.CreatingSlack);					
+
+
+	BAG_DELIVERY_STATES.CreatingSlack:
+		// Wait until move is done
+		_delayTimer.PT := _checkMotorStatusDelay;
+		_delayTimer.IN := TRUE;
+		IF _delayTimer.Q THEN
+			IF _bagFeedRearMotor.InPosition AND CommandAcknowledged THEN
+				state := BAG_DELIVERY_STATES.CreatedSlack;
+				_delayTimer.IN := FALSE;
+			END_IF
+		END_IF
+
+	BAG_DELIVERY_STATES.CreatedSlack:
+		//
+        IF (_mode  = DEVICE_MODES.Auto AND _amStartPrint) THEN
+            state := BAG_DELIVERY_STATES.FeedAtPrintSpeed;
+            _amStartPrint := FALSE;
+        END_IF    
                                                     
     BAG_DELIVERY_STATES.FeedAtPrintSpeed:           
 		
