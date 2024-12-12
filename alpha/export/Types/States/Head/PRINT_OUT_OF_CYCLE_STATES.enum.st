@@ -10,6 +10,8 @@ TYPE PRINT_OUT_OF_CYCLE_STATES :
 	Printing := 12, 
 	FinishedPrinting := 13,
 	WaitForTakeup := 14,
+	EnableTorque := 15, 
+	EnableTension := 16,
 	Done := 100,
 	Fault := 99
 );

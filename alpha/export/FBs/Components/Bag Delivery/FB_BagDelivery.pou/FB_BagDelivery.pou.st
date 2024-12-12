@@ -58,13 +58,16 @@ VAR
 	_amFeedToEye : BOOL;			  // Auto Mode - Feed Bag to Eye
 	_reverseSpeedDistanceOffset : REAL;
 	_reverseToPrintHeadSetpoint : REAL;
-	_checkMotorStatusDelay : TIME := T#25MS;
+	_checkMotorStatusDelay : TIME := T#2500MS;
 	_tensionFault : BOOL;
 	_interconnect : BAG_DELIVERY_IC;
 	_jogging : BOOL;
 	_joggingDebounceTimer : Standard.TOF := (PT := T#250MS);
 	_joggingONS : Standard.F_TRIG;
 	_syncingONS : Standard.F_TRIG; 
+	_testTorqueNow : BOOL;
+	_testTorqueValue : DINT;
+
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: BagDeliveryFB
@@ -74,7 +77,10 @@ END_VAR
 //    Created Date: Thursday, April 19, 2018
 
 SUPER^();
-
+IF _testTorqueNow THEN
+	_bagFeedRearMotor.SetTorque(_testTorqueValue);
+	_testTorqueNow := FALSE;
+END_IF
 //
 IF enableONS.Q OR resetONS.Q THEN
     _reset := FALSE;
@@ -494,12 +500,11 @@ CASE state OF
             _amStartPrint := FALSE;
         END_IF    
                                                     
-    BAG_DELIVERY_STATES.FeedAtPrintSpeed:           
-		
+	BAG_DELIVERY_STATES.FeedAtPrintSpeed:
 		// 
 		_delayTimer.PT := _delayForPrintFeed;
-        _delayTimer.IN := TRUE;
-		IF _delayTimer.Q THEN
+		_delayTimer.IN := TRUE;
+		IF _delayTimer.Q OR HMIData.printOutOfCycleEnable THEN
 			_delayTimer.IN := FALSE;
 			_bagFeedFrontMotor.MoveDistance(
 				distance := printLengthSetpoint + _printerExtraFeedLength, 
@@ -508,10 +513,10 @@ CASE state OF
                 velocity := REAL_TO_INT((TO_REAL(printVelocitySetpoint) * velocityMultiplier))
 			);
 			_bagFeedRearMotor.MoveDistance(
-				distance := printLengthSetpoint + _printerExtraFeedLength, 
+				distance := (printLengthSetpoint + _printerExtraFeedLength) * 1, 
                 acceleration := accelSetpoint, 
                 deceleration := decelSetpoint, 
-                velocity := REAL_TO_INT((TO_REAL(printVelocitySetpoint) * velocityMultiplier))
+                velocity := REAL_TO_INT((TO_REAL(printVelocitySetpoint) * velocityMultiplier * 1))
 			);      
 			UpdateStateAfterSync(stt := BAG_DELIVERY_STATES.FeedingAtPrintSpeed);
 		END_IF	

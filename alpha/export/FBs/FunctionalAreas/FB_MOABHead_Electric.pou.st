@@ -135,7 +135,8 @@ VAR
 	_auxIOPhysical : FB_AuxIOPhysical;
 	_auxIORemote : FB_AuxIO_RemoteComms;
 	_bagGrabbedONS : Standard.R_TRIG;
-	_waitForTakeupTimer : Standard.TON := (PT := T#500MS);
+	_waitForTakeupTimer : Standard.TON := (PT := T#50MS);
+	_waitForTorqueTimer : Standard.TON := (PT := T#50MS);
 	_waitForSealFlattenersUpTimer : Standard.TON := (PT := T#500MS);
 	_waitForPressureBarOpenDelay : TON;
 END_VAR
@@ -1931,16 +1932,36 @@ CASE state.sb.releaseFeed OF
                                                         IF bagDropTimer.Q 
 															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable)
 															THEN   
-															bagDropTimer.IN := FALSE;
+
 															
-															IF bagDelivery.enable AND NOT (zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintWhileFeeding) THEN
-                                                                bagDelivery.AutoFeedBagOut();
+															
+															IF bagDelivery.enable AND NOT (zebraPrinter.enable) THEN // No Print Required
+																bagDropTimer.IN := FALSE;
+																bagDelivery.AutoFeedBagOut();
  																LPA.ManualOff();
                                                                 state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
-                                                            ELSIF (bagDelivery.enable AND zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintWhileFeeding) THEN
-                                                                bagDelivery.AutoWaitForPrinter();
-																LPA.ManualOff();
-                                                                state.sb.releaseFeed := RELEASE_FEED_STATES.WaitForPrinter;
+                                                            ELSIF (bagDelivery.enable AND zebraPrinter.enable) THEN // Print Required
+																IF HMIData.printerCycleSelection = PrinterCycleSelection.PrintWhileFeeding THEN
+																	bagDropTimer.IN := FALSE;
+																	bagDelivery.AutoWaitForPrinter();
+																	LPA.ManualOff();
+																	state.sb.releaseFeed := RELEASE_FEED_STATES.WaitForPrinter;
+																ELSIF HMIData.printerCycleSelection = PrinterCycleSelection.PrintMidCycle THEN
+																	
+																	 IF state.sb.printOutOfCycle = PRINT_OUT_OF_CYCLE_STATES.Done THEN
+																		bagDropTimer.IN := FALSE;
+																		bagDelivery.AutoFeedBagOut();
+																		LPA.ManualOff();
+																		state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
+																	 END_IF
+																ELSE
+																	bagDropTimer.IN := FALSE;
+																	bagDelivery.AutoFeedBagOut();
+																	LPA.ManualOff();
+																	state.sb.releaseFeed := RELEASE_FEED_STATES.MovingJawOutAndFeedingBag;
+																END_IF
+                                                                
+
                                                             ELSE 
                                                                 state.sb.releaseFeed := RELEASE_FEED_STATES.Done;
                                                             END_IF												
