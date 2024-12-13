@@ -470,6 +470,8 @@
       <UserDefElement type="T_PRINT_OUT_OF_CYCLE_STATES" iecname="Printing" enumvalue="12" />
       <UserDefElement type="T_PRINT_OUT_OF_CYCLE_STATES" iecname="FinishedPrinting" enumvalue="13" />
       <UserDefElement type="T_PRINT_OUT_OF_CYCLE_STATES" iecname="WaitForTakeup" enumvalue="14" />
+      <UserDefElement type="T_PRINT_OUT_OF_CYCLE_STATES" iecname="EnableTorque" enumvalue="15" />
+      <UserDefElement type="T_PRINT_OUT_OF_CYCLE_STATES" iecname="EnableTension" enumvalue="16" />
       <UserDefElement type="T_PRINT_OUT_OF_CYCLE_STATES" iecname="Done" enumvalue="100" />
       <UserDefElement type="T_PRINT_OUT_OF_CYCLE_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
@@ -941,7 +943,7 @@
       <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" />
       <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="432" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10496" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10544" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
@@ -949,7 +951,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="233008" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="233088" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" />

@@ -58,7 +58,7 @@ VAR
 	_amFeedToEye : BOOL;			  // Auto Mode - Feed Bag to Eye
 	_reverseSpeedDistanceOffset : REAL;
 	_reverseToPrintHeadSetpoint : REAL;
-	_checkMotorStatusDelay : TIME := T#2500MS;
+	_checkMotorStatusDelay : TIME := T#25MS;
 	_tensionFault : BOOL;
 	_interconnect : BAG_DELIVERY_IC;
 	_jogging : BOOL;

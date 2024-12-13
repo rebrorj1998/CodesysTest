@@ -1989,12 +1989,18 @@ CASE state.sb.releaseFeed OF
                                                     
                                                         
     RELEASE_FEED_STATES.FeedingToOffset :            // Once offset done start printing
-                                                    IF bagDelivery.state = BAG_DELIVERY_STATES.FedToPrintOffset THEN
-                                                        state.sb.releaseFeed := RELEASE_FEED_STATES.StartPrinting;
-                                                    END_IF       
-													IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
- 														bagOpenFingers.Release();
- 													END_IF	                                     
+													IF HMIData.printOutOfCycleEnable THEN
+														IF bagDelivery.state = BAG_DELIVERY_STATES.CreatedSlack THEN  
+															state.sb.releaseFeed := RELEASE_FEED_STATES.StartPrinting;
+														END_IF     
+													ELSE
+														IF bagDelivery.state = BAG_DELIVERY_STATES.FedToPrintOffset THEN  
+															state.sb.releaseFeed := RELEASE_FEED_STATES.StartPrinting;
+														END_IF     
+													END_IF  
+														IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
+															bagOpenFingers.Release();
+														END_IF	                                     
     
     RELEASE_FEED_STATES.StartPrinting :             // Printer starts print cycle and bag delivery starts moving at print speed
 													zebraPrinter.AutoPrintNow();
