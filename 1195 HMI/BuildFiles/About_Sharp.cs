@@ -175,7 +175,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 10;
             this.m_Text1.Height = 18;
-            this.m_Text1.Left = 150;
+            this.m_Text1.Left = 103;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text1.ScreenOwnerName = "About_Sharp";
@@ -183,7 +183,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 51;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 236;
+            this.m_Text1.Width = 325;
             // 
             // m_Text2
             // 

@@ -1651,7 +1651,7 @@
       </Object>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" DesignerName="Option_BarcodeVerifier" ObjectName="Button1" PropertyName="Text" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
         <ReferenceValue>
-          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="Trigger BCD&#xD;&#xA;Verifier" />
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="Trigger BCV" />
         </ReferenceValue>
       </Object>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" DesignerName="Service_P1" ObjectName="Button1" PropertyName="Texts[0]" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">

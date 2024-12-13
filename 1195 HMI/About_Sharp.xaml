@@ -10,7 +10,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" Text="For service call: +1 800-634-6359 x1572" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text1" Width="236" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="150" Canvas.Top="51">
+    <nac:Label AutoSize="False" Text="For service call: +1 800-634-6359 x1572" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text1" Width="325" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="103" Canvas.Top="51">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
