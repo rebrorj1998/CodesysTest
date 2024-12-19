@@ -40,6 +40,7 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printSpeed : UDINT := 6;
 	printLength : REAL := 8.0;
 	printOffset : REAL := 2.0;
+	printOutOfCycleEnable : BOOL;
 	fillerCountSetting : UDINT;
 	fillerCurrentCount : UDINT;
 	fillerDropTime : REAL;

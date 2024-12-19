@@ -972,8 +972,9 @@ IBD(
 	homeRequired=> , 
 	clamped=> , 
 	IBDMotor:= IBDMotor,
-	failedToHome=> IBDFailedToHome.faultTrigger);
-
+	failedToHome=> );
+IBDFailedToHome.faultTrigger := IBD.failedToHome AND (HMIData.independentBagDeflatorSelection = BagDeflatorSelection.MotorizedIBD);
+	 
 obstructionFaultONS(CLK := (pressureBar.faults.obstructionDetected.active OR pressureBar.faults.failedToClose.active));
 IF obstructionFaultONS.OSR THEN
 	IBD.RemovePower();

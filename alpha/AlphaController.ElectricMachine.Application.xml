@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.17.0" libversion="4.2.0.0" compiler="3.5.16.10" lmm="3.5.19.0" profile="CODESYS V3.5 SP19+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.19.0" libversion="4.2.0.0" compiler="3.5.19.0" lmm="3.5.19.0" profile="CODESYS V3.5 SP19+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="AlphaController" devicename="ElectricMachine" appname="Application" />
   </Header>
   <TypeList>
@@ -45,9 +45,9 @@
       <UserDefElement type="T_AUTOMATION_STATES" iecname="Done" enumvalue="8" />
     </TypeUserDef>
     <TypeUserDef name="T_AuxIOSource" size="3" nativesize="3" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOSource">
-      <UserDefElement iecname="Physical" type="T_BOOL" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="OPC_UA" type="T_BOOL" byteoffset="1" vartype="VAR" />
-      <UserDefElement iecname="ModbusTCP" type="T_BOOL" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="Physical" type="T_BOOL" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="OPC_UA" type="T_BOOL" byteoffset="1" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="ModbusTCP" type="T_BOOL" byteoffset="2" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_AuxInputSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="AuxInputSelection" basetype="T_INT">
       <UserDefElement type="T_AuxInputSelection" iecname="NotConfigured" enumvalue="0" />
@@ -122,11 +122,11 @@
     <TypeSimple name="T_CAA_PVOID" size="8" swapsize="8" typeclass="LWord" iecname="CAA.PVOID" aliasedtype="T_LWORD" aliasediecname="LWORD" />
     <TypeSimple name="T_CAA_SIZE" size="8" swapsize="8" typeclass="ULInt" iecname="CAA.SIZE" aliasedtype="T_ULINT" aliasediecname="ULINT" />
     <TypeUserDef name="T_CLK_PRG" size="16" nativesize="24" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="CLK_PRG">
-      <UserDefElement iecname="PT" type="T_TIME" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="4" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="init" type="T_BOOL" byteoffset="5" vartype="VAR" />
-      <UserDefElement iecname="last" type="T_TIME" byteoffset="8" vartype="VAR" />
-      <UserDefElement iecname="tx" type="T_TIME" byteoffset="12" vartype="VAR" />
+      <UserDefElement iecname="PT" type="T_TIME" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="4" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="init" type="T_BOOL" byteoffset="5" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="last" type="T_TIME" byteoffset="8" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="tx" type="T_TIME" byteoffset="12" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_CONFIG_VERSIONS" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="CONFIG_VERSIONS" basetype="T_INT">
       <UserDefElement type="T_CONFIG_VERSIONS" iecname="V_1_0" enumvalue="0" />
@@ -324,33 +324,33 @@
       </UserDefElement>
     </TypeUserDef>
     <TypeUserDef name="T_ETrigTo" size="11" nativesize="56" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="ETrigTo">
-      <UserDefElement iecname="xExecute" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" />
-      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="9" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="10" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="xExecute" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="9" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="10" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_ExteralConveyorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ExteralConveyorSelection" basetype="T_INT">
       <UserDefElement type="T_ExteralConveyorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_ExteralConveyorSelection" iecname="ExternalExitConveyor" enumvalue="1" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_CycleCounter" size="8" nativesize="16" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CycleCounter">
-      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_Fault" size="3" nativesize="280" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Fault">
-      <UserDefElement iecname="ackCommand" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="acknowledged" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="active" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="ackCommand" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="acknowledged" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="active" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_TemperatureSensor" size="184" nativesize="200" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TemperatureSensor">
-      <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="_rawTemperatureReading" type="T_INT" byteoffset="82" vartype="VAR" />
-      <UserDefElement iecname="_temperatureReadingC" type="T_REAL" byteoffset="84" vartype="VAR" />
-      <UserDefElement iecname="_temperatureReadingF" type="T_REAL" byteoffset="88" vartype="VAR" />
-      <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="92" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="TempReadingC" type="T_REAL" byteoffset="176" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="TempReadingF" type="T_REAL" byteoffset="180" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_rawTemperatureReading" type="T_INT" byteoffset="82" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_temperatureReadingC" type="T_REAL" byteoffset="84" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_temperatureReadingF" type="T_REAL" byteoffset="88" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="92" vartype="VAR" propertytype="variable" access="Read" />
+      <UserDefElement iecname="TempReadingC" type="T_REAL" byteoffset="176" vartype="VAR" propertytype="variable" access="Read" />
+      <UserDefElement iecname="TempReadingF" type="T_REAL" byteoffset="180" vartype="VAR" propertytype="variable" access="Read" />
     </TypeUserDef>
     <TypeUserDef name="T_FINISH_CYCLE_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="FINISH_CYCLE_STATES" basetype="T_INT">
       <UserDefElement type="T_FINISH_CYCLE_STATES" iecname="Idle" enumvalue="0" />
@@ -373,8 +373,8 @@
       <UserDefElement type="T_FINISH_CYCLE_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
     <TypeUserDef name="T_F_TRIG" size="2" nativesize="16" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="F_TRIG">
-      <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FeedToSealSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="FeedToSealSelection" basetype="T_INT">
       <UserDefElement type="T_FeedToSealSelection" iecname="NotInstalled" enumvalue="0" />
@@ -424,17 +424,17 @@
       <UserDefElement type="T_HEAD_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
     <TypeUserDef name="T_IP_ADDR" size="81" nativesize="81" typeclass="Userdef" pouclass="STRUCTURE" iecname="IP_ADDR">
-      <UserDefElement iecname="sAddr" type="T_STRING" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="sAddr" type="T_STRING" byteoffset="0" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_IntegratedConveyorSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="IntegratedConveyorSelection" basetype="T_INT">
       <UserDefElement type="T_IntegratedConveyorSelection" iecname="NotInstalled" enumvalue="0" />
       <UserDefElement type="T_IntegratedConveyorSelection" iecname="RearExit" enumvalue="1" />
     </TypeUserDef>
     <TypeUserDef name="T_LTrig" size="4" nativesize="32" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="LTrig">
-      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_LabelPrinterSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="LabelPrinterSelection" basetype="T_INT">
       <UserDefElement type="T_LabelPrinterSelection" iecname="NotInstalled" enumvalue="0" />
@@ -452,6 +452,15 @@
       <UserDefElement type="T_ModelSelection" iecname="Pro24_1182" enumvalue="1" />
       <UserDefElement type="T_ModelSelection" iecname="Pro18_1183" enumvalue="2" />
       <UserDefElement type="T_ModelSelection" iecname="Pro24_1196" enumvalue="3" />
+    </TypeUserDef>
+    <TypeUserDef name="T_OPC_Inputs" size="7" nativesize="7" typeclass="Userdef" pouclass="STRUCTURE" iecname="OPC_Inputs">
+      <UserDefElement iecname="fillerTrigger" type="T_BOOL" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="baggerInhibit" type="T_BOOL" byteoffset="1" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="collisionDetection" type="T_BOOL" byteoffset="2" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="fillerOK" type="T_BOOL" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="reverseConveyor" type="T_BOOL" byteoffset="4" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="bagGrabbed" type="T_BOOL" byteoffset="5" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="6" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_PRINT_AND_APPLY_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PRINT_AND_APPLY_STATES" basetype="T_INT">
       <UserDefElement type="T_PRINT_AND_APPLY_STATES" iecname="Idle" enumvalue="0" />
@@ -517,8 +526,8 @@
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Fault" enumvalue="99" />
     </TypeUserDef>
     <TypeUserDef name="T_R_TRIG" size="2" nativesize="16" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="R_TRIG">
-      <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_SEAL_SEPARATE_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="SEAL_SEPARATE_STATES" basetype="T_INT">
       <UserDefElement type="T_SEAL_SEPARATE_STATES" iecname="Idle" enumvalue="0" />
@@ -555,443 +564,458 @@
       <UserDefElement type="T_SealAreaOptionSelectionEnum" iecname="PerfBreaker" enumvalue="2" />
     </TypeUserDef>
     <TypeUserDef name="T_ServiceCommands" size="5" nativesize="5" typeclass="Userdef" pouclass="STRUCTURE" iecname="ServiceCommands">
-      <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="retractCommand" type="T_BOOL" byteoffset="1" vartype="VAR" />
-      <UserDefElement iecname="exhaustCommand" type="T_BOOL" byteoffset="2" vartype="VAR" />
-      <UserDefElement iecname="extendedFeedback" type="T_BOOL" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="retractedFeedback" type="T_BOOL" byteoffset="4" vartype="VAR" />
+      <UserDefElement iecname="extendCommand" type="T_BOOL" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="retractCommand" type="T_BOOL" byteoffset="1" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="exhaustCommand" type="T_BOOL" byteoffset="2" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="extendedFeedback" type="T_BOOL" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="retractedFeedback" type="T_BOOL" byteoffset="4" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_TON" size="16" nativesize="32" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TON">
-      <UserDefElement iecname="IN" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="PT" type="T_TIME" byteoffset="4" vartype="VAR_INPUT" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="ET" type="T_TIME" byteoffset="12" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="IN" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="PT" type="T_TIME" byteoffset="4" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="ET" type="T_TIME" byteoffset="12" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_TP_X" size="28" nativesize="40" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TP_X">
-      <UserDefElement iecname="IN" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="PT" type="T_TIME" byteoffset="4" vartype="VAR_INPUT" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="ET" type="T_TIME" byteoffset="12" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="edge" type="T_BOOL" byteoffset="16" vartype="VAR" />
-      <UserDefElement iecname="start" type="T_TIME" byteoffset="20" vartype="VAR" />
-      <UserDefElement iecname="tx" type="T_TIME" byteoffset="24" vartype="VAR" />
+      <UserDefElement iecname="IN" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="PT" type="T_TIME" byteoffset="4" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="ET" type="T_TIME" byteoffset="12" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="edge" type="T_BOOL" byteoffset="16" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="start" type="T_TIME" byteoffset="20" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="tx" type="T_TIME" byteoffset="24" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_Warning" size="1" nativesize="1" typeclass="Userdef" pouclass="STRUCTURE" iecname="Warning">
-      <UserDefElement iecname="active" type="T_BOOL" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="active" type="T_BOOL" byteoffset="0" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_AuxIOConfiguration" size="18" nativesize="18" typeclass="Userdef" pouclass="STRUCTURE" iecname="AuxIOConfiguration">
-      <UserDefElement iecname="factorySelection" type="T_AuxiliaryIOSelection" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="cfgInput1Selection" type="T_AuxInputSelection" byteoffset="2" vartype="VAR" />
-      <UserDefElement iecname="cfgInput2Selection" type="T_AuxInputSelection" byteoffset="4" vartype="VAR" />
-      <UserDefElement iecname="cfgInput3Selection" type="T_AuxInputSelection" byteoffset="6" vartype="VAR" />
-      <UserDefElement iecname="cfgInput4Selection" type="T_AuxInputSelection" byteoffset="8" vartype="VAR" />
-      <UserDefElement iecname="cfgOutput1Selection" type="T_AuxOutputSelection" byteoffset="10" vartype="VAR" />
-      <UserDefElement iecname="cfgOutput2Selection" type="T_AuxOutputSelection" byteoffset="12" vartype="VAR" />
-      <UserDefElement iecname="cfgOutput3Selection" type="T_AuxOutputSelection" byteoffset="14" vartype="VAR" />
-      <UserDefElement iecname="cfgOutput4Selection" type="T_AuxOutputSelection" byteoffset="16" vartype="VAR" />
+      <UserDefElement iecname="factorySelection" type="T_AuxiliaryIOSelection" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgInput1Selection" type="T_AuxInputSelection" byteoffset="2" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgInput2Selection" type="T_AuxInputSelection" byteoffset="4" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgInput3Selection" type="T_AuxInputSelection" byteoffset="6" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgInput4Selection" type="T_AuxInputSelection" byteoffset="8" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgOutput1Selection" type="T_AuxOutputSelection" byteoffset="10" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgOutput2Selection" type="T_AuxOutputSelection" byteoffset="12" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgOutput3Selection" type="T_AuxOutputSelection" byteoffset="14" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cfgOutput4Selection" type="T_AuxOutputSelection" byteoffset="16" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_BaseComponent" size="14" nativesize="64" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BaseComponent">
-      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" />
-      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" />
-      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" />
-      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" />
-      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" />
-      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" />
-      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" />
-      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" />
-      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" propertytype="variable" access="Read" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_CollectionHandlerActiveFaults" size="24381" nativesize="26808" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CollectionHandlerActiveFaults">
-      <UserDefElement iecname="ObjNames" type="T_ARRAY__0__300__OF_STRING" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="ObjNames" type="T_ARRAY__0__300__OF_STRING" byteoffset="0" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_IFMTempSensor" size="3" nativesize="560" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_IFMTempSensor" basetype="T_FB_TemperatureSensor">
-      <UserDefElement iecname="rtdFailure" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="rtdFailure" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_ONS" size="7" nativesize="48" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ONS">
-      <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="OSR" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="OSF" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="CLK_OSR" type="T_R_TRIG" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="CLK_OSF" type="T_F_TRIG" byteoffset="5" vartype="VAR" />
+      <UserDefElement iecname="CLK" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="OSR" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="OSF" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="CLK_OSR" type="T_R_TRIG" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="CLK_OSF" type="T_F_TRIG" byteoffset="5" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_PredictiveMaint" size="174" nativesize="184" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PredictiveMaint" basetype="T_FB_CycleCounter">
-      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" />
-      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" />
-      <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" />
-      <UserDefElement iecname="name" type="T_STRING" byteoffset="12" vartype="VAR_INPUT" />
-      <UserDefElement iecname="units" type="T_STRING" byteoffset="93" vartype="VAR_INPUT" />
+      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" access="ReadWrite" />
+      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" access="ReadWrite" />
+      <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="name" type="T_STRING" byteoffset="12" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="units" type="T_STRING" byteoffset="93" vartype="VAR_INPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_LoadPlateFaultsType" size="9" nativesize="840" typeclass="Userdef" pouclass="STRUCTURE" iecname="LoadPlateFaultsType">
-      <UserDefElement iecname="failedToDischarge" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="failedToLoad" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
+      <UserDefElement iecname="failedToDischarge" type="T_FB_Fault" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="failedToLoad" type="T_FB_Fault" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" access="ReadWrite" />
+    </TypeUserDef>
+    <TypeUserDef name="T_OPC_Outputs" size="24392" nativesize="24392" typeclass="Userdef" pouclass="STRUCTURE" iecname="OPC_Outputs">
+      <UserDefElement iecname="baggerOK" type="T_BOOL" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="readyForFiller" type="T_BOOL" byteoffset="1" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printerDataReady" type="T_BOOL" byteoffset="2" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="cycleComplete" type="T_BOOL" byteoffset="4" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="bagMade" type="T_BOOL" byteoffset="5" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="bagMadePlusLabelRequired" type="T_BOOL" byteoffset="6" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="bagsLow" type="T_BOOL" byteoffset="7" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="readyForGrab" type="T_BOOL" byteoffset="8" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="runExternalExitConveyor" type="T_BOOL" byteoffset="9" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="heartbeatResponse" type="T_BOOL" byteoffset="10" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="activeFaultsList" type="T_ARRAY__0__300__OF_STRING" byteoffset="11" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_PWM_DC" size="60" nativesize="96" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="PWM_DC">
-      <UserDefElement iecname="F" type="T_REAL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="DC" type="T_REAL" byteoffset="4" vartype="VAR_INPUT" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="clk" type="T_CLK_PRG" byteoffset="12" vartype="VAR" />
-      <UserDefElement iecname="pulse" type="T_TP_X" byteoffset="28" vartype="VAR" />
-      <UserDefElement iecname="tmp" type="T_REAL" byteoffset="56" vartype="VAR" />
+      <UserDefElement iecname="F" type="T_REAL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="DC" type="T_REAL" byteoffset="4" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="clk" type="T_CLK_PRG" byteoffset="12" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="pulse" type="T_TP_X" byteoffset="28" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="tmp" type="T_REAL" byteoffset="56" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_PressureBarFaultsType" size="18" nativesize="1680" typeclass="Userdef" pouclass="STRUCTURE" iecname="PressureBarFaultsType">
-      <UserDefElement iecname="failedToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="failedToClose" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
-      <UserDefElement iecname="obstructionDetected" type="T_FB_Fault" byteoffset="9" vartype="VAR" />
-      <UserDefElement iecname="obstructionFailedToSwitch" type="T_FB_Fault" byteoffset="12" vartype="VAR" />
-      <UserDefElement iecname="lightCurtainViolation" type="T_FB_Fault" byteoffset="15" vartype="VAR" />
+      <UserDefElement iecname="failedToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="failedToClose" type="T_FB_Fault" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="sensorFault" type="T_FB_Fault" byteoffset="6" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="obstructionDetected" type="T_FB_Fault" byteoffset="9" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="obstructionFailedToSwitch" type="T_FB_Fault" byteoffset="12" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="lightCurtainViolation" type="T_FB_Fault" byteoffset="15" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_StepServoFaultsType" size="42" nativesize="3920" typeclass="Userdef" pouclass="STRUCTURE" iecname="StepServoFaultsType">
-      <UserDefElement iecname="positionLimit" type="T_FB_Fault" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="CCWLimit" type="T_FB_Fault" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="CWLimit" type="T_FB_Fault" byteoffset="6" vartype="VAR" />
-      <UserDefElement iecname="overTemp" type="T_FB_Fault" byteoffset="9" vartype="VAR" />
-      <UserDefElement iecname="internalVoltage" type="T_FB_Fault" byteoffset="12" vartype="VAR" />
-      <UserDefElement iecname="overVoltage" type="T_FB_Fault" byteoffset="15" vartype="VAR" />
-      <UserDefElement iecname="underVoltage" type="T_FB_Fault" byteoffset="18" vartype="VAR" />
-      <UserDefElement iecname="overCurrent" type="T_FB_Fault" byteoffset="21" vartype="VAR" />
-      <UserDefElement iecname="openMotorWinding" type="T_FB_Fault" byteoffset="24" vartype="VAR" />
-      <UserDefElement iecname="badEncoder" type="T_FB_Fault" byteoffset="27" vartype="VAR" />
-      <UserDefElement iecname="noMove" type="T_FB_Fault" byteoffset="30" vartype="VAR" />
-      <UserDefElement iecname="currentFoldback" type="T_FB_Fault" byteoffset="33" vartype="VAR" />
-      <UserDefElement iecname="commFail" type="T_FB_Fault" byteoffset="36" vartype="VAR" />
-      <UserDefElement iecname="notHomed" type="T_FB_Fault" byteoffset="39" vartype="VAR" />
+      <UserDefElement iecname="positionLimit" type="T_FB_Fault" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="CCWLimit" type="T_FB_Fault" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="CWLimit" type="T_FB_Fault" byteoffset="6" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="overTemp" type="T_FB_Fault" byteoffset="9" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="internalVoltage" type="T_FB_Fault" byteoffset="12" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="overVoltage" type="T_FB_Fault" byteoffset="15" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="underVoltage" type="T_FB_Fault" byteoffset="18" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="overCurrent" type="T_FB_Fault" byteoffset="21" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="openMotorWinding" type="T_FB_Fault" byteoffset="24" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="badEncoder" type="T_FB_Fault" byteoffset="27" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="noMove" type="T_FB_Fault" byteoffset="30" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="currentFoldback" type="T_FB_Fault" byteoffset="33" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="commFail" type="T_FB_Fault" byteoffset="36" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="notHomed" type="T_FB_Fault" byteoffset="39" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_Substate" size="12" nativesize="12" typeclass="Userdef" pouclass="STRUCTURE" iecname="Substate">
-      <UserDefElement iecname="sealSeparate" type="T_SEAL_SEPARATE_STATES" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="releaseFeed" type="T_RELEASE_FEED_STATES" byteoffset="2" vartype="VAR" />
-      <UserDefElement iecname="openBag" type="T_BAG_OPEN_ASSIST_STATES" byteoffset="4" vartype="VAR" />
-      <UserDefElement iecname="finishCycle" type="T_FINISH_CYCLE_STATES" byteoffset="6" vartype="VAR" />
-      <UserDefElement iecname="automation" type="T_AUTOMATION_STATES" byteoffset="8" vartype="VAR" />
-      <UserDefElement iecname="printOutOfCycle" type="T_PRINT_OUT_OF_CYCLE_STATES" byteoffset="10" vartype="VAR" />
+      <UserDefElement iecname="sealSeparate" type="T_SEAL_SEPARATE_STATES" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="releaseFeed" type="T_RELEASE_FEED_STATES" byteoffset="2" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="openBag" type="T_BAG_OPEN_ASSIST_STATES" byteoffset="4" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="finishCycle" type="T_FINISH_CYCLE_STATES" byteoffset="6" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="automation" type="T_AUTOMATION_STATES" byteoffset="8" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printOutOfCycle" type="T_PRINT_OUT_OF_CYCLE_STATES" byteoffset="10" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_TCP_Client" size="104" nativesize="616" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Client" basetype="T_LTrig">
-      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" />
-      <UserDefElement iecname="ipAddr" type="T_IP_ADDR" byteoffset="8" vartype="VAR_INPUT" />
-      <UserDefElement iecname="uiPort" type="T_UINT" byteoffset="90" vartype="VAR_INPUT" />
-      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="92" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="xActive" type="T_BOOL" byteoffset="94" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="96" vartype="VAR_OUTPUT" />
+    <TypeUserDef name="T_TCP_Client" size="104" nativesize="624" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Client" basetype="T_LTrig">
+      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="ipAddr" type="T_IP_ADDR" byteoffset="8" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="uiPort" type="T_UINT" byteoffset="90" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="92" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="xActive" type="T_BOOL" byteoffset="94" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="96" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_TCP_Connection" size="32" nativesize="392" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Connection" basetype="T_LTrig">
-      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="hServer" type="T_CAA_HANDLE" byteoffset="8" vartype="VAR_INPUT" />
-      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="16" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="xActive" type="T_BOOL" byteoffset="18" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="24" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="hServer" type="T_CAA_HANDLE" byteoffset="8" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="16" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="xActive" type="T_BOOL" byteoffset="18" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="24" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_TCP_Read" size="48" nativesize="168" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Read" basetype="T_LTrig">
-      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" />
-      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="8" vartype="VAR_INPUT" />
-      <UserDefElement iecname="szSize" type="T_CAA_SIZE" byteoffset="16" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="24" vartype="VAR_INPUT" />
-      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="32" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="xReady" type="T_BOOL" byteoffset="34" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="szCount" type="T_CAA_SIZE" byteoffset="40" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="xEnable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="3" vartype="VAR_OUTPUT" inherited_from="T_LTrig" access="ReadWrite" />
+      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="8" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="szSize" type="T_CAA_SIZE" byteoffset="16" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="24" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="32" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="xReady" type="T_BOOL" byteoffset="34" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="szCount" type="T_CAA_SIZE" byteoffset="40" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_TCP_Write" size="42" nativesize="288" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="TCP_Write" basetype="T_ETrigTo">
-      <UserDefElement iecname="xExecute" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_ETrigTo" />
-      <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" inherited_from="T_ETrigTo" />
-      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" />
-      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="9" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" />
-      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="10" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" />
-      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="16" vartype="VAR_INPUT" />
-      <UserDefElement iecname="szSize" type="T_CAA_SIZE" byteoffset="24" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="32" vartype="VAR_INPUT" />
-      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="40" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="xExecute" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_ETrigTo" access="ReadWrite" />
+      <UserDefElement iecname="udiTimeOut" type="T_UDINT" byteoffset="4" vartype="VAR_INPUT" inherited_from="T_ETrigTo" access="ReadWrite" />
+      <UserDefElement iecname="xDone" type="T_BOOL" byteoffset="8" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" access="ReadWrite" />
+      <UserDefElement iecname="xBusy" type="T_BOOL" byteoffset="9" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" access="ReadWrite" />
+      <UserDefElement iecname="xError" type="T_BOOL" byteoffset="10" vartype="VAR_OUTPUT" inherited_from="T_ETrigTo" access="ReadWrite" />
+      <UserDefElement iecname="hConnection" type="T_CAA_HANDLE" byteoffset="16" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="szSize" type="T_CAA_SIZE" byteoffset="24" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="pData" type="T_CAA_PVOID" byteoffset="32" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="eError" type="T_ERROR" byteoffset="40" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_DelayDwellFB" size="62" nativesize="152" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="DelayDwellFB" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="14" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_trigger" type="T_BOOL" byteoffset="15" vartype="VAR" />
-      <UserDefElement iecname="_dwellTimeInMS" type="T_DINT" byteoffset="16" vartype="VAR" />
-      <UserDefElement iecname="_delayTimeInMS" type="T_DINT" byteoffset="20" vartype="VAR" />
-      <UserDefElement iecname="_manualOn" type="T_BOOL" byteoffset="24" vartype="VAR" />
-      <UserDefElement iecname="_manualOff" type="T_BOOL" byteoffset="25" vartype="VAR" />
-      <UserDefElement iecname="active" type="T_BOOL" byteoffset="26" vartype="VAR" />
-      <UserDefElement iecname="dwellTimer" type="T_TON" byteoffset="28" vartype="VAR" />
-      <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="44" vartype="VAR" />
-      <UserDefElement iecname="state" type="T_DELAY_DWELL_STATES" byteoffset="60" vartype="VAR" />
+      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" access="Read" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="14" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="_trigger" type="T_BOOL" byteoffset="15" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_dwellTimeInMS" type="T_DINT" byteoffset="16" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_delayTimeInMS" type="T_DINT" byteoffset="20" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_manualOn" type="T_BOOL" byteoffset="24" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_manualOff" type="T_BOOL" byteoffset="25" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="active" type="T_BOOL" byteoffset="26" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="dwellTimer" type="T_TON" byteoffset="28" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="44" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="state" type="T_DELAY_DWELL_STATES" byteoffset="60" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="4512" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
-      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBaseQX" size="42" nativesize="4448" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBaseQX">
-      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_CylinderLeak" size="204" nativesize="264" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CylinderLeak" basetype="T_FB_PredictiveMaint">
-      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" />
-      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" />
-      <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
-      <UserDefElement iecname="name" type="T_STRING" byteoffset="12" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
-      <UserDefElement iecname="units" type="T_STRING" byteoffset="93" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
-      <UserDefElement iecname="iExtended" type="T_BOOL" byteoffset="174" vartype="VAR_INPUT" />
-      <UserDefElement iecname="iRetracted" type="T_BOOL" byteoffset="175" vartype="VAR_INPUT" />
-      <UserDefElement iecname="maximumStrokeTime" type="T_REAL" byteoffset="176" vartype="VAR_INPUT" />
-      <UserDefElement iecname="strokeTime" type="T_REAL" byteoffset="180" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="strokeTimer" type="T_TON" byteoffset="184" vartype="VAR" />
-      <UserDefElement iecname="extendedONS" type="T_R_TRIG" byteoffset="200" vartype="VAR" />
-      <UserDefElement iecname="retractedONS" type="T_R_TRIG" byteoffset="202" vartype="VAR" />
+      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" access="ReadWrite" />
+      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" access="ReadWrite" />
+      <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" access="ReadWrite" />
+      <UserDefElement iecname="name" type="T_STRING" byteoffset="12" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" access="ReadWrite" />
+      <UserDefElement iecname="units" type="T_STRING" byteoffset="93" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" access="ReadWrite" />
+      <UserDefElement iecname="iExtended" type="T_BOOL" byteoffset="174" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="iRetracted" type="T_BOOL" byteoffset="175" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="maximumStrokeTime" type="T_REAL" byteoffset="176" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="strokeTime" type="T_REAL" byteoffset="180" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="strokeTimer" type="T_TON" byteoffset="184" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="extendedONS" type="T_R_TRIG" byteoffset="200" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="retractedONS" type="T_R_TRIG" byteoffset="202" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_DriveTemp" size="188" nativesize="200" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_DriveTemp" basetype="T_FB_PredictiveMaint">
-      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" />
-      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" />
-      <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
-      <UserDefElement iecname="name" type="T_STRING" byteoffset="12" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
-      <UserDefElement iecname="units" type="T_STRING" byteoffset="93" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" />
-      <UserDefElement iecname="iDriveTemp" type="T_DINT" byteoffset="176" vartype="VAR_INPUT" />
-      <UserDefElement iecname="maxTemp" type="T_REAL" byteoffset="180" vartype="VAR_INPUT" />
-      <UserDefElement iecname="DriveTemp" type="T_REAL" byteoffset="184" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_CycleCounter" access="ReadWrite" />
+      <UserDefElement iecname="count" type="T_UDINT" byteoffset="4" vartype="VAR" inherited_from="T_FB_CycleCounter" access="ReadWrite" />
+      <UserDefElement iecname="target" type="T_UDINT" byteoffset="8" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" access="ReadWrite" />
+      <UserDefElement iecname="name" type="T_STRING" byteoffset="12" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" access="ReadWrite" />
+      <UserDefElement iecname="units" type="T_STRING" byteoffset="93" vartype="VAR_INPUT" inherited_from="T_FB_PredictiveMaint" access="ReadWrite" />
+      <UserDefElement iecname="iDriveTemp" type="T_DINT" byteoffset="176" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="maxTemp" type="T_REAL" byteoffset="180" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="DriveTemp" type="T_REAL" byteoffset="184" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_Filler" size="7" nativesize="456" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Filler" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="activateFiller" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="fillerModeActive" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitingForFiller" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="cycleBaggerToActivateFiller" type="T_Warning" byteoffset="3" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="notReady" type="T_FB_Fault" byteoffset="4" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="activateFiller" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="fillerModeActive" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="waitingForFiller" type="T_BOOL" byteoffset="2" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="cycleBaggerToActivateFiller" type="T_Warning" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="notReady" type="T_FB_Fault" byteoffset="4" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_Funnel" size="8" nativesize="840" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_Funnel" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="opened" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="closed" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="2" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToClose" type="T_FB_Fault" byteoffset="5" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="opened" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="closed" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="2" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="failToClose" type="T_FB_Fault" byteoffset="5" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_HMILight" size="72" nativesize="120" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_HMILight">
-      <UserDefElement iecname="lightOutput" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_turnOn" type="T_BOOL" byteoffset="1" vartype="VAR" />
-      <UserDefElement iecname="_blinkFast" type="T_BOOL" byteoffset="2" vartype="VAR" />
-      <UserDefElement iecname="_blinkSlow" type="T_BOOL" byteoffset="3" vartype="VAR" />
-      <UserDefElement iecname="blinker" type="T_PWM_DC" byteoffset="4" vartype="VAR" />
-      <UserDefElement iecname="slowBlinkSec" type="T_REAL" byteoffset="64" vartype="VAR" />
-      <UserDefElement iecname="fastBlinkSec" type="T_REAL" byteoffset="68" vartype="VAR" />
+      <UserDefElement iecname="lightOutput" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="_turnOn" type="T_BOOL" byteoffset="1" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_blinkFast" type="T_BOOL" byteoffset="2" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_blinkSlow" type="T_BOOL" byteoffset="3" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="blinker" type="T_PWM_DC" byteoffset="4" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="slowBlinkSec" type="T_REAL" byteoffset="64" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="fastBlinkSec" type="T_REAL" byteoffset="68" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MonostableMultivibrator" size="56" nativesize="144" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MonostableMultivibrator" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" />
-      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="14" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_trigger" type="T_BOOL" byteoffset="15" vartype="VAR" />
-      <UserDefElement iecname="_dwellTimeInMS" type="T_UINT" byteoffset="16" vartype="VAR" />
-      <UserDefElement iecname="_delayTimeInMS" type="T_UINT" byteoffset="18" vartype="VAR" />
-      <UserDefElement iecname="_manualOn" type="T_BOOL" byteoffset="20" vartype="VAR" />
-      <UserDefElement iecname="_manualOff" type="T_BOOL" byteoffset="21" vartype="VAR" />
-      <UserDefElement iecname="active" type="T_BOOL" byteoffset="22" vartype="VAR" />
-      <UserDefElement iecname="dwellTimer" type="T_TON" byteoffset="24" vartype="VAR" />
-      <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="40" vartype="VAR" />
+      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" access="Read" />
+      <UserDefElement iecname="Q" type="T_BOOL" byteoffset="14" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="_trigger" type="T_BOOL" byteoffset="15" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_dwellTimeInMS" type="T_UINT" byteoffset="16" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_delayTimeInMS" type="T_UINT" byteoffset="18" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_manualOn" type="T_BOOL" byteoffset="20" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_manualOff" type="T_BOOL" byteoffset="21" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="active" type="T_BOOL" byteoffset="22" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="dwellTimer" type="T_TON" byteoffset="24" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="40" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="696" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="3608" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="failToClampLeft" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToReleaseLeft" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToClampRight" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="failToReleaseRight" type="T_FB_Fault" byteoffset="9" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="12" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="failToClampLeft" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="failToReleaseLeft" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="failToClampRight" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="failToReleaseRight" type="T_FB_Fault" byteoffset="9" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="faults" type="T_PressureBarFaultsType" byteoffset="12" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MurrIO" size="10" nativesize="1088" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MurrIO" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="MOMDataConfigFail" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFailController" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="configActive" type="T_Warning" byteoffset="9" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="MOMDataConfigFail" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="commFailController" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="configActive" type="T_Warning" byteoffset="9" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_TCPClient" size="76500" nativesize="77984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TCPClient">
-      <UserDefElement iecname="_TCPClient" type="T_TCP_Client" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="_TCPClient_ipAddr" type="T_IP_ADDR" byteoffset="104" vartype="VAR" />
-      <UserDefElement iecname="_TCPClient_uiPort" type="T_UINT" byteoffset="186" vartype="VAR" />
-      <UserDefElement iecname="_TCPClient_hClient" type="T_CAA_HANDLE" byteoffset="192" vartype="VAR" />
-      <UserDefElement iecname="_sClientIP" type="T_STRING_15_" byteoffset="200" vartype="VAR" />
-      <UserDefElement iecname="_uiPort" type="T_UINT" byteoffset="216" vartype="VAR" />
-      <UserDefElement iecname="_TCPConnection" type="T_TCP_Connection" byteoffset="224" vartype="VAR" />
-      <UserDefElement iecname="_TCPConnection_hConnection" type="T_CAA_HANDLE" byteoffset="256" vartype="VAR" />
-      <UserDefElement iecname="_TCPWriteSendLabel" type="T_TCP_Write" byteoffset="264" vartype="VAR" />
-      <UserDefElement iecname="_TCPWriteClearLabel" type="T_TCP_Write" byteoffset="312" vartype="VAR" />
-      <UserDefElement iecname="_TCPRead" type="T_TCP_Read" byteoffset="360" vartype="VAR" />
-      <UserDefElement iecname="_sTCPSendLabel" type="T_STRING_25000_" byteoffset="408" vartype="VAR" />
-      <UserDefElement iecname="_sTCPClearLabel" type="T_STRING_3_" byteoffset="25409" vartype="VAR" />
-      <UserDefElement iecname="_sTCPReadData" type="T_STRING_1000_" byteoffset="25413" vartype="VAR" />
-      <UserDefElement iecname="_TCPWriteEn" type="T_BOOL" byteoffset="26414" vartype="VAR" />
-      <UserDefElement iecname="_sServerIP" type="T_STRING" byteoffset="26415" vartype="VAR" />
-      <UserDefElement iecname="_sendLabel" type="T_BOOL" byteoffset="26496" vartype="VAR" />
-      <UserDefElement iecname="_clearLabel" type="T_BOOL" byteoffset="26497" vartype="VAR" />
-      <UserDefElement iecname="label203" type="T_STRING_25000_" byteoffset="26498" vartype="VAR" />
-      <UserDefElement iecname="label300" type="T_STRING_25000_" byteoffset="51499" vartype="VAR" />
+    <TypeUserDef name="T_FB_TCPClient" size="76500" nativesize="77992" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TCPClient">
+      <UserDefElement iecname="_TCPClient" type="T_TCP_Client" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPClient_ipAddr" type="T_IP_ADDR" byteoffset="104" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPClient_uiPort" type="T_UINT" byteoffset="186" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPClient_hClient" type="T_CAA_HANDLE" byteoffset="192" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_sClientIP" type="T_STRING_15_" byteoffset="200" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_uiPort" type="T_UINT" byteoffset="216" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPConnection" type="T_TCP_Connection" byteoffset="224" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPConnection_hConnection" type="T_CAA_HANDLE" byteoffset="256" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPWriteSendLabel" type="T_TCP_Write" byteoffset="264" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPWriteClearLabel" type="T_TCP_Write" byteoffset="312" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPRead" type="T_TCP_Read" byteoffset="360" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_sTCPSendLabel" type="T_STRING_25000_" byteoffset="408" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_sTCPClearLabel" type="T_STRING_3_" byteoffset="25409" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_sTCPReadData" type="T_STRING_1000_" byteoffset="25413" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_TCPWriteEn" type="T_BOOL" byteoffset="26414" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_sServerIP" type="T_STRING" byteoffset="26415" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_sendLabel" type="T_BOOL" byteoffset="26496" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_clearLabel" type="T_BOOL" byteoffset="26497" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="label203" type="T_STRING_25000_" byteoffset="26498" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="label300" type="T_STRING_25000_" byteoffset="51499" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_TempController" size="6" nativesize="1160" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
+      <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_ZebraPrinterStandard" size="11" nativesize="78816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinterStandard" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="printHeadDebounced" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printHeadDebouneSetpoint" type="T_TIME" byteoffset="4" vartype="VAR" />
-      <UserDefElement iecname="printerNotPrintingFault" type="T_FB_Fault" byteoffset="8" vartype="VAR" />
+    <TypeUserDef name="T_FB_ZebraPrinterStandard" size="11" nativesize="78824" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinterStandard" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="printHeadDebounced" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="printHeadDebouneSetpoint" type="T_TIME" byteoffset="4" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printerNotPrintingFault" type="T_FB_Fault" byteoffset="8" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_StateMachine" size="14" nativesize="14" typeclass="Userdef" pouclass="STRUCTURE" iecname="StateMachine">
-      <UserDefElement iecname="head" type="T_HEAD_STATES" byteoffset="0" vartype="VAR" />
-      <UserDefElement iecname="sb" type="T_Substate" byteoffset="2" vartype="VAR" />
+      <UserDefElement iecname="head" type="T_HEAD_STATES" byteoffset="0" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="sb" type="T_Substate" byteoffset="2" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="42" nativesize="4608" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
-      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="4568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
-      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" />
+      <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="4984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" />
+      <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_PrintAndApply" size="76932" nativesize="79016" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" />
-      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" />
-      <UserDefElement iecname="tampDelayWithLOTAR" type="T_REAL" byteoffset="16" vartype="VAR_INPUT" />
-      <UserDefElement iecname="tampDelayWithoutLOTAR" type="T_REAL" byteoffset="20" vartype="VAR_INPUT" />
-      <UserDefElement iecname="packageAtExitSensor" type="T_BOOL" byteoffset="24" vartype="VAR_INPUT" />
-      <UserDefElement iecname="packageHeldAtExitSensor" type="T_BOOL" byteoffset="25" vartype="VAR_INPUT" />
-      <UserDefElement iecname="conveyorClearAfterCollision" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" />
-      <UserDefElement iecname="exemptFaultsActive" type="T_BOOL" byteoffset="27" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeVerificationFailure" type="T_BOOL" byteoffset="28" vartype="VAR_INPUT" />
-      <UserDefElement iecname="pressureBarObstruction" type="T_BOOL" byteoffset="29" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="30" vartype="VAR_INPUT" />
-      <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="31" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bypass" type="T_BOOL" byteoffset="32" vartype="VAR_INPUT" />
-      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="33" vartype="VAR_INPUT" />
-      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="34" vartype="VAR_INPUT" />
-      <UserDefElement iecname="faultInput" type="T_BOOL" byteoffset="35" vartype="VAR_INPUT" />
-      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="36" vartype="VAR_INPUT" />
-      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="37" vartype="VAR_INPUT" />
-      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="38" vartype="VAR_INPUT" />
-      <UserDefElement iecname="productAtApplicatorSensor" type="T_BOOL" byteoffset="39" vartype="VAR_INPUT" />
-      <UserDefElement iecname="exitConveyorRunAfterPASetting" type="T_REAL" byteoffset="40" vartype="VAR_INPUT" />
-      <UserDefElement iecname="waitForPrinterFaultSetting" type="T_REAL" byteoffset="44" vartype="VAR_INPUT" />
-      <UserDefElement iecname="packageExitTimeSetting" type="T_REAL" byteoffset="48" vartype="VAR_INPUT" />
-      <UserDefElement iecname="packageToTampTimeSetting" type="T_REAL" byteoffset="52" vartype="VAR_INPUT" />
-      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="56" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="58" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="faultedStatus" type="T_BOOL" byteoffset="59" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="60" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="61" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="62" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="63" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="resetOutput" type="T_BOOL" byteoffset="64" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="65" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="66" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="runConveyorAfterApply" type="T_BOOL" byteoffset="67" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="waitForPrintFault" type="T_BOOL" byteoffset="68" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="jammedFault" type="T_BOOL" byteoffset="69" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="clearOutBaggerIndicaiton" type="T_BOOL" byteoffset="70" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageFailedToExitFault" type="T_BOOL" byteoffset="71" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageFailedToReachTamp" type="T_BOOL" byteoffset="72" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="packageRemovedBeforeTamp" type="T_BOOL" byteoffset="73" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="labelsInQueue" type="T_BOOL" byteoffset="74" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_pantherTriggerDelay" type="T_INT" byteoffset="76" vartype="VAR" />
-      <UserDefElement iecname="resetOutputTimer" type="T_FB_MonostableMultivibrator" byteoffset="80" vartype="VAR" />
-      <UserDefElement iecname="triggerToPanther" type="T_DelayDwellFB" byteoffset="136" vartype="VAR" />
-      <UserDefElement iecname="exitConveyorRunAfterPA" type="T_DelayDwellFB" byteoffset="200" vartype="VAR" />
-      <UserDefElement iecname="inCycleONS" type="T_FB_ONS" byteoffset="262" vartype="VAR" />
-      <UserDefElement iecname="baggerFaultedONS" type="T_FB_ONS" byteoffset="269" vartype="VAR" />
-      <UserDefElement iecname="faultedStatusONS" type="T_FB_ONS" byteoffset="276" vartype="VAR" />
-      <UserDefElement iecname="_beginCycle" type="T_BOOL" byteoffset="283" vartype="VAR" />
-      <UserDefElement iecname="_ackBaggerClear" type="T_BOOL" byteoffset="284" vartype="VAR" />
-      <UserDefElement iecname="labelMightBePresent" type="T_BOOL" byteoffset="285" vartype="VAR" />
-      <UserDefElement iecname="watchForBagExit" type="T_BOOL" byteoffset="286" vartype="VAR" />
-      <UserDefElement iecname="watchForBagToTamp" type="T_BOOL" byteoffset="287" vartype="VAR" />
-      <UserDefElement iecname="packageWasSeen" type="T_BOOL" byteoffset="288" vartype="VAR" />
-      <UserDefElement iecname="commFailTimer1" type="T_TON" byteoffset="292" vartype="VAR" />
-      <UserDefElement iecname="commFailTimer2" type="T_TON" byteoffset="308" vartype="VAR" />
-      <UserDefElement iecname="waitForPrinterFaultTimer" type="T_TON" byteoffset="324" vartype="VAR" />
-      <UserDefElement iecname="packageFailedToExitTimer" type="T_TON" byteoffset="340" vartype="VAR" />
-      <UserDefElement iecname="packageJammedAtExitTimer" type="T_TON" byteoffset="356" vartype="VAR" />
-      <UserDefElement iecname="packageFailedToReachTampTimer" type="T_TON" byteoffset="372" vartype="VAR" />
-      <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="388" vartype="VAR" />
-      <UserDefElement iecname="labelsInQueueFaultTimer" type="T_TON" byteoffset="404" vartype="VAR" />
-      <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" />
-      <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="432" vartype="VAR" />
+    <TypeUserDef name="T_FB_PrintAndApply" size="76932" nativesize="79024" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="5" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="enableONS" type="T_R_TRIG" byteoffset="6" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="resetONS" type="T_R_TRIG" byteoffset="8" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="autoModeSelected" type="T_BOOL" byteoffset="10" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="semiAutoModeSelected" type="T_BOOL" byteoffset="11" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="manualModeSelected" type="T_BOOL" byteoffset="12" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
+      <UserDefElement iecname="Ready" type="T_BOOL" byteoffset="13" vartype="VAR" inherited_from="T_FB_BaseComponent" propertytype="variable" access="Read" />
+      <UserDefElement iecname="tampDelayWithLOTAR" type="T_REAL" byteoffset="16" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="tampDelayWithoutLOTAR" type="T_REAL" byteoffset="20" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="packageAtExitSensor" type="T_BOOL" byteoffset="24" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="packageHeldAtExitSensor" type="T_BOOL" byteoffset="25" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="conveyorClearAfterCollision" type="T_BOOL" byteoffset="26" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="exemptFaultsActive" type="T_BOOL" byteoffset="27" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="barcodeVerificationFailure" type="T_BOOL" byteoffset="28" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="pressureBarObstruction" type="T_BOOL" byteoffset="29" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="baggerFaulted" type="T_BOOL" byteoffset="30" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="baggerInCycle" type="T_BOOL" byteoffset="31" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="bypass" type="T_BOOL" byteoffset="32" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="dataReady" type="T_BOOL" byteoffset="33" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="LOTAR" type="T_BOOL" byteoffset="34" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="faultInput" type="T_BOOL" byteoffset="35" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="PACycleComplete" type="T_BOOL" byteoffset="36" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="applicatorHome" type="T_BOOL" byteoffset="37" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="38" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="productAtApplicatorSensor" type="T_BOOL" byteoffset="39" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="exitConveyorRunAfterPASetting" type="T_REAL" byteoffset="40" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="waitForPrinterFaultSetting" type="T_REAL" byteoffset="44" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="packageExitTimeSetting" type="T_REAL" byteoffset="48" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="packageToTampTimeSetting" type="T_REAL" byteoffset="52" vartype="VAR_INPUT" access="ReadWrite" />
+      <UserDefElement iecname="state" type="T_PRINT_AND_APPLY_STATES" byteoffset="56" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="commFail" type="T_BOOL" byteoffset="58" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="faultedStatus" type="T_BOOL" byteoffset="59" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="printerNotReady" type="T_BOOL" byteoffset="60" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="printerReadyToApply" type="T_BOOL" byteoffset="61" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="62" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="triggerOutput" type="T_BOOL" byteoffset="63" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="resetOutput" type="T_BOOL" byteoffset="64" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="inhibitCycle" type="T_BOOL" byteoffset="65" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="inhibitConveyor" type="T_BOOL" byteoffset="66" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="runConveyorAfterApply" type="T_BOOL" byteoffset="67" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="waitForPrintFault" type="T_BOOL" byteoffset="68" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="jammedFault" type="T_BOOL" byteoffset="69" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="clearOutBaggerIndicaiton" type="T_BOOL" byteoffset="70" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="packageFailedToExitFault" type="T_BOOL" byteoffset="71" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="packageFailedToReachTamp" type="T_BOOL" byteoffset="72" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="packageRemovedBeforeTamp" type="T_BOOL" byteoffset="73" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="labelsInQueue" type="T_BOOL" byteoffset="74" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="_pantherTriggerDelay" type="T_INT" byteoffset="76" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="resetOutputTimer" type="T_FB_MonostableMultivibrator" byteoffset="80" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="triggerToPanther" type="T_DelayDwellFB" byteoffset="136" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="exitConveyorRunAfterPA" type="T_DelayDwellFB" byteoffset="200" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="inCycleONS" type="T_FB_ONS" byteoffset="262" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="baggerFaultedONS" type="T_FB_ONS" byteoffset="269" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="faultedStatusONS" type="T_FB_ONS" byteoffset="276" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_beginCycle" type="T_BOOL" byteoffset="283" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_ackBaggerClear" type="T_BOOL" byteoffset="284" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="labelMightBePresent" type="T_BOOL" byteoffset="285" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="watchForBagExit" type="T_BOOL" byteoffset="286" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="watchForBagToTamp" type="T_BOOL" byteoffset="287" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="packageWasSeen" type="T_BOOL" byteoffset="288" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="commFailTimer1" type="T_TON" byteoffset="292" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="commFailTimer2" type="T_TON" byteoffset="308" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="waitForPrinterFaultTimer" type="T_TON" byteoffset="324" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="packageFailedToExitTimer" type="T_TON" byteoffset="340" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="packageJammedAtExitTimer" type="T_TON" byteoffset="356" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="packageFailedToReachTampTimer" type="T_TON" byteoffset="372" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="productLeavingDebounce" type="T_TON" byteoffset="388" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="labelsInQueueFaultTimer" type="T_TON" byteoffset="404" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_conveyorClearedAfterCollisionONS" type="T_FB_ONS" byteoffset="420" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_tcpServer" type="T_FB_TCPClient" byteoffset="432" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10544" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_delayForPrintFeed" type="T_TIME" byteoffset="12" vartype="VAR" />
-      <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" />
-      <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" />
+    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10504" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="_delayForPrintFeed" type="T_TIME" byteoffset="12" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77412" nativesize="233088" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
-      <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" />
-      <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" />
-      <UserDefElement iecname="IBD" type="T_FB_MotorizedIBD" byteoffset="86" vartype="VAR" />
-      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="89" vartype="VAR" />
-      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="92" vartype="VAR" />
-      <UserDefElement iecname="bagDelivery" type="T_FB_BagDelivery" byteoffset="100" vartype="VAR" />
-      <UserDefElement iecname="zebraPrinter" type="T_FB_ZebraPrinterStandard" byteoffset="200" vartype="VAR" />
-      <UserDefElement iecname="bagOpened" type="T_BOOL" byteoffset="211" vartype="VAR" />
-      <UserDefElement iecname="recoveryModeActive" type="T_BOOL" byteoffset="212" vartype="VAR" />
-      <UserDefElement iecname="pressureBarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="213" vartype="VAR" />
-      <UserDefElement iecname="IBDMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="255" vartype="VAR" />
-      <UserDefElement iecname="setPassthroughPB" type="T_BOOL" byteoffset="297" vartype="VAR" />
-      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="298" vartype="VAR" />
-      <UserDefElement iecname="openedBagWasRemoved" type="T_FB_Fault" byteoffset="301" vartype="VAR" />
-      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="304" vartype="VAR" />
-      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="307" vartype="VAR" />
-      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="310" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerificationFailed" type="T_FB_Fault" byteoffset="313" vartype="VAR" />
-      <UserDefElement iecname="barcodeVerifierCommFail" type="T_FB_Fault" byteoffset="316" vartype="VAR" />
-      <UserDefElement iecname="infeedConveyorIOCommFail" type="T_FB_Fault" byteoffset="319" vartype="VAR" />
-      <UserDefElement iecname="infeedConveyorVFDFaulted" type="T_FB_Fault" byteoffset="322" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyFaulted" type="T_FB_Fault" byteoffset="325" vartype="VAR" />
-      <UserDefElement iecname="productJammed" type="T_FB_Fault" byteoffset="328" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyCommFailure" type="T_FB_Fault" byteoffset="331" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyWaitForLabelTimedOut" type="T_FB_Fault" byteoffset="334" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyPackageFailedToExit" type="T_FB_Fault" byteoffset="337" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyPackageFailedToReachTamp" type="T_FB_Fault" byteoffset="340" vartype="VAR" />
-      <UserDefElement iecname="printAndApplyPackageRemovedBeforeTamp" type="T_FB_Fault" byteoffset="343" vartype="VAR" />
-      <UserDefElement iecname="labelsQueuedUpFault" type="T_FB_Fault" byteoffset="346" vartype="VAR" />
-      <UserDefElement iecname="sealFlattenerTimedOut" type="T_FB_Fault" byteoffset="349" vartype="VAR" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="352" vartype="VAR" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="361" vartype="VAR" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="370" vartype="VAR" />
-      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="380" vartype="VAR" />
-      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="452" vartype="VAR" />
-      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="459" vartype="VAR" />
-      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="469" vartype="VAR" />
-      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="477" vartype="VAR" />
-      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="480" vartype="VAR" />
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="77420" nativesize="233064" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+      <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
+      <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="IBD" type="T_FB_MotorizedIBD" byteoffset="86" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="sealBarTempSensor" type="T_FB_IFMTempSensor" byteoffset="89" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="sealBarHeater" type="T_FB_TempController" byteoffset="92" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="bagDelivery" type="T_FB_BagDelivery" byteoffset="100" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="zebraPrinter" type="T_FB_ZebraPrinterStandard" byteoffset="200" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="bagOpened" type="T_BOOL" byteoffset="211" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="recoveryModeActive" type="T_BOOL" byteoffset="212" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="pressureBarMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="213" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="IBDMotor" type="T_FB_AppliedMotionStepServoEIPPassthrough" byteoffset="255" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="setPassthroughPB" type="T_BOOL" byteoffset="297" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="bagFailedToOpen" type="T_FB_Fault" byteoffset="298" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="openedBagWasRemoved" type="T_FB_Fault" byteoffset="301" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="safePowerFailure" type="T_FB_Fault" byteoffset="304" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="palmButtonConfigError" type="T_FB_Fault" byteoffset="307" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="packageEjectGuardRemoved" type="T_FB_Fault" byteoffset="310" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="barcodeVerificationFailed" type="T_FB_Fault" byteoffset="313" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="barcodeVerifierCommFail" type="T_FB_Fault" byteoffset="316" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="infeedConveyorIOCommFail" type="T_FB_Fault" byteoffset="319" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="infeedConveyorVFDFaulted" type="T_FB_Fault" byteoffset="322" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyFaulted" type="T_FB_Fault" byteoffset="325" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="productJammed" type="T_FB_Fault" byteoffset="328" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyCommFailure" type="T_FB_Fault" byteoffset="331" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyWaitForLabelTimedOut" type="T_FB_Fault" byteoffset="334" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyPackageFailedToExit" type="T_FB_Fault" byteoffset="337" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyPackageFailedToReachTamp" type="T_FB_Fault" byteoffset="340" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyPackageRemovedBeforeTamp" type="T_FB_Fault" byteoffset="343" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="labelsQueuedUpFault" type="T_FB_Fault" byteoffset="346" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="sealFlattenerTimedOut" type="T_FB_Fault" byteoffset="349" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="IBDFailedToHome" type="T_FB_Fault" byteoffset="352" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="355" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="364" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="373" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="384" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="456" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="463" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="473" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="481" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="488" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
   </TypeList>
   <NodeList>
@@ -1644,6 +1668,10 @@ Misc</Comment>
       <Node name="PRG_Bagger">
         <Node name="moabHead" type="T_FB_MOABHead_Electric" access="ReadWrite" />
         <Node name="resetCommFaults" type="T_BOOL" access="ReadWrite" />
+      </Node>
+      <Node name="RemoteComms">
+        <Node name="OPCInputsToBagger" type="T_OPC_Inputs" access="ReadWrite" />
+        <Node name="OPCOutputsFromBagger" type="T_OPC_Outputs" access="ReadWrite" />
       </Node>
     </Node>
   </NodeList>
