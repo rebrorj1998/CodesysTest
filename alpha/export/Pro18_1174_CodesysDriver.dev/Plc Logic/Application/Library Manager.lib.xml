@@ -695,6 +695,14 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">Standard</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Standard, 3.5.18.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemMeter</Single>
             </Key>
             <Value>
@@ -711,10 +719,26 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">StringUtils</Single>
+            </Key>
+            <Value>
+              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
               <Single Type="string">VisuElemTrace, 4.6.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">FloatingPointUtils</Single>
+            </Key>
+            <Value>
+              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -783,10 +807,26 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">Standard64</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
               <Single Type="string">VisuElemsWinControls, 4.6.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">Collections</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Collections, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -803,46 +843,6 @@
             </Key>
             <Value>
               <Single Type="string">VisuNativeControl, 4.6.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">Standard</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Standard, 3.5.18.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">StringUtils</Single>
-            </Key>
-            <Value>
-              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">FloatingPointUtils</Single>
-            </Key>
-            <Value>
-              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">Collections</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Collections, 3.5.17.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">Standard64</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>

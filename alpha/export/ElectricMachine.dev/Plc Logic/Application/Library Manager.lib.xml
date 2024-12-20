@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638701252030759353</Single>
+        <Single Name="Timestamp" Type="long">638702862915116191</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List2 Name="ParameterTable">
@@ -584,48 +584,6 @@
             <Single Name="LinkAllContent" Type="bool">False</Single>
           </Single>
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">IoStandard, 3.5.17.0 (System)</Single>
-            <Single Name="Optional" Type="bool">False</Single>
-            <Null Name="Params" />
-            <Single Name="PlaceholderName" Type="string">IoStandard</Single>
-            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">1996444287</Single>
-            <Single Name="Namespace" Type="string">IoStandard</Single>
-            <Single Name="SystemLibrary" Type="bool">True</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">True</Single>
-          </Single>
-          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)</Single>
-            <Single Name="Optional" Type="bool">False</Single>
-            <Null Name="Params" />
-            <Single Name="PlaceholderName" Type="string">3SLicense</Single>
-            <Single Name="ResolverGuid" Type="System.Guid">97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b</Single>
-            <Single Name="Id" Type="long">1826562059</Single>
-            <Single Name="Namespace" Type="string">_3S_LICENSE</Single>
-            <Single Name="SystemLibrary" Type="bool">True</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
-          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">IoDrvEtherNetIP, 3.5.16.10 (3S - Smart Software Solutions GmbH)</Single>
-            <Single Name="Optional" Type="bool">False</Single>
-            <Null Name="Params" />
-            <Single Name="PlaceholderName" Type="string">IoDrvEtherNetIP</Single>
-            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">879330054</Single>
-            <Single Name="Namespace" Type="string">IoDrvEtherNetIP</Single>
-            <Single Name="SystemLibrary" Type="bool">True</Single>
-            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
-            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
-            <Single Name="QualifiedOnly" Type="bool">False</Single>
-            <Single Name="LinkAllContent" Type="bool">False</Single>
-          </Single>
-          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">EtherNetIP Services, 3.5.14.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
             <Null Name="Params" />
@@ -640,12 +598,54 @@
             <Single Name="LinkAllContent" Type="bool">False</Single>
           </Single>
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">IoStandard, 3.5.17.0 (System)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Null Name="Params" />
+            <Single Name="PlaceholderName" Type="string">IoStandard</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">438379300</Single>
+            <Single Name="Namespace" Type="string">IoStandard</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">True</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">3SLicense, 0.0.0.0 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Null Name="Params" />
+            <Single Name="PlaceholderName" Type="string">3SLicense</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">97c3b452-d9fa-4ac2-9d0c-3d420aa6d95b</Single>
+            <Single Name="Id" Type="long">2532184066</Single>
+            <Single Name="Namespace" Type="string">_3S_LICENSE</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">IoDrvEtherNetIP, 3.5.16.10 (3S - Smart Software Solutions GmbH)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Null Name="Params" />
+            <Single Name="PlaceholderName" Type="string">IoDrvEtherNetIP</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">3388128153</Single>
+            <Single Name="Namespace" Type="string">IoDrvEtherNetIP</Single>
+            <Single Name="SystemLibrary" Type="bool">True</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
             <Single Name="DefaultResolution" Type="string">IoDrvEthernet, 3.5.16.0 (3S - Smart Software Solutions GmbH)</Single>
             <Single Name="Optional" Type="bool">False</Single>
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoDrvEthernet</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">651893466</Single>
+            <Single Name="Id" Type="long">1946394967</Single>
             <Single Name="Namespace" Type="string">IoDrvEthernet</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
@@ -659,7 +659,7 @@
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">IoDrvModbusTCPSlave</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">4291207991</Single>
+            <Single Name="Id" Type="long">1059909660</Single>
             <Single Name="Namespace" Type="string">IoDrvModbusTCPSlaveLibrary</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
@@ -668,12 +668,12 @@
             <Single Name="LinkAllContent" Type="bool">False</Single>
           </Single>
           <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
-            <Single Name="DefaultResolution" Type="string">CAA Device Diagnosis, 3.5.18.0 (CAA Technical Workgroup)</Single>
+            <Single Name="DefaultResolution" Type="string">CAA Device Diagnosis, 3.5.17.0 (CAA Technical Workgroup)</Single>
             <Single Name="Optional" Type="bool">False</Single>
             <Null Name="Params" />
             <Single Name="PlaceholderName" Type="string">CAA Device Diagnosis</Single>
             <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
-            <Single Name="Id" Type="long">608191937</Single>
+            <Single Name="Id" Type="long">2982769888</Single>
             <Single Name="Namespace" Type="string">DED</Single>
             <Single Name="SystemLibrary" Type="bool">True</Single>
             <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
@@ -709,6 +709,14 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">Standard</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Standard, 3.5.18.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemMeter</Single>
             </Key>
             <Value>
@@ -725,10 +733,26 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">StringUtils</Single>
+            </Key>
+            <Value>
+              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
               <Single Type="string">VisuElemTrace, 4.6.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">FloatingPointUtils</Single>
+            </Key>
+            <Value>
+              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -797,10 +821,26 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">Standard64</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
               <Single Type="string">VisuElemsWinControls, 4.6.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">Collections</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Collections, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -817,46 +857,6 @@
             </Key>
             <Value>
               <Single Type="string">VisuNativeControl, 4.6.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">Standard</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Standard, 3.5.18.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">Standard64</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">StringUtils</Single>
-            </Key>
-            <Value>
-              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">FloatingPointUtils</Single>
-            </Key>
-            <Value>
-              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">Collections</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Collections, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>
