@@ -61,7 +61,7 @@ namespace Neo.ApplicationFramework.Generated
 			LanguageInfo1.FontOffset = 0;
 			LanguageInfo1.Index = 1;
 			LanguageInfo1.IsPublic = true;
-			LanguageInfo1.KeyboardLayoutName = "US";
+			LanguageInfo1.KeyboardLayoutName = "French";
 			LanguageInfo1.Name = "French (France)";
 			LanguageInfo1.UseInRuntime = true;
 			LanguageInfo1.WordWrapAdjust = false;
@@ -71,7 +71,7 @@ namespace Neo.ApplicationFramework.Generated
 			LanguageInfo2.FontOffset = 0;
 			LanguageInfo2.Index = 2;
 			LanguageInfo2.IsPublic = true;
-			LanguageInfo2.KeyboardLayoutName = "US";
+			LanguageInfo2.KeyboardLayoutName = "German";
 			LanguageInfo2.Name = "German (Germany)";
 			LanguageInfo2.UseInRuntime = true;
 			LanguageInfo2.WordWrapAdjust = false;
@@ -81,7 +81,7 @@ namespace Neo.ApplicationFramework.Generated
 			LanguageInfo3.FontOffset = 0;
 			LanguageInfo3.Index = 3;
 			LanguageInfo3.IsPublic = true;
-			LanguageInfo3.KeyboardLayoutName = "US";
+			LanguageInfo3.KeyboardLayoutName = "German";
 			LanguageInfo3.Name = "Dutch (Netherlands)";
 			LanguageInfo3.UseInRuntime = true;
 			LanguageInfo3.WordWrapAdjust = false;
@@ -91,11 +91,41 @@ namespace Neo.ApplicationFramework.Generated
 			LanguageInfo4.FontOffset = 0;
 			LanguageInfo4.Index = 4;
 			LanguageInfo4.IsPublic = true;
-			LanguageInfo4.KeyboardLayoutName = "US";
+			LanguageInfo4.KeyboardLayoutName = "Spanish";
 			LanguageInfo4.Name = "Spanish (Latin America)";
 			LanguageInfo4.UseInRuntime = true;
 			LanguageInfo4.WordWrapAdjust = false;
 			this.Languages.Add(LanguageInfo4);
+			Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo LanguageInfo5 = new Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo();
+			LanguageInfo5.FontName = null;
+			LanguageInfo5.FontOffset = 0;
+			LanguageInfo5.Index = 5;
+			LanguageInfo5.IsPublic = true;
+			LanguageInfo5.KeyboardLayoutName = "Italian";
+			LanguageInfo5.Name = "Italian (Italy)";
+			LanguageInfo5.UseInRuntime = true;
+			LanguageInfo5.WordWrapAdjust = false;
+			this.Languages.Add(LanguageInfo5);
+			Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo LanguageInfo6 = new Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo();
+			LanguageInfo6.FontName = null;
+			LanguageInfo6.FontOffset = 0;
+			LanguageInfo6.Index = 6;
+			LanguageInfo6.IsPublic = true;
+			LanguageInfo6.KeyboardLayoutName = "US";
+			LanguageInfo6.Name = "Portuguese (Portugal)";
+			LanguageInfo6.UseInRuntime = true;
+			LanguageInfo6.WordWrapAdjust = false;
+			this.Languages.Add(LanguageInfo6);
+			Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo LanguageInfo7 = new Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo();
+			LanguageInfo7.FontName = null;
+			LanguageInfo7.FontOffset = 0;
+			LanguageInfo7.Index = 7;
+			LanguageInfo7.IsPublic = true;
+			LanguageInfo7.KeyboardLayoutName = "US";
+			LanguageInfo7.Name = "Polish (Poland)";
+			LanguageInfo7.UseInRuntime = true;
+			LanguageInfo7.WordWrapAdjust = false;
+			this.Languages.Add(LanguageInfo7);
 		}
 		
 		[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
