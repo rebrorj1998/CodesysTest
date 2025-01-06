@@ -73,6 +73,16 @@ VAR_GLOBAL //PERSISTENT RETAIN
 	printerInstalled : BOOL;
 	lpaDuringBagFeedEnable : BOOL := TRUE;
 	lpaBagEjectAssistEnable : BOOL := TRUE;
+	passthroughPositionMetric : REAL;
+	sealFlattenersPositionMetric : REAL;
+	bagLengthMetric : REAL := 23.5;
+	bagWidthMetric : REAL := 17.5;
+	bagThicknessMetric : REAL := 2.5;
+	printLengthMetric : REAL := 8.0;
+	printOffsetMetric : REAL := 2.0;
+	barcodeStartPositionMetric : REAL;
+	HMIMetric : BOOL;
+
 
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
