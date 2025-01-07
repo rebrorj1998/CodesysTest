@@ -504,8 +504,8 @@
     </TypeUserDef>
     <TypeUserDef name="T_PrinterCycleSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PrinterCycleSelection" basetype="T_INT">
       <UserDefElement type="T_PrinterCycleSelection" iecname="PrintWhileFeeding" enumvalue="0" />
-      <UserDefElement type="T_PrinterCycleSelection" iecname="PrintMidCycle" enumvalue="1" />
-      <UserDefElement type="T_PrinterCycleSelection" iecname="PrintEndCycle" enumvalue="2" />
+      <UserDefElement type="T_PrinterCycleSelection" iecname="PrintMidCycle" enumvalue="2" />
+      <UserDefElement type="T_PrinterCycleSelection" iecname="PrintEndCycle" enumvalue="1" />
     </TypeUserDef>
     <TypeUserDef name="T_RELEASE_FEED_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="RELEASE_FEED_STATES" basetype="T_INT">
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Idle" enumvalue="0" />

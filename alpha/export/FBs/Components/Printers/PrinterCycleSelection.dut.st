@@ -4,7 +4,7 @@
 TYPE PrinterCycleSelection :
 (
 	PrintWhileFeeding := 0,
-	PrintMidCycle := 1,
-	PrintEndCycle := 2
+	PrintEndCycle := 1,
+	PrintMidCycle := 2
 );
 END_TYPE

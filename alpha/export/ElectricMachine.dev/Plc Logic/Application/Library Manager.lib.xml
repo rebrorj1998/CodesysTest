@@ -693,6 +693,14 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">System_VisuElemCamDisplayer</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemCamDisplayer, 4.6.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
@@ -733,26 +741,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">StringUtils</Single>
-            </Key>
-            <Value>
-              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
               <Single Type="string">VisuElemTrace, 4.6.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">FloatingPointUtils</Single>
-            </Key>
-            <Value>
-              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -773,10 +765,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemCamDisplayer</Single>
+              <Single Type="string">FloatingPointUtils</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemCamDisplayer, 4.6.0.0 (System)</Single>
+              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -789,10 +781,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">ElementCollections</Single>
+              <Single Type="string">StringUtils</Single>
             </Key>
             <Value>
-              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
+              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -821,18 +813,26 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">Standard64</Single>
-            </Key>
-            <Value>
-              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
               <Single Type="string">VisuElemsWinControls, 4.6.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">ElementCollections</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">Standard64</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
