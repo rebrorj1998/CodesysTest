@@ -26,6 +26,7 @@
     <TypeSimple name="T_STRING_15_" size="16" swapsize="0" typeclass="String" iecname="STRING(15)" />
     <TypeSimple name="T_STRING_25000_" size="25001" swapsize="0" typeclass="String" iecname="STRING(25000)" />
     <TypeSimple name="T_STRING_3_" size="4" swapsize="0" typeclass="String" iecname="STRING(3)" />
+    <TypeSimple name="T_STRING_8000_" size="8001" swapsize="0" typeclass="String" iecname="STRING(8000)" />
     <TypeSimple name="T_TIME" size="4" swapsize="4" typeclass="Time" iecname="TIME" />
     <TypeSimple name="T_UDINT" size="4" swapsize="4" typeclass="UDInt" iecname="UDINT" />
     <TypeSimple name="T_UINT" size="2" swapsize="2" typeclass="UInt" iecname="UINT" />
@@ -504,8 +505,8 @@
     </TypeUserDef>
     <TypeUserDef name="T_PrinterCycleSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="PrinterCycleSelection" basetype="T_INT">
       <UserDefElement type="T_PrinterCycleSelection" iecname="PrintWhileFeeding" enumvalue="0" />
-      <UserDefElement type="T_PrinterCycleSelection" iecname="PrintMidCycle" enumvalue="2" />
       <UserDefElement type="T_PrinterCycleSelection" iecname="PrintEndCycle" enumvalue="1" />
+      <UserDefElement type="T_PrinterCycleSelection" iecname="PrintMidCycle" enumvalue="2" />
     </TypeUserDef>
     <TypeUserDef name="T_RELEASE_FEED_STATES" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="RELEASE_FEED_STATES" basetype="T_INT">
       <UserDefElement type="T_RELEASE_FEED_STATES" iecname="Idle" enumvalue="0" />
@@ -846,7 +847,7 @@
       <UserDefElement iecname="commFailNode" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="configActive" type="T_Warning" byteoffset="9" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_TCPClient" size="76500" nativesize="77984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TCPClient">
+    <TypeUserDef name="T_FB_TCPClient" size="42500" nativesize="43984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TCPClient">
       <UserDefElement iecname="_TCPClient" type="T_TCP_Client" byteoffset="0" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="_TCPClient_ipAddr" type="T_IP_ADDR" byteoffset="104" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="_TCPClient_uiPort" type="T_UINT" byteoffset="186" vartype="VAR" access="ReadWrite" />
@@ -865,14 +866,14 @@
       <UserDefElement iecname="_sServerIP" type="T_STRING" byteoffset="26415" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="_sendLabel" type="T_BOOL" byteoffset="26496" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="_clearLabel" type="T_BOOL" byteoffset="26497" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="label203" type="T_STRING_25000_" byteoffset="26498" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="label300" type="T_STRING_25000_" byteoffset="51499" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="label203" type="T_STRING_8000_" byteoffset="26498" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="label300" type="T_STRING_8000_" byteoffset="34499" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_TempController" size="6" nativesize="1160" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_TempController" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="thermalRunawayOvershoot" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="thermalRunawayNotHeating" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_ZebraPrinterStandard" size="11" nativesize="78816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinterStandard" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_ZebraPrinterStandard" size="11" nativesize="44816" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_ZebraPrinterStandard" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="printHeadDebounced" type="T_BOOL" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="ribbonFault" type="T_FB_Fault" byteoffset="1" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="printHeadDebouneSetpoint" type="T_TIME" byteoffset="4" vartype="VAR" access="ReadWrite" />
@@ -891,7 +892,7 @@
     <TypeUserDef name="T_FB_MotorizedSealFlatteners" size="42" nativesize="4984" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="sealFlattenersHorizontalAxisMotor" type="T_FB_AppliedMotionStepServoEIPBaseQX" byteoffset="0" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_PrintAndApply" size="76932" nativesize="79016" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_PrintAndApply" size="42932" nativesize="45016" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
@@ -974,7 +975,7 @@
       <UserDefElement iecname="_bagFeedFrontMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="16" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="_bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="77420" nativesize="233048" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="43420" nativesize="165048" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners" byteoffset="14" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="56" vartype="VAR" access="ReadWrite" />
