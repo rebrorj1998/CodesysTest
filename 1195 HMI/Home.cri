@@ -29,10 +29,14 @@
         <Item Target="Home.Button2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Home.Button8" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Home.Button4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Home.Button" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
-      <Items />
+      <Items>
+        <Item Target="Home.Button2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_HMIMetric" />
+        <Item Target="Home.Button" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_HMIMetric" />
+      </Items>
     </Category>
     <Category Name="InvalidAction">
       <Items />
@@ -53,7 +57,7 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>5</Value>
+              <Value>6</Value>
             </Detail>
           </Details>
         </Item>
@@ -81,8 +85,9 @@
         <Item xsi:type="ActionItem" Target="Home.Button2" TargetProperty="Actions" Source="Settings_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Home.Button8" TargetProperty="Actions" Source="Options" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Home.Button4" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Home.Button" TargetProperty="Actions" Source="Settings_P1_M" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>5</ObjectsCount>
+          <ObjectsCount>6</ObjectsCount>
           <ScreenName>Home</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

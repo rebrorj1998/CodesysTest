@@ -44,7 +44,7 @@ VAR
 	cycleStartDebounce : TON := (PT := T#75MS);
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
-//	Description: Base program for the 1179/1181 SX. 
+//	Description: Base program for the 1195 SX. 
 //				 
 //	Created by: Ben Hess
 //	Created Date: 
@@ -79,6 +79,7 @@ cycleStartONS(clk := cycleStartDebounce.Q);
 batchCounter(CU := cycleComplete.OSR, RESET := (NOT HMIData.batchEnable) OR HMIData.resetBatchCounter, PV := TO_WORD(HMIData.batchSetting), Q => HMIData.batchCounterDone, CV => HMIData.batchCount);
 IF HMIData.resetBatchCounter THEN 
 	HMIData.resetBatchCounter := FALSE;
+	
 END_IF
 // All start conditions
 IF (HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q) AND NOT HMIData.batchCounterDone THEN
@@ -178,7 +179,11 @@ palmButton(
 //
 
 // change jaw close position from HMI
+IF HMIData.HMIMetric THEN
+AxisData.jawCloseMotionProfile.position := (HMIData.jawClosePositionSetting/25.4);
+ELSE
 AxisData.jawCloseMotionProfile.position := HMIData.jawClosePositionSetting;
+END_IF
 
 //code to add timer to track duration in states
 stateTimer(PT:=T#10000S);

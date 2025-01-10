@@ -20,7 +20,10 @@
       <Items />
     </Category>
     <Category Name="Expression">
-      <Items />
+      <Items>
+        <Item Target="Options.Button5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="and" />
+        <Item Target="Options.Button6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="and1" />
+      </Items>
     </Category>
     <Category Name="Font">
       <Items>
@@ -32,6 +35,8 @@
         <Item Target="Options.Group.Text5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Options.Group.Button4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Options.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Button5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Options.Button6" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -49,6 +54,8 @@
         <Item xsi:type="ActionItem" Target="Options.Group.Button4" TargetProperty="Actions" Source="Tags.Application_HMIData_printerAndVerifierEnablePB" Event="Click" Action="Toggle Tag" Param="" />
         <Item Target="Options.Group.Button4" TargetProperty="Value" Source="Tags.Application_HMIData_clearAllLabels" />
         <Item Target="Options.Text" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Options.Button5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_printerInstalled" />
+        <Item Target="Options.Button6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_barcodeVerifierInstalled" />
       </Items>
     </Category>
     <Category Name="InvalidAction">
@@ -70,7 +77,7 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>5</Value>
+              <Value>7</Value>
             </Detail>
             <Detail>
               <Key>Label</Key>
@@ -109,8 +116,10 @@
         <Item xsi:type="ActionItem" Target="Options.Button1" TargetProperty="Actions" Source="Option_BarcodeVerifier" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Options.Button2" TargetProperty="Actions" Source="Option_IBD" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Options.Button3" TargetProperty="Actions" Source="Option_LoadShelf" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Options.Button5" TargetProperty="Actions" Source="Option_Printer_M" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Options.Button6" TargetProperty="Actions" Source="Option_Barcode_M" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>11</ObjectsCount>
+          <ObjectsCount>13</ObjectsCount>
           <ScreenName>Options</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

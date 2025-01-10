@@ -122,7 +122,7 @@ namespace Neo.ApplicationFramework.Generated
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_printerInUse;
 		
-		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_printerInstalled;
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem Application_HMIData_printerInstalled;
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_printerCancelRequest;
 		
@@ -310,7 +310,7 @@ namespace Neo.ApplicationFramework.Generated
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_barcodeVerifierInUse;
 		
-		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_barcodeVerifierInstalled;
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem Application_HMIData_barcodeVerifierInstalled;
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_barcodeStartPosition;
 		
@@ -2212,6 +2212,8 @@ namespace Neo.ApplicationFramework.Generated
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_GlobalObjects_CollectionOfComponents_Ready_9;
 		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem Application_HMIData_HMIMetric;
+		
 		public Neo.ApplicationFramework.Tools.OpcClient.PollGroup PollGroup1;
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.PollGroup PollGroup2;
@@ -2306,7 +2308,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_HMIData_printHeadService_extendCommand = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_printHeadService_extendCommand", "Controller1.DataItem51", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_HMIData_printerReady = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_printerReady", "Controller1.DataItem52", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_HMIData_printerInUse = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_printerInUse", "Controller1.DataItem53", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
-			this.Application_HMIData_printerInstalled = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_printerInstalled", "Controller1.DataItem54", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
+			this.Application_HMIData_printerInstalled = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Application_HMIData_printerInstalled", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "", "");
 			this.Application_HMIData_printerCancelRequest = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_printerCancelRequest", "Controller1.DataItem55", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_HMIData_printerAndVerifierEnablePB = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_printerAndVerifierEnablePB", "Controller1.DataItem56", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_HMIData_printerAndVerifierEnableIndication = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_printerAndVerifierEnableIndication", "Controller1.DataItem57", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
@@ -2400,7 +2402,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_HMIData_batchCount = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_batchCount", "Controller1.DataItem146", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_UINTEGER4)), false, "", null);
 			this.Application_HMIData_barcodeVerifierTrigger = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_barcodeVerifierTrigger", "Controller1.DataItem147", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_HMIData_barcodeVerifierInUse = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_barcodeVerifierInUse", "Controller1.DataItem148", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
-			this.Application_HMIData_barcodeVerifierInstalled = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_barcodeVerifierInstalled", "Controller1.DataItem149", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
+			this.Application_HMIData_barcodeVerifierInstalled = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Application_HMIData_barcodeVerifierInstalled", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "", "");
 			this.Application_HMIData_barcodeStartPosition = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_barcodeStartPosition", "Controller1.DataItem150", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), false, "", null);
 			this.Application_HMIData_barcodeScanDistance = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_barcodeScanDistance", "Controller1.DataItem151", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), false, "", null);
 			this.Application_HMIData_barcodeReadGoodIndication = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_barcodeReadGoodIndication", "Controller1.DataItem152", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
@@ -3351,6 +3353,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_7 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_7", "Controller1.DataItem1225", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_8 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_8", "Controller1.DataItem1226", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_9 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_9", "Controller1.DataItem1227", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
+			this.Application_HMIData_HMIMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Application_HMIData_HMIMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "", "");
 			this.PollGroup1 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup2 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup3 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
@@ -3371,6 +3374,12 @@ namespace Neo.ApplicationFramework.Generated
 		private void InitializeObjects()
 		{
 			this.ConnectedImportFilePath = "";
+			this.Application_HMIData_printerInstalled.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem54"}, true));
+			this.Application_HMIData_barcodeVerifierInstalled.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem149"}, true));
 			this.IO_Page_Index.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(new Neo.ApplicationFramework.Interfaces.VariantValue("1"), 0, new string[0], new string[0], true));
 			this.IO_Page_Index.ValueChange += new System.EventHandler<Core.Api.DataSource.ValueChangedEventArgs>(this.IO_Page_Index_ValueChange);
 			this.IO_Alias_Title.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(new Neo.ApplicationFramework.Interfaces.VariantValue("Inputs"), 0, new string[0], new string[0], true));
@@ -3394,6 +3403,9 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_GlobalObjects_CollectionOfComponents_TotalObjects.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
 							"Controller1"}, new string[] {
 							"DataItem539"}, true));
+			this.Application_HMIData_HMIMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem540"}, true));
 			this.LightweightTags.Add(this.Application_IoConfig_Globals_Mapping_oTriggerBCV);
 			this.LightweightTags.Add(this.Application_IoConfig_Globals_Mapping_oTeachPhotoeye);
 			this.LightweightTags.Add(this.Application_IoConfig_Globals_Mapping_oSealWire);
@@ -3447,7 +3459,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_HMIData_printHeadService_extendCommand);
 			this.LightweightTags.Add(this.Application_HMIData_printerReady);
 			this.LightweightTags.Add(this.Application_HMIData_printerInUse);
-			this.LightweightTags.Add(this.Application_HMIData_printerInstalled);
+			this.GlobalDataItems.Add(this.Application_HMIData_printerInstalled);
 			this.LightweightTags.Add(this.Application_HMIData_printerCancelRequest);
 			this.LightweightTags.Add(this.Application_HMIData_printerAndVerifierEnablePB);
 			this.LightweightTags.Add(this.Application_HMIData_printerAndVerifierEnableIndication);
@@ -3541,7 +3553,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_HMIData_batchCount);
 			this.LightweightTags.Add(this.Application_HMIData_barcodeVerifierTrigger);
 			this.LightweightTags.Add(this.Application_HMIData_barcodeVerifierInUse);
-			this.LightweightTags.Add(this.Application_HMIData_barcodeVerifierInstalled);
+			this.GlobalDataItems.Add(this.Application_HMIData_barcodeVerifierInstalled);
 			this.LightweightTags.Add(this.Application_HMIData_barcodeStartPosition);
 			this.LightweightTags.Add(this.Application_HMIData_barcodeScanDistance);
 			this.LightweightTags.Add(this.Application_HMIData_barcodeReadGoodIndication);
@@ -4290,11 +4302,11 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_HMIData_printer300DPI);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_0);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_10);
-			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_11);
 		}
 		
 		private void InitializeObjects_2()
 		{
+			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_11);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_12);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_13);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_14);
@@ -4496,6 +4508,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_7);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_8);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_9);
+			this.GlobalDataItems.Add(this.Application_HMIData_HMIMetric);
 			this.PollGroup1.Interval = 100;
 			this.PollGroup1.Name = "PollGroup1";
 			this.PollGroup2.Interval = 500;

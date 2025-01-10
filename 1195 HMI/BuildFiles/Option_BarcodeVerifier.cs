@@ -377,11 +377,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Option_BarcodeVerifier";
             this.m_Text5.TextHorizontalAlignment = "Center";
-            stringintervalmappercf1.DefaultValue = "EN";
-            stringintervalcf1.Value = "APAGADO";
+            stringintervalmappercf1.DefaultValue = "ON";
+            stringintervalcf1.Value = "OFF";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "EN";
+            stringintervalcf2.Value = "ON";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Text5.TextIntervalMapper = stringintervalmappercf1;
@@ -762,7 +762,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_BarcodeVerifier";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button1.TextHeight = 36;
+            this.m_Button1.TextHeight = 18;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 109;
             this.m_Button1.Top = 170;
@@ -939,8 +939,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.Text = resources.GetText("Option_BarcodeVerifier.Text.Text", "Barcode Verifier");
             this.m_Text5.Text = resources.GetText("Option_BarcodeVerifier.Text5.Text", "ON");
             this.m_Text2.Text = resources.GetText("Option_BarcodeVerifier.Text2.Text", "    Good Read");
-            this.m_Text3.Text = resources.GetText("Option_BarcodeVerifier.Text3.Text", "    Scanning Distance");
-            this.m_Text4.Text = resources.GetText("Option_BarcodeVerifier.Text4.Text", "    Start Scanning Offset");
+            this.m_Text3.Text = resources.GetText("Option_BarcodeVerifier.Text3.Text", "    Scanning Distance (in.)");
+            this.m_Text4.Text = resources.GetText("Option_BarcodeVerifier.Text4.Text", "    Start Scanning Offset (in.)");
             this.m_Text1.Text = resources.GetText("Option_BarcodeVerifier.Text1.Text", "    Bad/No Read");
             this.m_Text6.Text = resources.GetText("Option_BarcodeVerifier.Text6.Text", "   Bad Read Fault Count");
             this.m_Button1.Text = resources.GetText("Option_BarcodeVerifier.Button1.Text", "Trigger BCV");

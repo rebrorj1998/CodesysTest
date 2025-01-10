@@ -43,6 +43,10 @@
     <Category Name="Script">
       <Items>
         <Item Target="Expression.cs" Source="Tags.Application_GlobalObjects_CollectionOfComponents_TotalObjects" />
+        <Item Target="Expression.cs" Source="Tags.Application_HMIData_printerInstalled" />
+        <Item Target="Expression.cs" Source="Tags.Application_HMIData_HMIMetric" />
+        <Item Target="Expression.cs" Source="Tags.Application_HMIData_barcodeVerifierInstalled" />
+        <Item Target="Expression.cs" Source="Tags.Application_HMIData_HMIMetric" />
       </Items>
     </Category>
     <Category Name="StructuredTag">

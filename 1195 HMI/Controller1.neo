@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?neo version='2.51.49.0' LastConverterVersion='2.50.5'?>
 <NeoItem d1p1:Serializer="Neo.ApplicationFramework.Common.Serialization.ObjectSerializer" xmlns:d1p1="urn:Neo.ApplicationFramework.Serializer">
-  <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataSourceContainer, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ID="1" Driver="CoDeSys_ARTI_Pre2.CoDeSys_ARTI_Pre2.1" Servername="Beijer.InprocessNeo.2" Node="" Url="" TargetInfoString="iXDeveloper;WinCe8;Beijer;Exter iX;X2 control 4;en;" ConnectedImportFilePath="" d1p1:Site.Name="Controller1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+  <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataSourceContainer, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ID="1" Driver="CoDeSys_ARTI_Pre2.CoDeSys_ARTI_Pre2.1" Servername="Beijer.InprocessNeo.2" Node="" Url="" TargetInfoString="iXDeveloper;WinCe8;Beijer;Exter iX;X2 control 4;en;" ConnectedImportFilePath="C:\Sourcetree\SharpController\SharpBagger.SX_1195.Application.xml" d1p1:Site.Name="Controller1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
     <OpcUaNamespaceInfos>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcUaClient.OpcUaNamespaceInfos, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" />
     </OpcUaNamespaceInfos>
@@ -1080,6 +1080,7 @@
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.GlobalObjects.CollectionOfComponents.Ready[7]" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem1225" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.GlobalObjects.CollectionOfComponents.Ready[8]" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem1226" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.GlobalObjects.CollectionOfComponents.Ready[9]" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem1227" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.HMIData.HMIMetric" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem540" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
     </DataItems>
   </Object>
 </NeoItem>

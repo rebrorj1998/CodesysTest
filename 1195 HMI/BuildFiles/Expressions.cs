@@ -64,6 +64,16 @@ namespace Neo.ApplicationFramework.Generated
 			return ((value) *6)<Globals.Tags.Application_GlobalObjects_CollectionOfComponents_TotalObjects.Value;
 		}
 		
+		public Neo.ApplicationFramework.Interfaces.VariantValue and(Neo.ApplicationFramework.Interfaces.VariantValue value)
+		{
+			return Globals.Tags.Application_HMIData_printerInstalled.Value&&Globals.Tags.Application_HMIData_HMIMetric.Value;
+		}
+		
+		public Neo.ApplicationFramework.Interfaces.VariantValue and1(Neo.ApplicationFramework.Interfaces.VariantValue value)
+		{
+			return Globals.Tags.Application_HMIData_barcodeVerifierInstalled.Value&&Globals.Tags.Application_HMIData_HMIMetric.Value;
+		}
+		
 		[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
 		private void ApplyLanguageInternal()
 		{

@@ -40,10 +40,48 @@ VAR
 	firstScanDone: BOOL:=TRUE;
 	homeSensorCTU : CTU;
 	STEPS_PER_INCH_IBD: INT;
+	metricConversions : FB_MetricConversions;
+	
+	bagLengthConverted : REAL;
+    bagWidthConverted : REAL;
+    bagSkirtLengthConverted : REAL;
+    printSpeedConverted : UDINT;
+    printOffsetConverted : REAL;
+    printLengthConverted : REAL;
+    passthroughSettingConverted : REAL;
+    jawClosePositionSettingConverted : REAL;
+    barcodeStartPositionConverted : REAL;
+    barcodeScanningDistanceConverted : REAL;
+
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
 _driveState := AZD4A_KED.GetDeviceState();
 _axisCommsStatus := NOT (_driveState <> DED.DEVICE_STATE.RUNNING);
+
+HMIData.HMIMetric;
+metricConversions(
+    bagLengthIn := HMIData.bagLength,
+    bagWidthIn := HMIData.BagWidth,
+    bagSkirtLengthIn := HMIData.bagSkirtLength,
+    printSpeedIn := HMIData.printSpeed,
+    printOffsetIn := HMIData.printOffset,
+    printLengthIn := HMIData.printLength,
+    passthroughSettingIn := HMIData.passthroughSetting,
+    jawClosePositionSettingIn := HMIData.jawClosePositionSetting,
+    barcodeStartPositionIn := HMIData.barcodeStartPosition,
+    //barcodeScanningDistanceIn := HMIData.barcodeScanningDistance,
+    bagLengthOut => bagLengthConverted,
+    bagWidthOut => bagWidthConverted,
+    bagSkirtLengthOut => bagSkirtLengthConverted,
+    printSpeedOut => printSpeedConverted,
+    printOffsetOut => printOffsetConverted,
+    printLengthOut => printLengthConverted,
+    passthroughSettingOut => passthroughSettingConverted,
+    jawClosePositionSettingOut => jawClosePositionSettingConverted,
+    barcodeStartPositionOut => barcodeStartPositionConverted,
+    //barcodeScanningDistanceOut => barcodeScanningDistanceConverted
+);
+
 
 jawFrontMotor(
 	axisData := AxisData.jaw,
@@ -85,7 +123,7 @@ clampingMechanism(
 	reversing=> , 
 	state=> );
 	
-AxisDAta.jawOpenMotionProfile.position :=AxisData.jawJogMotionProfile.maxPosition := HMIData.passthroughSetting;
+AxisDAta.jawOpenMotionProfile.position :=AxisData.jawJogMotionProfile.maxPosition := passthroughSettingConverted;
 
 dualMotorPassthrough(
 	frontMotor:= jawFrontMotor, 
@@ -93,8 +131,8 @@ dualMotorPassthrough(
 	openProfile:= AxisData.jawOpenMotionProfile,
 	pushProfile := AxisData.jawPushMotionProfile ,
 	moveInDelaySetting:= TO_TIME(HMIData.jawCloseDelay * 1000),
-	passthroughSetting:= HMIData.passthroughSetting, 
-	jawClosedSetting:= HMIData.jawClosePositionSetting, 
+	passthroughSetting:= passthroughSettingConverted, 
+	jawClosedSetting:= jawClosePositionSettingConverted, 
 	clampingMechanism := clampingMechanism,
 	pressureBarClosedSensor:= NOT iClampHomeSensor, 
 	//pressureBarNearClosedSensor:= iJawNearClosed, 
@@ -116,8 +154,8 @@ dualMotorPassthrough.OptionEnabled := TRUE;
 
 labelPrinter(
 	dryCycleEnable:=HMIData.dryCycleEnable,
-	printSpeed:= HMIData.printSpeed, 
-	printLength:= HMIData.printLength, 
+	printSpeed:= printSpeedConverted, 
+	printLength:= printLengthConverted, 
 	dataReadyInput:= iPrinterDataReady, 
 	serviceRequiredInput:= iPrinterServiceRequired AND iSafePowerOK, 
 	endOfPrintInput:= iPrinterBusy,
@@ -162,8 +200,8 @@ IBD.OptionEnabled := HMIData.IBDInUse AND  HMIData.IBDInstalled;
 
 barcodeVerifier(
 	dryCycleEnable:=HMIData.dryCycleEnable,
-	feedSpeed := HMIData.printSpeed, 
-	positionOffset := HMIData.barcodeStartPosition, 
+	feedSpeed := printSpeedConverted, 
+	positionOffset := barcodeStartPositionConverted, 
 	distanceToScan := HMIData.barcodeScanDistance, 
 	readGoodInput := iBarcodeOK, 
 	badReadInput := iBarcodeNG, 
@@ -200,14 +238,14 @@ bagDeliveryFrontMotor(
 bagDelivery(
 	dryCycleEnable:=HMIData.dryCycleEnable,
 	printer:= PLC_PRG_1.EM01_SXBaggerHead.printer, 
-	bagLength:= HMIData.bagLength, 
+	bagLength:= bagLengthConverted, 
 	feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 
 	reverseSpeed:= TO_REAL(HMIData.bagReverseSpeed), 
-	printSpeed:= TO_REAL(HMIData.printSpeed), 
-	printOffset:= HMIData.printOffset, 
-	printLength:= HMIData.printLength, 
+	printSpeed:= TO_REAL(printSpeedConverted), 
+	printOffset:= printOffsetConverted, 
+	printLength:= printLengthConverted, 
 	maxReverseSetpoint:= 4.0, 
-	sealOffset:= HMIData.bagSkirtLength, 
+	sealOffset:= bagSkirtLengthConverted, 
 	distanceFromSealBarToBagEdge:= GlobalData.SEAL_TO_PHOTOEYE_DISTANCE, 
 	distanceFromNipToBagEdge:= , 
 	bagPresent:= iBagEdgePhotoeye,  

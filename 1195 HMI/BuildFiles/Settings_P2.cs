@@ -70,6 +70,8 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.GroupCF m_Group4;
         
+        private Neo.ApplicationFramework.Controls.Controls.Button m_Button6;
+        
         private bool m_Initialized_Settings_P2;
         
         private Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF brushdynamicsconvertercf1;
@@ -100,6 +102,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.Click += new System.EventHandler(this.m_Button3_Action_Click);
             this.m_Button4.Click += new System.EventHandler(this.m_Button4_Action_Click);
             this.m_Button5.Click += new System.EventHandler(this.m_Button5_Action_Click);
+            this.m_Button6.Click += new System.EventHandler(this.m_Button6_Action_Click);
             this.ApplyLanguageInitialize();
         }
         
@@ -247,6 +250,12 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
+        protected Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter Button6 {
+            get {
+                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter>(this.m_Button6);
+            }
+        }
+        
         private void InitializeComponent() {
             this.brushdynamicsconvertercf10 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
             this.brushdynamicsconvertercf9 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
@@ -299,6 +308,7 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF stringintervalmappercf5 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf9 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf10 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
+            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper7 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text1 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text2 = new Neo.ApplicationFramework.Controls.Controls.Label();
@@ -323,6 +333,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_AnalogNumeric3 = new Neo.ApplicationFramework.Controls.Controls.AnalogNumeric();
             this.m_Group4 = new Neo.ApplicationFramework.Controls.Controls.GroupCF();
+            this.m_Button6 = new Neo.ApplicationFramework.Controls.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text2)).BeginInit();
@@ -347,6 +358,7 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_Button6)).BeginInit();
             this.SuspendLayout();
             // 
             // Settings_P2
@@ -370,7 +382,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 125;
+            this.m_Text.Width = 74;
             // 
             // m_Text1
             // 
@@ -472,11 +484,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.ScreenOwnerName = "Settings_P2";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button.TextHeight = 11;
-            stringintervalmappercf1.DefaultValue = "Desactivado";
-            stringintervalcf1.Value = "Desactivado";
+            stringintervalmappercf1.DefaultValue = "Disabled";
+            stringintervalcf1.Value = "Disabled";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Activado";
+            stringintervalcf2.Value = "Enabled";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button.TextIntervalMapper = stringintervalmappercf1;
@@ -520,11 +532,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.ScreenOwnerName = "Settings_P2";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
             this.m_Button2.TextHeight = 11;
-            stringintervalmappercf2.DefaultValue = "Desactivado";
-            stringintervalcf3.Value = "Desactivado";
+            stringintervalmappercf2.DefaultValue = "Disabled";
+            stringintervalcf3.Value = "Disabled";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "Activado";
+            stringintervalcf4.Value = "Enabled";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf2;
@@ -568,11 +580,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.ScreenOwnerName = "Settings_P2";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
             this.m_Button3.TextHeight = 11;
-            stringintervalmappercf3.DefaultValue = "Desactivado";
-            stringintervalcf5.Value = "Desactivado";
+            stringintervalmappercf3.DefaultValue = "Disabled";
+            stringintervalcf5.Value = "Disabled";
             stringintervalcf6.End = 1D;
             stringintervalcf6.Start = 1D;
-            stringintervalcf6.Value = "Activado";
+            stringintervalcf6.Value = "Enabled";
             stringintervalmappercf3.Intervals.Add(stringintervalcf5);
             stringintervalmappercf3.Intervals.Add(stringintervalcf6);
             this.m_Button3.TextIntervalMapper = stringintervalmappercf3;
@@ -616,11 +628,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.ScreenOwnerName = "Settings_P2";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button4.TextHeight = 11;
-            stringintervalmappercf4.DefaultValue = "Desactivado";
-            stringintervalcf7.Value = "Desactivado";
+            stringintervalmappercf4.DefaultValue = "Disabled";
+            stringintervalcf7.Value = "Disabled";
             stringintervalcf8.End = 1D;
             stringintervalcf8.Start = 1D;
-            stringintervalcf8.Value = "Activado";
+            stringintervalcf8.Value = "Enabled";
             stringintervalmappercf4.Intervals.Add(stringintervalcf7);
             stringintervalmappercf4.Intervals.Add(stringintervalcf8);
             this.m_Button4.TextIntervalMapper = stringintervalmappercf4;
@@ -664,11 +676,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.ScreenOwnerName = "Settings_P2";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper6;
             this.m_Button5.TextHeight = 11;
-            stringintervalmappercf5.DefaultValue = "Desactivado";
-            stringintervalcf9.Value = "Desactivado";
+            stringintervalmappercf5.DefaultValue = "Disabled";
+            stringintervalcf9.Value = "Disabled";
             stringintervalcf10.End = 1D;
             stringintervalcf10.Start = 1D;
-            stringintervalcf10.Value = "Activado";
+            stringintervalcf10.Value = "Enabled";
             stringintervalmappercf5.Intervals.Add(stringintervalcf9);
             stringintervalmappercf5.Intervals.Add(stringintervalcf10);
             this.m_Button5.TextIntervalMapper = stringintervalmappercf5;
@@ -969,6 +981,36 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Group4.Top = 203;
             this.m_Group4.VisibleDynamicsValue = true;
             this.m_Group4.Width = 260;
+            // 
+            // m_Button6
+            // 
+            this.m_Button6.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(192)))), ((int)(((byte)(192))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
+            this.m_Button6.BlinkDynamicsValue = false;
+            this.m_Button6.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
+            this.m_Button6.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
+            this.m_Button6.DelayMouseInputPeriod = 0;
+            this.m_Button6.EnabledDynamicsValue = true;
+            this.m_Button6.FontSizePixels = 9;
+            this.m_Button6.ForceTransparency = true;
+            this.m_Button6.Height = 46;
+            this.m_Button6.ImageMargin = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(5D, 5D, 5D, 5D);
+            this.m_Button6.IndicatorMargin = null;
+            this.m_Button6.Left = 360;
+            this.m_Button6.Name = "m_Button6";
+            this.m_Button6.RequiresTransparency = true;
+            this.m_Button6.ScreenOwnerName = "Settings_P2";
+            this.m_Button6.SymbolHeight = 30;
+            this.m_Button6.SymbolIntervalMapper = symbolintervalmapper7;
+            this.m_Button6.SymbolName = "ag_arrow left green";
+            this.m_Button6.SymbolWidth = 37;
+            this.m_Button6.TextHeight = 11;
+            this.m_Button6.TextValue = 0D;
+            this.m_Button6.TextWidth = 50;
+            this.m_Button6.Top = 0;
+            this.m_Button6.Value = 0D;
+            this.m_Button6.VisibleDynamicsValue = true;
+            this.m_Button6.VisualPropertiesHashCode = 629769305;
+            this.m_Button6.Width = 60;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -1050,6 +1092,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.DrawingPrimitives.Add(this.m_Text5);
             this.DrawingPrimitives.Add(this.m_AnalogNumeric3);
             this.DrawingPrimitives.Add(this.m_Group4);
+            this.DrawingPrimitives.Add(this.m_Button6);
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text2)).EndInit();
@@ -1074,6 +1117,7 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_Button6)).EndInit();
         }
         
         private void m_Button1_Action_Click(object sender, System.EventArgs e) {
@@ -1104,6 +1148,11 @@ namespace Neo.ApplicationFramework.Generated {
         private void m_Button5_Action_Click(object sender, System.EventArgs e) {
             Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button5", "Click", "Toggle Tag", "Tags.Application_HMIData_separateBeforeSeal", "");
             Neo.ApplicationFramework.Generated.Globals.Tags.Application_HMIData_separateBeforeSeal.ToggleTag();
+        }
+        
+        private void m_Button6_Action_Click(object sender, System.EventArgs e) {
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button6", "Click", "Show Screen", "Settings_P1_M", "");
+            Neo.ApplicationFramework.Generated.Globals.Settings_P1_M.Show();
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -1157,84 +1206,90 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override void ConnectDataBindings() {
             base.ConnectDataBindings();
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_Button.DataBindings.Add(dynamicBinding1);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_HMIMetric"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueZero);
+            this.m_Button1.DataBindings.Add(dynamicBinding1);
             this.m_DynamicBindings.Add(dynamicBinding1);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_sealBarDwell"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric2.DataBindings.Add(dynamicBinding2);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
+            this.m_Group3.DataBindings.Add(dynamicBinding2);
             this.m_DynamicBindings.Add(dynamicBinding2);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding3 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
-            this.m_Group2.DataBindings.Add(dynamicBinding3);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding3 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_sealBarDwell"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_AnalogNumeric2.DataBindings.Add(dynamicBinding3);
             this.m_DynamicBindings.Add(dynamicBinding3);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric5.DataBindings.Add(dynamicBinding4);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
+            this.m_Group2.DataBindings.Add(dynamicBinding4);
             this.m_DynamicBindings.Add(dynamicBinding4);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding5 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
-            this.m_Group1.DataBindings.Add(dynamicBinding5);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding5 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_AnalogNumeric5.DataBindings.Add(dynamicBinding5);
             this.m_DynamicBindings.Add(dynamicBinding5);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding6 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric1.DataBindings.Add(dynamicBinding6);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding6 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
+            this.m_Group1.DataBindings.Add(dynamicBinding6);
             this.m_DynamicBindings.Add(dynamicBinding6);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric.DataBindings.Add(dynamicBinding7);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_AnalogNumeric1.DataBindings.Add(dynamicBinding7);
             this.m_DynamicBindings.Add(dynamicBinding7);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding8 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_separateBeforeSeal"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf10);
-            this.m_Button5.DataBindings.Add(dynamicBinding8);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding8 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_AnalogNumeric.DataBindings.Add(dynamicBinding8);
             this.m_DynamicBindings.Add(dynamicBinding8);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding9 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_separateBeforeSeal"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf9);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding9 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_separateBeforeSeal"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf10);
             this.m_Button5.DataBindings.Add(dynamicBinding9);
             this.m_DynamicBindings.Add(dynamicBinding9);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding10 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_separateBeforeSeal"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding10 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_separateBeforeSeal"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf9);
             this.m_Button5.DataBindings.Add(dynamicBinding10);
             this.m_DynamicBindings.Add(dynamicBinding10);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding11 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
-            this.m_Button4.DataBindings.Add(dynamicBinding11);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding11 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_separateBeforeSeal"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_Button5.DataBindings.Add(dynamicBinding11);
             this.m_DynamicBindings.Add(dynamicBinding11);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding12 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_fillerEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf8);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding12 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
             this.m_Button4.DataBindings.Add(dynamicBinding12);
             this.m_DynamicBindings.Add(dynamicBinding12);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding13 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_fillerEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf7);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding13 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_fillerEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf8);
             this.m_Button4.DataBindings.Add(dynamicBinding13);
             this.m_DynamicBindings.Add(dynamicBinding13);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding14 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_fillerEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding14 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_fillerEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf7);
             this.m_Button4.DataBindings.Add(dynamicBinding14);
             this.m_DynamicBindings.Add(dynamicBinding14);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding15 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
-            this.m_Button3.DataBindings.Add(dynamicBinding15);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding15 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_fillerEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_Button4.DataBindings.Add(dynamicBinding15);
             this.m_DynamicBindings.Add(dynamicBinding15);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding16 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf6);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding16 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
             this.m_Button3.DataBindings.Add(dynamicBinding16);
             this.m_DynamicBindings.Add(dynamicBinding16);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding17 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf5);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding17 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf6);
             this.m_Button3.DataBindings.Add(dynamicBinding17);
             this.m_DynamicBindings.Add(dynamicBinding17);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding18 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding18 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf5);
             this.m_Button3.DataBindings.Add(dynamicBinding18);
             this.m_DynamicBindings.Add(dynamicBinding18);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding19 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
-            this.m_Button2.DataBindings.Add(dynamicBinding19);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding19 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_consecutiveBagsEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_Button3.DataBindings.Add(dynamicBinding19);
             this.m_DynamicBindings.Add(dynamicBinding19);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding20 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf4);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding20 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
             this.m_Button2.DataBindings.Add(dynamicBinding20);
             this.m_DynamicBindings.Add(dynamicBinding20);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding21 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf3);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding21 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf4);
             this.m_Button2.DataBindings.Add(dynamicBinding21);
             this.m_DynamicBindings.Add(dynamicBinding21);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding22 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding22 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf3);
             this.m_Button2.DataBindings.Add(dynamicBinding22);
             this.m_DynamicBindings.Add(dynamicBinding22);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding23 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf2);
-            this.m_Button.DataBindings.Add(dynamicBinding23);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding23 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_partsCounterEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_Button2.DataBindings.Add(dynamicBinding23);
             this.m_DynamicBindings.Add(dynamicBinding23);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding24 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf1);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding24 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf2);
             this.m_Button.DataBindings.Add(dynamicBinding24);
             this.m_DynamicBindings.Add(dynamicBinding24);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding25 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
-            this.m_Group3.DataBindings.Add(dynamicBinding25);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding25 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf1);
+            this.m_Button.DataBindings.Add(dynamicBinding25);
             this.m_DynamicBindings.Add(dynamicBinding25);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding26 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.logout_delay"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric3.DataBindings.Add(dynamicBinding26);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding26 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("TextValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_batchEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_Button.DataBindings.Add(dynamicBinding26);
             this.m_DynamicBindings.Add(dynamicBinding26);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding27 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.logout_delay"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_AnalogNumeric3.DataBindings.Add(dynamicBinding27);
+            this.m_DynamicBindings.Add(dynamicBinding27);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding28 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_HMIMetric"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
+            this.m_Button6.DataBindings.Add(dynamicBinding28);
+            this.m_DynamicBindings.Add(dynamicBinding28);
         }
     }
 }
