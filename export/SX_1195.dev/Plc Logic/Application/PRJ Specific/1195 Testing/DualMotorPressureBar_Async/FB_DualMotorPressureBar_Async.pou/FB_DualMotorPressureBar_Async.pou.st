@@ -32,6 +32,7 @@ VAR_OUTPUT
 	failedToOpen : FB_Fault(name := CONCAT(_prefix, 'Failed to Open'));
 	failedToHome : FB_Fault(name := CONCAT(_prefix, 'Failed to Home '));
 	pressurebarTimeOut : FB_Fault(name := CONCAT(_prefix, 'Time Out'));
+	lightCurtainViolations : FB_Fault(name :=CONCAT(_PREFIX, 'Light Curtain Violation'));
 	actualPositionInInches : REAL;
 	jawTestModeActive : BOOL;
 	currentTestCycles : DINT;
@@ -182,7 +183,7 @@ frontMotorCommFault.faultTrigger := NOT frontMotor.commStatus;
 pressureBarObstructed.faultTrigger := NOT zeroNow AND 
 										NOT obstructionSensor AND ((actualPositionInInches > 0.13) AND NOT _isFullyOpen);
 pressurebarTimeOut.faultTrigger:= stepTON1.Q OR stepTON2.Q;
-_activeFault := pressurebarTimeOut.Active OR pressureBarObstructed.Active OR failedToClose.Active OR frontMotorFault.Active OR failedToOpen.Active OR failedToHome.Active;
+_activeFault := pressurebarTimeOut.Active OR pressureBarObstructed.Active OR failedToClose.Active OR frontMotorFault.Active OR failedToOpen.Active OR failedToHome.Active OR lightCurtainViolations.Active;
 //	 
 _faultONS(CLK := _activeFault);
 
@@ -217,6 +218,10 @@ END_IF
 //End modded code
 _ready := state = eDualMotorPressureBar_AsyncStates.Idle AND _isFullyOpen;
 // 
+
+IF NOT iLightCurtainStart AND NOT _ready THEN
+	lightCurtainViolations.Trigger();
+END_IF
 
 IF stopJawTestMode THEN
 	jawTestModeActive := FALSE;

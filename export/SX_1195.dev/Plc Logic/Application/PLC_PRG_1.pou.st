@@ -42,6 +42,9 @@ VAR
 	flipFlop: TON;
 	batchCounter : CTU;
 	cycleStartDebounce : TON := (PT := T#75MS);
+	lightCurtainStartONS : FB_ONS;
+	lightCurtainInstalled : BOOL := FALSE;
+	lightCurtainStartClear : BOOL;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
 //	Description: Base program for the 1195 SX. 
@@ -75,14 +78,22 @@ autoModeTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCyc
 // Start from Cycle Start input
 cycleStartDebounce(IN := iCycleStart);
 cycleStartONS(clk := cycleStartDebounce.Q);
+cycleStartONS.OSR;  //added to monitor wihle testing
+
+//Light Curtain Start
+lightCurtainStartClear := iLightCurtainStart;
+lightCurtainStartONS(CLK := iLightCurtainStart);
+IF iLightCurtainStart THEN
+	lightCurtainInstalled := TRUE;
+END_IF
+
 // Batch Counter
 batchCounter(CU := cycleComplete.OSR, RESET := (NOT HMIData.batchEnable) OR HMIData.resetBatchCounter, PV := TO_WORD(HMIData.batchSetting), Q => HMIData.batchCounterDone, CV => HMIData.batchCount);
 IF HMIData.resetBatchCounter THEN 
-	HMIData.resetBatchCounter := FALSE;
-	
+	HMIData.resetBatchCounter := FALSE;	
 END_IF
 // All start conditions
-IF (HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q) AND NOT HMIData.batchCounterDone THEN
+IF (HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q OR lightCurtainStartONS.OSR) AND (lightcurtainstartclear OR NOT lightCurtainInstalled) AND NOT HMIData.batchCounterDone THEN
 	IF UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle THEN
 		EM01_SXBaggerHead.StartCycle();
 		IF HMIData.autoModeEnable THEN
