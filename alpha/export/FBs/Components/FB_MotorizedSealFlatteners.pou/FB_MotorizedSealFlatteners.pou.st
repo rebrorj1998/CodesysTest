@@ -51,7 +51,7 @@ VAR
 	defaultCurrentMSF : DINT := 150;
 	outCurrentMSF : DINT := 150;
 	bagHoldingCurrentMSF : DINT := 110;
-	timeoutTimer : Standard.TON := (PT := T#2S);
+	timeoutTimer : Standard.TON := (PT := T#5S);
     enableMotorizedSealFlattenersONS : FB_ONS();
 	bagDropDelay : Standard.TON := (PT := T#1S);    
     _amMoveOut : BOOL;                // Auto mode move out command
@@ -66,6 +66,7 @@ VAR
 	_testDisable : BOOL;
 	_inSP : REAL;
 	_inSPForFunnel : REAL := 0.25;
+	inPositionONS : FB_ONS;
 END_VAR
 VAR CONSTANT
 	FEED_TO_SEAL_INSET : REAL := 1;
@@ -79,7 +80,6 @@ END_VAR
 //    Created Date: Friday, April 6, 2018
 
 SUPER^();
-
 // Temporary delay between states for testing
 _fingersDownDelay();
 _fingersUpDelay();
@@ -311,11 +311,13 @@ CASE state OF
                                                                     
     SEAL_FLATTENER_STATES.MovingFlattenersIn :                      // If we did that command well move on 
                                                                         delay.IN := TRUE;
-                                                                        IF delay.Q THEN
-																			IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND sealFlattenersHorizontalAxisMotor.InPosition THEN
-																				state := SEAL_FLATTENER_STATES.MovedFlattenersIn;
-                                                                           		delay.IN := FALSE;    
-																			END_IF
+                                                                        IF delay.Q THEN				
+																				inPositionONS(CLK :=sealFlattenersHorizontalAxisMotor.InPosition);												
+																				//IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND sealFlattenersHorizontalAxisMotor.InPosition THEN
+																				IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND inPositionONS.OSR THEN
+																					state := SEAL_FLATTENER_STATES.MovedFlattenersIn;
+																					delay.IN := FALSE;    
+																				END_IF
                                                                         END_IF 
                                                                     
     SEAL_FLATTENER_STATES.MovedFlattenersIn :                        // Now that we're up and in move to down and 4 corners/bag holding
