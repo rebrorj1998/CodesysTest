@@ -6,7 +6,14 @@ FUNCTION GetVersionProperty : VERSION
 VAR_INPUT
 	stKey: WSTRING;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+IF stKey = "Version" THEN
+	GetVersionProperty.uiMajor := 1;
+	GetVersionProperty.uiMinor := 2;
+	GetVersionProperty.uiServicePack := 0;
+	GetVersionProperty.uiPatch := 7;
+ELSE
 	GetVersionProperty.uiMajor := 0;
 	GetVersionProperty.uiMinor := 0;
 	GetVersionProperty.uiServicePack := 0;
 	GetVersionProperty.uiPatch := 0;
+END_IF

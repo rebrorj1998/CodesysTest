@@ -400,7 +400,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text24.TextVerticalAlignment = "Center";
             this.m_Text24.Top = 6;
             this.m_Text24.VisibleDynamicsValue = true;
-            this.m_Text24.Width = 113;
+            this.m_Text24.Width = 82;
             // 
             // m_Button2
             // 

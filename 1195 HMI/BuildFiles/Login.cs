@@ -90,10 +90,10 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_TouchComboBox.FontSize = 12D;
             this.m_TouchComboBox.Foreground = System.Drawing.Color.Black;
             stringintervalmappercf1.DefaultValue = null;
-            stringintervalcf1.Value = "Operador";
+            stringintervalcf1.Value = "Operator";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Mantenimiento";
+            stringintervalcf2.Value = "Maintenance";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_TouchComboBox.IntervalMapper = stringintervalmappercf1;
