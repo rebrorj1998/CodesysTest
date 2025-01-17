@@ -1989,7 +1989,7 @@
       <UserDefElement iecname="BagFeedDone" type="T_BOOL" byteoffset="8592" vartype="VAR" propertytype="variable" />
       <UserDefElement iecname="BagSeparated" type="T_BOOL" byteoffset="8593" vartype="VAR" propertytype="variable" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_DualMotorPressureBar_Async" size="7851" nativesize="7644" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_DualMotorPressureBar_Async" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_DualMotorPressureBar_Async" size="7852" nativesize="7644" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_DualMotorPressureBar_Async" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" inherited_from="T_FB_BaseObject" />
       <UserDefElement iecname="_prefix" type="T_STRING" byteoffset="81" vartype="VAR" inherited_from="T_FB_BaseObject" />
       <UserDefElement iecname="_logger" type="T_TYPE_REFERENCE" byteoffset="164" vartype="VAR" inherited_from="T_FB_BaseObject" />
@@ -2102,15 +2102,16 @@
       <UserDefElement iecname="min_velo" type="T_REAL" byteoffset="7836" vartype="VAR" />
       <UserDefElement iecname="clampPushed" type="T_BOOL" byteoffset="7840" vartype="VAR" />
       <UserDefElement iecname="_busy" type="T_BOOL" byteoffset="7841" vartype="VAR" />
-      <UserDefElement iecname="init_vars" type="T_BOOL" byteoffset="7842" vartype="VAR" />
-      <UserDefElement iecname="_maintenanceMove" type="T_BOOL" byteoffset="7843" vartype="VAR" />
-      <UserDefElement iecname="factoryHomeJaw" type="T_BOOL" byteoffset="7844" vartype="VAR" />
-      <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="7845" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="IsFullyClosed" type="T_BOOL" byteoffset="7846" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="IsFullyOpen" type="T_BOOL" byteoffset="7847" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="IsHomed" type="T_BOOL" byteoffset="7848" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="IsIdle" type="T_BOOL" byteoffset="7849" vartype="VAR" propertytype="variable" />
-      <UserDefElement iecname="IsReadyForFeed" type="T_BOOL" byteoffset="7850" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="lightCurtainInstalled" type="T_BOOL" byteoffset="7842" vartype="VAR" />
+      <UserDefElement iecname="init_vars" type="T_BOOL" byteoffset="7843" vartype="VAR" />
+      <UserDefElement iecname="_maintenanceMove" type="T_BOOL" byteoffset="7844" vartype="VAR" />
+      <UserDefElement iecname="factoryHomeJaw" type="T_BOOL" byteoffset="7845" vartype="VAR" />
+      <UserDefElement iecname="InPosition" type="T_BOOL" byteoffset="7846" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="IsFullyClosed" type="T_BOOL" byteoffset="7847" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="IsFullyOpen" type="T_BOOL" byteoffset="7848" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="IsHomed" type="T_BOOL" byteoffset="7849" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="IsIdle" type="T_BOOL" byteoffset="7850" vartype="VAR" propertytype="variable" />
+      <UserDefElement iecname="IsReadyForFeed" type="T_BOOL" byteoffset="7851" vartype="VAR" propertytype="variable" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MotorizedLoadPlate" size="5956" nativesize="5428" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedLoadPlate" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="_instanceName" type="T_STRING" byteoffset="0" vartype="VAR" inherited_from="T_FB_BaseObject" />

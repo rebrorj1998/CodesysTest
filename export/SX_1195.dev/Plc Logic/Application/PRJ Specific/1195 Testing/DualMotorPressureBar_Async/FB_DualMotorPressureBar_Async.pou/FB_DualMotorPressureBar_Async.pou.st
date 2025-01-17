@@ -104,7 +104,7 @@ VAR
 	min_velo: REAL;
 	clampPushed: BOOL;
 	_busy: BOOL;
-
+	lightCurtainInstalled : BOOL;
 	init_vars: BOOL;
 	_maintenanceMove: BOOL;
 END_VAR
@@ -219,7 +219,11 @@ END_IF
 _ready := state = eDualMotorPressureBar_AsyncStates.Idle AND _isFullyOpen;
 // 
 
-IF NOT iLightCurtainStart AND NOT _ready THEN
+IF iLightCurtainStart THEN
+	lightCurtainInstalled := TRUE;
+END_IF
+
+IF NOT iLightCurtainStart AND lightCurtainInstalled AND NOT _ready THEN
 	lightCurtainViolations.Trigger();
 END_IF
 
