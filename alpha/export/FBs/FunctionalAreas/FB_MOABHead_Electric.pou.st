@@ -2101,12 +2101,18 @@ CASE state.sb.openBag OF
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
                                                                                              
     BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab :    // Once everything that is enabled is homed finish cycle 
-													bagOpenFingerDelay.IN := TRUE;
+													IF pressureBar.actualPosition > 0.05 THEN
+													bagOpenFingers.Grab();
+													bagOpenFingerDelay.IN := FALSE;
+													state.sb.openBag := BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab;	
+													END_IF
+													
+													(*bagOpenFingerDelay.IN := TRUE;
 													IF bagOpenFingerDelay.Q THEN
 														bagOpenFingers.Grab();
 														bagOpenFingerDelay.IN := FALSE;
 														state.sb.openBag := BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab;
-													END_IF
+													END_IF*)
 													  
 
 	BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab : 	//

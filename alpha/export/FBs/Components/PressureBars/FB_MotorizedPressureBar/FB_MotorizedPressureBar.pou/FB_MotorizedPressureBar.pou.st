@@ -18,8 +18,6 @@ VAR_INPUT
 	retractJaw : BOOL;
 END_VAR
 VAR_OUTPUT
-	
-	
 	failToClampLeft : FB_Fault(name := 'Pbar Left Fail to Clamp');
 	failToReleaseLeft : FB_Fault(name := 'Pbar Left Fail to Release');
 	failToClampRight : FB_Fault(name := 'Pbar Right Fail to Clamp');
@@ -42,6 +40,7 @@ VAR
 	accel : INT := 75;
 	decel : INT := 75;
 	velo : INT := 800;
+	outCurrent : DINT := 1500;
 	testCurrent : DINT := 650;
 	testZeroCurrent : BOOL;
 	testSomeCurrent : BOOL;
@@ -60,6 +59,7 @@ VAR
 	movePassthroughNow : BOOL;
 	delayTimer : Standard.TON := (PT:= T#500MS);
 	failTimer : Standard.TON := (PT:= T#500MS);
+	moveJawOutDelayTimer : TON := (PT:= T#75MS);
 	homeRequiredONS : FB_ONS;
 	faultingONS : FB_ONS;
 	faultTimeMultiplier : REAL := 150;
@@ -94,6 +94,7 @@ pressureBarPositionError := ABS(TO_DINT((actualPosition - pbarOutCommandedSettin
 pressureBarOpen := pressureBarPositionError < openedPositionBuffer;
 
 delayTimer();
+moveJawOutDelayTimer();
 pressureBarClosed := iPressureBarClosed;
 failTimer(IN := ((state = MotorizedPbarStates.StartedClamping)AND (NOT (iJawCLampRetracted AND iPressureBarClosed)))
 				OR ((state = MotorizedPbarStates.ReleaseClamp)AND NOT iJawClampExtended)
@@ -334,16 +335,20 @@ CASE state OF
 										
 	
 	
-	MotorizedPbarStates.MoveJawOut :			//
-										
+	MotorizedPbarStates.MoveJawOut :	
+									moveJawOutDelayTimer.IN := TRUE;
+									IF moveJawOutDelayTimer.Q THEN	
+										moveJawOutDelayTimer.IN := FALSE;
 										Globals.jawMovingIn := FALSE;
-										pbarMotor.MoveToPositionTorque(pbarOutCommandedSetting,accel,decel,velo,testCurrent);
+										//pbarMotor.MoveToPositionTorque(pbarOutCommandedSetting,accel,decel,velo,testCurrent);
+										pbarMotor.MoveToPositionTorque(pbarOutCommandedSetting,accel,decel,velo,outCurrent);
 										distanceToMove := ABS(actualPosition - pbarOutCommandedSetting);
 										state := MotorizedPbarStates.MovingJawOut;
+									END_IF
 	
 	MotorizedPbarStates.MovingJawOut :			//
-										IF pressureBarOpen THEN
-											
+	
+										IF pressureBarOpen THEN		
 											IF testActive THEN
 												delayTimer.PT := T#500MS;
 												delayTimer.IN := TRUE;
