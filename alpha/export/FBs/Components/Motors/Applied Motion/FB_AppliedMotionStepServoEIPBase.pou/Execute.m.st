@@ -19,7 +19,8 @@ IF currentLimit = 0 THEN
 	currentLimit := defaultCurrentSetpoint;
 END_IF
 //Map raw EIP Registers to parameters
-absolutePositionSteps := driveInputs[5];
+//absolutePositionSteps := driveInputs[5];
+absolutePositionSteps := driveInputs[6];
 velocity := DINT_TO_INT(driveInputs[8]);
 stepServoStatusRaw := DINT_TO_INT(driveInputs[0]);
 stepServoAlarmCodeRaw := DINT_TO_INT(driveInputs[1]);

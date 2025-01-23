@@ -68,6 +68,8 @@ VAR
 	vacuumHoldTimer : Standard.TON() := (PT := T#250MS);
 	cycleTimer : TON() := (PT := T#1000S);
 	cycleTime : REAL;
+	grabDistance : REAL := 1;
+
 	bagFailedToOpen : FB_Fault(name := 'Bag Failed to Open');
 	openedBagWasRemoved : FB_Fault(name := 'Opened Bag was Removed');
 	safePowerFailure : FB_Fault(name := 'E-Stop/Safety Power Failure');
@@ -1709,8 +1711,8 @@ CASE state.sb.sealSeparate OF
 			IF enableBagOpen THEN
 				bagOpenFingers.Release();
 			END_IF
-			motorizedSealFlatteners.AutoMovetoFeedToSeal();
-			state.sb.sealSeparate := SEAL_SEPARATE_STATES.PreparingToFeedToSeal;	
+					motorizedSealFlatteners.AutoMovetoFeedToSeal();
+					state.sb.sealSeparate := SEAL_SEPARATE_STATES.PreparingToFeedToSeal;	
 		ELSE
 			//
 			IF enableIBDDeflate THEN
@@ -2101,7 +2103,7 @@ CASE state.sb.openBag OF
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
                                                                                              
     BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab :    // Once everything that is enabled is homed finish cycle 
-													IF pressureBar.actualPosition > 0.05 THEN
+													IF pressureBar.actualPosition > grabDistance THEN
 													bagOpenFingers.Grab();
 													bagOpenFingerDelay.IN := FALSE;
 													state.sb.openBag := BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab;	

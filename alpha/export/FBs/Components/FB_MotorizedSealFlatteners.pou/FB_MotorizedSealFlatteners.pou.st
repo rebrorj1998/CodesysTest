@@ -302,13 +302,11 @@ CASE state OF
 																	ELSE
 																		_inSP := inSetpoint;
 																	END_IF
-																                                                                
                                                                     sealFlattenersHorizontalAxisMotor.MoveToPosition(position := _inSP, 
                                                                                                                         acceleration := horizontalAxisAccel,
                                                                                                                         deceleration := horizontalAxisDecel,
                                                                                                                         velocity := moveInSpeed);                                                    
                                                                     state := SEAL_FLATTENER_STATES.MovingFlattenersIn;
-																	
                                                                 
                                                                     
     SEAL_FLATTENER_STATES.MovingFlattenersIn :                      // If we did that command well move on 

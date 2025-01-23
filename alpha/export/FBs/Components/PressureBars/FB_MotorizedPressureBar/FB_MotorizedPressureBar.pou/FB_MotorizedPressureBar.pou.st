@@ -37,6 +37,7 @@ VAR
 	_closeJawNoLatch : BOOL;
 	_openForBagFeed : BOOL;
 	jawClampsDelay : TIME := T#75MS;
+	retryOpenDelay : TON := (PT:= T#500MS);;
 	accel : INT := 75;
 	decel : INT := 75;
 	velo : INT := 800;
@@ -81,9 +82,9 @@ END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //Modified to ensure that PBAR motor syncs with encoder after each move. CT
 movingOSF(CLK:= pbarmotor.status.moving);
 
-IF (pbarmotor.driveInputs[5] <> pbarmotor.driveInputs[6]+100) AND movingOSF.Q THEN
-	pbarmotor.ResetEncoderPosition(pbarmotor.driveinputs[5]);
-END_IF
+//IF (pbarmotor.driveInputs[5] <> pbarmotor.driveInputs[6]+100) AND movingOSF.Q THEN
+//	pbarmotor.ResetEncoderPosition(pbarmotor.driveinputs[5]);
+//END_IF
 //
 actualPosition := pbarMotor.absolutePositonInches;
 
@@ -95,6 +96,7 @@ pressureBarOpen := pressureBarPositionError < openedPositionBuffer;
 
 delayTimer();
 moveJawOutDelayTimer();
+retryOpenDelay();
 pressureBarClosed := iPressureBarClosed;
 failTimer(IN := ((state = MotorizedPbarStates.StartedClamping)AND (NOT (iJawCLampRetracted AND iPressureBarClosed)))
 				OR ((state = MotorizedPbarStates.ReleaseClamp)AND NOT iJawClampExtended)
@@ -348,7 +350,13 @@ CASE state OF
 	
 	MotorizedPbarStates.MovingJawOut :			//
 	
+									retryOpenDelay.IN := TRUE;
+									IF retryOpenDelay.Q AND actualPosition < 0.3 THEN
+										retryOpenDelay.IN := FALSE;
+										state:= MotorizedPbarStates.MoveJawOut;
+									END_IF
 										IF pressureBarOpen THEN		
+										retryOpenDelay.IN := FALSE;							
 											IF testActive THEN
 												delayTimer.PT := T#500MS;
 												delayTimer.IN := TRUE;
