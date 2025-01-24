@@ -96,27 +96,6 @@
         </Action>
         <Action>
           <Information>
-            <Title>Change to Advantech 3.5.13.0 RTE x86</Title>
-          </Information>
-          <Settings>
-            <Entry Name="Condition" />
-            <Entry Name="ExecutionDelay">0</Entry>
-            <Entry Name="ForceEvaluation">False</Entry>
-            <Entry Name="IgnoreResults">False</Entry>
-            <Entry Name="ResultVariable" />
-            <Entry Name="RetryOnError">0|0</Entry>
-          </Settings>
-          <Command TestRunner="TestManager.Devices" Verb="UpdateDevice" />
-          <Configuration>
-            <Entry Name="DeviceID">1635 0002</Entry>
-            <Entry Name="DevicePath">Pro18_1174_HilscherCard</Entry>
-            <Entry Name="DeviceType">4096</Entry>
-            <Entry Name="NewestVersion">False</Entry>
-            <Entry Name="Version">3.5.13.0</Entry>
-          </Configuration>
-        </Action>
-        <Action>
-          <Information>
             <Title>Clean project</Title>
           </Information>
           <Settings>
