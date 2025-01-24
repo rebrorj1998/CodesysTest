@@ -122,7 +122,6 @@ CASE state OF
 										
 										
 										IF _homeNow THEN
-											_homeNow := FALSE;
 											//IF IBDMotor.HomeRequired THEN
 												IBDMotor.HomeNow();
 											//END_IF
@@ -142,7 +141,7 @@ CASE state OF
 *)
 
 										
-										IF IBDMotor.status.motorEnabled THEN
+									IF IBDMotor.status.motorEnabled AND NOT IBDMotor.HomeRequired THEN
 											IF _openIBD THEN
 												IF NOT IBDOpen THEN
 													state := MotorizedIBDStates.MoveJawOut;
@@ -160,18 +159,16 @@ CASE state OF
 											state := MotorizedIBDStates.MoveOutFull;
 										END_IF
 										
-										ELSE
-											failedToHome := TRUE;
-											state := MotorizedIBDStates.Faulting;
-										END_IF
+									END_IF
+										
 											
 										
 	
 	MotorizedIBDStates.Homing :				//
-										
 										IF NOT (IBDMotor.homeRequired) AND delayTimer.Q THEN
 											delayTimer.IN := FALSE;
 											homeRequired := FALSE;
+											_homeNow := FALSE;
 											state := MotorizedIBDStates.Initialize;
 										END_IF
 	

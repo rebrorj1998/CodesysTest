@@ -831,7 +831,7 @@
       <UserDefElement iecname="dwellTimer" type="T_TON" byteoffset="24" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="40" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="696" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="704" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="3680" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">

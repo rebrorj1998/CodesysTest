@@ -912,6 +912,11 @@ _runIntegratedExitConveyor := ((exitConveyorRun.Q OR collisionDetection.runExitC
 oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
 oRunExitConveyor := oRunExitConveyorForward;
 oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
+	 //Aux IO conveyore control
+oAuxExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
+oAuxExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
+
+
  
 externalExitConveyorRun();
 externalExitConveyorRun.DwellSetting := TO_UINT(HMIData.externalExitConveyorDwell * 1000);
