@@ -4,7 +4,7 @@ VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF _interconnect = BAG_DELIVERY_IC.CBL  THEN
-	_bagFeedFrontMotor.TriggerPointToPointMode();
+	bagFeedMasterMotor.TriggerPointToPointMode();
 ELSE
-	_bagFeedRearMotor.TriggerPointToPointMode();
+	bagFeedRearMotor.TriggerPointToPointMode();
 END_IF

@@ -1021,8 +1021,8 @@ resetTimer(IN := iPowerOffButtonONS.OSR);
 allMotorCommsGood := NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.faults.commFail.active
 					AND NOT IBDMotor.faults.commFail.active
 					AND NOT pressureBarMotor.faults.commFail.active
-					AND NOT bagDelivery._bagFeedFrontMotor.faults.commFail.active
-					AND NOT bagDelivery._bagFeedRearMotor.faults.commFail.active;
+					AND NOT bagDelivery.bagFeedMasterMotor.faults.commFail.active
+					AND NOT bagDelivery.bagFeedRearMotor.faults.commFail.active;
 
 IF iPowerOffButtonONS.OSR THEN
 	reset();
@@ -1139,7 +1139,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	motorizedSealFlatteners.Reset();
 	pressureBar.Reset();
 	IBD.Reset();
-	bagDelivery._bagFeedRearMotor.EnableTensionFault();
+	bagDelivery.bagFeedRearMotor.EnableTensionFault();
 	bagDelivery.AutoFeedToEye();
 // 	bagDelivery.Reset();
 	zebraPrinter.Reset();
@@ -1183,9 +1183,9 @@ IF HMIData.enableDryCycle THEN
 END_IF
 
 // Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
+rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery.bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable
@@ -2403,8 +2403,8 @@ CASE state.sb.printOutOfCycle OF
 	PRINT_OUT_OF_CYCLE_STATES.StartPrinting:
 		// Turn off power to rear motor and disable tension fault. Tell Zebra FB to prep for print cycle.
 		zebraPrinter.AutoPrintNow();
-		bagDelivery._bagFeedRearMotor.SetTorque(0);
-		bagDelivery._bagFeedRearMotor.DisableTensionFault();
+		bagDelivery.bagFeedRearMotor.SetTorque(0);
+		bagDelivery.bagFeedRearMotor.DisableTensionFault();
         state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.SendPrintSignal;
 	
 	PRINT_OUT_OF_CYCLE_STATES.SendPrintSignal:
@@ -2424,13 +2424,13 @@ CASE state.sb.printOutOfCycle OF
 	PRINT_OUT_OF_CYCLE_STATES.FinishedPrinting:
 		// All done. Tell Zebra FB that we see it finished, and up the torque on the rear motor to take up slack
 		zebraPrinter.AutoAckPrintDone();
-		bagDelivery._bagFeedRearMotor.SetTorque(100);
+		bagDelivery.bagFeedRearMotor.SetTorque(100);
         state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup;
 		
 	PRINT_OUT_OF_CYCLE_STATES.WaitForTakeup:
 		// Change this to a rear motor move in reverse to take up faster?
 		IF  _waitForTakeupTimer.Q THEN
-			bagDelivery._bagFeedRearMotor.EnableTensionFault();
+			bagDelivery.bagFeedRearMotor.EnableTensionFault();
 			//bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 		END_IF
 		state.sb.printOutOfCycle := PRINT_OUT_OF_CYCLE_STATES.Done;

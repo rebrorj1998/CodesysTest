@@ -893,7 +893,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 
 	IF iPowerOffButtonONS.OSR AND NOT bagDelivery.bagTensionFault.active THEN
 		IF (HMIData.factoryTestMode AND (HMIData.bagsMade.count < 1000)) THEN
-			bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
+			bagDelivery.bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 		END_IF 
 	END_IF  
 	passthrough.Reset();
@@ -949,7 +949,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	pressureBar.Reset();
 	bagDelivery.Reset();
 	zebraPrinter.Reset();
-	bagDelivery._bagFeedRearMotor.EnableTensionFault();
+	bagDelivery.bagFeedRearMotor.EnableTensionFault();
 
 	_reset := FALSE;
 	_dropTimer.IN := FALSE;
@@ -995,9 +995,9 @@ ELSE
 END_IF
 
 // Send torque value to motor                 
-rearMotorCommsReturned(CLK := bagDelivery._bagFeedRearMotor.commFail);
+rearMotorCommsReturned(CLK := bagDelivery.bagFeedRearMotor.commFail);
 IF HMIData.jobLoaded OR rearMotorCommsReturned.Q THEN
-	bagDelivery._bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
+	bagDelivery.bagFeedRearMotor.SetTorque((TO_DINT(HMIData.bagTensionSetting * 100)));
 END_IF
 
 // Clear batch count on batch enable

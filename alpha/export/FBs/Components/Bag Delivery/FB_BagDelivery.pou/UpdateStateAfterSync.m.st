@@ -5,7 +5,7 @@ VAR_INPUT
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //
-IF _bagFeedRearMotor.EIP THEN
+IF bagFeedRearMotor.EIP THEN
 	state := BAG_DELIVERY_STATES.Sync;
 	_nextState := stt;
 ELSE

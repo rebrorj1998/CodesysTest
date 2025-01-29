@@ -3,7 +3,7 @@ VAR
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 IF _interconnect = BAG_DELIVERY_IC.EIP THEN
-	InPosition := _bagFeedFrontMotor.InPosition AND _bagFeedRearMotor.InPosition;
+	InPosition := bagFeedMasterMotor.InPosition AND bagFeedRearMotor.InPosition;
 ELSE
-	InPosition := _bagFeedFrontMotor.InPosition;
+	InPosition := bagFeedMasterMotor.InPosition;
 END_IF
