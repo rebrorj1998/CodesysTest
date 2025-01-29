@@ -358,10 +358,19 @@ bagDelivery(
 	reverseToPrintheadRequired := zebraPrinter.enable AND HMIData.printerCycleSelection = PrinterCycleSelection.PrintWhileFeeding,
 	bagFeedMasterMotorCommFailInput := Bag_Delivery_EIP_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 	bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
-	stepsPerInchSetting := Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY,
-	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC,
+	stepsPerInchSetting := ,
+	velocityMultiplier := ,
 	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
 );
+
+IF HMIData.enablePaperBagger THEN
+	bagDelivery.stepsPerInchSetting :=  Globals.STEPS_PER_INCH_PRO24_PAPER_FRONT;
+	bagDelivery.velocityMultiplier := (bagDelivery.stepsPerInchSetting / (20000.0 * 0.25 / 60));
+ELSE
+	bagDelivery.stepsPerInchSetting :=  Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY;
+	bagDelivery.velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC;
+END_IF
+	 
 bagDelivery.Mode := bagDeliveryMode;
 
 CASE HMIData.printerSelection OF

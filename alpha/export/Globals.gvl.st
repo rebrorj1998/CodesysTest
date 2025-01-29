@@ -23,6 +23,10 @@ VAR_GLOBAL CONSTANT
 	STEPS_PER_INCH_ADJUSTABLE_PASSTHROUGH : INT := 3030;  // Steps per inch for the Adjustable Passthrough motor
 	STEPS_PER_INCH_TFBelt : INT := 3030;  // Steps per inch for the Adjustable Passthrough motor
 	STEPS_PER_INCH_TFLS : INT := 10000;  // Steps per inch for the Adjustable Passthrough motor
+	STEPS_PER_INCH_PRO24_BD : INT := 5914; 
+	VELOCITY_IPS_MULTIPLIER_ELECTRIC_4BD: REAL := 70;
+	STEPS_PER_INCH_PRO24_PAPER_FRONT : INT:=10030;
+	STEPS_PER_INCH_PRO24_PAPER_REAR : INT:=10010;
     VELOCITY_IPS_MULTIPLIER_ELECTRIC: REAL := 53;
 	VELOCITY_IPS_MULTIPLIER_PNEUMATIC: REAL := 61;
     PASSTHROUGH_ZERO_OFFSET : REAL := 2;            //Zero offset for passthough (minimum passthough)
