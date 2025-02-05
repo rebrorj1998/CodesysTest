@@ -1098,6 +1098,7 @@
         <Item Target="Tags" TargetProperty="Application_GlobalObjects_CollectionOfComponents_Ready_8" Source="Controller1.DataItem1226" />
         <Item Target="Tags" TargetProperty="Application_GlobalObjects_CollectionOfComponents_Ready_9" Source="Controller1.DataItem1227" />
         <Item Target="Tags" TargetProperty="Application_HMIData_HMIMetric" Source="Controller1.DataItem540" />
+        <Item Target="Tags" TargetProperty="Application_HMIData_lightCurtainInstalled" Source="Controller1.DataItem541" />
       </Items>
     </Category>
     <Category Name="InvalidAction">

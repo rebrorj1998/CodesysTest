@@ -67,13 +67,13 @@
         <Item Target="Settings_P2.Button2" TargetProperty="TextValue" Source="Tags.Application_HMIData_partsCounterEnable" />
         <Item Target="Settings_P2.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_partsCounterEnable" />
         <Item Target="Settings_P2.Button2" TargetProperty="Foreground" Source="Tags.Application_HMIData_partsCounterEnable" />
-        <Item Target="Settings_P2.Button2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Settings_P2.Button2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_lightCurtainInstalled" />
         <Item xsi:type="ActionItem" Target="Settings_P2.Button" TargetProperty="Actions" Source="Tags.Application_HMIData_batchEnable" Event="Click" Action="Toggle Tag" Param="" />
         <Item Target="Settings_P2.Button" TargetProperty="TextValue" Source="Tags.Application_HMIData_batchEnable" />
         <Item Target="Settings_P2.Button" TargetProperty="Background" Source="Tags.Application_HMIData_batchEnable" />
         <Item Target="Settings_P2.Button" TargetProperty="Foreground" Source="Tags.Application_HMIData_batchEnable" />
         <Item Target="Settings_P2.Group.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_batchSetting" />
-        <Item Target="Settings_P2.Group1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Settings_P2.Group1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_lightCurtainInstalled" />
         <Item Target="Settings_P2.Group1.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterSetting" />
         <Item Target="Settings_P2.Group2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
         <Item Target="Settings_P2.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_consecutiveBagsSetting" />

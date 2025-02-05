@@ -452,7 +452,7 @@
         </Binding>
       </nac:Button.Foreground>
       <nacb:BlinkProperties.VisibleDynamicsValue>
-        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.alwaysOff].Value" Converter="{StaticResource VisibleDynamicsValueConverter}" ValidatesOnExceptions="True">
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_lightCurtainInstalled].Value" Converter="{StaticResource VisibleDynamicsValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>
             <s:Boolean>True</s:Boolean>
           </Binding.FallbackValue>
@@ -605,14 +605,14 @@
         </nai:ActionProperties.Actions>
       </nac:AnalogNumericFX>
     </nac:Group>
-    <nac:Group Name="m_Group1" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="11" Canvas.Left="80" Canvas.Top="88">
+    <nac:Group Name="m_Group1" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="11" Canvas.Left="80" Canvas.Top="88" nacb:BlinkProperties.BlinkInterval="1200">
       <nac:Group.Resources>
         <ResourceDictionary>
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Group.Resources>
       <nacb:BlinkProperties.VisibleDynamicsValue>
-        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.alwaysOff].Value" Converter="{StaticResource VisibleDynamicsValueConverter}" ValidatesOnExceptions="True">
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_lightCurtainInstalled].Value" Converter="{StaticResource VisibleDynamicsValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>
             <s:Boolean>True</s:Boolean>
           </Binding.FallbackValue>

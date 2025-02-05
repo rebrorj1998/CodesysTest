@@ -81,6 +81,7 @@ IF _ConvertInchToMetric.Q THEN
     HMIData.passthroughSetting := passthroughSettingIn * 25.4;
     HMIData.jawClosePositionSetting := jawClosePositionSettingIn * 25.4;
     HMIData.barcodeStartPosition := barcodeStartPositionIn * 25.4;
+	HMIData.printSpeed := REAL_TO_UINT(printSpeedIn * 25.4);
     sealBarTempOut := (sealBarTempIn - 32) * 5 / 9; // Fahrenheit to Celsius
     feedSpeedOut := feedSpeedIn * 25.4;
     reverseSpeedOut := reverseSpeedIn * 25.4;
@@ -94,6 +95,7 @@ IF _ConvertMetricToInch.Q THEN
     HMIData.passthroughSetting := passthroughSettingIn / 25.4;
     HMIData.jawClosePositionSetting := jawClosePositionSettingIn / 25.4;
     HMIData.barcodeStartPosition := barcodeStartPositionIn / 25.4;
+	HMIData.printSpeed := REAL_TO_UINT(printSpeedIn / 25.4);
     sealBarTempOut := (sealBarTempIn * 9 / 5) + 32; // Celsius to Fahrenheit
     feedSpeedOut := feedSpeedIn / 25.4;
     reverseSpeedOut := reverseSpeedIn / 25.4;

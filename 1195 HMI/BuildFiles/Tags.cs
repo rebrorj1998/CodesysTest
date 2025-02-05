@@ -2214,6 +2214,8 @@ namespace Neo.ApplicationFramework.Generated
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem Application_HMIData_HMIMetric;
 		
+		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_lightCurtainInstalled;
+		
 		public Neo.ApplicationFramework.Tools.OpcClient.PollGroup PollGroup1;
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.PollGroup PollGroup2;
@@ -3354,6 +3356,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_8 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_8", "Controller1.DataItem1226", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_9 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_9", "Controller1.DataItem1227", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_HMIData_HMIMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Application_HMIData_HMIMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "", "");
+			this.Application_HMIData_lightCurtainInstalled = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_lightCurtainInstalled", "Controller1.DataItem541", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.PollGroup1 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup2 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup3 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
@@ -4301,11 +4304,11 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_velocity);
 			this.LightweightTags.Add(this.Application_HMIData_printer300DPI);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_0);
-			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_10);
 		}
 		
 		private void InitializeObjects_2()
 		{
+			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_10);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_11);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_12);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_13);
@@ -4509,6 +4512,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_8);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_9);
 			this.GlobalDataItems.Add(this.Application_HMIData_HMIMetric);
+			this.LightweightTags.Add(this.Application_HMIData_lightCurtainInstalled);
 			this.PollGroup1.Interval = 100;
 			this.PollGroup1.Name = "PollGroup1";
 			this.PollGroup2.Interval = 500;

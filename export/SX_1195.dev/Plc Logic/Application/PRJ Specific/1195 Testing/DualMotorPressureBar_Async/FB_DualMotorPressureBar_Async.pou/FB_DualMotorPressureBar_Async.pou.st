@@ -217,13 +217,9 @@ IF count_index >=20 THEN
 END_IF
 //End modded code
 _ready := state = eDualMotorPressureBar_AsyncStates.Idle AND _isFullyOpen;
-// 
+//
 
-IF iLightCurtainStart THEN
-	lightCurtainInstalled := TRUE;
-END_IF
-
-IF NOT iLightCurtainStart AND lightCurtainInstalled AND NOT _ready THEN
+IF NOT iLightCurtainStart AND HMIData.lightCurtainInstalled AND NOT _ready THEN
 	lightCurtainViolations.Trigger();
 END_IF
 

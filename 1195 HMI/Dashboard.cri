@@ -38,11 +38,13 @@
         <Item Target="Dashboard.Text1" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Button6" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Group.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Group.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Group1.Text6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Dashboard.Button6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group1.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -67,15 +69,18 @@
         <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="MouseLeave" Action="Reset Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Dashboard.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_BPMReset" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
         <Item Target="Dashboard.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_BPMReset" />
-        <Item Target="Dashboard.Group" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
-        <Item Target="Dashboard.Group.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_batchSetting" />
-        <Item Target="Dashboard.Group1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
-        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_batchCount" />
         <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="PreviewMouseDown" Action="Set Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="MouseLeave" Action="Reset Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
         <Item Target="Dashboard.Button6" TargetProperty="Value" Source="Tags.Application_HMIData_resetBatchCounter" />
         <Item Target="Dashboard.Button6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Dashboard.Group" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
+        <Item Target="Dashboard.Group.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_batchSetting" />
+        <Item Target="Dashboard.Group.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_batchCount" />
+        <Item Target="Dashboard.Group1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_partsCounterEnable" />
+        <Item Target="Dashboard.Group1" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_lightCurtainInstalled" />
+        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterSetting" />
+        <Item Target="Dashboard.Group1.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterCount" />
       </Items>
     </Category>
     <Category Name="InvalidAction">
@@ -105,11 +110,11 @@
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
-              <Value>5</Value>
+              <Value>7</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
-              <Value>10</Value>
+              <Value>12</Value>
             </Detail>
           </Details>
         </Item>
@@ -136,7 +141,7 @@
         <Item xsi:type="ActionItem" Target="Dashboard.Button" TargetProperty="Actions" Source="Status" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Dashboard.Button4" TargetProperty="Actions" Source="Faults" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>29</ObjectsCount>
+          <ObjectsCount>33</ObjectsCount>
           <ScreenName>Dashboard</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

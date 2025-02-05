@@ -122,6 +122,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	partsCounterEnable : BOOL;
 	partsCounterCount : UDINT;
 	partsCounterSetting : UDINT;
+	partsCounterDone : BOOL;
 	consecutiveBagsEnable : BOOL;
 	consecutiveBagsCount : UDINT;
 	consecutiveBagsSetting : UDINT;
@@ -163,6 +164,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	printOffsetMetric : REAL := 2.0;
 	barcodeStartPositionMetric : REAL;
 	HMIMetric : BOOL := TRUE;
+	lightCurtainInstalled : BOOL;
 END_VAR
 
 VAR_GLOBAL CONSTANT

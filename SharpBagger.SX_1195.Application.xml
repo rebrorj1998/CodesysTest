@@ -2437,6 +2437,7 @@
         <Node name="jogFilmForward" type="T_BOOL" access="ReadWrite" />
         <Node name="jogFilmReverse" type="T_BOOL" access="ReadWrite" />
         <Node name="lastCycleTime" type="T_REAL" access="ReadWrite" />
+        <Node name="lightCurtainInstalled" type="T_BOOL" access="ReadWrite" />
         <Node name="loadPlateDelay" type="T_REAL" access="ReadWrite" />
         <Node name="loadPlateDwell" type="T_REAL" access="ReadWrite" />
         <Node name="loadPlateInstalled" type="T_BOOL" access="ReadWrite" />
@@ -2639,48 +2640,114 @@
         </Node>
       </Node>
       <Node name="PLC_PRG_1">
-        <Node name="amazonBPM" type="T_FB_AmazonThroughput" access="ReadWrite" />
-        <Node name="autoModeInitiateCycleONS" type="T_FB_ONS" access="ReadWrite" />
-        <Node name="autoModeKeepCycling" type="T_BOOL" access="ReadWrite" />
-        <Node name="autoModeTimer" type="T_TON" access="ReadWrite" />
-        <Node name="baggerCM" type="T_EM01_BaggerCM" access="ReadWrite" />
-        <Node name="bannerManager" type="T_FB_BannerManager" access="ReadWrite" />
-        <Node name="clr" type="T_BOOL" access="ReadWrite" />
-        <Node name="count_index" type="T_INT" access="ReadWrite" />
-        <Node name="cycleComplete" type="T_FB_ONS" access="ReadWrite" />
-        <Node name="cycleStartONS" type="T_FB_ONS" access="ReadWrite" />
-        <Node name="dischargeCM" type="T_EM02_DischargeCM" access="ReadWrite" />
-        <Node name="EM01_SXBaggerHead" type="T_EM01_BaggerHead" access="ReadWrite" />
-        <Node name="EM02_SXDischarge" type="T_EM02_Discharge" access="ReadWrite" />
-        <Node name="firstAborted" type="T_BOOL" access="ReadWrite" />
-        <Node name="firstScanDone" type="T_BOOL" access="ReadWrite" />
-        <Node name="flipFlop" type="T_TON" access="ReadWrite" />
+        <Node name="amazonBPM" type="T_FB_AmazonThroughput" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="autoModeInitiateCycleONS" type="T_FB_ONS" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="autoModeKeepCycling" type="T_BOOL" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="autoModeTimer" type="T_TON" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="baggerCM" type="T_EM01_BaggerCM" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="bannerManager" type="T_FB_BannerManager" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="clr" type="T_BOOL" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="count_index" type="T_INT" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="cycleComplete" type="T_FB_ONS" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="cycleStartONS" type="T_FB_ONS" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="dischargeCM" type="T_EM02_DischargeCM" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="EM01_SXBaggerHead" type="T_EM01_BaggerHead" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="EM02_SXDischarge" type="T_EM02_Discharge" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="firstAborted" type="T_BOOL" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="firstScanDone" type="T_BOOL" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="flipFlop" type="T_TON" access="ReadWrite">
+          <Comment />
+        </Node>
         <Node name="hIecTask" type="T_RTS_IEC_HANDLE" access="ReadWrite">
           <Comment>Declaration of the variable hIecTask</Comment>
         </Node>
-        <Node name="hmiFaultMessage" type="T_FB_FaultMessageHandler" access="ReadWrite" />
-        <Node name="hold" type="T_BOOL" access="ReadWrite" />
-        <Node name="laststate" type="T_INT" access="ReadWrite" />
-        <Node name="loadPlateInterlocks" type="T_DINT" access="ReadWrite" />
-        <Node name="palmButton" type="T_FB_BannerPalmButton" access="ReadWrite" />
-        <Node name="powerUpBagDeliveryMotor" type="T_MC_Power" access="ReadWrite" />
-        <Node name="powerUpBothJawMotors" type="T_MC_Power" access="ReadWrite" />
-        <Node name="powerUpIBDMotor" type="T_MC_Power" access="ReadWrite" />
-        <Node name="powerUpLoadPlateMotor" type="T_MC_Power" access="ReadWrite" />
+        <Node name="hmiFaultMessage" type="T_FB_FaultMessageHandler" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="hold" type="T_BOOL" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="laststate" type="T_INT" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="loadPlateInterlocks" type="T_DINT" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="palmButton" type="T_FB_BannerPalmButton" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="powerUpBagDeliveryMotor" type="T_MC_Power" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="powerUpBothJawMotors" type="T_MC_Power" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="powerUpIBDMotor" type="T_MC_Power" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="powerUpLoadPlateMotor" type="T_MC_Power" access="ReadWrite">
+          <Comment />
+        </Node>
         <Node name="powerUpRearJawMotor" type="T_MC_Power" access="ReadWrite">
           <Comment>powerUpFrontJawMotor : MC_Power;</Comment>
         </Node>
-        <Node name="printerLabel" type="T_FB_PrinterSerial" access="ReadWrite" />
-        <Node name="resetHold" type="T_TON" access="ReadWrite" />
-        <Node name="safePowerOffFault" type="T_FB_Fault" access="ReadWrite" />
-        <Node name="speedTracking" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" access="ReadWrite" />
-        <Node name="speedTracking_mt" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" access="ReadWrite" />
-        <Node name="state_index" type="T_INT" access="ReadWrite" />
+        <Node name="printerLabel" type="T_FB_PrinterSerial" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="resetHold" type="T_TON" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="safePowerOffFault" type="T_FB_Fault" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="speedTracking" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="speedTracking_mt" type="T_ARRAY__0__20__OF_ARRAY__0__20__OF_TIME" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="state_index" type="T_INT" access="ReadWrite">
+          <Comment />
+        </Node>
         <Node name="stateTimer" type="T_TON" access="ReadWrite">
           <Comment>variables for the state timer</Comment>
         </Node>
-        <Node name="teachPhotoeyeTimer" type="T_TOF" access="ReadWrite" />
-        <Node name="UN00_SXMachine" type="T_FB_UN00_SharpMachine" access="ReadWrite" />
+        <Node name="teachPhotoeyeTimer" type="T_TOF" access="ReadWrite">
+          <Comment />
+        </Node>
+        <Node name="UN00_SXMachine" type="T_FB_UN00_SharpMachine" access="ReadWrite">
+          <Comment />
+        </Node>
       </Node>
     </Node>
   </NodeList>

@@ -17648,6 +17648,22 @@
           </Object>
         </GlobalDataSubItems>
       </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" DataType="DT_BOOLEAN" d1p1:Site.Name="Application_HMIData_lightCurtainInstalled" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
+        <GlobalDataSubItems>
+          <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null">
+            <DataItemNames>
+              <KeyValuePair>
+                <Key>
+                  <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="Controller1" />
+                </Key>
+                <Value>
+                  <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="DataItem541" />
+                </Value>
+              </KeyValuePair>
+            </DataItemNames>
+          </Object>
+        </GlobalDataSubItems>
+      </Object>
     </GlobalDataItems>
     <PollGroups>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.PollGroup, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="PollGroup1" Interval="100" d1p1:Site.Name="PollGroup1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />

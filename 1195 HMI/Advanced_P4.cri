@@ -27,11 +27,7 @@
         <Item Target="Advanced_P4.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Text1" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Button1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.Text5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.Text6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Button2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
@@ -45,27 +41,18 @@
         <Item Target="Advanced_P4.Text12" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Text13" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Button4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.Text2" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.Button" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Button5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text2" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="Advanced_P4.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_CurrentAlarmCode" />
-        <Item Target="Advanced_P4.AnalogNumeric1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_ActPos" />
-        <Item Target="Advanced_P4.AnalogNumeric2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Text5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Text6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Text7" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_IBDMotorData_setPreset" />
-        <Item Target="Advanced_P4.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_IBDMotorData_setPreset" />
-        <Item Target="Advanced_P4.Button2" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Rectangle4" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Rectangle5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Rectangle6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
-        <Item Target="Advanced_P4.Rectangle7" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.alwaysOff" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="Text" Source="Tags.Application_HMIData_lightCurtainInstalled" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_lightCurtainInstalled" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="TextValue" Source="Tags.Application_HMIData_lightCurtainInstalled" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="Background" Source="Tags.Application_HMIData_lightCurtainInstalled" />
+        <Item Target="Advanced_P4.Button2" TargetProperty="Foreground" Source="Tags.Application_HMIData_lightCurtainInstalled" />
         <Item Target="Advanced_P4.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_CurrentAlarmCode" />
         <Item Target="Advanced_P4.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_ActPos" />
         <Item Target="Advanced_P4.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_frontJawMotorData_setPreset" />
@@ -110,7 +97,7 @@
           <Details>
             <Detail>
               <Key>Label</Key>
-              <Value>12</Value>
+              <Value>10</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
@@ -118,11 +105,11 @@
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
-              <Value>6</Value>
+              <Value>4</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
-              <Value>12</Value>
+              <Value>8</Value>
             </Detail>
           </Details>
         </Item>
@@ -148,7 +135,7 @@
         <Item xsi:type="ActionItem" Target="Advanced_P4.Button1" TargetProperty="Actions" Source="Advanced_P3" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Advanced_P4.Button5" TargetProperty="Actions" Source="Advanced_P5" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>36</ObjectsCount>
+          <ObjectsCount>28</ObjectsCount>
           <ScreenName>Advanced_P4</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
