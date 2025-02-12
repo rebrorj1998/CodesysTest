@@ -74,8 +74,8 @@
         </nai:ActionProperties.Actions>
       </nac:Label>
     </nac:Group>
-    <nac:Group Name="m_Group2" Width="197" Height="24" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="16" Canvas.Left="170" Canvas.Top="135">
-      <nac:Label AutoSize="False" WordWrap="False" AutoStretchFont="False" Text="1.2.0.3" BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FFFFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text6" Width="91" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="106" Canvas.Top="0">
+    <nac:Group Name="m_Group2" Width="197" Height="24" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="16" Canvas.Left="170" Canvas.Top="134">
+      <nac:Label AutoSize="False" WordWrap="False" AutoStretchFont="False" Text="1.2.0.6" BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FFFFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text6" Width="91" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="106" Canvas.Top="0">
         <nac:Label.BevelEffectInfo>
           <nacb:BevelEffectInfo Width="0" />
         </nac:Label.BevelEffectInfo>

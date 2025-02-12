@@ -2164,6 +2164,8 @@ namespace Neo.ApplicationFramework.Generated
 		
 		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem1227;
 		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem540;
+		
 		public Controller1()
 		{
 			this.InitializeComponent();
@@ -3265,6 +3267,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.DataItem1225 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem1225", "Application.GlobalObjects.CollectionOfComponents.Ready[7]", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem1226 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem1226", "Application.GlobalObjects.CollectionOfComponents.Ready[8]", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem1227 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem1227", "Application.GlobalObjects.CollectionOfComponents.Ready[9]", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem540 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem540", "Application.HMIData.HMIMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 		}
 		
 		private void InitializeBeginInits()
@@ -4344,6 +4347,7 @@ namespace Neo.ApplicationFramework.Generated
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1225)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1226)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1227)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem540)).BeginInit();
 		}
 		
 		private void InitializeEndInits()
@@ -5422,6 +5426,7 @@ namespace Neo.ApplicationFramework.Generated
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1225)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1226)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1227)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem540)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 		}
 		
@@ -6502,6 +6507,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.DataItems.Add(this.DataItem1225);
 			this.DataItems.Add(this.DataItem1226);
 			this.DataItems.Add(this.DataItem1227);
+			this.DataItems.Add(this.DataItem540);
 			this.Driver = "CoDeSys_ARTI_Pre2.CoDeSys_ARTI_Pre2.1";
 			this.ID = "1";
 			this.Node = "";

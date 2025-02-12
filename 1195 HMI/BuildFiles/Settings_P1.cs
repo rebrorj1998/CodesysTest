@@ -313,7 +313,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 125;
+            this.m_Text.Width = 74;
             // 
             // m_Text1
             // 
@@ -908,9 +908,9 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Settings_P1));
             this.m_Text.Text = resources.GetText("Settings_P1.Text.Text", "Settings Page");
             this.m_Text1.Text = resources.GetText("Settings_P1.Text1.Text", "1/2");
-            this.m_Text3.Text = resources.GetText("Settings_P1.Text3.Text", "    Feed Speed / Reverse Speed");
+            this.m_Text3.Text = resources.GetText("Settings_P1.Text3.Text", "    Feed Speed / Reverse Speed (in/s)");
             this.m_Text4.Text = resources.GetText("Settings_P1.Text4.Text", "    Seal Offset: (in.)");
-            this.m_Text5.Text = resources.GetText("Settings_P1.Text5.Text", "    Jaw Passthrough");
+            this.m_Text5.Text = resources.GetText("Settings_P1.Text5.Text", "    Jaw Passthrough (in.)");
             this.m_Text6.Text = resources.GetText("Settings_P1.Text6.Text", "    Bag Length: (in.)");
             this.m_Text7.Text = resources.GetText("Settings_P1.Text7.Text", "    Seal Dwell / Seal Cool");
             this.ApplyResourcesOnForm();

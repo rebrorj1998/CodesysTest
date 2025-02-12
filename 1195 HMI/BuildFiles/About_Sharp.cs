@@ -355,7 +355,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Group2.Name = "m_Group2";
             this.m_Group2.ParentGroup = null;
             this.m_Group2.ScreenOwnerName = "About_Sharp";
-            this.m_Group2.Top = 135;
+            this.m_Group2.Top = 134;
             this.m_Group2.VisibleDynamicsValue = true;
             this.m_Group2.Width = 197;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -444,7 +444,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.Text = resources.GetText("About_Sharp.Text1.Text", "For service call: +1 800-634-6359 x1572");
             this.m_Text2.Text = resources.GetText("About_Sharp.Text2.Text", "Bags Made");
             this.m_Text3.Text = resources.GetText("About_Sharp.Text3.Text", "HMI Version");
-            this.m_Text6.Text = resources.GetText("About_Sharp.Text6.Text", "1.2.0.3");
+            this.m_Text6.Text = resources.GetText("About_Sharp.Text6.Text", "1.2.0.6");
             this.m_Text4.Text = resources.GetText("About_Sharp.Text4.Text", "PLC Version");
             this.ApplyResourcesOnForm();
         }
