@@ -54,8 +54,8 @@ IF HMIData.HMIMetric THEN
     jawClosePositionSettingOut := jawClosePositionSettingIn / 25.4;
     barcodeStartPositionOut := barcodeStartPositionIn / 25.4;
     sealBarTempOut := (sealBarTempIn - 32) * 5 / 9; // Fahrenheit to Celsius
-    feedSpeedOut := feedSpeedIn / 25.4;
-    reverseSpeedOut := reverseSpeedIn / 25.4;
+    feedSpeedOut := (feedSpeedIn / 25.4);
+    reverseSpeedOut := (reverseSpeedIn / 25.4);
 ELSE
     bagLengthOut := bagLengthIn;
     bagWidthOut := bagWidthIn;
@@ -82,9 +82,9 @@ IF _ConvertInchToMetric.Q THEN
     HMIData.jawClosePositionSetting := jawClosePositionSettingIn * 25.4;
     HMIData.barcodeStartPosition := barcodeStartPositionIn * 25.4;
 	HMIData.printSpeed := REAL_TO_UINT(printSpeedIn * 25.4);
-    sealBarTempOut := (sealBarTempIn - 32) * 5 / 9; // Fahrenheit to Celsius
-    feedSpeedOut := feedSpeedIn * 25.4;
-    reverseSpeedOut := reverseSpeedIn * 25.4;
+    //sealBarTempOut := (sealBarTempIn - 32) * 5 / 9; // Fahrenheit to Celsius
+    HMIData.bagForwardSpeed := REAL_TO_UDINT(feedSpeedIn * 25.4);
+    HMIData.bagReverseSpeed := REAL_TO_UDINT(reverseSpeedIn * 25.4);
 END_IF
 
 IF _ConvertMetricToInch.Q THEN
@@ -97,6 +97,6 @@ IF _ConvertMetricToInch.Q THEN
     HMIData.barcodeStartPosition := barcodeStartPositionIn / 25.4;
 	HMIData.printSpeed := REAL_TO_UINT(printSpeedIn / 25.4);
     sealBarTempOut := (sealBarTempIn * 9 / 5) + 32; // Celsius to Fahrenheit
-    feedSpeedOut := feedSpeedIn / 25.4;
-    reverseSpeedOut := reverseSpeedIn / 25.4;
+    HMIData.bagForwardSpeed := REAL_TO_UDINT(feedSpeedIn / 25.4);
+    HMIData.bagReverseSpeed := REAL_TO_UDINT(reverseSpeedIn / 25.4);
 END_IF

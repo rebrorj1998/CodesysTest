@@ -52,6 +52,8 @@ VAR
     jawClosePositionSettingConverted : REAL;
     barcodeStartPositionConverted : REAL;
     barcodeScanningDistanceConverted : REAL;
+	bagForwardSpeedConverted : REAL;
+	bagReverseSpeedConverted : REAL;
 
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 
@@ -69,6 +71,8 @@ metricConversions(
     passthroughSettingIn := HMIData.passthroughSetting,
     jawClosePositionSettingIn := HMIData.jawClosePositionSetting,
     barcodeStartPositionIn := HMIData.barcodeStartPosition,
+	feedSpeedIn := HMIData.bagForwardSpeed,
+	reverseSpeedIn := HMIData.bagReverseSpeed,
     //barcodeScanningDistanceIn := HMIData.barcodeScanningDistance,
     bagLengthOut => bagLengthConverted,
     bagWidthOut => bagWidthConverted,
@@ -79,6 +83,8 @@ metricConversions(
     passthroughSettingOut => passthroughSettingConverted,
     jawClosePositionSettingOut => jawClosePositionSettingConverted,
     barcodeStartPositionOut => barcodeStartPositionConverted,
+	feedSpeedOut => bagForwardSpeedConverted,
+	reverseSpeedOut => bagReverseSpeedConverted
     //barcodeScanningDistanceOut => barcodeScanningDistanceConverted
 );
 
@@ -239,8 +245,10 @@ bagDelivery(
 	dryCycleEnable:=HMIData.dryCycleEnable,
 	printer:= PLC_PRG_1.EM01_SXBaggerHead.printer, 
 	bagLength:= bagLengthConverted, 
-	feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 
-	reverseSpeed:= TO_REAL(HMIData.bagReverseSpeed), 
+	//feedSpeed:= TO_REAL(HMIData.bagForwardSpeed), 
+	feedSpeed:= TO_REAL(bagForwardSpeedConverted),
+	//reverseSpeed:= TO_REAL(HMIData.bagReverseSpeed), 
+	reverseSpeed:= TO_REAL(bagReverseSpeedConverted), 
 	printSpeed:= TO_REAL(printSpeedConverted), 
 	printOffset:= printOffsetConverted, 
 	printLength:= printLengthConverted, 

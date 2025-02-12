@@ -482,11 +482,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.Bold = true;
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
-            this.m_Text3.FontSizePixels = 10;
+            this.m_Text3.FontSizePixels = 9;
             this.m_Text3.Height = 24;
-            this.m_Text3.Left = 140;
+            this.m_Text3.Left = 149;
             this.m_Text3.Name = "m_Text3";
-            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
+            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.25D, 0D, 2.25D, 1D);
             this.m_Text3.ScreenOwnerName = "Settings_P1";
             this.m_Text3.TextVerticalAlignment = "Center";
             this.m_Text3.Top = 116;

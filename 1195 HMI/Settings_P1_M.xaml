@@ -42,7 +42,7 @@
     <nacc:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle5" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="149" Canvas.Top="176" />
     <nacc:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle6" Width="57" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="352" Canvas.Top="58" />
     <nacc:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle7" Width="57" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="10" Canvas.Left="352" Canvas.Top="87" />
-    <nac:Label AutoSize="False" Text="    Feed Speed / Rev Speed (mm/s)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text3" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="11" Canvas.Left="152" Canvas.Top="116" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" Text="    Feed Speed / Reverse Speed (mm/s)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="8" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2,0,2,1" Name="m_Text3" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="11" Canvas.Left="152" Canvas.Top="116" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>

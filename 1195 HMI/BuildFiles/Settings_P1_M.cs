@@ -482,11 +482,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.Bold = true;
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
-            this.m_Text3.FontSizePixels = 10;
+            this.m_Text3.FontSizePixels = 8;
             this.m_Text3.Height = 24;
             this.m_Text3.Left = 152;
             this.m_Text3.Name = "m_Text3";
-            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
+            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 0D, 2D, 1D);
             this.m_Text3.ScreenOwnerName = "Settings_P1_M";
             this.m_Text3.TextVerticalAlignment = "Center";
             this.m_Text3.Top = 116;
@@ -905,7 +905,7 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Settings_P1_M));
             this.m_Text.Text = resources.GetText("Settings_P1_M.Text.Text", "Settings Page");
             this.m_Text1.Text = resources.GetText("Settings_P1_M.Text1.Text", "1/2");
-            this.m_Text3.Text = resources.GetText("Settings_P1_M.Text3.Text", "    Feed Speed / Rev Speed (mm/s)");
+            this.m_Text3.Text = resources.GetText("Settings_P1_M.Text3.Text", "    Feed Speed / Reverse Speed (mm/s)");
             this.m_Text4.Text = resources.GetText("Settings_P1_M.Text4.Text", "    Seal Offset: (mm)");
             this.m_Text5.Text = resources.GetText("Settings_P1_M.Text5.Text", "    Jaw Passthrough (mm)");
             this.m_Text6.Text = resources.GetText("Settings_P1_M.Text6.Text", "    Bag Length: (mm)");
