@@ -116,7 +116,7 @@
         <Item xsi:type="ActionItem" Target="Options.Button1" TargetProperty="Actions" Source="Option_BarcodeVerifier" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Options.Button2" TargetProperty="Actions" Source="Option_IBD" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Options.Button3" TargetProperty="Actions" Source="Option_LoadShelf" Event="Click" Action="Show Screen" Param="" />
-        <Item xsi:type="ActionItem" Target="Options.Button5" TargetProperty="Actions" Source="Option_Printer_M" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Options.Button5" TargetProperty="Actions" Source="Option_Printer_M" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Options.Button6" TargetProperty="Actions" Source="Option_Barcode_M" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
           <ObjectsCount>13</ObjectsCount>

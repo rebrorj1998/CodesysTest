@@ -661,7 +661,7 @@ namespace Neo.ApplicationFramework.Generated {
         }
         
         private void m_Button5_Action_Click(object sender, System.EventArgs e) {
-            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button5", "Click", "Show Screen", "Option_Printer_M", "");
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button5", "Click", "Show Screen", "Option_Printer_M", "Default", "");
             Neo.ApplicationFramework.Generated.Globals.Option_Printer_M.Show();
         }
         

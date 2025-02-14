@@ -821,9 +821,9 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.Text = resources.GetText("Option_Printer_M.Button.Text", "Cancel\r\nPrint");
             this.m_Button1.Text = resources.GetText("Option_Printer_M.Button1.Text", "Send Labels");
             this.m_Button2.Text = resources.GetText("Option_Printer_M.Button2.Text", "Clear Labels");
-            this.m_Text3.Text = resources.GetText("Option_Printer_M.Text3.Text", "    Print Length (mm)");
-            this.m_Text4.Text = resources.GetText("Option_Printer_M.Text4.Text", "    Print Offset (mm)");
-            this.m_Text6.Text = resources.GetText("Option_Printer_M.Text6.Text", "    Print Speed (mm/s)");
+            this.m_Text3.Text = resources.GetText("Option_Printer_M.Text3.Text", "Print Length (mm)");
+            this.m_Text4.Text = resources.GetText("Option_Printer_M.Text4.Text", "Print Offset (mm)");
+            this.m_Text6.Text = resources.GetText("Option_Printer_M.Text6.Text", "Print Speed (in.)");
             this.m_Text.Text = resources.GetText("Option_Printer_M.Text.Text", "Printer");
             this.m_Text5.Text = resources.GetText("Option_Printer_M.Text5.Text", "ON");
             resources.ApplyTexts(this.m_Button3, "Texts", "Option_Printer_M.Button3.Texts[0]", "203 DPI Active", "Option_Printer_M.Button3.Texts[1]", "300 DPI Active");

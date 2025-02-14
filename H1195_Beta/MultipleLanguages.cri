@@ -34,31 +34,15 @@
           <Details>
             <Detail>
               <Key>Languages</Key>
-              <Value>7</Value>
+              <Value>3</Value>
             </Detail>
           </Details>
         </Item>
         <Item xsi:type="DesignerProjectItemMetadata" ItemName="Keyboards">
           <Details>
             <Detail>
-              <Key>French</Key>
-              <Value>1</Value>
-            </Detail>
-            <Detail>
-              <Key>German</Key>
-              <Value>2</Value>
-            </Detail>
-            <Detail>
-              <Key>Spanish</Key>
-              <Value>1</Value>
-            </Detail>
-            <Detail>
-              <Key>Italian</Key>
-              <Value>1</Value>
-            </Detail>
-            <Detail>
               <Key>US</Key>
-              <Value>2</Value>
+              <Value>3</Value>
             </Detail>
           </Details>
         </Item>

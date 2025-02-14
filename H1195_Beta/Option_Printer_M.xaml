@@ -83,17 +83,17 @@
     <nacc:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle6" Width="57" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="7" Canvas.Left="286" Canvas.Top="70" />
     <nacc:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle7" Width="57" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="286" Canvas.Top="99" />
     <nacc:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle8" Width="57" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="286" Canvas.Top="128" />
-    <nac:Label AutoSize="False" Text="    Print Length (mm)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text3" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="10" Canvas.Left="83" Canvas.Top="128" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" Text="Print Length (mm)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text3" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="10" Canvas.Left="83" Canvas.Top="128" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" Text="    Print Offset (mm)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text4" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="11" Canvas.Left="83" Canvas.Top="99" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" Text="Print Offset (mm)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text4" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="11" Canvas.Left="83" Canvas.Top="99" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" Text="    Print Speed (mm/s)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text6" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="83" Canvas.Top="70" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" Text="Print Speed (in.)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text6" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="83" Canvas.Top="70" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>

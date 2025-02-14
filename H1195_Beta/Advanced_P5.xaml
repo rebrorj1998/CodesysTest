@@ -10,7 +10,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label Text="5/5" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text1" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="258" Canvas.Top="20" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label Text="45417" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text1" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="258" Canvas.Top="20" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
@@ -275,7 +275,6 @@
               <nacd1:StringInterval Start="1" End="1" Value="French" />
               <nacd1:StringInterval Start="2" End="2" Value="German" />
               <nacd1:StringInterval Start="3" End="3" Value="Dutch" />
-              <nacd1:StringInterval Start="4" End="4" Value="Spanish" />
             </nacd1:StringIntervalList>
           </nacd1:StringIntervalMapper.Intervals>
         </nacd1:StringIntervalMapper>

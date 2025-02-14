@@ -425,7 +425,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Dashboard";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button3.TextHeight = 28;
+            this.m_Button3.TextHeight = 29;
             this.m_Button3.TextValue = 0D;
             this.m_Button3.TextWidth = 95;
             this.m_Button3.Top = 175;
@@ -469,7 +469,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.RequiresTransparency = true;
             this.m_Button5.ScreenOwnerName = "Dashboard";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button5.TextHeight = 28;
+            this.m_Button5.TextHeight = 29;
             this.m_Button5.TextValue = 0D;
             this.m_Button5.TextWidth = 95;
             this.m_Button5.Top = 127;
@@ -501,14 +501,14 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 10;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 28;
             this.m_Text.Left = 89;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text.ScreenOwnerName = "Dashboard";
             this.m_Text.Top = 16;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 60;
+            this.m_Text.Width = 89;
             // 
             // m_Rectangle2
             // 
@@ -533,14 +533,14 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 10;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 28;
             this.m_Text1.Left = 89;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text1.ScreenOwnerName = "Dashboard";
             this.m_Text1.Top = 40;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 59;
+            this.m_Text1.Width = 87;
             // 
             // m_Rectangle3
             // 
@@ -565,14 +565,14 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.DelayMouseInputPeriod = 0;
             this.m_Text2.EnabledDynamicsValue = true;
             this.m_Text2.FontSizePixels = 10;
-            this.m_Text2.Height = 21;
+            this.m_Text2.Height = 28;
             this.m_Text2.Left = 92;
             this.m_Text2.Name = "m_Text2";
             this.m_Text2.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text2.ScreenOwnerName = "Dashboard";
             this.m_Text2.Top = 64;
             this.m_Text2.VisibleDynamicsValue = true;
-            this.m_Text2.Width = 52;
+            this.m_Text2.Width = 76;
             // 
             // m_Rectangle4
             // 
@@ -675,7 +675,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
             this.m_Text3.FontSizePixels = 10;
-            this.m_Text3.Height = 21;
+            this.m_Text3.Height = 28;
             this.m_Text3.IsBlinkEnabled = true;
             this.m_Text3.Left = 315;
             this.m_Text3.Name = "m_Text3";
@@ -683,7 +683,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.ScreenOwnerName = "Dashboard";
             this.m_Text3.Top = 6;
             this.m_Text3.VisibleDynamicsValue = true;
-            this.m_Text3.Width = 93;
+            this.m_Text3.Width = 138;
             // 
             // m_Text4
             // 
@@ -692,7 +692,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.DelayMouseInputPeriod = 0;
             this.m_Text4.EnabledDynamicsValue = true;
             this.m_Text4.FontSizePixels = 10;
-            this.m_Text4.Height = 21;
+            this.m_Text4.Height = 28;
             this.m_Text4.IsBlinkEnabled = true;
             this.m_Text4.Left = 320;
             this.m_Text4.Name = "m_Text4";
@@ -700,7 +700,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.ScreenOwnerName = "Dashboard";
             this.m_Text4.Top = 20;
             this.m_Text4.VisibleDynamicsValue = true;
-            this.m_Text4.Width = 86;
+            this.m_Text4.Width = 128;
             // 
             // m_Button1
             // 
@@ -750,7 +750,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Dashboard";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper5;
-            this.m_Button.TextHeight = 36;
+            this.m_Button.TextHeight = 37;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 167;
             this.m_Button.Top = 36;
@@ -779,7 +779,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.RequiresTransparency = true;
             this.m_Button4.ScreenOwnerName = "Dashboard";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper6;
-            this.m_Button4.TextHeight = 36;
+            this.m_Button4.TextHeight = 37;
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 167;
             this.m_Button4.Top = 90;
@@ -1247,9 +1247,9 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.Text = resources.GetText("Dashboard.Text4.Text", "Dry Cycle Active");
             this.m_Button.Text = resources.GetText("Dashboard.Button.Text", "Bagger Status Overview");
             this.m_Button4.Text = resources.GetText("Dashboard.Button4.Text", "Bagger Faults Overview");
-            this.m_Text5.Text = resources.GetText("Dashboard.Text5.Text", "Batch Setting/Count");
+            this.m_Text5.Text = resources.GetText("Dashboard.Text5.Text", "Batch Setting");
             this.m_Button6.Text = resources.GetText("Dashboard.Button6.Text", "Reset Batch Count");
-            this.m_Text6.Text = resources.GetText("Dashboard.Text6.Text", "Parts Setting/Count");
+            this.m_Text6.Text = resources.GetText("Dashboard.Text6.Text", "Batch Count");
             this.ApplyResourcesOnForm();
         }
         

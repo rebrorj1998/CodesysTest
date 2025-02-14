@@ -8,7 +8,7 @@
       <nacxs:EventHandlerInfo EventName="Opened" MethodName="BaseTemplate_Opened" />
     </nai:ScriptEventList>
   </nai:ScriptProperties.ScriptEvents>
-  <nacs:ElementCanvas Name="m_EditorCanvas" Width="480" Height="272" FocusVisualStyle="{x:Null}" AllowDrop="True" ClipToBounds="True" Focusable="True" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType" Panel.ZIndex="104">
+  <nacs:ElementCanvas Name="m_EditorCanvas" Width="480" Height="272" FocusVisualStyle="{x:Null}" AllowDrop="True" ClipToBounds="True" Focusable="True" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType">
     <nacc:Rectangle Fill="#FF707070" Stroke="#FFFFFFFF" StrokeThickness="1" Name="m_Rectangle" Width="78" Height="272" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="1" Canvas.Left="0" Canvas.Top="0" />
     <nac:Label AutoSize="False" MultiLine="False" WordWrap="False" AutoStretchFont="False" Text="Text" BorderBrush="#FFFFFFFF" BorderThickness="1,1,1,1" FontFamily="Arial" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text" Width="362" Height="37" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="81" Canvas.Top="230" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True">
       <nac:Label.Resources>
@@ -131,7 +131,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
       <nac:Label.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Texto">
+        <nacd1:StringIntervalMapper DefaultValue="Text">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Bagger Not Ready To Cycle" />

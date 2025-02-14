@@ -332,7 +332,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf2 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf3 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf4 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf5 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             this.m_TouchComboBox = new Neo.ApplicationFramework.Controls.TouchComboBox.TouchComboBoxHostCF();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
@@ -426,14 +425,10 @@ namespace Neo.ApplicationFramework.Generated {
             stringintervalcf4.End = 3D;
             stringintervalcf4.Start = 3D;
             stringintervalcf4.Value = "Dutch";
-            stringintervalcf5.End = 4D;
-            stringintervalcf5.Start = 4D;
-            stringintervalcf5.Value = "Spanish";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             stringintervalmappercf1.Intervals.Add(stringintervalcf3);
             stringintervalmappercf1.Intervals.Add(stringintervalcf4);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf5);
             this.m_TouchComboBox.IntervalMapper = stringintervalmappercf1;
             this.m_TouchComboBox.IsSeparatorVisible = true;
             this.m_TouchComboBox.ItemHeight = 22;
@@ -456,7 +451,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 28;
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -465,7 +460,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 54;
+            this.m_Text.Width = 80;
             // 
             // m_Text1
             // 
@@ -474,7 +469,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 28;
             this.m_Text1.Left = 258;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -483,7 +478,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
+            this.m_Text1.Width = 54;
             // 
             // m_Button4
             // 
@@ -1241,7 +1236,7 @@ namespace Neo.ApplicationFramework.Generated {
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Advanced_P5));
             this.m_Text.Text = resources.GetText("Advanced_P5.Text.Text", "Advanced");
-            this.m_Text1.Text = resources.GetText("Advanced_P5.Text1.Text", "5/5");
+            this.m_Text1.Text = resources.GetText("Advanced_P5.Text1.Text", "45417");
             this.m_Text2.Text = resources.GetText("Advanced_P5.Text2.Text", "Film Forward");
             this.m_Text3.Text = resources.GetText("Advanced_P5.Text3.Text", "Acceleration");
             this.m_Text4.Text = resources.GetText("Advanced_P5.Text4.Text", "Deceleration");
@@ -1249,7 +1244,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text6.Text = resources.GetText("Advanced_P5.Text6.Text", "Film Offset");
             this.m_Text7.Text = resources.GetText("Advanced_P5.Text7.Text", "Film Print");
             this.m_Text8.Text = resources.GetText("Advanced_P5.Text8.Text", "Language:");
-            resources.ApplyTexts(this.m_TouchComboBox, "Texts", "Advanced_P5.TouchComboBox.Texts[0]", "English", "Advanced_P5.TouchComboBox.Texts[1]", "French", "Advanced_P5.TouchComboBox.Texts[2]", "German", "Advanced_P5.TouchComboBox.Texts[3]", "Dutch", "Advanced_P5.TouchComboBox.Texts[4]", "Spanish");
+            resources.ApplyTexts(this.m_TouchComboBox, "Texts", "Advanced_P5.TouchComboBox.Texts[0]", "English", "Advanced_P5.TouchComboBox.Texts[1]", "French", "Advanced_P5.TouchComboBox.Texts[2]", "German", "Advanced_P5.TouchComboBox.Texts[3]", "Dutch");
             this.ApplyResourcesOnForm();
         }
         
