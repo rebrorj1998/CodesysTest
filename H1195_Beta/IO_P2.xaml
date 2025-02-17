@@ -253,7 +253,13 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture15" Width="20" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="36" Canvas.Left="451" Canvas.Top="96" nacsd:EditorProperties.IsLocked="False">
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle" Width="189" Height="27" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="37" Canvas.Left="80" Canvas.Top="63" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle1" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="38" Canvas.Left="80" Canvas.Top="89" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle2" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="39" Canvas.Left="80" Canvas.Top="117" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle3" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="40" Canvas.Left="80" Canvas.Top="145" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle4" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="41" Canvas.Left="80" Canvas.Top="173" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle5" Width="189" Height="28" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="42" Canvas.Left="80" Canvas.Top="201" />
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture15" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="36" Canvas.Left="451" Canvas.Top="90" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.SymbolIntervalMapper>
         <nacd1:SymbolIntervalMapper>
           <nacd1:SymbolIntervalMapper.Intervals>
@@ -273,7 +279,7 @@
         </nacd1:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture14" Width="20" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="35" Canvas.Left="451" Canvas.Top="63" nacsd:EditorProperties.IsLocked="False">
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture14" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="35" Canvas.Left="451" Canvas.Top="63" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -301,7 +307,7 @@
         </nacd1:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture11" Width="20" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="32" Canvas.Left="451" Canvas.Top="130" nacsd:EditorProperties.IsLocked="False">
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture11" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="32" Canvas.Left="451" Canvas.Top="119" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -329,7 +335,7 @@
         </nacd1:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture10" Width="20" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="31" Canvas.Left="451" Canvas.Top="163" nacsd:EditorProperties.IsLocked="False">
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture10" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="31" Canvas.Left="451" Canvas.Top="147" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -357,7 +363,32 @@
         </nacd1:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture9" Width="20" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="30" Canvas.Left="451" Canvas.Top="197" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/08 Ready for Filler" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text12" Width="161" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="18" Canvas.Left="282" Canvas.Top="119">
+      <nac:Label.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Label.TextDecorations>
+    </nac:Label>
+    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/10 Palm State 1" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text9" Width="161" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="15" Canvas.Left="282" Canvas.Top="175">
+      <nac:Label.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Label.TextDecorations>
+    </nac:Label>
+    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/06 Fans Enable" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text4" Width="161" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="282" Canvas.Top="63">
+      <nac:Label.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Label.TextDecorations>
+    </nac:Label>
+    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/07 Spare" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text6" Width="161" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="10" Canvas.Left="282" Canvas.Top="90">
+      <nac:Label.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Label.TextDecorations>
+    </nac:Label>
+    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/09 Palm State 0" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text8" Width="161" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="282" Canvas.Top="147">
+      <nac:Label.TextDecorations>
+        <TextDecorationCollection />
+      </nac:Label.TextDecorations>
+    </nac:Label>
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture9" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="30" Canvas.Left="451" Canvas.Top="175" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -385,41 +416,36 @@
         </nacd1:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/08 Ready for Filler" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text12" Width="161" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="18" Canvas.Left="282" Canvas.Top="130">
+    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/11 Spare" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text13" Width="161" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="43" Canvas.Left="282" Canvas.Top="202">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/10 Palm State 1" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text9" Width="161" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="15" Canvas.Left="282" Canvas.Top="196">
-      <nac:Label.TextDecorations>
-        <TextDecorationCollection />
-      </nac:Label.TextDecorations>
-    </nac:Label>
-    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/06 Fans Enable" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text4" Width="161" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="282" Canvas.Top="63">
-      <nac:Label.TextDecorations>
-        <TextDecorationCollection />
-      </nac:Label.TextDecorations>
-    </nac:Label>
-    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/07 Spare" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text6" Width="161" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="10" Canvas.Left="282" Canvas.Top="96">
-      <nac:Label.TextDecorations>
-        <TextDecorationCollection />
-      </nac:Label.TextDecorations>
-    </nac:Label>
-    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="O:1/09 Palm State 0" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text8" Width="161" Height="31" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="282" Canvas.Top="163">
-      <nac:Label.TextDecorations>
-        <TextDecorationCollection />
-      </nac:Label.TextDecorations>
-    </nac:Label>
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle" Width="189" Height="27" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="37" Canvas.Left="80" Canvas.Top="63" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle1" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="38" Canvas.Left="80" Canvas.Top="89" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle2" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="39" Canvas.Left="80" Canvas.Top="117" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle3" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="40" Canvas.Left="80" Canvas.Top="145" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle4" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="41" Canvas.Left="80" Canvas.Top="173" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle5" Width="189" Height="28" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="42" Canvas.Left="80" Canvas.Top="201" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle6" Width="189" Height="34" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="43" Canvas.Left="282" Canvas.Top="64" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle7" Width="189" Height="32" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="44" Canvas.Left="282" Canvas.Top="97" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle8" Width="189" Height="34" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="45" Canvas.Left="282" Canvas.Top="128" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle9" Width="189" Height="34" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="46" Canvas.Left="282" Canvas.Top="161" />
-    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle10" Width="189" Height="34" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="47" Canvas.Left="282" Canvas.Top="194" />
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture4" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="44" Canvas.Left="451" Canvas.Top="202" nacsd:EditorProperties.IsLocked="False">
+      <nacs2:Symbol.SymbolIntervalMapper>
+        <nacd1:SymbolIntervalMapper>
+          <nacd1:SymbolIntervalMapper.Intervals>
+            <nacd1:SymbolIntervalList>
+              <nacd1:SymbolInterval>
+                <nacd1:SymbolInterval.Value>
+                  <nac2:MultiSymbolItem SymbolName="led_green_off" Transparent="False" />
+                </nacd1:SymbolInterval.Value>
+              </nacd1:SymbolInterval>
+              <nacd1:SymbolInterval Start="1" End="1">
+                <nacd1:SymbolInterval.Value>
+                  <nac2:MultiSymbolItem SymbolName="led_green" Transparent="False" />
+                </nacd1:SymbolInterval.Value>
+              </nacd1:SymbolInterval>
+            </nacd1:SymbolIntervalList>
+          </nacd1:SymbolIntervalMapper.Intervals>
+        </nacd1:SymbolIntervalMapper>
+      </nacs2:Symbol.SymbolIntervalMapper>
+    </nacs2:Symbol>
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle6" Width="189" Height="27" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="45" Canvas.Left="282" Canvas.Top="63" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle7" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="46" Canvas.Left="282" Canvas.Top="89" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle8" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="47" Canvas.Left="282" Canvas.Top="117" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle9" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="48" Canvas.Left="282" Canvas.Top="145" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle10" Width="189" Height="29" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="49" Canvas.Left="282" Canvas.Top="173" />
+    <nacc1:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle11" Width="189" Height="28" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="50" Canvas.Left="282" Canvas.Top="201" />
   </nacs:ElementCanvas>
 </nacs:ScreenWindow>

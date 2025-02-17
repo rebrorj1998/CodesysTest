@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project SchemaVersion="2.51.49.0" ProjectRevision="813">
+<Project SchemaVersion="2.51.49.0" ProjectRevision="820">
   <Guid>ffe53069-5a23-462f-8616-12aa85b1e19d</Guid>
   <ProjectFiles>
     <ProjectFile Name="Project Files\iXCustomSplash.bmp" ModifiedDate="2025-02-12T10:12:58.3872358-06:00" Length="522378" />
@@ -51,94 +51,94 @@
     <ProjectFile Name="Security.xml" ModifiedDate="2025-02-12T10:12:58.3922246-06:00" Length="1140" />
     <ProjectFile Name="LicenseRootComponent.neo" ModifiedDate="2025-02-12T10:12:58.3094355-06:00" Length="13431" />
     <ProjectFile Name="Expressions.neo" ModifiedDate="2025-02-12T12:28:48.7208489-06:00" Length="2282" />
-    <ProjectFile Name="MultipleLanguages.neo" ModifiedDate="2025-02-14T15:09:59.3155269-06:00" Length="305201" />
-    <ProjectFile Name="French.lng" ModifiedDate="2025-02-14T15:09:59.3215103-06:00" Length="26" />
-    <ProjectFile Name="French.Designer.lng" ModifiedDate="2025-02-14T15:09:59.3165234-06:00" Length="40636" />
-    <ProjectFile Name="Dutch.lng" ModifiedDate="2025-02-14T15:09:59.3215103-06:00" Length="24" />
-    <ProjectFile Name="Dutch.Designer.lng" ModifiedDate="2025-02-14T15:09:59.3185184-06:00" Length="38584" />
-    <ProjectFile Name="German.lng" ModifiedDate="2025-02-14T15:09:59.3225085-06:00" Length="26" />
-    <ProjectFile Name="German.Designer.lng" ModifiedDate="2025-02-14T15:09:59.3215103-06:00" Length="39260" />
+    <ProjectFile Name="MultipleLanguages.neo" ModifiedDate="2025-02-17T16:07:01.9942988-06:00" Length="305629" />
+    <ProjectFile Name="French.lng" ModifiedDate="2025-02-17T16:07:02.0042723-06:00" Length="26" />
+    <ProjectFile Name="French.Designer.lng" ModifiedDate="2025-02-17T16:07:02.0002828-06:00" Length="45032" />
+    <ProjectFile Name="Dutch.lng" ModifiedDate="2025-02-17T16:07:02.00527-06:00" Length="24" />
+    <ProjectFile Name="Dutch.Designer.lng" ModifiedDate="2025-02-17T16:07:02.0012803-06:00" Length="42466" />
+    <ProjectFile Name="German.lng" ModifiedDate="2025-02-17T16:07:02.00527-06:00" Length="26" />
+    <ProjectFile Name="German.Designer.lng" ModifiedDate="2025-02-17T16:07:02.0042723-06:00" Length="43308" />
     <ProjectFile Name="Tags.neo" ModifiedDate="2025-02-13T22:34:42.3054114-06:00" Length="1256858" />
     <ProjectFile Name="Tags.Script.cs" ModifiedDate="2025-02-13T22:34:42.3054114-06:00" Length="1809" />
-    <ProjectFile Name="AlarmServer.neo" ModifiedDate="2025-02-14T00:27:40.2623658-06:00" Length="1083" />
+    <ProjectFile Name="AlarmServer.neo" ModifiedDate="2025-02-17T15:29:06.7727479-06:00" Length="1076" />
     <ProjectFile Name="CloudConfiguration.neo" ModifiedDate="2025-02-12T10:12:58.1428626-06:00" Length="1577" />
-    <ProjectFile Name="BaseTemplate.neoxaml" ModifiedDate="2025-02-14T00:27:40.2892937-06:00" Length="831" />
-    <ProjectFile Name="BaseTemplate.Script.cs" ModifiedDate="2025-02-14T00:27:40.2892937-06:00" Length="2471" />
-    <ProjectFile Name="BaseTemplate.xaml" ModifiedDate="2025-02-14T00:27:40.3651245-06:00" Length="33757" />
-    <ProjectFile Name="Home.neoxaml" ModifiedDate="2025-02-13T22:34:48.3202558-06:00" Length="823" />
-    <ProjectFile Name="Home.xaml" ModifiedDate="2025-02-13T22:34:48.3814018-06:00" Length="14121" />
-    <ProjectFile Name="Dashboard.neoxaml" ModifiedDate="2025-02-14T15:07:41.5540209-06:00" Length="828" />
-    <ProjectFile Name="Dashboard.Script.cs" ModifiedDate="2025-02-14T15:07:41.5540209-06:00" Length="1056" />
-    <ProjectFile Name="Dashboard.xaml" ModifiedDate="2025-02-14T15:07:41.9459706-06:00" Length="40102" />
-    <ProjectFile Name="Settings_P1.neoxaml" ModifiedDate="2025-02-13T23:51:05.2081823-06:00" Length="830" />
-    <ProjectFile Name="Settings_P1.xaml" ModifiedDate="2025-02-13T23:51:05.2836677-06:00" Length="23122" />
-    <ProjectFile Name="Settings_P2.neoxaml" ModifiedDate="2025-02-13T23:51:05.7718892-06:00" Length="830" />
-    <ProjectFile Name="Settings_P2.Script.cs" ModifiedDate="2025-02-13T23:51:05.7727522-06:00" Length="786" />
-    <ProjectFile Name="Settings_P2.xaml" ModifiedDate="2025-02-13T23:51:05.8616711-06:00" Length="55735" />
-    <ProjectFile Name="Admin.neoxaml" ModifiedDate="2025-02-13T21:57:38.4783187-06:00" Length="824" />
-    <ProjectFile Name="Admin.xaml" ModifiedDate="2025-02-13T21:57:38.5353034-06:00" Length="17770" />
-    <ProjectFile Name="IO_P1.neoxaml" ModifiedDate="2025-02-13T23:22:23.5484635-06:00" Length="49531" />
-    <ProjectFile Name="IO_P1.Script.cs" ModifiedDate="2025-02-13T23:22:23.5493792-06:00" Length="1909" />
-    <ProjectFile Name="IO_P1.xaml" ModifiedDate="2025-02-13T23:22:23.6804193-06:00" Length="65902" />
-    <ProjectFile Name="IO_P2.neoxaml" ModifiedDate="2025-02-13T23:22:24.8145065-06:00" Length="824" />
-    <ProjectFile Name="IO_P2.xaml" ModifiedDate="2025-02-13T23:22:24.9025375-06:00" Length="32602" />
-    <ProjectFile Name="IO_P3.neoxaml" ModifiedDate="2025-02-13T23:22:25.6225871-06:00" Length="824" />
-    <ProjectFile Name="IO_P3.xaml" ModifiedDate="2025-02-13T23:22:25.702372-06:00" Length="25645" />
-    <ProjectFile Name="Service_P1.neoxaml" ModifiedDate="2025-02-13T22:34:54.885778-06:00" Length="829" />
-    <ProjectFile Name="Service_P1.Script.cs" ModifiedDate="2025-02-13T22:34:54.8867563-06:00" Length="785" />
-    <ProjectFile Name="Service_P1.xaml" ModifiedDate="2025-02-13T22:34:54.9443674-06:00" Length="34890" />
-    <ProjectFile Name="Service_P2.neoxaml" ModifiedDate="2025-02-13T22:34:55.601218-06:00" Length="829" />
-    <ProjectFile Name="Service_P2.xaml" ModifiedDate="2025-02-13T22:34:55.8114854-06:00" Length="37928" />
-    <ProjectFile Name="Service_P3.neoxaml" ModifiedDate="2025-02-13T23:51:06.519557-06:00" Length="829" />
-    <ProjectFile Name="Service_P3.xaml" ModifiedDate="2025-02-13T23:51:06.592099-06:00" Length="40697" />
-    <ProjectFile Name="About_Sharp.neoxaml" ModifiedDate="2025-02-14T15:09:59.3673888-06:00" Length="830" />
-    <ProjectFile Name="About_Sharp.Script.cs" ModifiedDate="2025-02-14T15:09:59.3683864-06:00" Length="786" />
-    <ProjectFile Name="About_Sharp.xaml" ModifiedDate="2025-02-14T15:09:59.4102746-06:00" Length="9973" />
-    <ProjectFile Name="Faults.neoxaml" ModifiedDate="2025-02-13T22:34:59.3448058-06:00" Length="110628" />
-    <ProjectFile Name="Faults.Script.cs" ModifiedDate="2025-02-13T22:34:59.3458419-06:00" Length="825" />
-    <ProjectFile Name="Faults.xaml" ModifiedDate="2025-02-13T22:34:59.4843162-06:00" Length="21822" />
-    <ProjectFile Name="Option_Printer.neoxaml" ModifiedDate="2025-02-13T22:35:00.8514028-06:00" Length="833" />
-    <ProjectFile Name="Option_Printer.xaml" ModifiedDate="2025-02-13T22:35:01.2294135-06:00" Length="25461" />
-    <ProjectFile Name="Option_IBD.neoxaml" ModifiedDate="2025-02-13T22:35:02.3183528-06:00" Length="829" />
-    <ProjectFile Name="Option_IBD.xaml" ModifiedDate="2025-02-13T22:35:02.3682197-06:00" Length="13634" />
-    <ProjectFile Name="Option_BarcodeVerifier.neoxaml" ModifiedDate="2025-02-13T23:30:11.325184-06:00" Length="841" />
-    <ProjectFile Name="Option_BarcodeVerifier.xaml" ModifiedDate="2025-02-13T23:30:11.4052123-06:00" Length="26963" />
+    <ProjectFile Name="BaseTemplate.neoxaml" ModifiedDate="2025-02-17T15:29:06.8186248-06:00" Length="831" />
+    <ProjectFile Name="BaseTemplate.Script.cs" ModifiedDate="2025-02-17T15:29:06.8196219-06:00" Length="2471" />
+    <ProjectFile Name="BaseTemplate.xaml" ModifiedDate="2025-02-17T15:29:06.8974134-06:00" Length="33773" />
+    <ProjectFile Name="Home.neoxaml" ModifiedDate="2025-02-17T15:29:07.2265651-06:00" Length="823" />
+    <ProjectFile Name="Home.xaml" ModifiedDate="2025-02-17T15:29:07.2465664-06:00" Length="14121" />
+    <ProjectFile Name="Dashboard.neoxaml" ModifiedDate="2025-02-17T15:53:12.0254202-06:00" Length="828" />
+    <ProjectFile Name="Dashboard.Script.cs" ModifiedDate="2025-02-17T15:53:12.0264174-06:00" Length="1056" />
+    <ProjectFile Name="Dashboard.xaml" ModifiedDate="2025-02-17T15:53:12.0992225-06:00" Length="40144" />
+    <ProjectFile Name="Settings_P1.neoxaml" ModifiedDate="2025-02-17T15:29:07.918859-06:00" Length="830" />
+    <ProjectFile Name="Settings_P1.xaml" ModifiedDate="2025-02-17T15:29:07.9706799-06:00" Length="23142" />
+    <ProjectFile Name="Settings_P2.neoxaml" ModifiedDate="2025-02-17T15:29:08.3780652-06:00" Length="830" />
+    <ProjectFile Name="Settings_P2.Script.cs" ModifiedDate="2025-02-17T15:29:08.3780652-06:00" Length="786" />
+    <ProjectFile Name="Settings_P2.xaml" ModifiedDate="2025-02-17T15:29:08.4688218-06:00" Length="55737" />
+    <ProjectFile Name="Admin.neoxaml" ModifiedDate="2025-02-17T15:29:08.9156285-06:00" Length="824" />
+    <ProjectFile Name="Admin.xaml" ModifiedDate="2025-02-17T15:29:08.9495372-06:00" Length="17770" />
+    <ProjectFile Name="IO_P1.neoxaml" ModifiedDate="2025-02-17T11:44:27.5742539-06:00" Length="49531" />
+    <ProjectFile Name="IO_P1.Script.cs" ModifiedDate="2025-02-17T11:44:27.5742539-06:00" Length="1909" />
+    <ProjectFile Name="IO_P1.xaml" ModifiedDate="2025-02-17T11:44:27.6889469-06:00" Length="65902" />
+    <ProjectFile Name="IO_P2.neoxaml" ModifiedDate="2025-02-17T11:44:28.5066227-06:00" Length="824" />
+    <ProjectFile Name="IO_P2.xaml" ModifiedDate="2025-02-17T11:44:28.5733914-06:00" Length="34516" />
+    <ProjectFile Name="IO_P3.neoxaml" ModifiedDate="2025-02-17T12:21:56.5076059-06:00" Length="824" />
+    <ProjectFile Name="IO_P3.xaml" ModifiedDate="2025-02-17T12:21:56.5903846-06:00" Length="25645" />
+    <ProjectFile Name="Service_P1.neoxaml" ModifiedDate="2025-02-17T15:29:09.0751996-06:00" Length="829" />
+    <ProjectFile Name="Service_P1.Script.cs" ModifiedDate="2025-02-17T15:29:09.0751996-06:00" Length="785" />
+    <ProjectFile Name="Service_P1.xaml" ModifiedDate="2025-02-17T15:29:09.1200804-06:00" Length="34930" />
+    <ProjectFile Name="Service_P2.neoxaml" ModifiedDate="2025-02-17T15:29:09.3355009-06:00" Length="829" />
+    <ProjectFile Name="Service_P2.xaml" ModifiedDate="2025-02-17T15:29:09.3763915-06:00" Length="37932" />
+    <ProjectFile Name="Service_P3.neoxaml" ModifiedDate="2025-02-17T15:29:09.6008233-06:00" Length="829" />
+    <ProjectFile Name="Service_P3.xaml" ModifiedDate="2025-02-17T15:29:09.6476982-06:00" Length="40696" />
+    <ProjectFile Name="About_Sharp.neoxaml" ModifiedDate="2025-02-17T15:29:09.9299067-06:00" Length="830" />
+    <ProjectFile Name="About_Sharp.Script.cs" ModifiedDate="2025-02-17T15:29:09.9299067-06:00" Length="786" />
+    <ProjectFile Name="About_Sharp.xaml" ModifiedDate="2025-02-17T15:29:09.9568346-06:00" Length="9968" />
+    <ProjectFile Name="Faults.neoxaml" ModifiedDate="2025-02-17T15:29:10.146454-06:00" Length="110628" />
+    <ProjectFile Name="Faults.Script.cs" ModifiedDate="2025-02-17T15:29:10.146454-06:00" Length="825" />
+    <ProjectFile Name="Faults.xaml" ModifiedDate="2025-02-17T15:29:10.1932953-06:00" Length="21822" />
+    <ProjectFile Name="Option_Printer.neoxaml" ModifiedDate="2025-02-17T12:21:57.9102335-06:00" Length="833" />
+    <ProjectFile Name="Option_Printer.xaml" ModifiedDate="2025-02-17T12:21:57.9491286-06:00" Length="25446" />
+    <ProjectFile Name="Option_IBD.neoxaml" ModifiedDate="2025-02-17T12:21:58.2373509-06:00" Length="829" />
+    <ProjectFile Name="Option_IBD.xaml" ModifiedDate="2025-02-17T12:21:58.2633137-06:00" Length="13626" />
+    <ProjectFile Name="Option_BarcodeVerifier.neoxaml" ModifiedDate="2025-02-17T12:21:58.449814-06:00" Length="841" />
+    <ProjectFile Name="Option_BarcodeVerifier.xaml" ModifiedDate="2025-02-17T12:21:58.506716-06:00" Length="27657" />
     <ProjectFile Name="Option_LoadShelf.neoxaml" ModifiedDate="2025-02-13T22:35:03.876478-06:00" Length="835" />
     <ProjectFile Name="Option_LoadShelf.xaml" ModifiedDate="2025-02-13T22:35:03.9185837-06:00" Length="11475" />
-    <ProjectFile Name="Dashboard_Help.neoxaml" ModifiedDate="2025-02-13T22:35:04.2878194-06:00" Length="833" />
-    <ProjectFile Name="Dashboard_Help.xaml" ModifiedDate="2025-02-13T22:35:04.3197338-06:00" Length="7256" />
-    <ProjectFile Name="Advanced_P1.neoxaml" ModifiedDate="2025-02-14T00:27:40.990453-06:00" Length="830" />
-    <ProjectFile Name="Advanced_P1.Script.cs" ModifiedDate="2025-02-14T00:27:40.990453-06:00" Length="786" />
-    <ProjectFile Name="Advanced_P1.xaml" ModifiedDate="2025-02-14T00:27:41.0572786-06:00" Length="35506" />
-    <ProjectFile Name="Advanced_P2.neoxaml" ModifiedDate="2025-02-13T21:57:39.8986577-06:00" Length="830" />
-    <ProjectFile Name="Advanced_P2.xaml" ModifiedDate="2025-02-13T21:57:39.9381545-06:00" Length="13829" />
-    <ProjectFile Name="Advanced_P3.neoxaml" ModifiedDate="2025-02-13T21:57:40.3279421-06:00" Length="830" />
-    <ProjectFile Name="Advanced_P3.xaml" ModifiedDate="2025-02-13T21:57:40.4108276-06:00" Length="26294" />
-    <ProjectFile Name="Advanced_P4.neoxaml" ModifiedDate="2025-02-13T23:51:08.005612-06:00" Length="830" />
-    <ProjectFile Name="Advanced_P4.xaml" ModifiedDate="2025-02-13T23:51:08.1034672-06:00" Length="47218" />
+    <ProjectFile Name="Dashboard_Help.neoxaml" ModifiedDate="2025-02-17T15:29:10.4497093-06:00" Length="833" />
+    <ProjectFile Name="Dashboard_Help.xaml" ModifiedDate="2025-02-17T15:29:10.4726476-06:00" Length="7256" />
+    <ProjectFile Name="Advanced_P1.neoxaml" ModifiedDate="2025-02-17T15:29:10.5953197-06:00" Length="830" />
+    <ProjectFile Name="Advanced_P1.Script.cs" ModifiedDate="2025-02-17T15:29:10.5953197-06:00" Length="786" />
+    <ProjectFile Name="Advanced_P1.xaml" ModifiedDate="2025-02-17T15:29:10.6571531-06:00" Length="35524" />
+    <ProjectFile Name="Advanced_P2.neoxaml" ModifiedDate="2025-02-17T15:29:10.9723077-06:00" Length="830" />
+    <ProjectFile Name="Advanced_P2.xaml" ModifiedDate="2025-02-17T15:29:10.9982377-06:00" Length="13829" />
+    <ProjectFile Name="Advanced_P3.neoxaml" ModifiedDate="2025-02-17T15:29:11.2016937-06:00" Length="830" />
+    <ProjectFile Name="Advanced_P3.xaml" ModifiedDate="2025-02-17T15:29:11.2485681-06:00" Length="26303" />
+    <ProjectFile Name="Advanced_P4.neoxaml" ModifiedDate="2025-02-17T11:44:30.6364344-06:00" Length="830" />
+    <ProjectFile Name="Advanced_P4.xaml" ModifiedDate="2025-02-17T11:44:30.6992663-06:00" Length="47214" />
     <ProjectFile Name="Options.neoxaml" ModifiedDate="2025-02-14T00:27:41.4332696-06:00" Length="826" />
     <ProjectFile Name="Options.Script.cs" ModifiedDate="2025-02-14T00:27:41.4332696-06:00" Length="789" />
     <ProjectFile Name="Options.xaml" ModifiedDate="2025-02-14T00:27:41.480161-06:00" Length="29678" />
     <ProjectFile Name="Login.neoxaml" ModifiedDate="2025-02-13T22:35:05.6565645-06:00" Length="824" />
     <ProjectFile Name="Login.Script.cs" ModifiedDate="2025-02-13T22:35:05.6570567-06:00" Length="1890" />
     <ProjectFile Name="Login.xaml" ModifiedDate="2025-02-13T22:35:05.7054339-06:00" Length="6222" />
-    <ProjectFile Name="Status.neoxaml" ModifiedDate="2025-02-13T23:51:08.589385-06:00" Length="825" />
-    <ProjectFile Name="Status.Script.cs" ModifiedDate="2025-02-13T23:51:08.5904258-06:00" Length="10696" />
-    <ProjectFile Name="Status.xaml" ModifiedDate="2025-02-13T23:51:08.6646876-06:00" Length="20330" />
-    <ProjectFile Name="CommLoss.neoxaml" ModifiedDate="2025-02-13T22:35:06.5737476-06:00" Length="827" />
-    <ProjectFile Name="CommLoss.Script.cs" ModifiedDate="2025-02-13T22:35:06.5737476-06:00" Length="1572" />
-    <ProjectFile Name="CommLoss.xaml" ModifiedDate="2025-02-13T22:35:06.5944551-06:00" Length="2877" />
-    <ProjectFile Name="ConfirmLogout.neoxaml" ModifiedDate="2025-02-13T22:35:06.8658252-06:00" Length="832" />
-    <ProjectFile Name="ConfirmLogout.Script.cs" ModifiedDate="2025-02-13T22:35:06.8661081-06:00" Length="919" />
-    <ProjectFile Name="ConfirmLogout.xaml" ModifiedDate="2025-02-13T22:35:06.8947032-06:00" Length="3994" />
-    <ProjectFile Name="Advanced_P5.neoxaml" ModifiedDate="2025-02-14T15:09:59.6296876-06:00" Length="830" />
-    <ProjectFile Name="Advanced_P5.xaml" ModifiedDate="2025-02-14T15:09:59.7154584-06:00" Length="28541" />
-    <ProjectFile Name="Settings_P1_M.neoxaml" ModifiedDate="2025-02-13T23:51:09.1829477-06:00" Length="832" />
-    <ProjectFile Name="Settings_P1_M.xaml" ModifiedDate="2025-02-13T23:51:09.2574683-06:00" Length="22202" />
-    <ProjectFile Name="Option_Printer_M.neoxaml" ModifiedDate="2025-02-14T00:27:42.6577451-06:00" Length="835" />
-    <ProjectFile Name="Option_Printer_M.xaml" ModifiedDate="2025-02-14T00:27:42.738529-06:00" Length="25342" />
-    <ProjectFile Name="Option_Barcode_M.neoxaml" ModifiedDate="2025-02-13T23:30:11.8884176-06:00" Length="835" />
-    <ProjectFile Name="Option_Barcode_M.xaml" ModifiedDate="2025-02-13T23:30:11.940342-06:00" Length="26821" />
+    <ProjectFile Name="Status.neoxaml" ModifiedDate="2025-02-17T15:29:11.5527524-06:00" Length="825" />
+    <ProjectFile Name="Status.Script.cs" ModifiedDate="2025-02-17T15:29:11.5527524-06:00" Length="10696" />
+    <ProjectFile Name="Status.xaml" ModifiedDate="2025-02-17T15:29:11.6105957-06:00" Length="20330" />
+    <ProjectFile Name="CommLoss.neoxaml" ModifiedDate="2025-02-17T15:29:11.9939358-06:00" Length="827" />
+    <ProjectFile Name="CommLoss.Script.cs" ModifiedDate="2025-02-17T15:29:11.9948969-06:00" Length="1572" />
+    <ProjectFile Name="CommLoss.xaml" ModifiedDate="2025-02-17T15:29:12.0039083-06:00" Length="2877" />
+    <ProjectFile Name="ConfirmLogout.neoxaml" ModifiedDate="2025-02-17T15:29:12.0706943-06:00" Length="832" />
+    <ProjectFile Name="ConfirmLogout.Script.cs" ModifiedDate="2025-02-17T15:29:12.0706943-06:00" Length="919" />
+    <ProjectFile Name="ConfirmLogout.xaml" ModifiedDate="2025-02-17T15:29:12.0826966-06:00" Length="3994" />
+    <ProjectFile Name="Advanced_P5.neoxaml" ModifiedDate="2025-02-17T11:44:31.2811369-06:00" Length="830" />
+    <ProjectFile Name="Advanced_P5.xaml" ModifiedDate="2025-02-17T11:44:31.3599484-06:00" Length="28539" />
+    <ProjectFile Name="Settings_P1_M.neoxaml" ModifiedDate="2025-02-17T15:29:12.1674347-06:00" Length="832" />
+    <ProjectFile Name="Settings_P1_M.xaml" ModifiedDate="2025-02-17T15:29:12.2202929-06:00" Length="23734" />
+    <ProjectFile Name="Option_Printer_M.neoxaml" ModifiedDate="2025-02-17T15:29:12.6262035-06:00" Length="835" />
+    <ProjectFile Name="Option_Printer_M.xaml" ModifiedDate="2025-02-17T15:29:12.6690885-06:00" Length="25486" />
+    <ProjectFile Name="Option_Barcode_M.neoxaml" ModifiedDate="2025-02-17T12:22:00.3133908-06:00" Length="835" />
+    <ProjectFile Name="Option_Barcode_M.xaml" ModifiedDate="2025-02-17T12:22:00.3742284-06:00" Length="27565" />
     <ProjectFile Name="Printer1.xml" ModifiedDate="2025-02-12T10:12:58.3842432-06:00" Length="850" />
     <ProjectFile Name="Controller1.neo" ModifiedDate="2025-02-12T12:28:48.6659625-06:00" Length="332628" />
     <ProjectFile Name="Helper.neo" ModifiedDate="2025-02-12T10:12:58.2884898-06:00" Length="495" />

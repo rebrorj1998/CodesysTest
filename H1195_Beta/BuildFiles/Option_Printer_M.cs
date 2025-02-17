@@ -270,7 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Option_Printer_M";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button.TextHeight = 36;
+            this.m_Button.TextHeight = 37;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 117;
             this.m_Button.Top = 177;
@@ -278,6 +278,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.VisibleDynamicsValue = true;
             this.m_Button.VisualPropertiesHashCode = -1061038242;
             this.m_Button.Width = 127;
+            this.m_Button.WordWrap = true;
             // 
             // m_Button1
             // 
@@ -293,11 +294,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.Height = 50;
             this.m_Button1.IndicatorMargin = null;
             this.m_Button1.Left = 346;
+            this.m_Button1.MultiLine = true;
             this.m_Button1.Name = "m_Button1";
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_Printer_M";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button1.TextHeight = 18;
+            this.m_Button1.TextHeight = 37;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 117;
             this.m_Button1.Top = 177;
@@ -305,6 +307,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.VisibleDynamicsValue = true;
             this.m_Button1.VisualPropertiesHashCode = -1061038242;
             this.m_Button1.Width = 127;
+            this.m_Button1.WordWrap = true;
             // 
             // m_Button2
             // 
@@ -320,11 +323,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.Height = 50;
             this.m_Button2.IndicatorMargin = null;
             this.m_Button2.Left = 215;
+            this.m_Button2.MultiLine = true;
             this.m_Button2.Name = "m_Button2";
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Option_Printer_M";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 18;
+            this.m_Button2.TextHeight = 19;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 117;
             this.m_Button2.Top = 177;
@@ -332,6 +336,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.VisibleDynamicsValue = true;
             this.m_Button2.VisualPropertiesHashCode = -1061038242;
             this.m_Button2.Width = 127;
+            this.m_Button2.WordWrap = true;
             // 
             // m_Rectangle
             // 
@@ -610,23 +615,23 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 14;
             this.m_Text5.Height = 50;
-            this.m_Text5.Left = 428;
+            this.m_Text5.Left = 403;
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Option_Printer_M";
             this.m_Text5.TextHorizontalAlignment = "Center";
-            stringintervalmappercf1.DefaultValue = "ON";
-            stringintervalcf1.Value = "OFF";
+            stringintervalmappercf1.DefaultValue = "AAN";
+            stringintervalcf1.Value = "UIT";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "ON";
+            stringintervalcf2.Value = "AAN";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Text5.TextIntervalMapper = stringintervalmappercf1;
             this.m_Text5.TextVerticalAlignment = "Center";
             this.m_Text5.Top = 3;
             this.m_Text5.VisibleDynamicsValue = true;
-            this.m_Text5.Width = 50;
+            this.m_Text5.Width = 75;
             // 
             // m_Button3
             // 
@@ -647,12 +652,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Option_Printer_M";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button3.TextHeight = 18;
+            this.m_Button3.TextHeight = 19;
             stringintervalmappercf2.DefaultValue = "";
-            stringintervalcf3.Value = "203 DPI Active";
+            stringintervalcf3.Value = "203 DPI actief";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "300 DPI Active";
+            stringintervalcf4.Value = "300 DPI actief";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button3.TextIntervalMapper = stringintervalmappercf2;
@@ -823,7 +828,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.Text = resources.GetText("Option_Printer_M.Button2.Text", "Clear Labels");
             this.m_Text3.Text = resources.GetText("Option_Printer_M.Text3.Text", "Print Length (mm)");
             this.m_Text4.Text = resources.GetText("Option_Printer_M.Text4.Text", "Print Offset (mm)");
-            this.m_Text6.Text = resources.GetText("Option_Printer_M.Text6.Text", "Print Speed (in.)");
+            this.m_Text6.Text = resources.GetText("Option_Printer_M.Text6.Text", "Print Speed (mm/s)");
             this.m_Text.Text = resources.GetText("Option_Printer_M.Text.Text", "Printer");
             this.m_Text5.Text = resources.GetText("Option_Printer_M.Text5.Text", "ON");
             resources.ApplyTexts(this.m_Button3, "Texts", "Option_Printer_M.Button3.Texts[0]", "203 DPI Active", "Option_Printer_M.Button3.Texts[1]", "300 DPI Active");

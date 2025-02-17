@@ -98,7 +98,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Levantar el cabezal de impresión">
+        <nacd1:StringIntervalMapper DefaultValue="&quot;Verhoog printkop&quot;">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Raise&#xD;&#xA;Printhead" />
@@ -130,6 +130,7 @@
     <nac:Button Text="Raise&#xD;&#xA;Load Shelf" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="12" FontWeight="Bold" Name="m_Button5" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="83" Canvas.Top="119" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
             <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
               <nacd2:BrushCFIntervalMapper>
@@ -153,10 +154,9 @@
               </nacd2:BrushCFIntervalMapper>
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
-          <nacc:VariantValueConverter x:Key="ValueConverter" />
-          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
-          <nacc:VariantValueConverter x:Key="TextValueConverter" />
           <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacc:VariantValueConverter x:Key="TextValueConverter" />
+          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Value>
@@ -198,7 +198,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Elevar estante de carga">
+        <nacd1:StringIntervalMapper DefaultValue="&quot;Verhoog laadrek&quot;">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Raise&#xD;&#xA;Load Shelf" />
@@ -230,6 +230,7 @@
     <nac:Button Text="Lower&#xD;&#xA;Load Shelf" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="12" FontWeight="Bold" Name="m_Button6" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="7" Canvas.Left="217" Canvas.Top="119" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
             <nacd1:BrushDynamicsConverter.BrushIntervalMapper>
               <nacd2:BrushCFIntervalMapper>
@@ -253,10 +254,9 @@
               </nacd2:BrushCFIntervalMapper>
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
-          <nacc:VariantValueConverter x:Key="ValueConverter" />
-          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
-          <nacc:VariantValueConverter x:Key="TextValueConverter" />
           <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacc:VariantValueConverter x:Key="TextValueConverter" />
+          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Value>
@@ -298,7 +298,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Estante de carga inferior">
+        <nacd1:StringIntervalMapper DefaultValue="&quot;Verlaag laadrek&quot;">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Lower&#xD;&#xA;Load Shelf" />
@@ -390,7 +390,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Cabezal de impresión inferior">
+        <nacd1:StringIntervalMapper DefaultValue="&quot;Verlaag printkop&quot;">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Lower&#xD;&#xA;Printhead" />

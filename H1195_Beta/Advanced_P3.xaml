@@ -215,7 +215,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Click to bypass clamping durring cycle">
+        <nacd1:StringIntervalMapper DefaultValue="Klik om de klem tijdens de cyclus over te slaan">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Click to bypass clamping durring cycle" />

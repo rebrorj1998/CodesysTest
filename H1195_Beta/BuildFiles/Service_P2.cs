@@ -268,7 +268,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 28;
             this.m_Text.Left = 220;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -277,7 +277,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 69;
+            this.m_Text.Width = 111;
             // 
             // m_Text1
             // 
@@ -286,7 +286,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 28;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -295,7 +295,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
+            this.m_Text1.Width = 33;
             // 
             // m_Button2
             // 
@@ -312,7 +312,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf1.BrushIntervalMapper.Intervals.Add(brushcfinterval2);
             this.m_Button2.DelayMouseInputPeriod = 0;
             this.m_Button2.EnabledDynamicsValue = true;
-            this.m_Button2.FontSizePixels = 15;
+            this.m_Button2.FontSizePixels = 13;
             this.m_Button2.ForceTransparency = true;
             this.m_Button2.Height = 50;
             this.m_Button2.IndicatorMargin = null;
@@ -321,12 +321,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Service_P2";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 18;
-            stringintervalmappercf1.DefaultValue = "Close IBD";
-            stringintervalcf1.Value = "Close IBD";
+            this.m_Button2.TextHeight = 16;
+            stringintervalmappercf1.DefaultValue = "IBD sluiten";
+            stringintervalcf1.Value = "IBD sluiten";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "IBD Closed";
+            stringintervalcf2.Value = "IBD gesloten";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf1;
@@ -354,7 +354,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf2.BrushIntervalMapper.Intervals.Add(brushcfinterval4);
             this.m_Button5.DelayMouseInputPeriod = 0;
             this.m_Button5.EnabledDynamicsValue = true;
-            this.m_Button5.FontSizePixels = 15;
+            this.m_Button5.FontSizePixels = 13;
             this.m_Button5.ForceTransparency = true;
             this.m_Button5.Height = 50;
             this.m_Button5.IndicatorMargin = null;
@@ -364,7 +364,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.RequiresTransparency = true;
             this.m_Button5.ScreenOwnerName = "Service_P2";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button5.TextHeight = 36;
+            this.m_Button5.TextHeight = 32;
             this.m_Button5.TextValue = 0D;
             this.m_Button5.TextWidth = 117;
             this.m_Button5.Top = 177;
@@ -389,7 +389,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf3.BrushIntervalMapper.Intervals.Add(brushcfinterval6);
             this.m_Button6.DelayMouseInputPeriod = 0;
             this.m_Button6.EnabledDynamicsValue = true;
-            this.m_Button6.FontSizePixels = 15;
+            this.m_Button6.FontSizePixels = 13;
             this.m_Button6.ForceTransparency = true;
             this.m_Button6.Height = 50;
             this.m_Button6.IndicatorMargin = null;
@@ -399,7 +399,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.RequiresTransparency = true;
             this.m_Button6.ScreenOwnerName = "Service_P2";
             this.m_Button6.SymbolIntervalMapper = symbolintervalmapper5;
-            this.m_Button6.TextHeight = 36;
+            this.m_Button6.TextHeight = 32;
             this.m_Button6.TextValue = 0D;
             this.m_Button6.TextWidth = 117;
             this.m_Button6.Top = 177;
@@ -424,7 +424,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf4.BrushIntervalMapper.Intervals.Add(brushcfinterval8);
             this.m_Button7.DelayMouseInputPeriod = 0;
             this.m_Button7.EnabledDynamicsValue = true;
-            this.m_Button7.FontSizePixels = 15;
+            this.m_Button7.FontSizePixels = 13;
             this.m_Button7.ForceTransparency = true;
             this.m_Button7.Height = 50;
             this.m_Button7.IndicatorMargin = null;
@@ -433,12 +433,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button7.RequiresTransparency = true;
             this.m_Button7.ScreenOwnerName = "Service_P2";
             this.m_Button7.SymbolIntervalMapper = symbolintervalmapper6;
-            this.m_Button7.TextHeight = 18;
-            stringintervalmappercf2.DefaultValue = "Open IBD";
-            stringintervalcf3.Value = "Open IBD";
+            this.m_Button7.TextHeight = 16;
+            stringintervalmappercf2.DefaultValue = "IBD openen";
+            stringintervalcf3.Value = "IBD openen";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "IBD Opened";
+            stringintervalcf4.Value = "IBD geopend";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button7.TextIntervalMapper = stringintervalmappercf2;
@@ -466,7 +466,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf5.BrushIntervalMapper.Intervals.Add(brushcfinterval10);
             this.m_Button4.DelayMouseInputPeriod = 0;
             this.m_Button4.EnabledDynamicsValue = true;
-            this.m_Button4.FontSizePixels = 15;
+            this.m_Button4.FontSizePixels = 13;
             this.m_Button4.ForceTransparency = true;
             this.m_Button4.Height = 50;
             this.m_Button4.IndicatorMargin = null;
@@ -476,7 +476,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.RequiresTransparency = true;
             this.m_Button4.ScreenOwnerName = "Service_P2";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper7;
-            this.m_Button4.TextHeight = 36;
+            this.m_Button4.TextHeight = 32;
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 117;
             this.m_Button4.Top = 56;
@@ -501,7 +501,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf6.BrushIntervalMapper.Intervals.Add(brushcfinterval12);
             this.m_Button9.DelayMouseInputPeriod = 0;
             this.m_Button9.EnabledDynamicsValue = true;
-            this.m_Button9.FontSizePixels = 15;
+            this.m_Button9.FontSizePixels = 13;
             this.m_Button9.ForceTransparency = true;
             this.m_Button9.Height = 50;
             this.m_Button9.IndicatorMargin = null;
@@ -511,7 +511,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button9.RequiresTransparency = true;
             this.m_Button9.ScreenOwnerName = "Service_P2";
             this.m_Button9.SymbolIntervalMapper = symbolintervalmapper8;
-            this.m_Button9.TextHeight = 36;
+            this.m_Button9.TextHeight = 32;
             this.m_Button9.TextValue = 0D;
             this.m_Button9.TextWidth = 117;
             this.m_Button9.Top = 56;

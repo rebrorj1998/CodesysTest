@@ -35,7 +35,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Button Text="Close Jaw" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button1" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="83" Canvas.Top="56" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Close Jaw" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="13" FontWeight="Bold" Name="m_Button1" Width="127" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="83" Canvas.Top="56" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -90,7 +90,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Close Jaw">
+        <nacd1:StringIntervalMapper DefaultValue="Kaak sluiten">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Close Jaw" />
@@ -119,7 +119,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Jog Jaw&#xD;&#xA;Closed" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button5" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="83" Canvas.Top="119" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Jog Jaw&#xD;&#xA;Closed" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="13" FontWeight="Bold" Name="m_Button5" Width="127" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="83" Canvas.Top="114" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
@@ -185,7 +185,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Jog Jaw&#xD;&#xA;Open" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button6" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="217" Canvas.Top="119" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Jog Jaw&#xD;&#xA;Open" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="13" FontWeight="Bold" Name="m_Button6" Width="127" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="217" Canvas.Top="114" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
@@ -251,7 +251,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Open Jaw" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button7" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="10" Canvas.Left="217" Canvas.Top="56" nacsd:EditorProperties.IsHidden="False" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Open Jaw" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="13" FontWeight="Bold" Name="m_Button7" Width="127" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="10" Canvas.Left="217" Canvas.Top="56" nacsd:EditorProperties.IsHidden="False" nacb:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -306,7 +306,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Open Jaw">
+        <nacd1:StringIntervalMapper DefaultValue="Kaak openen">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Open Jaw" />
@@ -335,7 +335,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Trigger BCD&#xD;&#xA;Verifier" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFC8C0C0" FontSize="12" FontWeight="Bold" Name="m_Button8" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="11" Canvas.Left="352" Canvas.Top="56" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Trigger BCD&#xD;&#xA;Verifier" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFC8C0C0" FontSize="13" FontWeight="Bold" Name="m_Button8" Width="127" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="11" Canvas.Left="352" Canvas.Top="56" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -377,7 +377,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Jog Clamp&#xD;&#xA;Closed" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="15" FontWeight="Bold" Name="m_Button2" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="83" Canvas.Top="177" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Jog Clamp&#xD;&#xA;Closed" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="13" FontWeight="Bold" Name="m_Button2" Width="127" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="82" Canvas.Top="172" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">
@@ -443,7 +443,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Jog Clamp&#xD;&#xA;Open" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="14" FontWeight="Bold" Name="m_Button3" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="13" Canvas.Left="217" Canvas.Top="177" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Jog Clamp&#xD;&#xA;Open" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="13" FontWeight="Bold" Name="m_Button3" Width="127" Height="55" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="13" Canvas.Left="216" Canvas.Top="172" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BrushDynamicsConverter x:Key="BackgroundConverter">

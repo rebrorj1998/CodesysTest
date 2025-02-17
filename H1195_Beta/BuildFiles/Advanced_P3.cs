@@ -261,7 +261,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 28;
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -270,7 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 54;
+            this.m_Text.Width = 105;
             // 
             // m_Text1
             // 
@@ -279,7 +279,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 28;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -288,7 +288,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
+            this.m_Text1.Width = 33;
             // 
             // m_Button
             // 
@@ -529,12 +529,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Advanced_P3";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 14;
-            stringintervalmappercf1.DefaultValue = "Click to bypass clamping durring cycle";
-            stringintervalcf1.Value = "Click to bypass clamping durring cycle";
+            this.m_Button2.TextHeight = 15;
+            stringintervalmappercf1.DefaultValue = "Klik om de klem tijdens de cyclus over te slaan";
+            stringintervalcf1.Value = "Klik om de klem tijdens de cyclus over te slaan";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Clamping Bypassed";
+            stringintervalcf2.Value = "Klem overgeslagen";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf1;

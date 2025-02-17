@@ -270,7 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Option_Printer";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button.TextHeight = 36;
+            this.m_Button.TextHeight = 37;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 117;
             this.m_Button.Top = 177;
@@ -298,7 +298,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_Printer";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button1.TextHeight = 18;
+            this.m_Button1.TextHeight = 19;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 117;
             this.m_Button1.Top = 177;
@@ -326,7 +326,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Option_Printer";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 18;
+            this.m_Button2.TextHeight = 19;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 117;
             this.m_Button2.Top = 177;
@@ -613,7 +613,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 14;
             this.m_Text5.Height = 50;
-            this.m_Text5.Left = 428;
+            this.m_Text5.Left = 409;
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Option_Printer";
@@ -629,7 +629,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.TextVerticalAlignment = "Center";
             this.m_Text5.Top = 3;
             this.m_Text5.VisibleDynamicsValue = true;
-            this.m_Text5.Width = 50;
+            this.m_Text5.Width = 69;
             // 
             // m_Button3
             // 
@@ -650,7 +650,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Option_Printer";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button3.TextHeight = 18;
+            this.m_Button3.TextHeight = 19;
             stringintervalmappercf2.DefaultValue = "";
             stringintervalcf3.Value = "203 DPI Active";
             stringintervalcf4.End = 1D;
@@ -825,9 +825,9 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.Text = resources.GetText("Option_Printer.Button.Text", "Cancel\r\nPrint");
             this.m_Button1.Text = resources.GetText("Option_Printer.Button1.Text", "Send Labels");
             this.m_Button2.Text = resources.GetText("Option_Printer.Button2.Text", "Clear Labels");
-            this.m_Text3.Text = resources.GetText("Option_Printer.Text3.Text", "Print Length (in)");
-            this.m_Text4.Text = resources.GetText("Option_Printer.Text4.Text", "Print Offset (in)");
-            this.m_Text6.Text = resources.GetText("Option_Printer.Text6.Text", "Print Speed (in)");
+            this.m_Text3.Text = resources.GetText("Option_Printer.Text3.Text", "Print Length");
+            this.m_Text4.Text = resources.GetText("Option_Printer.Text4.Text", "Print Offset");
+            this.m_Text6.Text = resources.GetText("Option_Printer.Text6.Text", "Print Speed");
             this.m_Text.Text = resources.GetText("Option_Printer.Text.Text", "Printer");
             this.m_Text5.Text = resources.GetText("Option_Printer.Text5.Text", "ON");
             resources.ApplyTexts(this.m_Button3, "Texts", "Option_Printer.Button3.Texts[0]", "203 DPI Active", "Option_Printer.Button3.Texts[1]", "300 DPI Active");

@@ -27,29 +27,29 @@
         <Item Target="Settings_P1_M.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P1_M.Text1" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Settings_P1_M.Button" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.Text3" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.Text4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.Text5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.Text6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.Text7" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Settings_P1_M.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group2.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group3.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group4.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group1.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group4.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group3.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group1.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group1.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group2.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Settings_P1_M.Group2.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="Settings_P1_M.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_bagLength" />
-        <Item Target="Settings_P1_M.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_bagSkirtLength" />
-        <Item Target="Settings_P1_M.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarDwell" />
-        <Item Target="Settings_P1_M.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarCool" />
-        <Item Target="Settings_P1_M.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_passthroughSetting" />
-        <Item Target="Settings_P1_M.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_bagForwardSpeed" />
-        <Item Target="Settings_P1_M.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_bagReverseSpeed" />
+        <Item Target="Settings_P1_M.Group4.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_bagLength" />
+        <Item Target="Settings_P1_M.Group3.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_bagSkirtLength" />
+        <Item Target="Settings_P1_M.Group1.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarDwell" />
+        <Item Target="Settings_P1_M.Group1.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarCool" />
+        <Item Target="Settings_P1_M.Group.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_passthroughSetting" />
+        <Item Target="Settings_P1_M.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_bagForwardSpeed" />
+        <Item Target="Settings_P1_M.Group2.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_bagReverseSpeed" />
       </Items>
     </Category>
     <Category Name="InvalidAction">

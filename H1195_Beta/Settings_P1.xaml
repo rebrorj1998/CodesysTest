@@ -47,12 +47,12 @@
         <nai:ActionList />
       </nai:ActionProperties.Actions>
     </nac:AnalogNumericFX>
-    <nac:Label AutoSize="False" Text="Bag Length: (in.)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text6" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="25" Canvas.Left="149" Canvas.Top="58" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" Text="    Bag Length: (in.)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text6" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="25" Canvas.Left="149" Canvas.Top="58" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" Text="Seal Offset: (in.)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text4" Width="167" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="21" Canvas.Left="149" Canvas.Top="87" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" Text="    Seal Offset: (in.)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text4" Width="167" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="21" Canvas.Left="149" Canvas.Top="87" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
@@ -114,7 +114,7 @@
         </nai:ActionProperties.Actions>
       </nac:AnalogNumericFX>
       <nacc1:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle11" Width="57" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="26" Canvas.Left="203" Canvas.Top="0" />
-      <nac:Label AutoSize="False" MultiLine="False" WordWrap="False" Text="Jaw Passthrough (in.)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text5" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="23" Canvas.Left="0" Canvas.Top="1" nacsd:EditorProperties.IsLocked="False">
+      <nac:Label AutoSize="False" MultiLine="False" WordWrap="False" Text="    Jaw Passthrough (in.)" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text5" Width="204" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="23" Canvas.Left="0" Canvas.Top="1" nacsd:EditorProperties.IsLocked="False">
         <nac:Label.TextDecorations>
           <TextDecorationCollection />
         </nac:Label.TextDecorations>
@@ -164,7 +164,7 @@
           <nai:ActionList />
         </nai:ActionProperties.Actions>
       </nac:AnalogNumericFX>
-      <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="Seal Dwell / Seal Cool" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text7" Width="198" Height="30" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="27" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
+      <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="    Seal Dwell / Seal Cool" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text7" Width="198" Height="30" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="27" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
         <nac:Label.TextDecorations>
           <TextDecorationCollection />
         </nac:Label.TextDecorations>
@@ -218,7 +218,7 @@
         </nai:ActionProperties.Actions>
       </nac:AnalogNumericFX>
       <nacc1:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle8" Width="57" Height="32" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="20" Canvas.Left="203" Canvas.Top="0" />
-      <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="Feed Speed / Reverse Speed" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text3" Width="204" Height="32" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="19" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
+      <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="    Feed Speed / Reverse Speed" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text3" Width="204" Height="32" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="19" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
         <nac:Label.TextDecorations>
           <TextDecorationCollection />
         </nac:Label.TextDecorations>

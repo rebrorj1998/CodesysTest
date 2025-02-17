@@ -39,6 +39,7 @@
         <Item Target="IO_P2.Text4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="IO_P2.Text6" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="IO_P2.Text8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P2.Text13" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -78,15 +79,15 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>13</Value>
+              <Value>14</Value>
             </Detail>
             <Detail>
               <Key>Symbol</Key>
-              <Value>11</Value>
+              <Value>12</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
-              <Value>11</Value>
+              <Value>12</Value>
             </Detail>
           </Details>
         </Item>
@@ -112,7 +113,7 @@
         <Item xsi:type="ActionItem" Target="IO_P2.Button" TargetProperty="Actions" Source="IO_P3" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="IO_P2.Button1" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>37</ObjectsCount>
+          <ObjectsCount>40</ObjectsCount>
           <ScreenName>IO_P2</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
@@ -163,6 +164,9 @@
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture9" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture4" Source="led_green" Width="20" Height="20" IsAnimated="false" />
       </Items>
     </Category>
     <Category Name="TextIDs">

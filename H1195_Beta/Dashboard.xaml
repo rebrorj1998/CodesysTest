@@ -5,7 +5,7 @@
     <nacs1:TemplateScreen Name="BaseTemplate" RenderMode="Background" />
   </nacs:ScreenWindow.TemplateScreen>
   <nacs:ElementCanvas Name="m_EditorCanvas" Width="480" Height="272" FocusVisualStyle="{x:Null}" AllowDrop="True" ClipToBounds="True" Focusable="True" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType" Panel.ZIndex="104">
-    <nac:Label Text="Auto Mode Active" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="2.5,0,2.5,1" Name="m_Text3" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="13" Canvas.Left="315" Canvas.Top="6" nacb:BlinkProperties.IsBlinkEnabled="True" nacb:BlinkProperties.BlinkInterval="500" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label Text="Auto Mode Active" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="9" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="2.25,0,2.25,1" Name="m_Text3" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="13" Canvas.Left="303" Canvas.Top="-4" nacb:BlinkProperties.IsBlinkEnabled="True" nacb:BlinkProperties.BlinkInterval="500" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.Resources>
         <ResourceDictionary>
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
@@ -22,7 +22,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label Text="Dry Cycle Active" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="2.5,0,2.5,1" Name="m_Text4" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="14" Canvas.Left="320" Canvas.Top="20" nacb:BlinkProperties.IsBlinkEnabled="True" nacb:BlinkProperties.BlinkInterval="1200" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label Text="Dry Cycle Active" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="2.5,0,2.5,1" Name="m_Text4" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="14" Canvas.Left="303" Canvas.Top="10" nacb:BlinkProperties.IsBlinkEnabled="True" nacb:BlinkProperties.BlinkInterval="1200" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.Resources>
         <ResourceDictionary>
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
@@ -39,7 +39,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Button Text="" RequiresTransparency="True" SymbolName="button9_green13" SymbolTransparent="False" FontSize="9" Name="m_Button1" Width="30" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="23" Canvas.Left="448" Canvas.Top="2" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="" RequiresTransparency="True" SymbolName="button9_green13" SymbolTransparent="False" FontSize="9" Name="m_Button1" Width="40" Height="34" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="23" Canvas.Left="439" Canvas.Top="1" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
@@ -91,7 +91,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Bagger Faults Overview" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="15" FontWeight="Bold" Name="m_Button4" Width="177" Height="51" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="26" Canvas.Left="301" Canvas.Top="90" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Bagger Faults Overview" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="12" FontWeight="Bold" Name="m_Button4" Width="177" Height="51" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="26" Canvas.Left="301" Canvas.Top="90" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
@@ -111,11 +111,11 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Clear&#xD;&#xA;Labels" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="12" FontWeight="Bold" Name="m_Button5" Width="105" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="82" Canvas.Top="127" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Clear&#xD;&#xA;Labels" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="11" FontWeight="Bold" Name="m_Button5" Width="110" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="82" Canvas.Top="127" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
-          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Value>
@@ -155,11 +155,11 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Cancel&#xD;&#xA;Print" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="12" FontWeight="Bold" Name="m_Button3" Width="105" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="5" Canvas.Left="82" Canvas.Top="175" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Cancel&#xD;&#xA;Print" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="11" FontWeight="Bold" Name="m_Button3" Width="110" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="5" Canvas.Left="82" Canvas.Top="175" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
-          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Value>
@@ -277,7 +277,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Button Text="Hold to Reset BPM" WordWrap="True" TextMargin="2,1,2,2" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="11" FontWeight="Bold" Name="m_Button2" Width="211" Height="32" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="82" Canvas.Top="89" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Hold to Reset BPM" WordWrap="True" TextMargin="2,1,2,2" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="11" FontWeight="Bold" Name="m_Button2" Width="211" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="82" Canvas.Top="89" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -322,8 +322,8 @@
     <nac:Button Text="Reset Batch Count" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFD0D0D0" FontSize="10" FontWeight="Bold" Name="m_Button6" Width="77" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="37" Canvas.Left="392" Canvas.Top="149" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
-          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Value>
@@ -363,7 +363,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:AnalogNumericFX AutoStretchFont="False" NumberOfDecimals="0" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" MaxValue="999" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" IsReadOnly="False" SelectionTextBrush="#FFFFFFFF" BorderBrush="#FF000000" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric6" Width="35" Height="37" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="39" KeyboardNavigation.TabNavigation="None" Canvas.Left="345" Canvas.Top="191" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False" nacsd:EditorProperties.IsHidden="False">
+    <nac:AnalogNumericFX AutoStretchFont="False" NumberOfDecimals="0" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" MaxValue="999" Prefix="" Suffix="" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" IsReadOnly="False" SelectionTextBrush="#FFFFFFFF" BorderBrush="#FF000000" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric6" Width="35" Height="37" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="39" KeyboardNavigation.TabNavigation="None" Canvas.Left="345" Canvas.Top="191" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False" nacsd:EditorProperties.IsHidden="False">
       <nac:AnalogNumericFX.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -413,7 +413,7 @@
       </nac:Label.TextDecorations>
     </nac:Label>
     <nacc1:Rectangle Fill="#FFFFFFFF" Stroke="#FF000000" Name="m_Rectangle9" Width="40" Height="37" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="27" Canvas.Left="299" Canvas.Top="191" />
-    <nac:AnalogNumericFX AutoStretchFont="False" NumberOfDecimals="0" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" MaxValue="999" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" IsReadOnly="False" SelectionTextBrush="#FFFFFFFF" BorderBrush="#FF000000" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric5" Width="35" Height="37" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="39" KeyboardNavigation.TabNavigation="None" Canvas.Left="345" Canvas.Top="149" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False" nacsd:EditorProperties.IsHidden="False">
+    <nac:AnalogNumericFX AutoStretchFont="False" NumberOfDecimals="0" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" MaxValue="999" Prefix="" Suffix="" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" IsReadOnly="False" SelectionTextBrush="#FFFFFFFF" BorderBrush="#FF000000" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric5" Width="35" Height="37" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="39" KeyboardNavigation.TabNavigation="None" Canvas.Left="345" Canvas.Top="149" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False" nacsd:EditorProperties.IsHidden="False">
       <nac:AnalogNumericFX.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />

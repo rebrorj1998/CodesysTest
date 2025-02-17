@@ -26,12 +26,12 @@
       <Items>
         <Item Target="Option_BarcodeVerifier.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Option_BarcodeVerifier.Text5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Option_BarcodeVerifier.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Option_BarcodeVerifier.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Option_BarcodeVerifier.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Option_BarcodeVerifier.Text6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Option_BarcodeVerifier.Text4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Option_BarcodeVerifier.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_BarcodeVerifier.Group2.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_BarcodeVerifier.Group1.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_BarcodeVerifier.Group.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_BarcodeVerifier.Group.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_BarcodeVerifier.Group1.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_BarcodeVerifier.Group2.Text3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Option_BarcodeVerifier.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Option_BarcodeVerifier.Text2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Option_BarcodeVerifier.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
@@ -45,9 +45,9 @@
         <Item Target="Option_BarcodeVerifier.Text5" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
         <Item Target="Option_BarcodeVerifier.Text5" TargetProperty="Background" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
         <Item Target="Option_BarcodeVerifier.Text5" TargetProperty="Foreground" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
-        <Item Target="Option_BarcodeVerifier.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
-        <Item Target="Option_BarcodeVerifier.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
-        <Item Target="Option_BarcodeVerifier.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeBadReadFaultSetting" />
+        <Item Target="Option_BarcodeVerifier.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
+        <Item Target="Option_BarcodeVerifier.Group1.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
+        <Item Target="Option_BarcodeVerifier.Group.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeBadReadFaultSetting" />
         <Item Target="Option_BarcodeVerifier.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeGoodReadCount" />
         <Item Target="Option_BarcodeVerifier.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeBadReadCount" />
         <Item xsi:type="ActionItem" Target="Option_BarcodeVerifier.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierTrigger" Event="PreviewMouseDown" Action="Set Tag" Param="" />

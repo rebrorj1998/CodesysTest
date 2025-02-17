@@ -204,11 +204,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
             this.m_Text2.DelayMouseInputPeriod = 0;
             this.m_Text2.EnabledDynamicsValue = true;
-            this.m_Text2.FontSizePixels = 10;
+            this.m_Text2.FontSizePixels = 8;
             this.m_Text2.Height = 36;
             this.m_Text2.Left = 0;
             this.m_Text2.Name = "m_Text2";
-            this.m_Text2.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
+            this.m_Text2.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 0D, 2D, 1D);
             this.m_Text2.ScreenOwnerName = "About_Sharp";
             this.m_Text2.TextVerticalAlignment = "Center";
             this.m_Text2.Top = 0;
@@ -475,7 +475,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.Text = resources.GetText("About_Sharp.Text1.Text", "For service call: +1 800-634-6359 x1572");
             this.m_Text2.Text = resources.GetText("About_Sharp.Text2.Text", "Bags Made");
             this.m_Text3.Text = resources.GetText("About_Sharp.Text3.Text", "HMI Version");
-            this.m_Text6.Text = resources.GetText("About_Sharp.Text6.Text", "1.2.0.7");
+            this.m_Text6.Text = resources.GetText("About_Sharp.Text6.Text", "1.2.0.8");
             this.m_Text4.Text = resources.GetText("About_Sharp.Text4.Text", "PLC Version");
             this.m_Text5.Text = resources.GetText("About_Sharp.Text5.Text", "European service call: 00800 8888 8840");
             this.ApplyResourcesOnForm();

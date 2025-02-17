@@ -373,7 +373,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 28;
             this.m_Text.Left = 216;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -382,7 +382,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 125;
+            this.m_Text.Width = 144;
             // 
             // m_Text1
             // 
@@ -391,7 +391,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 28;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -400,7 +400,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
+            this.m_Text1.Width = 33;
             // 
             // m_Text2
             // 
@@ -484,11 +484,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.ScreenOwnerName = "Settings_P2";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button.TextHeight = 11;
-            stringintervalmappercf1.DefaultValue = "Desactivado";
-            stringintervalcf1.Value = "Desactivado";
+            stringintervalmappercf1.DefaultValue = "Uitgeschakeld";
+            stringintervalcf1.Value = "Uitgeschakeld";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Activado";
+            stringintervalcf2.Value = "Ingeschakeld";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button.TextIntervalMapper = stringintervalmappercf1;
@@ -532,11 +532,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.ScreenOwnerName = "Settings_P2";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
             this.m_Button2.TextHeight = 11;
-            stringintervalmappercf2.DefaultValue = "Desactivado";
-            stringintervalcf3.Value = "Desactivado";
+            stringintervalmappercf2.DefaultValue = "Uitgeschakeld";
+            stringintervalcf3.Value = "Uitgeschakeld";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "Activado";
+            stringintervalcf4.Value = "Ingeschakeld";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf2;
@@ -580,11 +580,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.ScreenOwnerName = "Settings_P2";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
             this.m_Button3.TextHeight = 11;
-            stringintervalmappercf3.DefaultValue = "Desactivado";
-            stringintervalcf5.Value = "Desactivado";
+            stringintervalmappercf3.DefaultValue = "Uitgeschakeld";
+            stringintervalcf5.Value = "Uitgeschakeld";
             stringintervalcf6.End = 1D;
             stringintervalcf6.Start = 1D;
-            stringintervalcf6.Value = "Activado";
+            stringintervalcf6.Value = "Ingeschakeld";
             stringintervalmappercf3.Intervals.Add(stringintervalcf5);
             stringintervalmappercf3.Intervals.Add(stringintervalcf6);
             this.m_Button3.TextIntervalMapper = stringintervalmappercf3;
@@ -628,11 +628,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.ScreenOwnerName = "Settings_P2";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button4.TextHeight = 11;
-            stringintervalmappercf4.DefaultValue = "Desactivado";
-            stringintervalcf7.Value = "Desactivado";
+            stringintervalmappercf4.DefaultValue = "Uitgeschakeld";
+            stringintervalcf7.Value = "Uitgeschakeld";
             stringintervalcf8.End = 1D;
             stringintervalcf8.Start = 1D;
-            stringintervalcf8.Value = "Activado";
+            stringintervalcf8.Value = "Ingeschakeld";
             stringintervalmappercf4.Intervals.Add(stringintervalcf7);
             stringintervalmappercf4.Intervals.Add(stringintervalcf8);
             this.m_Button4.TextIntervalMapper = stringintervalmappercf4;
@@ -676,11 +676,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.ScreenOwnerName = "Settings_P2";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper6;
             this.m_Button5.TextHeight = 11;
-            stringintervalmappercf5.DefaultValue = "Desactivado";
-            stringintervalcf9.Value = "Desactivado";
+            stringintervalmappercf5.DefaultValue = "Uitgeschakeld";
+            stringintervalcf9.Value = "Uitgeschakeld";
             stringintervalcf10.End = 1D;
             stringintervalcf10.Start = 1D;
-            stringintervalcf10.Value = "Activado";
+            stringintervalcf10.Value = "Ingeschakeld";
             stringintervalmappercf5.Intervals.Add(stringintervalcf9);
             stringintervalmappercf5.Intervals.Add(stringintervalcf10);
             this.m_Button5.TextIntervalMapper = stringintervalmappercf5;
@@ -720,7 +720,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric.DelayMouseInputPeriod = 0;
             this.m_AnalogNumeric.EnabledDynamicsValue = true;
             this.m_AnalogNumeric.FontSizePixels = 14;
-            this.m_AnalogNumeric.Height = 23;
+            this.m_AnalogNumeric.Height = 24;
             this.m_AnalogNumeric.Left = 200;
             this.m_AnalogNumeric.LimitNumberOfCharacters = true;
             this.m_AnalogNumeric.MaxNumberOfCharacters = 5;
@@ -778,7 +778,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric1.DelayMouseInputPeriod = 0;
             this.m_AnalogNumeric1.EnabledDynamicsValue = true;
             this.m_AnalogNumeric1.FontSizePixels = 14;
-            this.m_AnalogNumeric1.Height = 23;
+            this.m_AnalogNumeric1.Height = 24;
             this.m_AnalogNumeric1.Left = 200;
             this.m_AnalogNumeric1.LimitNumberOfCharacters = true;
             this.m_AnalogNumeric1.MaxNumberOfCharacters = 4;
@@ -835,7 +835,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric5.DelayMouseInputPeriod = 0;
             this.m_AnalogNumeric5.EnabledDynamicsValue = true;
             this.m_AnalogNumeric5.FontSizePixels = 14;
-            this.m_AnalogNumeric5.Height = 23;
+            this.m_AnalogNumeric5.Height = 24;
             this.m_AnalogNumeric5.Left = 200;
             this.m_AnalogNumeric5.LimitNumberOfCharacters = true;
             this.m_AnalogNumeric5.MaxNumberOfCharacters = 4;
@@ -894,7 +894,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric2.DisplayFormat = Neo.ApplicationFramework.Interfaces.AnalogNumericDisplayFormat.Decimal;
             this.m_AnalogNumeric2.EnabledDynamicsValue = true;
             this.m_AnalogNumeric2.FontSizePixels = 14;
-            this.m_AnalogNumeric2.Height = 23;
+            this.m_AnalogNumeric2.Height = 24;
             this.m_AnalogNumeric2.Left = 200;
             this.m_AnalogNumeric2.LimitNumberOfCharacters = true;
             this.m_AnalogNumeric2.MaxNumberOfCharacters = 5;
@@ -1172,7 +1172,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.Text = resources.GetText("Settings_P2.Button3.Text", "Disabled");
             this.m_Button4.Text = resources.GetText("Settings_P2.Button4.Text", "Disabled");
             this.m_Button5.Text = resources.GetText("Settings_P2.Button5.Text", "Disabled");
-            this.m_Text5.Text = resources.GetText("Settings_P2.Text5.Text", "Automatic Logout Delay (S) ");
+            this.m_Text5.Text = resources.GetText("Settings_P2.Text5.Text", "Automatic Logout Delay (s) ");
             resources.ApplyTexts(this.m_Button, "Texts", "Settings_P2.Button.Texts[0]", "Disabled", "Settings_P2.Button.Texts[1]", "Enabled");
             resources.ApplyTexts(this.m_Button2, "Texts", "Settings_P2.Button2.Texts[0]", "Disabled", "Settings_P2.Button2.Texts[1]", "Enabled");
             resources.ApplyTexts(this.m_Button3, "Texts", "Settings_P2.Button3.Texts[0]", "Disabled", "Settings_P2.Button3.Texts[1]", "Enabled");

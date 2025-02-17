@@ -478,7 +478,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 54;
+            this.m_Text1.Width = 33;
             // 
             // m_Button4
             // 
@@ -1236,7 +1236,7 @@ namespace Neo.ApplicationFramework.Generated {
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Advanced_P5));
             this.m_Text.Text = resources.GetText("Advanced_P5.Text.Text", "Advanced");
-            this.m_Text1.Text = resources.GetText("Advanced_P5.Text1.Text", "45417");
+            this.m_Text1.Text = resources.GetText("Advanced_P5.Text1.Text", "5/5");
             this.m_Text2.Text = resources.GetText("Advanced_P5.Text2.Text", "Film Forward");
             this.m_Text3.Text = resources.GetText("Advanced_P5.Text3.Text", "Acceleration");
             this.m_Text4.Text = resources.GetText("Advanced_P5.Text4.Text", "Deceleration");
