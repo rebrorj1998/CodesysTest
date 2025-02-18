@@ -212,11 +212,13 @@ CASE state OF
                                                                     state := SEAL_FLATTENER_STATES.MovingFlattenersOut;
                                                                     
     SEAL_FLATTENER_STATES.MovingFlattenersOut :                     // 
+																	timeoutTimer.IN := TRUE;
                                                                     delay.IN := TRUE;
                                                                     IF delay.Q THEN
 																		IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND (sealFlattenersHorizontalAxisMotor.CurrentPosition >= (bagHoldingSetpoint - 1.5) OR sealFlattenersHorizontalAxisMotor.alarms.currentFoldback) THEN
 																			state := SEAL_FLATTENER_STATES.MovedFlattenersOut;
                                                                         	delay.IN := FALSE; 
+																			timeoutTimer.IN := FALSE;
 																		END_IF
                                                                     END_IF
                                                                     
