@@ -122,6 +122,7 @@ VAR_GLOBAL PERSISTENT RETAIN
 	partsCounterEnable : BOOL;
 	partsCounterCount : UDINT;
 	partsCounterSetting : UDINT;
+	partsCounterDone : BOOL;
 	consecutiveBagsEnable : BOOL;
 	consecutiveBagsCount : UDINT;
 	consecutiveBagsSetting : UDINT;
@@ -154,8 +155,18 @@ VAR_GLOBAL PERSISTENT RETAIN
 	jawEnableMotion : BOOL;
 	filmEnableMotion : BOOL;
 	printer300DPI : BOOL; // On for 300, off for 203
+	passthroughSettingMetric : REAL;
+	sealFlattenersPositionMetric : REAL;
+	bagLengthMetric : REAL := 23.5;
+	bagWidthMetric : REAL := 17.5;
+	bagThicknessMetric : REAL := 2.5;
+	printLengthMetric : REAL := 8.0;
+	printOffsetMetric : REAL := 2.0;
+	barcodeStartPositionMetric : REAL;
+	HMIMetric : BOOL := TRUE;
+	lightCurtainInstalled : BOOL;
 END_VAR
 
 VAR_GLOBAL CONSTANT
-	version : STRING := '1.2.0.6';
+	version : STRING := '1.2.0.8';
 END_VAR

@@ -53,7 +53,7 @@ iJawNotObstructed REF= IO_Mapping.mainIOamax4830Input[7].discreteSignal;
 iBarcodeOK REF= IO_Mapping.mainIOamax4830Input[8].discreteSignal;
 iBarcodeNG REF= IO_Mapping.mainIOamax4830Input[9].discreteSignal;
 iLightCurtainClear REF= IO_Mapping.mainIOamax4830Input[10].discreteSignal;
-//IO_Mapping.mainIOamax4830Input[11].discreteSignal;
+iLightCurtainStart REF=IO_Mapping.mainIOamax4830Input[11].discreteSignal;
 //IO_Mapping.mainIOamax4830Input[12].discreteSignal;
 iEstopNormal REF= IO_Mapping.mainIOamax4830Input[13].discreteSignal;
 iSafePowerOK REF= IO_Mapping.mainIOamax4830Input[14].discreteSignal;

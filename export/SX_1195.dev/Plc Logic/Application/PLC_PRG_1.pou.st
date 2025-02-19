@@ -42,9 +42,12 @@ VAR
 	flipFlop: TON;
 	batchCounter : CTU;
 	cycleStartDebounce : TON := (PT := T#75MS);
+	lightCurtainStartONS : FB_ONS;
+	lightCurtainStartClear : BOOL;
+	partsCounter : CTU;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Program: PLC_PRG
-//	Description: Base program for the 1179/1181 SX. 
+//	Description: Base program for the 1195 SX. 
 //				 
 //	Created by: Ben Hess
 //	Created Date: 
@@ -75,13 +78,31 @@ autoModeTimer(PT := TO_TIME(HMIData.autoModeDwell * 1000), IN := autoModeKeepCyc
 // Start from Cycle Start input
 cycleStartDebounce(IN := iCycleStart);
 cycleStartONS(clk := cycleStartDebounce.Q);
+cycleStartONS.OSR;  //added to monitor wihle testing
+
+//Light Curtain Start
+lightCurtainStartClear := iLightCurtainStart;
+lightCurtainStartONS(CLK := iLightCurtainStart AND HMIData.lightCurtainInstalled);
+//IF iLightCurtainStart THEN
+//	HMIData.lightCurtainInstalled := TRUE;
+//END_IF
+
 // Batch Counter
 batchCounter(CU := cycleComplete.OSR, RESET := (NOT HMIData.batchEnable) OR HMIData.resetBatchCounter, PV := TO_WORD(HMIData.batchSetting), Q => HMIData.batchCounterDone, CV => HMIData.batchCount);
 IF HMIData.resetBatchCounter THEN 
-	HMIData.resetBatchCounter := FALSE;
+	HMIData.resetBatchCounter := FALSE;	
 END_IF
+
+// Parts Counter
+partsCounter(CU := lightCurtainStartONS.OSR AND HMIData.lightCurtainInstalled AND HMIData.partsCounterEnable AND NOT HMIData.inCycle, 
+RESET := (NOT (HMIData.lightCurtainInstalled OR HMIData.partsCounterEnable)) OR cycleComplete.OSR OR HMIData.ackAllFaults, 
+PV := TO_WORD(HMIData.partsCounterSetting), 
+Q => HMIData.partsCounterDone, 
+CV => HMIData.partsCounterCount);
+
+
 // All start conditions
-IF (HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q) AND NOT HMIData.batchCounterDone THEN
+IF (HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q OR (lightCurtainStartONS.OSR AND NOT HMIData.partsCounterEnable) OR (partsCounter.Q AND HMIData.partsCounterEnable)) AND NOT HMIData.batchCounterDone THEN
 	IF UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle THEN
 		EM01_SXBaggerHead.StartCycle();
 		IF HMIData.autoModeEnable THEN
@@ -178,7 +199,11 @@ palmButton(
 //
 
 // change jaw close position from HMI
+IF HMIData.HMIMetric THEN
+AxisData.jawCloseMotionProfile.position := (HMIData.jawClosePositionSetting/25.4);
+ELSE
 AxisData.jawCloseMotionProfile.position := HMIData.jawClosePositionSetting;
+END_IF
 
 //code to add timer to track duration in states
 stateTimer(PT:=T#10000S);

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Symbols>
+  <Symbol FileName="touchscreen.bmp" Transparent="true" Width="43" Height="41" />
+  <Symbol FileName="home (1).bmp" Transparent="true" Width="44" Height="44" />
+  <Symbol FileName="padlock.bmp" Transparent="true" Width="31" Height="43" />
+  <Symbol FileName="security.bmp" Transparent="true" Width="43" Height="40" />
+  <Symbol FileName="alarm.bmp" Transparent="true" Width="15" Height="20" />
+<<<<<<< HEAD:1195 HMI/Temp/Symbols.xml
+  <Symbol FileName="button9_green13.bmp" Transparent="true" Width="14" Height="14" />
+=======
+  <Symbol FileName="button9_green13.bmp" Transparent="true" Width="24" Height="24" />
+>>>>>>> testing/metric:H1195_Beta/Temp/Symbols.xml
+  <Symbol FileName="ag_arrow right green.bmp" Transparent="true" Width="36" Height="29" />
+  <Symbol FileName="ag_arrow left green.bmp" Transparent="true" Width="36" Height="29" />
+  <Symbol FileName="led_green_off.bmp" Transparent="true" Width="20" Height="20" />
+  <Symbol FileName="led_green.bmp" Transparent="true" Width="20" Height="20" />
+  <Symbol FileName="br_arrow first.bmp" Transparent="true" Width="12" Height="12" />
+  <Symbol FileName="br_arrow last.bmp" Transparent="true" Width="12" Height="12" />
+  <Symbol FileName="br_arrow left8.bmp" Transparent="true" Width="12" Height="12" />
+  <Symbol FileName="br_arrow right8.bmp" Transparent="true" Width="12" Height="12" />
+  <Symbol FileName="led_red_off.bmp" Transparent="true" Width="20" Height="20" />
+  <Symbol FileName="led_red.bmp" Transparent="true" Width="20" Height="20" />
+  <Symbol FileName="ag_arrow_02 green.bmp" Transparent="true" Width="38" Height="43" />
+  <Symbol FileName="letter-x-256.bmp" Transparent="true" Width="76" Height="76" />
+  <Symbol FileName="barcode (1).bmp" Transparent="false" Width="116" Height="48" />
+</Symbols>

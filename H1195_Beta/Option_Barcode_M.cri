@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.51.49.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Option_Barcode_M.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Group.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Group2.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Group1.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Group1.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Group2.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Group.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Option_Barcode_M.Button1" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Option_Barcode_M.Text5" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierInUse" Event="MouseDown" Action="Toggle Tag" Param="" />
+        <Item Target="Option_Barcode_M.Text5" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
+        <Item Target="Option_Barcode_M.Text5" TargetProperty="Background" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
+        <Item Target="Option_Barcode_M.Text5" TargetProperty="Foreground" Source="Tags.Application_HMIData_barcodeVerifierInUse" />
+        <Item Target="Option_Barcode_M.Group1.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeBadReadFaultSetting" />
+        <Item Target="Option_Barcode_M.Group2.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
+        <Item Target="Option_Barcode_M.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeGoodReadCount" />
+        <Item Target="Option_Barcode_M.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeBadReadCount" />
+        <Item Target="Option_Barcode_M.Group.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
+        <Item xsi:type="ActionItem" Target="Option_Barcode_M.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierTrigger" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+        <Item Target="Option_Barcode_M.MultiPicture" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeReadGoodIndication" />
+        <Item Target="Option_Barcode_M.MultiPicture1" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeReadBadIndication" />
+      </Items>
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyItems">
+      <Items>
+        <Item xsi:type="LegacyItemMetadata" ScreenName="Option_Barcode_M" ItemName="LegacyScreenObjects">
+          <Details />
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects" ScreenName="Option_Barcode_M" TemplateScreen="BaseTemplate">
+          <Details>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>11</Value>
+            </Detail>
+            <Detail>
+              <Key>Label</Key>
+              <Value>7</Value>
+            </Detail>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>5</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>1</Value>
+            </Detail>
+            <Detail>
+              <Key>Symbol</Key>
+              <Value>2</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items />
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>26</ObjectsCount>
+          <ScreenName>Option_Barcode_M</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Option_Barcode_M</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Option_Barcode_M.Text5" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierInUse" Event="MouseDown" Action="Toggle Tag" Param="" />
+        <Item xsi:type="ActionItem" Target="Option_Barcode_M.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierTrigger" Event="PreviewMouseDown" Action="Set Tag" Param="" />
+      </Items>
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="Option_Barcode_M.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="Option_Barcode_M.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="Option_Barcode_M.MultiPicture" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="Option_Barcode_M.MultiPicture1" Source="led_red_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="Option_Barcode_M.MultiPicture1" Source="led_red_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="Option_Barcode_M.MultiPicture1" Source="led_red" Width="20" Height="20" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>
