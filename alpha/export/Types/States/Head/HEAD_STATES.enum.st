@@ -21,6 +21,7 @@ TYPE HEAD_STATES :
 	FinishedCycle := 42,
 	StartReset := 50,
 	Resetting := 51,
+	PassthroughPreCheck := 52,
 	StartHoming := 53,
 	Homing := 54,
 	HomingComplete := 55,

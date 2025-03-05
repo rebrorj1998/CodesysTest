@@ -415,6 +415,7 @@
       <UserDefElement type="T_HEAD_STATES" iecname="FinishedCycle" enumvalue="42" />
       <UserDefElement type="T_HEAD_STATES" iecname="StartReset" enumvalue="50" />
       <UserDefElement type="T_HEAD_STATES" iecname="Resetting" enumvalue="51" />
+      <UserDefElement type="T_HEAD_STATES" iecname="PassthroughPreCheck" enumvalue="52" />
       <UserDefElement type="T_HEAD_STATES" iecname="StartHoming" enumvalue="53" />
       <UserDefElement type="T_HEAD_STATES" iecname="Homing" enumvalue="54" />
       <UserDefElement type="T_HEAD_STATES" iecname="HomingComplete" enumvalue="55" />
@@ -876,7 +877,7 @@
     <TypeUserDef name="T_FB_MotorizedIBD" size="3" nativesize="696" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedIBD" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToOpen" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="3680" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MotorizedPressureBar" size="30" nativesize="3688" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedPressureBar" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="failToClampLeft" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="failToReleaseLeft" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="failToClampRight" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" access="ReadWrite" />
@@ -1152,7 +1153,7 @@
       <UserDefElement iecname="atBagFeedSetpoint" type="T_BOOL" byteoffset="612" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="moveInTMR" type="T_TON" byteoffset="616" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="44012" nativesize="165792" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="44012" nativesize="165800" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners_PerfBreaker" byteoffset="16" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="648" vartype="VAR" access="ReadWrite" />
@@ -1431,6 +1432,7 @@
         </Node>
         <Node name="lpaServicePulse" type="T_BOOL" access="ReadWrite" />
         <Node name="machineNotTested" type="T_Warning" access="ReadWrite" />
+        <Node name="mailerMaterial" type="T_MAILER_MATERIAL" access="ReadWrite" />
         <Node name="makeReady" type="T_BOOL" access="ReadWrite" />
         <Node name="mayCycleUnexpectedly" type="T_Warning" access="ReadWrite" />
         <Node name="motorizedSealFlattenerCycles" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -1449,6 +1451,7 @@
         <Node name="passthroughOffset" type="T_REAL" access="ReadWrite" />
         <Node name="passthroughPosition" type="T_REAL" access="ReadWrite" />
         <Node name="passthroughSetting" type="T_REAL" access="ReadWrite" />
+        <Node name="perfBreakerService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="pressureBarBagFeedPosition" type="T_REAL" access="ReadWrite" />
         <Node name="pressureBarCloseDelay" type="T_REAL" access="ReadWrite" />
         <Node name="pressureBarCycles" type="T_FB_CycleCounter" access="ReadWrite" />
@@ -1524,6 +1527,7 @@ Misc</Comment>
         <Node name="sealFlattenersServiceRaise" type="T_BOOL" access="ReadWrite" />
         <Node name="separateBeforeSeal" type="T_BOOL" access="ReadWrite" />
         <Node name="shakerInstalled" type="T_BOOL" access="ReadWrite" />
+        <Node name="stagingFunnelAndPerfBreakerEnabled" type="T_Warning" access="ReadWrite" />
         <Node name="stagingFunnelClosingTime" type="T_REAL" access="ReadWrite">
           <Comment> For funnel w/o sensors only : Time required to consider funnel closed after command to close</Comment>
         </Node>

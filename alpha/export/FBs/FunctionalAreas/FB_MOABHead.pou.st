@@ -289,6 +289,7 @@ funnel(
 );
 
 // 2nd Stage Funnel
+IF stagingFunnel.enable THEN
 stagingFunnel(
 	openingDelay := HMIData.stagingFunnelOpenDelay, 
 	openingDwell := HMIData.stagingFunnelOpeningTime,
@@ -298,7 +299,7 @@ stagingFunnel(
 	oClose => oStagingFunnelCloseOrPerfBreakerDown, 
 	oOpen => oStagingFunnelOpenOrPerfBreakerUp
 );
-
+END_IF
 CASE HMIData.funnelFactorySelection OF
 	FunnelSelection.NotInstalled:
 		// Disable both funnels

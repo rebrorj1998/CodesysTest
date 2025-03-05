@@ -11,6 +11,7 @@ TYPE MotorizedPbarStates :
 	MoveJawOut := 20,
 	MovingJawOut := 21,
 	MovedJawOut := 22,
+	MoveJawClear := 23,
 	MoveJawIn := 30,
 	MovingJawIn := 31,
 	MovedJawIn := 32,

@@ -470,8 +470,11 @@ CASE state OF
 																		IF _amMoveHandLoad THEN
 																			 handLoadRequested := TRUE;
 																		END_IF
-                                                                        ClearCommands();
-                                                                    END_IF    
+                                                                       // ClearCommands();
+                                                                    END_IF   
+																		 
+																	
+                                                                                                                                        		  
 																	
 																	IF enable AND (autoModeSelected AND _amMoveOut) THEN
 																		sealFlattenersHorizontalAxisMotor.MoveToPosition(position := (outSetpoint  + 0), 
