@@ -22,7 +22,7 @@ VAR
 	packageAtExit : BOOL;
 	packageAtExitTimer : Standard.TON := (PT := T#20MS);
 	packageAtExitBufferTimer : Standard.TON := (PT := T#100MS);
-    motorizedSealFlatteners : FB_MotorizedSealFlatteners();
+    motorizedSealFlatteners : FB_MotorizedSealFlatteners_PerfBreaker();
 	msfVerticalAxis : FB_ThreePositionCylinder();
     pressureBar : FB_MotorizedPressureBar();
 	IBD : FB_MotorizedIBD();
@@ -141,6 +141,17 @@ VAR
 	_waitForTorqueTimer : Standard.TON := (PT := T#50MS);
 	_waitForSealFlattenersUpTimer : Standard.TON := (PT := T#500MS);
 	_waitForPressureBarOpenDelay : TON;
+	
+	perfBreaker : PerfBreaker;						//PERF BREAKER
+	posInhibitTON: TON;
+	pbarSensorBypass: BOOL:=TRUE;
+	posInhibit: BOOL;
+	stagingFunnelCloseOutput: BOOL;
+	stagingFunnelOpenOutput: BOOL;
+	MSFactualPosition : REAL;
+	MSFatOutSetpoint: BOOL;
+	paperBagger: BOOL;
+	
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -280,9 +291,27 @@ murrIOBusNode(
 	ptrSystemStatusInputs:= ADR(iMurrSystemState));
 
 // Setup of Motorized seal flattener motor and function block
-msfVerticalAxis(extendOutput => oSealFlatDown, retractOutput => oSealFlatUp);
+IF motorizedSealFlatteners.enable THEN
+	oSealFlatDown := msfVerticalAxis.extendOutput;
+	oSealFlatUp:= msfVerticalAxis.retractOutput;
+END_IF
+	 
+IF HMIData.enablePerfBreaker THEN
+	oStagingFunnelCloseOrPerfBreakerDown := perfBreaker.extendOutput AND posInhibit;
+	oStagingFunnelOpenOrPerfBreakerUp   := perfBreaker.retractOutput AND posInhibit;
+ELSIF stagingFunnel.enable THEN
+	oStagingFunnelCloseOrPerfBreakerDown := stagingFunnelCloseOutput;
+	oStagingFunnelOpenOrPerfBreakerUp   := stagingFunnelOpenOutput;	 
+END_IF
+		  
+msfVerticalAxis();
 msfVerticalAxis.Execute();
+perfBreaker();
+perfBreaker.Execute();
+	 
 motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
+		 				perfBreaker := perfBreaker,
+					 	perfBreakerEnable := HMIData.enablePerfBreaker,
 						jogIn := HMIData.sealFlattenersServiceJogIn,
 						jogOut := HMIData.sealFlattenersServiceJogOut,
 						raiseService := HMIData.sealFlattenersServiceRaise,
@@ -291,11 +320,26 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
 						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING AND MSFMotor.Enable,
 						timeoutFault => sealFlattenerTimedOut.faultTrigger,
-						position => HMIData.sealFlattenersPosition
+						actualPosition => MSFactualPosition,
+						mailerMaterial := HMIData.mailerMaterial,
+						atOutSetpoint => MSFatOutSetpoint											
 );
+HMIData.sealFlattenersPosition := MSFactualPosition;
+	 
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
-motorizedSealFlatteners.enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
-MSFMotor.Enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners);
+	 
+motorizedSealFlatteners.enable := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker ) AND (HMIData.sealFlattenersInUse OR HMIData.enablePerfBreaker);
+	 
+MSFMotor.Enable := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.PerfBreaker OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker );
+	 
+(*HMIData.enablePerfBreaker :=*) paperBagger := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.PerfBreaker OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker );
+	 
+// Warning if Staggin Funnel and Perforation Breaker are enabled
+IF stagingFunnel.enable	AND HMIData.enablePerfBreaker THEN
+	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := TRUE;
+ELSE
+	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := FALSE;
+END_IF
 	 
 pressureBarMotor(
 	ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
@@ -485,8 +529,8 @@ stagingFunnel(
 	closingDwell := HMIData.stagingFunnelClosingTime,
 	iOpened := iStagingFunnelOpened, 
 	iClosed := iStagingFunnelClosed,  
-	oClose => oStagingFunnelClose, 
-	oOpen => oStagingFunnelOpen
+	oClose => oStagingFunnelCloseOrPerfBreakerDown, 
+	oOpen => oStagingFunnelOpenOrPerfBreakerUp
 );
 
 CASE HMIData.funnelFactorySelection OF

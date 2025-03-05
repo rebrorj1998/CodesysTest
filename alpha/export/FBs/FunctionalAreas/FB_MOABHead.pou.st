@@ -295,8 +295,8 @@ stagingFunnel(
 	closingDwell := HMIData.stagingFunnelClosingTime,
 	iOpened := iStagingFunnelOpened, 
 	iClosed := iStagingFunnelClosed,  
-	oClose => oStagingFunnelClose, 
-	oOpen => oStagingFunnelOpen
+	oClose => oStagingFunnelCloseOrPerfBreakerDown, 
+	oOpen => oStagingFunnelOpenOrPerfBreakerUp
 );
 
 CASE HMIData.funnelFactorySelection OF

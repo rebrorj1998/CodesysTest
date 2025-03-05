@@ -133,6 +133,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	reverseConveyor : BOOL;
 	enablePerfBreaker : BOOL;
 	enablePaperBagger : BOOL;
+	mailerMaterial : MAILER_MATERIAL;
 	labelsQueuedUpFaultEnable : BOOL := FALSE;
 	remoteCommsHeartbeatEnable : BOOL;
 	auxIOSource : AuxIOSource := (Physical := TRUE);
@@ -236,6 +237,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	lightCurtainsBlocked : Warning;
 	batchCountDone : Warning;
 	remoteCommsHeartbeatLost: Warning;
+	stagingFunnelAndPerfBreakerEnabled : Warning;
 	
 	(*Faults*)
 	(*Misc*)
