@@ -1367,6 +1367,22 @@ CASE state.head OF
 														HMIData.loadPlateService.extendCommand := FALSE;
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
+														 
+													IF HMIData.perfBreakerService.exhaustCommand  AND HMIData.enablePerfBreaker THEN
+														perfBreaker.Exhaust();
+														posInhibit:= TRUE;
+														HMIData.perfBreakerService.exhaustCommand := FALSE;
+													END_IF
+													IF HMIData.perfBreakerService.retractCommand  AND HMIData.enablePerfBreaker THEN
+														perfBreaker.MoveUp();
+														posInhibit:= TRUE;
+														HMIData.perfBreakerService.retractCommand := FALSE;
+													END_IF
+													IF HMIData.perfBreakerService.extendCommand  AND HMIData.enablePerfBreaker THEN
+														perfBreaker.MoveDown();
+														posInhibit:= TRUE;
+														HMIData.perfBreakerService.extendCommand := FALSE;
+													END_IF
 													
 													IF HMIData.loadShelfService.retractCommand THEN
 														loadShelf.ManualOn();
@@ -1682,7 +1698,12 @@ CASE state.head OF
     HEAD_STATES.MovedPassthrough :          // 
                                             state.head := HEAD_STATES.Idle;
 											setPassthroughPB := FALSE;
-											motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(HMIData.bagWidth,1000,1000,1000,125);
+											//motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(HMIData.bagWidth,1000,1000,1000,125);
+											IF motorizedSealFlatteners.enable AND HMIData.sealFlattenersInUse THEN
+												motorizedSealFlatteners.AutoMoveToStartPosition();
+											ELSIF motorizedSealFlatteners.enable AND NOT HMIData.sealFlattenersInUse THEN
+												motorizedSealFlatteners.AutoMoveToBagFeed();
+                                            END_IF
                                                     
 	HEAD_STATES.PrepareForAutomatedBagRemoval:
 		//
@@ -1725,7 +1746,10 @@ CASE state.head OF
 											autoModeKeepCycling := FALSE;
 											pressureBarCloseDelay.IN := FALSE;
 											oSealBarExtend := FALSE;
-											oSealBarRetract := TRUE;
+											oSealBarRetract := TRUE;											
+											posInhibit := FALSE;
+											perfBreaker.MoveUp();
+											msfVerticalAxis.Retract();
 											
 									
 END_CASE
@@ -1936,8 +1960,11 @@ CASE state.sb.releaseFeed OF
                                                         OR (bagDelivery.state =  BAG_DELIVERY_STATES.WaitingForPrinter AND zebraPrinter.enable)
                                                         OR NOT bagDelivery.enable
                                                         THEN
-                                                            IF motorizedSealFlatteners.enable THEN
+                                                            IF (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse THEN
                                                                 motorizedSealFlatteners.AutoMoveToClearance();
+																//motorizedSealFlatteners.AutoMoveToBagHolding();
+                                                            ELSIF HMIData.enablePerfBreaker THEN
+																perfBreaker.Retract(); 
                                                             END_IF
                                                             
                                                             IF enableBagOpen THEN
@@ -1986,6 +2013,12 @@ CASE state.sb.releaseFeed OF
 	 RELEASE_FEED_STATES.MovingJawOutAndDroppingBag :
 														// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
                                                         // In the case that bagDelivery is disabled then we're done with release and feed
+														IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut 
+														OR MSFatOutSetpoint) 
+														AND (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse THEN
+															motorizedSealFlatteners.AutoMoveToClearance();														 
+														END_IF
+
 														IF enableBagOpen AND pressureBar.actualPosition >= 0.5 THEN
  															bagOpenFingers.Release();
  														END_IF	
@@ -2156,7 +2189,10 @@ CASE state.sb.openBag OF
 													END_IF
                                                                    
     BAG_OPEN_ASSIST_STATES.MoveJawOut :             // Open the jaw and move seal flatteners in and to bag holding
-                                                    pressureBar.OpenJaw();
+                                                    IF HMIDAta.enablePerfBreaker AND NOT (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse  THEN
+														perfBreaker.Extend();
+													END_IF
+													pressureBar.OpenJaw();
 													motorizedSealFlatteners.AutoMoveIn();
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
                                                                                              
@@ -2176,6 +2212,9 @@ CASE state.sb.openBag OF
 													  
 
 	BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab : 	//
+													IF HMIDAta.enablePerfBreaker AND HMIData.enablePaperBagger THEN
+														//perfBreaker.MoveDown();
+													END_IF
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
 															bagOpenCheckDelay.IN := TRUE;
 															IF bagOpenCheckDelay.Q THEN
@@ -2192,7 +2231,10 @@ CASE state.sb.openBag OF
 															state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab;
 														END_IF
 													  
-	BAG_OPEN_ASSIST_STATES.BagFailedToOpen :			// 
+	BAG_OPEN_ASSIST_STATES.BagFailedToOpen :			//
+													IF HMIDAta.enablePerfBreaker AND HMIData.enablePaperBagger THEN
+														//perfBreaker.MoveDown();
+													END_IF 
 														bagOpenFingers.Release();
 														bagOpenRetryCount := bagOpenRetryCount + 1;
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN

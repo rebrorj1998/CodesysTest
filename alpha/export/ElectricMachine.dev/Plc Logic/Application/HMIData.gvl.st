@@ -158,6 +158,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	accumulatingFunnel : ServiceCommands;
 	funnelService : ServiceCommands;
 	baggerHeadService : ServiceCommands;
+	perfBreakerService: ServiceCommands;
 	jogBagForward : BOOL;
 	jogBagReverse : BOOL;
 	jogPassthroughForward : BOOL;
