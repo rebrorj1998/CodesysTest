@@ -382,11 +382,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Settings_P2.cs
-            this.m_Text.Width = 74;
-=======
             this.m_Text.Width = 144;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Settings_P2.cs
             // 
             // m_Text1
             // 
@@ -488,19 +484,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.ScreenOwnerName = "Settings_P2";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button.TextHeight = 11;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Settings_P2.cs
-            stringintervalmappercf1.DefaultValue = "Disabled";
-            stringintervalcf1.Value = "Disabled";
-            stringintervalcf2.End = 1D;
-            stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Enabled";
-=======
             stringintervalmappercf1.DefaultValue = "Uitgeschakeld";
             stringintervalcf1.Value = "Uitgeschakeld";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
             stringintervalcf2.Value = "Ingeschakeld";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Settings_P2.cs
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button.TextIntervalMapper = stringintervalmappercf1;
@@ -544,19 +532,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.ScreenOwnerName = "Settings_P2";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
             this.m_Button2.TextHeight = 11;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Settings_P2.cs
-            stringintervalmappercf2.DefaultValue = "Disabled";
-            stringintervalcf3.Value = "Disabled";
-            stringintervalcf4.End = 1D;
-            stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "Enabled";
-=======
             stringintervalmappercf2.DefaultValue = "Uitgeschakeld";
             stringintervalcf3.Value = "Uitgeschakeld";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
             stringintervalcf4.Value = "Ingeschakeld";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Settings_P2.cs
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf2;
@@ -600,19 +580,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.ScreenOwnerName = "Settings_P2";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
             this.m_Button3.TextHeight = 11;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Settings_P2.cs
-            stringintervalmappercf3.DefaultValue = "Disabled";
-            stringintervalcf5.Value = "Disabled";
-            stringintervalcf6.End = 1D;
-            stringintervalcf6.Start = 1D;
-            stringintervalcf6.Value = "Enabled";
-=======
             stringintervalmappercf3.DefaultValue = "Uitgeschakeld";
             stringintervalcf5.Value = "Uitgeschakeld";
             stringintervalcf6.End = 1D;
             stringintervalcf6.Start = 1D;
             stringintervalcf6.Value = "Ingeschakeld";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Settings_P2.cs
             stringintervalmappercf3.Intervals.Add(stringintervalcf5);
             stringintervalmappercf3.Intervals.Add(stringintervalcf6);
             this.m_Button3.TextIntervalMapper = stringintervalmappercf3;
@@ -656,19 +628,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.ScreenOwnerName = "Settings_P2";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button4.TextHeight = 11;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Settings_P2.cs
-            stringintervalmappercf4.DefaultValue = "Disabled";
-            stringintervalcf7.Value = "Disabled";
-            stringintervalcf8.End = 1D;
-            stringintervalcf8.Start = 1D;
-            stringintervalcf8.Value = "Enabled";
-=======
             stringintervalmappercf4.DefaultValue = "Uitgeschakeld";
             stringintervalcf7.Value = "Uitgeschakeld";
             stringintervalcf8.End = 1D;
             stringintervalcf8.Start = 1D;
             stringintervalcf8.Value = "Ingeschakeld";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Settings_P2.cs
             stringintervalmappercf4.Intervals.Add(stringintervalcf7);
             stringintervalmappercf4.Intervals.Add(stringintervalcf8);
             this.m_Button4.TextIntervalMapper = stringintervalmappercf4;
@@ -712,19 +676,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.ScreenOwnerName = "Settings_P2";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper6;
             this.m_Button5.TextHeight = 11;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Settings_P2.cs
-            stringintervalmappercf5.DefaultValue = "Disabled";
-            stringintervalcf9.Value = "Disabled";
-            stringintervalcf10.End = 1D;
-            stringintervalcf10.Start = 1D;
-            stringintervalcf10.Value = "Enabled";
-=======
             stringintervalmappercf5.DefaultValue = "Uitgeschakeld";
             stringintervalcf9.Value = "Uitgeschakeld";
             stringintervalcf10.End = 1D;
             stringintervalcf10.Start = 1D;
             stringintervalcf10.Value = "Ingeschakeld";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Settings_P2.cs
             stringintervalmappercf5.Intervals.Add(stringintervalcf9);
             stringintervalmappercf5.Intervals.Add(stringintervalcf10);
             this.m_Button5.TextIntervalMapper = stringintervalmappercf5;

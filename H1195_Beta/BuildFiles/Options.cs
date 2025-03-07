@@ -46,13 +46,10 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
         private Neo.ApplicationFramework.Controls.Controls.Button m_Button5;
         
         private Neo.ApplicationFramework.Controls.Controls.Button m_Button6;
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
         private bool m_Initialized_Options;
         
         private Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF brushdynamicsconvertercf1;
@@ -66,11 +63,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.Click += new System.EventHandler(this.m_Button2_Action_Click);
             this.m_Button3.Click += new System.EventHandler(this.m_Button3_Action_Click);
             this.m_Button4.Click += new System.EventHandler(this.m_Button4_Action_Click);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             this.m_Button5.Click += new System.EventHandler(this.m_Button5_Action_Click);
             this.m_Button6.Click += new System.EventHandler(this.m_Button6_Action_Click);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
             this.ApplyLanguageInitialize();
         }
         
@@ -146,8 +140,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
         protected Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter Button5 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter>(this.m_Button5);
@@ -160,7 +152,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
         private void InitializeComponent() {
             this.brushdynamicsconvertercf2 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
             this.brushdynamicsconvertercf1 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
@@ -176,11 +167,8 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF stringintervalmappercf1 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf1 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf2 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper6 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper7 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
             this.m_Button = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button1 = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button2 = new Neo.ApplicationFramework.Controls.Controls.Button();
@@ -193,11 +181,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Group = new Neo.ApplicationFramework.Controls.Controls.GroupCF();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             this.m_Button5 = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button6 = new Neo.ApplicationFramework.Controls.Controls.Button();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
             ((System.ComponentModel.ISupportInitialize)(this.m_Button)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button2)).BeginInit();
@@ -209,11 +194,8 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).BeginInit();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             ((System.ComponentModel.ISupportInitialize)(this.m_Button5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button6)).BeginInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
             this.SuspendLayout();
             // 
             // Options
@@ -513,8 +495,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.VisibleDynamicsValue = true;
             this.m_Text.Width = 176;
             this.m_Text.WordWrap = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             // 
             // m_Button5
             // 
@@ -570,7 +550,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.VisibleDynamicsValue = true;
             this.m_Button6.VisualPropertiesHashCode = 1222041839;
             this.m_Button6.Width = 200;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -639,11 +618,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.DrawingPrimitives.Add(this.m_Text5);
             this.DrawingPrimitives.Add(this.m_Group);
             this.DrawingPrimitives.Add(this.m_Text);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             this.DrawingPrimitives.Add(this.m_Button5);
             this.DrawingPrimitives.Add(this.m_Button6);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
             ((System.ComponentModel.ISupportInitialize)(this.m_Button)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button2)).EndInit();
@@ -655,11 +631,8 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).EndInit();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             ((System.ComponentModel.ISupportInitialize)(this.m_Button5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button6)).EndInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
         }
         
         private void m_Button_Action_Click(object sender, System.EventArgs e) {
@@ -687,8 +660,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Generated.Globals.Tags.Application_HMIData_printerAndVerifierEnablePB.ToggleTag();
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
         private void m_Button5_Action_Click(object sender, System.EventArgs e) {
             Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button5", "Click", "Show Screen", "Option_Printer_M", "Default", "");
             Neo.ApplicationFramework.Generated.Globals.Option_Printer_M.Show();
@@ -699,7 +670,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Generated.Globals.Option_Barcode_M.Show();
         }
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Options));
@@ -711,11 +681,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text6.Text = resources.GetText("Options.Text6.Text", "Printer and Verifier Enable Button : Pressing this button enables  and disables t" +
                     "he Printer option and Barcode Verifier options simultaneously.");
             this.m_Text.Text = resources.GetText("Options.Text.Text", "Enable Printer and Verifier");
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             this.m_Button5.Text = resources.GetText("Options.Button5.Text", "Printer");
             this.m_Button6.Text = resources.GetText("Options.Button6.Text", "Barcode\r\nVerifier");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
             resources.ApplyTexts(this.m_Text5, "Texts", "Options.Text5.Texts[0]", "OFF", "Options.Text5.Texts[1]", "ON");
             this.ApplyResourcesOnForm();
         }
@@ -783,15 +750,12 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding12 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.alwaysOff"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
             this.m_Text.DataBindings.Add(dynamicBinding12);
             this.m_DynamicBindings.Add(dynamicBinding12);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Options.cs
-=======
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding13 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_printerInstalled"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, new Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF("and", 1));
             this.m_Button5.DataBindings.Add(dynamicBinding13);
             this.m_DynamicBindings.Add(dynamicBinding13);
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding14 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeVerifierInstalled"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, new Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF("and1", 1));
             this.m_Button6.DataBindings.Add(dynamicBinding14);
             this.m_DynamicBindings.Add(dynamicBinding14);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Options.cs
         }
     }
 }

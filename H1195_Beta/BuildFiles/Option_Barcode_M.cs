@@ -28,70 +28,28 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text5;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle1;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle2;
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle4;
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle5;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle6;
-        
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text2;
         
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle7;
-        
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text3;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle8;
-        
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text4;
-        
-=======
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text2;
-        
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text1;
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle10;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text6;
-        
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle11;
         
-        private Neo.ApplicationFramework.Controls.Controls.AnalogNumeric m_AnalogNumeric;
-        
-        private Neo.ApplicationFramework.Controls.Controls.AnalogNumeric m_AnalogNumeric1;
-        
-=======
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle11;
-        
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         private Neo.ApplicationFramework.Controls.Controls.AnalogNumeric m_AnalogNumeric3;
         
         private Neo.ApplicationFramework.Controls.Controls.AnalogNumeric m_AnalogNumeric4;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        private Neo.ApplicationFramework.Controls.Controls.AnalogNumeric m_AnalogNumeric5;
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         private Neo.ApplicationFramework.Controls.Controls.Button m_Button1;
         
         private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture;
         
         private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture1;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-=======
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle2;
         
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text3;
@@ -122,7 +80,6 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.GroupCF m_Group2;
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         private bool m_Initialized_Option_Barcode_M;
         
         private Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF brushdynamicsconvertercf1;
@@ -154,27 +111,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle1 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle1);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle2 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle2);
-            }
-        }
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle4 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle4);
@@ -187,48 +123,12 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle6 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle6);
-            }
-        }
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text2 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text2);
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle7 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle7);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text3 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text3);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle8 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle8);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text4 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text4);
-            }
-        }
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text1 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text1);
@@ -241,36 +141,12 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text6 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text6);
-            }
-        }
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle11 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle11);
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        protected Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter AnalogNumeric {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter>(this.m_AnalogNumeric);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter AnalogNumeric1 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter>(this.m_AnalogNumeric1);
-            }
-        }
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         protected Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter AnalogNumeric3 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter>(this.m_AnalogNumeric3);
@@ -283,15 +159,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-        protected Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter AnalogNumeric5 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.AnalogNumericCFAdapter>(this.m_AnalogNumeric5);
-            }
-        }
-        
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         protected Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter Button1 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter>(this.m_Button1);
@@ -310,8 +177,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-=======
         protected Neo.ApplicationFramework.Controls.Script.GroupCFAdapter Group {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.GroupCFAdapter>(this.m_Group);
@@ -402,7 +267,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         private void InitializeComponent() {
             this.brushdynamicsconvertercf2 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
             this.brushdynamicsconvertercf1 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
@@ -427,46 +291,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle3 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text5 = new Neo.ApplicationFramework.Controls.Controls.Label();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            this.m_Rectangle = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle1 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle2 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle4 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle5 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle6 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Text2 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Rectangle7 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Text3 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Rectangle8 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Text4 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Text1 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Rectangle10 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Text6 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Rectangle11 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_AnalogNumeric = new Neo.ApplicationFramework.Controls.Controls.AnalogNumeric();
-            this.m_AnalogNumeric1 = new Neo.ApplicationFramework.Controls.Controls.AnalogNumeric();
-            this.m_AnalogNumeric3 = new Neo.ApplicationFramework.Controls.Controls.AnalogNumeric();
-            this.m_AnalogNumeric4 = new Neo.ApplicationFramework.Controls.Controls.AnalogNumeric();
-            this.m_AnalogNumeric5 = new Neo.ApplicationFramework.Controls.Controls.AnalogNumeric();
-            this.m_Button1 = new Neo.ApplicationFramework.Controls.Controls.Button();
-            this.m_MultiPicture = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture1 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture1)).BeginInit();
-=======
             this.m_Rectangle4 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle5 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Text2 = new Neo.ApplicationFramework.Controls.Controls.Label();
@@ -511,7 +335,6 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_Text4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group2)).BeginInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             this.SuspendLayout();
             // 
             // Option_Barcode_M
@@ -579,11 +402,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 14;
             this.m_Text5.Height = 50;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            this.m_Text5.Left = 428;
-=======
             this.m_Text5.Left = 408;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Option_Barcode_M";
@@ -599,59 +418,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.TextVerticalAlignment = "Center";
             this.m_Text5.Top = 3;
             this.m_Text5.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            this.m_Text5.Width = 50;
-            // 
-            // m_Rectangle
-            // 
-            this.m_Rectangle.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle.BlinkDynamicsValue = false;
-            this.m_Rectangle.DelayMouseInputPeriod = 0;
-            this.m_Rectangle.EnabledDynamicsValue = true;
-            this.m_Rectangle.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle.Height = 24;
-            this.m_Rectangle.Left = 87;
-            this.m_Rectangle.Name = "m_Rectangle";
-            this.m_Rectangle.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Rectangle.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle.Top = 65;
-            this.m_Rectangle.VisibleDynamicsValue = true;
-            this.m_Rectangle.Width = 260;
-            // 
-            // m_Rectangle1
-            // 
-            this.m_Rectangle1.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle1.BlinkDynamicsValue = false;
-            this.m_Rectangle1.DelayMouseInputPeriod = 0;
-            this.m_Rectangle1.EnabledDynamicsValue = true;
-            this.m_Rectangle1.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle1.Height = 24;
-            this.m_Rectangle1.Left = 87;
-            this.m_Rectangle1.Name = "m_Rectangle1";
-            this.m_Rectangle1.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Rectangle1.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle1.Top = 93;
-            this.m_Rectangle1.VisibleDynamicsValue = true;
-            this.m_Rectangle1.Width = 260;
-            // 
-            // m_Rectangle2
-            // 
-            this.m_Rectangle2.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle2.BlinkDynamicsValue = false;
-            this.m_Rectangle2.DelayMouseInputPeriod = 0;
-            this.m_Rectangle2.EnabledDynamicsValue = true;
-            this.m_Rectangle2.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle2.Height = 24;
-            this.m_Rectangle2.Left = 87;
-            this.m_Rectangle2.Name = "m_Rectangle2";
-            this.m_Rectangle2.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Rectangle2.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle2.Top = 122;
-            this.m_Rectangle2.VisibleDynamicsValue = true;
-            this.m_Rectangle2.Width = 260;
-=======
             this.m_Text5.Width = 70;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             // 
             // m_Rectangle4
             // 
@@ -685,25 +452,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle5.VisibleDynamicsValue = true;
             this.m_Rectangle5.Width = 260;
             // 
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            // m_Rectangle6
-            // 
-            this.m_Rectangle6.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle6.BlinkDynamicsValue = false;
-            this.m_Rectangle6.DelayMouseInputPeriod = 0;
-            this.m_Rectangle6.EnabledDynamicsValue = true;
-            this.m_Rectangle6.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle6.Height = 24;
-            this.m_Rectangle6.Left = 290;
-            this.m_Rectangle6.Name = "m_Rectangle6";
-            this.m_Rectangle6.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Rectangle6.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle6.Top = 65;
-            this.m_Rectangle6.VisibleDynamicsValue = true;
-            this.m_Rectangle6.Width = 57;
-            // 
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             // m_Text2
             // 
             this.m_Text2.AutoSize = false;
@@ -722,77 +470,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.VisibleDynamicsValue = true;
             this.m_Text2.Width = 204;
             // 
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            // m_Rectangle7
-            // 
-            this.m_Rectangle7.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle7.BlinkDynamicsValue = false;
-            this.m_Rectangle7.DelayMouseInputPeriod = 0;
-            this.m_Rectangle7.EnabledDynamicsValue = true;
-            this.m_Rectangle7.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle7.Height = 24;
-            this.m_Rectangle7.Left = 290;
-            this.m_Rectangle7.Name = "m_Rectangle7";
-            this.m_Rectangle7.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Rectangle7.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle7.Top = 93;
-            this.m_Rectangle7.VisibleDynamicsValue = true;
-            this.m_Rectangle7.Width = 57;
-            // 
-            // m_Text3
-            // 
-            this.m_Text3.AutoSize = false;
-            this.m_Text3.BlinkDynamicsValue = false;
-            this.m_Text3.Bold = true;
-            this.m_Text3.DelayMouseInputPeriod = 0;
-            this.m_Text3.EnabledDynamicsValue = true;
-            this.m_Text3.FontSizePixels = 10;
-            this.m_Text3.Height = 24;
-            this.m_Text3.Left = 87;
-            this.m_Text3.Name = "m_Text3";
-            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text3.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Text3.TextVerticalAlignment = "Center";
-            this.m_Text3.Top = 122;
-            this.m_Text3.VisibleDynamicsValue = true;
-            this.m_Text3.Width = 204;
-            // 
-            // m_Rectangle8
-            // 
-            this.m_Rectangle8.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle8.BlinkDynamicsValue = false;
-            this.m_Rectangle8.DelayMouseInputPeriod = 0;
-            this.m_Rectangle8.EnabledDynamicsValue = true;
-            this.m_Rectangle8.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle8.Height = 24;
-            this.m_Rectangle8.Left = 290;
-            this.m_Rectangle8.Name = "m_Rectangle8";
-            this.m_Rectangle8.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Rectangle8.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle8.Top = 122;
-            this.m_Rectangle8.VisibleDynamicsValue = true;
-            this.m_Rectangle8.Width = 57;
-            // 
-            // m_Text4
-            // 
-            this.m_Text4.AutoSize = false;
-            this.m_Text4.BlinkDynamicsValue = false;
-            this.m_Text4.Bold = true;
-            this.m_Text4.DelayMouseInputPeriod = 0;
-            this.m_Text4.EnabledDynamicsValue = true;
-            this.m_Text4.FontSizePixels = 10;
-            this.m_Text4.Height = 24;
-            this.m_Text4.Left = 87;
-            this.m_Text4.Name = "m_Text4";
-            this.m_Text4.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text4.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Text4.TextVerticalAlignment = "Center";
-            this.m_Text4.Top = 93;
-            this.m_Text4.VisibleDynamicsValue = true;
-            this.m_Text4.Width = 204;
-            // 
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             // m_Text1
             // 
             this.m_Text1.AutoSize = false;
@@ -827,27 +504,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle10.VisibleDynamicsValue = true;
             this.m_Rectangle10.Width = 57;
             // 
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            // m_Text6
-            // 
-            this.m_Text6.AutoSize = false;
-            this.m_Text6.BlinkDynamicsValue = false;
-            this.m_Text6.Bold = true;
-            this.m_Text6.DelayMouseInputPeriod = 0;
-            this.m_Text6.EnabledDynamicsValue = true;
-            this.m_Text6.FontSizePixels = 10;
-            this.m_Text6.Height = 24;
-            this.m_Text6.Left = 87;
-            this.m_Text6.Name = "m_Text6";
-            this.m_Text6.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text6.ScreenOwnerName = "Option_Barcode_M";
-            this.m_Text6.TextVerticalAlignment = "Center";
-            this.m_Text6.Top = 65;
-            this.m_Text6.VisibleDynamicsValue = true;
-            this.m_Text6.Width = 204;
-            // 
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             // m_Rectangle11
             // 
             this.m_Rectangle11.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
@@ -864,52 +520,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle11.VisibleDynamicsValue = true;
             this.m_Rectangle11.Width = 57;
             // 
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            // m_AnalogNumeric
-            // 
-            this.m_AnalogNumeric.BlinkDynamicsValue = false;
-            this.m_AnalogNumeric.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_AnalogNumeric.DelayMouseInputPeriod = 0;
-            this.m_AnalogNumeric.EnabledDynamicsValue = true;
-            this.m_AnalogNumeric.FontSizePixels = 14;
-            this.m_AnalogNumeric.Height = 18;
-            this.m_AnalogNumeric.Left = 290;
-            this.m_AnalogNumeric.LimitNumberOfCharacters = true;
-            this.m_AnalogNumeric.MaxNumberOfCharacters = 4;
-            this.m_AnalogNumeric.MaxValue = 999D;
-            this.m_AnalogNumeric.Name = "m_AnalogNumeric";
-            this.m_AnalogNumeric.NumberOfDecimals = 0;
-            this.m_AnalogNumeric.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 2D, 2D, 2D);
-            this.m_AnalogNumeric.ScreenOwnerName = "Option_Barcode_M";
-            this.m_AnalogNumeric.Top = 67;
-            this.m_AnalogNumeric.ValidateValueOnInput = true;
-            this.m_AnalogNumeric.VisibleDynamicsValue = true;
-            this.m_AnalogNumeric.Width = 57;
-            // 
-            // m_AnalogNumeric1
-            // 
-            this.m_AnalogNumeric1.BlinkDynamicsValue = false;
-            this.m_AnalogNumeric1.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_AnalogNumeric1.DelayMouseInputPeriod = 0;
-            this.m_AnalogNumeric1.DisplayFormat = Neo.ApplicationFramework.Interfaces.AnalogNumericDisplayFormat.Decimal;
-            this.m_AnalogNumeric1.EnabledDynamicsValue = true;
-            this.m_AnalogNumeric1.FontSizePixels = 14;
-            this.m_AnalogNumeric1.Height = 18;
-            this.m_AnalogNumeric1.Left = 290;
-            this.m_AnalogNumeric1.LimitNumberOfCharacters = true;
-            this.m_AnalogNumeric1.MaxNumberOfCharacters = 5;
-            this.m_AnalogNumeric1.MaxValue = 32D;
-            this.m_AnalogNumeric1.Name = "m_AnalogNumeric1";
-            this.m_AnalogNumeric1.NumberOfDecimals = 2;
-            this.m_AnalogNumeric1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 2D, 2D, 2D);
-            this.m_AnalogNumeric1.ScreenOwnerName = "Option_Barcode_M";
-            this.m_AnalogNumeric1.Top = 95;
-            this.m_AnalogNumeric1.ValidateValueOnInput = true;
-            this.m_AnalogNumeric1.VisibleDynamicsValue = true;
-            this.m_AnalogNumeric1.Width = 57;
-            // 
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             // m_AnalogNumeric3
             // 
             this.m_AnalogNumeric3.BlinkDynamicsValue = false;
@@ -949,30 +559,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric4.VisibleDynamicsValue = true;
             this.m_AnalogNumeric4.Width = 57;
             // 
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            // m_AnalogNumeric5
-            // 
-            this.m_AnalogNumeric5.BlinkDynamicsValue = false;
-            this.m_AnalogNumeric5.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_AnalogNumeric5.DelayMouseInputPeriod = 0;
-            this.m_AnalogNumeric5.DisplayFormat = Neo.ApplicationFramework.Interfaces.AnalogNumericDisplayFormat.Decimal;
-            this.m_AnalogNumeric5.EnabledDynamicsValue = true;
-            this.m_AnalogNumeric5.FontSizePixels = 14;
-            this.m_AnalogNumeric5.Height = 18;
-            this.m_AnalogNumeric5.Left = 290;
-            this.m_AnalogNumeric5.LimitNumberOfCharacters = true;
-            this.m_AnalogNumeric5.MaxNumberOfCharacters = 5;
-            this.m_AnalogNumeric5.MaxValue = 32D;
-            this.m_AnalogNumeric5.Name = "m_AnalogNumeric5";
-            this.m_AnalogNumeric5.NumberOfDecimals = 2;
-            this.m_AnalogNumeric5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 2D, 2D, 2D);
-            this.m_AnalogNumeric5.ScreenOwnerName = "Option_Barcode_M";
-            this.m_AnalogNumeric5.Top = 124;
-            this.m_AnalogNumeric5.VisibleDynamicsValue = true;
-            this.m_AnalogNumeric5.Width = 57;
-            // 
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             // m_Button1
             // 
             this.m_Button1.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(192)))), ((int)(((byte)(192))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
@@ -984,11 +570,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.EnabledDynamicsValue = true;
             this.m_Button1.FontSizePixels = 15;
             this.m_Button1.ForceTransparency = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            this.m_Button1.Height = 51;
-=======
             this.m_Button1.Height = 63;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             this.m_Button1.IndicatorMargin = null;
             this.m_Button1.Left = 354;
             this.m_Button1.MultiLine = true;
@@ -996,16 +578,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_Barcode_M";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper1;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            this.m_Button1.TextHeight = 18;
-            this.m_Button1.TextValue = 0D;
-            this.m_Button1.TextWidth = 109;
-            this.m_Button1.Top = 170;
-            this.m_Button1.Value = 0D;
-            this.m_Button1.VisibleDynamicsValue = true;
-            this.m_Button1.VisualPropertiesHashCode = 417856808;
-            this.m_Button1.Width = 119;
-=======
             this.m_Button1.TextHeight = 37;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 109;
@@ -1015,7 +587,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.VisualPropertiesHashCode = 725384352;
             this.m_Button1.Width = 119;
             this.m_Button1.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             // 
             // m_MultiPicture
             // 
@@ -1070,8 +641,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture1.Value = 0D;
             this.m_MultiPicture1.VisibleDynamicsValue = true;
             this.m_MultiPicture1.Width = 20;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-=======
             // 
             // m_Rectangle2
             // 
@@ -1344,7 +913,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Group2.Top = 93;
             this.m_Group2.VisibleDynamicsValue = true;
             this.m_Group2.Width = 260;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -1403,46 +971,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.DrawingPrimitives.Add(this.m_Rectangle3);
             this.DrawingPrimitives.Add(this.m_Text);
             this.DrawingPrimitives.Add(this.m_Text5);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            this.DrawingPrimitives.Add(this.m_Rectangle);
-            this.DrawingPrimitives.Add(this.m_Rectangle1);
-            this.DrawingPrimitives.Add(this.m_Rectangle2);
-            this.DrawingPrimitives.Add(this.m_Rectangle4);
-            this.DrawingPrimitives.Add(this.m_Rectangle5);
-            this.DrawingPrimitives.Add(this.m_Rectangle6);
-            this.DrawingPrimitives.Add(this.m_Text2);
-            this.DrawingPrimitives.Add(this.m_Rectangle7);
-            this.DrawingPrimitives.Add(this.m_Text3);
-            this.DrawingPrimitives.Add(this.m_Rectangle8);
-            this.DrawingPrimitives.Add(this.m_Text4);
-            this.DrawingPrimitives.Add(this.m_Text1);
-            this.DrawingPrimitives.Add(this.m_Rectangle10);
-            this.DrawingPrimitives.Add(this.m_Text6);
-            this.DrawingPrimitives.Add(this.m_Rectangle11);
-            this.DrawingPrimitives.Add(this.m_AnalogNumeric);
-            this.DrawingPrimitives.Add(this.m_AnalogNumeric1);
-            this.DrawingPrimitives.Add(this.m_AnalogNumeric3);
-            this.DrawingPrimitives.Add(this.m_AnalogNumeric4);
-            this.DrawingPrimitives.Add(this.m_AnalogNumeric5);
-            this.DrawingPrimitives.Add(this.m_Button1);
-            this.DrawingPrimitives.Add(this.m_MultiPicture);
-            this.DrawingPrimitives.Add(this.m_MultiPicture1);
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture1)).EndInit();
-=======
             this.DrawingPrimitives.Add(this.m_Rectangle4);
             this.DrawingPrimitives.Add(this.m_Rectangle5);
             this.DrawingPrimitives.Add(this.m_Text2);
@@ -1487,7 +1015,6 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_Text4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group2)).EndInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
         }
         
         private void m_Text5_Action_MouseDown(object sender, System.EventArgs e) {
@@ -1505,21 +1032,12 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Option_Barcode_M));
             this.m_Text.Text = resources.GetText("Option_Barcode_M.Text.Text", "Barcode Verifier");
             this.m_Text5.Text = resources.GetText("Option_Barcode_M.Text5.Text", "ON");
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            this.m_Text2.Text = resources.GetText("Option_Barcode_M.Text2.Text", "    Good Read");
-            this.m_Text3.Text = resources.GetText("Option_Barcode_M.Text3.Text", "    Scanning Distance (mm)");
-            this.m_Text4.Text = resources.GetText("Option_Barcode_M.Text4.Text", "    Start Scanning Offset  (mm)");
-            this.m_Text1.Text = resources.GetText("Option_Barcode_M.Text1.Text", "    Bad/No Read");
-            this.m_Text6.Text = resources.GetText("Option_Barcode_M.Text6.Text", "   Bad Read Fault Count");
-            this.m_Button1.Text = resources.GetText("Option_Barcode_M.Button1.Text", "Trigger BCV");
-=======
             this.m_Text2.Text = resources.GetText("Option_Barcode_M.Text2.Text", "Good Read");
             this.m_Text3.Text = resources.GetText("Option_Barcode_M.Text3.Text", "Scanning Distance (mm)");
             this.m_Text4.Text = resources.GetText("Option_Barcode_M.Text4.Text", "Start Scanning Offset (mm)");
             this.m_Text1.Text = resources.GetText("Option_Barcode_M.Text1.Text", "Bad/No Read");
             this.m_Text6.Text = resources.GetText("Option_Barcode_M.Text6.Text", "Bad Read Fault Count ");
             this.m_Button1.Text = resources.GetText("Option_Barcode_M.Button1.Text", "Trigger BCD\r\nVerifier");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             resources.ApplyTexts(this.m_Text5, "Texts", "Option_Barcode_M.Text5.Texts[0]", "OFF", "Option_Barcode_M.Text5.Texts[1]", "ON");
             this.ApplyResourcesOnForm();
         }
@@ -1560,19 +1078,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding3 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Foreground", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeVerifierInUse"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf2);
             this.m_Text5.DataBindings.Add(dynamicBinding3);
             this.m_DynamicBindings.Add(dynamicBinding3);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeBadReadFaultSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric.DataBindings.Add(dynamicBinding4);
-            this.m_DynamicBindings.Add(dynamicBinding4);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding5 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeStartPosition"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric1.DataBindings.Add(dynamicBinding5);
-            this.m_DynamicBindings.Add(dynamicBinding5);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding6 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeGoodReadCount"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric3.DataBindings.Add(dynamicBinding6);
-            this.m_DynamicBindings.Add(dynamicBinding6);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeBadReadCount"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric4.DataBindings.Add(dynamicBinding7);
-=======
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeGoodReadCount"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_AnalogNumeric3.DataBindings.Add(dynamicBinding4);
             this.m_DynamicBindings.Add(dynamicBinding4);
@@ -1584,24 +1089,15 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_DynamicBindings.Add(dynamicBinding6);
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeReadBadIndication"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_MultiPicture1.DataBindings.Add(dynamicBinding7);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             this.m_DynamicBindings.Add(dynamicBinding7);
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding8 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeStartPosition"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_AnalogNumeric5.DataBindings.Add(dynamicBinding8);
             this.m_DynamicBindings.Add(dynamicBinding8);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_Barcode_M.cs
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding9 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeReadGoodIndication"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture.DataBindings.Add(dynamicBinding9);
-            this.m_DynamicBindings.Add(dynamicBinding9);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding10 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeReadBadIndication"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture1.DataBindings.Add(dynamicBinding10);
-=======
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding9 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeBadReadFaultSetting"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_AnalogNumeric.DataBindings.Add(dynamicBinding9);
             this.m_DynamicBindings.Add(dynamicBinding9);
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding10 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_barcodeStartPosition"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_AnalogNumeric1.DataBindings.Add(dynamicBinding10);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_Barcode_M.cs
             this.m_DynamicBindings.Add(dynamicBinding10);
         }
     }

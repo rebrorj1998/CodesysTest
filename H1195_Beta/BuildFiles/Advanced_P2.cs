@@ -168,11 +168,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P2.cs
-            this.m_Text.Height = 21;
-=======
             this.m_Text.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P2.cs
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -181,11 +177,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P2.cs
-            this.m_Text.Width = 54;
-=======
             this.m_Text.Width = 105;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P2.cs
             // 
             // m_Text1
             // 
@@ -194,26 +186,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P2.cs
-            this.m_Text1.Height = 21;
-=======
             this.m_Text1.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P2.cs
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text1.ScreenOwnerName = "Advanced_P2";
             this.m_Text1.TextHorizontalAlignment = "Center";
             this.m_Text1.TextVerticalAlignment = "Center";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P2.cs
-            this.m_Text1.Top = 25;
-            this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
-=======
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
             this.m_Text1.Width = 33;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P2.cs
             // 
             // m_Button
             // 

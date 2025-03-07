@@ -266,11 +266,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Faults.cs
-            this.m_Text.Height = 21;
-=======
             this.m_Text.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Faults.cs
             this.m_Text.Left = 201;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -279,11 +275,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 1;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Faults.cs
-            this.m_Text.Width = 92;
-=======
             this.m_Text.Width = 146;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Faults.cs
             // 
             // m_AnalogNumeric1
             // 

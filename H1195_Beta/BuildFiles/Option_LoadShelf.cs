@@ -343,11 +343,7 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Option_LoadShelf));
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_LoadShelf.cs
-            this.m_Text6.Text = resources.GetText("Option_LoadShelf.Text6.Text", "    Dwell (sec.)");
-=======
             this.m_Text6.Text = resources.GetText("Option_LoadShelf.Text6.Text", "Dwell (sec.)");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_LoadShelf.cs
             this.m_Text.Text = resources.GetText("Option_LoadShelf.Text.Text", "Retracting Load Plate");
             this.m_Text5.Text = resources.GetText("Option_LoadShelf.Text5.Text", "ON");
             resources.ApplyTexts(this.m_Text5, "Texts", "Option_LoadShelf.Text5.Texts[0]", "OFF", "Option_LoadShelf.Text5.Texts[1]", "ON");

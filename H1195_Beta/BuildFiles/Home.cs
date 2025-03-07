@@ -32,11 +32,8 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.Button m_Button10;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
         private Neo.ApplicationFramework.Controls.Controls.Button m_Button;
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
         private bool m_Initialized_Home;
         
         public Home() {
@@ -46,10 +43,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.Click += new System.EventHandler(this.m_Button3_Action_Click);
             this.m_Button8.Click += new System.EventHandler(this.m_Button8_Action_Click);
             this.m_Button10.Click += new System.EventHandler(this.m_Button10_Action_Click);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             this.m_Button.Click += new System.EventHandler(this.m_Button_Action_Click);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.ApplyLanguageInitialize();
         }
         
@@ -83,43 +77,31 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
         protected Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter Button {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter>(this.m_Button);
             }
         }
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
         private void InitializeComponent() {
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper2 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper3 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper4 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper5 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper6 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.m_Button4 = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button2 = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button3 = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button8 = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button10 = new Neo.ApplicationFramework.Controls.Controls.Button();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             this.m_Button = new Neo.ApplicationFramework.Controls.Controls.Button();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             ((System.ComponentModel.ISupportInitialize)(this.m_Button4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button10)).BeginInit();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             ((System.ComponentModel.ISupportInitialize)(this.m_Button)).BeginInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.SuspendLayout();
             // 
             // Home
@@ -145,11 +127,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.RequiresTransparency = true;
             this.m_Button4.ScreenOwnerName = "Home";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper1;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-            this.m_Button4.TextHeight = 18;
-=======
             this.m_Button4.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 167;
             this.m_Button4.Top = 85;
@@ -176,11 +154,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Home";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper2;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-            this.m_Button2.TextHeight = 18;
-=======
             this.m_Button2.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 167;
             this.m_Button2.Top = 20;
@@ -202,20 +176,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.ForceTransparency = true;
             this.m_Button3.Height = 51;
             this.m_Button3.IndicatorMargin = null;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-            this.m_Button3.Left = 286;
-=======
             this.m_Button3.Left = 285;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.m_Button3.Name = "m_Button3";
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Home";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper3;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-            this.m_Button3.TextHeight = 18;
-=======
             this.m_Button3.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.m_Button3.TextValue = 0D;
             this.m_Button3.TextWidth = 167;
             this.m_Button3.Top = 20;
@@ -242,11 +208,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button8.RequiresTransparency = true;
             this.m_Button8.ScreenOwnerName = "Home";
             this.m_Button8.SymbolIntervalMapper = symbolintervalmapper4;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-            this.m_Button8.TextHeight = 18;
-=======
             this.m_Button8.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.m_Button8.TextValue = 0D;
             this.m_Button8.TextWidth = 167;
             this.m_Button8.Top = 85;
@@ -273,11 +235,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button10.RequiresTransparency = true;
             this.m_Button10.ScreenOwnerName = "Home";
             this.m_Button10.SymbolIntervalMapper = symbolintervalmapper5;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-            this.m_Button10.TextHeight = 18;
-=======
             this.m_Button10.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.m_Button10.TextValue = 0D;
             this.m_Button10.TextWidth = 167;
             this.m_Button10.Top = 149;
@@ -285,8 +243,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button10.VisibleDynamicsValue = true;
             this.m_Button10.VisualPropertiesHashCode = -951133789;
             this.m_Button10.Width = 177;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             // 
             // m_Button
             // 
@@ -314,7 +270,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.VisibleDynamicsValue = true;
             this.m_Button.VisualPropertiesHashCode = -951133789;
             this.m_Button.Width = 177;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -336,11 +291,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.SecurityExtender.SetVisibilityOnAccessDenied(this.m_Button3, VisibilityModes.Disabled);
             this.SecurityExtender.SetSecurityGroupsRequired(this.m_Button8, SecurityGroups.Group_01 | SecurityGroups.Group_02 | SecurityGroups.Group_03);
             this.SecurityExtender.SetSecurityGroupsRequired(this.m_Button10, SecurityGroups.Group_01 | SecurityGroups.Group_03);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             this.SecurityExtender.SetSecurityGroupsRequired(this.m_Button, SecurityGroups.Group_01 | SecurityGroups.Group_02 | SecurityGroups.Group_03);
             this.SecurityExtender.SetVisibilityOnAccessDenied(this.m_Button, VisibilityModes.Disabled);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
         }
         
         protected override Neo.ApplicationFramework.Common.Alias.Entities.AliasInstancesCF CreateInstanceData() {
@@ -387,19 +339,13 @@ namespace Neo.ApplicationFramework.Generated {
             this.DrawingPrimitives.Add(this.m_Button3);
             this.DrawingPrimitives.Add(this.m_Button8);
             this.DrawingPrimitives.Add(this.m_Button10);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             this.DrawingPrimitives.Add(this.m_Button);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             ((System.ComponentModel.ISupportInitialize)(this.m_Button4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button10)).EndInit();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             ((System.ComponentModel.ISupportInitialize)(this.m_Button)).EndInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
         }
         
         private void m_Button4_Action_Click(object sender, System.EventArgs e) {
@@ -427,14 +373,11 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Generated.Globals.Service_P1.Show();
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
         private void m_Button_Action_Click(object sender, System.EventArgs e) {
             Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button", "Click", "Show Screen", "Settings_P1_M", "Default", "");
             Neo.ApplicationFramework.Generated.Globals.Settings_P1_M.Show();
         }
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Home));
@@ -443,10 +386,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button10.Text = resources.GetText("Home.Button10.Text", "Service");
             this.m_Button4.Text = resources.GetText("Home.Button4.Text", "IO");
             this.m_Button2.Text = resources.GetText("Home.Button2.Text", "Settings");
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             this.m_Button.Text = resources.GetText("Home.Button.Text", "Settings");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
             this.ApplyResourcesOnForm();
         }
         
@@ -477,15 +417,12 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override void ConnectDataBindings() {
             base.ConnectDataBindings();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Home.cs
-=======
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_HMIMetric"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueZero);
             this.m_Button2.DataBindings.Add(dynamicBinding1);
             this.m_DynamicBindings.Add(dynamicBinding1);
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_HMIMetric"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
             this.m_Button.DataBindings.Add(dynamicBinding2);
             this.m_DynamicBindings.Add(dynamicBinding2);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Home.cs
         }
     }
 }

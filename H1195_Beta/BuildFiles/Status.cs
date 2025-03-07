@@ -400,11 +400,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text24.TextVerticalAlignment = "Center";
             this.m_Text24.Top = 6;
             this.m_Text24.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Status.cs
-            this.m_Text24.Width = 82;
-=======
             this.m_Text24.Width = 121;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Status.cs
             // 
             // m_Button2
             // 

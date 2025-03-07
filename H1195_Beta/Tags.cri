@@ -1098,10 +1098,7 @@
         <Item Target="Tags" TargetProperty="Application_GlobalObjects_CollectionOfComponents_Ready_8" Source="Controller1.DataItem1226" />
         <Item Target="Tags" TargetProperty="Application_GlobalObjects_CollectionOfComponents_Ready_9" Source="Controller1.DataItem1227" />
         <Item Target="Tags" TargetProperty="Application_HMIData_HMIMetric" Source="Controller1.DataItem540" />
-<<<<<<< HEAD:1195 HMI/Tags.cri
-=======
         <Item Target="Tags" TargetProperty="Application_HMIData_lightCurtainInstalled" Source="Controller1.DataItem541" />
->>>>>>> testing/metric:H1195_Beta/Tags.cri
       </Items>
     </Category>
     <Category Name="InvalidAction">
@@ -1152,10 +1149,10 @@
     <Category Name="MultipleLanguage">
       <Items>
         <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="0 Default" Event="ValueChange" Action="Set Language" Param="" />
-        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="1 French (France)" Event="ValueChange" Action="Set Language" Param="" />
-        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="2 German (Germany)" Event="ValueChange" Action="Set Language" Param="" />
-        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="3 Dutch (Netherlands)" Event="ValueChange" Action="Set Language" Param="" />
-        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="4 Spanish (Latin America)" Event="ValueChange" Action="Set Language" Param="" />
+        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="0 Default" Event="ValueChange" Action="Set Language" Param="" />
+        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="1 French" Event="ValueChange" Action="Set Language" Param="" />
+        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="2 Dutch" Event="ValueChange" Action="Set Language" Param="" />
+        <Item xsi:type="ActionItem" Target="Tags.Language_Selector" TargetProperty="Action" Source="3 German" Event="ValueChange" Action="Set Language" Param="" />
       </Items>
     </Category>
     <Category Name="Recipe">

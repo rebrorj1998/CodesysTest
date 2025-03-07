@@ -134,11 +134,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-            this.m_Text.Height = 21;
-=======
             this.m_Text.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             this.m_Text.Left = 204;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -147,11 +143,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-            this.m_Text.Width = 89;
-=======
             this.m_Text.Width = 211;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             // 
             // m_Button4
             // 
@@ -178,11 +170,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.RequiresTransparency = true;
             this.m_Button4.ScreenOwnerName = "Admin";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper1;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-            this.m_Button4.TextHeight = 36;
-=======
             this.m_Button4.TextHeight = 37;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 190;
             this.m_Button4.Top = 101;
@@ -190,10 +178,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.VisibleDynamicsValue = true;
             this.m_Button4.VisualPropertiesHashCode = 1222041839;
             this.m_Button4.Width = 200;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-=======
             this.m_Button4.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             // 
             // m_Button2
             // 
@@ -219,11 +204,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Admin";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper2;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-            this.m_Button2.TextHeight = 18;
-=======
             this.m_Button2.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 190;
             this.m_Button2.Top = 41;
@@ -257,11 +238,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Admin";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper3;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-            this.m_Button3.TextHeight = 36;
-=======
             this.m_Button3.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             this.m_Button3.TextValue = 0D;
             this.m_Button3.TextWidth = 190;
             this.m_Button3.Top = 41;
@@ -269,10 +246,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.VisibleDynamicsValue = true;
             this.m_Button3.VisualPropertiesHashCode = 1222041839;
             this.m_Button3.Width = 200;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-=======
             this.m_Button3.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             // 
             // m_Button8
             // 
@@ -299,11 +273,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button8.RequiresTransparency = true;
             this.m_Button8.ScreenOwnerName = "Admin";
             this.m_Button8.SymbolIntervalMapper = symbolintervalmapper4;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-            this.m_Button8.TextHeight = 36;
-=======
             this.m_Button8.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             this.m_Button8.TextValue = 0D;
             this.m_Button8.TextWidth = 190;
             this.m_Button8.Top = 101;
@@ -311,10 +281,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button8.VisibleDynamicsValue = true;
             this.m_Button8.VisualPropertiesHashCode = 1222041839;
             this.m_Button8.Width = 200;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-=======
             this.m_Button8.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             // 
             // m_Button
             // 
@@ -335,11 +302,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Admin";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper5;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-            this.m_Button.TextHeight = 36;
-=======
             this.m_Button.TextHeight = 37;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 190;
             this.m_Button.Top = 171;
@@ -347,10 +310,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.VisibleDynamicsValue = true;
             this.m_Button.VisualPropertiesHashCode = 1222041839;
             this.m_Button.Width = 200;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Admin.cs
-=======
             this.m_Button.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Admin.cs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;

@@ -338,11 +338,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text.Height = 21;
-=======
             this.m_Text.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -351,11 +347,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text.Width = 54;
-=======
             this.m_Text.Width = 105;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             // 
             // m_Text1
             // 
@@ -364,26 +356,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text1.Height = 21;
-=======
             this.m_Text1.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text1.ScreenOwnerName = "Advanced_P1";
             this.m_Text1.TextHorizontalAlignment = "Center";
             this.m_Text1.TextVerticalAlignment = "Center";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text1.Top = 25;
-            this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
-=======
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
             this.m_Text1.Width = 33;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             // 
             // m_Button
             // 
@@ -446,11 +428,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.ScreenOwnerName = "Advanced_P1";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button1.TextValue = 0D;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Button1.TextWidth = 122;
-=======
             this.m_Button1.TextWidth = 130;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Button1.Top = 58;
             this.m_Button1.Value = 0D;
             this.m_Button1.VisibleDynamicsValue = true;
@@ -502,20 +480,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle.DelayMouseInputPeriod = 0;
             this.m_Rectangle.EnabledDynamicsValue = true;
             this.m_Rectangle.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Rectangle.Height = 24;
-=======
             this.m_Rectangle.Height = 34;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Rectangle.Left = 277;
             this.m_Rectangle.Name = "m_Rectangle";
             this.m_Rectangle.ScreenOwnerName = "Advanced_P1";
             this.m_Rectangle.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Rectangle.Top = 175;
-=======
             this.m_Rectangle.Top = 170;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Rectangle.VisibleDynamicsValue = true;
             this.m_Rectangle.Width = 104;
             // 
@@ -526,20 +496,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle1.DelayMouseInputPeriod = 0;
             this.m_Rectangle1.EnabledDynamicsValue = true;
             this.m_Rectangle1.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Rectangle1.Height = 24;
-=======
             this.m_Rectangle1.Height = 34;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Rectangle1.Left = 380;
             this.m_Rectangle1.Name = "m_Rectangle1";
             this.m_Rectangle1.ScreenOwnerName = "Advanced_P1";
             this.m_Rectangle1.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Rectangle1.Top = 175;
-=======
             this.m_Rectangle1.Top = 170;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Rectangle1.VisibleDynamicsValue = true;
             this.m_Rectangle1.Width = 72;
             // 
@@ -551,28 +513,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.DelayMouseInputPeriod = 0;
             this.m_Text2.EnabledDynamicsValue = true;
             this.m_Text2.FontSizePixels = 10;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text2.Height = 24;
-=======
             this.m_Text2.Height = 34;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Text2.Left = 277;
             this.m_Text2.Name = "m_Text2";
             this.m_Text2.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text2.ScreenOwnerName = "Advanced_P1";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text2.TextHorizontalAlignment = "Center";
-            this.m_Text2.TextVerticalAlignment = "Center";
-            this.m_Text2.Top = 175;
-            this.m_Text2.VisibleDynamicsValue = true;
-            this.m_Text2.Width = 104;
-=======
             this.m_Text2.TextVerticalAlignment = "Center";
             this.m_Text2.Top = 170;
             this.m_Text2.VisibleDynamicsValue = true;
             this.m_Text2.Width = 104;
             this.m_Text2.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             // 
             // m_AnalogNumeric
             // 
@@ -601,22 +551,14 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
             this.m_Text3.FontSizePixels = 10;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text3.Height = 21;
-=======
             this.m_Text3.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Text3.Left = 275;
             this.m_Text3.Name = "m_Text3";
             this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text3.ScreenOwnerName = "Advanced_P1";
             this.m_Text3.Top = 209;
             this.m_Text3.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text3.Width = 32;
-=======
             this.m_Text3.Width = 55;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             // 
             // m_Text4
             // 
@@ -643,27 +585,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.DelayMouseInputPeriod = 0;
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 10;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text5.Height = 21;
-            this.m_Text5.Left = 188;
-=======
             this.m_Text5.Height = 28;
             this.m_Text5.Left = 238;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Advanced_P1";
             this.m_Text5.TextHorizontalAlignment = "Center";
             this.m_Text5.TextVerticalAlignment = "Center";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text5.Top = 39;
-            this.m_Text5.VisibleDynamicsValue = true;
-            this.m_Text5.Width = 37;
-=======
             this.m_Text5.Top = 45;
             this.m_Text5.VisibleDynamicsValue = true;
             this.m_Text5.Width = 46;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             // 
             // m_MultiPicture
             // 
@@ -671,11 +602,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture.DelayMouseInputPeriod = 0;
             this.m_MultiPicture.EnabledDynamicsValue = true;
             this.m_MultiPicture.Height = 20;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture.Left = 195;
-=======
             this.m_MultiPicture.Left = 247;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture.Name = "m_MultiPicture";
             this.m_MultiPicture.ScreenOwnerName = "Advanced_P1";
             this.m_MultiPicture.Stretch = true;
@@ -691,11 +618,7 @@ namespace Neo.ApplicationFramework.Generated {
             symbolintervalmapper4.Intervals.Add(symbolinterval2);
             this.m_MultiPicture.SymbolIntervalMapper = symbolintervalmapper4;
             this.m_MultiPicture.SymbolName = "led_green_off";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture.Top = 57;
-=======
             this.m_MultiPicture.Top = 62;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture.Value = 0D;
             this.m_MultiPicture.VisibleDynamicsValue = true;
             this.m_MultiPicture.Width = 20;
@@ -706,11 +629,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture1.DelayMouseInputPeriod = 0;
             this.m_MultiPicture1.EnabledDynamicsValue = true;
             this.m_MultiPicture1.Height = 20;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture1.Left = 195;
-=======
             this.m_MultiPicture1.Left = 247;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture1.Name = "m_MultiPicture1";
             this.m_MultiPicture1.ScreenOwnerName = "Advanced_P1";
             this.m_MultiPicture1.Stretch = true;
@@ -726,11 +645,7 @@ namespace Neo.ApplicationFramework.Generated {
             symbolintervalmapper5.Intervals.Add(symbolinterval4);
             this.m_MultiPicture1.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_MultiPicture1.SymbolName = "led_green_off";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture1.Top = 84;
-=======
             this.m_MultiPicture1.Top = 88;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture1.Value = 0D;
             this.m_MultiPicture1.VisibleDynamicsValue = true;
             this.m_MultiPicture1.Width = 20;
@@ -741,11 +656,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture3.DelayMouseInputPeriod = 0;
             this.m_MultiPicture3.EnabledDynamicsValue = true;
             this.m_MultiPicture3.Height = 20;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture3.Left = 195;
-=======
             this.m_MultiPicture3.Left = 247;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture3.Name = "m_MultiPicture3";
             this.m_MultiPicture3.ScreenOwnerName = "Advanced_P1";
             this.m_MultiPicture3.Stretch = true;
@@ -772,11 +683,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture4.DelayMouseInputPeriod = 0;
             this.m_MultiPicture4.EnabledDynamicsValue = true;
             this.m_MultiPicture4.Height = 20;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture4.Left = 195;
-=======
             this.m_MultiPicture4.Left = 247;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture4.Name = "m_MultiPicture4";
             this.m_MultiPicture4.ScreenOwnerName = "Advanced_P1";
             this.m_MultiPicture4.Stretch = true;
@@ -803,11 +710,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture5.DelayMouseInputPeriod = 0;
             this.m_MultiPicture5.EnabledDynamicsValue = true;
             this.m_MultiPicture5.Height = 20;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture5.Left = 195;
-=======
             this.m_MultiPicture5.Left = 247;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture5.Name = "m_MultiPicture5";
             this.m_MultiPicture5.ScreenOwnerName = "Advanced_P1";
             this.m_MultiPicture5.Stretch = true;
@@ -834,11 +737,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture6.DelayMouseInputPeriod = 0;
             this.m_MultiPicture6.EnabledDynamicsValue = true;
             this.m_MultiPicture6.Height = 20;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_MultiPicture6.Left = 195;
-=======
             this.m_MultiPicture6.Left = 247;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_MultiPicture6.Name = "m_MultiPicture6";
             this.m_MultiPicture6.ScreenOwnerName = "Advanced_P1";
             this.m_MultiPicture6.Stretch = true;
@@ -861,29 +760,6 @@ namespace Neo.ApplicationFramework.Generated {
             // 
             // m_Text6
             // 
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text6.BlinkDynamicsValue = false;
-            this.m_Text6.DelayMouseInputPeriod = 0;
-            this.m_Text6.EnabledDynamicsValue = true;
-            this.m_Text6.FontSizePixels = 12;
-            this.m_Text6.Height = 21;
-            this.m_Text6.Left = 86;
-            this.m_Text6.Name = "m_Text6";
-            this.m_Text6.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
-            this.m_Text6.ScreenOwnerName = "Advanced_P1";
-            this.m_Text6.Top = 57;
-            this.m_Text6.VisibleDynamicsValue = true;
-            this.m_Text6.Width = 39;
-            // 
-            // m_Text7
-            // 
-            this.m_Text7.BlinkDynamicsValue = false;
-            this.m_Text7.DelayMouseInputPeriod = 0;
-            this.m_Text7.EnabledDynamicsValue = true;
-            this.m_Text7.FontSizePixels = 12;
-            this.m_Text7.Height = 34;
-            this.m_Text7.Left = 86;
-=======
             this.m_Text6.AutoSize = false;
             this.m_Text6.BlinkDynamicsValue = false;
             this.m_Text6.Bold = true;
@@ -909,40 +785,10 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text7.FontSizePixels = 12;
             this.m_Text7.Height = 22;
             this.m_Text7.Left = 82;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Text7.MultiLine = true;
             this.m_Text7.Name = "m_Text7";
             this.m_Text7.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
             this.m_Text7.ScreenOwnerName = "Advanced_P1";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text7.Top = 84;
-            this.m_Text7.VisibleDynamicsValue = true;
-            this.m_Text7.Width = 84;
-            // 
-            // m_Text8
-            // 
-            this.m_Text8.BlinkDynamicsValue = false;
-            this.m_Text8.DelayMouseInputPeriod = 0;
-            this.m_Text8.EnabledDynamicsValue = true;
-            this.m_Text8.FontSizePixels = 12;
-            this.m_Text8.Height = 21;
-            this.m_Text8.Left = 86;
-            this.m_Text8.Name = "m_Text8";
-            this.m_Text8.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
-            this.m_Text8.ScreenOwnerName = "Advanced_P1";
-            this.m_Text8.Top = 114;
-            this.m_Text8.VisibleDynamicsValue = true;
-            this.m_Text8.Width = 90;
-            // 
-            // m_Text9
-            // 
-            this.m_Text9.BlinkDynamicsValue = false;
-            this.m_Text9.DelayMouseInputPeriod = 0;
-            this.m_Text9.EnabledDynamicsValue = true;
-            this.m_Text9.FontSizePixels = 12;
-            this.m_Text9.Height = 21;
-            this.m_Text9.Left = 86;
-=======
             this.m_Text7.Top = 87;
             this.m_Text7.VisibleDynamicsValue = true;
             this.m_Text7.Width = 153;
@@ -975,46 +821,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text9.FontSizePixels = 12;
             this.m_Text9.Height = 20;
             this.m_Text9.Left = 82;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.m_Text9.Name = "m_Text9";
             this.m_Text9.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
             this.m_Text9.ScreenOwnerName = "Advanced_P1";
             this.m_Text9.Top = 141;
             this.m_Text9.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P1.cs
-            this.m_Text9.Width = 68;
-            // 
-            // m_Text10
-            // 
-            this.m_Text10.BlinkDynamicsValue = false;
-            this.m_Text10.DelayMouseInputPeriod = 0;
-            this.m_Text10.EnabledDynamicsValue = true;
-            this.m_Text10.FontSizePixels = 12;
-            this.m_Text10.Height = 21;
-            this.m_Text10.Left = 86;
-            this.m_Text10.Name = "m_Text10";
-            this.m_Text10.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
-            this.m_Text10.ScreenOwnerName = "Advanced_P1";
-            this.m_Text10.Top = 168;
-            this.m_Text10.VisibleDynamicsValue = true;
-            this.m_Text10.Width = 85;
-            // 
-            // m_Text11
-            // 
-            this.m_Text11.BlinkDynamicsValue = false;
-            this.m_Text11.DelayMouseInputPeriod = 0;
-            this.m_Text11.EnabledDynamicsValue = true;
-            this.m_Text11.FontSizePixels = 12;
-            this.m_Text11.Height = 34;
-            this.m_Text11.Left = 86;
-            this.m_Text11.MultiLine = true;
-            this.m_Text11.Name = "m_Text11";
-            this.m_Text11.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
-            this.m_Text11.ScreenOwnerName = "Advanced_P1";
-            this.m_Text11.Top = 195;
-            this.m_Text11.VisibleDynamicsValue = true;
-            this.m_Text11.Width = 85;
-=======
             this.m_Text9.Width = 153;
             // 
             // m_Text10
@@ -1053,7 +864,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text11.Top = 188;
             this.m_Text11.VisibleDynamicsValue = true;
             this.m_Text11.Width = 153;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P1.cs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;

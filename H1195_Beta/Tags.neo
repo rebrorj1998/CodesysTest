@@ -17648,8 +17648,6 @@
           </Object>
         </GlobalDataSubItems>
       </Object>
-<<<<<<< HEAD:1195 HMI/Tags.neo
-=======
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" DataType="DT_BOOLEAN" d1p1:Site.Name="Application_HMIData_lightCurtainInstalled" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
         <GlobalDataSubItems>
           <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null">
@@ -17673,6 +17671,26 @@
         <Action>
           <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.MultiAction, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="Multi Action">
             <Actions>
+              <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ConditionAction, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ConditionValue="" ConditionOperator="Modulus" Name="Condition Action">
+                <ActionMethodInfo>
+                  <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionMethodInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="" ObjectName="" EventName="ValueChange" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
+                </ActionMethodInfo>
+                <Actions>
+                  <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.Action, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="Set Language">
+                    <ActionMethodInfo>
+                      <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionMethodInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="SetLanguage" ObjectName="MultipleLanguages" EventName="ValueChange" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False">
+                        <ActionParameterInfo>
+                          <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionParameterInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Position="0" ParameterName="languageName" ParameterTypeString="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" TagName="">
+                            <Value>
+                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="0 Default" />
+                            </Value>
+                          </Object>
+                        </ActionParameterInfo>
+                      </Object>
+                    </ActionMethodInfo>
+                  </Object>
+                </Actions>
+              </Object>
               <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ConditionAction, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ConditionValue="0" ConditionOperator="IdentityEquality" Name="Condition Action">
                 <ActionMethodInfo>
                   <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionMethodInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="" ObjectName="" EventName="" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
@@ -17704,7 +17722,7 @@
                         <ActionParameterInfo>
                           <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionParameterInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Position="0" ParameterName="languageName" ParameterTypeString="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" TagName="">
                             <Value>
-                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="1 French (France)" />
+                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="1 French" />
                             </Value>
                           </Object>
                         </ActionParameterInfo>
@@ -17724,7 +17742,7 @@
                         <ActionParameterInfo>
                           <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionParameterInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Position="0" ParameterName="languageName" ParameterTypeString="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" TagName="">
                             <Value>
-                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="2 German (Germany)" />
+                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="2 Dutch" />
                             </Value>
                           </Object>
                         </ActionParameterInfo>
@@ -17744,27 +17762,7 @@
                         <ActionParameterInfo>
                           <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionParameterInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Position="0" ParameterName="languageName" ParameterTypeString="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" TagName="">
                             <Value>
-                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="3 Dutch (Netherlands)" />
-                            </Value>
-                          </Object>
-                        </ActionParameterInfo>
-                      </Object>
-                    </ActionMethodInfo>
-                  </Object>
-                </Actions>
-              </Object>
-              <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ConditionAction, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ConditionValue="4" ConditionOperator="IdentityEquality" Name="Condition Action">
-                <ActionMethodInfo>
-                  <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionMethodInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="" ObjectName="" EventName="" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False" />
-                </ActionMethodInfo>
-                <Actions>
-                  <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.Action, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="Set Language">
-                    <ActionMethodInfo>
-                      <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionMethodInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="SetLanguage" ObjectName="MultipleLanguages" EventName="ValueChange" ReferenceType="Global" ObjectParentName="" ObjectPathProvider="" ObjectPath="" ExplicitAuditTrail="False">
-                        <ActionParameterInfo>
-                          <Object d1p1:type="Neo.ApplicationFramework.Tools.Action.ActionParameterInfo, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Position="0" ParameterName="languageName" ParameterTypeString="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" TagName="">
-                            <Value>
-                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="4 Spanish (Latin America)" />
+                              <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="3 German" />
                             </Value>
                           </Object>
                         </ActionParameterInfo>
@@ -17780,7 +17778,6 @@
           </Object>
         </Action>
       </Object>
->>>>>>> testing/metric:H1195_Beta/Tags.neo
     </GlobalDataItems>
     <PollGroups>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.PollGroup, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" Name="PollGroup1" Interval="100" d1p1:Site.Name="PollGroup1" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />

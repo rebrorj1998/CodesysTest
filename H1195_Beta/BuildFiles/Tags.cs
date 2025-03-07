@@ -2212,15 +2212,11 @@ namespace Neo.ApplicationFramework.Generated
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_GlobalObjects_CollectionOfComponents_Ready_9;
 		
-<<<<<<< HEAD:1195 HMI/BuildFiles/Tags.cs
-		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_HMIMetric;
-=======
 		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem Application_HMIData_HMIMetric;
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Application_HMIData_lightCurtainInstalled;
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.LightweightTag Language_Selector;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Tags.cs
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.PollGroup PollGroup1;
 		
@@ -3362,13 +3358,9 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_7 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_7", "Controller1.DataItem1225", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_8 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_8", "Controller1.DataItem1226", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_GlobalObjects_CollectionOfComponents_Ready_9 = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_GlobalObjects_CollectionOfComponents_Ready_9", "Controller1.DataItem1227", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Tags.cs
-			this.Application_HMIData_HMIMetric = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_HMIMetric", "Controller1.DataItem540", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
-=======
 			this.Application_HMIData_HMIMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Application_HMIData_HMIMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "", "");
 			this.Application_HMIData_lightCurtainInstalled = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_lightCurtainInstalled", "Controller1.DataItem541", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Language_Selector = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Language_Selector", "", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_INTEGER2)), false, "", null);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Tags.cs
 			this.PollGroup1 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup2 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup3 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
@@ -4315,20 +4307,12 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_position);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_velocity);
 			this.LightweightTags.Add(this.Application_HMIData_printer300DPI);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Tags.cs
-			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_0);
-			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_10);
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Tags.cs
 		}
 		
 		private void InitializeObjects_2()
 		{
-<<<<<<< HEAD:1195 HMI/BuildFiles/Tags.cs
-=======
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_0);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_10);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Tags.cs
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_11);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_12);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_ActiveState_13);
@@ -4531,13 +4515,9 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_7);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_8);
 			this.LightweightTags.Add(this.Application_GlobalObjects_CollectionOfComponents_Ready_9);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Tags.cs
-			this.LightweightTags.Add(this.Application_HMIData_HMIMetric);
-=======
 			this.GlobalDataItems.Add(this.Application_HMIData_HMIMetric);
 			this.LightweightTags.Add(this.Application_HMIData_lightCurtainInstalled);
 			this.LightweightTags.Add(this.Language_Selector);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Tags.cs
 			this.PollGroup1.Interval = 100;
 			this.PollGroup1.Name = "PollGroup1";
 			this.PollGroup2.Interval = 500;
@@ -4582,6 +4562,8 @@ namespace Neo.ApplicationFramework.Generated
 		
 		private void Language_Selector_Action_ValueChange(object sender, System.EventArgs e)
 		{
+			Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("Language_Selector", "ValueChange", "Set Language", "MultipleLanguages", "");
+			Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("0 Default");
 			if ((Neo.ApplicationFramework.Generated.Globals.Tags.Language_Selector.Value == 0))
 			{
 				Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("Language_Selector", "ValueChange", "Set Language", "MultipleLanguages", "");
@@ -4590,22 +4572,17 @@ namespace Neo.ApplicationFramework.Generated
 			if ((Neo.ApplicationFramework.Generated.Globals.Tags.Language_Selector.Value == 1))
 			{
 				Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("Language_Selector", "ValueChange", "Set Language", "MultipleLanguages", "");
-				Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("1 French (France)");
+				Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("1 French");
 			}
 			if ((Neo.ApplicationFramework.Generated.Globals.Tags.Language_Selector.Value == 2))
 			{
 				Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("Language_Selector", "ValueChange", "Set Language", "MultipleLanguages", "");
-				Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("2 German (Germany)");
+				Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("2 Dutch");
 			}
 			if ((Neo.ApplicationFramework.Generated.Globals.Tags.Language_Selector.Value == 3))
 			{
 				Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("Language_Selector", "ValueChange", "Set Language", "MultipleLanguages", "");
-				Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("3 Dutch (Netherlands)");
-			}
-			if ((Neo.ApplicationFramework.Generated.Globals.Tags.Language_Selector.Value == 4))
-			{
-				Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("Language_Selector", "ValueChange", "Set Language", "MultipleLanguages", "");
-				Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("4 Spanish (Latin America)");
+				Neo.ApplicationFramework.Generated.Globals.MultipleLanguages.SetLanguage("3 German");
 			}
 		}
 		

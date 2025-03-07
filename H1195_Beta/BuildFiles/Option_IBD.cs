@@ -460,13 +460,8 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Option_IBD));
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_IBD.cs
-            this.m_Text4.Text = resources.GetText("Option_IBD.Text4.Text", "    Jaw Close Delay");
-            this.m_Text6.Text = resources.GetText("Option_IBD.Text6.Text", "    Clamping Force (%)");
-=======
             this.m_Text4.Text = resources.GetText("Option_IBD.Text4.Text", "Jaw Close Delay");
             this.m_Text6.Text = resources.GetText("Option_IBD.Text6.Text", "Clamping Force (%)");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_IBD.cs
             this.m_Text.Text = resources.GetText("Option_IBD.Text.Text", "Independent Bag Deflator");
             this.m_Text5.Text = resources.GetText("Option_IBD.Text5.Text", "ON");
             resources.ApplyTexts(this.m_Text5, "Texts", "Option_IBD.Text5.Texts[0]", "OFF", "Option_IBD.Text5.Texts[1]", "ON");

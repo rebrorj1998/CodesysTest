@@ -35,12 +35,12 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Label AutoSize="False" Text="Acceleration" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="8" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2,0,2,1" Name="m_Text3" Width="63" Height="16" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="233" Canvas.Top="106">
+    <nac:Label AutoSize="False" Text="Acceleration" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="8" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2,0,2,1" Name="m_Text3" Width="68" Height="16" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="233" Canvas.Top="106">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" Text="Deceleration" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="8" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2,0,2,1" Name="m_Text4" Width="71" Height="16" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="309" Canvas.Top="106">
+    <nac:Label AutoSize="False" Text="Deceleration" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="8" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2,0,2,1" Name="m_Text4" Width="71" Height="16" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="8" Canvas.Left="309" Canvas.Top="106">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>

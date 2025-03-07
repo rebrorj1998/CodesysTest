@@ -1081,10 +1081,7 @@
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.GlobalObjects.CollectionOfComponents.Ready[8]" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem1226" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.GlobalObjects.CollectionOfComponents.Ready[9]" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem1227" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.HMIData.HMIMetric" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem540" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
-<<<<<<< HEAD:1195 HMI/Controller1.neo
-=======
       <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.DataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" ItemID="Application.HMIData.lightCurtainInstalled" DataType="DT_BOOLEAN" d1p1:Site.Name="DataItem541" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" />
->>>>>>> testing/metric:H1195_Beta/Controller1.neo
     </DataItems>
   </Object>
 </NeoItem>

@@ -270,11 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Text.Height = 21;
-=======
             this.m_Text.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Text.Left = 220;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -283,11 +279,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Text.Width = 69;
-=======
             this.m_Text.Width = 111;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Text1
             // 
@@ -296,11 +288,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Text1.Height = 21;
-=======
             this.m_Text1.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -309,11 +297,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Text1.Width = 23;
-=======
             this.m_Text1.Width = 33;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Button2
             // 
@@ -330,11 +314,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf1.BrushIntervalMapper.Intervals.Add(brushcfinterval2);
             this.m_Button2.DelayMouseInputPeriod = 0;
             this.m_Button2.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button2.FontSizePixels = 15;
-=======
             this.m_Button2.FontSizePixels = 12;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button2.ForceTransparency = true;
             this.m_Button2.Height = 50;
             this.m_Button2.IndicatorMargin = null;
@@ -344,21 +324,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Service_P3";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper2;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button2.TextHeight = 36;
-            stringintervalmappercf1.DefaultValue = "Raise\r\nPrinthead";
-            stringintervalcf1.Value = "Raise\r\nPrinthead";
-            stringintervalcf2.End = 1D;
-            stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Printhead\r\nRaised";
-=======
             this.m_Button2.TextHeight = 15;
             stringintervalmappercf1.DefaultValue = "\"Verhoog printkop\"";
             stringintervalcf1.Value = "\"Verhoog printkop\"";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
             stringintervalcf2.Value = "\"Printkop verhoogd\"";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf1;
@@ -369,10 +340,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.VisibleDynamicsValue = true;
             this.m_Button2.VisualPropertiesHashCode = -1061038242;
             this.m_Button2.Width = 127;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-=======
             this.m_Button2.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Button5
             // 
@@ -389,11 +357,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf2.BrushIntervalMapper.Intervals.Add(brushcfinterval4);
             this.m_Button5.DelayMouseInputPeriod = 0;
             this.m_Button5.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button5.FontSizePixels = 15;
-=======
             this.m_Button5.FontSizePixels = 12;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button5.ForceTransparency = true;
             this.m_Button5.Height = 50;
             this.m_Button5.IndicatorMargin = null;
@@ -403,21 +367,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.RequiresTransparency = true;
             this.m_Button5.ScreenOwnerName = "Service_P3";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper3;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button5.TextHeight = 36;
-            stringintervalmappercf2.DefaultValue = "Raise\r\nLoad Shelf";
-            stringintervalcf3.Value = "Raise\r\nLoad Shelf";
-            stringintervalcf4.End = 1D;
-            stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "Load Shelf\r\nRaised";
-=======
             this.m_Button5.TextHeight = 15;
             stringintervalmappercf2.DefaultValue = "\"Verhoog laadrek\"";
             stringintervalcf3.Value = "\"Verhoog laadrek\"";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
             stringintervalcf4.Value = "\"Laadrek verhoogd\"";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button5.TextIntervalMapper = stringintervalmappercf2;
@@ -428,10 +383,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.VisibleDynamicsValue = true;
             this.m_Button5.VisualPropertiesHashCode = -1061038242;
             this.m_Button5.Width = 127;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-=======
             this.m_Button5.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Button6
             // 
@@ -448,11 +400,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf3.BrushIntervalMapper.Intervals.Add(brushcfinterval6);
             this.m_Button6.DelayMouseInputPeriod = 0;
             this.m_Button6.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button6.FontSizePixels = 15;
-=======
             this.m_Button6.FontSizePixels = 12;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button6.ForceTransparency = true;
             this.m_Button6.Height = 50;
             this.m_Button6.IndicatorMargin = null;
@@ -462,21 +410,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.RequiresTransparency = true;
             this.m_Button6.ScreenOwnerName = "Service_P3";
             this.m_Button6.SymbolIntervalMapper = symbolintervalmapper4;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button6.TextHeight = 36;
-            stringintervalmappercf3.DefaultValue = "Lower\r\nLoad Shelf";
-            stringintervalcf5.Value = "Lower\r\nLoad Shelf";
-            stringintervalcf6.End = 1D;
-            stringintervalcf6.Start = 1D;
-            stringintervalcf6.Value = "Load Shelf\r\nLowered";
-=======
             this.m_Button6.TextHeight = 15;
             stringintervalmappercf3.DefaultValue = "\"Verlaag laadrek\"";
             stringintervalcf5.Value = "\"Verlaag laadrek\"";
             stringintervalcf6.End = 1D;
             stringintervalcf6.Start = 1D;
             stringintervalcf6.Value = "\"Laadrek verlaagd\"";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             stringintervalmappercf3.Intervals.Add(stringintervalcf5);
             stringintervalmappercf3.Intervals.Add(stringintervalcf6);
             this.m_Button6.TextIntervalMapper = stringintervalmappercf3;
@@ -487,10 +426,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.VisibleDynamicsValue = true;
             this.m_Button6.VisualPropertiesHashCode = -1061038242;
             this.m_Button6.Width = 127;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-=======
             this.m_Button6.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Button7
             // 
@@ -507,11 +443,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf4.BrushIntervalMapper.Intervals.Add(brushcfinterval8);
             this.m_Button7.DelayMouseInputPeriod = 0;
             this.m_Button7.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button7.FontSizePixels = 15;
-=======
             this.m_Button7.FontSizePixels = 12;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button7.ForceTransparency = true;
             this.m_Button7.Height = 50;
             this.m_Button7.IndicatorMargin = null;
@@ -521,21 +453,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button7.RequiresTransparency = true;
             this.m_Button7.ScreenOwnerName = "Service_P3";
             this.m_Button7.SymbolIntervalMapper = symbolintervalmapper5;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button7.TextHeight = 36;
-            stringintervalmappercf4.DefaultValue = "Lower\r\nPrinthead";
-            stringintervalcf7.Value = "Lower\r\nPrinthead";
-            stringintervalcf8.End = 1D;
-            stringintervalcf8.Start = 1D;
-            stringintervalcf8.Value = "Printhead\r\nLowered";
-=======
             this.m_Button7.TextHeight = 15;
             stringintervalmappercf4.DefaultValue = "\"Verlaag printkop\"";
             stringintervalcf7.Value = "\"Verlaag printkop\"";
             stringintervalcf8.End = 1D;
             stringintervalcf8.Start = 1D;
             stringintervalcf8.Value = "\"Printkop verlaagd\"";
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             stringintervalmappercf4.Intervals.Add(stringintervalcf7);
             stringintervalmappercf4.Intervals.Add(stringintervalcf8);
             this.m_Button7.TextIntervalMapper = stringintervalmappercf4;
@@ -546,10 +469,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button7.VisibleDynamicsValue = true;
             this.m_Button7.VisualPropertiesHashCode = -1061038242;
             this.m_Button7.Width = 127;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-=======
             this.m_Button7.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Button
             // 
@@ -566,11 +486,7 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf5.BrushIntervalMapper.Intervals.Add(brushcfinterval10);
             this.m_Button.DelayMouseInputPeriod = 0;
             this.m_Button.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button.FontSizePixels = 15;
-=======
             this.m_Button.FontSizePixels = 12;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button.ForceTransparency = true;
             this.m_Button.Height = 50;
             this.m_Button.IndicatorMargin = null;
@@ -580,11 +496,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Service_P3";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper6;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button.TextHeight = 36;
-=======
             this.m_Button.TextHeight = 29;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 117;
             this.m_Button.Top = 179;
@@ -592,10 +504,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.VisibleDynamicsValue = true;
             this.m_Button.VisualPropertiesHashCode = -1061038242;
             this.m_Button.Width = 127;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-=======
             this.m_Button.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Button4
             // 
@@ -612,29 +521,17 @@ namespace Neo.ApplicationFramework.Generated {
             brushdynamicsconvertercf6.BrushIntervalMapper.Intervals.Add(brushcfinterval12);
             this.m_Button4.DelayMouseInputPeriod = 0;
             this.m_Button4.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button4.FontSizePixels = 15;
-            this.m_Button4.ForceTransparency = true;
-            this.m_Button4.Height = 50;
-            this.m_Button4.IndicatorMargin = null;
-            this.m_Button4.Left = 83;
-=======
             this.m_Button4.FontSizePixels = 12;
             this.m_Button4.ForceTransparency = true;
             this.m_Button4.Height = 50;
             this.m_Button4.IndicatorMargin = null;
             this.m_Button4.Left = 82;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button4.MultiLine = true;
             this.m_Button4.Name = "m_Button4";
             this.m_Button4.RequiresTransparency = true;
             this.m_Button4.ScreenOwnerName = "Service_P3";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper7;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-            this.m_Button4.TextHeight = 36;
-=======
             this.m_Button4.TextHeight = 29;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 117;
             this.m_Button4.Top = 179;
@@ -642,10 +539,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.VisibleDynamicsValue = true;
             this.m_Button4.VisualPropertiesHashCode = -1061038242;
             this.m_Button4.Width = 127;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Service_P3.cs
-=======
             this.m_Button4.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Service_P3.cs
             // 
             // m_Rectangle
             // 

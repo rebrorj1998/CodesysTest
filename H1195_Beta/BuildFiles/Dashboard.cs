@@ -508,11 +508,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.ScreenOwnerName = "Dashboard";
             this.m_Text.Top = 16;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Text.Width = 60;
-=======
             this.m_Text.Width = 178;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             // 
             // m_Rectangle2
             // 
@@ -544,11 +540,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.ScreenOwnerName = "Dashboard";
             this.m_Text1.Top = 40;
             this.m_Text1.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Text1.Width = 59;
-=======
             this.m_Text1.Width = 92;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             // 
             // m_Rectangle3
             // 
@@ -580,11 +572,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.ScreenOwnerName = "Dashboard";
             this.m_Text2.Top = 64;
             this.m_Text2.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Text2.Width = 52;
-=======
             this.m_Text2.Width = 120;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             // 
             // m_Rectangle4
             // 
@@ -695,11 +683,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.ScreenOwnerName = "Dashboard";
             this.m_Text3.Top = -4;
             this.m_Text3.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Text3.Width = 93;
-=======
             this.m_Text3.Width = 209;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             // 
             // m_Text4
             // 
@@ -716,11 +700,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.ScreenOwnerName = "Dashboard";
             this.m_Text4.Top = 10;
             this.m_Text4.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Text4.Width = 86;
-=======
             this.m_Text4.Width = 149;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             // 
             // m_Button1
             // 
@@ -878,9 +858,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.TextVerticalAlignment = "Center";
             this.m_Text5.Top = 152;
             this.m_Text5.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Text5.Width = 106;
-=======
             this.m_Text5.Width = 101;
             this.m_Text5.WordWrap = true;
             // 
@@ -899,7 +876,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle8.Top = 191;
             this.m_Rectangle8.VisibleDynamicsValue = true;
             this.m_Rectangle8.Width = 105;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             // 
             // m_Rectangle7
             // 
@@ -915,97 +891,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle7.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Rectangle7.Top = 149;
             this.m_Rectangle7.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Rectangle7.Width = 85;
-            // 
-            // m_AnalogNumeric3
-            // 
-            this.m_AnalogNumeric3.BlinkDynamicsValue = false;
-            this.m_AnalogNumeric3.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_AnalogNumeric3.DelayMouseInputPeriod = 0;
-            this.m_AnalogNumeric3.EnabledDynamicsValue = true;
-            this.m_AnalogNumeric3.FontSizePixels = 14;
-            this.m_AnalogNumeric3.Height = 25;
-            this.m_AnalogNumeric3.Left = 87;
-            this.m_AnalogNumeric3.LimitNumberOfCharacters = true;
-            this.m_AnalogNumeric3.MaxNumberOfCharacters = 5;
-            this.m_AnalogNumeric3.MaxValue = 10000D;
-            this.m_AnalogNumeric3.Name = "m_AnalogNumeric3";
-            this.m_AnalogNumeric3.NumberOfDecimals = 0;
-            this.m_AnalogNumeric3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 2D, 2D, 2D);
-            this.m_AnalogNumeric3.ScreenOwnerName = "Dashboard";
-            this.m_AnalogNumeric3.Top = 0;
-            this.m_AnalogNumeric3.VisibleDynamicsValue = true;
-            this.m_AnalogNumeric3.Width = 81;
-            // 
-            // m_Group
-            // 
-            this.m_Group.BlinkDynamicsValue = false;
-            this.m_Group.Components.Add(this.m_Rectangle6);
-            this.m_Group.Components.Add(this.m_Text5);
-            this.m_Group.Components.Add(this.m_Rectangle7);
-            this.m_Group.Components.Add(this.m_AnalogNumeric3);
-            this.m_Group.DelayMouseInputPeriod = 0;
-            this.m_Group.EnabledDynamicsValue = true;
-            this.m_Group.Height = 25;
-            this.m_Group.Left = 195;
-            this.m_Group.Name = "m_Group";
-            this.m_Group.ParentGroup = null;
-            this.m_Group.ScreenOwnerName = "Dashboard";
-            this.m_Group.Top = 152;
-            this.m_Group.VisibleDynamicsValue = true;
-            this.m_Group.Width = 172;
-            // 
-            // m_Rectangle8
-            // 
-            this.m_Rectangle8.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle8.BlinkDynamicsValue = false;
-            this.m_Rectangle8.DelayMouseInputPeriod = 0;
-            this.m_Rectangle8.EnabledDynamicsValue = true;
-            this.m_Rectangle8.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle8.Height = 25;
-            this.m_Rectangle8.Left = 84;
-            this.m_Rectangle8.Name = "m_Rectangle8";
-            this.m_Rectangle8.ScreenOwnerName = "Dashboard";
-            this.m_Rectangle8.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle8.Top = 0;
-            this.m_Rectangle8.VisibleDynamicsValue = true;
-            this.m_Rectangle8.Width = 88;
-            // 
-            // m_Text6
-            // 
-            this.m_Text6.BlinkDynamicsValue = false;
-            this.m_Text6.Bold = true;
-            this.m_Text6.DelayMouseInputPeriod = 0;
-            this.m_Text6.EnabledDynamicsValue = true;
-            this.m_Text6.FontSizePixels = 10;
-            this.m_Text6.Height = 21;
-            this.m_Text6.Left = 0;
-            this.m_Text6.Name = "m_Text6";
-            this.m_Text6.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text6.ScreenOwnerName = "Dashboard";
-            this.m_Text6.Top = 3;
-            this.m_Text6.VisibleDynamicsValue = true;
-            this.m_Text6.Width = 103;
-            // 
-            // m_Rectangle9
-            // 
-            this.m_Rectangle9.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle9.BlinkDynamicsValue = false;
-            this.m_Rectangle9.DelayMouseInputPeriod = 0;
-            this.m_Rectangle9.EnabledDynamicsValue = true;
-            this.m_Rectangle9.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle9.Height = 25;
-            this.m_Rectangle9.Left = 0;
-            this.m_Rectangle9.Name = "m_Rectangle9";
-            this.m_Rectangle9.ScreenOwnerName = "Dashboard";
-            this.m_Rectangle9.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle9.Top = 0;
-            this.m_Rectangle9.VisibleDynamicsValue = true;
-            this.m_Rectangle9.Width = 85;
-=======
             this.m_Rectangle7.Width = 105;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             // 
             // m_AnalogNumeric4
             // 
@@ -1067,11 +953,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.RequiresTransparency = true;
             this.m_Button6.ScreenOwnerName = "Dashboard";
             this.m_Button6.SymbolIntervalMapper = symbolintervalmapper7;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Button6.TextHeight = 42;
-=======
             this.m_Button6.TextHeight = 24;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             this.m_Button6.TextValue = 0D;
             this.m_Button6.TextWidth = 67;
             this.m_Button6.Top = 149;
@@ -1365,15 +1247,9 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.Text = resources.GetText("Dashboard.Text4.Text", "Dry Cycle Active");
             this.m_Button.Text = resources.GetText("Dashboard.Button.Text", "Bagger Status Overview");
             this.m_Button4.Text = resources.GetText("Dashboard.Button4.Text", "Bagger Faults Overview");
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard.cs
-            this.m_Text5.Text = resources.GetText("Dashboard.Text5.Text", "Batch Setting/Count");
-            this.m_Button6.Text = resources.GetText("Dashboard.Button6.Text", "Reset Batch Count");
-            this.m_Text6.Text = resources.GetText("Dashboard.Text6.Text", "Parts Setting/Count");
-=======
             this.m_Text5.Text = resources.GetText("Dashboard.Text5.Text", "Batch Setting");
             this.m_Button6.Text = resources.GetText("Dashboard.Button6.Text", "Reset Batch Count");
             this.m_Text6.Text = resources.GetText("Dashboard.Text6.Text", "Batch Count");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard.cs
             this.ApplyResourcesOnForm();
         }
         

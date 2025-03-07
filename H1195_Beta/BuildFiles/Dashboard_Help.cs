@@ -131,11 +131,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Dashboard_Help";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard_Help.cs
-            this.m_Button1.TextHeight = 18;
-=======
             this.m_Button1.TextHeight = 19;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard_Help.cs
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 167;
             this.m_Button1.Top = 177;
@@ -151,11 +147,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard_Help.cs
-            this.m_Text.Height = 21;
-=======
             this.m_Text.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard_Help.cs
             this.m_Text.Left = 208;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -164,11 +156,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard_Help.cs
-            this.m_Text.Width = 85;
-=======
             this.m_Text.Width = 125;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard_Help.cs
             // 
             // m_Button2
             // 
@@ -179,11 +167,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
             this.m_Button2.DelayMouseInputPeriod = 0;
             this.m_Button2.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard_Help.cs
-            this.m_Button2.FontSizePixels = 15;
-=======
             this.m_Button2.FontSizePixels = 14;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard_Help.cs
             this.m_Button2.ForceTransparency = true;
             this.m_Button2.Height = 51;
             this.m_Button2.IndicatorMargin = null;
@@ -193,11 +177,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Dashboard_Help";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Dashboard_Help.cs
-            this.m_Button2.TextHeight = 36;
-=======
             this.m_Button2.TextHeight = 33;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Dashboard_Help.cs
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 167;
             this.m_Button2.Top = 36;

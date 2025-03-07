@@ -22,11 +22,8 @@ namespace Neo.ApplicationFramework.Generated {
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     public partial class Advanced_P5 : BaseTemplate, Neo.ApplicationFramework.Interfaces.ISupportMultiLanguage {
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
         private Neo.ApplicationFramework.Controls.TouchComboBox.TouchComboBoxHostCF m_TouchComboBox;
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text;
         
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text1;
@@ -93,15 +90,12 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.GroupCF m_Group3;
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text8;
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle12;
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle13;
         
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
         private bool m_Initialized_Advanced_P5;
         
         public Advanced_P5() {
@@ -308,10 +302,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-        private void InitializeComponent() {
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-=======
         protected Neo.ApplicationFramework.Controls.Script.TouchComboBoxCFAdapter TouchComboBox {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TouchComboBoxCFAdapter>(this.m_TouchComboBox);
@@ -344,7 +334,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf4 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             this.m_TouchComboBox = new Neo.ApplicationFramework.Controls.TouchComboBox.TouchComboBoxHostCF();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text1 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Button4 = new Neo.ApplicationFramework.Controls.Controls.Button();
@@ -378,13 +367,10 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle9 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_AnalogNumeric6 = new Neo.ApplicationFramework.Controls.Controls.AnalogNumeric();
             this.m_Group3 = new Neo.ApplicationFramework.Controls.Controls.GroupCF();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
             this.m_Text8 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Rectangle12 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle13 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             ((System.ComponentModel.ISupportInitialize)(this.m_TouchComboBox)).BeginInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button4)).BeginInit();
@@ -406,10 +392,7 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group3)).BeginInit();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
             ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).BeginInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.SuspendLayout();
             // 
             // Advanced_P5
@@ -417,8 +400,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.BorderStyle = Neo.ApplicationFramework.Interfaces.ScreenBorderStyle.ThreeDBorder;
             this.ControlBox = false;
             // 
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
             // m_TouchComboBox
             // 
             this.m_TouchComboBox.AlternateBackground = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(161)))), ((int)(((byte)(161))))), System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(107)))), ((int)(((byte)(107))))), Neo.ApplicationFramework.Interfaces.FillDirection.VerticalTopToBottom);
@@ -463,7 +444,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_TouchComboBox.TouchScrollSensitivity = 8;
             this.m_TouchComboBox.VisibleDynamicsValue = true;
             // 
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             // m_Text
             // 
             this.m_Text.BlinkDynamicsValue = false;
@@ -471,11 +451,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
             this.m_Text.Height = 21;
-=======
-            this.m_Text.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -484,11 +460,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
             this.m_Text.Width = 54;
-=======
-            this.m_Text.Width = 80;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             // 
             // m_Text1
             // 
@@ -497,26 +469,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
             this.m_Text1.Height = 21;
-=======
-            this.m_Text1.Height = 28;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Text1.Left = 258;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text1.ScreenOwnerName = "Advanced_P5";
             this.m_Text1.TextHorizontalAlignment = "Center";
             this.m_Text1.TextVerticalAlignment = "Center";
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Text1.Top = 34;
-            this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
-=======
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 33;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
+            this.m_Text1.Width = 23;
             // 
             // m_Button4
             // 
@@ -555,19 +517,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.Bold = true;
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Text3.FontSizePixels = 10;
-            this.m_Text3.Height = 16;
-            this.m_Text3.Left = 188;
-            this.m_Text3.Name = "m_Text3";
-            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text3.ScreenOwnerName = "Advanced_P5";
-            this.m_Text3.TextHorizontalAlignment = "Center";
-            this.m_Text3.TextVerticalAlignment = "Center";
-            this.m_Text3.Top = 55;
-            this.m_Text3.VisibleDynamicsValue = true;
-            this.m_Text3.Width = 80;
-=======
             this.m_Text3.FontSizePixels = 8;
             this.m_Text3.Height = 16;
             this.m_Text3.Left = 233;
@@ -578,8 +527,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.TextVerticalAlignment = "Center";
             this.m_Text3.Top = 106;
             this.m_Text3.VisibleDynamicsValue = true;
-            this.m_Text3.Width = 63;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
+            this.m_Text3.Width = 68;
             // 
             // m_Text4
             // 
@@ -588,19 +536,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.Bold = true;
             this.m_Text4.DelayMouseInputPeriod = 0;
             this.m_Text4.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Text4.FontSizePixels = 10;
-            this.m_Text4.Height = 16;
-            this.m_Text4.Left = 276;
-            this.m_Text4.Name = "m_Text4";
-            this.m_Text4.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text4.ScreenOwnerName = "Advanced_P5";
-            this.m_Text4.TextHorizontalAlignment = "Center";
-            this.m_Text4.TextVerticalAlignment = "Center";
-            this.m_Text4.Top = 55;
-            this.m_Text4.VisibleDynamicsValue = true;
-            this.m_Text4.Width = 83;
-=======
             this.m_Text4.FontSizePixels = 8;
             this.m_Text4.Height = 16;
             this.m_Text4.Left = 309;
@@ -612,7 +547,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.Top = 106;
             this.m_Text4.VisibleDynamicsValue = true;
             this.m_Text4.Width = 71;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             // 
             // m_Rectangle
             // 
@@ -655,11 +589,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.EnabledDynamicsValue = true;
             this.m_Text2.FontSizePixels = 10;
             this.m_Text2.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Text2.Left = 9;
-=======
             this.m_Text2.Left = 0;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Text2.Name = "m_Text2";
             this.m_Text2.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text2.ScreenOwnerName = "Advanced_P5";
@@ -738,19 +668,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Group.DelayMouseInputPeriod = 0;
             this.m_Group.EnabledDynamicsValue = true;
             this.m_Group.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Group.Left = 85;
-            this.m_Group.Name = "m_Group";
-            this.m_Group.ParentGroup = null;
-            this.m_Group.ScreenOwnerName = "Advanced_P5";
-            this.m_Group.Top = 79;
-=======
             this.m_Group.Left = 117;
             this.m_Group.Name = "m_Group";
             this.m_Group.ParentGroup = null;
             this.m_Group.ScreenOwnerName = "Advanced_P5";
             this.m_Group.Top = 130;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Group.VisibleDynamicsValue = true;
             this.m_Group.Width = 263;
             // 
@@ -795,11 +717,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 10;
             this.m_Text5.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Text5.Left = 9;
-=======
             this.m_Text5.Left = 0;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Advanced_P5";
@@ -878,19 +796,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Group1.DelayMouseInputPeriod = 0;
             this.m_Group1.EnabledDynamicsValue = true;
             this.m_Group1.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Group1.Left = 85;
-            this.m_Group1.Name = "m_Group1";
-            this.m_Group1.ParentGroup = null;
-            this.m_Group1.ScreenOwnerName = "Advanced_P5";
-            this.m_Group1.Top = 102;
-=======
             this.m_Group1.Left = 117;
             this.m_Group1.Name = "m_Group1";
             this.m_Group1.ParentGroup = null;
             this.m_Group1.ScreenOwnerName = "Advanced_P5";
             this.m_Group1.Top = 153;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Group1.VisibleDynamicsValue = true;
             this.m_Group1.Width = 263;
             // 
@@ -935,11 +845,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text6.EnabledDynamicsValue = true;
             this.m_Text6.FontSizePixels = 10;
             this.m_Text6.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Text6.Left = 9;
-=======
             this.m_Text6.Left = 0;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Text6.Name = "m_Text6";
             this.m_Text6.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text6.ScreenOwnerName = "Advanced_P5";
@@ -1018,19 +924,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Group2.DelayMouseInputPeriod = 0;
             this.m_Group2.EnabledDynamicsValue = true;
             this.m_Group2.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Group2.Left = 85;
-            this.m_Group2.Name = "m_Group2";
-            this.m_Group2.ParentGroup = null;
-            this.m_Group2.ScreenOwnerName = "Advanced_P5";
-            this.m_Group2.Top = 125;
-=======
             this.m_Group2.Left = 117;
             this.m_Group2.Name = "m_Group2";
             this.m_Group2.ParentGroup = null;
             this.m_Group2.ScreenOwnerName = "Advanced_P5";
             this.m_Group2.Top = 176;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Group2.VisibleDynamicsValue = true;
             this.m_Group2.Width = 263;
             // 
@@ -1075,11 +973,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text7.EnabledDynamicsValue = true;
             this.m_Text7.FontSizePixels = 10;
             this.m_Text7.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Text7.Left = 9;
-=======
             this.m_Text7.Left = 0;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.m_Text7.Name = "m_Text7";
             this.m_Text7.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text7.ScreenOwnerName = "Advanced_P5";
@@ -1158,15 +1052,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Group3.DelayMouseInputPeriod = 0;
             this.m_Group3.EnabledDynamicsValue = true;
             this.m_Group3.Height = 24;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            this.m_Group3.Left = 85;
-            this.m_Group3.Name = "m_Group3";
-            this.m_Group3.ParentGroup = null;
-            this.m_Group3.ScreenOwnerName = "Advanced_P5";
-            this.m_Group3.Top = 148;
-            this.m_Group3.VisibleDynamicsValue = true;
-            this.m_Group3.Width = 263;
-=======
             this.m_Group3.Left = 117;
             this.m_Group3.Name = "m_Group3";
             this.m_Group3.ParentGroup = null;
@@ -1225,7 +1110,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle13.Top = 104;
             this.m_Rectangle13.VisibleDynamicsValue = true;
             this.m_Rectangle13.Width = 263;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -1275,11 +1159,8 @@ namespace Neo.ApplicationFramework.Generated {
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override void AddControls() {
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
             this.Controls.Add(this.m_TouchComboBox);
             ((System.ComponentModel.ISupportInitialize)(this.m_TouchComboBox)).EndInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             base.AddControls();
         }
         
@@ -1319,12 +1200,9 @@ namespace Neo.ApplicationFramework.Generated {
             this.DrawingPrimitives.Add(this.m_Rectangle9);
             this.DrawingPrimitives.Add(this.m_AnalogNumeric6);
             this.DrawingPrimitives.Add(this.m_Group3);
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
             this.DrawingPrimitives.Add(this.m_Text8);
             this.DrawingPrimitives.Add(this.m_Rectangle12);
             this.DrawingPrimitives.Add(this.m_Rectangle13);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button4)).EndInit();
@@ -1346,10 +1224,7 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group3)).EndInit();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
             ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).EndInit();
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
         }
         
         private void m_Button4_Action_Click(object sender, System.EventArgs e) {
@@ -1368,11 +1243,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.Text = resources.GetText("Advanced_P5.Text5.Text", "Film Reverse");
             this.m_Text6.Text = resources.GetText("Advanced_P5.Text6.Text", "Film Offset");
             this.m_Text7.Text = resources.GetText("Advanced_P5.Text7.Text", "Film Print");
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-=======
             this.m_Text8.Text = resources.GetText("Advanced_P5.Text8.Text", "Language:");
             resources.ApplyTexts(this.m_TouchComboBox, "Texts", "Advanced_P5.TouchComboBox.Texts[0]", "English", "Advanced_P5.TouchComboBox.Texts[1]", "French", "Advanced_P5.TouchComboBox.Texts[2]", "German", "Advanced_P5.TouchComboBox.Texts[3]", "Dutch");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
             this.ApplyResourcesOnForm();
         }
         
@@ -1403,32 +1275,6 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override void ConnectDataBindings() {
             base.ConnectDataBindings();
-<<<<<<< HEAD:1195 HMI/BuildFiles/Advanced_P5.cs
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedForwardMotionProfile_acceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric.DataBindings.Add(dynamicBinding1);
-            this.m_DynamicBindings.Add(dynamicBinding1);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedForwardMotionProfile_deceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric1.DataBindings.Add(dynamicBinding2);
-            this.m_DynamicBindings.Add(dynamicBinding2);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding3 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedReverseMotionProfile_acceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric3.DataBindings.Add(dynamicBinding3);
-            this.m_DynamicBindings.Add(dynamicBinding3);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedReverseMotionProfile_deceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric2.DataBindings.Add(dynamicBinding4);
-            this.m_DynamicBindings.Add(dynamicBinding4);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding5 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedPrintOffsetMotionProfile_acceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric5.DataBindings.Add(dynamicBinding5);
-            this.m_DynamicBindings.Add(dynamicBinding5);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding6 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedPrintOffsetMotionProfile_deceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric4.DataBindings.Add(dynamicBinding6);
-            this.m_DynamicBindings.Add(dynamicBinding6);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedPrintMotionProfile_acceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric7.DataBindings.Add(dynamicBinding7);
-            this.m_DynamicBindings.Add(dynamicBinding7);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding8 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedPrintMotionProfile_deceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_AnalogNumeric6.DataBindings.Add(dynamicBinding8);
-            this.m_DynamicBindings.Add(dynamicBinding8);
-=======
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Language_Selector"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_TouchComboBox.DataBindings.Add(dynamicBinding1);
             this.m_DynamicBindings.Add(dynamicBinding1);
@@ -1456,7 +1302,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding9 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_AxisData_FilmFeedPrintMotionProfile_deceleration"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_AnalogNumeric6.DataBindings.Add(dynamicBinding9);
             this.m_DynamicBindings.Add(dynamicBinding9);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Advanced_P5.cs
         }
     }
 }

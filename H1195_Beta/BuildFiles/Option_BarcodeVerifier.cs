@@ -578,11 +578,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_BarcodeVerifier";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper1;
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_BarcodeVerifier.cs
-            this.m_Button1.TextHeight = 18;
-=======
             this.m_Button1.TextHeight = 37;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_BarcodeVerifier.cs
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 109;
             this.m_Button1.Top = 159;
@@ -1037,21 +1033,12 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Option_BarcodeVerifier));
             this.m_Text.Text = resources.GetText("Option_BarcodeVerifier.Text.Text", "Barcode Verifier");
             this.m_Text5.Text = resources.GetText("Option_BarcodeVerifier.Text5.Text", "ON");
-<<<<<<< HEAD:1195 HMI/BuildFiles/Option_BarcodeVerifier.cs
-            this.m_Text2.Text = resources.GetText("Option_BarcodeVerifier.Text2.Text", "    Good Read");
-            this.m_Text3.Text = resources.GetText("Option_BarcodeVerifier.Text3.Text", "    Scanning Distance (in.)");
-            this.m_Text4.Text = resources.GetText("Option_BarcodeVerifier.Text4.Text", "    Start Scanning Offset (in.)");
-            this.m_Text1.Text = resources.GetText("Option_BarcodeVerifier.Text1.Text", "    Bad/No Read");
-            this.m_Text6.Text = resources.GetText("Option_BarcodeVerifier.Text6.Text", "   Bad Read Fault Count");
-            this.m_Button1.Text = resources.GetText("Option_BarcodeVerifier.Button1.Text", "Trigger BCV");
-=======
             this.m_Text2.Text = resources.GetText("Option_BarcodeVerifier.Text2.Text", "Good Read");
             this.m_Text3.Text = resources.GetText("Option_BarcodeVerifier.Text3.Text", "Scanning Distance (in.)");
             this.m_Text4.Text = resources.GetText("Option_BarcodeVerifier.Text4.Text", "Start Scanning Offset (in.)");
             this.m_Text1.Text = resources.GetText("Option_BarcodeVerifier.Text1.Text", "Bad/No Read");
             this.m_Text6.Text = resources.GetText("Option_BarcodeVerifier.Text6.Text", "Bad Read Fault Count");
             this.m_Button1.Text = resources.GetText("Option_BarcodeVerifier.Button1.Text", "Trigger BCD\r\nVerifier");
->>>>>>> testing/metric:H1195_Beta/BuildFiles/Option_BarcodeVerifier.cs
             resources.ApplyTexts(this.m_Text5, "Texts", "Option_BarcodeVerifier.Text5.Texts[0]", "OFF", "Option_BarcodeVerifier.Text5.Texts[1]", "ON");
             this.ApplyResourcesOnForm();
         }

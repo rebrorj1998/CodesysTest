@@ -270,11 +270,7 @@
       </Object>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" DesignerName="About_Sharp" ObjectName="Text6" PropertyName="Text" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">
         <ReferenceValue>
-<<<<<<< HEAD:1195 HMI/MultipleLanguages.neo
-          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="1.2.0.6" />
-=======
-          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="1.2.0.8" />
->>>>>>> testing/metric:H1195_Beta/MultipleLanguages.neo
+          <Object d1p1:type="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" primitive.value="1.2.0.9" />
         </ReferenceValue>
       </Object>
       <Object d1p1:type="Neo.ApplicationFramework.Tools.MultiLanguage.DesignerResourceItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" DesignerName="About_Sharp" ObjectName="AnalogNumeric" PropertyName="Prefix" IsActive="True" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsPublic="True">

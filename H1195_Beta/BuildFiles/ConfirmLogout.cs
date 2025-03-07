@@ -78,20 +78,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.BlinkDynamicsValue = false;
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-            this.m_Text.FontSizePixels = 20;
-=======
             this.m_Text.FontSizePixels = 16;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Text.Height = 60;
             this.m_Text.Left = 21;
             this.m_Text.MultiLine = true;
             this.m_Text.Name = "m_Text";
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-            this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(5D, 0D, 5D, 1D);
-=======
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Text.ScreenOwnerName = "ConfirmLogout";
             this.m_Text.TextHorizontalAlignment = "Center";
             this.m_Text.Top = 8;
@@ -107,27 +99,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Cancel.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
             this.m_Cancel.DelayMouseInputPeriod = 0;
             this.m_Cancel.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-            this.m_Cancel.FontSizePixels = 18;
-=======
             this.m_Cancel.FontSizePixels = 14;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Cancel.ForceTransparency = true;
             this.m_Cancel.Height = 56;
             this.m_Cancel.IndicatorMargin = null;
             this.m_Cancel.Left = 1;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-=======
             this.m_Cancel.MultiLine = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Cancel.Name = "m_Cancel";
             this.m_Cancel.RequiresTransparency = true;
             this.m_Cancel.ScreenOwnerName = "ConfirmLogout";
             this.m_Cancel.SymbolIntervalMapper = symbolintervalmapper1;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-            this.m_Cancel.TextHeight = 22;
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Cancel.TextValue = 0D;
             this.m_Cancel.TextWidth = 108;
             this.m_Cancel.Top = 79;
@@ -135,10 +116,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Cancel.VisibleDynamicsValue = true;
             this.m_Cancel.VisualPropertiesHashCode = -1890525856;
             this.m_Cancel.Width = 118;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-=======
             this.m_Cancel.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             // 
             // m_Logout
             // 
@@ -148,27 +126,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Logout.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
             this.m_Logout.DelayMouseInputPeriod = 0;
             this.m_Logout.EnabledDynamicsValue = true;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-            this.m_Logout.FontSizePixels = 18;
-=======
             this.m_Logout.FontSizePixels = 14;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Logout.ForceTransparency = true;
             this.m_Logout.Height = 56;
             this.m_Logout.IndicatorMargin = null;
             this.m_Logout.Left = 121;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-=======
             this.m_Logout.MultiLine = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Logout.Name = "m_Logout";
             this.m_Logout.RequiresTransparency = true;
             this.m_Logout.ScreenOwnerName = "ConfirmLogout";
             this.m_Logout.SymbolIntervalMapper = symbolintervalmapper2;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-            this.m_Logout.TextHeight = 22;
-=======
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.m_Logout.TextValue = 0D;
             this.m_Logout.TextWidth = 108;
             this.m_Logout.Top = 79;
@@ -176,10 +143,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Logout.VisibleDynamicsValue = true;
             this.m_Logout.VisualPropertiesHashCode = -1890525856;
             this.m_Logout.Width = 118;
-<<<<<<< HEAD:1195 HMI/BuildFiles/ConfirmLogout.cs
-=======
             this.m_Logout.WordWrap = true;
->>>>>>> testing/metric:H1195_Beta/BuildFiles/ConfirmLogout.cs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.ClientSize = new System.Drawing.Size(240, 136);
             this.IsCacheable = false;
