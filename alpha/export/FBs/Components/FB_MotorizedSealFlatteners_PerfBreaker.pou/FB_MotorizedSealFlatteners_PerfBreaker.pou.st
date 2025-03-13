@@ -129,6 +129,9 @@ VAR
 	retryResetDuration		: TIME		:= T#50MS;
 	atBagFeedSetpoint: BOOL;
 	moveInTMR: TON;
+	
+	testvar: 		INT;
+	testvar2: 		INT;
 END_VAR
 
 VAR CONSTANT
@@ -467,6 +470,7 @@ CASE state OF
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveHandLoad)) THEN
                                                                         sealFlattenersVerticalAxis.Extend();
 																		state := SEAL_FLATTENER_STATES.MovingFlattenersDown; 
+																			 testvar := testvar+1;
 																		IF _amMoveHandLoad THEN
 																			 handLoadRequested := TRUE;
 																		END_IF
@@ -484,6 +488,7 @@ CASE state OF
 																		posSetpoint := outSetpoint;                                                    
                                                                     	state := SEAL_FLATTENER_STATES.Idle;
 																		ClearCommands();
+																			 testvar2 := testvar2+1;
 																	END_IF
     
     SEAL_FLATTENER_STATES.MoveFlattenersDown :            			// Do moves for down and bag holding

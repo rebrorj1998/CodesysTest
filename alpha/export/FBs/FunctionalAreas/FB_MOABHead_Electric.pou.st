@@ -971,8 +971,8 @@ oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseCo
 oRunExitConveyor := oRunExitConveyorForward;
 oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
 	 //Aux IO conveyore control
-oAuxExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
-oAuxExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
+oAuxExitConveyorForward := _runIntegratedExitConveyor; 
+oAuxExitConveyorReverse := HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor;
 
 
  
