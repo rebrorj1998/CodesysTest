@@ -49,7 +49,11 @@ _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PRINTER_STATES.Fault);
 // 	printerNotPrintingFault.Trigger();
 // END_IF
 
-_printerRibbonTimeoutTimer();
+IF NOT hmidata.enablePaperBagger THEN
+	_printerRibbonTimeoutTimer();
+END_IF
+
+
 _printerPrintSignalSettlingTimer(IN := state = PRINTER_STATES.Printing);
 printHeadDebounce(PT:= printHeadDebouneSetpoint, Q=> printHeadDebounced);
 

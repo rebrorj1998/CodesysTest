@@ -1,7 +1,7 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_MotorizedSealFlatteners_PerfBreaker EXTENDS FB_BaseComponent IMPLEMENTS IComponentStatus
 VAR_INPUT
-	sealFlattenersVerticalAxis 		: FB_ThreePositionCylinder ;		//ICylinder();			
+	sealFlattenersVerticalAxis 		: ICylinder  ;		//ICylinder();			
 	mailerMaterial 					: MAILER_MATERIAL 	:= MAILER_MATERIAL.paper;
 	perfBreakerEnable 				: BOOL ;	
 	horizontalAxisAccel 			: INT 				:= 1000;    	// Acceleration for Move to Manual Setpoint and Jog Commands
@@ -30,6 +30,9 @@ VAR_OUTPUT
 	actualPosition : REAL;
 	timeoutFault : BOOL;
 	atOutSetpoint 					: BOOL;
+	atInSetpoint: BOOL;
+	atBagHoldSetpoint: BOOL;
+	atBagFeedSetpoint: BOOL;
 END_VAR
 VAR
 	//sealFlattenersHorizontalAxisMotor 	: FB_AppliedMotionStepServoEIPBaseQX();
@@ -127,11 +130,12 @@ VAR
 	posSetpoint: REAL;
 	retryResetTMR			: TON;
 	retryResetDuration		: TIME		:= T#50MS;
-	atBagFeedSetpoint: BOOL;
+
 	moveInTMR: TON;
 	
 	testvar: 		INT;
 	testvar2: 		INT;
+	bagHoldTolerance: REAL := 2.5;
 END_VAR
 
 VAR CONSTANT
@@ -192,7 +196,16 @@ IF ABS(actualPosition - bagFeedPosition) < positionThreshold THEN
 ELSE
 	atBagFeedSetpoint := FALSE;
 END_IF 	 
- 
+IF ABS(actualPosition - inSetpoint) < positionThreshold THEN
+	atInSetpoint := TRUE;
+ELSE
+	atInSetpoint := FALSE;
+END_IF 
+IF actualPosition > (bagHoldingSetpoint - bagHoldTolerance) THEN
+	atBagHoldSetpoint := TRUE;
+ELSE
+	atBagHoldSetpoint := FALSE;
+END_IF 
 IF HMIData.bagWidth > 20.0 THEN
 	inSetpoint := 3.0;
 ELSE
@@ -272,11 +285,11 @@ CASE state OF
                                                                         ClearCommands();
                                                                     END_IF
 																	
-																	IF enable AND autoModeSelected AND _amMoveIn OR _amMoveInToBagHolding THEN
+																	(*IF enable AND autoModeSelected AND _amMoveIn OR _amMoveInToBagHolding THEN
 																		sealFlattenersVerticalAxis.Retract();
 																		state := SEAL_FLATTENER_STATES.MoveFlattenersIn;
 																		ClearCommands();
-																	END_IF
+																	END_IF*)
 																		 
 																			  //above two IF statements inserted during merge of Carlos' paper work
 																	
@@ -291,7 +304,7 @@ CASE state OF
 																	//IF enable AND autoModeSelected AND _amMoveIn THEN
                                                                     END_IF
 																	
-																	IF (enable AND HMIData.sealFlattenersInUse) AND autoModeSelected AND (_amMoveIn OR _amMoveInToBagHolding) THEN
+																	IF (enable AND HMIData.sealFlattenersInUse) AND autoModeSelected AND (_amMoveIn (*OR _amMoveInToBagHolding*)) THEN
 																	//IF enable AND autoModeSelected AND _amMoveIn THEN
 																		sealFlattenersVerticalAxis.Retract();
 																		state := SEAL_FLATTENER_STATES.MoveFlattenersIn;
@@ -455,7 +468,8 @@ CASE state OF
                                                                     END_IF
 																	bagDropDelay.PT := T#1S;
                                                                     
-    SEAL_FLATTENER_STATES.MovingFlattenersIn :                      // If we did that command well move on 
+    SEAL_FLATTENER_STATES.MovingFlattenersIn :                      // If we did that command well move on
+																	ClearCommands(); 
                                                                         delay.IN := TRUE;
                                                                         IF delay.Q THEN
 																			IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND ((sealFlattenersHorizontalAxisMotor.Status.InPosition (*posReached*) AND NOT moveTST)
@@ -553,7 +567,7 @@ CASE state OF
     SEAL_FLATTENER_STATES.MovingFlattenersToBagHolding :          
 																  delay.IN := TRUE;
                                                                   IF delay.Q THEN
-																  	IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged THEN
+																  	IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND (actualPosition > 10.0) THEN
 																		moveBagHoldDuration :=	moveBagHoldTMR.ET;		//CARLOS
 																		moveBagHoldTMR.IN := FALSE;
 																		moveOutDuration := moveOutTMR.ET;

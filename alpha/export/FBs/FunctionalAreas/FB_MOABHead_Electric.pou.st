@@ -152,6 +152,9 @@ VAR
 	MSFatOutSetpoint: BOOL;
 	paperBagger: BOOL;
 	
+	MSFatInSetpoint: BOOL;
+	MSFatBagHoldSetpoint: BOOL;
+	MSFatBagFeedSetpoint: BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -304,8 +307,7 @@ ELSIF stagingFunnel.enable THEN
 	oStagingFunnelOpenOrPerfBreakerUp   := stagingFunnelOpenOutput;	 
 END_IF
 		  
-msfVerticalAxis();
-msfVerticalAxis.Execute();
+msfVerticalAxis(extendOutput => oSealFlatDown, retractOutput => oSealFlatUp);
 perfBreaker();
 perfBreaker.Execute();
 	 
@@ -322,7 +324,10 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						timeoutFault => sealFlattenerTimedOut.faultTrigger,
 						actualPosition => MSFactualPosition,
 						mailerMaterial := HMIData.mailerMaterial,
-						atOutSetpoint => MSFatOutSetpoint											
+						atOutSetpoint => MSFatOutSetpoint,
+						atInSetpoint => MSFatInSetpoint,
+						atBagHoldSetpoint => MSFatBagHoldSetpoint,
+						atBagFeedSetpoint => MSFatBagFeedSetpoint											
 );
 HMIData.sealFlattenersPosition := MSFactualPosition;
 	 
@@ -1895,7 +1900,8 @@ CASE state.sb.sealSeparate OF
                                                     state.sb.sealSeparate := SEAL_SEPARATE_STATES.MovingJawIn;
                                                     
     SEAL_SEPARATE_STATES.MovingJawIn :              // If Jaw is in and flatteners out then move on
-                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
+                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable)
+														OR  (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle AND MSFatBagFeedSetpoint)
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
                                                         THEN
                                                             state.sb.sealSeparate := SEAL_SEPARATE_STATES.MovedJawIn;    
@@ -1925,7 +1931,8 @@ CASE state.sb.sealSeparate OF
 														END_IF
 													END_IF
 
-                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
+                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable)
+														OR  (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle AND MSFatBagFeedSetpoint) 
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
                                                         AND (bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone OR NOT bagDelivery.enable)
 														AND (sealTimer.Q OR HMIData.separateBeforeSeal)
@@ -1981,7 +1988,8 @@ CASE state.sb.releaseFeed OF
 
                                                    
     RELEASE_FEED_STATES.MoveJawOutAndDropBag :        // 
-                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable) 
+                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable)
+														OR (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle AND MSFatBagFeedSetpoint)
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
                                                         AND ((bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone) OR HMIData.enableDryCycle)
                                                         OR (bagDelivery.state =  BAG_DELIVERY_STATES.WaitingForPrinter AND zebraPrinter.enable)
@@ -2041,7 +2049,7 @@ CASE state.sb.releaseFeed OF
 														// If printer is enabled then perform printer operation of bag delivery, otherwise just feed new bag out.
                                                         // In the case that bagDelivery is disabled then we're done with release and feed
 														IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut 
-														OR MSFatOutSetpoint) 
+														OR MSFatOutSetpoint OR MSFatBagFeedSetpoint) 
 														AND (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse THEN
 															motorizedSealFlatteners.AutoMoveToClearance();														 
 														END_IF
@@ -2221,11 +2229,11 @@ CASE state.sb.openBag OF
 													END_IF
                                                                    
     BAG_OPEN_ASSIST_STATES.MoveJawOut :             // Open the jaw and move seal flatteners in and to bag holding
-                                                    IF HMIDAta.enablePerfBreaker AND NOT (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse  THEN
+                                                    (*IF HMIDAta.enablePerfBreaker AND NOT (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse  THEN
 														perfBreaker.Extend();
-													END_IF
+													END_IF*)
 													pressureBar.OpenJaw();
-													motorizedSealFlatteners.AutoMoveIn();
+													//motorizedSealFlatteners.AutoMoveIn();
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
                                                                                              
     BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab :    // Once everything that is enabled is homed finish cycle 
@@ -2244,15 +2252,12 @@ CASE state.sb.openBag OF
 													  
 
 	BAG_OPEN_ASSIST_STATES.CheckForSuccessfulBagGrab : 	//
-													IF HMIDAta.enablePerfBreaker AND HMIData.enablePaperBagger THEN
-														//perfBreaker.MoveDown();
-													END_IF
 														IF bagOpenRetryCount < bagOpenRetrySetting THEN
 															bagOpenCheckDelay.IN := TRUE;
 															IF bagOpenCheckDelay.Q THEN
 																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) OR HMIData.enableDryCycle THEN // This method checks to see if the bag is grabbed and returns true if so.
-																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.BagOpened;
 																	motorizedSealFlatteners.AutoMoveIn();
+																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.OpenBag;
 																ELSE 
 																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.BagFailedToOpen;
 																END_IF
@@ -2292,19 +2297,34 @@ CASE state.sb.openBag OF
 															
 														END_IF
 	
-	BAG_OPEN_ASSIST_STATES.BagOpened :					//
-														bagOpened := TRUE;
+	BAG_OPEN_ASSIST_STATES.OpenBag :					//													
 														// Move flatteners now if no funnel. Otherwise let the funnel move the flatteners when done
-														IF NOT funnel.enable THEN 
+														IF MSFatInSetpoint AND NOT funnel.enable THEN 
 															motorizedSealFlatteners.AutoMoveToBagHolding();
 														END_IF
 														
-                                                    	
-														bagOpenRetryCount := 0;
-														HMIData.bagOpenFeedNewBagCount := 0;
+                                                    	IF //MSFatBagHoldSetpoint THEN
+														motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovingFlattenersDown THEN
+															state.sb.openBag := BAG_OPEN_ASSIST_STATES.bagOpening; 
+														END_IF
 														
-														state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
-														  
+	BAG_OPEN_ASSIST_STATES.BagOpening :					//
+																												
+                                                    	IF MSFatBagHoldSetpoint THEN
+															state.sb.openBag := BAG_OPEN_ASSIST_STATES.bagOpened; 
+														END_IF
+														
+														
+	BAG_OPEN_ASSIST_STATES.BagOpened :
+															bagOpened := TRUE;
+														// Move flatteners now if no funnel. Otherwise let the funnel move the flatteners when done
+																										
+                                                    	IF MSFatBagHoldSetpoint THEN
+															bagOpenRetryCount := 0;
+															HMIData.bagOpenFeedNewBagCount := 0;														
+															state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
+														END_IF
+														
     BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab :		// 
 														IF (pressureBar.pressureBarOpen OR NOT pressureBar.enable) 
 															AND ((motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle OR NOT motorizedSealFlatteners.enable)

@@ -217,12 +217,15 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						lowerService := HMIData.sealFlattenersServiceLower,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
-						sealFlattenerMotorCommFailInput := (sealFlattenerCommFail AND motorizedSealFlatteners.enable),
+						sealFlattenerMotorCommFailInput := (sealFlattenerCommFail AND HMIData.sealFlattenersInUse),
 						timeoutFault => sealFlattenerTimedOut.faultTrigger,
-						position => HMIData.sealFlattenersPosition
+						position => HMIData.sealFlattenersPosition,
+						mailer
 );
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
+// COPIED FROM MERGE-PAPER (CARLOS) BRANCH
+
 
 // Setup of MOAB Machine Pressure bar ("#2") on actual machine, not test rig
 pressureBar(
