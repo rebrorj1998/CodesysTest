@@ -414,13 +414,13 @@ bagDelivery(
 	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
 );
 
-IF HMIData.enablePaperBagger THEN
+IF paperBagger OR HMIData.enablePaperBagger THEN
 	bagDelivery.stepsPerInchSetting :=  Globals.STEPS_PER_INCH_PRO24_PAPER_FRONT;
 	bagDelivery.velocityMultiplier := (bagDelivery.stepsPerInchSetting / (20000.0 * 0.25 / 60));
 ELSE
 	bagDelivery.stepsPerInchSetting :=  Globals.STEPS_PER_INCH_PRO24_BAG_DELIVERY;
 	bagDelivery.velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_ELECTRIC;
-END_IF
+END_IF  
 	 
 bagDelivery.Mode := bagDeliveryMode;
 
@@ -1908,8 +1908,10 @@ CASE state.sb.sealSeparate OF
                                                     END_IF
                                                                 
     SEAL_SEPARATE_STATES.MovedJawIn :               // Will add sealing logic here
-                                                    state.sb.sealSeparate := SEAL_SEPARATE_STATES.ReverseBag;
-                                                    
+													IF iJawClampsRetracted OR NOT pressureBar.enable THEN
+                                                    	state.sb.sealSeparate := SEAL_SEPARATE_STATES.ReverseBag;
+                                                    END_IF
+													
     SEAL_SEPARATE_STATES.ReverseBag :               // Reverse bag if bag delivery enabled, otherwise open jaw
 													//IBD.OpenFull();
                                                     IF bagDelivery.enable THEN

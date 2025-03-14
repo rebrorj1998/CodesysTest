@@ -589,7 +589,7 @@ CASE state OF
 																  //sealFlattenersHorizontalAxisMotor.Reset();
 																  retryResetTMR.IN := TRUE;
 																  perfBreaker.MoveUp();
-																  sealFlattenersVerticalAxis.Retract();
+																  //sealFlattenersVerticalAxis.Retract();
 																  // CHECK THAT MOTOR IS READY (RESET HAS PROPAGATED)
 																  IF sealFlattenersHorizontalAxisMotor.status.motorEnabled AND NOT sealFlattenersHorizontalAxisMotor.status.alarmPresent AND NOT sealFlattenersHorizontalAxisMotor.status.driveFaulted THEN
 																	  state := SEAL_FLATTENER_STATES.Idle;
