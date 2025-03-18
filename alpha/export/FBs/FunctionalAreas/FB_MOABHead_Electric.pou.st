@@ -1895,7 +1895,7 @@ CASE state.sb.sealSeparate OF
                                                     IF motorizedSealFlatteners.enable THEN
                                                         motorizedSealFlatteners.AutoMoveOut();
                                                     END_IF
-                                                
+                                                	sealTimer.IN := FALSE;
 													pressureBar.CloseJaw();
                                                     state.sb.sealSeparate := SEAL_SEPARATE_STATES.MovingJawIn;
                                                     
@@ -1921,22 +1921,23 @@ CASE state.sb.sealSeparate OF
                                                     END_IF
                                                                     
     SEAL_SEPARATE_STATES.ReversingBag :             // 
+													
 													IF NOT HMIData.separateBeforeSeal THEN
 														sealTimer.PT := TO_TIME(HMIData.sealBarDwell * 1000);
 														sealTimer.IN := TRUE;
 														IF NOT sealTimer.Q THEN
-															oSealBarExtend := TRUE;
-															oSealBarRetract := FALSE;
+															oSealBarExtend := TRUE; 
+															oSealBarRetract := FALSE;															
 														ELSE 
 															oSealBarExtend := FALSE;
 															oSealBarRetract := TRUE;
 														END_IF
 													END_IF
 
-                                                    IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable)
+                                                    IF ((motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable)
 														OR  (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle AND MSFatBagFeedSetpoint) 
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
-                                                        AND (bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone OR NOT bagDelivery.enable)
+                                                        AND (bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone OR NOT bagDelivery.enable))
 														AND (sealTimer.Q OR HMIData.separateBeforeSeal)
                                                         THEN
 															IF NOT HMIData.separateBeforeSeal THEN
@@ -1956,7 +1957,8 @@ CASE state.sb.sealSeparate OF
                                                     state.sb.sealSeparate := SEAL_SEPARATE_STATES.SealBag;
 													
 	SEAL_SEPARATE_STATES.SealBag:					
-													IF HMIData.separateBeforeSeal THEN
+													sealTimer.IN := TRUE;
+													IF HMIData.separateBeforeSeal THEN														
 														sealTimer.PT := TO_TIME(HMIData.sealBarDwell * 1000);
 														sealTimer.IN := TRUE;
 														IF NOT sealTimer.Q THEN
@@ -1969,10 +1971,11 @@ CASE state.sb.sealSeparate OF
 															HMIData.sealBarCycles.Increment();
 															state.sb.sealSeparate := SEAL_SEPARATE_STATES.Done;
 														END_IF
-													ELSE
+													ELSE			
 														state.sb.sealSeparate := SEAL_SEPARATE_STATES.Done;
 													END_IF                      
-    SEAL_SEPARATE_STATES.Done:                        //
+    SEAL_SEPARATE_STATES.Done:    
+													                    //
     SEAL_SEPARATE_STATES.Fault:						//
 END_CASE
 
