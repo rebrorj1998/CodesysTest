@@ -121,7 +121,7 @@ IF movingONS.OSF THEN
 	strokeTimer.IN := FALSE;
 END_IF
 	
-disableMotorONS(CLK := clamped AND (iPressureBarClamped AND NOT hmidata.enablePerfBreaker) AND iJawClampsRetracted);
+disableMotorONS(CLK := clamped AND (iPressureBarClamped AND NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper)) AND iJawClampsRetracted);
 IF disableMotorONS.OSR THEN
 	pbarMotor.AllowClamping();
 END_IF

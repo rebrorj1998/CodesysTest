@@ -78,12 +78,12 @@ VAR
 	positionError : DINT;
 	
 	inSetpoint : REAL := 2;            		// In setpoint in inches
-    moveInSpeed : INT := 2000;            	// Speed to move in in move
+    moveInSpeed : INT := 1500;            	// Speed to move in in move
 	moveInAccel : INT := 2000;	
 	moveInDecel : INT := 2000;
 	
     outSetpoint : REAL := 17.7;             // Out (sealing) setpoint in inches
-    moveOutSpeed : INT := 3000;            	// Speed to move in out move
+    moveOutSpeed : INT := 800;            	// Speed to move in out move
 	moveOutAccel : INT := 1200;	
 	moveOutDecel : INT := 1200;
 	moveOutTMR : TON;
@@ -105,7 +105,7 @@ VAR
 	perfBreakerRetractDelayTMR : standard.TON;
 	perfBreakerDelayDuration : TIME := T#5MS;
 
-	moveInSpeedPoly: INT := 800;
+	moveInSpeedPoly: INT := 2000;
 	moveInSpeedPaper: INT := 3000;
 	TST_PolyBagFeedSetpoint : bool := false;
 
@@ -133,7 +133,7 @@ VAR
 
 	moveInTMR: TON;
 	
-	testvar: 		INT;
+	testvar: 		REAL;
 	testvar2: 		INT;
 	bagHoldTolerance: REAL := 2.5;
 END_VAR
@@ -191,16 +191,18 @@ IF ABS(actualPosition - outSetpoint) < positionThreshold THEN
 ELSE
 	atOutSetpoint := FALSE;
 END_IF
-IF ABS(actualPosition - bagFeedPosition) < positionThreshold THEN
+IF actualPosition - bagFeedPosition < positionThreshold THEN
 	atBagFeedSetpoint := TRUE;
 ELSE
 	atBagFeedSetpoint := FALSE;
 END_IF 	 
+	 
 IF ABS(actualPosition - inSetpoint) < positionThreshold THEN
 	atInSetpoint := TRUE;
 ELSE
 	atInSetpoint := FALSE;
 END_IF 
+	 
 IF actualPosition > (bagHoldingSetpoint - bagHoldTolerance) THEN
 	atBagHoldSetpoint := TRUE;
 ELSE
@@ -213,7 +215,11 @@ ELSE
 END_IF
 
 IF mailerMaterial = MAILER_MATERIAL.poly THEN
-	bagFeedPosition := inSetpoint;
+		//IF hmidata.passthroughPosition < 4 THEN
+			//bagFeedPosition := inSetpoint;
+		//ELSE	 
+			//bagFeedPosition := bagFeedPosition-5;
+	//	END_IF
 END_IF 
 			// CHANGE OFFSETS ACCORDING TO MACHINE TYPE
 IF HMIDATA.baggerModelSelection = modelSelection.Pro18_1183 THEN
@@ -484,8 +490,7 @@ CASE state OF
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND (_amMoveInToBagHolding OR _amMoveHandLoad)) THEN
                                                                         sealFlattenersVerticalAxis.Extend();
 																		state := SEAL_FLATTENER_STATES.MovingFlattenersDown; 
-																			 testvar := testvar+1;
-																		IF _amMoveHandLoad THEN
+																			IF _amMoveHandLoad THEN
 																			 handLoadRequested := TRUE;
 																		END_IF
                                                                        // ClearCommands();
@@ -583,7 +588,8 @@ CASE state OF
 																  HMIData.motorizedSealFlattenerCycles.Increment();
                                                                   Globals.motorizedSealFlattenersCount := Globals.motorizedSealFlattenersCount + 1;
                                                                   Globals.sealFlattenerFingersCount := Globals.sealFlattenerFingersCount + 1;
-																	  traceStartCMD := false;
+																	  traceStartCMD := FALSE;																		   
+																			
 	SEAL_FLATTENER_STATES.Reset:
 																  //MOVE FLATTS AND PERFBREAKER UP AND OUT TO AVOID OBSTRUCTION WITH PRESSUREBAR
 																  //sealFlattenersHorizontalAxisMotor.Reset();

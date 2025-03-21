@@ -155,6 +155,8 @@ VAR
 	MSFatInSetpoint: BOOL;
 	MSFatBagHoldSetpoint: BOOL;
 	MSFatBagFeedSetpoint: BOOL;
+	
+	AutoRetractPerfBreakers: BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -299,7 +301,7 @@ IF motorizedSealFlatteners.enable THEN
 	oSealFlatUp:= msfVerticalAxis.retractOutput;
 END_IF
 	 
-IF HMIData.enablePerfBreaker THEN
+IF (hmidata.mailerMaterial = MAILER_MATERIAL.paper) THEN
 	oStagingFunnelCloseOrPerfBreakerDown := perfBreaker.extendOutput AND posInhibit;
 	oStagingFunnelOpenOrPerfBreakerUp   := perfBreaker.retractOutput AND posInhibit;
 ELSIF stagingFunnel.enable THEN
@@ -313,7 +315,7 @@ perfBreaker.Execute();
 	 
 motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 		 				perfBreaker := perfBreaker,
-					 	perfBreakerEnable := HMIData.enablePerfBreaker,
+					 	perfBreakerEnable := HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker),
 						jogIn := HMIData.sealFlattenersServiceJogIn,
 						jogOut := HMIData.sealFlattenersServiceJogOut,
 						raiseService := HMIData.sealFlattenersServiceRaise,
@@ -333,14 +335,14 @@ HMIData.sealFlattenersPosition := MSFactualPosition;
 	 
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 	 
-motorizedSealFlatteners.enable := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker ) AND (HMIData.sealFlattenersInUse OR HMIData.enablePerfBreaker);
+motorizedSealFlatteners.enable := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker ) AND (HMIData.sealFlattenersInUse);
 	 
 MSFMotor.Enable := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.PerfBreaker OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker );
 	 
 (*HMIData.enablePerfBreaker :=*) paperBagger := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.PerfBreaker OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker );
 	 
 // Warning if Staggin Funnel and Perforation Breaker are enabled
-IF stagingFunnel.enable	AND HMIData.enablePerfBreaker THEN
+IF stagingFunnel.enable	AND (hmidata.mailerMaterial = MAILER_MATERIAL.paper) THEN
 	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := TRUE;
 ELSE
 	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := FALSE;
@@ -391,7 +393,7 @@ pressureBar(
 	pressureBarOpen => HMIData.pressureBarService.extendedFeedback, 
 	jawClamps:= jawClamps, 
 	pbarMotor:= pressureBarMotor,
-    jawClear := (NOT pbarSensorBypass AND NOT ijawclamped OR NOT  hmidata.enablePerfBreaker) OR (pbarSensorBypass)
+    jawClear := (NOT pbarSensorBypass AND NOT ijawclamped OR NOT  (hmidata.mailerMaterial = MAILER_MATERIAL.paper)) OR (pbarSensorBypass)
 );
 
 // Run bag delivery 
@@ -1214,6 +1216,15 @@ IF enableONS.Q OR resetONS.Q THEN
 	bagDropTimer.IN := FALSE;
 	_reset := FALSE;
 	cycleTimer.IN := FALSE;
+	
+	
+	IF NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper) 
+		AND (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker) 
+		AND NOT stagingFunnel.enable
+		THEN				
+			oStagingFunnelCloseOrPerfBreakerDown 	:= FALSE;
+			oStagingFunnelOpenOrPerfBreakerUp   	:= TRUE;
+		END_IF
 END_IF
 
 IF HMIData.bagsMade.count >= 1000 THEN
@@ -1384,17 +1395,17 @@ CASE state.head OF
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
 														 
-													IF HMIData.perfBreakerService.exhaustCommand  AND HMIData.enablePerfBreaker THEN
+													IF HMIData.perfBreakerService.exhaustCommand  AND HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker)  THEN
 														perfBreaker.Exhaust();
 														posInhibit:= TRUE;
 														HMIData.perfBreakerService.exhaustCommand := FALSE;
 													END_IF
-													IF HMIData.perfBreakerService.retractCommand  AND HMIData.enablePerfBreaker THEN
+													IF HMIData.perfBreakerService.retractCommand  AND HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker) THEN
 														perfBreaker.MoveUp();
 														posInhibit:= TRUE;
 														HMIData.perfBreakerService.retractCommand := FALSE;
 													END_IF
-													IF HMIData.perfBreakerService.extendCommand  AND HMIData.enablePerfBreaker THEN
+													IF HMIData.perfBreakerService.extendCommand  AND HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker) THEN
 														perfBreaker.MoveDown();
 														posInhibit:= TRUE;
 														HMIData.perfBreakerService.extendCommand := FALSE;
@@ -1648,9 +1659,9 @@ CASE state.head OF
 											END_IF	
 
 HEAD_STATES.PassthroughPreCheck :
-										IF HMIDAta.enablePerfBreaker THEN
+										IF HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker) THEN
 											posInhibit := TRUE;
-											IF NOT pressureBar.jawClear AND HMIDAta.enablePerfBreaker THEN
+											IF NOT pressureBar.jawClear AND HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker) THEN
 												pressureBar.MoveJawClear();
 
 											END_IF
@@ -1704,7 +1715,7 @@ HEAD_STATES.PassthroughPreCheck :
 													END_IF
 												END_IF
 												
-												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND ((*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse OR HMIDAta.enablePerfBreaker) AND pressureBar.jawClear   THEN
+												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND ((*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse OR HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker)) AND pressureBar.jawClear   THEN
 													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 													msfVerticalAxis.Retract();
 													perfBreaker.MoveUp();
@@ -1780,8 +1791,8 @@ HEAD_STATES.PassthroughPreCheck :
 											oSealBarExtend := FALSE;
 											oSealBarRetract := TRUE;											
 											posInhibit := FALSE;
-											perfBreaker.MoveUp();
-											msfVerticalAxis.Retract();
+											//perfBreaker.MoveUp();
+											//msfVerticalAxis.Retract();
 											
 									
 END_CASE
@@ -2003,7 +2014,7 @@ CASE state.sb.releaseFeed OF
                                                             IF (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse THEN
                                                                 motorizedSealFlatteners.AutoMoveToClearance();
 																//motorizedSealFlatteners.AutoMoveToBagHolding();
-                                                            ELSIF HMIData.enablePerfBreaker THEN
+                                                            ELSIF (hmidata.mailerMaterial = MAILER_MATERIAL.paper) THEN
 																perfBreaker.Retract(); 
                                                             END_IF
                                                             
@@ -2064,8 +2075,8 @@ CASE state.sb.releaseFeed OF
  														END_IF	
 														
                                                         IF bagDropTimer.Q 
-															AND (perfBreaker.retractedStatus OR NOT HMIData.enablePerfBreaker)
-															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable)
+															AND (perfBreaker.retractedStatus OR NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper))
+															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR MSFatBagFeedSetpoint OR NOT motorizedSealFlatteners.enable )
 															THEN   
 
 															
@@ -2114,7 +2125,7 @@ CASE state.sb.releaseFeed OF
  													END_IF	
                                                     
     RELEASE_FEED_STATES.FeedToOffset :              // This starts feeding to the print offset
-													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) THEN
+													IF (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable OR MSFatBagFeedSetpoint) THEN
 														bagDelivery.AutoPrinterReady();
                                                     	state.sb.releaseFeed := RELEASE_FEED_STATES.FeedingToOffset;
 													END_IF
@@ -2172,8 +2183,9 @@ CASE state.sb.releaseFeed OF
  														bagOpenFingers.Release();
  													END_IF
 													IF (bagDelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagDelivery.enable)
-                                                        AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable) 
+                                                        AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable OR NOT hmidata.sealFlattenersInUse) 
                                                         AND (pressureBar.pressureBarOpen OR NOT pressureBar.enable)
+														
                                                         THEN
                                                             state.sb.releaseFeed := RELEASE_FEED_STATES.MovedJawOutAndFedBag;
                                                     END_IF
@@ -2218,7 +2230,7 @@ CASE state.sb.openBag OF
                                                     END_IF
                                                     
     BAG_OPEN_ASSIST_STATES.MovedJawIn :             // Hold onto the bag with vacuum to build suction
-													IF HMIDAta.enablePerfBreaker AND HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
+													IF HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
 														perfBreaker.MoveDown();
 													END_IF	
 													
@@ -2238,7 +2250,9 @@ CASE state.sb.openBag OF
 														perfBreaker.Extend();
 													END_IF*)
 													pressureBar.OpenJaw();
-													//motorizedSealFlatteners.AutoMoveIn();
+													IF hmidata.mailerMaterial = MAILER_MATERIAL.poly THEN
+														motorizedSealFlatteners.AutoMoveIn();
+													END_IF
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
                                                                                              
     BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab :    // Once everything that is enabled is homed finish cycle 
@@ -2261,7 +2275,9 @@ CASE state.sb.openBag OF
 															bagOpenCheckDelay.IN := TRUE;
 															IF bagOpenCheckDelay.Q THEN
 																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) OR HMIData.enableDryCycle THEN // This method checks to see if the bag is grabbed and returns true if so.
-																	motorizedSealFlatteners.AutoMoveIn();
+																	IF hmidata.mailerMaterial = MAILER_MATERIAL.paper THEN
+																		 motorizedSealFlatteners.AutoMoveIn();
+																	END_IF
 																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.OpenBag;
 																ELSE 
 																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.BagFailedToOpen;
@@ -2274,7 +2290,7 @@ CASE state.sb.openBag OF
 														END_IF
 													  
 	BAG_OPEN_ASSIST_STATES.BagFailedToOpen :			//
-													IF HMIDAta.enablePerfBreaker AND HMIData.enablePaperBagger THEN
+													IF (hmidata.mailerMaterial = MAILER_MATERIAL.paper) AND HMIData.enablePaperBagger THEN
 														//perfBreaker.MoveDown();
 													END_IF 
 														bagOpenFingers.Release();
@@ -2309,7 +2325,7 @@ CASE state.sb.openBag OF
 														END_IF
 														
                                                     	IF //MSFatBagHoldSetpoint THEN
-														motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovingFlattenersDown THEN
+														(motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovingFlattenersDown) OR NOT hmidata.sealFlattenersInUse THEN
 															state.sb.openBag := BAG_OPEN_ASSIST_STATES.bagOpening; 
 														END_IF
 														
