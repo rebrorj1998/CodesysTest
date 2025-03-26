@@ -47,7 +47,7 @@ VAR
 	_amMoveToBagFeed 					: BOOL;					// Auto Move to Bag Feed Position
 	_outSetpointOffset 					: REAL 		:= -2.5; 	// Offset value for sealing
 	_movingSetpointOffset 				: REAL 		:= 5; 		// Offset value for bag holding/mailer filling position
-
+	
 	MAX_OUT_SETPOINT 					: REAL 		:= 21.5;	// Maximum position due to physical constrains of mechanical assembly
 	defaultCurrentMSF 					: DINT 		:= 180;		// Default Current Setpoint for Seal Flatteners
 	outCurrentMSF 						: DINT 		:= 180;		// Current Setpoint for Seal Flattener Moving Out
@@ -105,7 +105,7 @@ VAR
 	perfBreakerRetractDelayTMR : standard.TON;
 	perfBreakerDelayDuration : TIME := T#5MS;
 
-	moveInSpeedPoly: INT := 2000;
+	moveInSpeedPoly: INT := 1200;
 	moveInSpeedPaper: INT := 3000;
 	TST_PolyBagFeedSetpoint : bool := false;
 
@@ -167,14 +167,19 @@ retryResetTMR( PT := retryResetDuration );
 	 
 actualPosition := sealFlattenersHorizontalAxisMotor.absolutePositonInches;			
 			// IF PERF BREAKER IS DISABLED, MAKE SURE IT'S NOT IN THE DOWN POSITION
-IF NOT perfBreakerEnable AND perfBreaker.extendedStatus THEN
+IF NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper) AND perfBreaker.extendedStatus THEN
 	perfBreaker.MoveUp();
 END_IF
 
 actualPosition := sealFlattenersHorizontalAxisMotor.absolutePositonInches;
 
 			// SET UP POSITION SETPOINTS
-outSetpoint := HMIData.bagWidth - _bagSealOffset;
+IF HMIData.mailerMaterial = MAILER_MATERIAL.poly THEN
+		 outSetpoint := HMIData.bagWidth - _bagSealOffset +2;
+	ELSE
+		outSetpoint := HMIData.bagWidth - _bagSealOffset; 
+END_IF
+//outSetpoint := HMIData.bagWidth - _bagSealOffset;
 bagHoldingSetpoint := outSetpoint;
 bagFeedPosition := HMIData.bagWidth + _outSetpointOffset;
 	 		// MAKE SURE SETPOINTS DO NOT EXTEND PAST THE PHYSICAL LIMIT
@@ -211,7 +216,7 @@ END_IF
 IF HMIData.bagWidth > 20.0 THEN
 	inSetpoint := 3.0;
 ELSE
-	inSetpoint := 2.0;
+	inSetpoint := 2.2;
 END_IF
 
 IF mailerMaterial = MAILER_MATERIAL.poly THEN
