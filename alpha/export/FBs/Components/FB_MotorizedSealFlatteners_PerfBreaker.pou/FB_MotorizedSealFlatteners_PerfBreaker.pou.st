@@ -33,6 +33,7 @@ VAR_OUTPUT
 	atInSetpoint: BOOL;
 	atBagHoldSetpoint: BOOL;
 	atBagFeedSetpoint: BOOL;
+	displayPos : REAL;
 END_VAR
 VAR
 	//sealFlattenersHorizontalAxisMotor 	: FB_AppliedMotionStepServoEIPBaseQX();
@@ -133,8 +134,7 @@ VAR
 
 	moveInTMR: TON;
 	
-	testvar: 		REAL;
-	testvar2: 		INT;
+	comboBreakerOffset: 		REAL	:= 3;
 	bagHoldTolerance: REAL := 2.5;
 END_VAR
 
@@ -165,27 +165,32 @@ _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = SEAL_FLATTENER_STATES.Fau
 			//
 retryResetTMR( PT := retryResetDuration );
 	 
-actualPosition := sealFlattenersHorizontalAxisMotor.absolutePositonInches;			
 			// IF PERF BREAKER IS DISABLED, MAKE SURE IT'S NOT IN THE DOWN POSITION
 IF NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper) AND perfBreaker.extendedStatus THEN
 	perfBreaker.MoveUp();
 END_IF
-
+	 
 actualPosition := sealFlattenersHorizontalAxisMotor.absolutePositonInches;
-
-			// SET UP POSITION SETPOINTS
-IF HMIData.mailerMaterial = MAILER_MATERIAL.poly THEN
-		 outSetpoint := HMIData.bagWidth - _bagSealOffset +2;
-	ELSE
-		outSetpoint := HMIData.bagWidth - _bagSealOffset; 
+displayPos := MSFEncPosInch;
+	 
+		  
+				// SET UP POSITION SETPOINTS
+IF HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
+		outSetpoint := HMIData.bagWidth - _bagSealOffset;		 	 
+		bagHoldingSetpoint := outSetpoint;
+		bagFeedPosition := HMIData.bagWidth + _outSetpointOffset;
+					// MAKE SURE SETPOINTS DO NOT EXTEND PAST THE PHYSICAL LIMIT
+				 
+	ELSIF hmidata.mailerMaterial = MAILER_MATERIAL.poly THEN
+		outSetpoint := HMIData.bagWidth + 0.2;
+		bagHoldingSetpoint := HMIData.bagWidth;
 END_IF
-//outSetpoint := HMIData.bagWidth - _bagSealOffset;
-bagHoldingSetpoint := outSetpoint;
-bagFeedPosition := HMIData.bagWidth + _outSetpointOffset;
-	 		// MAKE SURE SETPOINTS DO NOT EXTEND PAST THE PHYSICAL LIMIT
-IF bagHoldingSetpoint > MAX_OUT_SETPOINT THEN
-	bagHoldingSetpoint := MAX_OUT_SETPOINT;
+	 
+IF outSetpoint > MAX_OUT_SETPOINT THEN
+	outSetpoint := MAX_OUT_SETPOINT;
 END_IF
+				 
+							  
 
 IF bagFeedPosition > MAX_OUT_SETPOINT THEN
 	bagFeedPosition := MAX_OUT_SETPOINT;
@@ -512,7 +517,7 @@ CASE state OF
 																		posSetpoint := outSetpoint;                                                    
                                                                     	state := SEAL_FLATTENER_STATES.Idle;
 																		ClearCommands();
-																			 testvar2 := testvar2+1;
+																			 
 																	END_IF
     
     SEAL_FLATTENER_STATES.MoveFlattenersDown :            			// Do moves for down and bag holding

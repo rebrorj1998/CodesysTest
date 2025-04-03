@@ -324,7 +324,7 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
 						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING AND MSFMotor.Enable,
 						timeoutFault => sealFlattenerTimedOut.faultTrigger,
-						actualPosition => MSFactualPosition,
+						displayPos => MSFactualPosition,
 						mailerMaterial := HMIData.mailerMaterial,
 						atOutSetpoint => MSFatOutSetpoint,
 						atInSetpoint => MSFatInSetpoint,
@@ -1384,13 +1384,13 @@ CASE state.head OF
 													END_IF    
 													
 													IF HMIData.loadPlateService.retractCommand OR HMIData.rearLoadPlateService.retractCommand THEN
-														rearLoadPlate.ManualOn();
+														rearLoadPlate.moveToDischargePos();
 														HMIData.loadPlateService.retractCommand := FALSE;
 														HMIData.rearLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadPlateService.extendCommand OR HMIData.rearLoadPlateService.extendCommand THEN
-														rearLoadPlate.ManualOff();
+														rearLoadPlate.moveToLoadingPos();
 														HMIData.loadPlateService.extendCommand := FALSE;
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
@@ -1412,22 +1412,22 @@ CASE state.head OF
 													END_IF
 													
 													IF HMIData.loadShelfService.retractCommand THEN
-														loadShelf.ManualOn();
+														loadShelf.moveToDischargePos();
 														HMIData.loadShelfService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadShelfService.extendCommand THEN
-														loadShelf.ManualOff();
+														loadShelf.moveToLoadingPos();
 														HMIData.loadShelfService.extendCommand := FALSE;
 													END_IF	
 
 													IF HMIData.forwardLoadPlateService.retractCommand THEN
-														frontLoadPlate.ManualOn();
+														frontLoadPlate.moveToDischargePos();
 														HMIData.forwardLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.forwardLoadPlateService.extendCommand THEN
-														frontLoadPlate.ManualOff();
+														frontLoadPlate.moveToLoadingPos();
 														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
 													
@@ -1683,7 +1683,7 @@ HEAD_STATES.PassthroughPreCheck :
 												END_IF
 												IF IBD.homeRequired THEN
 													IF NOT frontLoadPlate.enable THEN
-														rearLoadPlate.ManualOn();
+														rearLoadPlate.moveToDischargePos();
 													END_IF
 													IBD.HomeNow();
 												ELSE
@@ -1695,26 +1695,7 @@ HEAD_STATES.PassthroughPreCheck :
     HEAD_STATES.Homing :                // 
 											IF pressureBar.pressureBarOpen AND (NOT IBD.Ready OR NOT IBD.enable) THEN
                                                 state.head := HEAD_STATES.HomingComplete;
-												
-												//
-												IF loadShelf.inUse OR loadShelf.LoadingPositionWhileDisabled THEN
-													loadShelf.ManualOff();
-												END_IF
-												
-												//
-												IF rearLoadPlate.inUse OR rearLoadPlate.LoadingPositionWhileDisabled THEN
-													IF rearLoadPlate.inDischargePosition THEN
-														rearLoadPlate.ManualOff();
-													END_IF
-												END_IF
-												
-												//
-												IF loadShelf.inUse OR loadShelf.LoadingPositionWhileDisabled THEN
-													IF loadShelf.inDischargePosition THEN
-														loadShelf.ManualOff();
-													END_IF
-												END_IF
-												
+																							
 												IF motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeRequired AND ((*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse OR HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker)) AND pressureBar.jawClear   THEN
 													motorizedSealFlatteners.sealFlattenersHorizontalAxisMotor.HomeNow();
 													msfVerticalAxis.Retract();

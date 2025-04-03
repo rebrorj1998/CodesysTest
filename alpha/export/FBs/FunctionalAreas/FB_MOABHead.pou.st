@@ -1134,34 +1134,34 @@ CASE state OF
 													END_IF    
 													
 													IF HMIData.loadPlateService.retractCommand OR HMIData.rearLoadPlateService.retractCommand THEN
-														rearLoadPlate.ManualOn();
+														rearLoadPlate.moveToDischargePos();
 														HMIData.loadPlateService.retractCommand := FALSE;
 														HMIData.rearLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadPlateService.extendCommand OR HMIData.rearLoadPlateService.extendCommand THEN
-														rearLoadPlate.ManualOff();
+														rearLoadPlate.moveToLoadingPos();
 														HMIData.loadPlateService.extendCommand := FALSE;
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
 													
 													IF HMIData.loadShelfService.retractCommand THEN
-														loadShelf.ManualOn();
+														loadShelf.moveToDischargePos();
 														HMIData.loadShelfService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadShelfService.extendCommand THEN
-														loadShelf.ManualOff();
+														loadShelf.moveToLoadingPos();
 														HMIData.loadShelfService.extendCommand := FALSE;
 													END_IF	
 
 													IF HMIData.forwardLoadPlateService.retractCommand THEN
-														frontLoadPlate.ManualOn();
+														frontLoadPlate.moveToDischargePos();
 														HMIData.forwardLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.forwardLoadPlateService.extendCommand THEN
-														frontLoadPlate.ManualOff();
+														frontLoadPlate.moveToLoadingPos();
 														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
 													
