@@ -134,8 +134,9 @@ VAR
 
 	moveInTMR: TON;
 	
-	comboBreakerOffset: 		REAL	:= 3;
+	comboBreakerOffset: 		REAL	:= 3.75;
 	bagHoldTolerance: REAL := 2.5;
+	
 END_VAR
 
 VAR CONSTANT
@@ -171,7 +172,12 @@ IF NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper) AND perfBreaker.extended
 END_IF
 	 
 actualPosition := sealFlattenersHorizontalAxisMotor.absolutePositonInches;
-displayPos := MSFEncPosInch;
+
+IF hmidata.sealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker THEN
+		displayPos := MSFEncPosInch + comboBreakerOffset;
+	ELSE 
+		displayPos := MSFEncPosInch;		 
+END_IF
 	 
 		  
 				// SET UP POSITION SETPOINTS
