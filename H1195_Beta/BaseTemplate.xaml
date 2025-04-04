@@ -131,7 +131,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
       <nac:Label.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="">
+        <nacd1:StringIntervalMapper DefaultValue="Text">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Bagger Not Ready To Cycle" />

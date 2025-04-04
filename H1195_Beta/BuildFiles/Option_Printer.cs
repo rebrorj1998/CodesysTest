@@ -270,7 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Option_Printer";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button.TextHeight = 37;
+            this.m_Button.TextHeight = 36;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 117;
             this.m_Button.Top = 177;
@@ -298,7 +298,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_Printer";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button1.TextHeight = 19;
+            this.m_Button1.TextHeight = 18;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 117;
             this.m_Button1.Top = 177;
@@ -326,7 +326,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Option_Printer";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 19;
+            this.m_Button2.TextHeight = 18;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 117;
             this.m_Button2.Top = 177;
@@ -650,7 +650,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Option_Printer";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button3.TextHeight = 19;
+            this.m_Button3.TextHeight = 18;
             stringintervalmappercf2.DefaultValue = "";
             stringintervalcf3.Value = "203 DPI Active";
             stringintervalcf4.End = 1D;

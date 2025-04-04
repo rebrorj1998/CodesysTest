@@ -354,7 +354,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 28;
+            this.m_Text.Height = 21;
             this.m_Text.Left = 216;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -363,7 +363,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 144;
+            this.m_Text.Width = 74;
             // 
             // m_Text1
             // 
@@ -372,7 +372,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 28;
+            this.m_Text1.Height = 21;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -381,7 +381,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 33;
+            this.m_Text1.Width = 23;
             // 
             // m_Button
             // 
@@ -477,7 +477,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric4.Left = 203;
             this.m_AnalogNumeric4.LimitNumberOfCharacters = true;
             this.m_AnalogNumeric4.MaxNumberOfCharacters = 5;
-            this.m_AnalogNumeric4.MaxValue = 5.5D;
+            this.m_AnalogNumeric4.MaxValue = 150D;
             this.m_AnalogNumeric4.MinValue = 2D;
             this.m_AnalogNumeric4.Name = "m_AnalogNumeric4";
             this.m_AnalogNumeric4.NumberOfDecimals = 2;

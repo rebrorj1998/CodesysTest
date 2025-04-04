@@ -149,6 +149,8 @@
     <Category Name="Script">
       <Items>
         <Item Target="Dashboard.Script.cs" Source="Tags.Application_GlobalObjects_CollectionofComponents_ActiveState_0" />
+        <Item Target="Dashboard.Script.cs" Source="Tags.LangStartup" />
+        <Item Target="Dashboard.Script.cs" Source="Tags.LanguageSelector" />
       </Items>
     </Category>
     <Category Name="StructuredTag">

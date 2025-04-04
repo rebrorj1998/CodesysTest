@@ -391,7 +391,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text24.DelayMouseInputPeriod = 0;
             this.m_Text24.EnabledDynamicsValue = true;
             this.m_Text24.FontSizePixels = 16;
-            this.m_Text24.Height = 28;
+            this.m_Text24.Height = 21;
             this.m_Text24.Left = 211;
             this.m_Text24.Name = "m_Text24";
             this.m_Text24.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -400,7 +400,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text24.TextVerticalAlignment = "Center";
             this.m_Text24.Top = 6;
             this.m_Text24.VisibleDynamicsValue = true;
-            this.m_Text24.Width = 121;
+            this.m_Text24.Width = 82;
             // 
             // m_Button2
             // 

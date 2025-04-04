@@ -17664,7 +17664,7 @@
           </Object>
         </GlobalDataSubItems>
       </Object>
-      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" GlobalDataType="DT_INTEGER2" d1p1:Site.Name="Language_Selector" ActionName="Multi Action" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" NonVolatile="True" GlobalDataType="DT_INTEGER2" d1p1:Site.Name="Language_Selector" ActionName="Multi Action" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
         <GlobalDataSubItems>
           <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" />
         </GlobalDataSubItems>
@@ -17777,6 +17777,15 @@
             </ActionMethodInfo>
           </Object>
         </Action>
+        <Events>
+          <Event Name="ValueOn" EventHandler="Language_Selector_ValueOn" />
+          <Event Name="ValueOff" EventHandler="Language_Selector_ValueOff" />
+        </Events>
+      </Object>
+      <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" GlobalDataType="DT_BIT" d1p1:Site.Name="LangStartup" ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d" IsExposed="False">
+        <GlobalDataSubItems>
+          <Object d1p1:type="Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem, ToolsCF, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" />
+        </GlobalDataSubItems>
       </Object>
     </GlobalDataItems>
     <PollGroups>

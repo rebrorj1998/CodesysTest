@@ -358,7 +358,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 28;
+            this.m_Text.Height = 21;
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -367,7 +367,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 80;
+            this.m_Text.Width = 54;
             // 
             // m_Text1
             // 
@@ -376,7 +376,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 28;
+            this.m_Text1.Height = 21;
             this.m_Text1.Left = 259;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -385,7 +385,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 33;
+            this.m_Text1.Width = 23;
             // 
             // m_Button1
             // 
@@ -858,7 +858,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.ForceTransparency = true;
             this.m_Button.Height = 59;
             this.m_Button.IndicatorMargin = null;
-            this.m_Button.Left = 206;
+            this.m_Button.Left = 217;
             this.m_Button.MultiLine = true;
             this.m_Button.Name = "m_Button";
             this.m_Button.RequiresTransparency = true;
@@ -884,21 +884,24 @@ namespace Neo.ApplicationFramework.Generated {
             // 
             // m_Text2
             // 
+            this.m_Text2.AutoSize = false;
             this.m_Text2.BlinkDynamicsValue = false;
             this.m_Text2.Bold = true;
             this.m_Text2.DelayMouseInputPeriod = 0;
             this.m_Text2.EnabledDynamicsValue = true;
             this.m_Text2.FontSizePixels = 16;
-            this.m_Text2.Height = 28;
-            this.m_Text2.Left = 82;
+            this.m_Text2.Height = 50;
+            this.m_Text2.Left = 84;
+            this.m_Text2.MultiLine = true;
             this.m_Text2.Name = "m_Text2";
             this.m_Text2.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
             this.m_Text2.ScreenOwnerName = "Advanced_P4";
             this.m_Text2.TextHorizontalAlignment = "Center";
             this.m_Text2.TextVerticalAlignment = "Center";
-            this.m_Text2.Top = 82;
+            this.m_Text2.Top = 70;
             this.m_Text2.VisibleDynamicsValue = true;
-            this.m_Text2.Width = 86;
+            this.m_Text2.Width = 120;
+            this.m_Text2.WordWrap = true;
             // 
             // m_Button2
             // 
@@ -1122,7 +1125,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text13.Text = resources.GetText("Advanced_P4.Text13.Text", "Rear Jaw");
             this.m_Text12.Text = resources.GetText("Advanced_P4.Text12.Text", "Actual Position");
             this.m_Text11.Text = resources.GetText("Advanced_P4.Text11.Text", "Alarm Code");
-            this.m_Text2.Text = resources.GetText("Advanced_P4.Text2.Text", "Load Shelf");
+            this.m_Text2.Text = resources.GetText("Advanced_P4.Text2.Text", "Inch or Metric");
             resources.ApplyTexts(this.m_Button, "Texts", "Advanced_P4.Button.Texts[0]", "Inch", "Advanced_P4.Button.Texts[1]", "Metric");
             resources.ApplyTexts(this.m_Button2, "Texts", "Advanced_P4.Button2.Texts[0]", "Light Curtain Not Installed", "Advanced_P4.Button2.Texts[1]", "Light Curtain Installed");
             this.ApplyResourcesOnForm();

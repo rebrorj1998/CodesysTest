@@ -238,7 +238,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 28;
+            this.m_Text.Height = 21;
             this.m_Text.Left = 220;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -247,7 +247,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 111;
+            this.m_Text.Width = 69;
             // 
             // m_Text1
             // 
@@ -256,7 +256,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 28;
+            this.m_Text1.Height = 21;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -265,7 +265,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 33;
+            this.m_Text1.Width = 23;
             // 
             // m_Button1
             // 
@@ -293,11 +293,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.ScreenOwnerName = "Service_P1";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button1.TextHeight = 16;
-            stringintervalmappercf1.DefaultValue = "Kaak sluiten";
-            stringintervalcf1.Value = "Kaak sluiten";
+            stringintervalmappercf1.DefaultValue = "Close Jaw";
+            stringintervalcf1.Value = "Close Jaw";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Kaak gesloten";
+            stringintervalcf2.Value = "Jaw Closed";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button1.TextIntervalMapper = stringintervalmappercf1;
@@ -406,11 +406,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button7.ScreenOwnerName = "Service_P1";
             this.m_Button7.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button7.TextHeight = 16;
-            stringintervalmappercf2.DefaultValue = "Kaak openen";
-            stringintervalcf3.Value = "Kaak openen";
+            stringintervalmappercf2.DefaultValue = "Open Jaw";
+            stringintervalcf3.Value = "Open Jaw";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "Kaak geopend";
+            stringintervalcf4.Value = "Jaw Opened";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button7.TextIntervalMapper = stringintervalmappercf2;

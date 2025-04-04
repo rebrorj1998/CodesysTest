@@ -578,7 +578,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_Barcode_M";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button1.TextHeight = 37;
+            this.m_Button1.TextHeight = 36;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 109;
             this.m_Button1.Top = 160;
@@ -704,7 +704,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric5.Left = 203;
             this.m_AnalogNumeric5.LimitNumberOfCharacters = true;
             this.m_AnalogNumeric5.MaxNumberOfCharacters = 5;
-            this.m_AnalogNumeric5.MaxValue = 32D;
+            this.m_AnalogNumeric5.MaxValue = 800D;
             this.m_AnalogNumeric5.Name = "m_AnalogNumeric5";
             this.m_AnalogNumeric5.NumberOfDecimals = 2;
             this.m_AnalogNumeric5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 2D, 2D, 2D);
@@ -886,7 +886,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_AnalogNumeric1.Left = 203;
             this.m_AnalogNumeric1.LimitNumberOfCharacters = true;
             this.m_AnalogNumeric1.MaxNumberOfCharacters = 5;
-            this.m_AnalogNumeric1.MaxValue = 32D;
+            this.m_AnalogNumeric1.MaxValue = 800D;
             this.m_AnalogNumeric1.Name = "m_AnalogNumeric1";
             this.m_AnalogNumeric1.NumberOfDecimals = 2;
             this.m_AnalogNumeric1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 2D, 2D, 2D);

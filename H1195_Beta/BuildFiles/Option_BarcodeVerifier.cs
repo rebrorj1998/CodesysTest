@@ -578,7 +578,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_BarcodeVerifier";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button1.TextHeight = 37;
+            this.m_Button1.TextHeight = 36;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 109;
             this.m_Button1.Top = 159;

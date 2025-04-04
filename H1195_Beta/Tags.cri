@@ -1170,6 +1170,8 @@
         <Item Target="Tags.Script.cs" TargetProperty="ValueChange" Source="Tags.Fault_Instance" />
         <Item Target="Tags.Script.cs" TargetProperty="ValueOn" Source="Tags.commsLoss" />
         <Item Target="Tags.Script.cs" TargetProperty="ValueOff" Source="Tags.commsLoss" />
+        <Item Target="Tags.Script.cs" TargetProperty="ValueOn" Source="Tags.Language_Selector" />
+        <Item Target="Tags.Script.cs" TargetProperty="ValueOff" Source="Tags.Language_Selector" />
         <Item Target="Tags.Script.cs" Source="Tags.IO_Page_Index" />
         <Item Target="Tags.Script.cs" Source="Tags.IO_Alias_Title" />
         <Item Target="Tags.Script.cs" Source="Tags.Fault_Instance" />

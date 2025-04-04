@@ -77,7 +77,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Options" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button8" Width="177" Height="51" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="286" Canvas.Top="85" nai:SecurityProperties.SecurityGroupsRequired="Administrators, Maintenance, Operators" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Options" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button8" Width="177" Height="51" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="285" Canvas.Top="85" nai:SecurityProperties.SecurityGroupsRequired="Administrators, Maintenance, Operators" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>

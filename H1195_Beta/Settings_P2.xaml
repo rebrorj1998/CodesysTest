@@ -136,7 +136,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Uitgeschakeld">
+        <nacd1:StringIntervalMapper DefaultValue="Disabled">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Disabled" />
@@ -247,7 +247,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Uitgeschakeld">
+        <nacd1:StringIntervalMapper DefaultValue="Disabled">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Disabled" />
@@ -358,7 +358,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Uitgeschakeld">
+        <nacd1:StringIntervalMapper DefaultValue="Disabled">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Disabled" />
@@ -462,7 +462,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Uitgeschakeld">
+        <nacd1:StringIntervalMapper DefaultValue="Disabled">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Disabled" />
@@ -558,7 +558,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Uitgeschakeld">
+        <nacd1:StringIntervalMapper DefaultValue="Disabled">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Disabled" />
@@ -698,7 +698,7 @@
           </Binding.FallbackValue>
         </Binding>
       </nacb:BlinkProperties.VisibleDynamicsValue>
-      <nac:Label AutoSize="False" Text="Filler Drop Time" BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text7" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="18" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
+      <nac:Label AutoSize="False" Text="Filler Drop Time (s)" BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text7" Width="260" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="18" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">
         <nac:Label.TextDecorations>
           <TextDecorationCollection />
         </nac:Label.TextDecorations>
@@ -753,7 +753,7 @@
         </nai:ActionProperties.Actions>
       </nac:AnalogNumericFX>
     </nac:Group>
-    <nac:Button ImageMargin="5,5,5,5" RequiresTransparency="True" SymbolName="ag_arrow left green" SymbolTransparent="False" Background="#FFC8C0C0" FontSize="9" Name="m_Button6" Width="60" Height="46" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="15" Canvas.Left="360" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button ImageMargin="5,5,5,5" Text="" RequiresTransparency="True" SymbolName="ag_arrow left green" SymbolTransparent="False" Background="#FFC8C0C0" FontSize="9" Name="m_Button6" Width="60" Height="46" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="15" Canvas.Left="360" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
