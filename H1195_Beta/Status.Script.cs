@@ -48,7 +48,6 @@ namespace Neo.ApplicationFramework.Generated
 				foreach (IBasicTag tag in ActiveTagList)
 				{
 					string endostr = tag.Name.Split('_').Last();
-					int testint = 0;
 					if (! indexList.Contains(endostr))
 					{
 						if (endostr.Length < 4)

@@ -367,7 +367,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 54;
+            this.m_Text.Width = 71;
             // 
             // m_Text1
             // 
@@ -866,7 +866,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button.TextHeight = 19;
             stringintervalmappercf1.DefaultValue = "";
-            stringintervalcf1.Value = "Inch";
+            stringintervalcf1.Value = "Duim";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
             stringintervalcf2.Value = "Metric";
@@ -937,10 +937,10 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper6;
             this.m_Button2.TextHeight = 44;
             stringintervalmappercf2.DefaultValue = "";
-            stringintervalcf3.Value = "Light Curtain Not Installed";
+            stringintervalcf3.Value = "Lichtgordijn niet geïnstalleerd";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "Light Curtain Installed";
+            stringintervalcf4.Value = "Lichtgordijn geïnstalleerd";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf2;

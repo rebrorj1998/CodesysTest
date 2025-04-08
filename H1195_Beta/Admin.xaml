@@ -218,7 +218,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Advanced&#xD;&#xA;Settings" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="179" Canvas.Top="171" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Advanced&#xD;&#xA;Settings" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="179" Canvas.Top="165" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>

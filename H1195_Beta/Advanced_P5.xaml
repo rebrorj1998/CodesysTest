@@ -273,8 +273,8 @@
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="English" />
               <nacd1:StringInterval Start="1" End="1" Value="French" />
-              <nacd1:StringInterval Start="2" End="2" Value="German" />
-              <nacd1:StringInterval Start="3" End="3" Value="Dutch" />
+              <nacd1:StringInterval Start="2" End="2" Value="Dutch" />
+              <nacd1:StringInterval Start="3" End="3" Value="German" />
             </nacd1:StringIntervalList>
           </nacd1:StringIntervalMapper.Intervals>
         </nacd1:StringIntervalMapper>

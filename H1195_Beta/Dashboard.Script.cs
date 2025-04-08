@@ -19,6 +19,8 @@ namespace Neo.ApplicationFramework.Generated
 	
     public partial class Dashboard
     {
+		int testint = 0;
+		
 		void test()
 		{
 			//Globals.Tags.Application_GlobalObjects_CollectionofComponents_ActiveState_0.Value.Bool
@@ -37,15 +39,15 @@ namespace Neo.ApplicationFramework.Generated
 			if (Globals.Tags.LangStartup.Value == false)
 
 			{
+			
+				var lang = Globals.Tags.Language_Selector.Value;
 
-				var lang = Globals.Tags.LanguageSelector.Value;
+				Globals.Tags.Language_Selector.Value = 0;
 
-				Globals.Tags.LanguageSelector.Value = 0;
-
-				Globals.Tags.LanguageSelector.Value = lang;
+				Globals.Tags.Language_Selector.Value = lang;
 
 				Globals.Tags.LangStartup.Value = true;
-
+				
 			}
 
 		}

@@ -858,7 +858,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text11.Height = 34;
             this.m_Text11.Left = 82;
             this.m_Text11.Name = "m_Text11";
-            this.m_Text11.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.75D, 0D, 2.75D, 1D);
+            this.m_Text11.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(5.75D, 0D, 5.75D, 1D);
             this.m_Text11.ScreenOwnerName = "Advanced_P1";
             this.m_Text11.TextVerticalAlignment = "Center";
             this.m_Text11.Top = 188;

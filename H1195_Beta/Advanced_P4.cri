@@ -41,8 +41,8 @@
         <Item Target="Advanced_P4.Button4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Button5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Button" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Advanced_P4.Text2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P4.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P4.Text2" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">

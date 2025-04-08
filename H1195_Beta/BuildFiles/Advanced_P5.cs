@@ -421,10 +421,10 @@ namespace Neo.ApplicationFramework.Generated {
             stringintervalcf2.Value = "French";
             stringintervalcf3.End = 2D;
             stringintervalcf3.Start = 2D;
-            stringintervalcf3.Value = "German";
+            stringintervalcf3.Value = "Dutch";
             stringintervalcf4.End = 3D;
             stringintervalcf4.Start = 3D;
-            stringintervalcf4.Value = "Dutch";
+            stringintervalcf4.Value = "German";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             stringintervalmappercf1.Intervals.Add(stringintervalcf3);
@@ -1244,7 +1244,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text6.Text = resources.GetText("Advanced_P5.Text6.Text", "Film Offset");
             this.m_Text7.Text = resources.GetText("Advanced_P5.Text7.Text", "Film Print");
             this.m_Text8.Text = resources.GetText("Advanced_P5.Text8.Text", "Language:");
-            resources.ApplyTexts(this.m_TouchComboBox, "Texts", "Advanced_P5.TouchComboBox.Texts[0]", "English", "Advanced_P5.TouchComboBox.Texts[1]", "French", "Advanced_P5.TouchComboBox.Texts[2]", "German", "Advanced_P5.TouchComboBox.Texts[3]", "Dutch");
+            resources.ApplyTexts(this.m_TouchComboBox, "Texts", "Advanced_P5.TouchComboBox.Texts[0]", "English", "Advanced_P5.TouchComboBox.Texts[1]", "French", "Advanced_P5.TouchComboBox.Texts[2]", "Dutch", "Advanced_P5.TouchComboBox.Texts[3]", "German");
             this.ApplyResourcesOnForm();
         }
         

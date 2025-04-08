@@ -17,7 +17,9 @@
       <Items />
     </Category>
     <Category Name="GlobalDataItem">
-      <Items />
+      <Items>
+        <Item Target="MultipleLanguages" TargetProperty="LanguageIndex" Source="Tags.Language_Selector" />
+      </Items>
     </Category>
     <Category Name="InvalidAction">
       <Items />
@@ -64,7 +66,9 @@
       <Items />
     </Category>
     <Category Name="StructuredTag">
-      <Items />
+      <Items>
+        <Item Target="MultipleLanguages" TargetProperty="LanguageIndex" Source="Tags.Language_Selector" />
+      </Items>
     </Category>
     <Category Name="TextIDs">
       <Items />

@@ -56,6 +56,7 @@ namespace Neo.ApplicationFramework.Generated
 		
 		private void InitializeObjects()
 		{
+			this.DataBindings.Add(new Neo.ApplicationFramework.Common.Data.DynamicBinding("LanguageIndex", ((Neo.ApplicationFramework.Common.Data.RealtimeDataItemProxy)(Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateRealtimeProxy("Tags.Language_Selector"))), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null));
 			Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo LanguageInfo1 = new Neo.ApplicationFramework.Tools.MultiLanguage.LanguageInfo();
 			LanguageInfo1.FontName = null;
 			LanguageInfo1.FontOffset = 0;

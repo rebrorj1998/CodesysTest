@@ -150,7 +150,7 @@
       <Items>
         <Item Target="Dashboard.Script.cs" Source="Tags.Application_GlobalObjects_CollectionofComponents_ActiveState_0" />
         <Item Target="Dashboard.Script.cs" Source="Tags.LangStartup" />
-        <Item Target="Dashboard.Script.cs" Source="Tags.LanguageSelector" />
+        <Item Target="Dashboard.Script.cs" Source="Tags.Language_Selector" />
       </Items>
     </Category>
     <Category Name="StructuredTag">
