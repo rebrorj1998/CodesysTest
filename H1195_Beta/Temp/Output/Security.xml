@@ -25,5 +25,43 @@
       </Groups>
       <IsErasable>False</IsErasable>
     </User>
+    <User ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+      <Username>Onderhoud</Username>
+      <PasswordHash>Hkqi6ChZBw7m7na3mLFFvxi6swc=</PasswordHash>
+      <Description></Description>
+      <Groups>
+        <Group>Group_01</Group>
+        <Group>Group_03</Group>
+      </Groups>
+      <IsErasable>False</IsErasable>
+    </User>
+    <User ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+      <Username>Wartung</Username>
+      <PasswordHash>Hkqi6ChZBw7m7na3mLFFvxi6swc=</PasswordHash>
+      <Description></Description>
+      <Groups>
+        <Group>Group_01</Group>
+        <Group>Group_03</Group>
+      </Groups>
+      <IsErasable>False</IsErasable>
+    </User>
+    <User ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+      <Username>Opérateur</Username>
+      <PasswordHash>TxbCHfSExzV+/i9mo6pqH6qRlgc=</PasswordHash>
+      <Description></Description>
+      <Groups>
+        <Group>Group_02</Group>
+      </Groups>
+      <IsErasable>False</IsErasable>
+    </User>
+    <User ProjectGuid="ffe53069-5a23-462f-8616-12aa85b1e19d">
+      <Username>Bediener</Username>
+      <PasswordHash>TxbCHfSExzV+/i9mo6pqH6qRlgc=</PasswordHash>
+      <Description></Description>
+      <Groups>
+        <Group>Group_02</Group>
+      </Groups>
+      <IsErasable>False</IsErasable>
+    </User>
   </SecurityUsers>
 </Security>
