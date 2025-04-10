@@ -49,7 +49,7 @@ _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = PRINTER_STATES.Fault);
 // 	printerNotPrintingFault.Trigger();
 // END_IF
 
-IF NOT hmidata.enablePaperBagger THEN
+IF NOT hmidata.mailerMaterial = MAILER_MATERIAL.paper THEN
 	_printerRibbonTimeoutTimer();
 END_IF
 
