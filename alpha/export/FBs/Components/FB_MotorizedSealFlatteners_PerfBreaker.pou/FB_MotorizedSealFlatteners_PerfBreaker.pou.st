@@ -190,6 +190,7 @@ IF HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
 	ELSIF hmidata.mailerMaterial = MAILER_MATERIAL.poly THEN
 		outSetpoint := HMIData.bagWidth + 0.2;
 		bagHoldingSetpoint := HMIData.bagWidth;
+		bagFeedPosition := inSetpoint;
 END_IF
 	 
 IF outSetpoint > MAX_OUT_SETPOINT THEN
@@ -227,7 +228,7 @@ END_IF
 IF HMIData.bagWidth > 20.0 THEN
 	inSetpoint := 3.0;
 ELSE
-	inSetpoint := 2.2;
+	inSetpoint := 2;
 END_IF
 
 IF mailerMaterial = MAILER_MATERIAL.poly THEN
