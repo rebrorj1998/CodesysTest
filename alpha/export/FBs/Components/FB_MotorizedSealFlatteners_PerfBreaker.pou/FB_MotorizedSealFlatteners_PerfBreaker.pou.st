@@ -136,6 +136,8 @@ VAR
 	
 	comboBreakerOffset: 		REAL	:= 3.75;
 	bagHoldTolerance: REAL := 2.5;
+    clearanceOffset : REAL := 2.0;        // Clearance Offset in inches
+
 	
 END_VAR
 
@@ -190,7 +192,20 @@ IF HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
 	ELSIF hmidata.mailerMaterial = MAILER_MATERIAL.poly THEN
 		outSetpoint := HMIData.bagWidth + 0.2;
 		bagHoldingSetpoint := HMIData.bagWidth;
-		bagFeedPosition := inSetpoint;
+			 
+		IF (HMIData.baggerModelSelection = ModelSelection.Pro18_1174) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_1183) THEN
+																		IF (outSetpoint + clearanceOffset) <= 17.8 THEN
+																			bagFeedPosition := (outSetpoint + clearanceOffset);
+																		ELSE
+																			bagFeedPosition := 17.8;
+																		END_IF
+																	ELSE
+																		IF (outSetpoint + clearanceOffset) <= 23.8 THEN
+																			bagFeedPosition := (outSetpoint + clearanceOffset);
+																		ELSE
+																			bagFeedPosition := 23.8;
+																		END_IF
+																	END_IF
 END_IF
 	 
 IF outSetpoint > MAX_OUT_SETPOINT THEN
