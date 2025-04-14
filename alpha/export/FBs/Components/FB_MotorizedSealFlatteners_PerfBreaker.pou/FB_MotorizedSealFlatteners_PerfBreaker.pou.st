@@ -431,7 +431,7 @@ CASE state OF
 																	
 	SEAL_FLATTENER_STATES.MoveFlattenersToBagFeed :      			// Move flatteners to out of the way of the bag for feeding																		
 																	timeoutTimer.IN := TRUE;
-																	delay.PT := T#0MS; delay.IN := TRUE;
+																	delay.PT := T#400MS; delay.IN := TRUE;
 																	IF delay.Q THEN																 																	
 																		sealFlattenersHorizontalAxisMotor.MoveToPosition(position := bagFeedPosition, 
 																															acceleration := horizontalAxisAccel,
@@ -619,6 +619,7 @@ CASE state OF
 																  ELSIF retryResetTMR.Q THEN
 																  	  sealFlattenersHorizontalAxisMotor.Reset();
 																	  retryResetTMR.IN := FALSE;
+																	  state := SEAL_FLATTENER_STATES.Idle;
 																  END_IF		 
 
 END_CASE

@@ -155,6 +155,7 @@ VAR
 	MSFatInSetpoint: BOOL;
 	MSFatBagHoldSetpoint: BOOL;
 	MSFatBagFeedSetpoint: BOOL;
+	testvar : BOOL;
 	
 	AutoRetractPerfBreakers: BOOL;
 END_VAR
@@ -1927,7 +1928,7 @@ CASE state.sb.sealSeparate OF
 													END_IF
 
                                                     IF ((motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersOut OR NOT motorizedSealFlatteners.enable)
-														OR  (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle AND MSFatBagFeedSetpoint) 
+														OR  (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.Idle AND MSFatBagHoldSetpoint)//MSFatBagFeedSetpoint)
                                                         AND (pressureBar.clamped OR NOT pressureBar.enable)
                                                         AND (bagDelivery.state = BAG_DELIVERY_STATES.ReverseDone OR NOT bagDelivery.enable))
 														AND (sealTimer.Q OR HMIData.separateBeforeSeal)
