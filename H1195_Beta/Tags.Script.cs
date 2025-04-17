@@ -55,13 +55,13 @@ namespace Neo.ApplicationFramework.Generated
 		
 		void commsLoss_ValueOn(System.Object sender, System.EventArgs e)
 		{
-			//Globals.CommLoss.Show();
+			Globals.CommLoss.Show();
 			
 		}
 		
 		void commsLoss_ValueOff(System.Object sender, System.EventArgs e)
 		{
-			//Globals.CommLoss.Close();
+			Globals.CommLoss.Close();
 		}
 		
 		void Language_Selector_ValueOn(System.Object sender, System.EventArgs e)

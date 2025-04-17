@@ -87,7 +87,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
       <nac:Label.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="ON">
+        <nacd1:StringIntervalMapper DefaultValue="AAN">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="OFF" />

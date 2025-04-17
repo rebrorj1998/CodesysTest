@@ -16,9 +16,11 @@ namespace Neo.ApplicationFramework.Generated
     using Neo.ApplicationFramework.Interfaces;
 	using Neo.ApplicationFramework.Interfaces.Tag;
     
-    
+	
     public partial class Dashboard
     {
+		int testint = 0;
+		
 		void test()
 		{
 			//Globals.Tags.Application_GlobalObjects_CollectionofComponents_ActiveState_0.Value.Bool
@@ -27,6 +29,27 @@ namespace Neo.ApplicationFramework.Generated
 		void Button4_Click(System.Object sender, System.EventArgs e)
 		{
 			Globals.Status.Show();
+		}
+		
+		
+		void Dashboard_Opened(System.Object sender, System.EventArgs e)
+
+		{
+
+			if (Globals.Tags.LangStartup.Value == false)
+
+			{
+			
+				var lang = Globals.Tags.Language_Selector.Value;
+
+				Globals.Tags.Language_Selector.Value = 0;
+
+				Globals.Tags.Language_Selector.Value = lang;
+
+				Globals.Tags.LangStartup.Value = true;
+				
+			}
+
 		}
     }
 }
