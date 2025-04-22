@@ -220,7 +220,6 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						sealFlattenerMotorCommFailInput := (sealFlattenerCommFail AND HMIData.sealFlattenersInUse),
 						timeoutFault => sealFlattenerTimedOut.faultTrigger,
 						position => HMIData.sealFlattenersPosition,
-						mailer
 );
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
@@ -299,8 +298,8 @@ stagingFunnel(
 	closingDwell := HMIData.stagingFunnelClosingTime,
 	iOpened := iStagingFunnelOpened, 
 	iClosed := iStagingFunnelClosed,  
-	oClose => oStagingFunnelCloseOrPerfBreakerDown, 
-	oOpen => oStagingFunnelOpenOrPerfBreakerUp
+	oClose => oStagingFunnelClose, 
+	oOpen => oStagingFunnelOpen
 );
 END_IF
 CASE HMIData.funnelFactorySelection OF

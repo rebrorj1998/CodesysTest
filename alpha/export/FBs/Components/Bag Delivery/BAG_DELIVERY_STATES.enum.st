@@ -32,6 +32,8 @@ TYPE BAG_DELIVERY_STATES :
 	SetTorqueMode := 52,
 	SetTorqueValue := 53,
 	Fault := 99,
-	Manual := 100
+	Manual := 100,
+	Reset := 110,
+	Resetting := 111
 );
 END_TYPE

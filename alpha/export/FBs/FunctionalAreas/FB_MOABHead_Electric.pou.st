@@ -317,6 +317,7 @@ perfBreaker.Execute();
 motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 		 				perfBreaker := perfBreaker,
 					 	perfBreakerEnable := HMIData.sealAreaOptionSelection = (SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker OR SealAreaOptionSelectionEnum.PerfBreaker),
+						sealAreaOption := HMIData.sealAreaOptionSelection,
 						jogIn := HMIData.sealFlattenersServiceJogIn,
 						jogOut := HMIData.sealFlattenersServiceJogOut,
 						raiseService := HMIData.sealFlattenersServiceRaise,
@@ -2313,20 +2314,20 @@ CASE state.sb.openBag OF
 														
 	BAG_OPEN_ASSIST_STATES.BagOpening :					//
 																												
-                                                    	IF MSFatBagHoldSetpoint THEN
+                                                    	//IF MSFatBagHoldSetpoint THEN
 															state.sb.openBag := BAG_OPEN_ASSIST_STATES.bagOpened; 
-														END_IF
+														//END_IF
 														
 														
 	BAG_OPEN_ASSIST_STATES.BagOpened :
 															bagOpened := TRUE;
 														// Move flatteners now if no funnel. Otherwise let the funnel move the flatteners when done
 																										
-                                                    	IF MSFatBagHoldSetpoint THEN
+                                                    	//IF MSFatBagHoldSetpoint THEN
 															bagOpenRetryCount := 0;
 															HMIData.bagOpenFeedNewBagCount := 0;														
 															state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab; 
-														END_IF
+														//END_IF
 														
     BAG_OPEN_ASSIST_STATES.MovingJawOutAfterGrab :		// 
 														IF (pressureBar.pressureBarOpen OR NOT pressureBar.enable) 

@@ -35,7 +35,7 @@ CASE _state OF
 		IF _moveDistance THEN
 			_moveDistance := FALSE;
 			_state := BAG_DELIVERY_MOVE_STATES.SetToPointToPointMode;
-			commandSuccessful := FALSE;
+			//commandSuccessful := FALSE;
 		END_IF
 															
 	BAG_DELIVERY_MOVE_STATES.SetToPointToPointMode:
@@ -43,20 +43,21 @@ CASE _state OF
 			IF RearMotor THEN
 				TriggerPointToPointMode();	
 			END_IF						
-			IF commandSuccessful OR NOT RearMotor THEN
-				commandSuccessful := FALSE;
+			//IF commandSuccessful OR NOT RearMotor THEN
+			//	commandSuccessful := FALSE;
 				_state := BAG_DELIVERY_MOVE_STATES.AckPointToPointMode;
-			END_IF
+			//END_IF
 		ELSIF NOT EIP THEN
 			TriggerPointToPointMode();
-			IF commandSuccessful THEN
-				commandSuccessful := FALSE;
+			//IF commandSuccessful THEN
+			//	commandSuccessful := FALSE;
 				_state := BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff;
-			END_IF
+			//END_IF
 		END_IF
 		
 	BAG_DELIVERY_MOVE_STATES.WaitAfterSettingOutputOff:		
 		IF commandSuccessful THEN
+			commandSuccessful := FALSE;
 			_state := BAG_DELIVERY_MOVE_STATES.MoveMotor;
 		END_IF
 		
@@ -77,28 +78,34 @@ CASE _state OF
 		_state := BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor;
 																											
 	BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor:
+	_delayTimer.PT := T#20MS;
+	_delayTimer.IN := TRUE;
+	IF _delayTimer.Q THEN
 		IF NOT _moveFinal THEN
 			IF commandSuccessful THEN
 				commandSuccessful := FALSE;
 				_moveDone := TRUE;
+				_delayTimer.IN := FALSE;
 				_state := BAG_DELIVERY_MOVE_STATES.Idle;
 			END_IF
 		ELSE
-			IF commandSuccessful AND InPosition THEN
-				_delayTimer.PT := T#10MS;
-				_delayTimer.IN := TRUE;
-				IF _delayTimer.Q THEN
-					_delayTimer.IN := FALSE;
+			IF commandSuccessful AND (NOT Moving AND InPosition) THEN
+				
 					commandSuccessful := FALSE;
-					_state := BAG_DELIVERY_MOVE_STATES.SetToTorqueMode;
-				END_IF	
+					_delayTimer.IN := FALSE;
+					IF RearMotor THEN
+						TriggerTorqueMode();
+					END_IF	
+					_state := BAG_DELIVERY_MOVE_STATES.SetToTorqueMode;	
 			END_IF
 		END_IF 
-
+		
+	END_IF
+	
 	BAG_DELIVERY_MOVE_STATES.SetToTorqueMode:	
 		IF EIP THEN
 			IF RearMotor THEN
-				TriggerTorqueMode();
+				//TriggerTorqueMode();
 			END_IF	
 			IF commandSuccessful OR NOT RearMotor THEN
 				commandSuccessful := FALSE;

@@ -15,7 +15,7 @@ END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 commandSuccessful := FALSE;
 
-distanceToMoveInSteps := REAL_TO_DINT((position) * stepsPerInchSetpoint);
+distanceToMoveInSteps := REAL_TO_DINT(((position - positionOffset) * stepsPerInchSetpoint));
 IF reversePolarity THEN
     distanceToMoveInSteps := distanceToMoveInSteps * -1;    
 END_IF
@@ -24,7 +24,4 @@ pointToPointAccelSetpoint := acceleration;
 pointToPointDecelSetpoint := deceleration;
 velocitySetpoint := velocity;
 currentLimit := current;
-//IF driveInputs[5] <> driveInputs[6] THEN
-	//ResetEncoderPosition(driveinputs[5]);
-//END_IF
 commands.feedToPosition := TRUE;

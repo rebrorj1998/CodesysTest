@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638702862915116191</Single>
+        <Single Name="Timestamp" Type="long">638808190419394088</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List2 Name="ParameterTable">
@@ -688,7 +688,7 @@
               <Single Type="string">System_VisuElemXYChart</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemXYChart, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemXYChart, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -696,7 +696,7 @@
               <Single Type="string">System_VisuElemCamDisplayer</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemCamDisplayer, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemCamDisplayer, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -704,7 +704,7 @@
               <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTextEditor, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemTextEditor, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -728,7 +728,7 @@
               <Single Type="string">System_VisuElemMeter</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemMeter, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemMeter, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -736,7 +736,7 @@
               <Single Type="string">System_VisuElemsSpecialControls</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsSpecialControls, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemsSpecialControls, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -744,7 +744,7 @@
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemTrace, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemTrace, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -752,7 +752,7 @@
               <Single Type="string">System_VisuElem3DPath</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElem3DPath, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElem3DPath, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -760,7 +760,7 @@
               <Single Type="string">System_VisuInputs</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuInputs, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuInputs, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -776,7 +776,7 @@
               <Single Type="string">System_VisuElems</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElems, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElems, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -792,7 +792,7 @@
               <Single Type="string">System_VisuElemsDateTime</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsDateTime, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemsDateTime, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -800,7 +800,7 @@
               <Single Type="string">System_VisuElemsAlarm</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsAlarm, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemsAlarm, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -816,7 +816,7 @@
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemsWinControls, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemsWinControls, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -848,7 +848,7 @@
               <Single Type="string">System_VisuElemBase</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemBase, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuElemBase, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -856,7 +856,7 @@
               <Single Type="string">System_VisuNativeControl</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuNativeControl, 4.6.0.0 (System)</Single>
+              <Single Type="string">VisuNativeControl, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
         </Dictionary>

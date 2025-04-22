@@ -3,6 +3,7 @@ FUNCTION_BLOCK FB_MotorizedSealFlatteners_PerfBreaker EXTENDS FB_BaseComponent I
 VAR_INPUT
 	sealFlattenersVerticalAxis 		: ICylinder  ;		//ICylinder();			
 	mailerMaterial 					: MAILER_MATERIAL 	:= MAILER_MATERIAL.paper;
+	sealAreaOption					: SealAreaOptionSelectionEnum;
 	perfBreakerEnable 				: BOOL ;	
 	horizontalAxisAccel 			: INT 				:= 1000;    	// Acceleration for Move to Manual Setpoint and Jog Commands
     horizontalAxisDecel 			: INT 				:= 500;    		// Deceleration for Move to Manual Setpoint and Jog Commands
@@ -36,7 +37,6 @@ VAR_OUTPUT
 	displayPos : REAL;
 END_VAR
 VAR
-	//sealFlattenersHorizontalAxisMotor 	: FB_AppliedMotionStepServoEIPBaseQX();
 	sealFlattenersHorizontalAxisMotor 	: FB_AppliedMotionStepServoEIPBase();
     _amMoveOut 							: BOOL;                 // Auto mode move out command
 	_amMoveIn 							: BOOL;					// Auto mode Move In Command
@@ -48,7 +48,7 @@ VAR
 	_amMoveToBagFeed 					: BOOL;					// Auto Move to Bag Feed Position
 	_outSetpointOffset 					: REAL 		:= -2.5; 	// Offset value for sealing
 	_movingSetpointOffset 				: REAL 		:= 5; 		// Offset value for bag holding/mailer filling position
-	
+	_bagFeedOffset						: REAL 		:= -5.0;
 	MAX_OUT_SETPOINT 					: REAL 		:= 21.5;	// Maximum position due to physical constrains of mechanical assembly
 	defaultCurrentMSF 					: DINT 		:= 180;		// Default Current Setpoint for Seal Flatteners
 	outCurrentMSF 						: DINT 		:= 180;		// Current Setpoint for Seal Flattener Moving Out
@@ -97,9 +97,6 @@ VAR
 	moveBagHoldTMR : TON;
 	moveBagHoldDuration : TIME;
 	 
-	MSFcurrentFDBK AT %ID74 : DINT;
-	MSFspeedFDBK AT %ID79 : DINT;
-	MSFencoderPosition AT %ID76 : DINT;
 	MSFEncPosInch : REAL;
 	moveTST : BOOL;
 	
@@ -113,9 +110,7 @@ VAR
 	traceStartCMD: BOOL;
 	positionDifBagFeed: REAL;
 	moveInDelay: TON;
-	_bagSealOffset: REAL := 5.0;
-	moveInDelayDuration: TIME := T#100ms;
-	_bagFeedOffset: REAL := 4.25;
+	moveInDelayDuration: TIME := T#100MS;
 	TST_narrowBagFeedPosition: BOOL;
 	testCurrent: DINT;
 	inputArray: ARRAY[0..13] OF DINT;
@@ -159,10 +154,19 @@ sealFlattenersHorizontalAxisMotor(ptrEIPInputs := ADR(sealFlattenerHorizontalMot
                 ptrEIPOutputs := ADR(sealFlattenerHorizontalMotorOutputs),
                 stepsPerInchSetpoint := Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR,
 				reversePolarity := TRUE, 
+				positionOffset :=,
 				defaultCurrentSetpoint := defaultCurrentMSF, 
 				commFail := sealFlattenerMotorCommFailInput,
 				isHomable := TRUE);
 sealFlattenersHorizontalAxisMotor.Execute(); 
+
+IF sealAreaOption = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker THEN
+	sealFlattenersHorizontalAxisMotor.positionOffset := 3.75;
+ELSE
+	sealFlattenersHorizontalAxisMotor.positionOffset := 0;	
+END_IF
+displayPos := sealFlattenersHorizontalAxisMotor.absolutePositonInches;
+	
 			// Report as ready if mode is auto and we're not faulted
 _ready := (_mode = DEVICE_MODES.Auto) AND NOT (state = SEAL_FLATTENER_STATES.Fault);
 			//
@@ -175,39 +179,59 @@ END_IF
 	 
 actualPosition := sealFlattenersHorizontalAxisMotor.absolutePositonInches;
 
-IF hmidata.sealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker THEN
-		displayPos := MSFEncPosInch + comboBreakerOffset;
-	ELSE 
-		displayPos := MSFEncPosInch;		 
-END_IF
-	 
-		  
-				// SET UP POSITION SETPOINTS
-IF HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
-		outSetpoint := HMIData.bagWidth - _bagSealOffset;		 	 
-		bagHoldingSetpoint := outSetpoint;
-		bagFeedPosition := HMIData.bagWidth + _outSetpointOffset;
-					// MAKE SURE SETPOINTS DO NOT EXTEND PAST THE PHYSICAL LIMIT
-				 
-	ELSIF hmidata.mailerMaterial = MAILER_MATERIAL.poly THEN
-		outSetpoint := HMIData.bagWidth + 0.2;
+IF sealAreaOption = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker THEN
+	inSetpoint := 5.0;
+	// Set positions for perf breaker combo moves	
+	IF HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
+		outSetpoint := HMIData.bagWidth - _outSetpointOffset;		 	 
 		bagHoldingSetpoint := HMIData.bagWidth;
-			 
+		bagFeedPosition := HMIData.bagWidth + _bagFeedOffset;
 		IF (HMIData.baggerModelSelection = ModelSelection.Pro18_1174) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_1183) THEN
-																		IF (outSetpoint + clearanceOffset) <= 17.8 THEN
-																			bagFeedPosition := (outSetpoint + clearanceOffset);
-																		ELSE
-																			bagFeedPosition := 17.8;
-																		END_IF
-																	ELSE
-																		IF (outSetpoint + clearanceOffset) <= 23.8 THEN
-																			bagFeedPosition := (outSetpoint + clearanceOffset);
-																		ELSE
-																			bagFeedPosition := 23.8;
-																		END_IF
-																	END_IF
+			MAX_OUT_SETPOINT := 19;
+		ELSE
+			MAX_OUT_SETPOINT := 25;
+		END_IF
+		
+	ELSIF hmidata.mailerMaterial = MAILER_MATERIAL.poly THEN
+		bagHoldingSetpoint := HMIData.bagWidth;
+		// Clamp values
+		IF (HMIData.baggerModelSelection = ModelSelection.Pro18_1174) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_1183) THEN
+			IF (outSetpoint + clearanceOffset) <= 19 THEN
+				bagFeedPosition := (outSetpoint + clearanceOffset);
+			ELSE
+				bagFeedPosition := MAX_OUT_SETPOINT := 19;
+			END_IF
+		ELSE
+			IF (outSetpoint + clearanceOffset) <= 24.5 THEN
+				bagFeedPosition := (outSetpoint + clearanceOffset);
+			ELSE
+				bagFeedPosition := MAX_OUT_SETPOINT := 24.5;
+			END_IF
+		END_IF
+	END_IF
+ELSE // "Regular" seal flatteners
+	inSetpoint := 2.0;
+	outSetpoint := HMIData.bagWidth + 0.2;
+	bagHoldingSetpoint := HMIData.bagWidth;
+	// Clamp values
+	IF ((HMIData.baggerModelSelection = ModelSelection.Pro18_1174) OR (HMIData.baggerModelSelection = ModelSelection.Pro18_1183)) THEN
+		MAX_OUT_SETPOINT := 17.8;
+		IF (outSetpoint + clearanceOffset) <= 17.8 THEN
+			bagFeedPosition := (outSetpoint + clearanceOffset);
+		ELSE
+			bagFeedPosition := MAX_OUT_SETPOINT;
+		END_IF
+	ELSE
+		MAX_OUT_SETPOINT := 23.8;
+		IF (outSetpoint + clearanceOffset) <= 23.8 THEN
+			bagFeedPosition := (outSetpoint + clearanceOffset);
+		ELSE
+			bagFeedPosition := MAX_OUT_SETPOINT;
+		END_IF
+	END_IF
 END_IF
 	 
+
 IF outSetpoint > MAX_OUT_SETPOINT THEN
 	outSetpoint := MAX_OUT_SETPOINT;
 END_IF
@@ -218,6 +242,7 @@ IF bagFeedPosition > MAX_OUT_SETPOINT THEN
 	bagFeedPosition := MAX_OUT_SETPOINT;
 END_IF	
  
+
 IF ABS(actualPosition - outSetpoint) < positionThreshold THEN
 	atOutSetpoint := TRUE;
 ELSE
@@ -240,11 +265,7 @@ IF actualPosition > (bagHoldingSetpoint - bagHoldTolerance) THEN
 ELSE
 	atBagHoldSetpoint := FALSE;
 END_IF 
-IF HMIData.bagWidth > 20.0 THEN
-	inSetpoint := 3.0;
-ELSE
-	inSetpoint := 2;
-END_IF
+
 
 IF mailerMaterial = MAILER_MATERIAL.poly THEN
 		//IF hmidata.passthroughPosition < 4 THEN
@@ -255,10 +276,10 @@ IF mailerMaterial = MAILER_MATERIAL.poly THEN
 END_IF 
 			// CHANGE OFFSETS ACCORDING TO MACHINE TYPE
 IF HMIDATA.baggerModelSelection = modelSelection.Pro18_1183 THEN
-	_outSetpointOffset := -3.2;
+	_outSetpointOffset := 1;
 	_movingSetpointOffset := 5;
 ELSIF HMIDATA.baggerModelSelection = modelSelection.Pro24_1182 THEN
-	_outSetpointOffset := -2.0;
+	_outSetpointOffset := 1;
 	_movingSetpointOffset := 5;
 END_IF
 			// SET UP BAG HOLDING CURRENT AND MOVE IN SPEED FOR DIFFERENT MAILER MATERIAL
@@ -404,7 +425,7 @@ CASE state OF
     SEAL_FLATTENER_STATES.MovedFlattenersOut :                      // Move flatteners to clearance position state
 																	timeoutTimer.IN := FALSE;
                                                                     IF enable AND semiAutoModeSelected OR (autoModeSelected AND _amMoveClearance) THEN
-																		state := SEAL_FLATTENER_STATES.MoveFlattenersToBagFeed;	
+																		state := SEAL_FLATTENER_STATES.MoveFlattenersUpAndToClearance;	
 																		sealFlattenersVerticalAxis.Retract();  
                                                                         ClearCommands();
 																	ELSIF (autoModeSelected AND _amMoveToStart) THEN
@@ -414,7 +435,7 @@ CASE state OF
 																	
     SEAL_FLATTENER_STATES.MoveFlattenersUpAndToClearance :          // Move flatteners to clearance position
 																	timeoutTimer.IN := TRUE;
-                                                                    sealFlattenersHorizontalAxisMotor.MoveToPosition(position := outSetpoint,
+                                                                    sealFlattenersHorizontalAxisMotor.MoveToPosition(position := outSetpoint - clearanceOffset,
                                                                                                                      acceleration := horizontalAxisAccel,
                                                                                                                      deceleration := horizontalAxisDecel,
                                                                                                                      velocity := moveOutSpeed);
@@ -604,7 +625,7 @@ CASE state OF
     SEAL_FLATTENER_STATES.MovingFlattenersToBagHolding :          
 																  delay.IN := TRUE;
                                                                   IF delay.Q THEN
-																  	IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND (actualPosition > 10.0) THEN
+																  	IF sealFlattenersHorizontalAxisMotor.CommandAcknowledged AND (actualPosition > 6.0) THEN
 																		moveBagHoldDuration :=	moveBagHoldTMR.ET;		//CARLOS
 																		moveBagHoldTMR.IN := FALSE;
 																		moveOutDuration := moveOutTMR.ET;
@@ -673,15 +694,15 @@ moveOutTMR( PT := T#2S );
 moveBagHoldTMR( PT := T#2S );
 moveInCompleted := ABS(inSetpoint - sealFlattenersHorizontalAxisMotor.absolutePositonInches) < moveInThreshold;
 	 
-IF moveTST AND MSFcurrentFDBK > maxCurrentTST THEN
-	 maxCurrentTST := MSFcurrentFDBK;
-END_IF
-	 
-IF moveTST AND MSFspeedFDBK > maxSpeedTST THEN
-	 maxSpeedTST := MSFspeedFDBK;
-END_IF
+// IF moveTST AND MSFcurrentFDBK > maxCurrentTST THEN
+// 	 maxCurrentTST := MSFcurrentFDBK;
+// END_IF
+// 	 
+// IF moveTST AND MSFspeedFDBK > maxSpeedTST THEN
+// 	 maxSpeedTST := MSFspeedFDBK;
+// END_IF
 positionDifBagFeed := ABS( sealFlattenersHorizontalAxisMotor.absolutePositonInches - bagFeedPosition) ;
-MSFEncPosInch := -1.0 * ( TO_REAL(MSFencoderPosition) / Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR );
+//MSFEncPosInch := -1.0 * ( TO_REAL(MSFencoderPosition) / Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR );
 
 TST_TorqueTMR( PT := T#1S );
 	 
