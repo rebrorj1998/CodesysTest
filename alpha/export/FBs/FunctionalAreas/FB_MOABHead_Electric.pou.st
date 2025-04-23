@@ -24,7 +24,7 @@ VAR
 	packageAtExitBufferTimer : Standard.TON := (PT := T#100MS);
     motorizedSealFlatteners : FB_MotorizedSealFlatteners_PerfBreaker();
 	msfVerticalAxis : FB_ThreePositionCylinder();
-    pressureBar : FB_MotorizedPressureBar();
+    pressureBar : FB_MotorizedPressureBarRubberband();
 	IBD : FB_MotorizedIBD();
 	sealBarTempSensor : FB_IFMTempSensor();
 	sealBarHeater : FB_TempController();
@@ -326,14 +326,13 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
 						sealFlattenerMotorCommFailInput := MSFMotor.eState <> IoDrvEthernetIP.AdapterState.RUNNING AND MSFMotor.Enable,
 						timeoutFault => sealFlattenerTimedOut.faultTrigger,
-						displayPos => MSFactualPosition,
+						actualPosition => HMIData.sealFlattenersPosition,
 						mailerMaterial := HMIData.mailerMaterial,
 						atOutSetpoint => MSFatOutSetpoint,
 						atInSetpoint => MSFatInSetpoint,
 						atBagHoldSetpoint => MSFatBagHoldSetpoint,
 						atBagFeedSetpoint => MSFatBagFeedSetpoint											
 );
-HMIData.sealFlattenersPosition := MSFactualPosition;
 	 
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 	 

@@ -137,6 +137,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	labelsQueuedUpFaultEnable : BOOL := FALSE;
 	remoteCommsHeartbeatEnable : BOOL;
 	auxIOSource : AuxIOSource := (Physical := TRUE);
+	movePbarByHandWhileLoadingEnable : BOOL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;

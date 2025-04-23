@@ -204,7 +204,7 @@ IF testSomeCurrent THEN
 END_IF
 
 IF testPosLimit THEN
-	pbarMotor.SetPositionLimit(posLimit);
+	pbarMotor.SetPositionFaultLimit(posLimit);
 	testPosLimit := FALSE;
 END_IF
 
@@ -343,7 +343,7 @@ CASE state OF
 										ELSE
 											state := MotorizedPbarStates.Idle;
 										END_IF
-										pbarMotor.SetPositionLimit(posLimit);
+										pbarMotor.SetPositionFaultLimit(posLimit);
 										
 	
 	

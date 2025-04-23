@@ -92,7 +92,7 @@ CASE resetState OF
 				encoderResetTimeout.IN := TRUE;
 				IF encoderResetTimeout.Q THEN
 					resetState := 4;	
-					ResetEncoderPosition(driveInputs[5]);	
+					//ResetEncoderPosition(driveInputs[5]);	
 				END_IF
 			END_IF
 	

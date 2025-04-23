@@ -20,6 +20,7 @@ VAR
 	_torqueMode : BOOL;
 	_tensionFaultDwellTimer : TON := (PT := T#250MS);
 	_tensionFaultEnabled : BOOL;
+	_torqueModeONS : FB_ONS;
 END_VAR
 VAR CONSTANT
 	O2_L : INT := 16#4CB2;

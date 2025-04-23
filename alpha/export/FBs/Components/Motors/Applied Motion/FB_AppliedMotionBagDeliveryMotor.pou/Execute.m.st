@@ -18,6 +18,7 @@ IF (_tensionFaultDwellTimer.Q AND NOT HMIData.enableDryCycle) AND _tensionFaultE
 	tensionFault := TRUE;
 END_IF
 
+_torqueModeONS(CLK := (_state = BAG_DELIVERY_MOVE_STATES.SetToTorqueMode));
 // Clear Params
 IF _bagDeliveryReset THEN
 	_bagDeliveryReset := FALSE;
@@ -78,7 +79,7 @@ CASE _state OF
 		_state := BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor;
 																											
 	BAG_DELIVERY_MOVE_STATES.WaitAfterMovingMotor:
-	_delayTimer.PT := T#20MS;
+	_delayTimer.PT := T#50MS;
 	_delayTimer.IN := TRUE;
 	IF _delayTimer.Q THEN
 		IF NOT _moveFinal THEN
@@ -93,9 +94,6 @@ CASE _state OF
 				
 					commandSuccessful := FALSE;
 					_delayTimer.IN := FALSE;
-					IF RearMotor THEN
-						TriggerTorqueMode();
-					END_IF	
 					_state := BAG_DELIVERY_MOVE_STATES.SetToTorqueMode;	
 			END_IF
 		END_IF 
@@ -104,8 +102,8 @@ CASE _state OF
 	
 	BAG_DELIVERY_MOVE_STATES.SetToTorqueMode:	
 		IF EIP THEN
-			IF RearMotor THEN
-				//TriggerTorqueMode();
+			IF RearMotor AND _torqueModeONS.OSR THEN
+				TriggerTorqueMode();
 			END_IF	
 			IF commandSuccessful OR NOT RearMotor THEN
 				commandSuccessful := FALSE;
