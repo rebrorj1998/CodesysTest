@@ -121,7 +121,7 @@ IF movingONS.OSF THEN
 	strokeTimer.IN := FALSE;
 END_IF
 	
-disableMotorONS(CLK := clamped AND (iPressureBarClamped AND NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper)) AND iJawClampsRetracted);
+disableMotorONS(CLK := clamped AND (iPressureBarClamped AND NOT (HMIData.mailerMaterial = MAILER_MATERIAL.paper)) AND iJawClampsRetracted);
 IF disableMotorONS.OSR THEN
 	pbarMotor.AllowClamping();
 END_IF
@@ -454,7 +454,7 @@ CASE state OF
 											//delayTimer.IN := FALSE;
 											delayTimer.IN := TRUE;
 											// Need this delay for the 1183/1196 motors - not the 1182 though.
-											IF delayTimer.Q OR HMIDAta.baggerModelSelection = ModelSelection.Pro24_1182 THEN
+											IF delayTimer.Q OR HMIData.baggerModelSelection = ModelSelection.Pro24_1182 THEN
 												delayTimer.IN := FALSE;
 												IF _closeJawNoLatch THEN
 													_closeJawNoLatch := FALSE;

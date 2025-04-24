@@ -138,6 +138,8 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	remoteCommsHeartbeatEnable : BOOL;
 	auxIOSource : AuxIOSource := (Physical := TRUE);
 	movePbarByHandWhileLoadingEnable : BOOL;
+	paperTensionSetting : DINT := 60;
+	polyTensionSetting : DINT := 50;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;

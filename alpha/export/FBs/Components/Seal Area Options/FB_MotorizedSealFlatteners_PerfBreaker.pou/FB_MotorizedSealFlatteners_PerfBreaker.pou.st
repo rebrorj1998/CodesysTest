@@ -8,11 +8,6 @@ VAR_INPUT
 	horizontalAxisAccel 			: INT 				:= 1000;    	// Acceleration for Move to Manual Setpoint and Jog Commands
     horizontalAxisDecel 			: INT 				:= 500;    		// Deceleration for Move to Manual Setpoint and Jog Commands
 	manualPosSetpoint 				: REAL ;					// Position for Move to Manual Setpoint Command	
-
-    testMovePB : BOOL;
-    testMoveSP : REAL;
-    stopPB : BOOL;
-
     delay : TON := (PT:= T#25MS);
 	fingersDownDelay : Standard.TON := (PT := T#50MS);
 	sealFlattenerMotorCommFailInput : BOOL;
@@ -47,9 +42,11 @@ VAR
 	_amMoveToBagFeed 					: BOOL;					// Auto Move to Bag Feed Position
 	_outSetpointOffset 					: REAL 		:= -2.5; 	// Offset value for sealing
 	_movingSetpointOffset 				: REAL 		:= 5; 		// Offset value for bag holding/mailer filling position
-	_bagFeedOffset						: REAL 		:= 0;
-	_bagFeedPosition 					: REAL ;
-
+	_bagFeedOffset						: REAL 		:= 1;
+	_bagFeedPosition 					: REAL;
+	testMovePB 							: BOOL;
+    testMoveSP 							: REAL;
+	stopPB 								: BOOL;
 	MAX_OUT_SETPOINT 					: REAL 		:= 21.5;	// Maximum position due to physical constrains of mechanical assembly
 	defaultCurrentMSF 					: DINT 		:= 180;		// Default Current Setpoint for Seal Flatteners
 	outCurrentMSF 						: DINT 		:= 180;		// Current Setpoint for Seal Flattener Moving Out
@@ -62,27 +59,19 @@ VAR
 	jogOutONS: FB_ONS;
 	jogSpeed : INT := 100;
     timeoutTimer : Standard.TON := (PT := T#2S);
-    enableMotorizedSealFlattenersONS : FB_ONS();
 	bagDropDelay : Standard.TON := (PT := T#50MS);    
 	NPDPerfDelay : Standard.TON := (PT := T#5S); 
 
 	handLoadRequested : BOOL;
 	testTorque : BOOL;
-	testNPDPerfBreak_Up : BOOL;
-	testNPDPerfBreak_Down : BOOL;
 
-	
-	TST_OutSetpoint: BOOL := false;
 	moveInCompleted: BOOL;
-	moveInThreshold: REAL := 0.5;
-	maxCurrentTST: DINT;
-	maxSpeedTST: DINT;
-	positionError : DINT;
+	moveInThreshold: REAL := 0.5;;
 	
 	inSetpoint : REAL := 2;            		// In setpoint in inches
     moveInSpeed : INT := 1500;            	// Speed to move in in move
-	moveInAccel : INT := 2000;	
-	moveInDecel : INT := 2000;
+	moveInAccel : INT := 500;	
+	moveInDecel : INT := 500;
 	
     outSetpoint : REAL := 17.7;             // Out (sealing) setpoint in inches
     moveOutSpeed : INT := 800;            	// Speed to move in out move
@@ -98,31 +87,22 @@ VAR
 	moveBagHoldTMR : TON;
 	moveBagHoldDuration : TIME;
 	 
-	MSFEncPosInch : REAL;
 	moveTST : BOOL;
 	
 	perfBreakerRetractDelayTMR : standard.TON;
 	perfBreakerDelayDuration : TIME := T#5MS;
 
-	moveInSpeedPoly: INT := 1200;
+	moveInSpeedPoly: INT := 3000;
 	moveInSpeedPaper: INT := 3000;
-	TST_PolyBagFeedSetpoint : bool := false;
 
 	traceStartCMD: BOOL;
-	positionDifBagFeed: REAL;
 	moveInDelay: TON;
 	moveInDelayDuration: TIME := T#100MS;
-	TST_narrowBagFeedPosition: BOOL;
 	testCurrent: DINT;
-	inputArray: ARRAY[0..13] OF DINT;
 	testMoveAccel: INT := 2000;
 	testMoveDecel: INT := 2000;
 	testMoveSpeed: INT := 2000;
-	testMove: INT := 1;
-	TST_TorqueOut : REAL := 14.0;
-	TST_TorqueIn : REAL := 2.0;
-	TST_TorqueTest: BOOL;
-	TST_TorqueTMR: TON;
+
 	posReached: BOOL;
 	posSetpoint: REAL;
 	retryResetTMR			: TON;
@@ -130,7 +110,6 @@ VAR
 
 	moveInTMR: TON;
 	
-	comboBreakerOffset: 		REAL	:= 3.75;
 	bagHoldTolerance: REAL := 2.5;
     clearanceOffset : REAL := 2.0;        // Clearance Offset in inches
 
@@ -233,18 +212,16 @@ ELSE // "Regular" seal flatteners
 	END_IF
 END_IF
 	 
-
+// more clamping
 IF outSetpoint > MAX_OUT_SETPOINT THEN
 	outSetpoint := MAX_OUT_SETPOINT;
-END_IF
-				 
-							  
+END_IF					  
 
 IF _bagFeedPosition > MAX_OUT_SETPOINT THEN
 	_bagFeedPosition := MAX_OUT_SETPOINT;
 END_IF	
  
-
+// flags for positioning
 IF ABS(actualPosition - outSetpoint) < positionThreshold THEN
 	atOutSetpoint := TRUE;
 ELSE
@@ -268,20 +245,20 @@ ELSE
 	atBagHoldSetpoint := FALSE;
 END_IF 
 
-
+// necessary?
 IF mailerMaterial = MAILER_MATERIAL.poly THEN
-		//IF hmidata.passthroughPosition < 4 THEN
+		//IF HMIData.passthroughPosition < 4 THEN
 			//bagFeedPosition := inSetpoint;
 		//ELSE	 
 			//bagFeedPosition := bagFeedPosition-5;
 	//	END_IF
 END_IF 
 			// CHANGE OFFSETS ACCORDING TO MACHINE TYPE
-IF HMIDATA.baggerModelSelection = modelSelection.Pro18_1183 THEN
-	_outSetpointOffset := 1;
+IF HMIData.baggerModelSelection = modelSelection.Pro18_1183 THEN
+	_outSetpointOffset := 0;
 	_movingSetpointOffset := 5;
-ELSIF HMIDATA.baggerModelSelection = modelSelection.Pro24_1182 THEN
-	_outSetpointOffset := 1;
+ELSIF HMIData.baggerModelSelection = modelSelection.Pro24_1182 THEN
+	_outSetpointOffset := 0;
 	_movingSetpointOffset := 5;
 END_IF
 			// SET UP BAG HOLDING CURRENT AND MOVE IN SPEED FOR DIFFERENT MAILER MATERIAL
@@ -318,7 +295,7 @@ IF enable AND NOT HMIData.sealFlattenersInUse THEN
 	//state := SEAL_FLATTENER_STATES.Idle;
 	IF NOT sealFlattenersHorizontalAxisMotor.HomeRequired AND NOT atBagFeedSetpoint AND (enableONS.Q OR resetONS.Q) THEN
 		 manualPosSetpoint := _bagFeedPosition;
-		 moveToManualSetpoint := TRUE;
+		// moveToManualSetpoint := TRUE;
 	END_IF
 END_IF
 	 
@@ -431,7 +408,7 @@ CASE state OF
 																		sealFlattenersVerticalAxis.Retract();  
                                                                         ClearCommands();
 																	ELSIF (autoModeSelected AND _amMoveToStart) THEN
-																		 state := SEAL_FLATTENER_STATES.idle;
+																		 state := SEAL_FLATTENER_STATES.Idle;
 																	     _amMoveToStart := FALSE;
                                                                     END_IF
 																	
@@ -469,7 +446,7 @@ CASE state OF
 																	
 	SEAL_FLATTENER_STATES.MoveFlattenersToBagFeed :      			// Move flatteners to out of the way of the bag for feeding																		
 																	timeoutTimer.IN := TRUE;
-																	delay.PT := T#400MS; delay.IN := TRUE;
+																	delay.PT := T#50MS; delay.IN := TRUE;
 																	IF delay.Q THEN																 																	
 																		sealFlattenersHorizontalAxisMotor.MoveToPosition(position := _bagFeedPosition, 
 																															acceleration := horizontalAxisAccel,
@@ -684,7 +661,6 @@ IF testMovePB THEN
                                               deceleration := testMoveDecel,
                                               velocity := testMoveSpeed,
 												current := testCurrent);
-    testMovePB := FALSE;
 	moveInTMR.IN := TRUE;
 END_IF
 
@@ -696,101 +672,6 @@ END_IF
 moveOutTMR( PT := T#2S );
 moveBagHoldTMR( PT := T#2S );
 moveInCompleted := ABS(inSetpoint - sealFlattenersHorizontalAxisMotor.absolutePositonInches) < moveInThreshold;
-	 
-// IF moveTST AND MSFcurrentFDBK > maxCurrentTST THEN
-// 	 maxCurrentTST := MSFcurrentFDBK;
-// END_IF
-// 	 
-// IF moveTST AND MSFspeedFDBK > maxSpeedTST THEN
-// 	 maxSpeedTST := MSFspeedFDBK;
-// END_IF
-positionDifBagFeed := ABS( sealFlattenersHorizontalAxisMotor.absolutePositonInches - _bagFeedPosition) ;
-//MSFEncPosInch := -1.0 * ( TO_REAL(MSFencoderPosition) / Globals.STEPS_PER_INCH_SEAL_FLATTENER_HORIZONTAL_AXIS_MOTOR );
-
-TST_TorqueTMR( PT := T#1S );
-	 
-IF TST_TorqueTest THEN
-	traceStartCMD := TRUE;
-	CASE testMove OF
-		1:		//Move Out 2 A
-			sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := TST_TorqueOut, 
-                                              acceleration := testMoveAccel,
-                                              deceleration := testMoveDecel,
-                                              velocity := testMoveSpeed,
-												current := 300);
-			posSetpoint := TST_TorqueOut;
-			testMove := testMove + 1;
-
-		2:		//Move In 2 A
-			TST_TorqueTMR.IN := TRUE;
-			IF TST_TorqueTMR.Q THEN
-				sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := TST_TorqueIn, 
-                                              acceleration := testMoveAccel,
-                                              deceleration := testMoveDecel,
-                                              velocity := testMoveSpeed,
-												current := 300);
-				posSetpoint := TST_TorqueIn;													 
-				testMove := testMove + 1;
-				TST_TorqueTMR.IN := FALSE;
-			END_IF
-				 
-		3:		//Move Out 1 A
-			TST_TorqueTMR.IN := TRUE;			 
-			IF TST_TorqueTMR.Q THEN
-				sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := TST_TorqueOut, 
-                                              acceleration := testMoveAccel,
-                                              deceleration := testMoveDecel,
-                                              velocity := testMoveSpeed,
-												current := 200);
-				posSetpoint := TST_TorqueOut;
-				testMove := testMove + 1;
-				TST_TorqueTMR.IN := FALSE;
-			END_IF
-				 
-		4:		//Move In 1 A
-			TST_TorqueTMR.IN := TRUE;
-			IF TST_TorqueTMR.Q THEN
-				sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := TST_TorqueIn, 
-                                              acceleration := testMoveAccel,
-                                              deceleration := testMoveDecel,
-                                              velocity := testMoveSpeed,
-												current := 200);
-				posSetpoint := TST_TorqueIn;													 
-				testMove := testMove + 1;
-				TST_TorqueTMR.IN := FALSE;
-			END_IF
-				 
-		5:		//Move Out .5 A
-			TST_TorqueTMR.IN := TRUE;			 
-			IF TST_TorqueTMR.Q THEN
-				sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := TST_TorqueOut, 
-                                              acceleration := testMoveAccel,
-                                              deceleration := testMoveDecel,
-                                              velocity := testMoveSpeed,
-												current := 100);
-				posSetpoint := TST_TorqueOut;													 
-				testMove := testMove + 1;					 
-				TST_TorqueTMR.IN := FALSE;
-			END_IF
-				 
-		6:		//Move In .5 A
-			TST_TorqueTMR.IN := TRUE;
-			IF TST_TorqueTMR.Q THEN
-				sealFlattenersHorizontalAxisMotor.MoveToPositionTorque(position := TST_TorqueIn, 
-                                              acceleration := testMoveAccel,
-                                              deceleration := testMoveDecel,
-                                              velocity := testMoveSpeed,
-												current := 100);
-				posSetpoint := TST_TorqueIn;													 
-				testMove := 1;
-				TST_TorqueTest := FALSE;
-				TST_TorqueTMR.IN := FALSE;
-				traceStartCMD := FALSE;
-			END_IF
-				 
-	END_CASE
-	
-END_IF
 
 IF PositionReached( currentPosition := sealFlattenersHorizontalAxisMotor.absolutePositonInches, positionSetpoint := posSetpoint) THEN
 	posReached := TRUE;

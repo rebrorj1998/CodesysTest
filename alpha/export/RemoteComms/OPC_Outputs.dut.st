@@ -13,5 +13,6 @@ STRUCT
 	runExternalExitConveyor : BOOL; // Run External Exit Conveyor - set high when external exit conveyor is called for
 	heartbeatResponse : BOOL; // Heartbeat response - set equal to heartbeat
 	activeFaultsList : ARRAY[0..GlobalObjects.MAX_FAULTS] OF STRING; // Active Faults - list of active fault strings
+	faultListTags : OPC_Faults;
 END_STRUCT
 END_TYPE

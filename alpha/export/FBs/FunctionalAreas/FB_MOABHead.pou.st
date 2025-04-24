@@ -397,7 +397,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 																enableIBDEject := FALSE;
 															END_IF
 															
-															IF HMIDAta.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
+															IF HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
 																IBDCylinders(extendOutput => oIBDExtendWithFunnel, retractOutput => oIBDRetractWithFunnel);
 															ELSE
 																IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);
@@ -418,7 +418,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 	BagDeflatorSelection.IBDWithHingedPlate:	// Enable IBD with Hinged Plate
 															enableIBDDeflate := TRUE;
 															IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);	
-															IF HMIDAta.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
+															IF HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
 																IBDCylinders(extendOutput => oIBDExtendWithFunnel, retractOutput => oIBDRetractWithFunnel);
 															ELSE
 																IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);
@@ -443,7 +443,7 @@ END_CASE
 *)
 //commented out to test this code to correct HPA behavior.
 
-enableBagOpen := HmiData.bagOpenEnable;
+enableBagOpen := HMIData.bagOpenEnable;
 
 //We want to skip the whole bag open procedure, whether fingers are present or not
 //We want to execute the bag open procedure, whether fingers are present or not
@@ -616,8 +616,8 @@ CASE HMIData.fillerFactorySelection OF
 		 
 	FillerSelection.StandardFiller:					// Only enable filler FB if Aux IO is enabled through COMMS or physically
 		 											filler.enable := ((HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard)
-																		OR HMIdata.auxIOSource.ModbusTCP
-																		OR HMIdata.auxIOSource.OPC_UA);
+																		OR HMIData.auxIOSource.ModbusTCP
+																		OR HMIData.auxIOSource.OPC_UA);
 													Infeed_Conveyor_IO.Enable := FALSE;
 														 
 	FillerSelection.EZFeed:							filler.enable := TRUE;
@@ -646,7 +646,7 @@ ezfeed(
 	partsCountingModeEnable:= HMIData.infeedConveyorCountingMode, 
 	flightPresentSensor:= iInfeedFlightSensor, 
 	partPresentSensor:= NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains, 
-	waitingForFiller:= filler.waitingForFiller AND (NOT HMIData.stopMachine) AND NOT HMIdata.batchCountDone.active, 
+	waitingForFiller:= filler.waitingForFiller AND (NOT HMIData.stopMachine) AND NOT HMIData.batchCountDone.active, 
 	indexDwellSetting:= HMIData.infeedIndexDwellTimer, 
 	flightTarget:= HMIData.infeedFlightCountTarget, 
 	partsTarget:= HMIData.infeedPartsCountTarget, 
@@ -1034,7 +1034,7 @@ exhaustTimer(IN := iPressureBarExtended AND state = HEAD_STATES.Idle);
 
 footSwitchONS(CLK := iFootSwitch);
 
-stopONS(CLK := HMIDAta.stopMachine);
+stopONS(CLK := HMIData.stopMachine);
 
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
@@ -1277,7 +1277,7 @@ CASE state OF
 													END_IF
 													{endregion:'Service'}
 													
-                                                    IF (printerDataReady AND HmiData.labelsQueuedUpFaultEnable) THEN
+                                                    IF (printerDataReady AND HMIData.labelsQueuedUpFaultEnable) THEN
                                                         labelsQueuedUpFault.faultTrigger := TRUE;    
                                                     ELSE
                                                         labelsQueuedUpFault.faultTrigger := FALSE;
@@ -1445,7 +1445,7 @@ CASE state OF
     HEAD_STATES.MovedPassthrough:           // 
                                             pressureBar.AutoDoneMovingPassthrough();
                                             state := HEAD_STATES.Idle;
-									   		//HMIdata.passthroughSetting := 
+									   		//HMIData.passthroughSetting := 
 											setPassthroughPB := FALSE;
                                                     
     HEAD_STATES.Fault:                      hmiLight.TurnOff();

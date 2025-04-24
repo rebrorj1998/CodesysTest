@@ -24,7 +24,7 @@ VAR
 	packageAtExitBufferTimer : Standard.TON := (PT := T#100MS);
     motorizedSealFlatteners : FB_MotorizedSealFlatteners_PerfBreaker();
 	msfVerticalAxis : FB_ThreePositionCylinder();
-    pressureBar : FB_MotorizedPressureBarRubberband();
+    pressureBar : FB_MotorizedPressureBar();
 	IBD : FB_MotorizedIBD();
 	sealBarTempSensor : FB_IFMTempSensor();
 	sealBarHeater : FB_TempController();
@@ -45,13 +45,13 @@ VAR
 	loadShelf : FB_BaseLoadPlate;
 	rearLoadPlate : FB_BaseLoadPlate;
 	frontLoadPlate : FB_BaseLoadPlate;
-	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
-	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
+	exitConveyorRun : DelayDwellFB() := (DwellSetting := 6000);
+	externalExitConveyorRun : DelayDwellFB() := (DwellSetting := 6000);
 	IBDExtendONS : FB_ONS();
 	IBDRetractONS : FB_ONS();
 	startBCVONS : FB_ONS();
 	bagOpenFingers : FB_BagOpenFingersWithSensors();
-	bagOpenCheckDelay : Standard.TON := (PT:= T#400MS); // Delay to check if bag open
+	bagOpenCheckDelay : Standard.TON := (PT:= T#200MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
 	bagOpenRetryCount : UINT;		// Count of current retry attempts
 	bagOpenFeedNewBagSetting : UINT; // Number of new bags to try
@@ -302,7 +302,7 @@ IF motorizedSealFlatteners.enable THEN
 	oSealFlatUp:= msfVerticalAxis.retractOutput;
 END_IF
 	 
-IF (hmidata.mailerMaterial = MAILER_MATERIAL.paper) THEN
+IF (HMIData.mailerMaterial = MAILER_MATERIAL.paper) THEN
 	oStagingFunnelCloseOrPerfBreakerDown := perfBreaker.extendOutput AND posInhibit;
 	oStagingFunnelOpenOrPerfBreakerUp   := perfBreaker.retractOutput AND posInhibit;
 ELSIF stagingFunnel.enable THEN
@@ -343,7 +343,7 @@ MSFMotor.Enable := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEn
 (*HMIData.enablePerfBreaker :=*) paperBagger := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.PerfBreaker OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker );
 	 
 // Warning if Staggin Funnel and Perforation Breaker are enabled
-IF stagingFunnel.enable	AND (hmidata.mailerMaterial = MAILER_MATERIAL.paper) THEN
+IF stagingFunnel.enable	AND (HMIData.mailerMaterial = MAILER_MATERIAL.paper) THEN
 	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := TRUE;
 ELSE
 	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := FALSE;
@@ -394,7 +394,7 @@ pressureBar(
 	pressureBarOpen => HMIData.pressureBarService.extendedFeedback, 
 	jawClamps:= jawClamps, 
 	pbarMotor:= pressureBarMotor,
-    jawClear := (NOT pbarSensorBypass AND NOT ijawclamped OR NOT  (hmidata.mailerMaterial = MAILER_MATERIAL.paper)) OR (pbarSensorBypass)
+    jawClear := (NOT pbarSensorBypass AND NOT ijawclamped OR NOT  (HMIData.mailerMaterial = MAILER_MATERIAL.paper)) OR (pbarSensorBypass)
 );
 
 // Run bag delivery 
@@ -414,7 +414,10 @@ bagDelivery(
 	bagFeedRearMotorCommFailInput := Bag_Delivery_Rear_Motor.eState <> IoDrvEthernetIP.AdapterState.RUNNING,
 	stepsPerInchSetting := ,
 	velocityMultiplier := ,
-	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
+	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion,	
+	mailerMaterial := HMIData.mailerMaterial,
+	paperTorqueSetting := HMIData.paperTensionSetting,
+	polyTorqueSetting := HMIData.polyTensionSetting
 );
 
 IF paperBagger OR HMIData.enablePaperBagger THEN
@@ -506,7 +509,7 @@ printAndApply(
 	jammedFault=> productJammed.faultTrigger,
 	triggerOutput=> oPATrigger1,
 	resetOutput=> oPAReset, 
-	clearOutBaggerIndicaiton => HMIDAta.baggerNeedsClearing,
+	clearOutBaggerIndicaiton => HMIData.baggerNeedsClearing,
 	labelsInQueue=> labelsQueuedUpFault.faultTrigger
 );
 	 
@@ -674,7 +677,7 @@ CASE HMIData.bofSelection OF
 	
 END_CASE
 	 *)
-		  enableBagOpen := hmidata.bagOpenEnable;
+		  enableBagOpen := HMIData.bagOpenEnable;
 
 CASE HMIData.cycleStartButtonSelection OF
 	PalmButtonSelection.NotInstalled:					// Dont' allow input to start bagger cycle
@@ -706,26 +709,32 @@ CASE HMIData.cycleStartButtonSelection OF
 		startCycleReqFromPalmButtons := iMurrTouchButtonOneStatus.0 OR iMurrTouchButtonTwoStatus.0;														 
 		advancedLightedPalmButtonOne(
 			IOLinkData := ADR(oMurrTouchButtonOneIOLinkOutputs),
-			baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+			baggerReady := readyToRun 
+							AND (NOT HMIData.sealBarNotAtTemperature.active) 
+							AND (NOT HMIData.stopMachine) ,
 			baggerFaulted := HMIData.faultActive,
 			baggerInCycle := HMIData.inCycle,
 			baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
-			baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating
+			baggerHeatingUp := HMIData.sealBarNotAtTemperature.active AND sealBarHeater.heating,
+			baggerCoolingDown := HMIData.sealBarNotAtTemperature.active AND sealBarHeater.cooling AND sealBarHeater.enable
 		);	
         IF HMIData.cycleStartButtonSelection = PalmButtonSelection.DualLightedPalmButtonAdvanced THEN
 			advancedLightedPalmButtonTwo(
 				IOLinkData := ADR(oMurrTouchButtonTwoIOLinkOutputs),
-				baggerReady := readyToRun AND NOT HMIData.sealBarNotAtTemperature.active,
+				baggerReady := readyToRun 
+							AND (NOT HMIData.sealBarNotAtTemperature.active) 
+							AND (NOT HMIData.stopMachine) ,
 				baggerFaulted := HMIData.faultActive,
 				baggerInCycle := HMIData.inCycle,
 				baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited,
-				baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating
+				baggerHeatingUp := HMIData.sealBarNotAtTemperature.active AND sealBarHeater.heating,
+				baggerCoolingDown := HMIData.sealBarNotAtTemperature.active AND sealBarHeater.cooling AND sealBarHeater.enable
 			);	
 		END_IF					  									 
 END_CASE
 startCycleReqFromPalmButtonsONS(CLK := startCycleReqFromPalmButtons);	 
-// Stack Light active only if no 2nd palm button selected
-// Stack Light active only if no 2nd palm button selected
+
+// Stack Light active only if no 2nd palm button selected - they use the same IOLink port
 IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButtonAdvanced THEN
 	stackLight(
 		IOLinkData:= ADR(oMurrStackLightOutputs), 
@@ -735,7 +744,7 @@ IF HMIData.cycleStartButtonSelection <> PalmButtonSelection.DualLightedPalmButto
 		baggerExternalInhibited := printAndApply.state = PRINT_AND_APPLY_STATES.Inhibited ,
 		bagsLow:= HMIData.bagLevelLow.active, 
 		bagOpenRetryActive:= bagOpenRetryCount <> 0,
-		baggerHeatingUp := HMIDAta.sealBarNotAtTemperature.active AND sealBarHeater.heating
+		baggerHeatingUp := HMIData.sealBarNotAtTemperature.active AND sealBarHeater.heating
 	);	 
 END_IF
 
@@ -788,8 +797,8 @@ CASE HMIData.fillerFactorySelection OF
 	FillerSelection.StandardFiller:					
 													// Only enable filler if Aux IO is enabled
 		 											filler.enable := ((HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard)
-																		OR HMIdata.auxIOSource.ModbusTCP
-																		OR HMIdata.auxIOSource.OPC_UA);
+																		OR HMIData.auxIOSource.ModbusTCP
+																		OR HMIData.auxIOSource.OPC_UA);
 													Infeed_Conveyor_IO.Enable := FALSE;
 														 
 	FillerSelection.EZFeed:							
@@ -807,7 +816,7 @@ ezfeed(
 	partsCountingModeEnable:= HMIData.infeedConveyorCountingMode, 
 	flightPresentSensor:= iInfeedFlightSensor, 
 	partPresentSensor:= NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains, 
-	waitingForFiller:= filler.waitingForFiller AND (NOT HMIData.stopMachine) AND NOT HMIdata.batchCountDone.active, 
+	waitingForFiller:= filler.waitingForFiller AND (NOT HMIData.stopMachine) AND NOT HMIData.batchCountDone.active, 
 	indexDwellSetting:= HMIData.infeedIndexDwellTimer, 
 	flightTarget:= HMIData.infeedFlightCountTarget, 
 	partsTarget:= HMIData.infeedPartsCountTarget, 
@@ -1070,6 +1079,7 @@ readyToRun := (motorizedSealFlatteners.Ready OR NOT motorizedSealFlatteners.enab
 				AND (IBD.Ready OR NOT enableIBDDeflate)
                 AND (bagDelivery.Ready OR NOT bagDelivery.enable)
                 AND (zebraPrinter.Ready OR NOT zebraPrinter.enable)
+				AND (NOT oSealBarExtend)
 				AND murrIOBusNode.ok;	
 
 iPowerOffButtonONS(CLK := iPowerOffButton);
@@ -1219,7 +1229,7 @@ IF enableONS.Q OR resetONS.Q THEN
 	cycleTimer.IN := FALSE;
 	
 	
-	IF NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper) 
+	IF NOT (HMIData.mailerMaterial = MAILER_MATERIAL.paper) 
 		AND (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker) 
 		AND NOT stagingFunnel.enable
 		THEN				
@@ -1547,7 +1557,7 @@ CASE state.head OF
                                                     
 													                                                         
                                                     // Fault if labels stack up in queue 
-                                                    IF (printerDataReady AND HmiData.labelsQueuedUpFaultEnable) THEN
+                                                    IF (printerDataReady AND HMIData.labelsQueuedUpFaultEnable) THEN
                                                         labelsQueuedUpFault.faultTrigger := TRUE;    
                                                     ELSE
                                                         labelsQueuedUpFault.faultTrigger := FALSE;
@@ -1996,7 +2006,7 @@ CASE state.sb.releaseFeed OF
                                                             IF (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse THEN
                                                                 motorizedSealFlatteners.AutoMoveToClearance();
 																//motorizedSealFlatteners.AutoMoveToBagHolding();
-                                                            ELSIF (hmidata.mailerMaterial = MAILER_MATERIAL.paper) THEN
+                                                            ELSIF (HMIData.mailerMaterial = MAILER_MATERIAL.paper) THEN
 																perfBreaker.Retract(); 
                                                             END_IF
                                                             
@@ -2057,7 +2067,7 @@ CASE state.sb.releaseFeed OF
  														END_IF	
 														
                                                         IF bagDropTimer.Q 
-															AND (perfBreaker.retractedStatus OR NOT (hmidata.mailerMaterial = MAILER_MATERIAL.paper))
+															AND (perfBreaker.retractedStatus OR NOT (HMIData.mailerMaterial = MAILER_MATERIAL.paper))
 															AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR MSFatBagFeedSetpoint OR NOT motorizedSealFlatteners.enable )
 															THEN   
 
@@ -2165,7 +2175,7 @@ CASE state.sb.releaseFeed OF
  														bagOpenFingers.Release();
  													END_IF
 													IF (bagDelivery.state = BAG_DELIVERY_STATES.Ready OR NOT bagDelivery.enable)
-                                                        AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable OR NOT hmidata.sealFlattenersInUse) 
+                                                        AND (motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovedFlattenersToBagFeed OR NOT motorizedSealFlatteners.enable OR NOT HMIData.sealFlattenersInUse) 
                                                         AND (pressureBar.pressureBarOpen OR NOT pressureBar.enable)
 														
                                                         THEN
@@ -2228,11 +2238,11 @@ CASE state.sb.openBag OF
 													END_IF
                                                                    
     BAG_OPEN_ASSIST_STATES.MoveJawOut :             // Open the jaw and move seal flatteners in and to bag holding
-                                                    (*IF HMIDAta.enablePerfBreaker AND NOT (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse  THEN
+                                                    (*IF HMIData.enablePerfBreaker AND NOT (*motorizedSealFlatteners.enable*)HMIData.sealFlattenersInUse  THEN
 														perfBreaker.Extend();
 													END_IF*)
 													pressureBar.OpenJaw();
-													IF hmidata.mailerMaterial = MAILER_MATERIAL.poly THEN
+													IF HMIData.mailerMaterial = MAILER_MATERIAL.poly THEN
 														motorizedSealFlatteners.AutoMoveIn();
 													END_IF
                                                     state.sb.openBag := BAG_OPEN_ASSIST_STATES.MovingJawOutAndGrab;
@@ -2257,7 +2267,7 @@ CASE state.sb.openBag OF
 															bagOpenCheckDelay.IN := TRUE;
 															IF bagOpenCheckDelay.Q THEN
 																IF bagOpenFingers.CheckIfBagGrabbed(TRUE) OR HMIData.enableDryCycle THEN // This method checks to see if the bag is grabbed and returns true if so.
-																	IF hmidata.mailerMaterial = MAILER_MATERIAL.paper THEN
+																	IF HMIData.mailerMaterial = MAILER_MATERIAL.paper THEN
 																		 motorizedSealFlatteners.AutoMoveIn();
 																	END_IF
 																	state.sb.openBag := BAG_OPEN_ASSIST_STATES.OpenBag;
@@ -2272,7 +2282,7 @@ CASE state.sb.openBag OF
 														END_IF
 													  
 	BAG_OPEN_ASSIST_STATES.BagFailedToOpen :			//
-													IF (hmidata.mailerMaterial = MAILER_MATERIAL.paper) AND HMIData.enablePaperBagger THEN
+													IF (HMIData.mailerMaterial = MAILER_MATERIAL.paper) AND HMIData.enablePaperBagger THEN
 														//perfBreaker.MoveDown();
 													END_IF 
 														bagOpenFingers.Release();
@@ -2307,7 +2317,7 @@ CASE state.sb.openBag OF
 														END_IF
 														
                                                     	IF //MSFatBagHoldSetpoint THEN
-														(motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovingFlattenersDown) OR NOT hmidata.sealFlattenersInUse THEN
+														(motorizedSealFlatteners.state = SEAL_FLATTENER_STATES.MovingFlattenersDown) OR NOT HMIData.sealFlattenersInUse THEN
 															state.sb.openBag := BAG_OPEN_ASSIST_STATES.bagOpening; 
 														END_IF
 														

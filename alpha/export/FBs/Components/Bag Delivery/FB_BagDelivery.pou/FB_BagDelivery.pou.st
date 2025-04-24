@@ -26,6 +26,9 @@ VAR_INPUT
 	velocityMultiplier : REAL;
 	rearMotorConfigVersion : CONFIG_VERSIONS;
 	frontMotorConfigVersion : CONFIG_VERSIONS;
+	mailerMaterial : MAILER_MATERIAL := MAILER_MATERIAL.poly;
+	paperTorqueSetting : DINT := 50;
+	polyTorqueSetting : DINT := 60;
 END_VAR
 VAR_OUTPUT
     state : BAG_DELIVERY_STATES;    // Current state of bag delivery component
@@ -312,7 +315,12 @@ CASE state OF
 		
 		//
 		IF bagFeedRearMotor.commandSuccessful THEN
-			bagFeedRearMotor.SetTorque(torque := 60);
+			IF mailerMaterial = MAILER_MATERIAL.paper THEN
+				bagFeedRearMotor.SetTorque(torque := paperTorqueSetting);
+			ELSE
+				bagFeedRearMotor.SetTorque(torque := polyTorqueSetting);
+			END_IF
+			
 			state := BAG_DELIVERY_STATES.Idle;
 		END_IF
 													
