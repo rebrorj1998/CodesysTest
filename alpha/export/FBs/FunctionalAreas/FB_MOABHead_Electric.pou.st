@@ -129,7 +129,7 @@ VAR
 	IBDOutSetting: REAL;
 	ezfeed : FB_EZFeed();
 	printAndApply : FB_PrintAndApply();
-	EIPReconfig : FB_EIPCommsConfigure();
+	EIPReconfig : FB_DeviceTreeEnable();
 	batchEnableONS : FB_ONS;
 	estopONS : FB_ONS;
 	triggerLPAWhileFeedingONS : FB_ONS();
@@ -172,7 +172,8 @@ END_VAR
 SUPER^(); 
 		  
 // Enable/Disable nodes on comms tree dynamically
-EIPReconfig(rootEIPNode := EtherNet_IP_Scanner);
+EIPReconfig(rootEIPNode := EtherNet_IP_Scanner,
+			rootModbusTCPNode := Customer_LAN_Adapter);
 
 // When power is returned, give machine ~5 seconds
 powerSettlingTimer(IN := iEStopOK);
@@ -248,7 +249,10 @@ CASE HMIData.barcodeVerifierSelection OF
 		END_IF
 		cognexDM374BCV.enable := HMIData.barcodeVerifierInUse AND HMIData.baggerModelSelection = ModelSelection.Pro18_1183;
 END_CASE
-	 
+
+// Enable/disable MODBUS TCP adapter 
+ModbusTCP_Slave_Device.Enable := HMIData.auxIOSource.ModbusTCP;	
+	
 // Raise/Lower bagger head logic
 // Indications and commands from HMI
 HMIData.baggerHeadService.extendedFeedback := NOT iHeadRaised;

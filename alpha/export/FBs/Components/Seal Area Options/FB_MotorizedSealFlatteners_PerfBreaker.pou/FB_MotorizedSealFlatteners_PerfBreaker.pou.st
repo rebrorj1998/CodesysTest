@@ -93,7 +93,7 @@ VAR
 	perfBreakerDelayDuration : TIME := T#5MS;
 
 	moveInSpeedPoly: INT := 3000;
-	moveInSpeedPaper: INT := 3000;
+	moveInSpeedPaper: INT := 1500;
 
 	traceStartCMD: BOOL;
 	moveInDelay: TON;
@@ -264,7 +264,11 @@ END_IF
 			// SET UP BAG HOLDING CURRENT AND MOVE IN SPEED FOR DIFFERENT MAILER MATERIAL
 IF mailerMaterial = MAILER_MATERIAL.poly THEN
 	bagHoldingCurrentMSF := bagHoldCurrentPoly;
-	moveInSpeed := moveInSpeedPoly;
+	IF sealAreaOption = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker THEN
+		moveInSpeed := moveInSpeedPaper;
+	ELSE
+		moveInSpeed := moveInSpeedPoly;
+	END_IF
 ELSIF mailerMaterial = MAILER_MATERIAL.paper THEN
 	bagHoldingCurrentMSF := bagHoldCurrentPaper;
 	moveInSpeed := moveInSpeedPaper;

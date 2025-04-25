@@ -8,6 +8,9 @@ TYPE MotorizedPbarStates :
 	Initialize := 10,
 	Initializing := 11,
 	Initialized := 12,
+	PrepareToSetPositionLimit := 13,
+	PreparingToSetPositionLimit := 14,
+	PreparedSettingPositionLimit := 15,
 	MoveJawOut := 20,
 	MovingJawOut := 21,
 	MovedJawOut := 22,
@@ -20,6 +23,8 @@ TYPE MotorizedPbarStates :
 	Clamping := 42, 
 	ReleaseClamp := 43, 
 	ReleasingClamp := 44,
+	StartRubberBanding := 50,
+	ResettingEncoder := 97,
 	Faulting := 98,
 	Faulted := 99
 );

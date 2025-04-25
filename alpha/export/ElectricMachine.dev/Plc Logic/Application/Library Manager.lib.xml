@@ -693,14 +693,6 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemCamDisplayer</Single>
-            </Key>
-            <Value>
-              <Single Type="string">VisuElemCamDisplayer, 4.7.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
               <Single Type="string">System_VisuElemTextEditor</Single>
             </Key>
             <Value>
@@ -741,10 +733,26 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">System_VisuElemBase</Single>
+            </Key>
+            <Value>
+              <Single Type="string">VisuElemBase, 4.7.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemTrace</Single>
             </Key>
             <Value>
               <Single Type="string">VisuElemTrace, 4.7.0.0 (System)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
+              <Single Type="string">Standard64</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -765,10 +773,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">FloatingPointUtils</Single>
+              <Single Type="string">System_VisuElemCamDisplayer</Single>
             </Key>
             <Value>
-              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
+              <Single Type="string">VisuElemCamDisplayer, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -813,14 +821,6 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemsWinControls</Single>
-            </Key>
-            <Value>
-              <Single Type="string">VisuElemsWinControls, 4.7.0.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
               <Single Type="string">ElementCollections</Single>
             </Key>
             <Value>
@@ -829,10 +829,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">Standard64</Single>
+              <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
-              <Single Type="string">Standard64, 3.5.20.0 (System)</Single>
+              <Single Type="string">VisuElemsWinControls, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -845,10 +845,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemBase</Single>
+              <Single Type="string">FloatingPointUtils</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemBase, 4.7.0.0 (System)</Single>
+              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>

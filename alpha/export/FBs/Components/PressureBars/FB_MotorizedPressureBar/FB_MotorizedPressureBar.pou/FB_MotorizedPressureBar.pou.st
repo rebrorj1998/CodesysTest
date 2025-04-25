@@ -79,11 +79,20 @@ VAR
 	
 	_moveJawClear: BOOL;
 	retrycount: INT;
+	_nextState : MotorizedPbarStates;
+	_positionFaultLimit : INT;
+	_motorCurrent : DINT;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
 	pbarMotor : FB_AppliedMotionStepServoEIPPassthrough;
 	//IBDMotor : FB_AppliedMotionStepServoEIPPassthrough;
+END_VAR
+VAR CONSTANT
+	MOTOR_CURRRENT_HIGH : DINT := 650;
+	MOTOR_CURRENT_LOW : DINT := 200;
+	POSITION_FAULT_LIMIT_STANDARD : INT := 2000;
+	POSITION_FAULT_LIMIT_HIGH : INT := 24000;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //Modified to ensure that PBAR motor syncs with encoder after each move. CT
 movingOSF(CLK:= pbarmotor.status.moving);
@@ -345,7 +354,18 @@ CASE state OF
 										END_IF
 										pbarMotor.SetPositionFaultLimit(posLimit);
 										
+	MotorizedPbarStatesRubberBand.PrepareToSetPositionLimit:
+			pbarMotor.SetPositionFaultLimit(_positionFaultLimit);
+			state := MotorizedPbarStatesRubberBand.PreparingToSetPositionLimit;
+		
+	MotorizedPbarStatesRubberBand.PreparingToSetPositionLimit:
+		IF pbarMotor.commandSuccessful THEN
+			state := MotorizedPbarStatesRubberBand.PreparedSettingPositionLimit;
+		END_IF
 	
+	MotorizedPbarStatesRubberBand.PreparedSettingPositionLimit:
+		state := _nextState;
+		_nextState := MotorizedPbarStatesRubberBand.Idle;	
 	
 	MotorizedPbarStates.MoveJawOut :	
 									moveJawOutDelayTimer.IN := TRUE;
@@ -427,7 +447,10 @@ CASE state OF
 											delayTimer.IN := FALSE;
 											state := MotorizedPbarStates.MoveJawIn;
 										END_IF
-	
+										
+	MotorizedPbarStatesRubberBand.StartRubberBanding :
+										pbarMotor.MoveToPositionTorque(pbarOutCommandedSetting, accel, decel, velo, MOTOR_CURRENT_LOW);
+										state := MotorizedPbarStatesRubberBand.Idle;	
 	
 	MotorizedPbarStates.MoveJawIn :				//
 										Globals.jawMovingIn := TRUE;

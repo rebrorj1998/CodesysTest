@@ -182,6 +182,9 @@ ELSE
 	Keyence_BCV.Enable := FALSE;
 END_IF
 
+// Enable/disable MODBUS TCP adapter 
+ModbusTCP_Slave_Device.Enable := HMIData.auxIOSource.ModbusTCP;	
+	
 // Option setup and factory config  
 IF HMIData.resetAverageCycleTime THEN
 	HMIData.averageCycleTime := 0;
@@ -409,7 +412,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 															IF IBDExtendONS.OSR THEN
 																IBDCylinders.Extend();
 															END_IF
-																 
+															
 															IBDRetractToDeflate.DelaySetting := 0;
 															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
 															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
@@ -820,7 +823,8 @@ pressureBarEndStopMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
 				reversePolarity := TRUE,
 				defaultCurrentSetpoint := 650,
 				commFail := pressureBarCommFail,
-				isHomable := TRUE);			
+				isHomable := TRUE,
+				feedbackSelection := PositionFeedbackSelection.AbsolutePosition);			
 pressureBarEndStopMotor.Execute();
 
 passthrough(pressureBarEndStopMotor := pressureBarEndStopMotor, 

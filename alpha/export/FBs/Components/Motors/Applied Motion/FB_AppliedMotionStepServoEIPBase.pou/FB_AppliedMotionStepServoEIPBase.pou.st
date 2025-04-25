@@ -21,6 +21,7 @@ VAR_INPUT
     moveDistanceManualPB : BOOL;            //Move distance pushbutton
     movePositionManualPB : BOOL;            //Move position pushbutton
 	isHomable : BOOL;
+	feedbackSelection : PositionFeedbackSelection;
 END_VAR
 VAR_IN_OUT
     //slave : IoDrvModbusTCP.ModbusTCPSlave;                    //Slave ModbusTCP Object

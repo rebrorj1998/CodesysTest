@@ -104,18 +104,18 @@ CASE state OF
 														timerHomeDelay.PT := T#200MS;
 														timerHomeDelay.IN := TRUE;
 														IF NOT iPassthroughHomeSensorClear THEN
-															extendPressureBarLowPressureRequest := TRUE;
+															exhaustPressureBarRequest := TRUE;
 															Globals.jawMovingIn := FALSE;
 														END_IF
 														
 														IF _ackRequest THEN 
-															extendPressureBarLowPressureRequest := FALSE;
+															exhaustPressureBarRequest := FALSE;
 														END_IF 
 														
 														IF timerHomeDelay.Q THEN
 															IF (NOT pressureBarEndStopMotor.HomeRequired) THEN
 																state := PASSTHROUGH_SERVO_STATES.HomeComplete;
-																extendPressureBarLowPressureRequest := FALSE;
+																exhaustPressureBarRequest := FALSE;
 																_ackRequest := FALSE;
 																timerHomeDelay.IN := FALSE;
                                                         	END_IF
@@ -135,14 +135,14 @@ CASE state OF
                                                       
                                                         
     PASSTHROUGH_SERVO_STATES.MovePassthroughOut :        // Move passthrough out
-                                                        extendPressureBarLowPressureRequest := TRUE;
+                                                        exhaustPressureBarRequest := TRUE;
                                                         IF _ackRequest THEN
                                                             pressureBarEndStopMotor.MoveToPosition(position := (passthroughSetpoint + HMIData.passthroughOffset), 
                                                                                     acceleration := 150, 
                                                                                     deceleration := 150, 
                                                                                     velocity := 2583);
                                                             //
-                                                            extendPressureBarLowPressureRequest := FALSE;
+                                                            exhaustPressureBarRequest := FALSE;
                                                             _ackRequest := FALSE;
                                                             state := PASSTHROUGH_SERVO_STATES.MovingPassthroughOut;        
                                                         END_IF
@@ -167,9 +167,9 @@ CASE state OF
 															END_IF
 														END_IF
     PASSTHROUGH_SERVO_STATES.PassthroughMovedOut :       
-														extendPressureBarHighPressureRequest := TRUE; 
+														exhaustPressureBarRequest := TRUE; 
                                                          IF _ackRequest THEN
-                                                            extendPressureBarHighPressureRequest := FALSE;
+                                                            exhaustPressureBarRequest := FALSE;
                                                             _ackRequest := FALSE;
 															HMIData.passthroughChanges.Increment();
                                                             cumulativeChangeCount := cumulativeChangeCount + 1;
@@ -178,9 +178,9 @@ CASE state OF
                                                         END_IF
     
 	PASSTHROUGH_SERVO_STATES.ExhaustPressureBarOnceMovedOut :
-														exhaustPressureBarRequest := TRUE; 
+														extendPressureBarLowPressureRequest := TRUE; 
                                                          IF _ackRequest THEN
-                                                            exhaustPressureBarRequest := FALSE;
+                                                            extendPressureBarLowPressureRequest := FALSE;
                                                             _movePassthrough := FALSE;
                                                             _ackRequest := FALSE;
 															state := PASSTHROUGH_SERVO_STATES.Ready;    
