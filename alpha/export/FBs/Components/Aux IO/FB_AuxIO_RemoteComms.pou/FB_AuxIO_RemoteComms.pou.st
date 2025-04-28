@@ -128,7 +128,7 @@ IF HMIData.auxIOSource.OPC_UA THEN
     // If heartbeat stays on or off for too long set warning.
     _heartbeatWarningTimerOn(IN := RemoteComms.OPCInputsToBagger.heartbeat AND HMIData.remoteCommsHeartbeatEnable);
     _heartbeatWarningTimerOff(IN := NOT RemoteComms.OPCInputsToBagger.heartbeat AND HMIData.remoteCommsHeartbeatEnable);
-    hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimerOn.Q OR _heartbeatWarningTimerOff.Q;
+    HMIData.remoteCommsHeartbeatLost.active := _heartbeatWarningTimerOn.Q OR _heartbeatWarningTimerOff.Q;
     RemoteComms.OPCOutputsFromBagger.heartbeatResponse := RemoteComms.OPCInputsToBagger.heartbeat;
 
     //Fault Passing
@@ -189,7 +189,7 @@ IF HMIData.auxIOSource.ModbusTCP THEN
     // If heartbeat stays on or off for too long set warning.
     _heartbeatWarningTimerOn(IN := RemoteComms.modbusInputsToBagger.heartbeat AND HMIData.remoteCommsHeartbeatEnable);
     _heartbeatWarningTimerOff(IN := NOT RemoteComms.modbusInputsToBagger.heartbeat AND HMIData.remoteCommsHeartbeatEnable);
-    hmidata.remoteCommsHeartbeatLost.active := _heartbeatWarningTimerOn.Q OR _heartbeatWarningTimerOff.Q;
+    HMIData.remoteCommsHeartbeatLost.active := _heartbeatWarningTimerOn.Q OR _heartbeatWarningTimerOff.Q;
     RemoteComms.modbusOutputsFromBagger.heartbeatResponse := RemoteComms.modbusInputsToBagger.heartbeat;
 
       

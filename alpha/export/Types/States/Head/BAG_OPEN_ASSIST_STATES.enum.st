@@ -11,10 +11,12 @@ TYPE BAG_OPEN_ASSIST_STATES :
 	MovingJawOutAndGrab := 21,
 	CheckForSuccessfulBagGrab := 22,
 	BagFailedToOpen := 23,
-	BagOpened := 24,
-	MovingJawOutAfterGrab := 25,
-	MovedJawOut := 26,
-	FeedNewBag := 27,
+	OpenBag := 24,
+	BagOpening := 25,
+	BagOpened := 26,
+	MovingJawOutAfterGrab := 27,
+	MovedJawOut := 28,
+	FeedNewBag := 29,
 	Done := 100,
 	Fault := 99
 );

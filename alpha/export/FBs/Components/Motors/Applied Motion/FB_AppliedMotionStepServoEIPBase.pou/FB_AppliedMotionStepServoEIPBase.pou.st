@@ -5,6 +5,7 @@ VAR_INPUT
     ptrEIPOutputs : POINTER TO ARRAY[0..15] OF DINT;
 	commFail : BOOL;
     stepsPerInchSetpoint : INT;             //Steps per inch setpoint
+	positionOffset : REAL;					// A offset to apply to the motot position in inches
     reversePolarity : BOOL;                 //0 = Normal, 1 = reversed polarity for display
     jogAccelSetpoint : INT;        //Point-to-Point Acceleration (AC) Setpoint
     jogDecelSetpoint : INT;        //Point-to-Point Deceleration (DE) Setpoint
@@ -20,6 +21,7 @@ VAR_INPUT
     moveDistanceManualPB : BOOL;            //Move distance pushbutton
     movePositionManualPB : BOOL;            //Move position pushbutton
 	isHomable : BOOL;
+	feedbackSelection : PositionFeedbackSelection;
 END_VAR
 VAR_IN_OUT
     //slave : IoDrvModbusTCP.ModbusTCPSlave;                    //Slave ModbusTCP Object
@@ -43,7 +45,7 @@ VAR
 	_reset : BOOL;			//Reset Motor
 	_homeNow : BOOL;
 	homingOSF : F_TRIG;
-	resetState : INT;
+
 	IECReferenceGood : BOOL;
 	resetTimeout : Standard.TON;
 	encoderResetTimeout : Standard.TON;
@@ -55,6 +57,7 @@ VAR_OUTPUT
     status : StepServoStatusFB; //Status of servo
 	alarms : FB_StepServoAlarms; // Alarms from Drive
     QSegmentRunning : INT; //Current Q program running from Drive
+	resetState : INT;
 	faults : StepServoFaultsType;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

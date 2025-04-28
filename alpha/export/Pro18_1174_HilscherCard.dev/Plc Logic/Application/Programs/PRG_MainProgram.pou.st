@@ -30,7 +30,7 @@ VAR
 	testRead : BOOL;
 	testCreate : BOOL;
 	saveParametersTimer : Standard.TON := (PT := T#10M);
-	EIPReconfig : FB_EIPCommsConfigure();
+	EIPReconfig : FB_DeviceTreeEnable();
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Program: Main (PLC_PRG)
 //    Description: This program serves as a base for the MOAB Prototype
@@ -44,7 +44,9 @@ IF saveParametersTimer.Q THEN
 	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);
 	saveParametersTimer.IN := FALSE;
 END_IF
-EIPReconfig(rootEIPNode := CIFX_EIP);
+
+EIPReconfig(rootEIPNode := CIFX_EIP, rootModbusTCPNode := ModbusTCP_Slave_Device);
+
 IF testCreate THEN
 // 	recResult := recipieManager.CreateRecipe(RecipeDefinitionName := 'Recipes', RecipeName := 'Automatic');
 // 	recResult := recipieManager.ReadAndSaveRecipe(RecipeDefinitionName := 'Recipes', RecipeName := recipeName);

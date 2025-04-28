@@ -182,6 +182,9 @@ ELSE
 	Keyence_BCV.Enable := FALSE;
 END_IF
 
+// Enable/disable MODBUS TCP adapter 
+ModbusTCP_Slave_Device.Enable := HMIData.auxIOSource.ModbusTCP;	
+	
 // Option setup and factory config  
 IF HMIData.resetAverageCycleTime THEN
 	HMIData.averageCycleTime := 0;
@@ -217,12 +220,14 @@ motorizedSealFlatteners(sealFlattenersVerticalAxis := msfVerticalAxis,
 						lowerService := HMIData.sealFlattenersServiceLower,
 						moveToManualSetpoint := HMIData.sealFlattenersMoveToManualPos,
 						manualPosSetpoint := HMIData.sealFlattenersManualPositionSetting,
-						sealFlattenerMotorCommFailInput := (sealFlattenerCommFail AND motorizedSealFlatteners.enable),
+						sealFlattenerMotorCommFailInput := (sealFlattenerCommFail AND HMIData.sealFlattenersInUse),
 						timeoutFault => sealFlattenerTimedOut.faultTrigger,
-						position => HMIData.sealFlattenersPosition
+						position => HMIData.sealFlattenersPosition,
 );
 motorizedSealFlatteners.Mode := motorizedSealFlattenersMode;
 motorizedSealFlatteners.enable := (HMIData.sealAreaOptionSelection = SealAreaOptionSelectionEnum.MotorizedSealFlatteners) AND HMIData.sealFlattenersInUse;
+// COPIED FROM MERGE-PAPER (CARLOS) BRANCH
+
 
 // Setup of MOAB Machine Pressure bar ("#2") on actual machine, not test rig
 pressureBar(
@@ -289,6 +294,7 @@ funnel(
 );
 
 // 2nd Stage Funnel
+IF stagingFunnel.enable THEN
 stagingFunnel(
 	openingDelay := HMIData.stagingFunnelOpenDelay, 
 	openingDwell := HMIData.stagingFunnelOpeningTime,
@@ -298,7 +304,7 @@ stagingFunnel(
 	oClose => oStagingFunnelClose, 
 	oOpen => oStagingFunnelOpen
 );
-
+END_IF
 CASE HMIData.funnelFactorySelection OF
 	FunnelSelection.NotInstalled:
 		// Disable both funnels
@@ -394,7 +400,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 																enableIBDEject := FALSE;
 															END_IF
 															
-															IF HMIDAta.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
+															IF HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
 																IBDCylinders(extendOutput => oIBDExtendWithFunnel, retractOutput => oIBDRetractWithFunnel);
 															ELSE
 																IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);
@@ -406,7 +412,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 															IF IBDExtendONS.OSR THEN
 																IBDCylinders.Extend();
 															END_IF
-																 
+															
 															IBDRetractToDeflate.DelaySetting := 0;
 															IBDRetractToDeflate.DwellSetting := TO_UINT(HMIData.IBDDeflateDwellTime * 1000);
 															IBDRetractToEject.DelaySetting := TO_UINT(HMIData.IBDPackageEjectAssistDelayTime * 1000);
@@ -415,7 +421,7 @@ CASE HMIData.independentBagDeflatorSelection OF
 	BagDeflatorSelection.IBDWithHingedPlate:	// Enable IBD with Hinged Plate
 															enableIBDDeflate := TRUE;
 															IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);	
-															IF HMIDAta.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
+															IF HMIData.funnelFactorySelection <> FunnelSelection.NotInstalled THEN
 																IBDCylinders(extendOutput => oIBDExtendWithFunnel, retractOutput => oIBDRetractWithFunnel);
 															ELSE
 																IBDCylinders(extendOutput => oIBDExtend, retractOutput => oIBDRetract);
@@ -440,7 +446,7 @@ END_CASE
 *)
 //commented out to test this code to correct HPA behavior.
 
-enableBagOpen := HmiData.bagOpenEnable;
+enableBagOpen := HMIData.bagOpenEnable;
 
 //We want to skip the whole bag open procedure, whether fingers are present or not
 //We want to execute the bag open procedure, whether fingers are present or not
@@ -613,8 +619,8 @@ CASE HMIData.fillerFactorySelection OF
 		 
 	FillerSelection.StandardFiller:					// Only enable filler FB if Aux IO is enabled through COMMS or physically
 		 											filler.enable := ((HMIData.auxIOConfig.factorySelection = AuxiliaryIOSelection.AuxIOStandard)
-																		OR HMIdata.auxIOSource.ModbusTCP
-																		OR HMIdata.auxIOSource.OPC_UA);
+																		OR HMIData.auxIOSource.ModbusTCP
+																		OR HMIData.auxIOSource.OPC_UA);
 													Infeed_Conveyor_IO.Enable := FALSE;
 														 
 	FillerSelection.EZFeed:							filler.enable := TRUE;
@@ -643,7 +649,7 @@ ezfeed(
 	partsCountingModeEnable:= HMIData.infeedConveyorCountingMode, 
 	flightPresentSensor:= iInfeedFlightSensor, 
 	partPresentSensor:= NOT iLightCurtainsClear AND HMIData.lightCurtainSelection = LightCurtainsSelection.LoadingAreaLightCurtains, 
-	waitingForFiller:= filler.waitingForFiller AND (NOT HMIData.stopMachine) AND NOT HMIdata.batchCountDone.active, 
+	waitingForFiller:= filler.waitingForFiller AND (NOT HMIData.stopMachine) AND NOT HMIData.batchCountDone.active, 
 	indexDwellSetting:= HMIData.infeedIndexDwellTimer, 
 	flightTarget:= HMIData.infeedFlightCountTarget, 
 	partsTarget:= HMIData.infeedPartsCountTarget, 
@@ -817,7 +823,8 @@ pressureBarEndStopMotor(ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
 				reversePolarity := TRUE,
 				defaultCurrentSetpoint := 650,
 				commFail := pressureBarCommFail,
-				isHomable := TRUE);			
+				isHomable := TRUE,
+				feedbackSelection := PositionFeedbackSelection.AbsolutePosition);			
 pressureBarEndStopMotor.Execute();
 
 passthrough(pressureBarEndStopMotor := pressureBarEndStopMotor, 
@@ -1031,7 +1038,7 @@ exhaustTimer(IN := iPressureBarExtended AND state = HEAD_STATES.Idle);
 
 footSwitchONS(CLK := iFootSwitch);
 
-stopONS(CLK := HMIDAta.stopMachine);
+stopONS(CLK := HMIData.stopMachine);
 
 IF state <> HEAD_STATES.Idle AND HMIData.initiateCycle THEN
 	HMIData.initiateCycle := FALSE;
@@ -1130,34 +1137,34 @@ CASE state OF
 													END_IF    
 													
 													IF HMIData.loadPlateService.retractCommand OR HMIData.rearLoadPlateService.retractCommand THEN
-														rearLoadPlate.ManualOn();
+														rearLoadPlate.moveToDischargePos();
 														HMIData.loadPlateService.retractCommand := FALSE;
 														HMIData.rearLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadPlateService.extendCommand OR HMIData.rearLoadPlateService.extendCommand THEN
-														rearLoadPlate.ManualOff();
+														rearLoadPlate.moveToLoadingPos();
 														HMIData.loadPlateService.extendCommand := FALSE;
 														HMIData.rearLoadPlateService.extendCommand := FALSE;
 													END_IF
 													
 													IF HMIData.loadShelfService.retractCommand THEN
-														loadShelf.ManualOn();
+														loadShelf.moveToDischargePos();
 														HMIData.loadShelfService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.loadShelfService.extendCommand THEN
-														loadShelf.ManualOff();
+														loadShelf.moveToLoadingPos();
 														HMIData.loadShelfService.extendCommand := FALSE;
 													END_IF	
 
 													IF HMIData.forwardLoadPlateService.retractCommand THEN
-														frontLoadPlate.ManualOn();
+														frontLoadPlate.moveToDischargePos();
 														HMIData.forwardLoadPlateService.retractCommand := FALSE;
 													END_IF                                      
                                                     
 													IF HMIData.forwardLoadPlateService.extendCommand THEN
-														frontLoadPlate.ManualOff();
+														frontLoadPlate.moveToLoadingPos();
 														HMIData.forwardLoadPlateService.extendCommand := FALSE;
 													END_IF	 
 													
@@ -1274,7 +1281,7 @@ CASE state OF
 													END_IF
 													{endregion:'Service'}
 													
-                                                    IF (printerDataReady AND HmiData.labelsQueuedUpFaultEnable) THEN
+                                                    IF (printerDataReady AND HMIData.labelsQueuedUpFaultEnable) THEN
                                                         labelsQueuedUpFault.faultTrigger := TRUE;    
                                                     ELSE
                                                         labelsQueuedUpFault.faultTrigger := FALSE;
@@ -1442,7 +1449,7 @@ CASE state OF
     HEAD_STATES.MovedPassthrough:           // 
                                             pressureBar.AutoDoneMovingPassthrough();
                                             state := HEAD_STATES.Idle;
-									   		//HMIdata.passthroughSetting := 
+									   		//HMIData.passthroughSetting := 
 											setPassthroughPB := FALSE;
                                                     
     HEAD_STATES.Fault:                      hmiLight.TurnOff();

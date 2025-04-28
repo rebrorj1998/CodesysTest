@@ -83,7 +83,7 @@ HMIData.version := Standard.CONCAT(TO_STRING(versionInfo.uiMajor),'.');
 	BPLog.AppendToString(ADR(HMIData.version), TO_STRING(GetTextProperty("VersionPostfix")));
 	
 //Set maximum passthrough based on model selection
-CASE HMIdata.baggerModelSelection OF
+CASE HMIData.baggerModelSelection OF
 	ModelSelection.Pro18_1174,
 	ModelSelection.Pro18_1183:
 		 Globals.maximumPassthough := Globals.MAXIMUM_PASSTHROUGH_PRO18;

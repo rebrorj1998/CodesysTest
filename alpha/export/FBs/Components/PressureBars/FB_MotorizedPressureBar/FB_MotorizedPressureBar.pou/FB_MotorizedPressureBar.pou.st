@@ -1,7 +1,9 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 FUNCTION_BLOCK FB_MotorizedPressureBar EXTENDS FB_BaseComponent
 VAR_INPUT
+	jawClear :BOOL := TRUE;
 	openedPositionBuffer : DINT;
+	iPressureBarClamped: BOOL;
 	iPressureBarClosed : BOOL;
 	iPressureBarNotObstructed : BOOL;
 	iBaggerEnableButton : BOOL;
@@ -41,6 +43,7 @@ VAR
 	accel : INT := 75;
 	decel : INT := 75;
 	velo : INT := 800;
+	clearVelo: INT := 1000;
 	outCurrent : DINT := 1500;
 	testCurrent : DINT := 650;
 	testZeroCurrent : BOOL;
@@ -73,11 +76,23 @@ VAR
 	doneClampingDelay : Standard.TON := (PT := T#50MS);
 	pressureBarPositionError : DINT;
 	movingOSF: f_trig;
+	
+	_moveJawClear: BOOL;
+	retrycount: INT;
+	_nextState : MotorizedPbarStates;
+	_positionFaultLimit : INT;
+	_motorCurrent : DINT;
 END_VAR
 VAR_IN_OUT
 	jawClamps : FB_ThreePositionCylinder;
 	pbarMotor : FB_AppliedMotionStepServoEIPPassthrough;
 	//IBDMotor : FB_AppliedMotionStepServoEIPPassthrough;
+END_VAR
+VAR CONSTANT
+	MOTOR_CURRRENT_HIGH : DINT := 650;
+	MOTOR_CURRENT_LOW : DINT := 200;
+	POSITION_FAULT_LIMIT_STANDARD : INT := 2000;
+	POSITION_FAULT_LIMIT_HIGH : INT := 24000;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //Modified to ensure that PBAR motor syncs with encoder after each move. CT
 movingOSF(CLK:= pbarmotor.status.moving);
@@ -115,7 +130,7 @@ IF movingONS.OSF THEN
 	strokeTimer.IN := FALSE;
 END_IF
 	
-disableMotorONS(CLK := clamped AND iJawClampsRetracted);
+disableMotorONS(CLK := clamped AND (iPressureBarClamped AND NOT (HMIData.mailerMaterial = MAILER_MATERIAL.paper)) AND iJawClampsRetracted);
 IF disableMotorONS.OSR THEN
 	pbarMotor.AllowClamping();
 END_IF
@@ -198,7 +213,7 @@ IF testSomeCurrent THEN
 END_IF
 
 IF testPosLimit THEN
-	pbarMotor.SetPositionLimit(posLimit);
+	pbarMotor.SetPositionFaultLimit(posLimit);
 	testPosLimit := FALSE;
 END_IF
 
@@ -260,6 +275,10 @@ CASE state OF
 												state := MotorizedPbarStates.Initialize;
 											END_IF
 												
+										END_IF
+										
+										IF _moveJawClear THEN
+											state:= MotorizedPbarStates.MoveJawClear;
 										END_IF
 											
 										IF _homeNow THEN
@@ -333,9 +352,20 @@ CASE state OF
 										ELSE
 											state := MotorizedPbarStates.Idle;
 										END_IF
-										pbarMotor.SetPositionLimit(posLimit);
+										pbarMotor.SetPositionFaultLimit(posLimit);
 										
+	MotorizedPbarStatesRubberBand.PrepareToSetPositionLimit:
+			pbarMotor.SetPositionFaultLimit(_positionFaultLimit);
+			state := MotorizedPbarStatesRubberBand.PreparingToSetPositionLimit;
+		
+	MotorizedPbarStatesRubberBand.PreparingToSetPositionLimit:
+		IF pbarMotor.commandSuccessful THEN
+			state := MotorizedPbarStatesRubberBand.PreparedSettingPositionLimit;
+		END_IF
 	
+	MotorizedPbarStatesRubberBand.PreparedSettingPositionLimit:
+		state := _nextState;
+		_nextState := MotorizedPbarStatesRubberBand.Idle;	
 	
 	MotorizedPbarStates.MoveJawOut :	
 									moveJawOutDelayTimer.IN := TRUE;
@@ -346,6 +376,43 @@ CASE state OF
 										pbarMotor.MoveToPositionTorque(pbarOutCommandedSetting,accel,decel,velo,outCurrent);
 										distanceToMove := ABS(actualPosition - pbarOutCommandedSetting);
 										state := MotorizedPbarStates.MovingJawOut;
+									END_IF
+									
+	MotorizedPbarStates.MoveJawClear : //
+									delayTimer.PT := T#150MS;
+									IF NOT jawClear AND NOT pbarMotor.Moving AND retrycount <=5 AND  homeRequired THEN
+									_moveJawClear := FALSE;
+									IF NOT delaytimer.in THEN
+										
+										delayTimer.IN := TRUE;
+									ELSIF delayTimer.Q THEN
+										pbarMotor.MoveDistance( 5,accel,decel,clearVelo);
+										delayTimer.IN := FALSE;
+										retrycount:= retrycount + 1;
+									END_IF
+									
+									
+									ELSIF jawClear THEN
+										retrycount := 0;
+										_moveJawClear := FALSE;
+										pbarMotor.Stop();
+										IF NOT pbarMotor.Moving THEN
+										state := MotorizedPbarStates.Idle;
+										delayTimer.IN := FALSE;
+										END_IF
+
+									
+									ELSIF retrycount>5 THEN
+											retrycount := 0;
+										
+										_moveJawClear := FALSE;
+										pbarMotor.Stop();
+										faults.failedToOpen.faultTrigger:=TRUE;
+										delayTimer.IN := FALSE;
+										state := MotorizedPbarStates.Idle;
+									ELSIF NOT homeRequired THEN 
+										state := MotorizedPbarStates.Initialize;
+										
 									END_IF
 	
 	MotorizedPbarStates.MovingJawOut :			//
@@ -380,7 +447,10 @@ CASE state OF
 											delayTimer.IN := FALSE;
 											state := MotorizedPbarStates.MoveJawIn;
 										END_IF
-	
+										
+	MotorizedPbarStatesRubberBand.StartRubberBanding :
+										pbarMotor.MoveToPositionTorque(pbarOutCommandedSetting, accel, decel, velo, MOTOR_CURRENT_LOW);
+										state := MotorizedPbarStatesRubberBand.Idle;	
 	
 	MotorizedPbarStates.MoveJawIn :				//
 										Globals.jawMovingIn := TRUE;
@@ -407,7 +477,7 @@ CASE state OF
 											//delayTimer.IN := FALSE;
 											delayTimer.IN := TRUE;
 											// Need this delay for the 1183/1196 motors - not the 1182 though.
-											IF delayTimer.Q OR HMIDAta.baggerModelSelection = ModelSelection.Pro24_1182 THEN
+											IF delayTimer.Q OR HMIData.baggerModelSelection = ModelSelection.Pro24_1182 THEN
 												delayTimer.IN := FALSE;
 												IF _closeJawNoLatch THEN
 													_closeJawNoLatch := FALSE;

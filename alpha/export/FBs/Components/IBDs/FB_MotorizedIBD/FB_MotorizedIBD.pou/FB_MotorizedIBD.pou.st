@@ -288,7 +288,7 @@ CASE state OF
 										startTest := FALSE;
 										testActive := FALSE;
 										delayTimer.IN := FALSE;
-										homeRequired := TRUE;
+										//homeRequired := TRUE;
 										//IBDMotor.MoveDistanceTorque(velocity:=100, acceleration := 1, deceleration := 1, distance := 0, current := 0);
 										IBDMotor.Disable();
 										state := MotorizedIBDStates.Faulted;

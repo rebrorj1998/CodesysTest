@@ -19,8 +19,12 @@ IF currentLimit = 0 THEN
 	currentLimit := defaultCurrentSetpoint;
 END_IF
 //Map raw EIP Registers to parameters
-//absolutePositionSteps := driveInputs[5];
-absolutePositionSteps := driveInputs[6];
+IF feedbackSelection = PositionFeedbackSelection.EncoderPosition THEN
+	absolutePositionSteps := driveInputs[5];
+ELSE
+	absolutePositionSteps := driveInputs[6];
+END_IF
+
 velocity := DINT_TO_INT(driveInputs[8]);
 stepServoStatusRaw := DINT_TO_INT(driveInputs[0]);
 stepServoAlarmCodeRaw := DINT_TO_INT(driveInputs[1]);
@@ -92,7 +96,7 @@ CASE resetState OF
 				encoderResetTimeout.IN := TRUE;
 				IF encoderResetTimeout.Q THEN
 					resetState := 4;	
-					ResetEncoderPosition(driveInputs[5]);	
+					//ResetEncoderPosition(driveInputs[5]);	
 				END_IF
 			END_IF
 	
@@ -106,6 +110,7 @@ END_CASE
 IF reversePolarity THEN
     absolutePositonInches := absolutePositonInches * -1; 
 END_IF
+absolutePositonInches := absolutePositonInches + positionOffset;
 
 //Get Servo Status and unpack
 status(statusCode := StepServoStatusRaw);

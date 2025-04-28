@@ -18,7 +18,7 @@ END_VAR
 
 commandSuccessful := FALSE;
 
-distanceToMoveInSteps := REAL_TO_DINT((distance) * stepsPerInchSetpoint);
+distanceToMoveInSteps := REAL_TO_DINT(((distance) * stepsPerInchSetpoint));
 IF reversePolarity THEN
     distanceToMoveInSteps := distanceToMoveInSteps * -1;
 END_IF

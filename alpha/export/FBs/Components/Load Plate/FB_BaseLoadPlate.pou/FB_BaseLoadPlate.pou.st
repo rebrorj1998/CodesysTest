@@ -93,12 +93,18 @@ _switchedPowerOnONS(CLK := switchedPowerON);
 
 //
 _updateNotInUsePosition := (_switchedPowerOnONS.OSR OR _disabledPositionHasUpdated OR _inUseONS.OSF);		
-IF _manualOn OR ((_triggerONS.OSR OR _shakeONS.OSF OR (_faultActiveONS.OSR AND switchedPowerON AND dischargeOnFault)) AND inUse) OR (_updateNotInUsePosition AND DischargePositionWhileDisabled AND NOT inUse) THEN
-	moveToDischargePosition := TRUE;
-	_manualOn := FALSE;
-ELSIF _manualOff OR (((_triggerONS.OSF AND NOT faultActive) OR _shakeONS.OSR OR _inUseONS.OSR) AND inUse) OR (_updateNotInUsePosition AND LoadingPositionWhileDisabled AND NOT inUse) THEN
-	moveToDischargePosition := FALSE;
-	_manualOff := FALSE;
+IF _manualOn 
+	OR ((_triggerONS.OSR OR _shakeONS.OSF OR (_faultActiveONS.OSR AND switchedPowerON AND dischargeOnFault)) AND inUse) 
+	OR (_updateNotInUsePosition AND DischargePositionWhileDisabled AND NOT inUse) 
+	THEN
+		moveToDischargePosition := TRUE;
+		_manualOn := FALSE;
+ELSIF _manualOff 
+	OR (((_triggerONS.OSF AND NOT faultActive) OR _shakeONS.OSR OR _inUseONS.OSR OR resetONS.Q) AND inUse) 
+	OR (_updateNotInUsePosition AND LoadingPositionWhileDisabled AND NOT inUse) 
+	THEN
+		moveToDischargePosition := FALSE;
+		_manualOff := FALSE;
 END_IF
 moveToLoadingPositon := NOT moveToDischargePosition;
 
