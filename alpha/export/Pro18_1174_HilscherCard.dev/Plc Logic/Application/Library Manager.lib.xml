@@ -293,10 +293,10 @@
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemCamDisplayer</Single>
+              <Single Type="string">System_VisuElemBase</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemCamDisplayer, 4.7.0.0 (System)</Single>
+              <Single Type="string">VisuElemBase, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -373,18 +373,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">StringUtils</Single>
+              <Single Type="string">System_VisuElemCamDisplayer</Single>
             </Key>
             <Value>
-              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
-            </Value>
-          </Entry>
-          <Entry>
-            <Key>
-              <Single Type="string">FloatingPointUtils</Single>
-            </Key>
-            <Value>
-              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
+              <Single Type="string">VisuElemCamDisplayer, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -405,10 +397,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">ElementCollections</Single>
+              <Single Type="string">StringUtils</Single>
             </Key>
             <Value>
-              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
+              <Single Type="string">StringUtils, 3.5.20.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -445,6 +437,14 @@
           </Entry>
           <Entry>
             <Key>
+              <Single Type="string">ElementCollections</Single>
+            </Key>
+            <Value>
+              <Single Type="string">Element Collections, 3.5.17.0 (3S - Smart Software Solutions GmbH)</Single>
+            </Value>
+          </Entry>
+          <Entry>
+            <Key>
               <Single Type="string">System_VisuElemsWinControls</Single>
             </Key>
             <Value>
@@ -461,10 +461,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemBase</Single>
+              <Single Type="string">FloatingPointUtils</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemBase, 4.7.0.0 (System)</Single>
+              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
