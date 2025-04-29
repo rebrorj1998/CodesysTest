@@ -455,28 +455,6 @@
       <UserDefElement type="T_MAILER_MATERIAL" iecname="poly" enumvalue="0" />
       <UserDefElement type="T_MAILER_MATERIAL" iecname="paper" enumvalue="1" />
     </TypeUserDef>
-    <TypeUserDef name="T_Modbus_Inputs" size="7" nativesize="7" typeclass="Userdef" pouclass="STRUCTURE" iecname="Modbus_Inputs">
-      <UserDefElement iecname="fillerTrigger" type="T_BOOL" byteoffset="0" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="baggerInhibit" type="T_BOOL" byteoffset="1" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="collisionDetection" type="T_BOOL" byteoffset="2" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="fillerOK" type="T_BOOL" byteoffset="3" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="reverseConveyor" type="T_BOOL" byteoffset="4" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="bagGrabbed" type="T_BOOL" byteoffset="5" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="heartbeat" type="T_BOOL" byteoffset="6" vartype="VAR" access="ReadWrite" />
-    </TypeUserDef>
-    <TypeUserDef name="T_Modbus_Outputs" size="11" nativesize="11" typeclass="Userdef" pouclass="STRUCTURE" iecname="Modbus_Outputs">
-      <UserDefElement iecname="baggerOK" type="T_BOOL" byteoffset="0" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="readyForFiller" type="T_BOOL" byteoffset="1" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="printerDataReady" type="T_BOOL" byteoffset="2" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="waitingForPrinter" type="T_BOOL" byteoffset="3" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="cycleComplete" type="T_BOOL" byteoffset="4" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="bagMade" type="T_BOOL" byteoffset="5" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="bagMadePlusLabelRequired" type="T_BOOL" byteoffset="6" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="bagsLow" type="T_BOOL" byteoffset="7" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="readyForGrab" type="T_BOOL" byteoffset="8" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="runExternalExitConveyor" type="T_BOOL" byteoffset="9" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="heartbeatResponse" type="T_BOOL" byteoffset="10" vartype="VAR" access="ReadWrite" />
-    </TypeUserDef>
     <TypeUserDef name="T_ModelSelection" size="2" nativesize="2" swapsize="2" typeclass="Enum" iecname="ModelSelection" basetype="T_INT">
       <UserDefElement type="T_ModelSelection" iecname="Pro18_1174" enumvalue="0" />
       <UserDefElement type="T_ModelSelection" iecname="Pro24_1182" enumvalue="1" />
@@ -831,7 +809,7 @@
       <UserDefElement iecname="delayTimer" type="T_TON" byteoffset="44" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="state" type="T_DELAY_DWELL_STATES" byteoffset="60" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="4512" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPBase" size="42" nativesize="4520" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_CylinderLeak" size="204" nativesize="264" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_CylinderLeak" basetype="T_FB_PredictiveMaint">
@@ -960,10 +938,10 @@
       <UserDefElement iecname="head" type="T_HEAD_STATES" byteoffset="0" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="sb" type="T_Substate" byteoffset="2" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="42" nativesize="4656" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionBagDeliveryMotor" size="42" nativesize="4664" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionBagDeliveryMotor" basetype="T_FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="4568" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
+    <TypeUserDef name="T_FB_AppliedMotionStepServoEIPPassthrough" size="42" nativesize="4576" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_AppliedMotionStepServoEIPPassthrough" basetype="T_FB_AppliedMotionStepServoEIPBase">
       <UserDefElement iecname="faults" type="T_StepServoFaultsType" byteoffset="0" vartype="VAR_OUTPUT" inherited_from="T_FB_AppliedMotionStepServoEIPBase" access="ReadWrite" />
     </TypeUserDef>
     <TypeUserDef name="T_FB_PrintAndApply" size="42932" nativesize="45016" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_PrintAndApply" basetype="T_FB_BaseComponent">
@@ -1052,7 +1030,7 @@
       <UserDefElement iecname="upStatusTimer" type="T_TON" byteoffset="16" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="downStatusTimer" type="T_TON" byteoffset="32" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10616" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_BagDelivery" size="100" nativesize="10632" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_BagDelivery" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="reverseFault" type="T_FB_Fault" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="noBagOverEye" type="T_FB_Fault" byteoffset="3" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="bagTensionFault" type="T_FB_Fault" byteoffset="6" vartype="VAR_OUTPUT" access="ReadWrite" />
@@ -1061,7 +1039,7 @@
       <UserDefElement iecname="bagFeedRearMotor" type="T_FB_AppliedMotionBagDeliveryMotor" byteoffset="58" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeSimple name="T_REFERENCE_TO_PerfBreaker_REF" size="48" swapsize="0" typeclass="Reference" iecname="REFERENCE TO PerfBreaker_REF" basetype="T_PerfBreaker" />
-    <TypeUserDef name="T_FB_MotorizedSealFlatteners_PerfBreaker" size="516" nativesize="5312" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners_PerfBreaker" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MotorizedSealFlatteners_PerfBreaker" size="516" nativesize="5320" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MotorizedSealFlatteners_PerfBreaker" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="enable" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
       <UserDefElement iecname="_mode" type="T_DEVICE_MODES" byteoffset="2" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
       <UserDefElement iecname="_ready" type="T_BOOL" byteoffset="4" vartype="VAR" inherited_from="T_FB_BaseComponent" access="ReadWrite" />
@@ -1165,7 +1143,7 @@
       <UserDefElement iecname="bagHoldTolerance" type="T_REAL" byteoffset="508" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="clearanceOffset" type="T_REAL" byteoffset="512" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="43892" nativesize="165856" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="43892" nativesize="165896" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners_PerfBreaker" byteoffset="16" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="532" vartype="VAR" access="ReadWrite" />
@@ -1868,8 +1846,6 @@ Misc</Comment>
         <Node name="resetCommFaults" type="T_BOOL" access="ReadWrite" />
       </Node>
       <Node name="RemoteComms">
-        <Node name="modbusInputsToBagger" type="T_Modbus_Inputs" access="ReadWrite" />
-        <Node name="modbusOutputsFromBagger" type="T_Modbus_Outputs" access="ReadWrite" />
         <Node name="OPCInputsToBagger" type="T_OPC_Inputs" access="ReadWrite" />
         <Node name="OPCOutputsFromBagger" type="T_OPC_Outputs" access="ReadWrite" />
       </Node>

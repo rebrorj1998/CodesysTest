@@ -985,6 +985,10 @@ ELSIF passthrough.extendPressureBarHighPressureRequest THEN
 	END_IF
 END_IF
 
+IF passthrough.extendIBDRequest THEN
+	IBDCylinders.Extend();
+END_IF
+
 IF HMIData.bagsMade.count >= 1000 THEN
 	Globals.factoryTestComplete := TRUE;
 END_IF

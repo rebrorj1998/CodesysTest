@@ -3,7 +3,6 @@ FUNCTION_BLOCK FB_MOABHead_Electric EXTENDS FB_BaseComponent
 VAR_INPUT
     motorizedSealFlattenersMode : DEVICE_MODES := DEVICE_MODES.Auto;
     electricPressureBarMode : DEVICE_MODES := DEVICE_MODES.Auto;
-	vacuumPickerMode : DEVICE_MODES;
     startCycle : BOOL;
     bagDeliveryMode : DEVICE_MODES;    // Mode of bag delivery system
     printerMode : DEVICE_MODES;        // Mode of printer
@@ -28,7 +27,6 @@ VAR
 	IBD : FB_MotorizedIBD();
 	sealBarTempSensor : FB_IFMTempSensor();
 	sealBarHeater : FB_TempController();
-    startCycleONS : R_TRIG;
 	enableBagOpen : BOOL;
 	enableHeater : BOOL;
 	enableIBDDeflate : BOOL;
@@ -47,17 +45,13 @@ VAR
 	frontLoadPlate : FB_BaseLoadPlate;
 	exitConveyorRun : DelayDwellFB() := (DwellSetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (DwellSetting := 6000);
-	IBDExtendONS : FB_ONS();
-	IBDRetractONS : FB_ONS();
 	startBCVONS : FB_ONS();
 	bagOpenFingers : FB_BagOpenFingersWithSensors();
 	bagOpenCheckDelay : Standard.TON := (PT:= T#200MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
 	bagOpenRetryCount : UINT;		// Count of current retry attempts
-	bagOpenFeedNewBagSetting : UINT; // Number of new bags to try
-	bagOpenFeedNewBagCount : UINT;	// Count of new bags tried in recovery
+
 	bagOpened : BOOL;				// Bag was Opened flag
-	recoveryModeActive : BOOL; 		// Recovery Mode Active
 	startCycleReqFromPalmButtons : BOOL;
 	startCycleReqFromPalmButtonsONS : FB_ONS();
 	pressureBarMotor : FB_AppliedMotionStepServoEIPPassthrough();
@@ -74,7 +68,6 @@ VAR
 	openedBagWasRemoved : FB_Fault(name := 'Opened Bag was Removed');
 	safePowerFailure : FB_Fault(name := 'E-Stop/Safety Power Failure');
 	palmButtonConfigError : FB_Fault(name := 'Palm Button Configuration Error');
-	packageEjectGuardRemoved : FB_Fault(name := 'Package Eject Guard Removed');
 	barcodeVerificationFailed : FB_Fault(name := 'Barcode Verification Failed');
 	barcodeVerifierCommFail : FB_Fault(name := 'Barcode Verifier Communication Failure');
 	infeedConveyorIOCommFail : FB_Fault(name := 'Infeed Conveyor IO Communication Failure');
@@ -106,8 +99,6 @@ VAR
 	pressureBarCloseDelay : Standard.TON;
 	_fillerDroppingProductONS : FB_ONS;
 	filler : FB_Filler();
-	configOutput1Pulse : FB_MonostableMultivibrator();
-	configOutput2Pulse : FB_MonostableMultivibrator();
 	fillerModeCycleStartOnlyPulse : FB_MonostableMultivibrator();
 	collisionDetection : FB_CollisionDetection();
 	murrIOBusNode : FB_MurrIO();
@@ -131,7 +122,6 @@ VAR
 	printAndApply : FB_PrintAndApply();
 	EIPReconfig : FB_DeviceTreeEnable();
 	batchEnableONS : FB_ONS;
-	estopONS : FB_ONS;
 	triggerLPAWhileFeedingONS : FB_ONS();
 	_runIntegratedExitConveyor : BOOL;
 	_auxIOPhysical : FB_AuxIOPhysical;
@@ -148,16 +138,10 @@ VAR
 	posInhibit: BOOL;
 	stagingFunnelCloseOutput: BOOL;
 	stagingFunnelOpenOutput: BOOL;
-	MSFactualPosition : REAL;
-	MSFatOutSetpoint: BOOL;
 	paperBagger: BOOL;
-	
 	MSFatInSetpoint: BOOL;
 	MSFatBagHoldSetpoint: BOOL;
 	MSFatBagFeedSetpoint: BOOL;
-	testvar : BOOL;
-	
-	AutoRetractPerfBreakers: BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //    Function Block: FB_MOABHead
@@ -592,7 +576,7 @@ CASE HMIData.funnelFactorySelection OF
 		stagingFunnel.enable := FALSE;
 			 
 END_CASE
-//
+
 //
 sealBarTempSensor(
 	busNodeOK := murrIOBusNode.ok,

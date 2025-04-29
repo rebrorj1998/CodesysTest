@@ -12,6 +12,7 @@ VAR_OUTPUT
     exhaustPressureBarRequest : BOOL; // Exhaust pressure bar request for passthrough movement
     extendPressureBarLowPressureRequest : BOOL; // Extend pressure bar (Low Pressure) request for passthrough movement
 	extendPressureBarHighPressureRequest : BOOL; // Extend pressure bar (Low Pressure) request for passthrough movement
+	extendIBDRequest : BOOL;	// Extend IBD request for passthrough movement
 END_VAR
 VAR        
     passthroughSetpoint : REAL;        // Passthrough setpoint in inches
@@ -71,6 +72,7 @@ END_IF
 CASE state OF
     PASSTHROUGH_SERVO_STATES.Idle :                     // Go to ready state if no home required.  Otherwise go to ready if enabled. Stay in Idle if disabled.
                                                         extendPressureBarLowPressureRequest := FALSE;
+														extendIBDRequest := FALSE;
                                                         exhaustPressureBarRequest := FALSE;
 														timerHomeDelay.IN := FALSE;
                                                         IF enable AND pressureBarEndStopMotor.HomeRequired THEN
@@ -136,6 +138,7 @@ CASE state OF
                                                         
     PASSTHROUGH_SERVO_STATES.MovePassthroughOut :        // Move passthrough out
                                                         exhaustPressureBarRequest := TRUE;
+														extendIBDRequest := TRUE;
                                                         IF _ackRequest THEN
                                                             pressureBarEndStopMotor.MoveToPosition(position := (passthroughSetpoint + HMIData.passthroughOffset), 
                                                                                     acceleration := 150, 
@@ -143,6 +146,7 @@ CASE state OF
                                                                                     velocity := 2583);
                                                             //
                                                             exhaustPressureBarRequest := FALSE;
+															extendIBDRequest := FALSE;
                                                             _ackRequest := FALSE;
                                                             state := PASSTHROUGH_SERVO_STATES.MovingPassthroughOut;        
                                                         END_IF
