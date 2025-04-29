@@ -139,6 +139,7 @@ VAR
 	stagingFunnelCloseOutput: BOOL;
 	stagingFunnelOpenOutput: BOOL;
 	paperBagger: BOOL;
+	MSFatOutSetpoint: BOOL;
 	MSFatInSetpoint: BOOL;
 	MSFatBagHoldSetpoint: BOOL;
 	MSFatBagFeedSetpoint: BOOL;
