@@ -24,6 +24,7 @@ VAR_OUTPUT
 	inhibitBagger : BOOL;
 	reverseConveyor : BOOL;
 	readyForFiller : BOOL;
+	collisionDetected : BOOL;
 END_VAR
 VAR
 	_configOutputManager : FB_OutputPulseManager;
@@ -60,6 +61,9 @@ CASE factorySelection.factorySelection OF
 
         // Active if either input is set to 'BaggerInhibit' and the corresponding input is active, or PAA enabled and inhibiting cycle.
         inhibitBagger := InputActive(AuxInputSelection.BaggerInhibit) OR inhibitCycle;
+		
+		// Optional Collision Detection on config input
+		collisionDetected := InputActive(AuxInputSelection.CollisionDetection);
 
         // Custom PRJ-22085: Robot successfully grabbed bag.
         bagGrabbed := InputActive(AuxInputSelection.BagGrabbed);
@@ -129,7 +133,7 @@ CASE factorySelection.factorySelection OF
         ELSE
             _configOutputManager.ManualOff(OutputSelected(AuxOutputSelection.RunExternalExitConveyor));
         END_IF
-
+		
         configOut1 := _configOutputManager.configOut1;
         configOut2 := _configOutputManager.configOut2;
 END_CASE

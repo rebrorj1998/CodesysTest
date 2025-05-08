@@ -1,0 +1,4 @@
+(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
+METHOD Start : BOOL
+VAR_INPUT
+END_VAR

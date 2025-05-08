@@ -3,14 +3,14 @@ METHOD AckAll
 VAR_INPUT
 END_VAR
 VAR
-	Cast : IFault;
-	Fault : IFault;
-	J : UINT;
+	_cast : IFault;
+	_fault : IFault;
+	_j : UINT;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 // For each active fault in the array, ack it.
-FOR J:= 0 TO totalObj - 1 DO
-	IF (__QUERYINTERFACE(Collection[J], Cast)) THEN
-		Cast.Ack();
+FOR _j:= 0 TO totalObj - 1 DO
+	IF (__QUERYINTERFACE(Collection[_j], _cast)) THEN
+		_cast.Ack();
 	ELSE 
 		RETURN;
 	END_IF

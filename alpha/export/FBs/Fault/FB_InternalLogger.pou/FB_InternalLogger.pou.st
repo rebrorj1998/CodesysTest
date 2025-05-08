@@ -3,13 +3,14 @@ FUNCTION_BLOCK FB_InternalLogger IMPLEMENTS IMachineLogger
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
+	RTC : FB_GetTime();
 END_VAR
 VAR
 	//loggedItems : ARRAY[0..500] OF FaultLogType;
 	loggedItems : ARRAY[0..GLobals.MAX_LOGGED_ITEMS] OF LogMessageType;
 	numOfLogEntries : UINT;
 	logFull : BOOL;
-	RTC : FB_GetTime();
+	
 	clearLog : BOOL;
 	i : UINT;
 END_VAR

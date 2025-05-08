@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION SECONDS_TO_TIME : TIME
+FUNCTION SECS_TO_MS : TIME
 VAR_INPUT
 	secs : REAL;
 END_VAR
@@ -14,4 +14,4 @@ END_VAR
 //  Copyright (C) 2021 Sharp Packaging Systems By Pregis. All rights reserved.
 //
 
-SECONDS_TO_TIME := TO_TIME(secs * 1000);
+SECS_TO_MS := TO_TIME(secs * 1000);

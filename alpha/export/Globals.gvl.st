@@ -6,6 +6,8 @@ VAR_GLOBAL
     STEPS_PER_INCH : INT;  //Steps Per Inch for Pressure Bar Servos
     maximumPassthough : REAL := 9.0;
 	SystemLog : FB_InternalLogger;
+	fileLoggerOEEDetailed : FB_WriteToFile();
+	fileLoggerOEEDaily : FB_WriteToFile();
 	jawMovingIn : BOOL;
 	passthroughChangedFromJog : BOOL;
 	machinePowerOK : BOOL;

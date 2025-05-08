@@ -140,6 +140,10 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	movePbarByHandWhileLoadingEnable : BOOL;
 	paperTensionSetting : DINT := 60;
 	polyTensionSetting : DINT := 50;
+	cycleFirstBagFromCage : BOOL;
+	trafficDetectedRunoffDwell : REAL := 1.0;
+	packageOnTrunkRunoffDwell : REAL := 1.0;
+	enableExitConveyorVFDFault : BOOL;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -189,7 +193,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	externalExitConveyorJog : BOOL;
 	externalExitConveyorStartDwell : BOOL;
 	triggerBarcodeReaderService : BOOL;
-	
+
 	(*Factoy Config*)
 	bofSelection : BagOpenFingersSelection := BagOpenFingersSelection.PneumaticWithBagOpenSensors;
 	sealAreaOptionSelection : SealAreaOptionSelectionEnum := SealAreaOptionSelectionEnum.MotorizedSealFlatteners;
@@ -214,6 +218,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	rearUnwindMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_3;
 	sealFlattenerMotorConfigVersion : CONFIG_VERSIONS := CONFIG_VERSIONS.V_1_0;
     shakerInstalled : BOOL;
+	trafficControlIONodeEnabled : BOOL;
 	
 	(*Warnings*)
 	printerRibbonLow : Warning;

@@ -41,14 +41,6 @@ IF (__QUERYINTERFACE(Obj, Fault)) THEN
 	GlobalObjects.CollectionOfFaults.AddObject(Fault);
 END_IF
 
-// IF (__QUERYINTERFACE(Obj, Cylinder)) THEN
-// 	GlobalObjects.CollectionOfCylinders.AddObject(Cylinder);
-// END_IF
-// 
-// IF (__QUERYINTERFACE(Obj, PositionableMotor)) THEN
-// 	GlobalObjects.CollectionOfPositionableMotors.AddObject(PositionableMotor);
-// END_IF
-
 IF (__QUERYINTERFACE(Obj, Logger)) THEN
 	GlobalObjects.CollectionOfLogs.AddObject(Logger);
 END_IF

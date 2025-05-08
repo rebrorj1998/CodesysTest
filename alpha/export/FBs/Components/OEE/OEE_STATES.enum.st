@@ -1,11 +1,12 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 {attribute 'qualified_only'}
 {attribute 'strict'}
-TYPE COLLISION_DETECTION_STATE :
+TYPE OEE_STATES :
 (
 	Idle := 0,
-	CollisionDetected := 1,
-	CollisionActive := 2,
-	CollisionEnded := 3
+	Faulted := 10, 
+	Running := 20,
+	ExemptFault := 30,
+	QualityFault := 40
 );
 END_TYPE

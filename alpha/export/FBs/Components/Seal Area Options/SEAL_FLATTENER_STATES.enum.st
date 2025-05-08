@@ -34,7 +34,7 @@ TYPE SEAL_FLATTENER_STATES :
 	MovingFlattenersInForFeedToSeal := 61,
 	MovedFlattenersInforFeedToSeal := 62,
 	
-	Ready := 60,
+	Ready := 61,
 	Reset := 70,
 	Resetting := 75,
 	Fault := 99

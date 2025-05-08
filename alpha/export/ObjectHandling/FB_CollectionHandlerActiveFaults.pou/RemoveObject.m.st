@@ -1,20 +1,19 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 METHOD RemoveObject
 VAR_INPUT
-	Obj   : IFault;
+	obj   : IFault;
 END_VAR
-
 VAR
-	I   : UINT;
-	J : UINT;
+	_i : UINT;
+	_j : UINT;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FOR I:= 0 TO totalObj DO
-	IF Collection[I] = Obj THEN
+FOR _i:= 0 TO totalObj DO
+	IF Collection[_i] = obj THEN
 		// object pointer matches - get rid of it
-		FOR J := I TO totalObj DO
-			Collection[J] := Collection[J+1];
-			ObjNames[J]:= ObjNames[J+1]; 
+		FOR _j := _i TO totalObj DO
+			Collection[_j] := Collection[_j+1];
+			objNames[_j]:= objNames[_j+1]; 
 		END_FOR
 		totalObj := totalObj - 1;
 		IF totalObj = 0 THEN

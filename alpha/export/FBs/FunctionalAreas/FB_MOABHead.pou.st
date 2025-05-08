@@ -262,7 +262,8 @@ bagDelivery(
 	bagFeedRearMotorCommFailInput := bagFeedSlaveCommFail,
 	stepsPerInchSetting := Globals.STEPS_PER_INCH_20_DEGREE_BAG_DELIVERY,
 	velocityMultiplier := Globals.VELOCITY_IPS_MULTIPLIER_PNEUMATIC,
-	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion	 
+	rearMotorConfigVersion := HMIData.rearUnwindMotorConfigVersion
+	//BagNotPresent := iBagNotPresent	 
 );
 bagDelivery.Mode := bagDeliveryMode;
 
@@ -301,8 +302,8 @@ stagingFunnel(
 	closingDwell := HMIData.stagingFunnelClosingTime,
 	iOpened := iStagingFunnelOpened, 
 	iClosed := iStagingFunnelClosed,  
-	oClose => oStagingFunnelClose, 
-	oOpen => oStagingFunnelOpen
+	oClose => oStagingFunnelCloseOrPerfBreakerDown, 
+	oOpen => oStagingFunnelOpenOrPerfBreakerUp
 );
 END_IF
 CASE HMIData.funnelFactorySelection OF
@@ -1285,7 +1286,8 @@ CASE state OF
 													END_IF
 													{endregion:'Service'}
 													
-                                                    IF (printerDataReady AND HMIData.labelsQueuedUpFaultEnable) THEN
+                                                     // Fault if labels stack up in queue 
+                                                    IF (printerDataReady AND HmiData.labelsQueuedUpFaultEnable) THEN
                                                         labelsQueuedUpFault.faultTrigger := TRUE;    
                                                     ELSE
                                                         labelsQueuedUpFault.faultTrigger := FALSE;

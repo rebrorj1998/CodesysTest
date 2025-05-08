@@ -4,7 +4,10 @@
 TYPE eCognexDM374States :
 (
 	Idle := 0,
-	Trigger := 1,
-	WaitForResults := 2
+	TriggerEnable := 1,	
+	Trigger:=2,
+	WaitForResults := 3,
+	FlushOutBuffer := 4
+	
 );
 END_TYPE

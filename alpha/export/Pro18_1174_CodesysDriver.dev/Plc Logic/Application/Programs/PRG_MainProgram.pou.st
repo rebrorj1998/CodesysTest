@@ -18,11 +18,6 @@ VAR
 	checkedSolenoid2Status : BOOL;
 	firstScanDone : BOOL;
 	printDeltaTimer : TON := (PT := T#5S);
-	lastPrinterDelta : TIME;
-	endPrintOSF : Standard.R_TRIG;
-	stringToLog : STRING;
-	testWrite : BOOL;
-	hmiLight : FB_HMILight;
 	versionInfo : VERSION;
 	recipieManager : Recipe_Management.RecipeManCommands;
 	recipeName : STRING;

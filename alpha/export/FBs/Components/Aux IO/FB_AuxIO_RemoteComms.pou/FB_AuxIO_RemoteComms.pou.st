@@ -17,6 +17,7 @@ VAR_OUTPUT
 	enableBagger : BOOL;
 	inhibitBagger : BOOL;
 	reverseConveyor : BOOL;
+	collisionDetected : BOOL;
 END_VAR
 VAR
 	_configOutputManager : FB_OutputPulseManager;

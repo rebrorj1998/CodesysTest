@@ -362,7 +362,7 @@ shutil.rmtree(dir_name)</Entry>
         </Action>
         <Action>
           <Information>
-            <Title>Clean project</Title>
+            <Title>Clean All</Title>
           </Information>
           <Settings>
             <Entry Name="Condition" />
@@ -372,7 +372,7 @@ shutil.rmtree(dir_name)</Entry>
             <Entry Name="ResultVariable" />
             <Entry Name="RetryOnError">0|0</Entry>
           </Settings>
-          <Command TestRunner="TestManager.Projects" Verb="CleanActiveApplication" />
+          <Command TestRunner="TestManager.Projects" Verb="CleanAll" />
           <Configuration />
         </Action>
         <Action>

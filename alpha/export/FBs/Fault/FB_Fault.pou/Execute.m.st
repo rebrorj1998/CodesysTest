@@ -3,7 +3,6 @@ METHOD Execute
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
 //	Function Block: FB_Fault
 //	Description: Faults should be of this FB type.  
-//  An associated FaultType variable needs to be declared in the HMIData global variable list in order to be exposed via OPCUA 
 //	Implementation should look as follows:
 //
 //  *** Instantiate the fault with constructor that contains the fault name: ***
@@ -12,18 +11,21 @@ METHOD Execute
 //		exampleFault2 : FB_Fault(name := CONCAT(_prefix,  'Example Fault 2'));
 //  END_VAR
 //
-//  *** In alarm area of FB call the fault(s). refHMIFaults is passed in from above***
-//  IF __ISVALIDREF(refHMIFaults) THEN
-//		exampleFault1(HMIFault := refHMIFaults.exampleFault1);
-//		exampleFault2(HMIFault := refHMIFaults.exampleFault2, faultTrigger := someFaultCondition);
-//  END_IF
-//
-//	*** Either assign faultTrigger in call (as in exampleFault2 above) or set it later in logic
+//	*** Either assign faultTrigger in call or set it later in logic
 //	exampleFault1.faultTrigger := someFaultCondition;
 //
 //	Created by: Ben Hess
 //	Created Date: Tuesday, May 22, 2018
+
 //
+_passiveOSF(CLK := _passive);
+
+//
+_passiveTimeout(IN := _passive, PT := TO_TIME(_timeoutDwell * 1000));
+IF _passiveTimeout.Q THEN
+	THIS^.Trigger();
+	_passive := FALSE;
+END_IF
 
 //
 _faultTriggerONS(CLK := faultTrigger);
@@ -32,24 +34,33 @@ IF _faultTriggerONS.OSR THEN
 END_IF
 
 //
-_ackCommandONS(CLK := ackCommand);
-IF _ackCommandONS.OSR THEN
-	Ack();
+_ackOSR(CLK := _ack);
+IF _ackOSR.Q THEN
+	_acked := TRUE;
+	_ack := FALSE;
 END_IF
 
 //
-IF _acked AND NOT faultTrigger THEN
-	_active := FALSE;
+IF _acked THEN
 	_acked := FALSE;
+	IF NOT faultTrigger THEN
+		active := FALSE;
+	END_IF
+	_passive := FALSE;
 END_IF
 
-// When no longer active, remove collection of active faults
-_activeONS(CLK := _active);
+//
+_activeONS(CLK := active);
 IF _activeONS.OSF THEN
 	GlobalObjects.CollectionOfActiveFaults.RemoveObject(THIS^);
-	_logger.AddLogItem(CONCAT(InstanceName, ' Cleared'));
+	IF _isOEEExempt THEN
+		GlobalObjects.CollectionOfOEEExemptFaults.RemoveObject(THIS^);
+	END_IF
+	IF _isPassiveExempt THEN
+		GlobalObjects.CollectionOfPassiveExemptFaults.RemoveObject(THIS^);
+	END_IF
+	_logger.AddLogItem(CONCAT(InstanceName, ' Active Cleared'));
+ELSIF _activeONS.OSR OR _passiveOSF.Q THEN
+	GlobalObjects.CollectionOfPassiveFaults.RemoveObject(THIS^);
+	//_logger.AddLogItem(CONCAT(InstanceName, ' Passive Cleared'));
 END_IF
-
-// Outputs
-active := _active;
-acknowledged := _acked;
