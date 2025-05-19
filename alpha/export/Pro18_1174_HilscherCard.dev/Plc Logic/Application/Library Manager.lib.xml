@@ -12,7 +12,7 @@
         <Dictionary Type="{2c41fa04-1834-41c1-816e-303c7aa2c05b}" Name="Properties" />
         <Single Name="TypeGuid" Type="System.Guid">adb5cb65-8e1d-4a00-b70a-375ea27582f3</Single>
         <Null Name="EmbeddedTypeGuids" />
-        <Single Name="Timestamp" Type="long">638821357738972479</Single>
+        <Single Name="Timestamp" Type="long">638823048248310002</Single>
       </Single>
       <Single Name="Object" Type="{adb5cb65-8e1d-4a00-b70a-375ea27582f3}" Method="IArchivable">
         <List2 Name="ParameterTable" />
@@ -303,14 +303,28 @@
             <Single Name="QualifiedOnly" Type="bool">False</Single>
             <Single Name="LinkAllContent" Type="bool">False</Single>
           </Single>
+          <Single Type="{4723ebe7-5bfc-43c6-be6b-5097002ef6b4}" Method="IArchivable">
+            <Single Name="DefaultResolution" Type="string">CAA File, * (CAA Technical Workgroup)</Single>
+            <Single Name="Optional" Type="bool">False</Single>
+            <Null Name="Params" />
+            <Single Name="PlaceholderName" Type="string">CAA File</Single>
+            <Single Name="ResolverGuid" Type="System.Guid">b303f5ce-75ff-4668-a777-7da8debb449c</Single>
+            <Single Name="Id" Type="long">4174026268</Single>
+            <Single Name="Namespace" Type="string">FILE</Single>
+            <Single Name="SystemLibrary" Type="bool">False</Single>
+            <Single Name="HideWhenReferencedAsDependency" Type="bool">False</Single>
+            <Single Name="PublishSymbolsInContainer" Type="bool">False</Single>
+            <Single Name="QualifiedOnly" Type="bool">False</Single>
+            <Single Name="LinkAllContent" Type="bool">False</Single>
+          </Single>
         </List>
         <Dictionary Type="System.Collections.Hashtable" Name="PlaceholderRedirectionTable">
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemCamDisplayer</Single>
+              <Single Type="string">System_VisuElemBase</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemCamDisplayer, 4.7.0.0 (System)</Single>
+              <Single Type="string">VisuElemBase, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -387,10 +401,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">FloatingPointUtils</Single>
+              <Single Type="string">System_VisuElemCamDisplayer</Single>
             </Key>
             <Value>
-              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
+              <Single Type="string">VisuElemCamDisplayer, 4.7.0.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>
@@ -475,10 +489,10 @@
           </Entry>
           <Entry>
             <Key>
-              <Single Type="string">System_VisuElemBase</Single>
+              <Single Type="string">FloatingPointUtils</Single>
             </Key>
             <Value>
-              <Single Type="string">VisuElemBase, 4.7.0.0 (System)</Single>
+              <Single Type="string">FloatingPointUtils, 3.5.17.0 (System)</Single>
             </Value>
           </Entry>
           <Entry>

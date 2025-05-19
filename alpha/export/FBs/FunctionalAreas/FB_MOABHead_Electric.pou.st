@@ -15,18 +15,13 @@ VAR_OUTPUT
     state : StateMachine;
 END_VAR
 VAR
-	externalConveyorEndedOnAShelf : BOOL;
-	packageAtExitONS : FB_ONS;
-	packageAtExit : BOOL;
-	packageAtExitTimer : Standard.TON := (PT := T#20MS);
-	packageAtExitBufferTimer : Standard.TON := (PT := T#100MS);
     motorizedSealFlatteners : FB_MotorizedSealFlatteners_PerfBreaker();
 	msfVerticalAxis : FB_ThreePositionCylinder();
     pressureBar : FB_MotorizedPressureBar();
 	IBD : FB_MotorizedIBD();
 	sealBarTempSensor : FB_IFMTempSensor();
 	sealBarHeater : FB_TempController();
-    startCycleONS : FB_ONS();
+
 	enableBagOpen : BOOL;
 	enableHeater : BOOL;
 	enableIBDDeflate : BOOL;
@@ -47,17 +42,15 @@ VAR
 	packageTracking: FB_PackageTracker;
 	exitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
 	externalExitConveyorRun : DelayDwellFB() := (Dwellsetting := 6000);
-	IBDExtendONS : FB_ONS();
-	IBDRetractONS : FB_ONS();
+
 	startBCVONS : FB_ONS();
 	bagOpenFingers : FB_BagOpenFingersWithSensors();
 	bagOpenCheckDelay : Standard.TON := (PT:= T#200MS); // Delay to check if bag open
 	bagOpenRetrySetting : UINT;		// Number of times to retry opening bag
 	bagOpenRetryCount : UINT;		// Count of current retry attempts
-	bagOpenFeedNewBagSetting : UINT; // Number of new bags to try
-	bagOpenFeedNewBagCount : UINT;	// Count of new bags tried in recovery
+
 	bagOpened : BOOL;				// Bag was Opened flag
-	recoveryModeActive : BOOL; 		// Recovery Mode Active
+
 	startCycleReqFromPalmButtons : BOOL;
 	startCycleReqFromPalmButtonsONS : FB_ONS();
 	pressureBarMotor : FB_AppliedMotionStepServoEIPPassthrough();
@@ -83,10 +76,10 @@ VAR
 	LOTARFault : FB_Fault(name := 'Label Removed from Tamp Head');
 	printAndApplyCommFailure : FB_Fault(name := 'Print and Apply Comm Failure');
 	printAndApplyWaitForLabelTimedOut : FB_Fault(name := 'Print and Apply Timed Out');
-	printAndApplyPackageFailedToExit : FB_Fault(name := 'Product Failed to Exit Conveyor');
-	printAndApplyPackageFailedToReachTamp : FB_Fault(name := 'Product Failed to Reach Print and Apply Tamp');
-	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
-	printAndApplyUnexpectedPackageSeen : FB_Fault(name := 'Unexpected Package Seen at Tamp');
+// 	printAndApplyPackageFailedToExit : FB_Fault(name := 'Product Failed to Exit Conveyor');
+// 	printAndApplyPackageFailedToReachTamp : FB_Fault(name := 'Product Failed to Reach Print and Apply Tamp');
+// 	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
+// 	printAndApplyUnexpectedPackageSeen : FB_Fault(name := 'Unexpected Package Seen at Tamp');
 	labelsQueuedUpFault : FB_Fault(name := 'Labels Queued Up in Printer');
 	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
 	IBDFailedToHome : FB_Fault(name := 'Independent Bag Deflator Failed to Home');
@@ -120,7 +113,6 @@ VAR
 	rearMotorCommsReturned : Standard.F_TRIG();
 	baggerHeadMovement : FB_BaggerHeadRaise();
 	firstBagOutOfCageHandler : FB_CycleFirstBagOut();
-	resettingActive : BOOL;
 	resetTimer : Standard.TOF := (PT := T#1S);
 	allMotorCommsGood : BOOL;
 	basicLightedPalmButton : FB_K50_Button_BasicMode;
@@ -135,38 +127,12 @@ VAR
 	batchEnableONS : FB_ONS;
 	estopONS : FB_ONS;
 	triggerLPAWhileFeedingONS : FB_ONS();
-	stopAfterApplyStartTimer : TON := (PT := T#200MS);
-	tampStarted : BOOL;
 	inhibitExitConveyorOnBCF : BOOL;
 	OEE : FB_OEE(name := 'OEE');
-	watchForUnexpectedPackage : BOOL;
-	conveyorDoneONS : FB_ONS;
-	cycle_test: BOOL;
-	inclineExitConveyorSensorDebounceTimer : TON := (PT := T#150MS);
+
 	cycleFistBagOutOfCageONS : FB_ONS();
-	packageRemovedFromIncline : FB_ONS();
-	
-	ts_stateTracking : fb_stateratetracking;
-	ts_sealAndSeparateSubStateTracking : fb_stateratetracking;
-    ts_releaseAndFeedSubStateTracking : fb_stateratetracking;
-    ts_openBagSubStateTracking : fb_stateratetracking;
-	ts_finishCycleSubStateTracking : fb_stateratetracking;
-	
-	ts_pressureBarTracking : fb_stateratetracking;
-	ts_motorizedSealFlattenersTracking : fb_stateratetracking;
-	ts_bagDeliveryTracking : fb_stateratetracking;
-	ts_IBD : fb_stateratetracking;
-	ts_zebraPrinter : fb_stateratetracking;
-	scaledOffset : REAL := 0.9846;
-	cycComplete: BOOL;
-	clr: BOOL;
-	t_stamp : ULINT;
-	thouCycStr: STRING(3);
+
 	paperBagger: BOOL;
-	_maxIBDPosition: REAL:=12;
-	jawClear: BOOL;
-	preCheckOSR: FB_ONS();
-	waitPassthroughMove: BOOL;
 	posInhibit: BOOL;
 	laststate: HEAD_STATES;
 	stateTimer: TON := (PT:= T#5S);
@@ -179,7 +145,6 @@ VAR
 	_auxIORemote : FB_AuxIO_RemoteComms;
 	_bagGrabbedONS : Standard.R_TRIG;
 	_waitForTakeupTimer : Standard.TON := (PT := T#50MS);
-	_waitForTorqueTimer : Standard.TON := (PT := T#50MS);
 	_waitForSealFlattenersUpTimer : Standard.TON := (PT := T#500MS);
 	_waitForPressureBarOpenDelay : TON;
 	
@@ -193,26 +158,11 @@ VAR
 	MSFatBagFeedSetpoint: BOOL;
 END_VAR
 (*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-//    Function Block: FB_MOABHead
-//    Description: This is the supervisory module for the MOAB head.
+//    Function Block: FB_MOABHead_Electric
+//    Description: This is the supervisory module for the MOAB head electric (servo) version
 //    There is one supervisory state machine for the head and 3 sub-state machines Sealing/Separating, Release/Feed, and Opening Bag
 //    Created by: Ben Hess
 //    Created Date: Tuesday, April 17, 2018
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 {region "Setup"}
 
@@ -248,7 +198,7 @@ stateTimer();
 		 
 // Run OEE FB - "Overall Equipment Effectiveness" tracking
 OEE(
-	baggerInCycle:= HMIDAta.inCycle, 
+	baggerInCycle:= HMIData.inCycle, 
 	clearNow:= , 
 	cumulativeBagsMade := TO_DINT(HMIData.bagsMade.Count),
 	blocked := HMIData.packageBlockingTrunkline.active,
@@ -470,9 +420,8 @@ MSFMotor.Enable := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEn
 (*HMIData.enablePerfBreaker :=*) paperBagger := ( HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.PerfBreaker OR HMIData.SealAreaOptionSelection = SealAreaOptionSelectionEnum.SealFlattenersWithPerfBreaker );
 
 	 
-// Warning if Staggin Funnel and Perforation Breaker are enabled
+// Warning if Staging Funnel and Perforation Breaker are enabled - these use the same valve on the manifold and as such are incompatible options
 IF stagingFunnel.enable	AND (HMIData.mailerMaterial = MAILER_MATERIAL.paper) THEN
-
 	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := TRUE;
 ELSE
 	 HMIData.stagingFunnelAndPerfBreakerEnabled.active := FALSE;
@@ -480,36 +429,6 @@ END_IF
 	 
 pressureBarMotor(
 	ptrEIPInputs := ADR(jawPasstrhoughMotorInputs),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ptrEIPOutputs := ADR(jawPasstrhoughMotorOutputs),
     stepsPerInchSetpoint := Globals.STEPS_PER_INCH_TFBelt,
 	reversePolarity := FALSE,
@@ -531,7 +450,6 @@ pressureBar(
 	enable:= , 
 	openedPositionBuffer:= HMIData.pressureBarPositionBuffer,
 	iPressureBarClamped:= iJawClamped, 
-
 	iPressureBarClosed:= iJawClearToClamp, 
 	iPressureBarNotObstructed:= TRUE, 
 	iBaggerEnableButton:= , 
@@ -640,6 +558,7 @@ ELSE
 	zebraPrinter.autoSendLabel := FALSE;
 END_IF
 
+// Bagger cleared ack from HMI for print and apply cleanout. We require the removal of all packages from the machine to continue.
 IF HMIData.baggerClearedAck THEN
 	HMIData.baggerClearedAck := FALSE;
 	printAndApply.ClearedBagAck();
@@ -856,27 +775,8 @@ CASE HMIData.independentBagDeflatorSelection OF
 															END_IF
 END_CASE
 		
-(*  
-CASE HMIData.bofSelection OF
-	BagOpenFingersSelection.NotInstalled:					// Disable Bag Open
-		 													enableBagOpen := FALSE;
-															
-	
-	BagOpenFingersSelection.PneumaticWithBagOpenSensors:	// Enable Bag Open
-															enableBagOpen := TRUE;
-	
-END_CASE
-	 *)
-		  enableBagOpen := HMIData.bagOpenEnable;
 
-
-
-
-
-
-
-
-
+enableBagOpen := HMIData.bagOpenEnable;
 
 
 // Cycle Start Palm Button Factory Selection
@@ -1032,7 +932,7 @@ CASE HMIData.fillerFactorySelection OF
 													
 END_CASE 	 
 
-
+// Run EZFeed Option
 ezfeed(
 	enable:= , 
 	baggerFaulted:= HMIData.faultActive, 
@@ -1054,6 +954,7 @@ ezfeed(
 	emptyPartsWarningCount=> HMIData.infeedEmptyPartsActual, 
 	emptyPartsWarning=> HMIData.infeedConveyorOutOfParts.active,
 	EZFeedDone=> );
+	
 // Don't look for the infeed IO module if not enabled.
 IF HMIData.fillerFactorySelection = FillerSelection.EZFeed THEN
 	Infeed_Conveyor_IO.Enable := TRUE; 
@@ -1067,7 +968,7 @@ END_IF
 	 
 infeedConveyorVFDFaulted.faultTrigger := (HMIData.fillerFactorySelection = FillerSelection.EZFeed) AND ezfeed.enableEZFeed AND NOT iInfeedVFDNotFaulted;
 		 
-
+// Filler setup and run
 fillerModeCycleStartOnlyPulse.DwellSetting := 4000;
 fillerModeCycleStartOnlyPulse(Q => HMIData.fillerModeCycleStartOnly.active);
 filler(
@@ -1224,8 +1125,8 @@ oRunExitConveyorForward := _runIntegratedExitConveyor AND NOT (HMIData.reverseCo
 oRunExitConveyor := oRunExitConveyorForward;
 oRunExitConveyorReverse := _runIntegratedExitConveyor AND (HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor);
 	 //Aux IO conveyor control
-oAuxExitConveyorForward := _runIntegratedExitConveyor; 
-oAuxExitConveyorReverse := HMIData.reverseConveyor OR _auxIOPhysical.reverseConveyor OR _auxIORemote.reverseConveyor;
+oAuxExitConveyorForward := oRunExitConveyorForward; 
+oAuxExitConveyorReverse := oRunExitConveyorReverse;
 
 
 
@@ -1355,7 +1256,7 @@ allMotorCommsGood := NOT motorizedSealFlatteners.sealFlattenersHorizontalAxisMot
 
 
 IF iPowerOffButtonONS.OSR THEN
-	reset();
+	Reset();
 END_IF
 			
 IF HMIData.makeReady OR resetTimer.Q THEN
@@ -1367,7 +1268,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	Pbar_ServoEIP.xAcknowledge := TRUE;
 	Bag_Delivery_Rear_Motor.xAcknowledge := TRUE;
 	Keyence_BCV.xAcknowledge := TRUE;
-	IBD_MOtor.xAcknowledge := TRUE;
+	IBD_Motor.xAcknowledge := TRUE;
 	Panther_PA.xAcknowledge := TRUE;
 	
 	HMIData.ackAllFaults := TRUE;
@@ -1606,35 +1507,24 @@ CASE state.head OF
 													OR (filler.cycleBagRequest AND NOT HMIData.autoEnable) AND (footSwitchONS.OSR OR HMIData.initiateCycle OR startCycleReqFromPalmButtonsONS.OSR)
 													OR (autoModeKeepCyclingTimer.Q)
 													OR footSwitchONS.OSR AND (filler.cycleBaggerToActivateFiller.active OR NOT filler.activateFiller)
-
 													OR cycleFistBagOutOfCageONS.OSR)
 													AND (NOT HMIData.sealBarNotAtTemperature.active OR HMIData.enableDryCycle)
 													AND NOT barcodeVerificationFailed.active
 													AND NOT HMIData.faultActive 
-
-
 													AND NOT HMIData.stopMachine 
 													AND NOT HMIData.baggerInhibited.active
 													AND NOT faultManager.passiveFaultActive
 													AND NOT faultManager.faultActive
-
-
 													AND NOT HMIData.batchCountDone.active
 													AND NOT setPassthroughPB
 													AND NOT printAndApply.clearOutBaggerIndicaiton
 													AND readyToRun 
 													THEN
-
-
-
-
 														posInhibit := TRUE;
-
                                                         startCycle := FALSE;
 														cycleTimer.IN := TRUE;
 														HMIData.initiateCycle := FALSE;
 														state.head := HEAD_STATES.SealAndSeparateBag;
-
 														capturePalmButtonStart.Reset();
 														IF bagOpenFingers.CheckIfBagGrabbed(FALSE) THEN
 															bagOpened := TRUE;
@@ -1986,7 +1876,6 @@ CASE state.head OF
                                                     END_IF
 													IF enableBagOpen THEN
                                                     	state.head := HEAD_STATES.OpenBag;
-
                                                     ELSE
                                                         state.head := HEAD_STATES.FinishCycle;
 

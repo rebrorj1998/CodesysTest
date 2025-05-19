@@ -8,8 +8,6 @@ VAR_OUTPUT
 END_VAR
 VAR
     moabHead : FB_MOABHead;
-    //angledHead : FB_20degHead();
-    //pneuHead : FB_PneumaticHead();
     testEIPMotor : FB_AppliedMotionStepServoEIPBase();
     faultHandler : FB_FaultHandler();
 	hmiInitiate : BOOL;
