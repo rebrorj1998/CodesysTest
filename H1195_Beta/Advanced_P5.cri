@@ -43,6 +43,7 @@
         <Item Target="Advanced_P5.Group3.Text7" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P5.TouchComboBox" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P5.Text8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Button" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -81,7 +82,7 @@
             </Detail>
             <Detail>
               <Key>Button</Key>
-              <Value>1</Value>
+              <Value>2</Value>
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
@@ -119,8 +120,9 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ActionItem" Target="Advanced_P5.Button4" TargetProperty="Actions" Source="Advanced_P4" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P5.Button" TargetProperty="Actions" Source="Status" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>33</ObjectsCount>
+          <ObjectsCount>34</ObjectsCount>
           <ScreenName>Advanced_P5</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

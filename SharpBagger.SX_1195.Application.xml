@@ -844,36 +844,6 @@
       <UserDefElement iecname="InstanceName" type="T_STRING" byteoffset="168" vartype="VAR" inherited_from="T_FB_BaseObject" propertytype="variable" />
       <UserDefElement iecname="count" type="T_UDINT" byteoffset="252" vartype="VAR_OUTPUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MetricConversions" size="108" nativesize="124" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MetricConversions">
-      <UserDefElement iecname="bagLengthIn" type="T_REAL" byteoffset="0" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagWidthIn" type="T_REAL" byteoffset="4" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagSkirtLengthIn" type="T_REAL" byteoffset="8" vartype="VAR_INPUT" />
-      <UserDefElement iecname="sealBarTempIn" type="T_REAL" byteoffset="12" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printSpeedIn" type="T_UDINT" byteoffset="16" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printOffsetIn" type="T_REAL" byteoffset="20" vartype="VAR_INPUT" />
-      <UserDefElement iecname="printLengthIn" type="T_REAL" byteoffset="24" vartype="VAR_INPUT" />
-      <UserDefElement iecname="passthroughSettingIn" type="T_REAL" byteoffset="28" vartype="VAR_INPUT" />
-      <UserDefElement iecname="jawClosePositionSettingIn" type="T_REAL" byteoffset="32" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeStartPositionIn" type="T_REAL" byteoffset="36" vartype="VAR_INPUT" />
-      <UserDefElement iecname="barcodeScanningDistanceIn" type="T_REAL" byteoffset="40" vartype="VAR_INPUT" />
-      <UserDefElement iecname="feedSpeedIn" type="T_REAL" byteoffset="44" vartype="VAR_INPUT" />
-      <UserDefElement iecname="reverseSpeedIn" type="T_REAL" byteoffset="48" vartype="VAR_INPUT" />
-      <UserDefElement iecname="bagLengthOut" type="T_REAL" byteoffset="52" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="bagWidthOut" type="T_REAL" byteoffset="56" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="bagSkirtLengthOut" type="T_REAL" byteoffset="60" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="sealBarTempOut" type="T_REAL" byteoffset="64" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printSpeedOut" type="T_UDINT" byteoffset="68" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printOffsetOut" type="T_REAL" byteoffset="72" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="printLengthOut" type="T_REAL" byteoffset="76" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="passthroughSettingOut" type="T_REAL" byteoffset="80" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="jawClosePositionSettingOut" type="T_REAL" byteoffset="84" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="barcodeStartPositionOut" type="T_REAL" byteoffset="88" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="barcodeScanningDistanceOut" type="T_REAL" byteoffset="92" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="feedSpeedOut" type="T_REAL" byteoffset="96" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="reverseSpeedOut" type="T_REAL" byteoffset="100" vartype="VAR_OUTPUT" />
-      <UserDefElement iecname="_ConvertMetricToInch" type="T_F_TRIG" byteoffset="104" vartype="VAR" />
-      <UserDefElement iecname="_ConvertInchToMetric" type="T_R_TRIG" byteoffset="106" vartype="VAR" />
-    </TypeUserDef>
     <TypeUserDef name="T_FB_MonostableMultivibrator" size="44" nativesize="72" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MonostableMultivibrator">
       <UserDefElement iecname="_reset" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="Q" type="T_BOOL" byteoffset="1" vartype="VAR_OUTPUT" />
@@ -2174,7 +2144,7 @@
       <UserDefElement iecname="state_index" type="T_INT" byteoffset="5816" vartype="VAR" />
       <UserDefElement iecname="loadPlateMotor" type="T_Axis_REF" byteoffset="5820" vartype="VAR_IN_OUT" />
     </TypeUserDef>
-    <TypeUserDef name="T_EM01_BaggerCM" size="45616" nativesize="46804" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="EM01_BaggerCM">
+    <TypeUserDef name="T_EM01_BaggerCM" size="45460" nativesize="46632" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="EM01_BaggerCM">
       <UserDefElement iecname="inhibitMotion" type="T_BOOL" byteoffset="0" vartype="VAR_INPUT" />
       <UserDefElement iecname="VacuumCups" type="T_FB_BaseVacuum" byteoffset="4" vartype="VAR_OUTPUT" />
       <UserDefElement iecname="sealWire" type="T_FB_SealWire" byteoffset="352" vartype="VAR_OUTPUT" />
@@ -2196,19 +2166,6 @@
       <UserDefElement iecname="firstScanDone" type="T_BOOL" byteoffset="45448" vartype="VAR" />
       <UserDefElement iecname="homeSensorCTU" type="T_CTU" byteoffset="45450" vartype="VAR" />
       <UserDefElement iecname="STEPS_PER_INCH_IBD" type="T_INT" byteoffset="45458" vartype="VAR" />
-      <UserDefElement iecname="metricConversions" type="T_FB_MetricConversions" byteoffset="45460" vartype="VAR" />
-      <UserDefElement iecname="bagLengthConverted" type="T_REAL" byteoffset="45568" vartype="VAR" />
-      <UserDefElement iecname="bagWidthConverted" type="T_REAL" byteoffset="45572" vartype="VAR" />
-      <UserDefElement iecname="bagSkirtLengthConverted" type="T_REAL" byteoffset="45576" vartype="VAR" />
-      <UserDefElement iecname="printSpeedConverted" type="T_UDINT" byteoffset="45580" vartype="VAR" />
-      <UserDefElement iecname="printOffsetConverted" type="T_REAL" byteoffset="45584" vartype="VAR" />
-      <UserDefElement iecname="printLengthConverted" type="T_REAL" byteoffset="45588" vartype="VAR" />
-      <UserDefElement iecname="passthroughSettingConverted" type="T_REAL" byteoffset="45592" vartype="VAR" />
-      <UserDefElement iecname="jawClosePositionSettingConverted" type="T_REAL" byteoffset="45596" vartype="VAR" />
-      <UserDefElement iecname="barcodeStartPositionConverted" type="T_REAL" byteoffset="45600" vartype="VAR" />
-      <UserDefElement iecname="barcodeScanningDistanceConverted" type="T_REAL" byteoffset="45604" vartype="VAR" />
-      <UserDefElement iecname="bagForwardSpeedConverted" type="T_REAL" byteoffset="45608" vartype="VAR" />
-      <UserDefElement iecname="bagReverseSpeedConverted" type="T_REAL" byteoffset="45612" vartype="VAR" />
     </TypeUserDef>
     <TypeUserDef name="T_EM02_DischargeCM" size="6300" nativesize="5988" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="EM02_DischargeCM">
       <UserDefElement iecname="loadPlateInterlocks" type="T_DINT" byteoffset="0" vartype="VAR_INPUT" />
@@ -2338,14 +2295,11 @@
         <Node name="bagDropClearanceDwell" type="T_REAL" access="ReadWrite" />
         <Node name="bagForwardSpeed" type="T_UDINT" access="ReadWrite" />
         <Node name="bagLength" type="T_REAL" access="ReadWrite" />
-        <Node name="bagLengthMetric" type="T_REAL" access="ReadWrite" />
         <Node name="bagReverseSpeed" type="T_UDINT" access="ReadWrite" />
         <Node name="bagSkirtLength" type="T_REAL" access="ReadWrite" />
         <Node name="bagsMade" type="T_UDINT" access="ReadWrite" />
         <Node name="bagThickness" type="T_REAL" access="ReadWrite" />
-        <Node name="bagThicknessMetric" type="T_REAL" access="ReadWrite" />
         <Node name="bagWidth" type="T_REAL" access="ReadWrite" />
-        <Node name="bagWidthMetric" type="T_REAL" access="ReadWrite" />
         <Node name="bannerMessageIndication" type="T_DINT" access="ReadWrite" />
         <Node name="barcodeBadReadCount" type="T_UDINT" access="ReadWrite" />
         <Node name="barcodeBadReadFaultSetting" type="T_UDINT" access="ReadWrite" />
@@ -2354,7 +2308,6 @@
         <Node name="barcodeReadGoodIndication" type="T_BOOL" access="ReadWrite" />
         <Node name="barcodeScanDistance" type="T_REAL" access="ReadWrite" />
         <Node name="barcodeStartPosition" type="T_REAL" access="ReadWrite" />
-        <Node name="barcodeStartPositionMetric" type="T_REAL" access="ReadWrite" />
         <Node name="barcodeVerifierInstalled" type="T_BOOL" access="ReadWrite" />
         <Node name="barcodeVerifierInUse" type="T_BOOL" access="ReadWrite" />
         <Node name="barcodeVerifierTrigger" type="T_BOOL" access="ReadWrite" />
@@ -2457,7 +2410,6 @@
         <Node name="partsCounterSetting" type="T_UDINT" access="ReadWrite" />
         <Node name="passthroughActual" type="T_REAL" access="ReadWrite" />
         <Node name="passthroughSetting" type="T_REAL" access="ReadWrite" />
-        <Node name="passthroughSettingMetric" type="T_REAL" access="ReadWrite" />
         <Node name="pressureBarCloseDelay" type="T_REAL" access="ReadWrite" />
         <Node name="pressureBarOpenDelay" type="T_REAL" access="ReadWrite" />
         <Node name="pressureBarState" type="T_STRING" access="ReadWrite" />
@@ -2472,9 +2424,7 @@
         <Node name="printerReady" type="T_BOOL" access="ReadWrite" />
         <Node name="printHeadService" type="T_ServiceCommands" access="ReadWrite" />
         <Node name="printLength" type="T_REAL" access="ReadWrite" />
-        <Node name="printLengthMetric" type="T_REAL" access="ReadWrite" />
         <Node name="printOffset" type="T_REAL" access="ReadWrite" />
-        <Node name="printOffsetMetric" type="T_REAL" access="ReadWrite" />
         <Node name="printSpeed" type="T_UINT" access="ReadWrite" />
         <Node name="rearJawMotorData" type="T_sctOrientalHMIData" access="ReadWrite" />
         <Node name="resetAverageCycleTime" type="T_BOOL" access="ReadWrite" />
@@ -2482,7 +2432,6 @@
         <Node name="resetMotors" type="T_BOOL" access="ReadWrite" />
         <Node name="sealBarCool" type="T_REAL" access="ReadWrite" />
         <Node name="sealBarDwell" type="T_REAL" access="ReadWrite" />
-        <Node name="sealFlattenersPositionMetric" type="T_REAL" access="ReadWrite" />
         <Node name="sendSampleLabels" type="T_BOOL" access="ReadWrite" />
         <Node name="separateBeforeSeal" type="T_BOOL" access="ReadWrite" />
         <Node name="simulateAllIO" type="T_BOOL" access="ReadWrite" />

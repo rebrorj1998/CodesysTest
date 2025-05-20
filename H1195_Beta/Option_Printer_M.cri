@@ -49,9 +49,9 @@
         <Item xsi:type="ActionItem" Target="Option_Printer_M.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="PreviewMouseDown" Action="Set Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Option_Printer_M.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="MouseLeave" Action="Reset Tag" Param="" />
         <Item xsi:type="ActionItem" Target="Option_Printer_M.Button2" TargetProperty="Actions" Source="Tags.Application_HMIData_clearAllLabels" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
-        <Item Target="Option_Printer_M.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_printSpeed" />
-        <Item Target="Option_Printer_M.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_printOffset" />
-        <Item Target="Option_Printer_M.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_printLength" />
+        <Item Target="Option_Printer_M.AnalogNumeric" TargetProperty="Value" Source="Tags.PrintSpeedMetric" />
+        <Item Target="Option_Printer_M.AnalogNumeric1" TargetProperty="Value" Source="Tags.PrintOffsetMetric" />
+        <Item Target="Option_Printer_M.AnalogNumeric5" TargetProperty="Value" Source="Tags.PrintLengthMetric" />
         <Item xsi:type="ActionItem" Target="Option_Printer_M.Text5" TargetProperty="Actions" Source="Tags.Application_HMIData_printerInUse" Event="MouseDown" Action="Toggle Tag" Param="" />
         <Item Target="Option_Printer_M.Text5" TargetProperty="Value" Source="Tags.Application_HMIData_printerInUse" />
         <Item Target="Option_Printer_M.Text5" TargetProperty="Background" Source="Tags.Application_HMIData_printerInUse" />

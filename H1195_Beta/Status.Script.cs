@@ -50,7 +50,7 @@ namespace Neo.ApplicationFramework.Generated
 					string endostr = tag.Name.Split('_').Last();
 					if (! indexList.Contains(endostr))
 					{
-						if (endostr.Length < 4)
+						if (endostr.Length < 2)
 						{
 							indexList.Add(endostr);
 						}

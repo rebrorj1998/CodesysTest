@@ -221,7 +221,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Options";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button.TextHeight = 19;
+            this.m_Button.TextHeight = 18;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 190;
             this.m_Button.Top = 0;
@@ -249,7 +249,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Options";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button1.TextHeight = 19;
+            this.m_Button1.TextHeight = 36;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 190;
             this.m_Button1.Top = 0;
@@ -277,9 +277,9 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Options";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 19;
+            this.m_Button2.TextHeight = 36;
             this.m_Button2.TextValue = 0D;
-            this.m_Button2.TextWidth = 211;
+            this.m_Button2.TextWidth = 190;
             this.m_Button2.Top = 60;
             this.m_Button2.Value = 0D;
             this.m_Button2.VisibleDynamicsValue = true;
@@ -305,7 +305,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Options";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button3.TextHeight = 19;
+            this.m_Button3.TextHeight = 36;
             this.m_Button3.TextValue = 0D;
             this.m_Button3.TextWidth = 190;
             this.m_Button3.Top = 60;
@@ -443,11 +443,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
             this.m_Text5.ScreenOwnerName = "Options";
             this.m_Text5.TextHorizontalAlignment = "Center";
-            stringintervalmappercf1.DefaultValue = "AAN";
-            stringintervalcf1.Value = "UIT";
+            stringintervalmappercf1.DefaultValue = "ON";
+            stringintervalcf1.Value = "OFF";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "AAN";
+            stringintervalcf2.Value = "ON";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Text5.TextIntervalMapper = stringintervalmappercf1;
@@ -514,7 +514,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.RequiresTransparency = true;
             this.m_Button5.ScreenOwnerName = "Options";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper6;
-            this.m_Button5.TextHeight = 19;
+            this.m_Button5.TextHeight = 18;
             this.m_Button5.TextValue = 0D;
             this.m_Button5.TextWidth = 190;
             this.m_Button5.Top = 0;
@@ -542,7 +542,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.RequiresTransparency = true;
             this.m_Button6.ScreenOwnerName = "Options";
             this.m_Button6.SymbolIntervalMapper = symbolintervalmapper7;
-            this.m_Button6.TextHeight = 19;
+            this.m_Button6.TextHeight = 36;
             this.m_Button6.TextValue = 0D;
             this.m_Button6.TextWidth = 190;
             this.m_Button6.Top = 0;

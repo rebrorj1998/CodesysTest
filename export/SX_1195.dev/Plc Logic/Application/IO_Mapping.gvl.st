@@ -13,7 +13,10 @@ VAR_GLOBAL
 	oPalmButton1: Reference to BOOL;
 	oPbarClampMotorStart: Reference to BOOL;
 	oPbarClampMotorReverse: Reference to BOOL;
-	oPbarClampMotorAlarmReset: Reference to BOOL;
+	oPbarClampMotorAlarmReset: REFERENCE TO BOOL;
+	oBaggerOK : REFERENCE TO BOOL;
+	oWaitingForPrinter : REFERENCE TO BOOL;
+	
 	iPrinterServiceRequired: Reference to BOOL;
 	iPrinterDataReady: Reference to BOOL;
 	iPrinterBusy: Reference to BOOL;

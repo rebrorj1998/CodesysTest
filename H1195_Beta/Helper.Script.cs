@@ -28,7 +28,7 @@ namespace Neo.ApplicationFramework.Generated
 		{   
 			string[] stringList = GetAllComponentID();
 			var tagList = from tag in Globals.Tags.GetType().GetFields()
-			where tag.Name.ToString().ToLower().Contains("component") && stringList.Any(x => tag.Name.ToString().EndsWith(x)) 
+			where tag.Name.ToString().ToLower().Contains("component") //&& stringList.Any(x => tag.Name.ToString().EndsWith(x))  
 			select (IBasicTag)tag.GetValue(Globals.Tags);
 			return tagList;
 			}

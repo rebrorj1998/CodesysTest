@@ -270,7 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Option_Printer";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button.TextHeight = 37;
+            this.m_Button.TextHeight = 36;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 117;
             this.m_Button.Top = 177;
@@ -298,7 +298,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_Printer";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button1.TextHeight = 37;
+            this.m_Button1.TextHeight = 18;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 117;
             this.m_Button1.Top = 177;
@@ -326,7 +326,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Option_Printer";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 19;
+            this.m_Button2.TextHeight = 18;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 117;
             this.m_Button2.Top = 177;
@@ -618,11 +618,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Option_Printer";
             this.m_Text5.TextHorizontalAlignment = "Center";
-            stringintervalmappercf1.DefaultValue = "AAN";
-            stringintervalcf1.Value = "UIT";
+            stringintervalmappercf1.DefaultValue = "ON";
+            stringintervalcf1.Value = "OFF";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "AAN";
+            stringintervalcf2.Value = "ON";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Text5.TextIntervalMapper = stringintervalmappercf1;
@@ -650,12 +650,12 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Option_Printer";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button3.TextHeight = 19;
+            this.m_Button3.TextHeight = 18;
             stringintervalmappercf2.DefaultValue = "";
-            stringintervalcf3.Value = "203 DPI actief";
+            stringintervalcf3.Value = "203 DPI Active";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "300 DPI actief";
+            stringintervalcf4.Value = "300 DPI Active";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button3.TextIntervalMapper = stringintervalmappercf2;

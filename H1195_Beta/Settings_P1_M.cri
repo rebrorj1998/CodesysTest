@@ -43,13 +43,13 @@
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="Settings_P1_M.Group4.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_bagLength" />
-        <Item Target="Settings_P1_M.Group3.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_bagSkirtLength" />
-        <Item Target="Settings_P1_M.Group2.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_bagReverseSpeed" />
-        <Item Target="Settings_P1_M.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_bagForwardSpeed" />
+        <Item Target="Settings_P1_M.Group4.AnalogNumeric" TargetProperty="Value" Source="Tags.BagLengthMetric" />
+        <Item Target="Settings_P1_M.Group3.AnalogNumeric1" TargetProperty="Value" Source="Tags.SealOffsetMetric" />
+        <Item Target="Settings_P1_M.Group2.AnalogNumeric6" TargetProperty="Value" Source="Tags.BagReverseSpeedMetric" />
+        <Item Target="Settings_P1_M.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.BagForwardSpeedMetric" />
         <Item Target="Settings_P1_M.Group1.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarCool" />
         <Item Target="Settings_P1_M.Group1.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_sealBarDwell" />
-        <Item Target="Settings_P1_M.Group.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_passthroughSetting" />
+        <Item Target="Settings_P1_M.Group.AnalogNumeric4" TargetProperty="Value" Source="Tags.PassthroughSettingMetric" />
       </Items>
     </Category>
     <Category Name="InvalidAction">

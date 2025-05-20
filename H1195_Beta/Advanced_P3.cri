@@ -42,7 +42,6 @@
     <Category Name="GlobalDataItem">
       <Items>
         <Item Target="Advanced_P3.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_standbyTimeSetting" />
-        <Item Target="Advanced_P3.Text4" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_HMIMetric" />
         <Item Target="Advanced_P3.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_HMIData_jawClosePositionSetting" />
         <Item Target="Advanced_P3.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_clampBypass" />
         <Item Target="Advanced_P3.Button2" TargetProperty="TextValue" Source="Tags.Application_HMIData_clampBypass" />

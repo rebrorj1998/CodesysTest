@@ -50,9 +50,9 @@
         <Item xsi:type="ActionItem" Target="Option_Barcode_M.Button1" TargetProperty="Actions" Source="Tags.Application_HMIData_barcodeVerifierTrigger" Event="PreviewMouseDown" Action="Set Tag" Param="" />
         <Item Target="Option_Barcode_M.MultiPicture" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeReadGoodIndication" />
         <Item Target="Option_Barcode_M.MultiPicture1" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeReadBadIndication" />
-        <Item Target="Option_Barcode_M.Group.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
+        <Item Target="Option_Barcode_M.Group.AnalogNumeric5" TargetProperty="Value" Source="Tags.BarcodeScanLengthMetric" />
         <Item Target="Option_Barcode_M.Group1.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeBadReadFaultSetting" />
-        <Item Target="Option_Barcode_M.Group2.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_HMIData_barcodeStartPosition" />
+        <Item Target="Option_Barcode_M.Group2.AnalogNumeric1" TargetProperty="Value" Source="Tags.BarcodeScanOffsetMetric" />
       </Items>
     </Category>
     <Category Name="InvalidAction">

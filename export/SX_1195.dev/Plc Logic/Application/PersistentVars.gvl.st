@@ -58,7 +58,7 @@ VAR_GLOBAL RETAIN PERSISTENT
 	// Generated instance path of persistent variable
 	HMIData.jawCloseDelay: REAL := REAL#0.1;
 	// Generated instance path of persistent variable
-	HMIData.jawClosePositionSetting: REAL := REAL#-0.45;
+	HMIData.jawClosePositionSetting: REAL;
 	// Generated instance path of persistent variable
 	HMIData.lastCycleTime: REAL;
 	// Generated instance path of persistent variable
@@ -176,4 +176,8 @@ VAR_GLOBAL RETAIN PERSISTENT
 	AxisData.FilmFeedPrintMotionProfile: sctMotionProfile := STRUCT(acceleration := 100.0, deceleration := 100.0, velocity := 12.0, position := -1.0, current := REAL#100);
 	// Generated instance path of persistent variable
 	AxisData.FilmFeedPrintOffsetMotionProfile: sctMotionProfile := STRUCT(acceleration := 75.0, deceleration := 100.0, velocity := 12.0, position := -1.0, current := REAL#100);
+	// Generated instance path of persistent variable
+	HMIData.partsCounterDone: BOOL;
+	// Generated instance path of persistent variable
+	HMIData.lightCurtainInstalled: BOOL;
 END_VAR

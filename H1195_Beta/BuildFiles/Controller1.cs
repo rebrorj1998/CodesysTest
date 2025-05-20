@@ -1654,8 +1654,6 @@ namespace Neo.ApplicationFramework.Generated
 		
 		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem4701;
 		
-		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem539;
-		
 		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem1009;
 		
 		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem1010;
@@ -2167,6 +2165,26 @@ namespace Neo.ApplicationFramework.Generated
 		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem540;
 		
 		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem541;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem542;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem543;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem545;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem546;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem547;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem549;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem550;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem551;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem553;
+		
+		private Neo.ApplicationFramework.Tools.OpcClient.DataItem DataItem554;
 		
 		public Controller1()
 		{
@@ -3014,7 +3032,6 @@ namespace Neo.ApplicationFramework.Generated
 			this.DataItem4699 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem4699", "Application.IO_Mapping.oRequestPrint", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem4700 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem4700", "Application.IO_Mapping.oSealWire", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem4701 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem4701", "Application.IO_Mapping.oTriggerBCV", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
-			this.DataItem539 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem539", "Application.GlobalObjects.CollectionOfComponents._TotalObj", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_UINTEGER2)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem1009 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem1009", "Application.AxisData.FilmFeedPrintMotionProfile.acceleration", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem1010 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem1010", "Application.AxisData.FilmFeedPrintMotionProfile.current", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem1011 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem1011", "Application.AxisData.FilmFeedPrintMotionProfile.deceleration", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
@@ -3271,6 +3288,16 @@ namespace Neo.ApplicationFramework.Generated
 			this.DataItem1227 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem1227", "Application.GlobalObjects.CollectionOfComponents.Ready[9]", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem540 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem540", "Application.HMIData.HMIMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 			this.DataItem541 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem541", "Application.HMIData.lightCurtainInstalled", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem542 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem542", "Application.HMIData.bagLength", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem543 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem543", "Application.HMIData.bagForwardSpeed", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem545 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem545", "Application.HMIData.bagReverseSpeed", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem546 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem546", "Application.HMIData.passthroughSetting", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem547 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem547", "Application.HMIData.bagSkirtLength", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem549 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem549", "Application.HMIData.printSpeed", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_INTEGER2)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem550 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem550", "Application.HMIData.printOffset", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem551 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem551", "Application.HMIData.printLength", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_INTEGER2)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem553 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem553", "Application.HMIData.barcodeStartPosition", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
+			this.DataItem554 = new Neo.ApplicationFramework.Tools.OpcClient.DataItem("DataItem554", "Application.HMIData.barcodeScanDistance", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false);
 		}
 		
 		private void InitializeBeginInits()
@@ -4095,7 +4122,6 @@ namespace Neo.ApplicationFramework.Generated
 			((System.ComponentModel.ISupportInitialize)(this.DataItem4699)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem4700)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem4701)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.DataItem539)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1009)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1010)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1011)).BeginInit();
@@ -4352,6 +4378,16 @@ namespace Neo.ApplicationFramework.Generated
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1227)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem540)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem541)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem542)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem543)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem545)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem546)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem547)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem549)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem550)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem551)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem553)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem554)).BeginInit();
 		}
 		
 		private void InitializeEndInits()
@@ -5175,7 +5211,6 @@ namespace Neo.ApplicationFramework.Generated
 			((System.ComponentModel.ISupportInitialize)(this.DataItem4699)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem4700)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem4701)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.DataItem539)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1009)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1010)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1011)).EndInit();
@@ -5432,6 +5467,16 @@ namespace Neo.ApplicationFramework.Generated
 			((System.ComponentModel.ISupportInitialize)(this.DataItem1227)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem540)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.DataItem541)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem542)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem543)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem545)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem546)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem547)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem549)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem550)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem551)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem553)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.DataItem554)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 		}
 		
@@ -6257,7 +6302,6 @@ namespace Neo.ApplicationFramework.Generated
 			this.DataItems.Add(this.DataItem4699);
 			this.DataItems.Add(this.DataItem4700);
 			this.DataItems.Add(this.DataItem4701);
-			this.DataItems.Add(this.DataItem539);
 			this.DataItems.Add(this.DataItem1009);
 			this.DataItems.Add(this.DataItem1010);
 			this.DataItems.Add(this.DataItem1011);
@@ -6514,6 +6558,16 @@ namespace Neo.ApplicationFramework.Generated
 			this.DataItems.Add(this.DataItem1227);
 			this.DataItems.Add(this.DataItem540);
 			this.DataItems.Add(this.DataItem541);
+			this.DataItems.Add(this.DataItem542);
+			this.DataItems.Add(this.DataItem543);
+			this.DataItems.Add(this.DataItem545);
+			this.DataItems.Add(this.DataItem546);
+			this.DataItems.Add(this.DataItem547);
+			this.DataItems.Add(this.DataItem549);
+			this.DataItems.Add(this.DataItem550);
+			this.DataItems.Add(this.DataItem551);
+			this.DataItems.Add(this.DataItem553);
+			this.DataItems.Add(this.DataItem554);
 			this.Driver = "CoDeSys_ARTI_Pre2.CoDeSys_ARTI_Pre2.1";
 			this.ID = "1";
 			this.Node = "";

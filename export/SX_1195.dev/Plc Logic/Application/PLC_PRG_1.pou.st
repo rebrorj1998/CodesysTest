@@ -20,6 +20,7 @@ VAR
 	palmButton : FB_BannerPalmButton;
 	safePowerOffFault : FB_Fault(name := 'Safety Circuit Broken During Cycle');
 	eStopPressedFault : FB_Fault(name := 'E-Stop Pressed');
+	lightCurtainPresent : FB_Fault(name := 'Light Curtain Not Configured');
 	amazonBPM : FB_AmazonThroughput();
 	printerLabel : FB_PrinterSerial();
 	autoModeTimer : Standard.TON;
@@ -83,6 +84,10 @@ cycleStartONS.OSR;  //added to monitor wihle testing
 //Light Curtain Start
 lightCurtainStartClear := iLightCurtainStart;
 lightCurtainStartONS(CLK := iLightCurtainStart AND HMIData.lightCurtainInstalled);
+// Trigger a fault if the light curtain input is seen but there isn't a light curtain configured in 
+IF iLightCurtainStart AND NOT HMIData.lightCurtainInstalled THEN
+	lightCurtainPresent.Trigger();
+END_IF
 //IF iLightCurtainStart THEN
 //	HMIData.lightCurtainInstalled := TRUE;
 //END_IF
@@ -102,13 +107,18 @@ CV => HMIData.partsCounterCount);
 
 
 // All start conditions
-IF (HMIData.initiateCycle OR cycleStartONS.OSR OR autoModeTimer.Q OR (lightCurtainStartONS.OSR AND NOT HMIData.partsCounterEnable) OR (partsCounter.Q AND HMIData.partsCounterEnable)) AND NOT HMIData.batchCounterDone THEN
-	IF UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle THEN
-		EM01_SXBaggerHead.StartCycle();
-		IF HMIData.autoModeEnable THEN
-			autoModeKeepCycling := TRUE;
+IF (HMIData.initiateCycle 
+	OR cycleStartONS.OSR 
+	OR autoModeTimer.Q 
+	OR (lightCurtainStartONS.OSR AND NOT HMIData.partsCounterEnable) 
+	OR (partsCounter.Q AND HMIData.partsCounterEnable)) AND NOT HMIData.batchCounterDone 
+	THEN
+		IF UN00_SXMachine.currentState = PACK_ML.State.Execute AND NOT HMIData.inCycle THEN
+			EM01_SXBaggerHead.StartCycle();
+			IF HMIData.autoModeEnable THEN
+				autoModeKeepCycling := TRUE;
+			END_IF
 		END_IF
-	END_IF
 	HMIData.initiateCycle := FALSE;
 END_IF
 // Unlatch flag for auto mode when faulted or stopped
@@ -342,3 +352,7 @@ amazonBPM(
 	BPMCycles=> HMIData.BPMBagsMade, 
 	BPMSeconds=> , 
 	BPMIndication=> HMIData.BPMActiveTime);
+
+// "Aux-IO" outputs
+oBaggerOK := UN00_SXMachine.currentState = PACK_ML.State.Execute;
+oWaitingForPrinter := (UN00_SXMachine.baggerManager.BaggerAutoMode.releaseAndFeedSubState = RELEASE_FEED_STATES.WaitForPrinter);

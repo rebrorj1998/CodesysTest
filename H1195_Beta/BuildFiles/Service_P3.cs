@@ -270,7 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 28;
+            this.m_Text.Height = 21;
             this.m_Text.Left = 220;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -279,7 +279,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 103;
+            this.m_Text.Width = 69;
             // 
             // m_Text1
             // 
@@ -288,7 +288,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 28;
+            this.m_Text1.Height = 21;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -297,7 +297,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 33;
+            this.m_Text1.Width = 23;
             // 
             // m_Button2
             // 
@@ -324,7 +324,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Service_P3";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button2.TextHeight = 29;
+            this.m_Button2.TextHeight = 28;
             stringintervalmappercf1.DefaultValue = "Raise\r\nPrinthead";
             stringintervalcf1.Value = "Raise\r\nPrinthead";
             stringintervalcf2.End = 1D;
@@ -367,7 +367,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.RequiresTransparency = true;
             this.m_Button5.ScreenOwnerName = "Service_P3";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button5.TextHeight = 29;
+            this.m_Button5.TextHeight = 28;
             stringintervalmappercf2.DefaultValue = "Raise\r\nLoad Shelf";
             stringintervalcf3.Value = "Raise\r\nLoad Shelf";
             stringintervalcf4.End = 1D;
@@ -410,7 +410,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.RequiresTransparency = true;
             this.m_Button6.ScreenOwnerName = "Service_P3";
             this.m_Button6.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button6.TextHeight = 29;
+            this.m_Button6.TextHeight = 28;
             stringintervalmappercf3.DefaultValue = "Lower\r\nLoad Shelf";
             stringintervalcf5.Value = "Lower\r\nLoad Shelf";
             stringintervalcf6.End = 1D;
@@ -453,7 +453,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button7.RequiresTransparency = true;
             this.m_Button7.ScreenOwnerName = "Service_P3";
             this.m_Button7.SymbolIntervalMapper = symbolintervalmapper5;
-            this.m_Button7.TextHeight = 29;
+            this.m_Button7.TextHeight = 28;
             stringintervalmappercf4.DefaultValue = "Lower\r\nPrinthead";
             stringintervalcf7.Value = "Lower\r\nPrinthead";
             stringintervalcf8.End = 1D;
@@ -496,7 +496,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Service_P3";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper6;
-            this.m_Button.TextHeight = 29;
+            this.m_Button.TextHeight = 28;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 117;
             this.m_Button.Top = 179;
@@ -531,7 +531,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.RequiresTransparency = true;
             this.m_Button4.ScreenOwnerName = "Service_P3";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper7;
-            this.m_Button4.TextHeight = 29;
+            this.m_Button4.TextHeight = 28;
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 117;
             this.m_Button4.Top = 179;

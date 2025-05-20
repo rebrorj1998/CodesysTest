@@ -105,7 +105,7 @@
         </ResourceDictionary>
       </nac:AnalogNumericFX.Resources>
       <nac:AnalogNumericFX.Value>
-        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_printSpeed].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.PrintSpeedMetric].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>0</Binding.FallbackValue>
         </Binding>
       </nac:AnalogNumericFX.Value>
@@ -119,14 +119,14 @@
         <nai:ActionList />
       </nai:ActionProperties.Actions>
     </nac:AnalogNumericFX>
-    <nac:AnalogNumericFX AutoStretchFont="False" DisplayFormat="Decimal" NumberOfDecimals="2" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" MaxValue="500" ValidateValueOnInput="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" BorderBrush="#FF7F9DB9" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric1" Width="57" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="14" KeyboardNavigation.TabNavigation="None" Canvas.Left="286" Canvas.Top="101" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False">
+    <nac:AnalogNumericFX AutoStretchFont="False" DisplayFormat="Integer" NumberOfDecimals="2" MaxNumberOfCharacters="4" LimitNumberOfCharacters="True" MaxValue="500" ValidateValueOnInput="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" BorderBrush="#FF7F9DB9" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric1" Width="57" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="14" KeyboardNavigation.TabNavigation="None" Canvas.Left="286" Canvas.Top="101" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False">
       <nac:AnalogNumericFX.Resources>
         <ResourceDictionary>
           <nacc1:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:AnalogNumericFX.Resources>
       <nac:AnalogNumericFX.Value>
-        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_printOffset].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.PrintOffsetMetric].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>0</Binding.FallbackValue>
         </Binding>
       </nac:AnalogNumericFX.Value>
@@ -140,14 +140,14 @@
         <nai:ActionList />
       </nai:ActionProperties.Actions>
     </nac:AnalogNumericFX>
-    <nac:AnalogNumericFX AutoStretchFont="False" DisplayFormat="Decimal" NumberOfDecimals="2" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" MinValue="0.5" MaxValue="250" ValidateValueOnInput="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" BorderBrush="#FF7F9DB9" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric5" Width="57" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="15" KeyboardNavigation.TabNavigation="None" Canvas.Left="286" Canvas.Top="130" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False">
+    <nac:AnalogNumericFX AutoStretchFont="False" DisplayFormat="Integer" NumberOfDecimals="0" MaxNumberOfCharacters="4" LimitNumberOfCharacters="True" MinValue="0.5" MaxValue="250" ValidateValueOnInput="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" BorderBrush="#FF7F9DB9" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric5" Width="57" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="True" Panel.ZIndex="15" KeyboardNavigation.TabNavigation="None" Canvas.Left="286" Canvas.Top="130" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False">
       <nac:AnalogNumericFX.Resources>
         <ResourceDictionary>
           <nacc1:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:AnalogNumericFX.Resources>
       <nac:AnalogNumericFX.Value>
-        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.Application_HMIData_printLength].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
+        <Binding Source="{x:Static nacd:DataItemProxyFactory.Instance}" Path="[Tags.PrintLengthMetric].Value" Converter="{StaticResource ValueConverter}" ValidatesOnExceptions="True">
           <Binding.FallbackValue>0</Binding.FallbackValue>
         </Binding>
       </nac:AnalogNumericFX.Value>
@@ -243,7 +243,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
       <nac:Label.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="AAN">
+        <nacd1:StringIntervalMapper DefaultValue="ON">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="OFF" />

@@ -421,7 +421,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="16" FontWeight="Bold" Name="m_Button" Width="67" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="16" Canvas.Left="217" Canvas.Top="65" nacb2:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" FontSize="16" FontWeight="Bold" Name="m_Button" Width="103" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="16" Canvas.Left="181" Canvas.Top="65" nacb2:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BrushDynamicsConverter x:Key="ForegroundConverter">
@@ -641,7 +641,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="Inch or Metric" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="4,0,4,1" Name="m_Text2" Width="120" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="17" Canvas.Left="84" Canvas.Top="70" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="Inch or Metric" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="4,0,4,1" Name="m_Text2" Width="76" Height="54" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="17" Canvas.Left="93" Canvas.Top="68" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>

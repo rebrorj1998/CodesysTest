@@ -74,6 +74,16 @@ namespace Neo.ApplicationFramework.Generated
 			return Globals.Tags.Application_HMIData_barcodeVerifierInstalled.Value&&Globals.Tags.Application_HMIData_HMIMetric.Value;
 		}
 		
+		public Neo.ApplicationFramework.Interfaces.VariantValue MMToInch(Neo.ApplicationFramework.Interfaces.VariantValue value)
+		{
+			return value/25.4;
+		}
+		
+		public Neo.ApplicationFramework.Interfaces.VariantValue InchToMM(Neo.ApplicationFramework.Interfaces.VariantValue value)
+		{
+			return value*25.4;
+		}
+		
 		[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
 		private void ApplyLanguageInternal()
 		{

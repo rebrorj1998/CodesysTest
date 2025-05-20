@@ -96,11 +96,14 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle13;
         
+        private Neo.ApplicationFramework.Controls.Controls.Button m_Button;
+        
         private bool m_Initialized_Advanced_P5;
         
         public Advanced_P5() {
             this.InitializeComponent();
             this.m_Button4.Click += new System.EventHandler(this.m_Button4_Action_Click);
+            this.m_Button.Click += new System.EventHandler(this.m_Button_Action_Click);
             this.ApplyLanguageInitialize();
         }
         
@@ -326,6 +329,12 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
+        protected Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter Button {
+            get {
+                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter>(this.m_Button);
+            }
+        }
+        
         private void InitializeComponent() {
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF stringintervalmappercf1 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf1 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
@@ -333,6 +342,7 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf3 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf4 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
+            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper2 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             this.m_TouchComboBox = new Neo.ApplicationFramework.Controls.TouchComboBox.TouchComboBoxHostCF();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text1 = new Neo.ApplicationFramework.Controls.Controls.Label();
@@ -370,6 +380,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text8 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Rectangle12 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle13 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
+            this.m_Button = new Neo.ApplicationFramework.Controls.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_TouchComboBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).BeginInit();
@@ -393,6 +404,7 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_Button)).BeginInit();
             this.SuspendLayout();
             // 
             // Advanced_P5
@@ -517,11 +529,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.Bold = true;
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
-            this.m_Text3.FontSizePixels = 8;
+            this.m_Text3.FontSizePixels = 10;
             this.m_Text3.Height = 16;
             this.m_Text3.Left = 233;
             this.m_Text3.Name = "m_Text3";
-            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 0D, 2D, 1D);
+            this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text3.ScreenOwnerName = "Advanced_P5";
             this.m_Text3.TextHorizontalAlignment = "Center";
             this.m_Text3.TextVerticalAlignment = "Center";
@@ -536,11 +548,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.Bold = true;
             this.m_Text4.DelayMouseInputPeriod = 0;
             this.m_Text4.EnabledDynamicsValue = true;
-            this.m_Text4.FontSizePixels = 8;
+            this.m_Text4.FontSizePixels = 10;
             this.m_Text4.Height = 16;
             this.m_Text4.Left = 309;
             this.m_Text4.Name = "m_Text4";
-            this.m_Text4.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2D, 0D, 2D, 1D);
+            this.m_Text4.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text4.ScreenOwnerName = "Advanced_P5";
             this.m_Text4.TextHorizontalAlignment = "Center";
             this.m_Text4.TextVerticalAlignment = "Center";
@@ -1110,6 +1122,35 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle13.Top = 104;
             this.m_Rectangle13.VisibleDynamicsValue = true;
             this.m_Rectangle13.Width = 263;
+            // 
+            // m_Button
+            // 
+            this.m_Button.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
+            this.m_Button.BlinkDynamicsValue = false;
+            this.m_Button.Bold = true;
+            this.m_Button.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
+            this.m_Button.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
+            this.m_Button.DelayMouseInputPeriod = 0;
+            this.m_Button.EnabledDynamicsValue = true;
+            this.m_Button.FontSizePixels = 15;
+            this.m_Button.ForceTransparency = true;
+            this.m_Button.Height = 109;
+            this.m_Button.IndicatorMargin = null;
+            this.m_Button.Left = 388;
+            this.m_Button.MultiLine = true;
+            this.m_Button.Name = "m_Button";
+            this.m_Button.RequiresTransparency = true;
+            this.m_Button.ScreenOwnerName = "Advanced_P5";
+            this.m_Button.SymbolIntervalMapper = symbolintervalmapper2;
+            this.m_Button.TextHeight = 54;
+            this.m_Button.TextValue = 0D;
+            this.m_Button.TextWidth = 85;
+            this.m_Button.Top = 116;
+            this.m_Button.Value = 0D;
+            this.m_Button.VisibleDynamicsValue = true;
+            this.m_Button.VisualPropertiesHashCode = 194846170;
+            this.m_Button.Width = 95;
+            this.m_Button.WordWrap = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -1203,6 +1244,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.DrawingPrimitives.Add(this.m_Text8);
             this.DrawingPrimitives.Add(this.m_Rectangle12);
             this.DrawingPrimitives.Add(this.m_Rectangle13);
+            this.DrawingPrimitives.Add(this.m_Button);
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button4)).EndInit();
@@ -1225,11 +1267,17 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_AnalogNumeric6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Group3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_Button)).EndInit();
         }
         
         private void m_Button4_Action_Click(object sender, System.EventArgs e) {
             Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button4", "Click", "Show Screen", "Advanced_P4", "");
             Neo.ApplicationFramework.Generated.Globals.Advanced_P4.Show();
+        }
+        
+        private void m_Button_Action_Click(object sender, System.EventArgs e) {
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button", "Click", "Show Screen", "Status", "Default", "");
+            Neo.ApplicationFramework.Generated.Globals.Status.Show();
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -1244,6 +1292,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text6.Text = resources.GetText("Advanced_P5.Text6.Text", "Film Offset");
             this.m_Text7.Text = resources.GetText("Advanced_P5.Text7.Text", "Film Print");
             this.m_Text8.Text = resources.GetText("Advanced_P5.Text8.Text", "Language:");
+            this.m_Button.Text = resources.GetText("Advanced_P5.Button.Text", "Bagger Status Overview");
             resources.ApplyTexts(this.m_TouchComboBox, "Texts", "Advanced_P5.TouchComboBox.Texts[0]", "English", "Advanced_P5.TouchComboBox.Texts[1]", "French", "Advanced_P5.TouchComboBox.Texts[2]", "Dutch", "Advanced_P5.TouchComboBox.Texts[3]", "German");
             this.ApplyResourcesOnForm();
         }

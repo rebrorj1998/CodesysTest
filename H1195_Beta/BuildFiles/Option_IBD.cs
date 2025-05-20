@@ -365,11 +365,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Option_IBD";
             this.m_Text5.TextHorizontalAlignment = "Center";
-            stringintervalmappercf1.DefaultValue = "AAN";
-            stringintervalcf1.Value = "UIT";
+            stringintervalmappercf1.DefaultValue = "ON";
+            stringintervalcf1.Value = "OFF";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "AAN";
+            stringintervalcf2.Value = "ON";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Text5.TextIntervalMapper = stringintervalmappercf1;

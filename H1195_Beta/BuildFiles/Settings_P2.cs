@@ -373,7 +373,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 28;
+            this.m_Text.Height = 21;
             this.m_Text.Left = 216;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -382,7 +382,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 144;
+            this.m_Text.Width = 74;
             // 
             // m_Text1
             // 
@@ -391,7 +391,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 28;
+            this.m_Text1.Height = 21;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -400,7 +400,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 33;
+            this.m_Text1.Width = 23;
             // 
             // m_Text2
             // 
@@ -484,11 +484,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.ScreenOwnerName = "Settings_P2";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button.TextHeight = 11;
-            stringintervalmappercf1.DefaultValue = "Uitgeschakeld";
-            stringintervalcf1.Value = "Uitgeschakeld";
+            stringintervalmappercf1.DefaultValue = "Disabled";
+            stringintervalcf1.Value = "Disabled";
             stringintervalcf2.End = 1D;
             stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Ingeschakeld";
+            stringintervalcf2.Value = "Enabled";
             stringintervalmappercf1.Intervals.Add(stringintervalcf1);
             stringintervalmappercf1.Intervals.Add(stringintervalcf2);
             this.m_Button.TextIntervalMapper = stringintervalmappercf1;
@@ -532,11 +532,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.ScreenOwnerName = "Settings_P2";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
             this.m_Button2.TextHeight = 11;
-            stringintervalmappercf2.DefaultValue = "Uitgeschakeld";
-            stringintervalcf3.Value = "Uitgeschakeld";
+            stringintervalmappercf2.DefaultValue = "Disabled";
+            stringintervalcf3.Value = "Disabled";
             stringintervalcf4.End = 1D;
             stringintervalcf4.Start = 1D;
-            stringintervalcf4.Value = "Ingeschakeld";
+            stringintervalcf4.Value = "Enabled";
             stringintervalmappercf2.Intervals.Add(stringintervalcf3);
             stringintervalmappercf2.Intervals.Add(stringintervalcf4);
             this.m_Button2.TextIntervalMapper = stringintervalmappercf2;
@@ -580,11 +580,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.ScreenOwnerName = "Settings_P2";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
             this.m_Button3.TextHeight = 11;
-            stringintervalmappercf3.DefaultValue = "Uitgeschakeld";
-            stringintervalcf5.Value = "Uitgeschakeld";
+            stringintervalmappercf3.DefaultValue = "Disabled";
+            stringintervalcf5.Value = "Disabled";
             stringintervalcf6.End = 1D;
             stringintervalcf6.Start = 1D;
-            stringintervalcf6.Value = "Ingeschakeld";
+            stringintervalcf6.Value = "Enabled";
             stringintervalmappercf3.Intervals.Add(stringintervalcf5);
             stringintervalmappercf3.Intervals.Add(stringintervalcf6);
             this.m_Button3.TextIntervalMapper = stringintervalmappercf3;
@@ -628,11 +628,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.ScreenOwnerName = "Settings_P2";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button4.TextHeight = 11;
-            stringintervalmappercf4.DefaultValue = "Uitgeschakeld";
-            stringintervalcf7.Value = "Uitgeschakeld";
+            stringintervalmappercf4.DefaultValue = "Disabled";
+            stringintervalcf7.Value = "Disabled";
             stringintervalcf8.End = 1D;
             stringintervalcf8.Start = 1D;
-            stringintervalcf8.Value = "Ingeschakeld";
+            stringintervalcf8.Value = "Enabled";
             stringintervalmappercf4.Intervals.Add(stringintervalcf7);
             stringintervalmappercf4.Intervals.Add(stringintervalcf8);
             this.m_Button4.TextIntervalMapper = stringintervalmappercf4;
@@ -676,11 +676,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.ScreenOwnerName = "Settings_P2";
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper6;
             this.m_Button5.TextHeight = 11;
-            stringintervalmappercf5.DefaultValue = "Uitgeschakeld";
-            stringintervalcf9.Value = "Uitgeschakeld";
+            stringintervalmappercf5.DefaultValue = "Disabled";
+            stringintervalcf9.Value = "Disabled";
             stringintervalcf10.End = 1D;
             stringintervalcf10.Start = 1D;
-            stringintervalcf10.Value = "Ingeschakeld";
+            stringintervalcf10.Value = "Enabled";
             stringintervalmappercf5.Intervals.Add(stringintervalcf9);
             stringintervalmappercf5.Intervals.Add(stringintervalcf10);
             this.m_Button5.TextIntervalMapper = stringintervalmappercf5;

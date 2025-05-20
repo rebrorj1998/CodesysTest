@@ -11,7 +11,28 @@
       <Items />
     </Category>
     <Category Name="Expression">
-      <Items />
+      <Items>
+        <Item Target="Tags.BagLengthMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.BagLengthMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.BagForwardSpeedMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.BagForwardSpeedMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.BagReverseSpeedMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.BagReverseSpeedMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.PassthroughSettingMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.PassthroughSettingMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.SealOffsetMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.SealOffsetMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.PrintSpeedMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.PrintSpeedMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.PrintOffsetMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.PrintOffsetMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.PrintLengthMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.PrintLengthMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.BarcodeScanLengthMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.BarcodeScanLengthMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+        <Item Target="Tags.BarcodeScanOffsetMetric" TargetProperty="ReadExpression" Source="InchToMM" />
+        <Item Target="Tags.BarcodeScanOffsetMetric" TargetProperty="WriteExpression" Source="MMToInch" />
+      </Items>
     </Category>
     <Category Name="Font">
       <Items />
@@ -877,7 +898,6 @@
         <Item Target="Tags" TargetProperty="Application_IO_Mapping_oRequestPrint" Source="Controller1.DataItem4699" />
         <Item Target="Tags" TargetProperty="Application_IO_Mapping_oSealWire" Source="Controller1.DataItem4700" />
         <Item Target="Tags" TargetProperty="Application_IO_Mapping_oTriggerBCV" Source="Controller1.DataItem4701" />
-        <Item Target="Tags" TargetProperty="Application_GlobalObjects_CollectionOfComponents_TotalObjects" Source="Controller1.DataItem539" />
         <Item Target="Tags" TargetProperty="Application_AxisData_FilmFeedPrintMotionProfile_acceleration" Source="Controller1.DataItem1009" />
         <Item Target="Tags" TargetProperty="Application_AxisData_FilmFeedPrintMotionProfile_current" Source="Controller1.DataItem1010" />
         <Item Target="Tags" TargetProperty="Application_AxisData_FilmFeedPrintMotionProfile_deceleration" Source="Controller1.DataItem1011" />
@@ -1099,6 +1119,16 @@
         <Item Target="Tags" TargetProperty="Application_GlobalObjects_CollectionOfComponents_Ready_9" Source="Controller1.DataItem1227" />
         <Item Target="Tags" TargetProperty="Application_HMIData_HMIMetric" Source="Controller1.DataItem540" />
         <Item Target="Tags" TargetProperty="Application_HMIData_lightCurtainInstalled" Source="Controller1.DataItem541" />
+        <Item Target="Tags" TargetProperty="BagLengthMetric" Source="Controller1.DataItem542" />
+        <Item Target="Tags" TargetProperty="BagForwardSpeedMetric" Source="Controller1.DataItem543" />
+        <Item Target="Tags" TargetProperty="BagReverseSpeedMetric" Source="Controller1.DataItem545" />
+        <Item Target="Tags" TargetProperty="PassthroughSettingMetric" Source="Controller1.DataItem546" />
+        <Item Target="Tags" TargetProperty="SealOffsetMetric" Source="Controller1.DataItem547" />
+        <Item Target="Tags" TargetProperty="PrintSpeedMetric" Source="Controller1.DataItem549" />
+        <Item Target="Tags" TargetProperty="PrintOffsetMetric" Source="Controller1.DataItem550" />
+        <Item Target="Tags" TargetProperty="PrintLengthMetric" Source="Controller1.DataItem551" />
+        <Item Target="Tags" TargetProperty="BarcodeScanLengthMetric" Source="Controller1.DataItem554" />
+        <Item Target="Tags" TargetProperty="BarcodeScanOffsetMetric" Source="Controller1.DataItem553" />
       </Items>
     </Category>
     <Category Name="InvalidAction">

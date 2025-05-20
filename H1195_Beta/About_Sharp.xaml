@@ -10,7 +10,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" Text="For service call: +1 800-634-6359 x1572" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text1" Width="325" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="102" Canvas.Top="45">
+    <nac:Label AutoSize="False" Text="For US service call: +1 800-634-6359 x1572" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text1" Width="325" Height="18" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="102" Canvas.Top="45">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
@@ -75,7 +75,7 @@
       </nac:Label>
     </nac:Group>
     <nac:Group Name="m_Group2" Width="197" Height="24" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="16" Canvas.Left="170" Canvas.Top="145">
-      <nac:Label AutoSize="False" WordWrap="False" AutoStretchFont="False" Text="1.2.0.11" BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FFFFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text6" Width="91" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="106" Canvas.Top="0">
+      <nac:Label AutoSize="False" WordWrap="False" AutoStretchFont="False" Text="1.2.1.0" BorderBrush="#FF000000" BorderThickness="1,1,1,1" Background="#FFFFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" FontStyle="Normal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text6" Width="91" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="12" Canvas.Left="106" Canvas.Top="0">
         <nac:Label.BevelEffectInfo>
           <nacb:BevelEffectInfo Width="0" />
         </nac:Label.BevelEffectInfo>

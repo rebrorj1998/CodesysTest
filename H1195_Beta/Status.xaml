@@ -21,27 +21,27 @@
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList />
+      </nai:ActionProperties.Actions>
       <nai:ScriptProperties.ScriptEvents>
         <nai:ScriptEventList>
           <nacxs:EventHandlerInfo EventName="Click" MethodName="Button2_Click" />
         </nai:ScriptEventList>
       </nai:ScriptProperties.ScriptEvents>
-      <nai:ActionProperties.Actions>
-        <nai:ActionList />
-      </nai:ActionProperties.Actions>
     </nac:Button>
     <nac:Button Text="" RequiresTransparency="True" SymbolName="br_arrow right8" SymbolTransparent="False" FontSize="9" Name="m_Button3" Width="34" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="17" Canvas.Left="444" Canvas.Top="28" nac:EnabledProperties.EnabledDynamicsValue="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList />
+      </nai:ActionProperties.Actions>
       <nai:ScriptProperties.ScriptEvents>
         <nai:ScriptEventList>
           <nacxs:EventHandlerInfo EventName="Click" MethodName="Button3_Click" />
         </nai:ScriptEventList>
       </nai:ScriptProperties.ScriptEvents>
-      <nai:ActionProperties.Actions>
-        <nai:ActionList />
-      </nai:ActionProperties.Actions>
     </nac:Button>
     <nac:Group Name="m_Table" Width="396" Height="176" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="18" Canvas.Left="82" Canvas.Top="52">
       <nac:Group Name="m_Header" Width="396" Height="26" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="4" Canvas.Left="0" Canvas.Top="0" nacsd:EditorProperties.IsLocked="False">

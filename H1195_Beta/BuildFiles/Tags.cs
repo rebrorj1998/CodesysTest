@@ -2220,6 +2220,26 @@ namespace Neo.ApplicationFramework.Generated
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem LangStartup;
 		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem BagLengthMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem BagForwardSpeedMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem BagReverseSpeedMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem PassthroughSettingMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem SealOffsetMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem PrintSpeedMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem PrintOffsetMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem PrintLengthMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem BarcodeScanLengthMetric;
+		
+		public Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem BarcodeScanOffsetMetric;
+		
 		public Neo.ApplicationFramework.Tools.OpcClient.PollGroup PollGroup1;
 		
 		public Neo.ApplicationFramework.Tools.OpcClient.PollGroup PollGroup2;
@@ -3140,7 +3160,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_IO_Mapping_oRequestPrint = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_IO_Mapping_oRequestPrint", "Controller1.DataItem4699", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_IO_Mapping_oSealWire = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_IO_Mapping_oSealWire", "Controller1.DataItem4700", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Application_IO_Mapping_oTriggerBCV = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_IO_Mapping_oTriggerBCV", "Controller1.DataItem4701", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
-			this.Application_GlobalObjects_CollectionOfComponents_TotalObjects = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Application_GlobalObjects_CollectionOfComponents_TotalObjects", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_UINTEGER2)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "", "");
+			this.Application_GlobalObjects_CollectionOfComponents_TotalObjects = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Application_GlobalObjects_CollectionOfComponents_TotalObjects", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "", "");
 			this.Application_AxisData_FilmFeedPrintMotionProfile_acceleration = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_AxisData_FilmFeedPrintMotionProfile_acceleration", "Controller1.DataItem1009", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), false, "", null);
 			this.Application_AxisData_FilmFeedPrintMotionProfile_current = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_AxisData_FilmFeedPrintMotionProfile_current", "Controller1.DataItem1010", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), false, "", null);
 			this.Application_AxisData_FilmFeedPrintMotionProfile_deceleration = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_AxisData_FilmFeedPrintMotionProfile_deceleration", "Controller1.DataItem1011", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), false, "", null);
@@ -3364,6 +3384,16 @@ namespace Neo.ApplicationFramework.Generated
 			this.Application_HMIData_lightCurtainInstalled = new Neo.ApplicationFramework.Tools.OpcClient.LightweightTag("Application_HMIData_lightCurtainInstalled", "Controller1.DataItem541", 100, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BOOLEAN)), false, "", null);
 			this.Language_Selector = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("Language_Selector", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, true, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_INTEGER2)), "", ((short)(1)), "", "");
 			this.LangStartup = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("LangStartup", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_BIT)), "", ((short)(1)), "", "");
+			this.BagLengthMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("BagLengthMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.BagForwardSpeedMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("BagForwardSpeedMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.BagReverseSpeedMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("BagReverseSpeedMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.PassthroughSettingMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("PassthroughSettingMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.SealOffsetMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("SealOffsetMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.PrintSpeedMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("PrintSpeedMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_INTEGER2)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.PrintOffsetMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("PrintOffsetMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.PrintLengthMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("PrintLengthMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_INTEGER2)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.BarcodeScanLengthMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("BarcodeScanLengthMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
+			this.BarcodeScanOffsetMetric = new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataItem("BarcodeScanOffsetMetric", ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_REAL4)), ((short)(1)), 0D, 1D, ((short)(0)), false, "Value Change", ((Core.Api.DataSource.AccessRights)((Core.Api.DataSource.AccessRights.Read | Core.Api.DataSource.AccessRights.Write))), "PollGroup1", false, false, ((Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE)(Neo.ApplicationFramework.Interop.DataSource.BEDATATYPE.DT_DEFAULT)), "", ((short)(1)), "InchToMM", "MMToInch");
 			this.PollGroup1 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup2 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
 			this.PollGroup3 = new Neo.ApplicationFramework.Tools.OpcClient.PollGroup();
@@ -3410,9 +3440,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.commsLoss.ValueOn += new System.EventHandler(this.commsLoss_ValueOn);
 			this.commsLoss.ValueOff += new System.EventHandler(this.commsLoss_ValueOff);
 			this.commsLossdelay.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[0], new string[0], true));
-			this.Application_GlobalObjects_CollectionOfComponents_TotalObjects.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
-							"Controller1"}, new string[] {
-							"DataItem539"}, true));
+			this.Application_GlobalObjects_CollectionOfComponents_TotalObjects.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[0], new string[0], true));
 			this.Application_HMIData_HMIMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
 							"Controller1"}, new string[] {
 							"DataItem540"}, true));
@@ -3420,6 +3448,36 @@ namespace Neo.ApplicationFramework.Generated
 			this.Language_Selector.ValueOn += new System.EventHandler(this.Language_Selector_ValueOn);
 			this.Language_Selector.ValueOff += new System.EventHandler(this.Language_Selector_ValueOff);
 			this.LangStartup.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[0], new string[0], true));
+			this.BagLengthMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem542"}, true));
+			this.BagForwardSpeedMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem543"}, true));
+			this.BagReverseSpeedMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem545"}, true));
+			this.PassthroughSettingMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem546"}, true));
+			this.SealOffsetMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem547"}, true));
+			this.PrintSpeedMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem549"}, true));
+			this.PrintOffsetMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem550"}, true));
+			this.PrintLengthMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem551"}, true));
+			this.BarcodeScanLengthMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem554"}, true));
+			this.BarcodeScanOffsetMetric.GlobalDataSubItems.Add(new Neo.ApplicationFramework.Tools.OpcClient.GlobalDataSubItem(null, 0, new string[] {
+							"Controller1"}, new string[] {
+							"DataItem553"}, true));
 			this.LightweightTags.Add(this.Application_IoConfig_Globals_Mapping_oTriggerBCV);
 			this.LightweightTags.Add(this.Application_IoConfig_Globals_Mapping_oTeachPhotoeye);
 			this.LightweightTags.Add(this.Application_IoConfig_Globals_Mapping_oSealWire);
@@ -4301,6 +4359,10 @@ namespace Neo.ApplicationFramework.Generated
 			this.GlobalDataItems.Add(this.Application_GlobalObjects_CollectionOfComponents_TotalObjects);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintMotionProfile_acceleration);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintMotionProfile_current);
+		}
+		
+		private void InitializeObjects_2()
+		{
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintMotionProfile_deceleration);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintMotionProfile_maxPosition);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintMotionProfile_minPosition);
@@ -4311,10 +4373,6 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_deceleration);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_maxPosition);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_minPosition);
-		}
-		
-		private void InitializeObjects_2()
-		{
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_position);
 			this.LightweightTags.Add(this.Application_AxisData_FilmFeedPrintOffsetMotionProfile_velocity);
 			this.LightweightTags.Add(this.Application_HMIData_printer300DPI);
@@ -4526,6 +4584,16 @@ namespace Neo.ApplicationFramework.Generated
 			this.LightweightTags.Add(this.Application_HMIData_lightCurtainInstalled);
 			this.GlobalDataItems.Add(this.Language_Selector);
 			this.GlobalDataItems.Add(this.LangStartup);
+			this.GlobalDataItems.Add(this.BagLengthMetric);
+			this.GlobalDataItems.Add(this.BagForwardSpeedMetric);
+			this.GlobalDataItems.Add(this.BagReverseSpeedMetric);
+			this.GlobalDataItems.Add(this.PassthroughSettingMetric);
+			this.GlobalDataItems.Add(this.SealOffsetMetric);
+			this.GlobalDataItems.Add(this.PrintSpeedMetric);
+			this.GlobalDataItems.Add(this.PrintOffsetMetric);
+			this.GlobalDataItems.Add(this.PrintLengthMetric);
+			this.GlobalDataItems.Add(this.BarcodeScanLengthMetric);
+			this.GlobalDataItems.Add(this.BarcodeScanOffsetMetric);
 			this.PollGroup1.Interval = 100;
 			this.PollGroup1.Name = "PollGroup1";
 			this.PollGroup2.Interval = 500;
