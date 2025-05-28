@@ -2,7 +2,7 @@
 <Symbolconfiguration xmlns="http://www.3s-software.com/schemas/Symbolconfiguration.xsd">
   <Header>
     <Version>3.5.14.0</Version>
-    <SymbolConfigObject version="4.2.0.0" runtimeid="3.5.13.30" libversion="3.5.13.0" compiler="3.5.13.30" lmm="3.5.19.0" profile="CODESYS V3.5 SP19+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
+    <SymbolConfigObject version="4.5.2.0" runtimeid="3.5.13.30" libversion="3.5.13.0" compiler="3.5.13.30" lmm="3.5.21.0" profile="CODESYS V3.5 SP21+" settings="SupportOPCUA, XmlIncludeComments, LayoutCalculator=OptimizedClientSideLayoutCalculator" />
     <ProjectInfo name="SharpBagger" devicename="SX_1195" appname="Application" />
   </Header>
   <TypeList>
@@ -2479,10 +2479,10 @@
         <Node name="oTriggerBCV" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
       </Node>
       <Node name="IoConfig_Globals_Mapping">
-        <Node name="filmFeedDriveInputs" type="T_ARRAY__0__31__OF_WORD" access="Read" directaddress="%IB27">
+        <Node name="filmFeedDriveInputs" type="T_ARRAY__0__31__OF_WORD" access="Read" directaddress="%IW27">
           <Comment>Film_Feed_Drive : Read Holding Registers</Comment>
         </Node>
-        <Node name="filmFeedDriveOutputs" type="T_ARRAY__0__4__OF_WORD" access="ReadWrite" directaddress="%QB32">
+        <Node name="filmFeedDriveOutputs" type="T_ARRAY__0__4__OF_WORD" access="ReadWrite" directaddress="%QW32">
           <Comment>Film_Feed_Drive : Write Multiple Registers</Comment>
         </Node>
         <Node name="filmFeedOpcodeOutput" type="T_WORD" access="ReadWrite" directaddress="%QW38">

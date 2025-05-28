@@ -1,5 +1,5 @@
 (*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_MetricConversions
+FUNCTION_BLOCK e
 VAR_INPUT
     bagLengthIn : REAL;
     bagWidthIn : REAL;
