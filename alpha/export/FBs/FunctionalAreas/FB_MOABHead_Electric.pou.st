@@ -76,10 +76,10 @@ VAR
 	LOTARFault : FB_Fault(name := 'Label Removed from Tamp Head');
 	printAndApplyCommFailure : FB_Fault(name := 'Print and Apply Comm Failure');
 	printAndApplyWaitForLabelTimedOut : FB_Fault(name := 'Print and Apply Timed Out');
-// 	printAndApplyPackageFailedToExit : FB_Fault(name := 'Product Failed to Exit Conveyor');
-// 	printAndApplyPackageFailedToReachTamp : FB_Fault(name := 'Product Failed to Reach Print and Apply Tamp');
-// 	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
-// 	printAndApplyUnexpectedPackageSeen : FB_Fault(name := 'Unexpected Package Seen at Tamp');
+ 	printAndApplyPackageFailedToExit : FB_Fault(name := 'Product Failed to Exit Conveyor');
+ 	printAndApplyPackageFailedToReachTamp : FB_Fault(name := 'Product Failed to Reach Print and Apply Tamp');
+ 	printAndApplyPackageRemovedBeforeTamp : FB_Fault(name := 'Product Removed Before Label Tamp');
+ 	printAndApplyUnexpectedPackageSeen : FB_Fault(name := 'Unexpected Package Seen at Tamp');
 	labelsQueuedUpFault : FB_Fault(name := 'Labels Queued Up in Printer');
 	sealFlattenerTimedOut : FB_Fault(name := 'Seal Flatteners Timed Out / Did Not Reach Destination');
 	IBDFailedToHome : FB_Fault(name := 'Independent Bag Deflator Failed to Home');
@@ -571,7 +571,7 @@ printAndApply(
 	baggerFaulted:= HMIData.faultActive, 
 	baggerInCycle:= HMIData.inCycle, 
 	dataReady:= iPAOnlineDataReady, 
-	LOTAR:= NOT iPAVacuumSensor, 
+	LOTAR:= iPAVacuumSensor, 
 	printerFaulted:= NOT iPAFaulted,
 	PACycleComplete:= iPACycleComplete, 
 	applicatorHome:= iPAApplicatorHome, 
@@ -591,6 +591,8 @@ printAndApply(
 	faultedStatus=> printAndApplyFaulted.faultTrigger, 
 	waitForPrintFault=> printAndApplyWaitForLabelTimedOut.faultTrigger,
 	jammedFault=> productJammed.faultTrigger,
+	packageFailedToExitFault => printAndApplyPackageFailedToExit.faultTrigger,
+	packageFailedToReachTamp => printAndApplyPackageFailedToReachTamp.faultTrigger,
 	LOTARFault => LOTARFault.faultTrigger,
 	triggerOutput=> oPATrigger1,
 	resetOutput=> oPAReset, 
@@ -797,7 +799,11 @@ CASE HMIData.cycleStartButtonSelection OF
 															 
 	PalmButtonSelection.LightedPalmButton:				
 		// Lighted Murr palm button input comes from IO Link - this is for older machines that used a simpler light sequence
-		startCycleReqFromPalmButtons := iMurrTouchButtonOneStatus.0 OR iMurrTouchButtonTwoStatus.0;
+	IF HMIData.dualPalmPressRequired THEN
+        startCycleReqFromPalmButtons := iMurrTouchButtonOneStatus.0 AND iMurrTouchButtonTwoStatus.0;    
+    ELSE
+        startCycleReqFromPalmButtons := iMurrTouchButtonOneStatus.0 OR iMurrTouchButtonTwoStatus.0;    
+    END_IF
 		basicLightedPalmButton(
 			baggerReady:= readyToRun AND NOT HMIData.sealBarNotAtTemperature.active, 
 			baggerFaulted:= HMIData.faultActive, 
@@ -1269,8 +1275,8 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	Bag_Delivery_Rear_Motor.xAcknowledge := TRUE;
 	Keyence_BCV.xAcknowledge := TRUE;
 	IBD_Motor.xAcknowledge := TRUE;
-	Panther_PA.xAcknowledge := TRUE;
-	
+	Panther_PA.xConfirmError := TRUE;
+
 	HMIData.ackAllFaults := TRUE;
 	enable := TRUE;
 	
@@ -1364,7 +1370,7 @@ ELSE
 	Bag_Delivery_Rear_Motor.xAcknowledge := FALSE;
 	Keyence_BCV.xAcknowledge := FALSE;
 	IBD_MOtor.xAcknowledge := FALSE;
-	Panther_PA.xAcknowledge := FALSE;
+	Panther_PA.xConfirmError := FALSE;
 END_IF
 
 IF enableONS.Q OR resetONS.Q THEN
@@ -2462,7 +2468,8 @@ CASE state.sb.releaseFeed OF
 																exitConveyorRun.Trigger();
 															END_IF
 															
-															IF TO_DINT(HMIData.externalExitConveyorDwell) <> 0 AND NOT printAndApply.enable THEN
+															IF TO_DINT(HMIData.externalExitConveyorDwell) <> 0 AND 
+															(NOT printAndApply.enable OR printAndApply.bypass) THEN
 																externalExitConveyorRun.Trigger();
 															END_IF
 															

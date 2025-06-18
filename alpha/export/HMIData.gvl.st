@@ -144,6 +144,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	trafficDetectedRunoffDwell : REAL := 1.0;
 	packageOnTrunkRunoffDwell : REAL := 1.0;
 	enableExitConveyorVFDFault : BOOL;
+	dualPalmPressRequired : BOOL := TRUE;
 	
 	(*Service Stuff*)
 	lpaServiceOn : BOOL;
@@ -204,7 +205,7 @@ VAR_GLOBAL // PERSISTENT RETAIN
 	packageEjectSelection : PackageEjectionSelection := PackageEjectionSelection.RearRetractingLoadPlate;
 	packageEjectDisabledPosition : PackageEjectionDisabledPosition := PackageEjectionDisabledPosition.LoadingPosition;
 	independentBagDeflatorSelection : BagDeflatorSelection := BagDeflatorSelection.NotInstalled;
-	cycleStartButtonSelection : PalmButtonSelection := PalmButtonSelection.DualPalmButton;
+	cycleStartButtonSelection : PalmButtonSelection := PalmButtonSelection.LightedPalmButtonAdvanced;
 	barcodeVerifierSelection : BCVSelection := BCVSelection.NotInstalled;
 	lightCurtainSelection : LightCurtainsSelection := LightCurtainsSelection.NotInstalled;
 	baggerModelSelection : ModelSelection;

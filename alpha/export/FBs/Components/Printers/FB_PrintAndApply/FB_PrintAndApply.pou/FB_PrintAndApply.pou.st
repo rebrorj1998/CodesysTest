@@ -129,13 +129,15 @@ waitForPrinterFaultTimer(
 // Fault if package does not exit incline conveyor
 packageFailedToExitTimer(
 	IN := watchForBagExit AND (packageExitTimeSetting > 0) AND enable, 
-	PT :=  TO_TIME(packageExitTimeSetting * 1000.0)
+	PT :=  TO_TIME(packageExitTimeSetting * 1000.0),
+	Q => packageFailedToExitFault
 );
 												
 // Fault if not reached tamp head by the time conveyor stops
 packageFailedToReachTampTimer(
 	IN := watchForBagToTamp AND (packageToTampTimeSetting > 0) AND enable, 
-	PT :=  TO_TIME(packageToTampTimeSetting * 1000.0)
+	PT :=  TO_TIME(packageToTampTimeSetting * 1000.0),
+	Q => packageFailedToReachTamp
 );
 
 // Fault if label is in queue for too long

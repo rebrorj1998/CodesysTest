@@ -989,7 +989,7 @@
       <UserDefElement iecname="bagHoldTolerance" type="T_REAL" byteoffset="480" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="clearanceOffset" type="T_REAL" byteoffset="484" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
-    <TypeUserDef name="T_FB_MOABHead_Electric" size="1236" nativesize="755168" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
+    <TypeUserDef name="T_FB_MOABHead_Electric" size="1240" nativesize="142520" typeclass="Userdef" pouclass="FUNCTION_BLOCK" iecname="FB_MOABHead_Electric" basetype="T_FB_BaseComponent">
       <UserDefElement iecname="state" type="T_StateMachine" byteoffset="0" vartype="VAR_OUTPUT" access="ReadWrite" />
       <UserDefElement iecname="motorizedSealFlatteners" type="T_FB_MotorizedSealFlatteners_PerfBreaker" byteoffset="16" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="pressureBar" type="T_FB_MotorizedPressureBar" byteoffset="504" vartype="VAR" access="ReadWrite" />
@@ -1012,20 +1012,25 @@
       <UserDefElement iecname="infeedConveyorVFDFaulted" type="T_FB_Fault" byteoffset="602" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="printAndApplyFaulted" type="T_FB_Fault" byteoffset="603" vartype="VAR" access="ReadWrite" />
       <UserDefElement iecname="productJammed" type="T_FB_Fault" byteoffset="604" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="printAndApplyCommFailure" type="T_FB_Fault" byteoffset="605" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="printAndApplyWaitForLabelTimedOut" type="T_FB_Fault" byteoffset="606" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="labelsQueuedUpFault" type="T_FB_Fault" byteoffset="607" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="sealFlattenerTimedOut" type="T_FB_Fault" byteoffset="608" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="IBDFailedToHome" type="T_FB_Fault" byteoffset="609" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="610" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="613" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="616" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="620" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="692" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="697" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="701" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="705" vartype="VAR" access="ReadWrite" />
-      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="708" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="LOTARFault" type="T_FB_Fault" byteoffset="605" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyCommFailure" type="T_FB_Fault" byteoffset="606" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyWaitForLabelTimedOut" type="T_FB_Fault" byteoffset="607" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyPackageFailedToExit" type="T_FB_Fault" byteoffset="608" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyPackageFailedToReachTamp" type="T_FB_Fault" byteoffset="609" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApplyPackageRemovedBeforeTamp" type="T_FB_Fault" byteoffset="610" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="labelsQueuedUpFault" type="T_FB_Fault" byteoffset="611" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="sealFlattenerTimedOut" type="T_FB_Fault" byteoffset="612" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="IBDFailedToHome" type="T_FB_Fault" byteoffset="613" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="externalExitConveyorVFDFault" type="T_FB_Fault" byteoffset="614" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="forwardLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="615" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="rearLoadPlateFaults" type="T_LoadPlateFaultsType" byteoffset="618" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="loadShelfFaults" type="T_LoadPlateFaultsType" byteoffset="621" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="hmiLight" type="T_FB_HMILight" byteoffset="624" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="filler" type="T_FB_Filler" byteoffset="696" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="murrIOBusNode" type="T_FB_MurrIO" byteoffset="701" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="funnel" type="T_FB_Funnel" byteoffset="705" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="allMotorCommsGood" type="T_BOOL" byteoffset="709" vartype="VAR" access="ReadWrite" />
+      <UserDefElement iecname="printAndApply" type="T_FB_PrintAndApply" byteoffset="712" vartype="VAR" access="ReadWrite" />
     </TypeUserDef>
     <TypeSimple name="T_TYPE_REFERENCE" size="8" swapsize="8" typeclass="Userdef" iecname="TYPE_REFERENCE" />
   </TypeList>
@@ -1148,6 +1153,7 @@
         <Node name="demoModeIsActive" type="T_Warning" access="ReadWrite" />
         <Node name="driveRollerClean" type="T_FB_PredictiveMaint" access="ReadWrite" />
         <Node name="dryCycleActive" type="T_Warning" access="ReadWrite" />
+        <Node name="dualPalmPressRequired" type="T_BOOL" access="ReadWrite" />
         <Node name="enableDryCycle" type="T_BOOL" access="ReadWrite">
           <Comment> Enable dry cycle</Comment>
         </Node>
@@ -1476,46 +1482,46 @@ Misc</Comment>
         <Node name="iLoadShelfRetracted" type="T_BIT_X_1" access="Read" directaddress="%IX32.1">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="iPAApplicatorHome" type="T_BIT_X_1" access="Read" directaddress="%IX739.1">
+        <Node name="iPAApplicatorHome" type="T_BIT_X_1" access="Read" directaddress="%IX863.1">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPABypassOn" type="T_BIT_X_6" access="Read" directaddress="%IX739.6">
+        <Node name="iPABypassOn" type="T_BIT_X_6" access="Read" directaddress="%IX863.6">
           <Comment>Panther_PA : </Comment>
         </Node>
         <Node name="iPackageAtExit" type="T_BIT_X_4" access="Read" directaddress="%IX33.4">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="iPACycleComplete" type="T_BIT_X_0" access="Read" directaddress="%IX739.0">
+        <Node name="iPACycleComplete" type="T_BIT_X_0" access="Read" directaddress="%IX863.0">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPAFaulted" type="T_BIT_X_7" access="Read" directaddress="%IX738.7">
+        <Node name="iPAFaulted" type="T_BIT_X_7" access="Read" directaddress="%IX862.7">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPAHeartbeat" type="T_BIT_X_7" access="Read" directaddress="%IX739.7">
+        <Node name="iPAHeartbeat" type="T_BIT_X_7" access="Read" directaddress="%IX863.7">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPALabelOut" type="T_BIT_X_3" access="Read" directaddress="%IX738.3">
+        <Node name="iPALabelOut" type="T_BIT_X_3" access="Read" directaddress="%IX862.3">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPALOTAR" type="T_BIT_X_3" access="Read" directaddress="%IX739.3">
+        <Node name="iPALOTAR" type="T_BIT_X_3" access="Read" directaddress="%IX863.3">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPALowLabels" type="T_BIT_X_2" access="Read" directaddress="%IX739.2">
+        <Node name="iPALowLabels" type="T_BIT_X_2" access="Read" directaddress="%IX863.2">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPAOnlineDataReady" type="T_BIT_X_4" access="Read" directaddress="%IX738.4">
+        <Node name="iPAOnlineDataReady" type="T_BIT_X_4" access="Read" directaddress="%IX862.4">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPAPrintEngineError" type="T_BIT_X_1" access="Read" directaddress="%IX738.1">
+        <Node name="iPAPrintEngineError" type="T_BIT_X_1" access="Read" directaddress="%IX862.1">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPAPrintEnginePower" type="T_BIT_X_0" access="Read" directaddress="%IX738.0">
+        <Node name="iPAPrintEnginePower" type="T_BIT_X_0" access="Read" directaddress="%IX862.0">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPARibbonLow" type="T_BIT_X_2" access="Read" directaddress="%IX738.2">
+        <Node name="iPARibbonLow" type="T_BIT_X_2" access="Read" directaddress="%IX862.2">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="iPARibbonOut" type="T_BIT_X_5" access="Read" directaddress="%IX738.5">
+        <Node name="iPARibbonOut" type="T_BIT_X_5" access="Read" directaddress="%IX862.5">
           <Comment>Panther_PA : </Comment>
         </Node>
         <Node name="iPowerOffButton" type="T_BIT_X_3" access="Read" directaddress="%IX37.3">
@@ -1611,13 +1617,13 @@ Misc</Comment>
         <Node name="oMOMConfig" type="T_BYTE" access="ReadWrite" directaddress="%QB0">
           <Comment>Cube67_BN_E_V2 : </Comment>
         </Node>
-        <Node name="oPABypassEnable" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX594.3">
+        <Node name="oPABypassEnable" type="T_BIT_X_3" access="ReadWrite" directaddress="%QX604.3">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="oPAReset" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX594.2">
+        <Node name="oPAReset" type="T_BIT_X_2" access="ReadWrite" directaddress="%QX604.2">
           <Comment>Panther_PA : </Comment>
         </Node>
-        <Node name="oPATrigger1" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX594.0">
+        <Node name="oPATrigger1" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX604.0">
           <Comment>Panther_PA : </Comment>
         </Node>
         <Node name="oPrinterStartPrint" type="T_BIT_X_0" access="ReadWrite" directaddress="%QX34.0">
