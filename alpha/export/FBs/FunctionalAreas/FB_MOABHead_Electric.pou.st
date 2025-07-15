@@ -1275,7 +1275,7 @@ IF HMIData.makeReady OR resetTimer.Q THEN
 	Bag_Delivery_Rear_Motor.xAcknowledge := TRUE;
 	Keyence_BCV.xAcknowledge := TRUE;
 	IBD_Motor.xAcknowledge := TRUE;
-	Panther_PA.xConfirmError := TRUE;
+	Panther_PA.xAcknowledge := TRUE;
 
 	HMIData.ackAllFaults := TRUE;
 	enable := TRUE;
@@ -1370,7 +1370,7 @@ ELSE
 	Bag_Delivery_Rear_Motor.xAcknowledge := FALSE;
 	Keyence_BCV.xAcknowledge := FALSE;
 	IBD_MOtor.xAcknowledge := FALSE;
-	Panther_PA.xConfirmError := FALSE;
+	Panther_PA.xAcknowledge := FALSE;
 END_IF
 
 IF enableONS.Q OR resetONS.Q THEN
