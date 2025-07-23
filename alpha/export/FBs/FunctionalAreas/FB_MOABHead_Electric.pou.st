@@ -597,9 +597,11 @@ printAndApply(
 	triggerOutput=> oPATrigger1,
 	resetOutput=> oPAReset, 
 	clearOutBaggerIndicaiton => HMIDAta.baggerNeedsClearing,
-	labelsInQueue=> labelsQueuedUpFault.faultTrigger
+	labelsInQueue=> 
 );
-	 
+IF printAndApply.labelsInQueue AND HMIData.labelsQueuedUpFaultEnable THEN
+	labelsQueuedUpFault.Trigger();
+END_IF
 		  
 // Controls packages moving from bagger to the trunk line, TSSL Exclusive. Can use AuxIO config input or its own function block
 collisionDetection(

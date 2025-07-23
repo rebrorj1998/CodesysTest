@@ -6,8 +6,4 @@ FUNCTION GetBooleanProperty : BOOL
 VAR_INPUT
 	stKey: WSTRING;
 END_VAR(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-IF stKey = "IsStorageFormatPinned" THEN
-	GetBooleanProperty := FALSE;
-ELSE
-	GetBooleanProperty := FALSE;
-END_IF
+GetBooleanProperty := FALSE;
