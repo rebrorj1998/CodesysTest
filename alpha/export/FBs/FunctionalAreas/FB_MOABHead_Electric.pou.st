@@ -61,7 +61,7 @@ VAR
 	vacuumHoldTimer : Standard.TON() := (PT := T#250MS);
 	cycleTimer : TON() := (PT := T#1000S);
 	cycleTime : REAL;
-	grabDistance : REAL := 1;
+	grabDistance : REAL := 0.1;
 
 	bagFailedToOpen : FB_Fault(name := 'Bag Failed to Open');
 	openedBagWasRemoved : FB_Fault(name := 'Opened Bag was Removed');
