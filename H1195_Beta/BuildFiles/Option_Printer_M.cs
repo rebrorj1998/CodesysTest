@@ -270,7 +270,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Option_Printer_M";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button.TextHeight = 36;
+            this.m_Button.TextHeight = 37;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 117;
             this.m_Button.Top = 177;

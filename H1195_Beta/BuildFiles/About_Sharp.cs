@@ -475,7 +475,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.Text = resources.GetText("About_Sharp.Text1.Text", "For US service call: +1 800-634-6359 x1572");
             this.m_Text2.Text = resources.GetText("About_Sharp.Text2.Text", "Bags Made");
             this.m_Text3.Text = resources.GetText("About_Sharp.Text3.Text", "HMI Version");
-            this.m_Text6.Text = resources.GetText("About_Sharp.Text6.Text", "1.2.1.0");
+            this.m_Text6.Text = resources.GetText("About_Sharp.Text6.Text", "1.3.0.0");
             this.m_Text4.Text = resources.GetText("About_Sharp.Text4.Text", "PLC Version");
             this.m_Text5.Text = resources.GetText("About_Sharp.Text5.Text", "European service call: 00800 8888 8840");
             this.ApplyResourcesOnForm();

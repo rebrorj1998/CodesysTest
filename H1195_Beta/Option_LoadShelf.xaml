@@ -34,12 +34,12 @@
       </nai:ActionProperties.Actions>
     </nac:AnalogNumericFX>
     <nacc:Rectangle Fill="{x:Null}" Stroke="#FF000000" Name="m_Rectangle3" Width="399" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="5" Canvas.Left="79" Canvas.Top="3" />
-    <nac:Label AutoSize="False" Text="Retracting Load Plate" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="4,0,4,1" Name="m_Text" Width="300" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="129" Canvas.Top="3">
+    <nac:Label AutoSize="False" Text="Retracting Load Plate" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="4,0,4,1" Name="m_Text" Width="300" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="6" Canvas.Left="120" Canvas.Top="3">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" Text="ON" BorderBrush="#FF000000" BorderThickness="1,1,1,1" FontFamily="Tahoma" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text5" Width="50" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Panel.ZIndex="7" Canvas.Left="428" Canvas.Top="3" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True">
+    <nac:Label AutoSize="False" Text="ON" BorderBrush="#FF000000" BorderThickness="1,1,1,1" FontFamily="Tahoma" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3.5,0,3.5,1" Name="m_Text5" Width="61" Height="50" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Panel.ZIndex="7" Canvas.Left="417" Canvas.Top="3" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True">
       <nac:Label.Resources>
         <ResourceDictionary>
           <nacd1:BrushDynamicsConverter x:Key="ForegroundConverter">

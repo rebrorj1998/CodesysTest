@@ -40,14 +40,15 @@
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="Advanced_P2.Text2" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_0_" />
-        <Item Target="Advanced_P2.Text3" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_4_" />
-        <Item Target="Advanced_P2.Text4" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_3_" />
-        <Item Target="Advanced_P2.Text5" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_5_" />
+        <Item Target="Advanced_P2.Text2" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_0_" />
+        <Item Target="Advanced_P2.Text3" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_4_" />
+        <Item Target="Advanced_P2.Text4" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_3_" />
+        <Item Target="Advanced_P2.Text5" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_5_" />
+        <Item Target="Advanced_P2.Text6" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_2_" />
         <Item Target="Advanced_P2.Text6" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_2_" />
-        <Item Target="Advanced_P2.Text7" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_1_" />
-        <Item Target="Advanced_P2.Text8" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_6_" />
-        <Item Target="Advanced_P2.Text9" TargetProperty="Value" Source="Tags.Application_HMIData_activeFaults_7_" />
+        <Item Target="Advanced_P2.Text7" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_1_" />
+        <Item Target="Advanced_P2.Text8" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_6_" />
+        <Item Target="Advanced_P2.Text9" TargetProperty="Text" Source="Tags.Application_HMIData_activeFaultIds_7_" />
       </Items>
     </Category>
     <Category Name="InvalidAction">
@@ -123,7 +124,16 @@
       <Items />
     </Category>
     <Category Name="TextLibrary">
-      <Items />
+      <Items>
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text2" TargetProperty="Text" Source="FaultList" />
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text3" TargetProperty="Text" Source="FaultList" />
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text4" TargetProperty="Text" Source="FaultList" />
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text5" TargetProperty="Text" Source="FaultList" />
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text6" TargetProperty="Text" Source="FaultList" />
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text7" TargetProperty="Text" Source="FaultList" />
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text8" TargetProperty="Text" Source="FaultList" />
+        <Item xsi:type="TextLibraryItem" Target="Advanced_P2.Text9" TargetProperty="Text" Source="FaultList" />
+      </Items>
     </Category>
     <Category Name="TrendViewer">
       <Items />

@@ -498,7 +498,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper1;
             this.m_Button1.SymbolName = "ag_arrow left green";
             this.m_Button1.SymbolWidth = 37;
-            this.m_Button1.TextHeight = 11;
+            this.m_Button1.TextHeight = 10;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 50;
             this.m_Button1.Top = 0;
@@ -532,7 +532,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 25;
             this.m_Text.Left = 246;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -541,7 +541,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 38;
+            this.m_Text.Width = 47;
             // 
             // m_Text6
             // 
@@ -568,7 +568,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 25;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -577,7 +577,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
+            this.m_Text1.Width = 28;
             // 
             // m_Text4
             // 
@@ -1346,19 +1346,19 @@ namespace Neo.ApplicationFramework.Generated {
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(IO_P3));
             this.m_Text.Text = resources.GetText("IO_P3.Text.Text", "Inputs");
-            this.m_Text1.Text = resources.GetText("IO_P3.Text1.Text", "3/3");
-            this.m_Text8.Text = resources.GetText("IO_P3.Text8.Text", "I:2/09 Spare");
-            this.m_Text6.Text = resources.GetText("IO_P3.Text6.Text", "I:2/07 Spare");
-            this.m_Text4.Text = resources.GetText("IO_P3.Text4.Text", "I:2/06 Spare");
-            this.m_Text7.Text = resources.GetText("IO_P3.Text7.Text", "I:2/03 Spare");
-            this.m_Text9.Text = resources.GetText("IO_P3.Text9.Text", "I:2/10 Spare");
-            this.m_Text5.Text = resources.GetText("IO_P3.Text5.Text", "I:2/05 Spare");
-            this.m_Text10.Text = resources.GetText("IO_P3.Text10.Text", "I:2/02 Spare");
-            this.m_Text11.Text = resources.GetText("IO_P3.Text11.Text", "I:2/04 Spare");
-            this.m_Text12.Text = resources.GetText("IO_P3.Text12.Text", "I:2/08 Spare");
-            this.m_Text3.Text = resources.GetText("IO_P3.Text3.Text", "I:2/01 Spare");
-            this.m_Text2.Text = resources.GetText("IO_P3.Text2.Text", "I:2/00 Printer Service Req");
-            this.m_Text15.Text = resources.GetText("IO_P3.Text15.Text", "I:2/11 Spare");
+            this.m_Text1.Text = resources.GetText("IO_P3.Text1.Text", "3/4");
+            this.m_Text8.Text = resources.GetText("IO_P3.Text8.Text", "I:0/09 Barcode NG");
+            this.m_Text6.Text = resources.GetText("IO_P3.Text6.Text", "I:0/07 Jaw Not Obstructed");
+            this.m_Text4.Text = resources.GetText("IO_P3.Text4.Text", "I:0/06 Clamp Home Sensor");
+            this.m_Text7.Text = resources.GetText("IO_P3.Text7.Text", "I:0/03 Bag Edge Photoeye");
+            this.m_Text9.Text = resources.GetText("IO_P3.Text9.Text", "I:0/10 Light Curtain Clear");
+            this.m_Text5.Text = resources.GetText("IO_P3.Text5.Text", "I:0/05 Pbar Clamp Motor Alarm");
+            this.m_Text10.Text = resources.GetText("IO_P3.Text10.Text", "I:0/02 Printer Busy");
+            this.m_Text11.Text = resources.GetText("IO_P3.Text11.Text", "I:0/04 Cycle Start");
+            this.m_Text12.Text = resources.GetText("IO_P3.Text12.Text", "I:0/08 Barcode OK");
+            this.m_Text3.Text = resources.GetText("IO_P3.Text3.Text", "I:0/01 Printer Data Ready");
+            this.m_Text2.Text = resources.GetText("IO_P3.Text2.Text", "I:0/00 Printer Service Req");
+            this.m_Text15.Text = resources.GetText("IO_P3.Text15.Text", "I:0/11 Spare");
             this.ApplyResourcesOnForm();
         }
         

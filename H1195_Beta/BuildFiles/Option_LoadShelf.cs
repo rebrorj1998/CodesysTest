@@ -214,7 +214,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
             this.m_Text.Height = 50;
-            this.m_Text.Left = 129;
+            this.m_Text.Left = 120;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
             this.m_Text.ScreenOwnerName = "Option_LoadShelf";
@@ -249,7 +249,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 14;
             this.m_Text5.Height = 50;
-            this.m_Text5.Left = 428;
+            this.m_Text5.Left = 417;
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text5.ScreenOwnerName = "Option_LoadShelf";
@@ -265,7 +265,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.TextVerticalAlignment = "Center";
             this.m_Text5.Top = 3;
             this.m_Text5.VisibleDynamicsValue = true;
-            this.m_Text5.Width = 50;
+            this.m_Text5.Width = 61;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;

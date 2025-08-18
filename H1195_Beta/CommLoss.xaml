@@ -9,12 +9,12 @@
     </nai:ScriptEventList>
   </nai:ScriptProperties.ScriptEvents>
   <nacs:ElementCanvas Name="m_EditorCanvas" Width="240" Height="136" FocusVisualStyle="{x:Null}" AllowDrop="True" ClipToBounds="True" Focusable="True" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType" Panel.ZIndex="104">
-    <nac:Label AutoSize="False" Text="PLC DATA HAS NOT BEEN UPDATED" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Padding="3.5,0,3.5,1" Name="m_Text" Width="240" Height="23" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="1" Canvas.Left="4" Canvas.Top="6">
+    <nac:Label AutoSize="False" WordWrap="True" AutoStretchFont="False" Text="PLC DATA HAS NOT BEEN UPDATED" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="14" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" Padding="3.5,0,3.5,1" Name="m_Text" Width="228" Height="44" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="1" Canvas.Left="1" Canvas.Top="1">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="If the PLC firmware has recently changed this message will go away automatically.  If it does not contact manufacturer to ensure proper firmware is being used." Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="12" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="3,0,3,1" Name="m_Text1" Width="214" Height="88" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="15" Canvas.Top="37">
+    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="If the PLC firmware has recently changed this message will go away automatically.  If it does not contact manufacturer to ensure proper firmware is being used." Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="12" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Padding="3,0,3,1" Name="m_Text1" Width="214" Height="102" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="2" Canvas.Left="15" Canvas.Top="37">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>

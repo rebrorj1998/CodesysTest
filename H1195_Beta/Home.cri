@@ -84,7 +84,7 @@
         <Item xsi:type="ActionItem" Target="Home.Button10" TargetProperty="Actions" Source="Service_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Home.Button2" TargetProperty="Actions" Source="Settings_P1" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="Home.Button8" TargetProperty="Actions" Source="Options" Event="Click" Action="Show Screen" Param="Default" />
-        <Item xsi:type="ActionItem" Target="Home.Button4" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="Home.Button4" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Home.Button" TargetProperty="Actions" Source="Settings_P1_M" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
           <ObjectsCount>6</ObjectsCount>

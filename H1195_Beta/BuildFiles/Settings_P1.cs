@@ -334,7 +334,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 25;
             this.m_Text.Left = 216;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -343,7 +343,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 74;
+            this.m_Text.Width = 92;
             // 
             // m_Text1
             // 
@@ -352,7 +352,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 25;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -361,7 +361,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
+            this.m_Text1.Width = 28;
             // 
             // m_Rectangle
             // 
@@ -416,7 +416,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
             this.m_Button.SymbolName = "ag_arrow right green";
             this.m_Button.SymbolWidth = 37;
-            this.m_Button.TextHeight = 11;
+            this.m_Button.TextHeight = 10;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 50;
             this.m_Button.Top = 0;

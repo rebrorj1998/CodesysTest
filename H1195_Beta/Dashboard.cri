@@ -39,12 +39,12 @@
         <Item Target="Dashboard.Text" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Button2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Button6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Dashboard.Group1.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="Dashboard.Group1.Text6" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Group.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Group.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Dashboard.Group.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group1.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Dashboard.Group1.Text6" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -74,12 +74,12 @@
         <Item xsi:type="ActionItem" Target="Dashboard.Button6" TargetProperty="Actions" Source="Tags.Application_HMIData_resetBatchCounter" Event="PreviewMouseUp" Action="Reset Tag" Param="" />
         <Item Target="Dashboard.Button6" TargetProperty="Value" Source="Tags.Application_HMIData_resetBatchCounter" />
         <Item Target="Dashboard.Button6" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
-        <Item Target="Dashboard.Group1.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterCount" />
-        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterSetting" />
+        <Item Target="Dashboard.Group" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
         <Item Target="Dashboard.Group.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_HMIData_batchCount" />
         <Item Target="Dashboard.Group.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_HMIData_batchSetting" />
-        <Item Target="Dashboard.Group" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_batchEnable" />
         <Item Target="Dashboard.Group1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_partsCounterEnable" />
+        <Item Target="Dashboard.Group1.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterCount" />
+        <Item Target="Dashboard.Group1.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_HMIData_partsCounterSetting" />
       </Items>
     </Category>
     <Category Name="InvalidAction">

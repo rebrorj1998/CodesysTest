@@ -349,7 +349,7 @@ namespace Neo.ApplicationFramework.Generated {
         }
         
         private void m_Button4_Action_Click(object sender, System.EventArgs e) {
-            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button4", "Click", "Show Screen", "IO_P1", "Default", "");
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button4", "Click", "Show Screen", "IO_P1", "");
             Neo.ApplicationFramework.Generated.Globals.IO_P1.Show();
         }
         

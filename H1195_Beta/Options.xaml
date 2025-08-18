@@ -69,7 +69,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Independent Bag&#xD;&#xA;Deflator" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button2" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="3" Canvas.Left="79" Canvas.Top="60" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Independent Bag&#xD;&#xA;Deflator" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button2" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="3" Canvas.Left="79" Canvas.Top="60" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
@@ -101,7 +101,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Retracting Load&#xD;&#xA;Plate" MultiLine="True" WordWrap="False" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button3" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="280" Canvas.Top="60" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Retracting Load&#xD;&#xA;Plate" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button3" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="4" Canvas.Left="280" Canvas.Top="60" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
@@ -163,7 +163,7 @@
           </Binding.FallbackValue>
         </Binding>
       </nacb:BlinkProperties.VisibleDynamicsValue>
-      <nac:Label AutoSize="False" Text="ON" BorderBrush="#FF000000" BorderThickness="1,1,1,1" FontFamily="Tahoma" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3,0,3,1" Name="m_Text5" Width="44" Height="39" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="False" Panel.ZIndex="18" Canvas.Left="135" Canvas.Top="16" nac:EnabledProperties.EnabledDynamicsValue="False" nacsd:EditorProperties.IsLocked="False" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True">
+      <nac:Label AutoSize="False" Text="ON" BorderBrush="#FF000000" BorderThickness="1,1,1,1" FontFamily="Tahoma" FontSize="12" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="3,0,3,1" Name="m_Text5" Width="47" Height="39" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="False" Panel.ZIndex="18" Canvas.Left="132" Canvas.Top="16" nac:EnabledProperties.EnabledDynamicsValue="False" nacsd:EditorProperties.IsLocked="False" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True">
         <nac:Label.Resources>
           <ResourceDictionary>
             <nacd1:BrushDynamicsConverter x:Key="ForegroundConverter">
@@ -344,7 +344,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Button Text="Barcode&#xD;&#xA;Verifier" MultiLine="True" WordWrap="False" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button6" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="280" Canvas.Top="0" Style="{nac1:StyleMarkupExtension DefaultCF}">
+    <nac:Button Text="Barcode&#xD;&#xA;Verifier" MultiLine="True" WordWrap="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFFFFFFF" FontSize="15" FontWeight="Bold" Name="m_Button6" Width="200" Height="59" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="9" Canvas.Left="280" Canvas.Top="0" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" ExpressionName="and1" />

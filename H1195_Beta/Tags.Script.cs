@@ -38,18 +38,7 @@ namespace Neo.ApplicationFramework.Generated
 		
 		void Fault_Instance_ValueChange(System.Object sender, Core.Api.DataSource.ValueChangedEventArgs e)
 		{
-			if(Fault_Instance.Value > 49)
-			{
-				Fault_Instance.SetAnalog(0);
-				}			
-			if(Fault_Instance.Value < 0)
-			{
-				Fault_Instance.SetAnalog(49);
-			}
-			if(49 > Fault_Instance.Value >0)
-			{
-				Globals.Faults["Page_"+Fault_Instance.Value.ToString()].Show();
-			}
+	
 			
 		}
 		

@@ -149,7 +149,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.RequiresTransparency = true;
             this.m_Button.ScreenOwnerName = "Login";
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button.TextHeight = 11;
+            this.m_Button.TextHeight = 10;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 82;
             this.m_Button.Top = 91;

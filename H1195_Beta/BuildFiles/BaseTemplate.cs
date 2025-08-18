@@ -46,9 +46,13 @@ namespace Neo.ApplicationFramework.Generated {
         
         private bool m_Initialized_BaseTemplate;
         
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf1;
+        
         private Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF brushdynamicsconvertercf1;
         
         private Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF brushdynamicsconvertercf2;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf2;
         
         public BaseTemplate() {
             this.InitializeComponent();
@@ -66,6 +70,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.Click += new System.EventHandler(this.m_Button5_Action_Click);
             this.m_Button4.Click += new System.EventHandler(this.m_Button4_Action_Click);
             this.m_Button2.Click += new System.EventHandler(this.m_Button2_Action_Click);
+            this.m_Text1.MouseUp += new System.EventHandler(this.m_Text1_Action_MouseUp);
             this.ApplyLanguageInitialize();
         }
         
@@ -136,8 +141,11 @@ namespace Neo.ApplicationFramework.Generated {
         }
         
         private void InitializeComponent() {
+            this.messagelibrarydynamicsconvertercf2 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
             this.brushdynamicsconvertercf2 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
             this.brushdynamicsconvertercf1 = new Neo.ApplicationFramework.Common.Dynamics.BrushDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf1 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver1 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
             Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval brushcfinterval1 = new Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval();
             Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval brushcfinterval2 = new Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval();
             Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval brushcfinterval3 = new Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval();
@@ -150,46 +158,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval brushcfinterval10 = new Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval();
             Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval brushcfinterval11 = new Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval();
             Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval brushcfinterval12 = new Neo.ApplicationFramework.Common.Dynamics.BrushCFInterval();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF stringintervalmappercf1 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalMapperCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf1 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf2 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf3 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf4 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf5 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf6 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf7 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf8 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf9 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf10 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf11 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf12 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf13 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf14 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf15 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf16 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf17 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf18 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf19 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf20 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf21 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf22 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf23 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf24 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf25 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf26 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf27 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf28 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf29 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf30 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf31 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf32 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf33 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf34 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf35 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf36 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf37 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf38 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
-            Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF stringintervalcf39 = new Neo.ApplicationFramework.Common.Dynamics.StringIntervalCF();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper2 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper3 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
@@ -197,6 +165,7 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper5 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper6 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper7 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver2 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
             this.m_Rectangle = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Button = new Neo.ApplicationFramework.Controls.Controls.Button();
@@ -249,6 +218,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.Bold = true;
             this.m_Text.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
+            messagelibrarydynamicsconvertercf1.MessageLibraryGroupName = "MessageList";
+            messagelibrarydynamicsconvertercf1.MessageLibraryGroupResolver = messagelibrarygroupresolver1;
             brushdynamicsconvertercf1.BrushIntervalMapper.DefaultValue = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             brushcfinterval1.Value = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             brushcfinterval2.End = 2D;
@@ -300,167 +271,11 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.FontFamily = "Arial";
             this.m_Text.FontSizePixels = 14;
             this.m_Text.Height = 37;
-            this.m_Text.Left = 81;
+            this.m_Text.Left = 80;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text.ScreenOwnerName = "BaseTemplate";
             this.m_Text.TextHorizontalAlignment = "Center";
-            stringintervalmappercf1.DefaultValue = "";
-            stringintervalcf1.Value = "Verpakkingsmachine niet klaar voor cyclus";
-            stringintervalcf2.End = 1D;
-            stringintervalcf2.Start = 1D;
-            stringintervalcf2.Value = "Verpakkingsmachine klaar voor cyclus";
-            stringintervalcf3.End = 2D;
-            stringintervalcf3.Start = 2D;
-            stringintervalcf3.Value = "Verpakkingsmachine in cyclus";
-            stringintervalcf4.End = 3D;
-            stringintervalcf4.Start = 3D;
-            stringintervalcf4.Value = "Geen zak gedetecteerd bij sensor";
-            stringintervalcf5.End = 4D;
-            stringintervalcf5.Start = 4D;
-            stringintervalcf5.Value = "Zak scheidde niet correct";
-            stringintervalcf6.End = 5D;
-            stringintervalcf6.Start = 5D;
-            stringintervalcf6.Value = "Obstructie bij drukbalk";
-            stringintervalcf7.End = 6D;
-            stringintervalcf7.Start = 6D;
-            stringintervalcf7.Value = "Lichtgordijn overtreding";
-            stringintervalcf8.End = 7D;
-            stringintervalcf8.Start = 7D;
-            stringintervalcf8.Value = "Printkop kon niet omhoog";
-            stringintervalcf9.End = 8D;
-            stringintervalcf9.Start = 8D;
-            stringintervalcf9.Value = "Printkop kon niet omlaag";
-            stringintervalcf10.End = 9D;
-            stringintervalcf10.Start = 9D;
-            stringintervalcf10.Value = "Barcode-fout";
-            stringintervalcf11.End = 10D;
-            stringintervalcf11.Start = 10D;
-            stringintervalcf11.Value = "Te veel onderdelen geteld";
-            stringintervalcf12.End = 11D;
-            stringintervalcf12.Start = 11D;
-            stringintervalcf12.Value = "Bekken konden niet sluiten";
-            stringintervalcf13.End = 12D;
-            stringintervalcf13.Start = 12D;
-            stringintervalcf13.Value = "Fout bij folietoevoer motor";
-            stringintervalcf14.End = 13D;
-            stringintervalcf14.Start = 13D;
-            stringintervalcf14.Value = "Bekken bewegingsfout";
-            stringintervalcf15.End = 14D;
-            stringintervalcf15.Start = 14D;
-            stringintervalcf15.Value = "Bekken kalibratie mislukt";
-            stringintervalcf16.End = 15D;
-            stringintervalcf16.Start = 15D;
-            stringintervalcf16.Value = "Wachten op printer";
-            stringintervalcf17.End = 16D;
-            stringintervalcf17.Start = 16D;
-            stringintervalcf17.Value = "Wachten op vulsysteem";
-            stringintervalcf18.End = 17D;
-            stringintervalcf18.Start = 17D;
-            stringintervalcf18.Value = "Batchtelling voltooid";
-            stringintervalcf19.End = 18D;
-            stringintervalcf19.Start = 18D;
-            stringintervalcf19.Value = "Bekken niet gekalibreerd";
-            stringintervalcf20.End = 19D;
-            stringintervalcf20.Start = 19D;
-            stringintervalcf20.Value = "Start de verpakkingsmachine voor actieve vuller";
-            stringintervalcf21.End = 20D;
-            stringintervalcf21.Start = 20D;
-            stringintervalcf21.Value = "Machine niet getest";
-            stringintervalcf22.End = 21D;
-            stringintervalcf22.Start = 21D;
-            stringintervalcf22.Value = "Laadplaatmotor niet gekalibreerd";
-            stringintervalcf23.End = 22D;
-            stringintervalcf23.Start = 22D;
-            stringintervalcf23.Value = "Laadplaatmotor storing";
-            stringintervalcf24.End = 23D;
-            stringintervalcf24.Start = 23D;
-            stringintervalcf24.Value = "Communicatiefout laadplaatmotor";
-            stringintervalcf25.End = 24D;
-            stringintervalcf25.Start = 24D;
-            stringintervalcf25.Value = "Noodcircuit uitschakeling tijdens cyclus";
-            stringintervalcf26.End = 25D;
-            stringintervalcf26.Start = 25D;
-            stringintervalcf26.Value = "Noodcircuit actief";
-            stringintervalcf27.End = 26D;
-            stringintervalcf27.Start = 26D;
-            stringintervalcf27.Value = "IBD-motor niet gekalibreerd";
-            stringintervalcf28.End = 27D;
-            stringintervalcf28.Start = 27D;
-            stringintervalcf28.Value = "IBD-motor storing";
-            stringintervalcf29.End = 28D;
-            stringintervalcf29.Start = 28D;
-            stringintervalcf29.Value = "Communicatiefout IBD-motor";
-            stringintervalcf30.End = 29D;
-            stringintervalcf30.Start = 29D;
-            stringintervalcf30.Value = "Printlint fout";
-            stringintervalcf31.End = 30D;
-            stringintervalcf31.Start = 30D;
-            stringintervalcf31.Value = "Onderhoud printer vereist";
-            stringintervalcf32.End = 31D;
-            stringintervalcf32.Start = 31D;
-            stringintervalcf32.Value = "Bekken konden niet openen";
-            stringintervalcf33.End = 32D;
-            stringintervalcf33.Start = 32D;
-            stringintervalcf33.Value = "IBD kon niet sluiten";
-            stringintervalcf34.End = 33D;
-            stringintervalcf34.Start = 33D;
-            stringintervalcf34.Value = "IBD kon niet openen";
-            stringintervalcf35.End = 34D;
-            stringintervalcf35.Start = 34D;
-            stringintervalcf35.Value = "Verpakkingsmachine in standby – Druk op reset";
-            stringintervalcf36.End = 35D;
-            stringintervalcf36.Start = 35D;
-            stringintervalcf36.Value = "Communicatiefout folietoevoer motor";
-            stringintervalcf37.End = 36D;
-            stringintervalcf37.Start = 36D;
-            stringintervalcf37.Value = "";
-            stringintervalcf38.End = 37D;
-            stringintervalcf38.Start = 37D;
-            stringintervalcf38.Value = "";
-            stringintervalcf39.End = 38D;
-            stringintervalcf39.Start = 38D;
-            stringintervalcf39.Value = "";
-            stringintervalmappercf1.Intervals.Add(stringintervalcf1);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf2);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf3);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf4);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf5);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf6);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf7);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf8);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf9);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf10);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf11);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf12);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf13);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf14);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf15);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf16);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf17);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf18);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf19);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf20);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf21);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf22);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf23);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf24);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf25);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf26);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf27);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf28);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf29);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf30);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf31);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf32);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf33);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf34);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf35);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf36);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf37);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf38);
-            stringintervalmappercf1.Intervals.Add(stringintervalcf39);
-            this.m_Text.TextIntervalMapper = stringintervalmappercf1;
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 230;
             this.m_Text.VisibleDynamicsValue = true;
@@ -487,7 +302,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
             this.m_Button.SymbolName = "home (1)";
             this.m_Button.SymbolWidth = 44;
-            this.m_Button.TextHeight = 11;
+            this.m_Button.TextHeight = 10;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 50;
             this.m_Button.Top = 61;
@@ -515,7 +330,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "BaseTemplate";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button3.TextHeight = 24;
+            this.m_Button3.TextHeight = 23;
             this.m_Button3.TextValue = 0D;
             this.m_Button3.TextWidth = 57;
             this.m_Button3.Top = 226;
@@ -575,7 +390,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper4;
             this.m_Button1.SymbolName = "touchscreen";
             this.m_Button1.SymbolWidth = 44;
-            this.m_Button1.TextHeight = 11;
+            this.m_Button1.TextHeight = 10;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 50;
             this.m_Button1.Top = 122;
@@ -605,7 +420,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button5.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button5.SymbolName = "security";
             this.m_Button5.SymbolWidth = 44;
-            this.m_Button5.TextHeight = 11;
+            this.m_Button5.TextHeight = 10;
             this.m_Button5.TextValue = 0D;
             this.m_Button5.TextWidth = 50;
             this.m_Button5.Top = 0;
@@ -635,7 +450,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper6;
             this.m_Button4.SymbolName = "padlock";
             this.m_Button4.SymbolWidth = 32;
-            this.m_Button4.TextHeight = 11;
+            this.m_Button4.TextHeight = 10;
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 50;
             this.m_Button4.Top = 0;
@@ -681,7 +496,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper7;
             this.m_Button2.SymbolName = "alarm";
             this.m_Button2.SymbolWidth = 16;
-            this.m_Button2.TextHeight = 11;
+            this.m_Button2.TextHeight = 10;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 25;
             this.m_Button2.Top = 230;
@@ -695,15 +510,18 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.AutoSize = false;
             this.m_Text1.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text1.BlinkDynamicsValue = false;
+            this.m_Text1.Bold = true;
             this.m_Text1.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text1.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
+            messagelibrarydynamicsconvertercf2.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf2.MessageLibraryGroupResolver = messagelibrarygroupresolver2;
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontFamily = "Arial";
             this.m_Text1.FontSizePixels = 14;
             this.m_Text1.Foreground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.m_Text1.Height = 37;
-            this.m_Text1.Left = 81;
+            this.m_Text1.Left = 80;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text1.ScreenOwnerName = "BaseTemplate";
@@ -844,17 +662,20 @@ namespace Neo.ApplicationFramework.Generated {
         }
         
         private void m_Button2_Action_Click(object sender, System.EventArgs e) {
-            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button2", "Click", "Show Screen", "Faults", "Page_0", "");
-            Neo.ApplicationFramework.Generated.Globals.Faults.Page_0.Show();
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button2", "Click", "Show Screen", "Faults", "Default", "");
+            Neo.ApplicationFramework.Generated.Globals.Faults.Show();
+        }
+        
+        private void m_Text1_Action_MouseUp(object sender, System.EventArgs e) {
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Text1", "MouseUp", "Show Screen", "Faults", "Default", "");
+            Neo.ApplicationFramework.Generated.Globals.Faults.Show();
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(BaseTemplate));
-            this.m_Text.Text = resources.GetText("BaseTemplate.Text.Text", "Text");
             this.m_Button3.Text = resources.GetText("BaseTemplate.Button3.Text", "Reset");
             this.m_Button9.Text = resources.GetText("BaseTemplate.Button9.Text", "Cycle");
-            resources.ApplyTexts(this.m_Text, "Texts", "BaseTemplate.Text.Texts[0]", "Bagger Not Ready To Cycle", "BaseTemplate.Text.Texts[1]", "Bagger Ready To Cycle", "BaseTemplate.Text.Texts[2]", "Bagger In Cycle", "BaseTemplate.Text.Texts[3]", "No Bag Covering Eye", "BaseTemplate.Text.Texts[4]", "Bag Failed To Seperate", "BaseTemplate.Text.Texts[5]", "Pressure Bar Obstruction", "BaseTemplate.Text.Texts[6]", "Light Curtain Violation", "BaseTemplate.Text.Texts[7]", "Print Head Failed To Raise", "BaseTemplate.Text.Texts[8]", "Print Head Failed To Lower", "BaseTemplate.Text.Texts[9]", "Bar Code Fault", "BaseTemplate.Text.Texts[10]", "Too Many Parts Counted", "BaseTemplate.Text.Texts[11]", "Jaw Failed To Close", "BaseTemplate.Text.Texts[12]", "Film Feed Motor Fault", "BaseTemplate.Text.Texts[13]", "Jaw Motion Fault", "BaseTemplate.Text.Texts[14]", "Jaw Failed To Home", "BaseTemplate.Text.Texts[15]", "Waiting On Printer", "BaseTemplate.Text.Texts[16]", "Waiting On Filler", "BaseTemplate.Text.Texts[17]", "Batch Count Done", "BaseTemplate.Text.Texts[18]", "Jaw Not Homed", "BaseTemplate.Text.Texts[19]", "Cycle Bagger To Active Filler", "BaseTemplate.Text.Texts[20]", "Machine Not Tested", "BaseTemplate.Text.Texts[21]", "Load Plate Motor Not Homed", "BaseTemplate.Text.Texts[22]", "Load Plate Motor Faulted", "BaseTemplate.Text.Texts[23]", "Load Plate Motor Comm. Fault", "BaseTemplate.Text.Texts[24]", "Safe Power Off During Cycle", "BaseTemplate.Text.Texts[25]", "Safe Power Off", "BaseTemplate.Text.Texts[26]", "IBD Motor Not Homed", "BaseTemplate.Text.Texts[27]", "IBD Motor Faulted", "BaseTemplate.Text.Texts[28]", "IBD Motor Comm. Fault", "BaseTemplate.Text.Texts[29]", "Printer Ribbon Fault", "BaseTemplate.Text.Texts[30]", "Printer Service Requested", "BaseTemplate.Text.Texts[31]", "Jaw Failed To Open", "BaseTemplate.Text.Texts[32]", "IBD Failed To Close", "BaseTemplate.Text.Texts[33]", "IBD Failed To Open ", "BaseTemplate.Text.Texts[34]", "Bagger in Standby - Press Reset", "BaseTemplate.Text.Texts[35]", "Film Feed Motor Comm. Fault", "BaseTemplate.Text.Texts[36]", "----", "BaseTemplate.Text.Texts[37]", "----", "BaseTemplate.Text.Texts[38]", "----");
             this.ApplyResourcesOnForm();
         }
         
@@ -885,7 +706,7 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override void ConnectDataBindings() {
             base.ConnectDataBindings();
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_bannerMessageIndication"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_bannerMessageIndication"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf1);
             this.m_Text.DataBindings.Add(dynamicBinding1);
             this.m_DynamicBindings.Add(dynamicBinding1);
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Background", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_bannerMessageIndication"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, brushdynamicsconvertercf1);
@@ -915,7 +736,7 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding10 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("EnabledDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_faultActive"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);
             this.m_Button2.DataBindings.Add(dynamicBinding10);
             this.m_DynamicBindings.Add(dynamicBinding10);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding11 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_faultMessage"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, Neo.ApplicationFramework.Common.Dynamics.RawConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding11 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_bannerMessageIndication"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf2);
             this.m_Text1.DataBindings.Add(dynamicBinding11);
             this.m_DynamicBindings.Add(dynamicBinding11);
             Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding12 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("VisibleDynamicsValue", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_faultActive"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.BoolDynamicsConverterCF.TrueValueOne);

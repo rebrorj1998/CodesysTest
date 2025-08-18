@@ -391,7 +391,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text24.DelayMouseInputPeriod = 0;
             this.m_Text24.EnabledDynamicsValue = true;
             this.m_Text24.FontSizePixels = 16;
-            this.m_Text24.Height = 21;
+            this.m_Text24.Height = 25;
             this.m_Text24.Left = 211;
             this.m_Text24.Name = "m_Text24";
             this.m_Text24.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -400,7 +400,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text24.TextVerticalAlignment = "Center";
             this.m_Text24.Top = 6;
             this.m_Text24.VisibleDynamicsValue = true;
-            this.m_Text24.Width = 82;
+            this.m_Text24.Width = 101;
             // 
             // m_Button2
             // 
@@ -422,7 +422,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper1;
             this.m_Button2.SymbolName = "br_arrow left8";
             this.m_Button2.SymbolWidth = 12;
-            this.m_Button2.TextHeight = 11;
+            this.m_Button2.TextHeight = 10;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 24;
             this.m_Button2.Top = 28;
@@ -451,7 +451,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button3.SymbolName = "br_arrow right8";
             this.m_Button3.SymbolWidth = 12;
-            this.m_Button3.TextHeight = 11;
+            this.m_Button3.TextHeight = 10;
             this.m_Button3.TextValue = 0D;
             this.m_Button3.TextWidth = 24;
             this.m_Button3.Top = 28;

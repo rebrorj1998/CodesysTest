@@ -44,6 +44,8 @@
         <Item Target="Advanced_P5.TouchComboBox" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P5.Text8" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="Advanced_P5.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.AnalogNumeric8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Text9" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
@@ -57,6 +59,7 @@
         <Item Target="Advanced_P5.Group3.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedPrintMotionProfile_deceleration" />
         <Item Target="Advanced_P5.Group3.AnalogNumeric7" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedPrintMotionProfile_acceleration" />
         <Item Target="Advanced_P5.TouchComboBox" TargetProperty="Value" Source="Tags.Language_Selector" />
+        <Item Target="Advanced_P5.AnalogNumeric8" TargetProperty="Value" Source="Tags.Application_HMIData_reverseOffset" />
       </Items>
     </Category>
     <Category Name="InvalidAction">
@@ -78,7 +81,7 @@
           <Details>
             <Detail>
               <Key>Label</Key>
-              <Value>9</Value>
+              <Value>10</Value>
             </Detail>
             <Detail>
               <Key>Button</Key>
@@ -86,11 +89,11 @@
             </Detail>
             <Detail>
               <Key>AnalogNumericFX</Key>
-              <Value>8</Value>
+              <Value>9</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
-              <Value>14</Value>
+              <Value>16</Value>
             </Detail>
             <Detail>
               <Key>TouchComboBoxHost</Key>
@@ -122,7 +125,7 @@
         <Item xsi:type="ActionItem" Target="Advanced_P5.Button4" TargetProperty="Actions" Source="Advanced_P4" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ActionItem" Target="Advanced_P5.Button" TargetProperty="Actions" Source="Status" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>34</ObjectsCount>
+          <ObjectsCount>38</ObjectsCount>
           <ScreenName>Advanced_P5</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">

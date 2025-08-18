@@ -27,7 +27,6 @@
     </Category>
     <Category Name="Font">
       <Items>
-        <Item Target="BaseTemplate.Text" TargetProperty="FontFamily" Source="Arial" />
         <Item Target="BaseTemplate.Button3" TargetProperty="FontFamily" Source="Arial" />
         <Item Target="BaseTemplate.Button9" TargetProperty="FontFamily" Source="Arial" />
         <Item Target="BaseTemplate.Button1" TargetProperty="FontFamily" Source="Tahoma" />
@@ -35,22 +34,23 @@
         <Item Target="BaseTemplate.Group.Button4" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="BaseTemplate.Group.Button5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="BaseTemplate.Button2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="BaseTemplate.Text" TargetProperty="FontFamily" Source="Arial" />
         <Item Target="BaseTemplate.Text1" TargetProperty="FontFamily" Source="Arial" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="BaseTemplate.Text" TargetProperty="Value" Source="Tags.Application_HMIData_bannerMessageIndication" />
-        <Item Target="BaseTemplate.Text" TargetProperty="Background" Source="Tags.Application_HMIData_bannerMessageIndication" />
-        <Item Target="BaseTemplate.Text" TargetProperty="Foreground" Source="Tags.Application_HMIData_bannerMessageIndication" />
-        <Item Target="BaseTemplate.Text" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_faultActive" />
         <Item Target="BaseTemplate.Button3" TargetProperty="Value" Source="Tags.Application_HMIData_ackAllFaults" />
         <Item Target="BaseTemplate.Button9" TargetProperty="Value" Source="Tags.Application_HMIData_initiateCycle" />
         <Item Target="BaseTemplate.Group.Button4" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.SystemTagCurrentUser" />
         <Item Target="BaseTemplate.Group.Button5" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.SystemTagCurrentUser" />
         <Item Target="BaseTemplate.Button2" TargetProperty="Value" Source="Tags.Application_HMIData_faultActive" />
         <Item Target="BaseTemplate.Button2" TargetProperty="EnabledProperties.EnabledDynamicsValue" Source="Tags.Application_HMIData_faultActive" />
-        <Item Target="BaseTemplate.Text1" TargetProperty="Text" Source="Tags.Application_HMIData_faultMessage" />
+        <Item Target="BaseTemplate.Text" TargetProperty="Text" Source="Tags.Application_HMIData_bannerMessageIndication" />
+        <Item Target="BaseTemplate.Text" TargetProperty="Background" Source="Tags.Application_HMIData_bannerMessageIndication" />
+        <Item Target="BaseTemplate.Text" TargetProperty="Foreground" Source="Tags.Application_HMIData_bannerMessageIndication" />
+        <Item Target="BaseTemplate.Text" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_faultActive" />
+        <Item Target="BaseTemplate.Text1" TargetProperty="Text" Source="Tags.Application_HMIData_bannerMessageIndication" />
         <Item Target="BaseTemplate.Text1" TargetProperty="BlinkProperties.VisibleDynamicsValue" Source="Tags.Application_HMIData_faultActive" />
       </Items>
     </Category>
@@ -76,12 +76,12 @@
               <Value>1</Value>
             </Detail>
             <Detail>
-              <Key>Label</Key>
-              <Value>2</Value>
-            </Detail>
-            <Detail>
               <Key>Button</Key>
               <Value>7</Value>
+            </Detail>
+            <Detail>
+              <Key>Label</Key>
+              <Value>2</Value>
             </Detail>
           </Details>
         </Item>
@@ -104,12 +104,13 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="BaseTemplate.Text" TargetProperty="Actions" Source="Faults" Event="MouseUp" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Button1" TargetProperty="Actions" Source="Dashboard" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Button" TargetProperty="Actions" Source="Home" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Group.Button4" TargetProperty="Actions" Source="ConfirmLogout" Event="Click" Action="Show Screen" Param="Default" />
         <Item xsi:type="ActionItem" Target="BaseTemplate.Group.Button5" TargetProperty="Actions" Source="Login" Event="Click" Action="Show Screen" Param="Default" />
-        <Item xsi:type="ActionItem" Target="BaseTemplate.Button2" TargetProperty="Actions" Source="Faults" Event="Click" Action="Show Screen" Param="Page_0" />
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Button2" TargetProperty="Actions" Source="Faults" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Text" TargetProperty="Actions" Source="Faults" Event="MouseUp" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="BaseTemplate.Text1" TargetProperty="Actions" Source="Faults" Event="MouseUp" Action="Show Screen" Param="Default" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
           <ObjectsCount>10</ObjectsCount>
           <ScreenName>BaseTemplate</ScreenName>
@@ -143,7 +144,10 @@
       <Items />
     </Category>
     <Category Name="TextLibrary">
-      <Items />
+      <Items>
+        <Item xsi:type="TextLibraryItem" Target="BaseTemplate.Text" TargetProperty="Text" Source="MessageList" />
+        <Item xsi:type="TextLibraryItem" Target="BaseTemplate.Text1" TargetProperty="Text" Source="FaultList" />
+      </Items>
     </Category>
     <Category Name="TrendViewer">
       <Items />

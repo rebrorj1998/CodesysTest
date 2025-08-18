@@ -90,7 +90,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Kaak sluiten">
+        <nacd1:StringIntervalMapper DefaultValue="Close Jaw">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Close Jaw" />
@@ -306,7 +306,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="Kaak openen">
+        <nacd1:StringIntervalMapper DefaultValue="Open Jaw">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Open Jaw" />

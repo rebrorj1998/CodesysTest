@@ -26,27 +26,13 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.Button m_Button1;
         
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text8;
-        
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text;
-        
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text6;
         
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text1;
         
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text4;
-        
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text7;
         
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text5;
-        
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text9;
-        
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text10;
-        
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text11;
-        
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text12;
         
         private Neo.ApplicationFramework.Controls.Controls.Label m_Text3;
         
@@ -54,25 +40,11 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture;
         
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture1;
-        
         private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture2;
         
         private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture3;
         
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture9;
-        
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture10;
-        
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture11;
-        
         private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture12;
-        
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture13;
-        
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture14;
-        
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture15;
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle;
         
@@ -81,26 +53,6 @@ namespace Neo.ApplicationFramework.Generated {
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle2;
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle3;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle4;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle5;
-        
-        private Neo.ApplicationFramework.Controls.Controls.Label m_Text13;
-        
-        private Neo.ApplicationFramework.Controls.Symbol.SymbolCF m_MultiPicture4;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle6;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle7;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle8;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle9;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle10;
-        
-        private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle11;
         
         private bool m_Initialized_IO_P2;
         
@@ -123,21 +75,9 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text8 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text8);
-            }
-        }
-        
         protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text6 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text6);
             }
         }
         
@@ -147,45 +87,15 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text4 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text4);
-            }
-        }
-        
         protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text7 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text7);
             }
         }
         
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text5 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text5);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text9 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text9);
-            }
-        }
-        
         protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text10 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text10);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text11 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text11);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text12 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text12);
             }
         }
         
@@ -207,12 +117,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture1 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture1);
-            }
-        }
-        
         protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture2 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture2);
@@ -225,45 +129,9 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture9 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture9);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture10 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture10);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture11 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture11);
-            }
-        }
-        
         protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture12 {
             get {
                 return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture12);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture13 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture13);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture14 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture14);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture15 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture15);
             }
         }
         
@@ -291,66 +159,6 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle4 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle4);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle5 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle5);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter Text13 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.TextControlCFAdapter>(this.m_Text13);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter MultiPicture4 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.RenderableCFAdapter>(this.m_MultiPicture4);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle6 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle6);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle7 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle7);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle8 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle8);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle9 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle9);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle10 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle10);
-            }
-        }
-        
-        protected Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter Rectangle11 {
-            get {
-                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ShapeCFAdapter>(this.m_Rectangle11);
-            }
-        }
-        
         private void InitializeComponent() {
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper2 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
@@ -374,114 +182,34 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem7 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
             Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval8 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
             Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem8 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper7 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval9 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem9 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval10 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem10 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper8 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval11 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem11 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval12 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem12 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper9 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval13 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem13 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval14 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem14 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper10 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval15 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem15 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval16 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem16 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper11 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval17 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem17 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval18 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem18 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper12 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval19 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem19 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval20 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem20 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper13 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval21 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem21 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval22 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem22 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper14 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval23 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem23 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
-            Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval24 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
-            Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem24 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
             this.m_Button = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Button1 = new Neo.ApplicationFramework.Controls.Controls.Button();
-            this.m_Text8 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Text6 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text1 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Text4 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text7 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Text5 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Text9 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text10 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Text11 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_Text12 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text3 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text2 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_MultiPicture = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture1 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
             this.m_MultiPicture2 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
             this.m_MultiPicture3 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture9 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture10 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture11 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
             this.m_MultiPicture12 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture13 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture14 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_MultiPicture15 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
             this.m_Rectangle = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle1 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle2 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle3 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle4 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle5 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Text13 = new Neo.ApplicationFramework.Controls.Controls.Label();
-            this.m_MultiPicture4 = new Neo.ApplicationFramework.Controls.Symbol.SymbolCF();
-            this.m_Rectangle6 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle7 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle8 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle9 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle10 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
-            this.m_Rectangle11 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture4)).BeginInit();
             this.SuspendLayout();
             // 
             // IO_P2
@@ -510,7 +238,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
             this.m_Button.SymbolName = "ag_arrow right green";
             this.m_Button.SymbolWidth = 37;
-            this.m_Button.TextHeight = 11;
+            this.m_Button.TextHeight = 10;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 50;
             this.m_Button.Top = 0;
@@ -540,7 +268,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button1.SymbolName = "ag_arrow left green";
             this.m_Button1.SymbolWidth = 37;
-            this.m_Button1.TextHeight = 11;
+            this.m_Button1.TextHeight = 10;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 50;
             this.m_Button1.Top = 0;
@@ -549,25 +277,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.VisualPropertiesHashCode = 629769305;
             this.m_Button1.Width = 60;
             // 
-            // m_Text8
-            // 
-            this.m_Text8.AutoSize = false;
-            this.m_Text8.BlinkDynamicsValue = false;
-            this.m_Text8.Bold = true;
-            this.m_Text8.DelayMouseInputPeriod = 0;
-            this.m_Text8.EnabledDynamicsValue = true;
-            this.m_Text8.FontSizePixels = 10;
-            this.m_Text8.Height = 26;
-            this.m_Text8.Left = 282;
-            this.m_Text8.Name = "m_Text8";
-            this.m_Text8.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text8.ScreenOwnerName = "IO_P2";
-            this.m_Text8.TextVerticalAlignment = "Center";
-            this.m_Text8.Top = 147;
-            this.m_Text8.VisibleDynamicsValue = true;
-            this.m_Text8.Width = 161;
-            this.m_Text8.WordWrap = true;
-            // 
             // m_Text
             // 
             this.m_Text.BlinkDynamicsValue = false;
@@ -575,7 +284,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 25;
             this.m_Text.Left = 240;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -584,26 +293,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 45;
-            // 
-            // m_Text6
-            // 
-            this.m_Text6.AutoSize = false;
-            this.m_Text6.BlinkDynamicsValue = false;
-            this.m_Text6.Bold = true;
-            this.m_Text6.DelayMouseInputPeriod = 0;
-            this.m_Text6.EnabledDynamicsValue = true;
-            this.m_Text6.FontSizePixels = 10;
-            this.m_Text6.Height = 26;
-            this.m_Text6.Left = 282;
-            this.m_Text6.Name = "m_Text6";
-            this.m_Text6.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text6.ScreenOwnerName = "IO_P2";
-            this.m_Text6.TextVerticalAlignment = "Center";
-            this.m_Text6.Top = 90;
-            this.m_Text6.VisibleDynamicsValue = true;
-            this.m_Text6.Width = 161;
-            this.m_Text6.WordWrap = true;
+            this.m_Text.Width = 56;
             // 
             // m_Text1
             // 
@@ -612,7 +302,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 25;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -621,26 +311,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 25;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
-            // 
-            // m_Text4
-            // 
-            this.m_Text4.AutoSize = false;
-            this.m_Text4.BlinkDynamicsValue = false;
-            this.m_Text4.Bold = true;
-            this.m_Text4.DelayMouseInputPeriod = 0;
-            this.m_Text4.EnabledDynamicsValue = true;
-            this.m_Text4.FontSizePixels = 10;
-            this.m_Text4.Height = 26;
-            this.m_Text4.Left = 282;
-            this.m_Text4.Name = "m_Text4";
-            this.m_Text4.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text4.ScreenOwnerName = "IO_P2";
-            this.m_Text4.TextVerticalAlignment = "Center";
-            this.m_Text4.Top = 63;
-            this.m_Text4.VisibleDynamicsValue = true;
-            this.m_Text4.Width = 161;
-            this.m_Text4.WordWrap = true;
+            this.m_Text1.Width = 28;
             // 
             // m_Text7
             // 
@@ -659,47 +330,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text7.TextVerticalAlignment = "Center";
             this.m_Text7.Top = 146;
             this.m_Text7.VisibleDynamicsValue = true;
-            this.m_Text7.Width = 189;
+            this.m_Text7.Width = 227;
             this.m_Text7.WordWrap = true;
-            // 
-            // m_Text5
-            // 
-            this.m_Text5.AutoSize = false;
-            this.m_Text5.BlinkDynamicsValue = false;
-            this.m_Text5.Bold = true;
-            this.m_Text5.DelayMouseInputPeriod = 0;
-            this.m_Text5.EnabledDynamicsValue = true;
-            this.m_Text5.FontSizePixels = 10;
-            this.m_Text5.Height = 26;
-            this.m_Text5.Left = 80;
-            this.m_Text5.MultiLine = true;
-            this.m_Text5.Name = "m_Text5";
-            this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text5.ScreenOwnerName = "IO_P2";
-            this.m_Text5.TextVerticalAlignment = "Center";
-            this.m_Text5.Top = 202;
-            this.m_Text5.VisibleDynamicsValue = true;
-            this.m_Text5.Width = 189;
-            this.m_Text5.WordWrap = true;
-            // 
-            // m_Text9
-            // 
-            this.m_Text9.AutoSize = false;
-            this.m_Text9.BlinkDynamicsValue = false;
-            this.m_Text9.Bold = true;
-            this.m_Text9.DelayMouseInputPeriod = 0;
-            this.m_Text9.EnabledDynamicsValue = true;
-            this.m_Text9.FontSizePixels = 10;
-            this.m_Text9.Height = 26;
-            this.m_Text9.Left = 282;
-            this.m_Text9.Name = "m_Text9";
-            this.m_Text9.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text9.ScreenOwnerName = "IO_P2";
-            this.m_Text9.TextVerticalAlignment = "Center";
-            this.m_Text9.Top = 175;
-            this.m_Text9.VisibleDynamicsValue = true;
-            this.m_Text9.Width = 161;
-            this.m_Text9.WordWrap = true;
             // 
             // m_Text10
             // 
@@ -721,45 +353,6 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text10.Width = 189;
             this.m_Text10.WordWrap = true;
             // 
-            // m_Text11
-            // 
-            this.m_Text11.AutoSize = false;
-            this.m_Text11.BlinkDynamicsValue = false;
-            this.m_Text11.Bold = true;
-            this.m_Text11.DelayMouseInputPeriod = 0;
-            this.m_Text11.EnabledDynamicsValue = true;
-            this.m_Text11.FontSizePixels = 10;
-            this.m_Text11.Height = 29;
-            this.m_Text11.Left = 80;
-            this.m_Text11.MultiLine = true;
-            this.m_Text11.Name = "m_Text11";
-            this.m_Text11.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text11.ScreenOwnerName = "IO_P2";
-            this.m_Text11.TextVerticalAlignment = "Center";
-            this.m_Text11.Top = 172;
-            this.m_Text11.VisibleDynamicsValue = true;
-            this.m_Text11.Width = 189;
-            this.m_Text11.WordWrap = true;
-            // 
-            // m_Text12
-            // 
-            this.m_Text12.AutoSize = false;
-            this.m_Text12.BlinkDynamicsValue = false;
-            this.m_Text12.Bold = true;
-            this.m_Text12.DelayMouseInputPeriod = 0;
-            this.m_Text12.EnabledDynamicsValue = true;
-            this.m_Text12.FontSizePixels = 10;
-            this.m_Text12.Height = 26;
-            this.m_Text12.Left = 282;
-            this.m_Text12.Name = "m_Text12";
-            this.m_Text12.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text12.ScreenOwnerName = "IO_P2";
-            this.m_Text12.TextVerticalAlignment = "Center";
-            this.m_Text12.Top = 119;
-            this.m_Text12.VisibleDynamicsValue = true;
-            this.m_Text12.Width = 161;
-            this.m_Text12.WordWrap = true;
-            // 
             // m_Text3
             // 
             this.m_Text3.AutoSize = false;
@@ -777,7 +370,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.TextVerticalAlignment = "Center";
             this.m_Text3.Top = 88;
             this.m_Text3.VisibleDynamicsValue = true;
-            this.m_Text3.Width = 189;
+            this.m_Text3.Width = 217;
             this.m_Text3.WordWrap = true;
             // 
             // m_Text2
@@ -806,7 +399,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture.DelayMouseInputPeriod = 0;
             this.m_MultiPicture.EnabledDynamicsValue = true;
             this.m_MultiPicture.Height = 26;
-            this.m_MultiPicture.Left = 249;
+            this.m_MultiPicture.Left = 287;
             this.m_MultiPicture.Name = "m_MultiPicture";
             this.m_MultiPicture.ScreenOwnerName = "IO_P2";
             this.m_MultiPicture.Stretch = true;
@@ -827,16 +420,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture.VisibleDynamicsValue = true;
             this.m_MultiPicture.Width = 20;
             // 
-            // m_MultiPicture1
+            // m_MultiPicture2
             // 
-            this.m_MultiPicture1.BlinkDynamicsValue = false;
-            this.m_MultiPicture1.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture1.EnabledDynamicsValue = true;
-            this.m_MultiPicture1.Height = 26;
-            this.m_MultiPicture1.Left = 249;
-            this.m_MultiPicture1.Name = "m_MultiPicture1";
-            this.m_MultiPicture1.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture1.Stretch = true;
+            this.m_MultiPicture2.BlinkDynamicsValue = false;
+            this.m_MultiPicture2.DelayMouseInputPeriod = 0;
+            this.m_MultiPicture2.EnabledDynamicsValue = true;
+            this.m_MultiPicture2.Height = 26;
+            this.m_MultiPicture2.Left = 287;
+            this.m_MultiPicture2.Name = "m_MultiPicture2";
+            this.m_MultiPicture2.ScreenOwnerName = "IO_P2";
+            this.m_MultiPicture2.Stretch = true;
             multisymbolitem3.SymbolName = "led_green_off";
             multisymbolitem3.Transparent = false;
             symbolinterval3.Value = multisymbolitem3;
@@ -847,34 +440,7 @@ namespace Neo.ApplicationFramework.Generated {
             symbolinterval4.Value = multisymbolitem4;
             symbolintervalmapper4.Intervals.Add(symbolinterval3);
             symbolintervalmapper4.Intervals.Add(symbolinterval4);
-            this.m_MultiPicture1.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_MultiPicture1.SymbolName = "led_green_off";
-            this.m_MultiPicture1.Top = 174;
-            this.m_MultiPicture1.Value = 0D;
-            this.m_MultiPicture1.VisibleDynamicsValue = true;
-            this.m_MultiPicture1.Width = 20;
-            // 
-            // m_MultiPicture2
-            // 
-            this.m_MultiPicture2.BlinkDynamicsValue = false;
-            this.m_MultiPicture2.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture2.EnabledDynamicsValue = true;
-            this.m_MultiPicture2.Height = 26;
-            this.m_MultiPicture2.Left = 249;
-            this.m_MultiPicture2.Name = "m_MultiPicture2";
-            this.m_MultiPicture2.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture2.Stretch = true;
-            multisymbolitem5.SymbolName = "led_green_off";
-            multisymbolitem5.Transparent = false;
-            symbolinterval5.Value = multisymbolitem5;
-            symbolinterval6.End = 1D;
-            symbolinterval6.Start = 1D;
-            multisymbolitem6.SymbolName = "led_green";
-            multisymbolitem6.Transparent = false;
-            symbolinterval6.Value = multisymbolitem6;
-            symbolintervalmapper5.Intervals.Add(symbolinterval5);
-            symbolintervalmapper5.Intervals.Add(symbolinterval6);
-            this.m_MultiPicture2.SymbolIntervalMapper = symbolintervalmapper5;
+            this.m_MultiPicture2.SymbolIntervalMapper = symbolintervalmapper4;
             this.m_MultiPicture2.SymbolName = "led_green_off";
             this.m_MultiPicture2.Top = 90;
             this.m_MultiPicture2.Value = 0D;
@@ -887,10 +453,37 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture3.DelayMouseInputPeriod = 0;
             this.m_MultiPicture3.EnabledDynamicsValue = true;
             this.m_MultiPicture3.Height = 26;
-            this.m_MultiPicture3.Left = 249;
+            this.m_MultiPicture3.Left = 287;
             this.m_MultiPicture3.Name = "m_MultiPicture3";
             this.m_MultiPicture3.ScreenOwnerName = "IO_P2";
             this.m_MultiPicture3.Stretch = true;
+            multisymbolitem5.SymbolName = "led_green_off";
+            multisymbolitem5.Transparent = false;
+            symbolinterval5.Value = multisymbolitem5;
+            symbolinterval6.End = 1D;
+            symbolinterval6.Start = 1D;
+            multisymbolitem6.SymbolName = "led_green";
+            multisymbolitem6.Transparent = false;
+            symbolinterval6.Value = multisymbolitem6;
+            symbolintervalmapper5.Intervals.Add(symbolinterval5);
+            symbolintervalmapper5.Intervals.Add(symbolinterval6);
+            this.m_MultiPicture3.SymbolIntervalMapper = symbolintervalmapper5;
+            this.m_MultiPicture3.SymbolName = "led_green_off";
+            this.m_MultiPicture3.Top = 118;
+            this.m_MultiPicture3.Value = 0D;
+            this.m_MultiPicture3.VisibleDynamicsValue = true;
+            this.m_MultiPicture3.Width = 20;
+            // 
+            // m_MultiPicture12
+            // 
+            this.m_MultiPicture12.BlinkDynamicsValue = false;
+            this.m_MultiPicture12.DelayMouseInputPeriod = 0;
+            this.m_MultiPicture12.EnabledDynamicsValue = true;
+            this.m_MultiPicture12.Height = 26;
+            this.m_MultiPicture12.Left = 287;
+            this.m_MultiPicture12.Name = "m_MultiPicture12";
+            this.m_MultiPicture12.ScreenOwnerName = "IO_P2";
+            this.m_MultiPicture12.Stretch = true;
             multisymbolitem7.SymbolName = "led_green_off";
             multisymbolitem7.Transparent = false;
             symbolinterval7.Value = multisymbolitem7;
@@ -901,201 +494,12 @@ namespace Neo.ApplicationFramework.Generated {
             symbolinterval8.Value = multisymbolitem8;
             symbolintervalmapper6.Intervals.Add(symbolinterval7);
             symbolintervalmapper6.Intervals.Add(symbolinterval8);
-            this.m_MultiPicture3.SymbolIntervalMapper = symbolintervalmapper6;
-            this.m_MultiPicture3.SymbolName = "led_green_off";
-            this.m_MultiPicture3.Top = 118;
-            this.m_MultiPicture3.Value = 0D;
-            this.m_MultiPicture3.VisibleDynamicsValue = true;
-            this.m_MultiPicture3.Width = 20;
-            // 
-            // m_MultiPicture9
-            // 
-            this.m_MultiPicture9.BlinkDynamicsValue = false;
-            this.m_MultiPicture9.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture9.EnabledDynamicsValue = true;
-            this.m_MultiPicture9.Height = 26;
-            this.m_MultiPicture9.Left = 451;
-            this.m_MultiPicture9.Name = "m_MultiPicture9";
-            this.m_MultiPicture9.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture9.Stretch = true;
-            multisymbolitem9.SymbolName = "led_green_off";
-            multisymbolitem9.Transparent = false;
-            symbolinterval9.Value = multisymbolitem9;
-            symbolinterval10.End = 1D;
-            symbolinterval10.Start = 1D;
-            multisymbolitem10.SymbolName = "led_green";
-            multisymbolitem10.Transparent = false;
-            symbolinterval10.Value = multisymbolitem10;
-            symbolintervalmapper7.Intervals.Add(symbolinterval9);
-            symbolintervalmapper7.Intervals.Add(symbolinterval10);
-            this.m_MultiPicture9.SymbolIntervalMapper = symbolintervalmapper7;
-            this.m_MultiPicture9.SymbolName = "led_green_off";
-            this.m_MultiPicture9.Top = 175;
-            this.m_MultiPicture9.Value = 0D;
-            this.m_MultiPicture9.VisibleDynamicsValue = true;
-            this.m_MultiPicture9.Width = 20;
-            // 
-            // m_MultiPicture10
-            // 
-            this.m_MultiPicture10.BlinkDynamicsValue = false;
-            this.m_MultiPicture10.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture10.EnabledDynamicsValue = true;
-            this.m_MultiPicture10.Height = 26;
-            this.m_MultiPicture10.Left = 451;
-            this.m_MultiPicture10.Name = "m_MultiPicture10";
-            this.m_MultiPicture10.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture10.Stretch = true;
-            multisymbolitem11.SymbolName = "led_green_off";
-            multisymbolitem11.Transparent = false;
-            symbolinterval11.Value = multisymbolitem11;
-            symbolinterval12.End = 1D;
-            symbolinterval12.Start = 1D;
-            multisymbolitem12.SymbolName = "led_green";
-            multisymbolitem12.Transparent = false;
-            symbolinterval12.Value = multisymbolitem12;
-            symbolintervalmapper8.Intervals.Add(symbolinterval11);
-            symbolintervalmapper8.Intervals.Add(symbolinterval12);
-            this.m_MultiPicture10.SymbolIntervalMapper = symbolintervalmapper8;
-            this.m_MultiPicture10.SymbolName = "led_green_off";
-            this.m_MultiPicture10.Top = 147;
-            this.m_MultiPicture10.Value = 0D;
-            this.m_MultiPicture10.VisibleDynamicsValue = true;
-            this.m_MultiPicture10.Width = 20;
-            // 
-            // m_MultiPicture11
-            // 
-            this.m_MultiPicture11.BlinkDynamicsValue = false;
-            this.m_MultiPicture11.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture11.EnabledDynamicsValue = true;
-            this.m_MultiPicture11.Height = 26;
-            this.m_MultiPicture11.Left = 451;
-            this.m_MultiPicture11.Name = "m_MultiPicture11";
-            this.m_MultiPicture11.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture11.Stretch = true;
-            multisymbolitem13.SymbolName = "led_green_off";
-            multisymbolitem13.Transparent = false;
-            symbolinterval13.Value = multisymbolitem13;
-            symbolinterval14.End = 1D;
-            symbolinterval14.Start = 1D;
-            multisymbolitem14.SymbolName = "led_green";
-            multisymbolitem14.Transparent = false;
-            symbolinterval14.Value = multisymbolitem14;
-            symbolintervalmapper9.Intervals.Add(symbolinterval13);
-            symbolintervalmapper9.Intervals.Add(symbolinterval14);
-            this.m_MultiPicture11.SymbolIntervalMapper = symbolintervalmapper9;
-            this.m_MultiPicture11.SymbolName = "led_green_off";
-            this.m_MultiPicture11.Top = 119;
-            this.m_MultiPicture11.Value = 0D;
-            this.m_MultiPicture11.VisibleDynamicsValue = true;
-            this.m_MultiPicture11.Width = 20;
-            // 
-            // m_MultiPicture12
-            // 
-            this.m_MultiPicture12.BlinkDynamicsValue = false;
-            this.m_MultiPicture12.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture12.EnabledDynamicsValue = true;
-            this.m_MultiPicture12.Height = 26;
-            this.m_MultiPicture12.Left = 249;
-            this.m_MultiPicture12.Name = "m_MultiPicture12";
-            this.m_MultiPicture12.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture12.Stretch = true;
-            multisymbolitem15.SymbolName = "led_green_off";
-            multisymbolitem15.Transparent = false;
-            symbolinterval15.Value = multisymbolitem15;
-            symbolinterval16.End = 1D;
-            symbolinterval16.Start = 1D;
-            multisymbolitem16.SymbolName = "led_green";
-            multisymbolitem16.Transparent = false;
-            symbolinterval16.Value = multisymbolitem16;
-            symbolintervalmapper10.Intervals.Add(symbolinterval15);
-            symbolintervalmapper10.Intervals.Add(symbolinterval16);
-            this.m_MultiPicture12.SymbolIntervalMapper = symbolintervalmapper10;
+            this.m_MultiPicture12.SymbolIntervalMapper = symbolintervalmapper6;
             this.m_MultiPicture12.SymbolName = "led_green_off";
             this.m_MultiPicture12.Top = 146;
             this.m_MultiPicture12.Value = 0D;
             this.m_MultiPicture12.VisibleDynamicsValue = true;
             this.m_MultiPicture12.Width = 20;
-            // 
-            // m_MultiPicture13
-            // 
-            this.m_MultiPicture13.BlinkDynamicsValue = false;
-            this.m_MultiPicture13.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture13.EnabledDynamicsValue = true;
-            this.m_MultiPicture13.Height = 26;
-            this.m_MultiPicture13.Left = 249;
-            this.m_MultiPicture13.Name = "m_MultiPicture13";
-            this.m_MultiPicture13.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture13.Stretch = true;
-            multisymbolitem17.SymbolName = "led_green_off";
-            multisymbolitem17.Transparent = false;
-            symbolinterval17.Value = multisymbolitem17;
-            symbolinterval18.End = 1D;
-            symbolinterval18.Start = 1D;
-            multisymbolitem18.SymbolName = "led_green";
-            multisymbolitem18.Transparent = false;
-            symbolinterval18.Value = multisymbolitem18;
-            symbolintervalmapper11.Intervals.Add(symbolinterval17);
-            symbolintervalmapper11.Intervals.Add(symbolinterval18);
-            this.m_MultiPicture13.SymbolIntervalMapper = symbolintervalmapper11;
-            this.m_MultiPicture13.SymbolName = "led_green_off";
-            this.m_MultiPicture13.Top = 202;
-            this.m_MultiPicture13.Value = 0D;
-            this.m_MultiPicture13.VisibleDynamicsValue = true;
-            this.m_MultiPicture13.Width = 20;
-            // 
-            // m_MultiPicture14
-            // 
-            this.m_MultiPicture14.BlinkDynamicsValue = false;
-            this.m_MultiPicture14.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture14.EnabledDynamicsValue = true;
-            this.m_MultiPicture14.Height = 26;
-            this.m_MultiPicture14.Left = 451;
-            this.m_MultiPicture14.Name = "m_MultiPicture14";
-            this.m_MultiPicture14.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture14.Stretch = true;
-            multisymbolitem19.SymbolName = "led_green_off";
-            multisymbolitem19.Transparent = false;
-            symbolinterval19.Value = multisymbolitem19;
-            symbolinterval20.End = 1D;
-            symbolinterval20.Start = 1D;
-            multisymbolitem20.SymbolName = "led_green";
-            multisymbolitem20.Transparent = false;
-            symbolinterval20.Value = multisymbolitem20;
-            symbolintervalmapper12.Intervals.Add(symbolinterval19);
-            symbolintervalmapper12.Intervals.Add(symbolinterval20);
-            this.m_MultiPicture14.SymbolIntervalMapper = symbolintervalmapper12;
-            this.m_MultiPicture14.SymbolName = "led_green_off";
-            this.m_MultiPicture14.Top = 63;
-            this.m_MultiPicture14.Value = 0D;
-            this.m_MultiPicture14.VisibleDynamicsValue = true;
-            this.m_MultiPicture14.Width = 20;
-            // 
-            // m_MultiPicture15
-            // 
-            this.m_MultiPicture15.BlinkDynamicsValue = false;
-            this.m_MultiPicture15.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture15.EnabledDynamicsValue = true;
-            this.m_MultiPicture15.Height = 26;
-            this.m_MultiPicture15.Left = 451;
-            this.m_MultiPicture15.Name = "m_MultiPicture15";
-            this.m_MultiPicture15.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture15.Stretch = true;
-            multisymbolitem21.SymbolName = "led_green_off";
-            multisymbolitem21.Transparent = false;
-            symbolinterval21.Value = multisymbolitem21;
-            symbolinterval22.End = 1D;
-            symbolinterval22.Start = 1D;
-            multisymbolitem22.SymbolName = "led_green";
-            multisymbolitem22.Transparent = false;
-            symbolinterval22.Value = multisymbolitem22;
-            symbolintervalmapper13.Intervals.Add(symbolinterval21);
-            symbolintervalmapper13.Intervals.Add(symbolinterval22);
-            this.m_MultiPicture15.SymbolIntervalMapper = symbolintervalmapper13;
-            this.m_MultiPicture15.SymbolName = "led_green_off";
-            this.m_MultiPicture15.Top = 90;
-            this.m_MultiPicture15.Value = 0D;
-            this.m_MultiPicture15.VisibleDynamicsValue = true;
-            this.m_MultiPicture15.Width = 20;
             // 
             // m_Rectangle
             // 
@@ -1111,7 +515,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Rectangle.Top = 63;
             this.m_Rectangle.VisibleDynamicsValue = true;
-            this.m_Rectangle.Width = 189;
+            this.m_Rectangle.Width = 237;
             // 
             // m_Rectangle1
             // 
@@ -1127,7 +531,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle1.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Rectangle1.Top = 89;
             this.m_Rectangle1.VisibleDynamicsValue = true;
-            this.m_Rectangle1.Width = 189;
+            this.m_Rectangle1.Width = 237;
             // 
             // m_Rectangle2
             // 
@@ -1143,7 +547,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle2.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Rectangle2.Top = 117;
             this.m_Rectangle2.VisibleDynamicsValue = true;
-            this.m_Rectangle2.Width = 189;
+            this.m_Rectangle2.Width = 237;
             // 
             // m_Rectangle3
             // 
@@ -1159,181 +563,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle3.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Rectangle3.Top = 145;
             this.m_Rectangle3.VisibleDynamicsValue = true;
-            this.m_Rectangle3.Width = 189;
-            // 
-            // m_Rectangle4
-            // 
-            this.m_Rectangle4.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle4.BlinkDynamicsValue = false;
-            this.m_Rectangle4.DelayMouseInputPeriod = 0;
-            this.m_Rectangle4.EnabledDynamicsValue = true;
-            this.m_Rectangle4.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle4.Height = 29;
-            this.m_Rectangle4.Left = 80;
-            this.m_Rectangle4.Name = "m_Rectangle4";
-            this.m_Rectangle4.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle4.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle4.Top = 173;
-            this.m_Rectangle4.VisibleDynamicsValue = true;
-            this.m_Rectangle4.Width = 189;
-            // 
-            // m_Rectangle5
-            // 
-            this.m_Rectangle5.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle5.BlinkDynamicsValue = false;
-            this.m_Rectangle5.DelayMouseInputPeriod = 0;
-            this.m_Rectangle5.EnabledDynamicsValue = true;
-            this.m_Rectangle5.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle5.Height = 28;
-            this.m_Rectangle5.Left = 80;
-            this.m_Rectangle5.Name = "m_Rectangle5";
-            this.m_Rectangle5.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle5.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle5.Top = 201;
-            this.m_Rectangle5.VisibleDynamicsValue = true;
-            this.m_Rectangle5.Width = 189;
-            // 
-            // m_Text13
-            // 
-            this.m_Text13.AutoSize = false;
-            this.m_Text13.BlinkDynamicsValue = false;
-            this.m_Text13.Bold = true;
-            this.m_Text13.DelayMouseInputPeriod = 0;
-            this.m_Text13.EnabledDynamicsValue = true;
-            this.m_Text13.FontSizePixels = 10;
-            this.m_Text13.Height = 26;
-            this.m_Text13.Left = 282;
-            this.m_Text13.Name = "m_Text13";
-            this.m_Text13.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
-            this.m_Text13.ScreenOwnerName = "IO_P2";
-            this.m_Text13.TextVerticalAlignment = "Center";
-            this.m_Text13.Top = 202;
-            this.m_Text13.VisibleDynamicsValue = true;
-            this.m_Text13.Width = 161;
-            this.m_Text13.WordWrap = true;
-            // 
-            // m_MultiPicture4
-            // 
-            this.m_MultiPicture4.BlinkDynamicsValue = false;
-            this.m_MultiPicture4.DelayMouseInputPeriod = 0;
-            this.m_MultiPicture4.EnabledDynamicsValue = true;
-            this.m_MultiPicture4.Height = 26;
-            this.m_MultiPicture4.Left = 451;
-            this.m_MultiPicture4.Name = "m_MultiPicture4";
-            this.m_MultiPicture4.ScreenOwnerName = "IO_P2";
-            this.m_MultiPicture4.Stretch = true;
-            multisymbolitem23.SymbolName = "led_green_off";
-            multisymbolitem23.Transparent = false;
-            symbolinterval23.Value = multisymbolitem23;
-            symbolinterval24.End = 1D;
-            symbolinterval24.Start = 1D;
-            multisymbolitem24.SymbolName = "led_green";
-            multisymbolitem24.Transparent = false;
-            symbolinterval24.Value = multisymbolitem24;
-            symbolintervalmapper14.Intervals.Add(symbolinterval23);
-            symbolintervalmapper14.Intervals.Add(symbolinterval24);
-            this.m_MultiPicture4.SymbolIntervalMapper = symbolintervalmapper14;
-            this.m_MultiPicture4.SymbolName = "led_green_off";
-            this.m_MultiPicture4.Top = 202;
-            this.m_MultiPicture4.Value = 0D;
-            this.m_MultiPicture4.VisibleDynamicsValue = true;
-            this.m_MultiPicture4.Width = 20;
-            // 
-            // m_Rectangle6
-            // 
-            this.m_Rectangle6.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle6.BlinkDynamicsValue = false;
-            this.m_Rectangle6.DelayMouseInputPeriod = 0;
-            this.m_Rectangle6.EnabledDynamicsValue = true;
-            this.m_Rectangle6.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle6.Height = 27;
-            this.m_Rectangle6.Left = 282;
-            this.m_Rectangle6.Name = "m_Rectangle6";
-            this.m_Rectangle6.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle6.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle6.Top = 63;
-            this.m_Rectangle6.VisibleDynamicsValue = true;
-            this.m_Rectangle6.Width = 189;
-            // 
-            // m_Rectangle7
-            // 
-            this.m_Rectangle7.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle7.BlinkDynamicsValue = false;
-            this.m_Rectangle7.DelayMouseInputPeriod = 0;
-            this.m_Rectangle7.EnabledDynamicsValue = true;
-            this.m_Rectangle7.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle7.Height = 29;
-            this.m_Rectangle7.Left = 282;
-            this.m_Rectangle7.Name = "m_Rectangle7";
-            this.m_Rectangle7.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle7.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle7.Top = 89;
-            this.m_Rectangle7.VisibleDynamicsValue = true;
-            this.m_Rectangle7.Width = 189;
-            // 
-            // m_Rectangle8
-            // 
-            this.m_Rectangle8.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle8.BlinkDynamicsValue = false;
-            this.m_Rectangle8.DelayMouseInputPeriod = 0;
-            this.m_Rectangle8.EnabledDynamicsValue = true;
-            this.m_Rectangle8.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle8.Height = 29;
-            this.m_Rectangle8.Left = 282;
-            this.m_Rectangle8.Name = "m_Rectangle8";
-            this.m_Rectangle8.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle8.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle8.Top = 117;
-            this.m_Rectangle8.VisibleDynamicsValue = true;
-            this.m_Rectangle8.Width = 189;
-            // 
-            // m_Rectangle9
-            // 
-            this.m_Rectangle9.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle9.BlinkDynamicsValue = false;
-            this.m_Rectangle9.DelayMouseInputPeriod = 0;
-            this.m_Rectangle9.EnabledDynamicsValue = true;
-            this.m_Rectangle9.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle9.Height = 29;
-            this.m_Rectangle9.Left = 282;
-            this.m_Rectangle9.Name = "m_Rectangle9";
-            this.m_Rectangle9.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle9.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle9.Top = 145;
-            this.m_Rectangle9.VisibleDynamicsValue = true;
-            this.m_Rectangle9.Width = 189;
-            // 
-            // m_Rectangle10
-            // 
-            this.m_Rectangle10.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle10.BlinkDynamicsValue = false;
-            this.m_Rectangle10.DelayMouseInputPeriod = 0;
-            this.m_Rectangle10.EnabledDynamicsValue = true;
-            this.m_Rectangle10.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle10.Height = 29;
-            this.m_Rectangle10.Left = 282;
-            this.m_Rectangle10.Name = "m_Rectangle10";
-            this.m_Rectangle10.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle10.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle10.Top = 173;
-            this.m_Rectangle10.VisibleDynamicsValue = true;
-            this.m_Rectangle10.Width = 189;
-            // 
-            // m_Rectangle11
-            // 
-            this.m_Rectangle11.BitmapEffect = new Neo.ApplicationFramework.Common.Graphics.Logic.BitmapEffectCF();
-            this.m_Rectangle11.BlinkDynamicsValue = false;
-            this.m_Rectangle11.DelayMouseInputPeriod = 0;
-            this.m_Rectangle11.EnabledDynamicsValue = true;
-            this.m_Rectangle11.Fill = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF();
-            this.m_Rectangle11.Height = 28;
-            this.m_Rectangle11.Left = 282;
-            this.m_Rectangle11.Name = "m_Rectangle11";
-            this.m_Rectangle11.ScreenOwnerName = "IO_P2";
-            this.m_Rectangle11.Stroke = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
-            this.m_Rectangle11.Top = 201;
-            this.m_Rectangle11.VisibleDynamicsValue = true;
-            this.m_Rectangle11.Width = 189;
+            this.m_Rectangle3.Width = 237;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -1391,72 +621,32 @@ namespace Neo.ApplicationFramework.Generated {
             base.AddDrawingPrimitives();
             this.DrawingPrimitives.Add(this.m_Button);
             this.DrawingPrimitives.Add(this.m_Button1);
-            this.DrawingPrimitives.Add(this.m_Text8);
             this.DrawingPrimitives.Add(this.m_Text);
-            this.DrawingPrimitives.Add(this.m_Text6);
             this.DrawingPrimitives.Add(this.m_Text1);
-            this.DrawingPrimitives.Add(this.m_Text4);
             this.DrawingPrimitives.Add(this.m_Text7);
-            this.DrawingPrimitives.Add(this.m_Text5);
-            this.DrawingPrimitives.Add(this.m_Text9);
             this.DrawingPrimitives.Add(this.m_Text10);
-            this.DrawingPrimitives.Add(this.m_Text11);
-            this.DrawingPrimitives.Add(this.m_Text12);
             this.DrawingPrimitives.Add(this.m_Text3);
             this.DrawingPrimitives.Add(this.m_Text2);
             this.DrawingPrimitives.Add(this.m_MultiPicture);
-            this.DrawingPrimitives.Add(this.m_MultiPicture1);
             this.DrawingPrimitives.Add(this.m_MultiPicture2);
             this.DrawingPrimitives.Add(this.m_MultiPicture3);
-            this.DrawingPrimitives.Add(this.m_MultiPicture9);
-            this.DrawingPrimitives.Add(this.m_MultiPicture10);
-            this.DrawingPrimitives.Add(this.m_MultiPicture11);
             this.DrawingPrimitives.Add(this.m_MultiPicture12);
-            this.DrawingPrimitives.Add(this.m_MultiPicture13);
-            this.DrawingPrimitives.Add(this.m_MultiPicture14);
-            this.DrawingPrimitives.Add(this.m_MultiPicture15);
             this.DrawingPrimitives.Add(this.m_Rectangle);
             this.DrawingPrimitives.Add(this.m_Rectangle1);
             this.DrawingPrimitives.Add(this.m_Rectangle2);
             this.DrawingPrimitives.Add(this.m_Rectangle3);
-            this.DrawingPrimitives.Add(this.m_Rectangle4);
-            this.DrawingPrimitives.Add(this.m_Rectangle5);
-            this.DrawingPrimitives.Add(this.m_Text13);
-            this.DrawingPrimitives.Add(this.m_MultiPicture4);
-            this.DrawingPrimitives.Add(this.m_Rectangle6);
-            this.DrawingPrimitives.Add(this.m_Rectangle7);
-            this.DrawingPrimitives.Add(this.m_Rectangle8);
-            this.DrawingPrimitives.Add(this.m_Rectangle9);
-            this.DrawingPrimitives.Add(this.m_Rectangle10);
-            this.DrawingPrimitives.Add(this.m_Rectangle11);
             ((System.ComponentModel.ISupportInitialize)(this.m_Button)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_Text13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture4)).EndInit();
         }
         
         private void m_Button_Action_Click(object sender, System.EventArgs e) {
@@ -1465,7 +655,7 @@ namespace Neo.ApplicationFramework.Generated {
         }
         
         private void m_Button1_Action_Click(object sender, System.EventArgs e) {
-            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button1", "Click", "Show Screen", "IO_P1", "Default", "");
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button1", "Click", "Show Screen", "IO_P1", "");
             Neo.ApplicationFramework.Generated.Globals.IO_P1.Show();
         }
         
@@ -1473,19 +663,11 @@ namespace Neo.ApplicationFramework.Generated {
         private void ApplyLanguageInternal() {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(IO_P2));
             this.m_Text.Text = resources.GetText("IO_P2.Text.Text", "Outputs");
-            this.m_Text1.Text = resources.GetText("IO_P2.Text1.Text", "2/3");
-            this.m_Text8.Text = resources.GetText("IO_P2.Text8.Text", "O:1/09 Palm State 0");
-            this.m_Text6.Text = resources.GetText("IO_P2.Text6.Text", "O:1/07 Spare");
-            this.m_Text4.Text = resources.GetText("IO_P2.Text4.Text", "O:1/06 Fans Enable");
-            this.m_Text7.Text = resources.GetText("IO_P2.Text7.Text", "O:1/03 Ribbon Unwind");
-            this.m_Text5.Text = resources.GetText("IO_P2.Text5.Text", "O:1/05 Teach Photoeye");
-            this.m_Text9.Text = resources.GetText("IO_P2.Text9.Text", "O:1/10 Palm State 1");
-            this.m_Text10.Text = resources.GetText("IO_P2.Text10.Text", "O:1/02 Request Print");
-            this.m_Text11.Text = resources.GetText("IO_P2.Text11.Text", "O:1/04 Trigger Barcode");
-            this.m_Text12.Text = resources.GetText("IO_P2.Text12.Text", "O:1/08 Ready for Filler");
-            this.m_Text3.Text = resources.GetText("IO_P2.Text3.Text", "O:1/01 Lower Printhead");
-            this.m_Text2.Text = resources.GetText("IO_P2.Text2.Text", "O:1/00 Seal Wire");
-            this.m_Text13.Text = resources.GetText("IO_P2.Text13.Text", "O:1/11 Spare");
+            this.m_Text1.Text = resources.GetText("IO_P2.Text1.Text", "2/4");
+            this.m_Text2.Text = resources.GetText("IO_P2.Text2.Text", "O:0/12 Pbar Clamp Motor Reverse");
+            this.m_Text3.Text = resources.GetText("IO_P2.Text3.Text", "O:0/13 Pbar Clamp Motor Alarm Reset");
+            this.m_Text10.Text = resources.GetText("IO_P2.Text10.Text", "O:0/14 Spare");
+            this.m_Text7.Text = resources.GetText("IO_P2.Text7.Text", "O:0/15 Spare");
             this.ApplyResourcesOnForm();
         }
         
@@ -1516,36 +698,12 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override void ConnectDataBindings() {
             base.ConnectDataBindings();
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oSealWire"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oPbarClampMotorReverse"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
             this.m_MultiPicture.DataBindings.Add(dynamicBinding1);
             this.m_DynamicBindings.Add(dynamicBinding1);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oTriggerBCV"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture1.DataBindings.Add(dynamicBinding2);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oPbarClampMotorAlarmReset"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_MultiPicture2.DataBindings.Add(dynamicBinding2);
             this.m_DynamicBindings.Add(dynamicBinding2);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding3 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oLowerPrintHead"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture2.DataBindings.Add(dynamicBinding3);
-            this.m_DynamicBindings.Add(dynamicBinding3);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oRequestPrint"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture3.DataBindings.Add(dynamicBinding4);
-            this.m_DynamicBindings.Add(dynamicBinding4);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding5 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oPalmButton1"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture9.DataBindings.Add(dynamicBinding5);
-            this.m_DynamicBindings.Add(dynamicBinding5);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding6 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oPalmButton0"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture10.DataBindings.Add(dynamicBinding6);
-            this.m_DynamicBindings.Add(dynamicBinding6);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oReadyForFiller"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture11.DataBindings.Add(dynamicBinding7);
-            this.m_DynamicBindings.Add(dynamicBinding7);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding8 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oPrinterRibbonUnwind"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture12.DataBindings.Add(dynamicBinding8);
-            this.m_DynamicBindings.Add(dynamicBinding8);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding9 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oTeachPhotoeye"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture13.DataBindings.Add(dynamicBinding9);
-            this.m_DynamicBindings.Add(dynamicBinding9);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding10 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_IoConfig_Globals_Mapping_oFansEnable"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_MultiPicture14.DataBindings.Add(dynamicBinding10);
-            this.m_DynamicBindings.Add(dynamicBinding10);
         }
     }
 }

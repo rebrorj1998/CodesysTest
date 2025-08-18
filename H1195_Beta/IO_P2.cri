@@ -30,30 +30,14 @@
         <Item Target="IO_P2.Text1" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="IO_P2.Text2" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="IO_P2.Text3" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text11" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="IO_P2.Text10" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text5" TargetProperty="FontFamily" Source="Tahoma" />
         <Item Target="IO_P2.Text7" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text12" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text9" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text8" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P2.Text13" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="IO_P2.MultiPicture13" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oTeachPhotoeye" />
-        <Item Target="IO_P2.MultiPicture12" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPrinterRibbonUnwind" />
-        <Item Target="IO_P2.MultiPicture3" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oRequestPrint" />
-        <Item Target="IO_P2.MultiPicture2" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oLowerPrintHead" />
-        <Item Target="IO_P2.MultiPicture1" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oTriggerBCV" />
-        <Item Target="IO_P2.MultiPicture" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oSealWire" />
-        <Item Target="IO_P2.MultiPicture14" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oFansEnable" />
-        <Item Target="IO_P2.MultiPicture11" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oReadyForFiller" />
-        <Item Target="IO_P2.MultiPicture10" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPalmButton0" />
-        <Item Target="IO_P2.MultiPicture9" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPalmButton1" />
+        <Item Target="IO_P2.MultiPicture2" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPbarClampMotorAlarmReset" />
+        <Item Target="IO_P2.MultiPicture" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPbarClampMotorReverse" />
       </Items>
     </Category>
     <Category Name="InvalidAction">
@@ -79,15 +63,15 @@
             </Detail>
             <Detail>
               <Key>Label</Key>
-              <Value>14</Value>
+              <Value>6</Value>
             </Detail>
             <Detail>
               <Key>Symbol</Key>
-              <Value>12</Value>
+              <Value>4</Value>
             </Detail>
             <Detail>
               <Key>Rectangle</Key>
-              <Value>12</Value>
+              <Value>4</Value>
             </Detail>
           </Details>
         </Item>
@@ -111,9 +95,9 @@
     <Category Name="Screen">
       <Items>
         <Item xsi:type="ActionItem" Target="IO_P2.Button" TargetProperty="Actions" Source="IO_P3" Event="Click" Action="Show Screen" Param="Default" />
-        <Item xsi:type="ActionItem" Target="IO_P2.Button1" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ActionItem" Target="IO_P2.Button1" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>40</ObjectsCount>
+          <ObjectsCount>16</ObjectsCount>
           <ScreenName>IO_P2</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
@@ -131,9 +115,6 @@
       <Items>
         <Item xsi:type="SymbolItem" Target="IO_P2.Button" Source="ag_arrow right green" Width="37" Height="29" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.Button1" Source="ag_arrow left green" Width="37" Height="29" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture13" Source="led_green" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture12" Source="led_green" Width="20" Height="20" IsAnimated="false" />
@@ -143,30 +124,9 @@
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture2" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture1" Source="led_green" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
         <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture15" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture14" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture11" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture10" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture9" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P2.MultiPicture4" Source="led_green" Width="20" Height="20" IsAnimated="false" />
       </Items>
     </Category>
     <Category Name="TextIDs">

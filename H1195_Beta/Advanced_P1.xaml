@@ -319,8 +319,8 @@
     <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture4" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="17" Canvas.Left="247" Canvas.Top="195">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
-          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
           <nacc1:VariantValueConverter x:Key="ValueConverter" />
+          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nacs2:Symbol.Resources>
       <nacs2:Symbol.Value>
@@ -444,8 +444,8 @@
     <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture1" Width="20" Height="20" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="14" Canvas.Left="247" Canvas.Top="88" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
-          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
           <nacc1:VariantValueConverter x:Key="ValueConverter" />
+          <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nacs2:Symbol.Resources>
       <nacs2:Symbol.Value>

@@ -165,8 +165,8 @@
     <nac:AnalogNumericFX AutoStretchFont="False" DisplayFormat="Integer" NumberOfDecimals="0" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" IsReadOnly="True" BorderBrush="#FF7F9DB9" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric6" Width="54" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="False" Panel.ZIndex="14" KeyboardNavigation.TabNavigation="None" Canvas.Left="413" Canvas.Top="195" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False">
       <nac:AnalogNumericFX.Resources>
         <ResourceDictionary>
-          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:AnalogNumericFX.Resources>
       <nac:AnalogNumericFX.Value>
@@ -194,8 +194,8 @@
     <nac:AnalogNumericFX AutoStretchFont="False" DisplayFormat="Decimal" NumberOfDecimals="2" MaxNumberOfCharacters="5" LimitNumberOfCharacters="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Tahoma" UndoLimit="1" Transparent="Visible" IsReadOnly="True" BorderBrush="#FF7F9DB9" BorderThickness="0,0,0,0" Background="{x:Null}" Foreground="#FF000000" FontSize="14" Padding="2,2,2,2" Name="m_AnalogNumeric7" Width="54" Height="24" RenderTransformOrigin="0.5,0.5" Visibility="Visible" IsEnabled="True" Focusable="False" Panel.ZIndex="13" KeyboardNavigation.TabNavigation="None" Canvas.Left="413" Canvas.Top="172" nac:EnabledProperties.EnabledDynamicsValue="True" nacsd:EditorProperties.IsLocked="False">
       <nac:AnalogNumericFX.Resources>
         <ResourceDictionary>
-          <nacc:VariantValueConverter x:Key="ValueConverter" />
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacc:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:AnalogNumericFX.Resources>
       <nac:AnalogNumericFX.Value>
@@ -641,7 +641,7 @@
         </nai:ActionList>
       </nai:ActionProperties.Actions>
     </nac:Button>
-    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="Inch or Metric" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="4,0,4,1" Name="m_Text2" Width="76" Height="54" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="17" Canvas.Left="93" Canvas.Top="68" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="Inch or Metric" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="4,0,4,1" Name="m_Text2" Width="89" Height="86" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="17" Canvas.Left="84" Canvas.Top="51" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>

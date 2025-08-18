@@ -17,7 +17,13 @@ namespace Neo.ApplicationFramework.Generated
 	public partial class AlarmServer : Neo.ApplicationFramework.Tools.Alarm.AlarmServer, Neo.ApplicationFramework.Interfaces.ISupportMultiLanguage
 	{
 		
-		private Neo.ApplicationFramework.Tools.Alarm.AlarmGroup m_Default;
+		private Neo.ApplicationFramework.Tools.Alarm.AlarmGroup m_Warning;
+		
+		private Neo.ApplicationFramework.Tools.Alarm.AlarmGroup m_Fault;
+		
+		private Neo.ApplicationFramework.Tools.Alarm.AlarmGroup m_RunningStatus;
+		
+		private Neo.ApplicationFramework.Tools.Alarm.AlarmGroup m_Message;
 		
 		public AlarmServer()
 		{
@@ -25,15 +31,51 @@ namespace Neo.ApplicationFramework.Generated
 			this.ApplyLanguageInternal();
 		}
 		
-		public Neo.ApplicationFramework.Tools.Alarm.AlarmGroup Default
+		public Neo.ApplicationFramework.Tools.Alarm.AlarmGroup Warning
 		{
 			get
 			{
-				return this.m_Default;
+				return this.m_Warning;
 			}
 			set
 			{
-				this.m_Default = value;
+				this.m_Warning = value;
+			}
+		}
+		
+		public Neo.ApplicationFramework.Tools.Alarm.AlarmGroup Fault
+		{
+			get
+			{
+				return this.m_Fault;
+			}
+			set
+			{
+				this.m_Fault = value;
+			}
+		}
+		
+		public Neo.ApplicationFramework.Tools.Alarm.AlarmGroup RunningStatus
+		{
+			get
+			{
+				return this.m_RunningStatus;
+			}
+			set
+			{
+				this.m_RunningStatus = value;
+			}
+		}
+		
+		public Neo.ApplicationFramework.Tools.Alarm.AlarmGroup Message
+		{
+			get
+			{
+				return this.m_Message;
+			}
+			set
+			{
+				this.m_Message = value;
 			}
 		}
 		
@@ -44,19 +86,61 @@ namespace Neo.ApplicationFramework.Generated
 			// AlarmServer
 			// 
 			// 
-			// Default
+			// Warning
 			// 
-			this.Default.AcknowledgeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(127)))), ((int)(((byte)(70)))));
-			this.Default.AcknowledgeForeColor = System.Drawing.Color.Black;
-			this.Default.ActiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(19)))), ((int)(((byte)(41)))));
-			this.Default.ActiveForeColor = System.Drawing.Color.Black;
-			this.Default.EnableDistribution = false;
-			this.Default.InactiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(204)))), ((int)(((byte)(71)))));
-			this.Default.InactiveForeColor = System.Drawing.Color.Black;
-			this.Default.Name = "Default";
-			this.Default.NormalBackColor = System.Drawing.SystemColors.Window;
-			this.Default.NormalForeColor = System.Drawing.Color.Black;
-			this.AlarmGroups.Add(this.Default);
+			this.Warning.AcknowledgeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(127)))), ((int)(((byte)(70)))));
+			this.Warning.AcknowledgeForeColor = System.Drawing.Color.Black;
+			this.Warning.ActiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(0)))));
+			this.Warning.ActiveForeColor = System.Drawing.Color.Black;
+			this.Warning.EnableDistribution = false;
+			this.Warning.InactiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(204)))), ((int)(((byte)(71)))));
+			this.Warning.InactiveForeColor = System.Drawing.Color.Black;
+			this.Warning.Name = "Warning";
+			this.Warning.NormalBackColor = System.Drawing.SystemColors.Window;
+			this.Warning.NormalForeColor = System.Drawing.Color.Black;
+			// 
+			// Fault
+			// 
+			this.Fault.AcknowledgeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(127)))), ((int)(((byte)(70)))));
+			this.Fault.AcknowledgeForeColor = System.Drawing.Color.Black;
+			this.Fault.ActiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(28)))), ((int)(((byte)(36)))));
+			this.Fault.ActiveForeColor = System.Drawing.Color.Black;
+			this.Fault.EnableDistribution = false;
+			this.Fault.InactiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(204)))), ((int)(((byte)(71)))));
+			this.Fault.InactiveForeColor = System.Drawing.Color.Black;
+			this.Fault.Name = "Fault";
+			this.Fault.NormalBackColor = System.Drawing.SystemColors.Window;
+			this.Fault.NormalForeColor = System.Drawing.Color.Black;
+			// 
+			// RunningStatus
+			// 
+			this.RunningStatus.AcknowledgeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(127)))), ((int)(((byte)(70)))));
+			this.RunningStatus.AcknowledgeForeColor = System.Drawing.Color.Black;
+			this.RunningStatus.ActiveBackColor = System.Drawing.Color.Lime;
+			this.RunningStatus.ActiveForeColor = System.Drawing.Color.Black;
+			this.RunningStatus.EnableDistribution = false;
+			this.RunningStatus.InactiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(204)))), ((int)(((byte)(71)))));
+			this.RunningStatus.InactiveForeColor = System.Drawing.Color.Black;
+			this.RunningStatus.Name = "RunningStatus";
+			this.RunningStatus.NormalBackColor = System.Drawing.SystemColors.Window;
+			this.RunningStatus.NormalForeColor = System.Drawing.Color.Black;
+			// 
+			// Message
+			// 
+			this.Message.AcknowledgeBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(127)))), ((int)(((byte)(70)))));
+			this.Message.AcknowledgeForeColor = System.Drawing.Color.Black;
+			this.Message.ActiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+			this.Message.ActiveForeColor = System.Drawing.Color.Yellow;
+			this.Message.EnableDistribution = false;
+			this.Message.InactiveBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(204)))), ((int)(((byte)(71)))));
+			this.Message.InactiveForeColor = System.Drawing.Color.Black;
+			this.Message.Name = "Message";
+			this.Message.NormalBackColor = System.Drawing.SystemColors.Window;
+			this.Message.NormalForeColor = System.Drawing.Color.Black;
+			this.AlarmGroups.Add(this.Warning);
+			this.AlarmGroups.Add(this.Fault);
+			this.AlarmGroups.Add(this.RunningStatus);
+			this.AlarmGroups.Add(this.Message);
 			this.StorageEvent.AcknowledgeTime = null;
 			this.StorageEvent.ActiveTime = null;
 			this.StorageEvent.AlarmGroupName = "";
@@ -73,6 +157,7 @@ namespace Neo.ApplicationFramework.Generated
 			this.StorageEvent.State = Neo.ApplicationFramework.Interfaces.AlarmState.Normal;
 			this.StorageEvent.TableName = "AlarmServer";
 			this.StorageEvent.Text = "";
+			this.SummaryAlarmComponentMode = Neo.ApplicationFramework.Interfaces.AlarmServerAlarmEventsState.Never;
 			this.ConnectDataBindings();
 		}
 		
@@ -88,7 +173,10 @@ namespace Neo.ApplicationFramework.Generated
 		
 		private void InitializeObjectCreations()
 		{
-			this.Default = new Neo.ApplicationFramework.Tools.Alarm.AlarmGroup();
+			this.Warning = new Neo.ApplicationFramework.Tools.Alarm.AlarmGroup();
+			this.Fault = new Neo.ApplicationFramework.Tools.Alarm.AlarmGroup();
+			this.RunningStatus = new Neo.ApplicationFramework.Tools.Alarm.AlarmGroup();
+			this.Message = new Neo.ApplicationFramework.Tools.Alarm.AlarmGroup();
 		}
 		
 		private void InitializeBeginInits()
@@ -103,7 +191,10 @@ namespace Neo.ApplicationFramework.Generated
 		private void ApplyLanguageInternal()
 		{
 			Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(AlarmServer));
-			this.m_Default.Text = resources.GetText("AlarmServer.Default.Text", "Default");
+			this.m_Warning.Text = resources.GetText("AlarmServer.Warning.Text", "Warning");
+			this.m_Fault.Text = resources.GetText("AlarmServer.Fault.Text", "Fault");
+			this.m_RunningStatus.Text = resources.GetText("AlarmServer.RunningStatus.Text", "Running Status");
+			this.m_Message.Text = resources.GetText("AlarmServer.Message.Text", "Message");
 		}
 		
 		[System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]

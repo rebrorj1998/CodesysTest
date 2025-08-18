@@ -265,8 +265,8 @@
     <nac:Button Text="" MultiLine="True" RequiresTransparency="True" SymbolTransparent="False" Background="#FFC8C0C0" FontSize="15" FontWeight="Bold" Name="m_Button3" Width="127" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" FocusVisualStyle="{x:Null}" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="19" Canvas.Left="351" Canvas.Top="86" nacb1:IntervalMapperBindingsBehavior.RebindInRuntime="True" Style="{nac1:StyleMarkupExtension DefaultCF}">
       <nac:Button.Resources>
         <ResourceDictionary>
-          <nacc1:VariantValueConverter x:Key="ValueConverter" />
           <nacc1:VariantValueConverter x:Key="TextValueConverter" />
+          <nacc1:VariantValueConverter x:Key="ValueConverter" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Value>

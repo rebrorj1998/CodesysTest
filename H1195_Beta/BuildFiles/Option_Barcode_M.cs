@@ -578,7 +578,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Option_Barcode_M";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper1;
-            this.m_Button1.TextHeight = 36;
+            this.m_Button1.TextHeight = 37;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 109;
             this.m_Button1.Top = 160;
@@ -870,7 +870,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.TextVerticalAlignment = "Center";
             this.m_Text4.Top = 0;
             this.m_Text4.VisibleDynamicsValue = true;
-            this.m_Text4.Width = 204;
+            this.m_Text4.Width = 207;
             this.m_Text4.WordWrap = true;
             // 
             // m_AnalogNumeric1

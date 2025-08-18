@@ -338,7 +338,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 21;
+            this.m_Text.Height = 25;
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -347,7 +347,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 54;
+            this.m_Text.Width = 67;
             // 
             // m_Text1
             // 
@@ -356,7 +356,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 21;
+            this.m_Text1.Height = 25;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -365,7 +365,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 23;
+            this.m_Text1.Width = 28;
             // 
             // m_Button
             // 
@@ -388,7 +388,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
             this.m_Button.SymbolName = "ag_arrow right green";
             this.m_Button.SymbolWidth = 37;
-            this.m_Button.TextHeight = 11;
+            this.m_Button.TextHeight = 10;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 50;
             this.m_Button.Top = 0;
@@ -427,6 +427,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Advanced_P1";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
+            this.m_Button1.TextHeight = 18;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 122;
             this.m_Button1.Top = 58;
@@ -465,6 +466,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Advanced_P1";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
+            this.m_Button2.TextHeight = 18;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 122;
             this.m_Button2.Top = 117;
@@ -551,14 +553,14 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
             this.m_Text3.FontSizePixels = 10;
-            this.m_Text3.Height = 21;
+            this.m_Text3.Height = 25;
             this.m_Text3.Left = 275;
             this.m_Text3.Name = "m_Text3";
             this.m_Text3.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
             this.m_Text3.ScreenOwnerName = "Advanced_P1";
             this.m_Text3.Top = 209;
             this.m_Text3.VisibleDynamicsValue = true;
-            this.m_Text3.Width = 32;
+            this.m_Text3.Width = 39;
             // 
             // m_Text4
             // 
@@ -585,7 +587,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.DelayMouseInputPeriod = 0;
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 10;
-            this.m_Text5.Height = 21;
+            this.m_Text5.Height = 25;
             this.m_Text5.Left = 238;
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.5D, 0D, 2.5D, 1D);
@@ -594,7 +596,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.TextVerticalAlignment = "Center";
             this.m_Text5.Top = 45;
             this.m_Text5.VisibleDynamicsValue = true;
-            this.m_Text5.Width = 37;
+            this.m_Text5.Width = 45;
             // 
             // m_MultiPicture
             // 
@@ -804,7 +806,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text8.Height = 20;
             this.m_Text8.Left = 82;
             this.m_Text8.Name = "m_Text8";
-            this.m_Text8.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(2.75D, 0D, 2.75D, 1D);
+            this.m_Text8.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.75D, 0D, 3.75D, 1D);
             this.m_Text8.ScreenOwnerName = "Advanced_P1";
             this.m_Text8.TextVerticalAlignment = "Center";
             this.m_Text8.Top = 114;

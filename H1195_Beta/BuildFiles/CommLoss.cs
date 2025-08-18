@@ -68,15 +68,16 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 14;
-            this.m_Text.Height = 23;
-            this.m_Text.Left = 4;
+            this.m_Text.Height = 44;
+            this.m_Text.Left = 1;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
             this.m_Text.ScreenOwnerName = "CommLoss";
             this.m_Text.TextHorizontalAlignment = "Center";
-            this.m_Text.Top = 6;
+            this.m_Text.Top = 1;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 240;
+            this.m_Text.Width = 228;
+            this.m_Text.WordWrap = true;
             // 
             // m_Text1
             // 
@@ -85,7 +86,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 12;
-            this.m_Text1.Height = 88;
+            this.m_Text1.Height = 102;
             this.m_Text1.Left = 15;
             this.m_Text1.MultiLine = true;
             this.m_Text1.Name = "m_Text1";

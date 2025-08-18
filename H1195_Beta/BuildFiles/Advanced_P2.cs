@@ -48,6 +48,22 @@ namespace Neo.ApplicationFramework.Generated {
         
         private bool m_Initialized_Advanced_P2;
         
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf1;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf2;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf3;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf4;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf5;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf6;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf7;
+        
+        private Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF messagelibrarydynamicsconvertercf8;
+        
         public Advanced_P2() {
             this.InitializeComponent();
             this.m_Button.Click += new System.EventHandler(this.m_Button_Action_Click);
@@ -128,8 +144,24 @@ namespace Neo.ApplicationFramework.Generated {
         }
         
         private void InitializeComponent() {
+            this.messagelibrarydynamicsconvertercf8 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf7 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf6 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf5 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf4 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf3 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf2 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
+            this.messagelibrarydynamicsconvertercf1 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryDynamicsConverterCF();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper2 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver1 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver2 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver3 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver4 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver5 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver6 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver7 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
+            Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver messagelibrarygroupresolver8 = new Neo.ApplicationFramework.Common.Dynamics.MessageLibraryGroupResolver();
             this.m_Text = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Text1 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Button = new Neo.ApplicationFramework.Controls.Controls.Button();
@@ -168,7 +200,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.DelayMouseInputPeriod = 0;
             this.m_Text.EnabledDynamicsValue = true;
             this.m_Text.FontSizePixels = 16;
-            this.m_Text.Height = 28;
+            this.m_Text.Height = 25;
             this.m_Text.Left = 233;
             this.m_Text.Name = "m_Text";
             this.m_Text.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(4D, 0D, 4D, 1D);
@@ -177,7 +209,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text.TextVerticalAlignment = "Center";
             this.m_Text.Top = 0;
             this.m_Text.VisibleDynamicsValue = true;
-            this.m_Text.Width = 105;
+            this.m_Text.Width = 67;
             // 
             // m_Text1
             // 
@@ -186,7 +218,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.DelayMouseInputPeriod = 0;
             this.m_Text1.EnabledDynamicsValue = true;
             this.m_Text1.FontSizePixels = 14;
-            this.m_Text1.Height = 28;
+            this.m_Text1.Height = 25;
             this.m_Text1.Left = 260;
             this.m_Text1.Name = "m_Text1";
             this.m_Text1.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3.5D, 0D, 3.5D, 1D);
@@ -195,7 +227,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text1.TextVerticalAlignment = "Center";
             this.m_Text1.Top = 20;
             this.m_Text1.VisibleDynamicsValue = true;
-            this.m_Text1.Width = 33;
+            this.m_Text1.Width = 28;
             // 
             // m_Button
             // 
@@ -218,7 +250,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button.SymbolIntervalMapper = symbolintervalmapper1;
             this.m_Button.SymbolName = "ag_arrow right green";
             this.m_Button.SymbolWidth = 37;
-            this.m_Button.TextHeight = 11;
+            this.m_Button.TextHeight = 10;
             this.m_Button.TextValue = 0D;
             this.m_Button.TextWidth = 50;
             this.m_Button.Top = 0;
@@ -248,7 +280,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
             this.m_Button1.SymbolName = "ag_arrow left green";
             this.m_Button1.SymbolWidth = 37;
-            this.m_Button1.TextHeight = 11;
+            this.m_Button1.TextHeight = 10;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 50;
             this.m_Button1.Top = 0;
@@ -262,6 +294,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.AutoSize = false;
             this.m_Text2.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text2.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf1.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf1.MessageLibraryGroupResolver = messagelibrarygroupresolver1;
             this.m_Text2.DelayMouseInputPeriod = 0;
             this.m_Text2.EnabledDynamicsValue = true;
             this.m_Text2.FontSizePixels = 10;
@@ -282,6 +316,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text3.AutoSize = false;
             this.m_Text3.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text3.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf2.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf2.MessageLibraryGroupResolver = messagelibrarygroupresolver2;
             this.m_Text3.DelayMouseInputPeriod = 0;
             this.m_Text3.EnabledDynamicsValue = true;
             this.m_Text3.FontSizePixels = 10;
@@ -302,6 +338,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text4.AutoSize = false;
             this.m_Text4.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text4.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf3.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf3.MessageLibraryGroupResolver = messagelibrarygroupresolver3;
             this.m_Text4.DelayMouseInputPeriod = 0;
             this.m_Text4.EnabledDynamicsValue = true;
             this.m_Text4.FontSizePixels = 10;
@@ -322,6 +360,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.AutoSize = false;
             this.m_Text5.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text5.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf4.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf4.MessageLibraryGroupResolver = messagelibrarygroupresolver4;
             this.m_Text5.DelayMouseInputPeriod = 0;
             this.m_Text5.EnabledDynamicsValue = true;
             this.m_Text5.FontSizePixels = 10;
@@ -342,6 +382,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text6.AutoSize = false;
             this.m_Text6.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text6.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf5.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf5.MessageLibraryGroupResolver = messagelibrarygroupresolver5;
             this.m_Text6.DelayMouseInputPeriod = 0;
             this.m_Text6.EnabledDynamicsValue = true;
             this.m_Text6.FontSizePixels = 10;
@@ -362,6 +404,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text7.AutoSize = false;
             this.m_Text7.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text7.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf6.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf6.MessageLibraryGroupResolver = messagelibrarygroupresolver6;
             this.m_Text7.DelayMouseInputPeriod = 0;
             this.m_Text7.EnabledDynamicsValue = true;
             this.m_Text7.FontSizePixels = 10;
@@ -382,6 +426,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text8.AutoSize = false;
             this.m_Text8.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text8.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf7.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf7.MessageLibraryGroupResolver = messagelibrarygroupresolver7;
             this.m_Text8.DelayMouseInputPeriod = 0;
             this.m_Text8.EnabledDynamicsValue = true;
             this.m_Text8.FontSizePixels = 10;
@@ -402,6 +448,8 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text9.AutoSize = false;
             this.m_Text9.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
             this.m_Text9.BlinkDynamicsValue = false;
+            messagelibrarydynamicsconvertercf8.MessageLibraryGroupName = "FaultList";
+            messagelibrarydynamicsconvertercf8.MessageLibraryGroupResolver = messagelibrarygroupresolver8;
             this.m_Text9.DelayMouseInputPeriod = 0;
             this.m_Text9.EnabledDynamicsValue = true;
             this.m_Text9.FontSizePixels = 10;
@@ -513,14 +561,6 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager resources = new Neo.ApplicationFramework.Tools.MultiLanguage.MultiLanguageResourceManager(typeof(Advanced_P2));
             this.m_Text.Text = resources.GetText("Advanced_P2.Text.Text", "Advanced");
             this.m_Text1.Text = resources.GetText("Advanced_P2.Text1.Text", "2/5");
-            this.m_Text2.Text = resources.GetText("Advanced_P2.Text2.Text", "Text");
-            this.m_Text3.Text = resources.GetText("Advanced_P2.Text3.Text", "Text");
-            this.m_Text4.Text = resources.GetText("Advanced_P2.Text4.Text", "Text");
-            this.m_Text5.Text = resources.GetText("Advanced_P2.Text5.Text", "Text");
-            this.m_Text6.Text = resources.GetText("Advanced_P2.Text6.Text", "Text");
-            this.m_Text7.Text = resources.GetText("Advanced_P2.Text7.Text", "Text");
-            this.m_Text8.Text = resources.GetText("Advanced_P2.Text8.Text", "Text");
-            this.m_Text9.Text = resources.GetText("Advanced_P2.Text9.Text", "Text");
             this.ApplyResourcesOnForm();
         }
         
@@ -551,30 +591,33 @@ namespace Neo.ApplicationFramework.Generated {
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override void ConnectDataBindings() {
             base.ConnectDataBindings();
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_0_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding1 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_0_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf1);
             this.m_Text2.DataBindings.Add(dynamicBinding1);
             this.m_DynamicBindings.Add(dynamicBinding1);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_4_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding2 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_4_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf2);
             this.m_Text3.DataBindings.Add(dynamicBinding2);
             this.m_DynamicBindings.Add(dynamicBinding2);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding3 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_3_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding3 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_3_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf3);
             this.m_Text4.DataBindings.Add(dynamicBinding3);
             this.m_DynamicBindings.Add(dynamicBinding3);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_5_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding4 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_5_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf4);
             this.m_Text5.DataBindings.Add(dynamicBinding4);
             this.m_DynamicBindings.Add(dynamicBinding4);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding5 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_2_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding5 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_2_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf5);
             this.m_Text6.DataBindings.Add(dynamicBinding5);
             this.m_DynamicBindings.Add(dynamicBinding5);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding6 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_1_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_Text7.DataBindings.Add(dynamicBinding6);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding6 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_2_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
+            this.m_Text6.DataBindings.Add(dynamicBinding6);
             this.m_DynamicBindings.Add(dynamicBinding6);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_6_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_Text8.DataBindings.Add(dynamicBinding7);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding7 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_1_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf6);
+            this.m_Text7.DataBindings.Add(dynamicBinding7);
             this.m_DynamicBindings.Add(dynamicBinding7);
-            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding8 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Value", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaults_7_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.Never, Neo.ApplicationFramework.Common.Dynamics.VariantValueConverterCF.Default);
-            this.m_Text9.DataBindings.Add(dynamicBinding8);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding8 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_6_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf7);
+            this.m_Text8.DataBindings.Add(dynamicBinding8);
             this.m_DynamicBindings.Add(dynamicBinding8);
+            Neo.ApplicationFramework.Common.Data.DynamicBinding dynamicBinding9 = new Neo.ApplicationFramework.Common.Data.DynamicBinding("Text", Neo.ApplicationFramework.Common.Data.DataItemProxyFactory.CreateProxy("Tags.Application_HMIData_activeFaultIds_7_"), "Value", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, messagelibrarydynamicsconvertercf8);
+            this.m_Text9.DataBindings.Add(dynamicBinding9);
+            this.m_DynamicBindings.Add(dynamicBinding9);
         }
     }
 }

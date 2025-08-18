@@ -25,14 +25,14 @@
       <nac:Button.TextDecorations>
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
+      <nai:ActionProperties.Actions>
+        <nai:ActionList />
+      </nai:ActionProperties.Actions>
       <nai:ScriptProperties.ScriptEvents>
         <nai:ScriptEventList>
           <nacxs:EventHandlerInfo EventName="Click" MethodName="Logout_Click" />
         </nai:ScriptEventList>
       </nai:ScriptProperties.ScriptEvents>
-      <nai:ActionProperties.Actions>
-        <nai:ActionList />
-      </nai:ActionProperties.Actions>
     </nac:Button>
   </nacs:ElementCanvas>
 </nacs:ScreenWindow>

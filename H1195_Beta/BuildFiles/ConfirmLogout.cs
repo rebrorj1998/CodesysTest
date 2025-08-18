@@ -109,6 +109,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Cancel.RequiresTransparency = true;
             this.m_Cancel.ScreenOwnerName = "ConfirmLogout";
             this.m_Cancel.SymbolIntervalMapper = symbolintervalmapper1;
+            this.m_Cancel.TextHeight = 18;
             this.m_Cancel.TextValue = 0D;
             this.m_Cancel.TextWidth = 108;
             this.m_Cancel.Top = 79;
@@ -136,6 +137,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Logout.RequiresTransparency = true;
             this.m_Logout.ScreenOwnerName = "ConfirmLogout";
             this.m_Logout.SymbolIntervalMapper = symbolintervalmapper2;
+            this.m_Logout.TextHeight = 18;
             this.m_Logout.TextValue = 0D;
             this.m_Logout.TextWidth = 108;
             this.m_Logout.Top = 79;

@@ -5,78 +5,10 @@
       <Items />
     </Category>
     <Category Name="Alias">
-      <Items>
-        <Item Target="IO_P1.AnalogNumeric1" TargetProperty="Value" Source="IO_P1.Header" />
-        <Item Target="IO_P1.Group8.Group9.MultiPicture7" TargetProperty="Value" Source="IO_P1.Signal_8" />
-        <Item Target="IO_P1.Group8.Group9.AnalogNumeric9" TargetProperty="Value" Source="IO_P1.Name_Signal_8" />
-        <Item Target="IO_P1.Group8.Group10.MultiPicture8" TargetProperty="Value" Source="IO_P1.Signal_9" />
-        <Item Target="IO_P1.Group8.Group10.AnalogNumeric10" TargetProperty="Value" Source="IO_P1.Name_Signal_9" />
-        <Item Target="IO_P1.Group8.Group11.MultiPicture10" TargetProperty="Value" Source="IO_P1.Signal_10" />
-        <Item Target="IO_P1.Group8.Group11.AnalogNumeric12" TargetProperty="Value" Source="IO_P1.Name_Signal_10" />
-        <Item Target="IO_P1.Group8.Group12.MultiPicture11" TargetProperty="Value" Source="IO_P1.Signal_11" />
-        <Item Target="IO_P1.Group8.Group12.AnalogNumeric13" TargetProperty="Value" Source="IO_P1.Name_Signal_11" />
-        <Item Target="IO_P1.Group8.Group13.MultiPicture12" TargetProperty="Value" Source="IO_P1.Signal_12" />
-        <Item Target="IO_P1.Group8.Group13.AnalogNumeric14" TargetProperty="Value" Source="IO_P1.Name_Signal_12" />
-        <Item Target="IO_P1.Group8.Group14.MultiPicture13" TargetProperty="Value" Source="IO_P1.Signal_14" />
-        <Item Target="IO_P1.Group8.Group14.AnalogNumeric15" TargetProperty="Value" Source="IO_P1.Name_Signal_14" />
-        <Item Target="IO_P1.Group8.Group15.MultiPicture14" TargetProperty="Value" Source="IO_P1.Signal_13" />
-        <Item Target="IO_P1.Group8.Group15.AnalogNumeric16" TargetProperty="Value" Source="IO_P1.Name_Signal_13" />
-        <Item Target="IO_P1.Group8.Group16.MultiPicture15" TargetProperty="Value" Source="IO_P1.Signal_15" />
-        <Item Target="IO_P1.Group8.Group16.AnalogNumeric17" TargetProperty="Value" Source="IO_P1.Name_Signal_15" />
-        <Item Target="IO_P1.Group17.Group0.MultiPicture" TargetProperty="Value" Source="IO_P1.Signal_0" />
-        <Item Target="IO_P1.Group17.Group0.AnalogNumeric2" TargetProperty="Value" Source="IO_P1.Name_Signal_0" />
-        <Item Target="IO_P1.Group17.Group1.MultiPicture1" TargetProperty="Value" Source="IO_P1.Signal_1" />
-        <Item Target="IO_P1.Group17.Group1.AnalogNumeric3" TargetProperty="Value" Source="IO_P1.Name_Signal_1" />
-        <Item Target="IO_P1.Group17.Group2.MultiPicture2" TargetProperty="Value" Source="IO_P1.Signal_2" />
-        <Item Target="IO_P1.Group17.Group2.AnalogNumeric4" TargetProperty="Value" Source="IO_P1.Name_Signal_2" />
-        <Item Target="IO_P1.Group17.Group3.MultiPicture3" TargetProperty="Value" Source="IO_P1.Signal_3" />
-        <Item Target="IO_P1.Group17.Group3.AnalogNumeric5" TargetProperty="Value" Source="IO_P1.Name_Signal_3" />
-        <Item Target="IO_P1.Group17.Group4.MultiPicture4" TargetProperty="Value" Source="IO_P1.Signal_4" />
-        <Item Target="IO_P1.Group17.Group4.AnalogNumeric6" TargetProperty="Value" Source="IO_P1.Name_Signal_4" />
-        <Item Target="IO_P1.Group17.Group6.MultiPicture5" TargetProperty="Value" Source="IO_P1.Signal_6" />
-        <Item Target="IO_P1.Group17.Group6.AnalogNumeric7" TargetProperty="Value" Source="IO_P1.Name_Signal_6" />
-        <Item Target="IO_P1.Group17.Group5.MultiPicture6" TargetProperty="Value" Source="IO_P1.Signal_5" />
-        <Item Target="IO_P1.Group17.Group5.AnalogNumeric8" TargetProperty="Value" Source="IO_P1.Name_Signal_5" />
-        <Item Target="IO_P1.Group17.Group7.MultiPicture9" TargetProperty="Value" Source="IO_P1.Signal_7" />
-        <Item Target="IO_P1.Group17.Group7.AnalogNumeric11" TargetProperty="Value" Source="IO_P1.Name_Signal_7" />
-      </Items>
+      <Items />
     </Category>
     <Category Name="AliasInstanceDataItem">
-      <Items>
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_0" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_0__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_0" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_0__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_1" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_1__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_1" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_1__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_2" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_2__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_2" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_2__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_3" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_3__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_3" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_3__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_4" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_4__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_4" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_4__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_5" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_5__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_5" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_5__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_6" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_6__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_6" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_6__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_7" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_7__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_7" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_7__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_8" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_8__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_8" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_8__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_9" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_9__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_9" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_9__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_10" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_10__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_10" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_10__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_11" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_11__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_11" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_11__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_12" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_12__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_12" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_12__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_13" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_13__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_13" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_13__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_14" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_14__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_14" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_14__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Signal_15" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_15__discreteSignal" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Name_Signal_15" Source="Tags.Application_IO_Mapping_mainIOamax4830Input_15__signalCommonName" />
-        <Item xsi:type="AliasReference" Target="IO_P1.Default" TargetProperty="Header" Source="Tags.IO_Alias_Title" />
-      </Items>
+      <Items />
     </Category>
     <Category Name="DatabaseService">
       <Items />
@@ -93,30 +25,35 @@
     <Category Name="Font">
       <Items>
         <Item Target="IO_P1.Button" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group9.AnalogNumeric9" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group10.AnalogNumeric10" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group11.AnalogNumeric12" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group12.AnalogNumeric13" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group13.AnalogNumeric14" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group14.AnalogNumeric15" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group15.AnalogNumeric16" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group8.Group16.AnalogNumeric17" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Button1" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group0.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group1.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group2.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group3.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group4.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group6.AnalogNumeric7" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group5.AnalogNumeric8" TargetProperty="FontFamily" Source="Tahoma" />
-        <Item Target="IO_P1.Group17.Group7.AnalogNumeric11" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text11" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text10" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text12" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text9" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="IO_P1.Text13" TargetProperty="FontFamily" Source="Tahoma" />
       </Items>
     </Category>
     <Category Name="GlobalDataItem">
       <Items>
-        <Item Target="IO_P1.AnalogNumeric" TargetProperty="Value" Source="Tags.IO_Page_Index" />
+        <Item Target="IO_P1.MultiPicture12" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPrinterRibbonUnwind" />
+        <Item Target="IO_P1.MultiPicture3" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oRequestPrint" />
+        <Item Target="IO_P1.MultiPicture2" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oLowerPrintHead" />
+        <Item Target="IO_P1.MultiPicture1" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oTriggerBCV" />
+        <Item Target="IO_P1.MultiPicture" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oSealWire" />
+        <Item Target="IO_P1.MultiPicture15" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oBaggerOK" />
+        <Item Target="IO_P1.MultiPicture14" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oFansEnable" />
+        <Item Target="IO_P1.MultiPicture11" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oWaitingForPrinter" />
+        <Item Target="IO_P1.MultiPicture10" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPalmButton0" />
+        <Item Target="IO_P1.MultiPicture9" TargetProperty="Value" Source="Tags.Application_IoConfig_Globals_Mapping_oPalmButton1" />
+        <Item Target="IO_P1.MultiPicture4" TargetProperty="Value" Source="Tags.Application_IO_Mapping_oPbarClampMotorStart" />
       </Items>
     </Category>
     <Category Name="InvalidAction">
@@ -138,15 +75,19 @@
           <Details>
             <Detail>
               <Key>Button</Key>
-              <Value>2</Value>
+              <Value>1</Value>
             </Detail>
             <Detail>
-              <Key>AnalogNumericFX</Key>
-              <Value>18</Value>
+              <Key>Label</Key>
+              <Value>14</Value>
             </Detail>
             <Detail>
               <Key>Symbol</Key>
-              <Value>16</Value>
+              <Value>12</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>12</Value>
             </Detail>
           </Details>
         </Item>
@@ -169,9 +110,9 @@
     </Category>
     <Category Name="Screen">
       <Items>
-        <Item xsi:type="ActionItem" Target="IO_P1.Button" TargetProperty="Actions" Source="IO_P1" Event="Click" Action="Show Screen" Param="Outputs0" />
+        <Item xsi:type="ActionItem" Target="IO_P1.Button" TargetProperty="Actions" Source="IO_P2" Event="Click" Action="Show Screen" Param="" />
         <Item xsi:type="ScreenObjectsCrossReferenceItem">
-          <ObjectsCount>36</ObjectsCount>
+          <ObjectsCount>39</ObjectsCount>
           <ScreenName>IO_P1</ScreenName>
         </Item>
         <Item xsi:type="ScreenIDItem" ScreenID="">
@@ -180,9 +121,7 @@
       </Items>
     </Category>
     <Category Name="Script">
-      <Items>
-        <Item Target="IO_P1.Script.cs" Source="Tags.IO_Page_Index" />
-      </Items>
+      <Items />
     </Category>
     <Category Name="StructuredTag">
       <Items />
@@ -190,55 +129,42 @@
     <Category Name="Symbol">
       <Items>
         <Item xsi:type="SymbolItem" Target="IO_P1.Button" Source="ag_arrow right green" Width="37" Height="29" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group9.MultiPicture7" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group9.MultiPicture7" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group9.MultiPicture7" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group10.MultiPicture8" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group10.MultiPicture8" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group10.MultiPicture8" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group11.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group11.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group11.MultiPicture10" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group12.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group12.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group12.MultiPicture11" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group13.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group13.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group13.MultiPicture12" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group14.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group14.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group14.MultiPicture13" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group15.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group15.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group15.MultiPicture14" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group16.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group16.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group8.Group16.MultiPicture15" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Button1" Source="ag_arrow left green" Width="37" Height="29" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group0.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group0.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group0.MultiPicture" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group1.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group1.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group1.MultiPicture1" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group2.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group2.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group2.MultiPicture2" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group3.MultiPicture3" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group3.MultiPicture3" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group3.MultiPicture3" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group4.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group4.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group4.MultiPicture4" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group6.MultiPicture5" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group6.MultiPicture5" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group6.MultiPicture5" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group5.MultiPicture6" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group5.MultiPicture6" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group5.MultiPicture6" Source="led_green" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group7.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group7.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
-        <Item xsi:type="SymbolItem" Target="IO_P1.Group17.Group7.MultiPicture9" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture13" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture13" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture12" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture12" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture3" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture3" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture3" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture2" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture2" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture1" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture1" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture15" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture15" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture14" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture14" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture11" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture11" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture10" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture10" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture9" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture9" Source="led_green" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture4" Source="led_green_off" Width="20" Height="20" IsAnimated="false" />
+        <Item xsi:type="SymbolItem" Target="IO_P1.MultiPicture4" Source="led_green" Width="20" Height="20" IsAnimated="false" />
       </Items>
     </Category>
     <Category Name="TextIDs">

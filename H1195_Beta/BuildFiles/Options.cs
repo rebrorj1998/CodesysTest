@@ -249,7 +249,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button1.RequiresTransparency = true;
             this.m_Button1.ScreenOwnerName = "Options";
             this.m_Button1.SymbolIntervalMapper = symbolintervalmapper2;
-            this.m_Button1.TextHeight = 36;
+            this.m_Button1.TextHeight = 37;
             this.m_Button1.TextValue = 0D;
             this.m_Button1.TextWidth = 190;
             this.m_Button1.Top = 0;
@@ -277,7 +277,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.RequiresTransparency = true;
             this.m_Button2.ScreenOwnerName = "Options";
             this.m_Button2.SymbolIntervalMapper = symbolintervalmapper3;
-            this.m_Button2.TextHeight = 36;
+            this.m_Button2.TextHeight = 37;
             this.m_Button2.TextValue = 0D;
             this.m_Button2.TextWidth = 190;
             this.m_Button2.Top = 60;
@@ -285,6 +285,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button2.VisibleDynamicsValue = true;
             this.m_Button2.VisualPropertiesHashCode = 1222041839;
             this.m_Button2.Width = 200;
+            this.m_Button2.WordWrap = true;
             // 
             // m_Button3
             // 
@@ -305,7 +306,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.RequiresTransparency = true;
             this.m_Button3.ScreenOwnerName = "Options";
             this.m_Button3.SymbolIntervalMapper = symbolintervalmapper4;
-            this.m_Button3.TextHeight = 36;
+            this.m_Button3.TextHeight = 37;
             this.m_Button3.TextValue = 0D;
             this.m_Button3.TextWidth = 190;
             this.m_Button3.Top = 60;
@@ -313,6 +314,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button3.VisibleDynamicsValue = true;
             this.m_Button3.VisualPropertiesHashCode = 1222041839;
             this.m_Button3.Width = 200;
+            this.m_Button3.WordWrap = true;
             // 
             // m_Text6
             // 
@@ -354,7 +356,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button4.ScreenOwnerName = "Options";
             this.m_Button4.SymbolIntervalMapper = symbolintervalmapper5;
             this.m_Button4.SymbolName = "";
-            this.m_Button4.TextHeight = 11;
+            this.m_Button4.TextHeight = 10;
             this.m_Button4.TextValue = 0D;
             this.m_Button4.TextWidth = 183;
             this.m_Button4.Top = 0;
@@ -438,7 +440,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.EnabledDynamicsValue = false;
             this.m_Text5.FontSizePixels = 12;
             this.m_Text5.Height = 39;
-            this.m_Text5.Left = 135;
+            this.m_Text5.Left = 132;
             this.m_Text5.Name = "m_Text5";
             this.m_Text5.Padding = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(3D, 0D, 3D, 1D);
             this.m_Text5.ScreenOwnerName = "Options";
@@ -454,7 +456,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text5.TextVerticalAlignment = "Center";
             this.m_Text5.Top = 16;
             this.m_Text5.VisibleDynamicsValue = true;
-            this.m_Text5.Width = 44;
+            this.m_Text5.Width = 47;
             // 
             // m_Group
             // 
@@ -542,7 +544,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.RequiresTransparency = true;
             this.m_Button6.ScreenOwnerName = "Options";
             this.m_Button6.SymbolIntervalMapper = symbolintervalmapper7;
-            this.m_Button6.TextHeight = 36;
+            this.m_Button6.TextHeight = 37;
             this.m_Button6.TextValue = 0D;
             this.m_Button6.TextWidth = 190;
             this.m_Button6.Top = 0;
@@ -550,6 +552,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Button6.VisibleDynamicsValue = true;
             this.m_Button6.VisualPropertiesHashCode = 1222041839;
             this.m_Button6.Width = 200;
+            this.m_Button6.WordWrap = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;

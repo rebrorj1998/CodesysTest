@@ -18,7 +18,7 @@ namespace Neo.ApplicationFramework.Generated
 	using System.Reflection;
     
     public partial class Faults
-    {
+    {	
 
     }
 }

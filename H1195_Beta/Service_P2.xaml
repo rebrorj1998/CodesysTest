@@ -126,7 +126,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="IBD sluiten">
+        <nacd1:StringIntervalMapper DefaultValue="Close IBD">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Close IBD" />
@@ -182,8 +182,8 @@
               </nacd2:BrushCFIntervalMapper>
             </nacd1:BrushDynamicsConverter.BrushIntervalMapper>
           </nacd1:BrushDynamicsConverter>
-          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
           <nacd1:BoolDynamicsConverter x:Key="VisibleDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
+          <nacd1:BoolDynamicsConverter x:Key="EnabledDynamicsValueConverter" DefaultValue="True" TrueValue="1" />
         </ResourceDictionary>
       </nac:Button.Resources>
       <nac:Button.Value>
@@ -382,7 +382,7 @@
         <TextDecorationCollection />
       </nac:Button.TextDecorations>
       <nac:Button.TextIntervalMapper>
-        <nacd1:StringIntervalMapper DefaultValue="IBD openen">
+        <nacd1:StringIntervalMapper DefaultValue="Open IBD">
           <nacd1:StringIntervalMapper.Intervals>
             <nacd1:StringIntervalList>
               <nacd1:StringInterval Value="Open IBD" />
