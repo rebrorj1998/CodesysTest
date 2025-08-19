@@ -390,7 +390,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Text2.TextVerticalAlignment = "Center";
             this.m_Text2.Top = 62;
             this.m_Text2.VisibleDynamicsValue = true;
-            this.m_Text2.Width = 189;
+            this.m_Text2.Width = 209;
             this.m_Text2.WordWrap = true;
             // 
             // m_MultiPicture
@@ -399,7 +399,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture.DelayMouseInputPeriod = 0;
             this.m_MultiPicture.EnabledDynamicsValue = true;
             this.m_MultiPicture.Height = 26;
-            this.m_MultiPicture.Left = 287;
+            this.m_MultiPicture.Left = 297;
             this.m_MultiPicture.Name = "m_MultiPicture";
             this.m_MultiPicture.ScreenOwnerName = "IO_P2";
             this.m_MultiPicture.Stretch = true;
@@ -426,7 +426,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture2.DelayMouseInputPeriod = 0;
             this.m_MultiPicture2.EnabledDynamicsValue = true;
             this.m_MultiPicture2.Height = 26;
-            this.m_MultiPicture2.Left = 287;
+            this.m_MultiPicture2.Left = 297;
             this.m_MultiPicture2.Name = "m_MultiPicture2";
             this.m_MultiPicture2.ScreenOwnerName = "IO_P2";
             this.m_MultiPicture2.Stretch = true;
@@ -453,7 +453,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture3.DelayMouseInputPeriod = 0;
             this.m_MultiPicture3.EnabledDynamicsValue = true;
             this.m_MultiPicture3.Height = 26;
-            this.m_MultiPicture3.Left = 287;
+            this.m_MultiPicture3.Left = 297;
             this.m_MultiPicture3.Name = "m_MultiPicture3";
             this.m_MultiPicture3.ScreenOwnerName = "IO_P2";
             this.m_MultiPicture3.Stretch = true;
@@ -480,7 +480,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_MultiPicture12.DelayMouseInputPeriod = 0;
             this.m_MultiPicture12.EnabledDynamicsValue = true;
             this.m_MultiPicture12.Height = 26;
-            this.m_MultiPicture12.Left = 287;
+            this.m_MultiPicture12.Left = 297;
             this.m_MultiPicture12.Name = "m_MultiPicture12";
             this.m_MultiPicture12.ScreenOwnerName = "IO_P2";
             this.m_MultiPicture12.Stretch = true;

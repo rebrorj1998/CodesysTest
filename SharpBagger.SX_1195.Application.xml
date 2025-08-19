@@ -2486,6 +2486,7 @@
         <Node name="iSafePowerOK" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="mainIOamax4830Input" type="T_ARRAY__0__15__OF_universalIOObject" access="ReadWrite" />
         <Node name="mainIOamax4830Output" type="T_ARRAY__0__15__OF_universalIOObject" access="ReadWrite" />
+        <Node name="oBaggerOK" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="oFansEnable" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="oLowerPrinthead" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="oPalmButton0" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
@@ -2497,6 +2498,7 @@
         <Node name="oRequestPrint" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="oSealWire" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
         <Node name="oTriggerBCV" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
+        <Node name="oWaitingForPrinter" type="T_BOOL" access="ReadWrite" referencetype="T_REFERENCE_TO_BOOL_REF" />
       </Node>
       <Node name="IoConfig_Globals_Mapping">
         <Node name="filmFeedDriveInputs" type="T_ARRAY__0__31__OF_WORD" access="Read" directaddress="%IW27">

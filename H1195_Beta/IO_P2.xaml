@@ -55,7 +55,7 @@
         <TextDecorationCollection />
       </nac:Label.TextDecorations>
     </nac:Label>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture12" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="33" Canvas.Left="287" Canvas.Top="146" nacsd:EditorProperties.IsLocked="False">
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture12" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="33" Canvas.Left="297" Canvas.Top="146" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.SymbolIntervalMapper>
         <nacd:SymbolIntervalMapper>
           <nacd:SymbolIntervalMapper.Intervals>
@@ -75,7 +75,7 @@
         </nacd:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture3" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="24" Canvas.Left="287" Canvas.Top="118" nacsd:EditorProperties.IsLocked="False">
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture3" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="24" Canvas.Left="297" Canvas.Top="118" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.SymbolIntervalMapper>
         <nacd:SymbolIntervalMapper>
           <nacd:SymbolIntervalMapper.Intervals>
@@ -95,7 +95,7 @@
         </nacd:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture2" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="23" Canvas.Left="287" Canvas.Top="90" nacsd:EditorProperties.IsLocked="False">
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture2" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="23" Canvas.Left="297" Canvas.Top="90" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -123,7 +123,7 @@
         </nacd:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="21" Canvas.Left="287" Canvas.Top="62" nacsd:EditorProperties.IsLocked="False">
+    <nacs2:Symbol MultiPicture="True" FontSize="7" Name="m_MultiPicture" Width="20" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="21" Canvas.Left="297" Canvas.Top="62" nacsd:EditorProperties.IsLocked="False">
       <nacs2:Symbol.Resources>
         <ResourceDictionary>
           <nacc:VariantValueConverter x:Key="ValueConverter" />
@@ -151,7 +151,7 @@
         </nacd:SymbolIntervalMapper>
       </nacs2:Symbol.SymbolIntervalMapper>
     </nacs2:Symbol>
-    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="O:0/12 Pbar Clamp Motor Reverse" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text2" Width="189" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="20" Canvas.Left="80" Canvas.Top="62" nacsd:EditorProperties.IsLocked="False">
+    <nac:Label AutoSize="False" MultiLine="True" WordWrap="True" AutoStretchFont="False" Text="O:0/12 Pbar Clamp Motor Reverse" Background="#00FFFFFF" Foreground="#FF000000" FontFamily="Tahoma" FontSize="10" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Padding="2.5,0,2.5,1" Name="m_Text2" Width="209" Height="26" RenderTransformOrigin="0.5,0.5" Visibility="Visible" Panel.ZIndex="20" Canvas.Left="80" Canvas.Top="62" nacsd:EditorProperties.IsLocked="False">
       <nac:Label.TextDecorations>
         <TextDecorationCollection />
       </nac:Label.TextDecorations>

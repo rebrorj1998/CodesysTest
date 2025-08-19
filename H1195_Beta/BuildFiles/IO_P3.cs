@@ -100,11 +100,14 @@ namespace Neo.ApplicationFramework.Generated {
         
         private Neo.ApplicationFramework.Controls.Controls.RectangleCF m_Rectangle11;
         
+        private Neo.ApplicationFramework.Controls.Controls.Button m_Button;
+        
         private bool m_Initialized_IO_P3;
         
         public IO_P3() {
             this.InitializeComponent();
             this.m_Button1.Click += new System.EventHandler(this.m_Button1_Action_Click);
+            this.m_Button.Click += new System.EventHandler(this.m_Button_Action_Click);
             this.ApplyLanguageInitialize();
         }
         
@@ -342,6 +345,12 @@ namespace Neo.ApplicationFramework.Generated {
             }
         }
         
+        protected Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter Button {
+            get {
+                return this.AdapterService.CreateAdapter<Neo.ApplicationFramework.Controls.Script.ButtonCFAdapter>(this.m_Button);
+            }
+        }
+        
         private void InitializeComponent() {
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper1 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper2 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
@@ -386,6 +395,7 @@ namespace Neo.ApplicationFramework.Generated {
             Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper13 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             Neo.ApplicationFramework.Common.Dynamics.SymbolInterval symbolinterval15 = new Neo.ApplicationFramework.Common.Dynamics.SymbolInterval();
             Neo.ApplicationFramework.Common.MultiSymbolItem multisymbolitem15 = new Neo.ApplicationFramework.Common.MultiSymbolItem();
+            Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper symbolintervalmapper14 = new Neo.ApplicationFramework.Common.Dynamics.SymbolIntervalMapper();
             this.m_Text15 = new Neo.ApplicationFramework.Controls.Controls.Label();
             this.m_Button1 = new Neo.ApplicationFramework.Controls.Controls.Button();
             this.m_Text8 = new Neo.ApplicationFramework.Controls.Controls.Label();
@@ -425,6 +435,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle9 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle10 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
             this.m_Rectangle11 = new Neo.ApplicationFramework.Controls.Controls.RectangleCF();
+            this.m_Button = new Neo.ApplicationFramework.Controls.Controls.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).BeginInit();
@@ -452,6 +463,7 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_Button)).BeginInit();
             this.SuspendLayout();
             // 
             // IO_P3
@@ -1214,6 +1226,36 @@ namespace Neo.ApplicationFramework.Generated {
             this.m_Rectangle11.Top = 199;
             this.m_Rectangle11.VisibleDynamicsValue = true;
             this.m_Rectangle11.Width = 189;
+            // 
+            // m_Button
+            // 
+            this.m_Button.Background = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(192)))), ((int)(((byte)(192))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
+            this.m_Button.BlinkDynamicsValue = false;
+            this.m_Button.BorderBrush = new Neo.ApplicationFramework.Common.Graphics.Logic.BrushCF(System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112))))), System.Drawing.Color.Empty, Neo.ApplicationFramework.Interfaces.FillDirection.None);
+            this.m_Button.BorderThickness = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(1D, 1D, 1D, 1D);
+            this.m_Button.DelayMouseInputPeriod = 0;
+            this.m_Button.EnabledDynamicsValue = true;
+            this.m_Button.FontSizePixels = 9;
+            this.m_Button.ForceTransparency = true;
+            this.m_Button.Height = 46;
+            this.m_Button.ImageMargin = new Neo.ApplicationFramework.Common.Graphics.Logic.ThicknessCF(5D, 5D, 5D, 5D);
+            this.m_Button.IndicatorMargin = null;
+            this.m_Button.Left = 420;
+            this.m_Button.Name = "m_Button";
+            this.m_Button.RequiresTransparency = true;
+            this.m_Button.ScreenOwnerName = "IO_P3";
+            this.m_Button.SymbolHeight = 30;
+            this.m_Button.SymbolIntervalMapper = symbolintervalmapper14;
+            this.m_Button.SymbolName = "ag_arrow right green";
+            this.m_Button.SymbolWidth = 37;
+            this.m_Button.TextHeight = 10;
+            this.m_Button.TextValue = 0D;
+            this.m_Button.TextWidth = 50;
+            this.m_Button.Top = 0;
+            this.m_Button.Value = 0D;
+            this.m_Button.VisibleDynamicsValue = true;
+            this.m_Button.VisualPropertiesHashCode = 1749738280;
+            this.m_Button.Width = 60;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.ClientSize = new System.Drawing.Size(480, 272);
             this.IsCacheable = true;
@@ -1308,6 +1350,7 @@ namespace Neo.ApplicationFramework.Generated {
             this.DrawingPrimitives.Add(this.m_Rectangle9);
             this.DrawingPrimitives.Add(this.m_Rectangle10);
             this.DrawingPrimitives.Add(this.m_Rectangle11);
+            this.DrawingPrimitives.Add(this.m_Button);
             ((System.ComponentModel.ISupportInitialize)(this.m_Text15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Button1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_Text8)).EndInit();
@@ -1335,11 +1378,17 @@ namespace Neo.ApplicationFramework.Generated {
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_MultiPicture15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_Button)).EndInit();
         }
         
         private void m_Button1_Action_Click(object sender, System.EventArgs e) {
             Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button1", "Click", "Show Screen", "IO_P2", "");
             Neo.ApplicationFramework.Generated.Globals.IO_P2.Show();
+        }
+        
+        private void m_Button_Action_Click(object sender, System.EventArgs e) {
+            Neo.ApplicationFramework.Generated.Globals.AuditTrailService.LogAction("m_Button", "Click", "Show Screen", "IO_P4", "");
+            Neo.ApplicationFramework.Generated.Globals.IO_P4.Show();
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
