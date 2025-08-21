@@ -107,7 +107,7 @@ actualPosition := pbarMotor.absolutePositonInches;
 pressureBarPositionError := ABS(TO_DINT((actualPosition - pbarOutCommandedSetting) * 1000));
 
 // Check is pressure bar open position is within buffer threshold  
-pressureBarOpen := pressureBarPositionError < openedPositionBuffer;
+pressureBarOpen := pressureBarPositionError <= openedPositionBuffer;
 
 delayTimer();
 moveJawOutDelayTimer();
