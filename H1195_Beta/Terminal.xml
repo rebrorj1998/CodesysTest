@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?neo version='2.51.49.0' LastConverterVersion='2.50.5'?>
-<NeoItem d1p1:Serializer="Neo.ApplicationFramework.Common.Serialization.ObjectSerializer" xmlns:d1p1="urn:Neo.ApplicationFramework.Serializer">
-  <Object d1p1:type="Neo.ApplicationFramework.Tools.Terminal.Terminal, Tools, Version=2.51.49.0, Culture=neutral, PublicKeyToken=null" FilePath="X2control4.xml" ScreenSize="480,272" ScreenRotationAngle="0" BorderStyle="ThreeDBorder" MaximizeOnStartup="False" SortingPriority="40" Topmost="False" />
-</NeoItem>
