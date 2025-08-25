@@ -1,9 +1,0 @@
-(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-FUNCTION_BLOCK FB_SingleSolenoidNormallyRetractedActuator EXTENDS FB_PneumaticActuator IMPLEMENTS ICylinder
-VAR_INPUT
-END_VAR
-VAR_OUTPUT
-END_VAR
-VAR
-END_VAR
-(*#-#-#-#-#-#-#-#-#-#---Implementation---#-#-#-#-#-#-#-#-#-#-#-#-#*)

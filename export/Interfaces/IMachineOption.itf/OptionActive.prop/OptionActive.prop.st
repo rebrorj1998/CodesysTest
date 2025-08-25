@@ -1,2 +1,0 @@
-(*#-#-#-#-#-#-#-#-#-#---Declaration---#-#-#-#-#-#-#-#-#-#-#-#-#*)
-PROPERTY OptionActive : BOOL
