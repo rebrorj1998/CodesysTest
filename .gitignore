@@ -22,6 +22,7 @@
 
 # Do not ignore the directory /project
 !project/
+!additionalfiles/
 
 # Ignore *.ours and *.theirs files in 
 project/**/*.ours

@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<CrossReferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="2.51.49.0">
+  <Categories>
+    <Category Name="AlarmViewer">
+      <Items />
+    </Category>
+    <Category Name="Alias">
+      <Items />
+    </Category>
+    <Category Name="AliasInstanceDataItem">
+      <Items />
+    </Category>
+    <Category Name="DatabaseService">
+      <Items />
+    </Category>
+    <Category Name="DatabaseViewer">
+      <Items />
+    </Category>
+    <Category Name="DataLogger">
+      <Items />
+    </Category>
+    <Category Name="Expression">
+      <Items />
+    </Category>
+    <Category Name="Font">
+      <Items>
+        <Item Target="Advanced_P5.Text" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Text1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Button4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Text3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Text4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group.AnalogNumeric1" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group.AnalogNumeric" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group.Text2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group1.AnalogNumeric2" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group1.AnalogNumeric3" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group1.Text5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group2.AnalogNumeric4" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group2.AnalogNumeric5" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group2.Text6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group3.AnalogNumeric6" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group3.AnalogNumeric7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Group3.Text7" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.TouchComboBox" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Text8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Button" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.AnalogNumeric8" TargetProperty="FontFamily" Source="Tahoma" />
+        <Item Target="Advanced_P5.Text9" TargetProperty="FontFamily" Source="Tahoma" />
+      </Items>
+    </Category>
+    <Category Name="GlobalDataItem">
+      <Items>
+        <Item Target="Advanced_P5.Group.AnalogNumeric1" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedForwardMotionProfile_deceleration" />
+        <Item Target="Advanced_P5.Group.AnalogNumeric" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedForwardMotionProfile_acceleration" />
+        <Item Target="Advanced_P5.Group1.AnalogNumeric2" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedReverseMotionProfile_deceleration" />
+        <Item Target="Advanced_P5.Group1.AnalogNumeric3" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedReverseMotionProfile_acceleration" />
+        <Item Target="Advanced_P5.Group2.AnalogNumeric4" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedPrintOffsetMotionProfile_deceleration" />
+        <Item Target="Advanced_P5.Group2.AnalogNumeric5" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedPrintOffsetMotionProfile_acceleration" />
+        <Item Target="Advanced_P5.Group3.AnalogNumeric6" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedPrintMotionProfile_deceleration" />
+        <Item Target="Advanced_P5.Group3.AnalogNumeric7" TargetProperty="Value" Source="Tags.Application_AxisData_FilmFeedPrintMotionProfile_acceleration" />
+        <Item Target="Advanced_P5.TouchComboBox" TargetProperty="Value" Source="Tags.Language_Selector" />
+        <Item Target="Advanced_P5.AnalogNumeric8" TargetProperty="Value" Source="Tags.Application_HMIData_reverseOffset" />
+      </Items>
+    </Category>
+    <Category Name="InvalidAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyAction">
+      <Items />
+    </Category>
+    <Category Name="LegacyItems">
+      <Items>
+        <Item xsi:type="LegacyItemMetadata" ScreenName="Advanced_P5" ItemName="LegacyScreenObjects">
+          <Details />
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Metadata">
+      <Items>
+        <Item xsi:type="DesignerProjectItemMetadata" ItemName="ScreenObjects" ScreenName="Advanced_P5" TemplateScreen="BaseTemplate">
+          <Details>
+            <Detail>
+              <Key>Label</Key>
+              <Value>10</Value>
+            </Detail>
+            <Detail>
+              <Key>Button</Key>
+              <Value>2</Value>
+            </Detail>
+            <Detail>
+              <Key>AnalogNumericFX</Key>
+              <Value>9</Value>
+            </Detail>
+            <Detail>
+              <Key>Rectangle</Key>
+              <Value>16</Value>
+            </Detail>
+            <Detail>
+              <Key>TouchComboBoxHost</Key>
+              <Value>1</Value>
+            </Detail>
+          </Details>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="MultipleLanguage">
+      <Items />
+    </Category>
+    <Category Name="Object">
+      <Items />
+    </Category>
+    <Category Name="Recipe">
+      <Items />
+    </Category>
+    <Category Name="Renderable">
+      <Items>
+        <Item Target="Advanced_P5.TouchComboBox" Source="Advanced_P5.m_TouchComboBox.bmp" />
+      </Items>
+    </Category>
+    <Category Name="Report">
+      <Items />
+    </Category>
+    <Category Name="Screen">
+      <Items>
+        <Item xsi:type="ActionItem" Target="Advanced_P5.Button4" TargetProperty="Actions" Source="Advanced_P4" Event="Click" Action="Show Screen" Param="" />
+        <Item xsi:type="ActionItem" Target="Advanced_P5.Button" TargetProperty="Actions" Source="Status" Event="Click" Action="Show Screen" Param="Default" />
+        <Item xsi:type="ScreenObjectsCrossReferenceItem">
+          <ObjectsCount>38</ObjectsCount>
+          <ScreenName>Advanced_P5</ScreenName>
+        </Item>
+        <Item xsi:type="ScreenIDItem" ScreenID="">
+          <ScreenName>Advanced_P5</ScreenName>
+        </Item>
+      </Items>
+    </Category>
+    <Category Name="Script">
+      <Items />
+    </Category>
+    <Category Name="StructuredTag">
+      <Items />
+    </Category>
+    <Category Name="Symbol">
+      <Items>
+        <Item xsi:type="SymbolItem" Target="Advanced_P5.Button4" Source="ag_arrow left green" Width="37" Height="29" IsAnimated="false" />
+      </Items>
+    </Category>
+    <Category Name="TextIDs">
+      <Items />
+    </Category>
+    <Category Name="TextLibrary">
+      <Items />
+    </Category>
+    <Category Name="TrendViewer">
+      <Items />
+    </Category>
+    <Category Name="Uri">
+      <Items />
+    </Category>
+  </Categories>
+</CrossReferences>
